@@ -1,23 +1,25 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CascadeSelect, CascadeSelectModule } from './cascadeselect';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 describe('CascadeSelect', () => {
+    let cascadeSelect: CascadeSelect;
+    let fixture: ComponentFixture<CascadeSelect>;
 
-	let tag: CascadeSelect;
-	let fixture: ComponentFixture<CascadeSelect>;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule, CascadeSelectModule]
+        });
 
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			imports: [
-				NoopAnimationsModule
-			],
-			declarations: [
-				CascadeSelectModule
-			]
-		});
+        fixture = TestBed.createComponent(CascadeSelect);
+        cascadeSelect = fixture.componentInstance;
+    });
 
-		fixture = TestBed.createComponent(CascadeSelect);
-		tag = fixture.componentInstance;
-	});
+    it('should display by default', () => {
+        fixture.detectChanges();
+
+        const cascadeEl = fixture.debugElement.query(By.css('.p-cascadeselect-trigger'));
+        expect(cascadeEl.nativeElement).toBeTruthy();
+    });
 });

@@ -1391,7 +1391,7 @@ export class TreeTableSelectionDemo &#123;
 </app-code>
 
             <h5>Virtual Scrolling</h5>
-            <p>VirtualScroller is a performant approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
+            <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels
                 would be enough to enable this functionality. It is also suggested to use the same virtualScrollItemSize value on the tr element inside the body template.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-treeTable [value]="virtualFiles" [columns]="cols" [scrollable]="true" scrollHeight="200px"
@@ -2001,8 +2001,8 @@ export class TreeTableDemo implements OnInit &#123;
                         <tr>
                             <td>virtualScrollOptions</td>
                             <td>ScrollerOptions</td>
-                            <td>false</td>
-                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/theming']">scroller</a> component can be used like an object in it.</td>
+                            <td>null</td>
+                            <td>Whether to use the scroller feature. The properties of <a href="#" [routerLink]="['/scroller']">scroller</a> component can be used like an object in it.</td>
                         </tr>
                         <tr>
                             <td>frozenWidth</td>
@@ -2044,7 +2044,7 @@ export class TreeTableDemo implements OnInit &#123;
                             <td>rowTrackBy</td>
                             <td>Function</td>
                             <td>null</td>
-                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,23 +1,18 @@
-import {Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TicketService } from './ticketservice';
 import { Router } from '@angular/router';
-
 
 @Component({
     template: `
         <div class="stepsdemo-content">
             <p-card>
-                <ng-template pTemplate="title">
-                    Payment Information
-                </ng-template>
-                <ng-template pTemplate="subtitle">
-                    Enter your card details
-                </ng-template>
+                <ng-template pTemplate="title"> Payment Information </ng-template>
+                <ng-template pTemplate="subtitle"> Enter your card details </ng-template>
                 <ng-template pTemplate="content">
                     <div class="p-fluid formgrid grid">
                         <div class="field col-12">
                             <label for="class">Card Holder Name</label>
-                            <input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName"> 
+                            <input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName" />
                         </div>
                         <div class="field col-8">
                             <label id="number" for="lastname">Number</label>
@@ -45,15 +40,14 @@ import { Router } from '@angular/router';
                 </ng-template>
             </p-card>
         </div>
-    `,
+    `
 })
 export class PaymentDemo implements OnInit {
-
     paymentInformation: any;
 
-    constructor(public ticketService: TicketService, private router: Router) { }
+    constructor(public ticketService: TicketService, private router: Router) {}
 
-    ngOnInit() { 
+    ngOnInit() {
         this.paymentInformation = this.ticketService.ticketInformation.paymentInformation;
     }
 

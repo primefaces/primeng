@@ -351,9 +351,9 @@ export class DataViewSortDemo implements OnInit &#123;
                 An optional loadingIcon property can be passed in case you'd like a different loading icon.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-dataview [value]="cars" [loading]="loading"&gt;
+&lt;p-dataView [value]="cars" [loading]="loading"&gt;
     //content
-&lt;/p-dataview&gt;
+&lt;/p-dataView&gt;
 </app-code>
 
             <h5>Properties</h5>
@@ -491,10 +491,16 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>gridStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the grid.</td>
+                        </tr>
+                        <tr>
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
-                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.</td>
+                            <td>Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.</td>
                         </tr>
                         <tr>
                             <td>filterBy</td>

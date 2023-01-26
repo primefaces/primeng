@@ -1,5 +1,5 @@
-import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {MenuItem, MessageService} from 'primeng/api';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
 import { TicketService } from './ticketservice';
 import { Subscription } from 'rxjs';
 
@@ -9,15 +9,15 @@ import { Subscription } from 'rxjs';
     providers: [MessageService]
 })
 export class StepsDemo implements OnInit {
-
     items: MenuItem[];
-    
+
     subscription: Subscription;
 
     constructor(public messageService: MessageService, public ticketService: TicketService) {}
 
     ngOnInit() {
-        this.items = [{
+        this.items = [
+            {
                 label: 'Personal',
                 routerLink: 'personal'
             },
@@ -35,8 +35,8 @@ export class StepsDemo implements OnInit {
             }
         ];
 
-        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) =>{
-            this.messageService.add({severity:'success', summary:'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.'});
+        this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
+            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.' });
         });
     }
 

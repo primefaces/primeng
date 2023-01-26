@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TableSelectionDemo implements OnInit {
-
     products: Product[];
 
     selectedProduct1: Product;
@@ -32,19 +31,19 @@ export class TableSelectionDemo implements OnInit {
     }
 
     ngOnInit() {
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.productService.getProductsSmall().then((data) => (this.products = data));
     }
 
     selectProduct(product: Product) {
-        this.messageService.add({severity:'info', summary:'Product Selected', detail: product.name});
+        this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
     }
 
     onRowSelect(event) {
-        this.messageService.add({severity:'info', summary:'Product Selected', detail: event.data.name});
+        this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
     }
 
     onRowUnselect(event) {
-        this.messageService.add({severity:'info', summary:'Product Unselected',  detail: event.data.name});
+        this.messageService.add({ severity: 'info', summary: 'Product Unselected', detail: event.data.name });
     }
 
     isRowSelectable(event) {

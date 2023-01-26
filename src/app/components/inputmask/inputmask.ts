@@ -25,29 +25,55 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import {NgModule,Component,ElementRef,OnInit,Input,forwardRef,Output,EventEmitter,ViewChild,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {InputTextModule} from 'primeng/inputtext';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AutoFocusModule } from 'primeng/autofocus';
+import { DomHandler } from 'primeng/dom';
+import { InputTextModule } from 'primeng/inputtext';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => InputMask),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => InputMask),
+    multi: true
 };
 
 @Component({
     selector: 'p-inputMask',
     template: `
-        <input #input pInputText class="p-inputmask" [attr.id]="inputId" [attr.type]="type" [attr.name]="name" [ngStyle]="style" [ngClass]="styleClass" [attr.placeholder]="placeholder" [attr.title]="title"
-            [attr.size]="size" [attr.autocomplete]="autocomplete" [attr.maxlength]="maxlength" [attr.tabindex]="tabindex" [attr.aria-label]="ariaLabel" [attr.aria-required]="ariaRequired" [disabled]="disabled" [readonly]="readonly" [attr.required]="required"
-            (focus)="onInputFocus($event)" (blur)="onInputBlur($event)" (keydown)="onInputKeydown($event)" (keypress)="onKeyPress($event)" [attr.autofocus]="autoFocus"
-            (input)="onInputChange($event)" (paste)="handleInputChange($event)">
+        <input
+            #input
+            pInputText
+            class="p-inputmask"
+            [attr.id]="inputId"
+            [attr.type]="type"
+            [attr.name]="name"
+            [ngStyle]="style"
+            [ngClass]="styleClass"
+            [attr.placeholder]="placeholder"
+            [attr.title]="title"
+            [attr.size]="size"
+            [attr.autocomplete]="autocomplete"
+            [attr.maxlength]="maxlength"
+            [attr.tabindex]="tabindex"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-required]="ariaRequired"
+            [disabled]="disabled"
+            [readonly]="readonly"
+            [attr.required]="required"
+            (focus)="onInputFocus($event)"
+            (blur)="onInputBlur($event)"
+            (keydown)="onInputKeydown($event)"
+            (keypress)="onKeyPress($event)"
+            pAutoFocus
+            [autofocus]="autoFocus"
+            (input)="onInputChange($event)"
+            (paste)="handleInputChange($event)"
+        />
         <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
     `,
     host: {
-        'class': 'p-element',
+        class: 'p-element',
         '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-inputmask-clearable]': 'showClear && !disabled'
@@ -57,8 +83,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./inputmask.css']
 })
-export class InputMask implements OnInit,ControlValueAccessor {
-
+export class InputMask implements OnInit, ControlValueAccessor {
     @Input() type: string = 'text';
 
     @Input() slotChar: string = '_';
@@ -102,6 +127,8 @@ export class InputMask implements OnInit,ControlValueAccessor {
     @Input() autoFocus: boolean;
 
     @Input() autocomplete: string;
+
+    @Input() keepBuffer: boolean = false;
 
     @ViewChild('input', { static: true }) inputViewChild: ElementRef;
 
@@ -155,7 +182,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     focused: boolean;
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         let ua = DomHandler.getUserAgent();
@@ -168,7 +195,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
         return this._mask;
     }
 
-    set mask(val:string) {
+    set mask(val: string) {
         this._mask = val;
 
         this.initMask();
@@ -183,52 +210,46 @@ export class InputMask implements OnInit,ControlValueAccessor {
         this.firstNonMaskPos = null;
         this.defs = {
             '9': '[0-9]',
-            'a': this.characterPattern,
+            a: this.characterPattern,
             '*': `${this.characterPattern}|[0-9]`
         };
 
         let maskTokens = this.mask.split('');
-        for(let i = 0; i < maskTokens.length; i++) {
+        for (let i = 0; i < maskTokens.length; i++) {
             let c = maskTokens[i];
             if (c == '?') {
-				this.len--;
-				this.partialPosition = i;
-			}
-            else if (this.defs[c]) {
-				this.tests.push(new RegExp(this.defs[c]));
-				if (this.firstNonMaskPos === null) {
-	                this.firstNonMaskPos = this.tests.length - 1;
-				}
-                if (i < this.partialPosition){
+                this.len--;
+                this.partialPosition = i;
+            } else if (this.defs[c]) {
+                this.tests.push(new RegExp(this.defs[c]));
+                if (this.firstNonMaskPos === null) {
+                    this.firstNonMaskPos = this.tests.length - 1;
+                }
+                if (i < this.partialPosition) {
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
-			}
-            else {
-				this.tests.push(null);
-			}
+            } else {
+                this.tests.push(null);
+            }
         }
 
         this.buffer = [];
-        for(let i = 0; i < maskTokens.length; i++) {
+        for (let i = 0; i < maskTokens.length; i++) {
             let c = maskTokens[i];
             if (c != '?') {
-                if (this.defs[c])
-                    this.buffer.push(this.getPlaceholder(i));
-                else
-                    this.buffer.push(c);
+                if (this.defs[c]) this.buffer.push(this.getPlaceholder(i));
+                else this.buffer.push(c);
             }
         }
         this.defaultBuffer = this.buffer.join('');
     }
 
-    writeValue(value: any) : void {
+    writeValue(value: any): void {
         this.value = value;
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null)
-                this.inputViewChild.nativeElement.value = '';
-            else
-                this.inputViewChild.nativeElement.value = this.value;
+            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
+            else this.inputViewChild.nativeElement.value = this.value;
 
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
@@ -252,36 +273,33 @@ export class InputMask implements OnInit,ControlValueAccessor {
     caret(first?: number, last?: number) {
         let range, begin, end;
 
-        if (!this.inputViewChild.nativeElement.offsetParent||this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
+        if (!this.inputViewChild.nativeElement.offsetParent || this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
             return;
         }
 
         if (typeof first == 'number') {
             begin = first;
-            end = (typeof last === 'number') ? last : begin;
+            end = typeof last === 'number' ? last : begin;
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 this.inputViewChild.nativeElement.setSelectionRange(begin, end);
-            }
-            else if (this.inputViewChild.nativeElement['createTextRange']) {
+            } else if (this.inputViewChild.nativeElement['createTextRange']) {
                 range = this.inputViewChild.nativeElement['createTextRange']();
                 range.collapse(true);
                 range.moveEnd('character', end);
                 range.moveStart('character', begin);
                 range.select();
             }
-        }
-        else {
+        } else {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
-    			begin = this.inputViewChild.nativeElement.selectionStart;
-    			end = this.inputViewChild.nativeElement.selectionEnd;
-    		}
-            else if (document['selection'] && document['selection'].createRange) {
-    			range = document['selection'].createRange();
-    			begin = 0 - range.duplicate().moveStart('character', -100000);
-    			end = begin + range.text.length;
-    		}
+                begin = this.inputViewChild.nativeElement.selectionStart;
+                end = this.inputViewChild.nativeElement.selectionEnd;
+            } else if (document['selection'] && document['selection'].createRange) {
+                range = document['selection'].createRange();
+                begin = 0 - range.duplicate().moveStart('character', -100000);
+                end = begin + range.text.length;
+            }
 
-    		return {begin: begin, end: end};
+            return { begin: begin, end: end };
         }
     }
 
@@ -313,10 +331,10 @@ export class InputMask implements OnInit,ControlValueAccessor {
         return pos;
     }
 
-    shiftL(begin:number,end:number) {
+    shiftL(begin: number, end: number) {
         let i, j;
 
-        if (begin<0) {
+        if (begin < 0) {
             return;
         }
 
@@ -356,15 +374,12 @@ export class InputMask implements OnInit,ControlValueAccessor {
     handleAndroidInput(e) {
         var curVal = this.inputViewChild.nativeElement.value;
         var pos = this.caret();
-        if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length ) {
+        if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
             // a deletion or backspace happened
             this.checkVal(true);
-            while (pos.begin > 0 && !this.tests[pos.begin-1])
-                  pos.begin--;
-            if (pos.begin === 0)
-            {
-               while (pos.begin < this.firstNonMaskPos && !this.tests[pos.begin])
-                  pos.begin++;
+            while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
+            if (pos.begin === 0) {
+                while (pos.begin < this.firstNonMaskPos && !this.tests[pos.begin]) pos.begin++;
             }
 
             setTimeout(() => {
@@ -374,11 +389,9 @@ export class InputMask implements OnInit,ControlValueAccessor {
                     this.onComplete.emit();
                 }
             }, 0);
-        }
-        else {
+        } else {
             this.checkVal(true);
-            while (pos.begin < this.len && !this.tests[pos.begin])
-                pos.begin++;
+            while (pos.begin < this.len && !this.tests[pos.begin]) pos.begin++;
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
@@ -393,7 +406,9 @@ export class InputMask implements OnInit,ControlValueAccessor {
     onInputBlur(e) {
         this.focused = false;
         this.onModelTouched();
-        this.checkVal();
+        if (!this.keepBuffer) {
+            this.checkVal();
+        }
         this.updateFilledState();
         this.onBlur.emit(e);
 
@@ -410,7 +425,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
             return;
         }
 
-        let k = e.which||e.keyCode,
+        let k = e.which || e.keyCode,
             pos,
             begin,
             end;
@@ -426,22 +441,26 @@ export class InputMask implements OnInit,ControlValueAccessor {
             end = pos.end;
 
             if (end - begin === 0) {
-                begin=k!==46?this.seekPrev(begin):(end=this.seekNext(begin-1));
-                end=k===46?this.seekNext(end):end;
+                begin = k !== 46 ? this.seekPrev(begin) : (end = this.seekNext(begin - 1));
+                end = k === 46 ? this.seekNext(end) : end;
             }
 
             this.clearBuffer(begin, end);
-			this.shiftL(begin, end - 1);
+            if (this.keepBuffer) {
+                this.shiftL(begin, end - 2);
+            } else {
+                this.shiftL(begin, end - 1);
+            }
             this.updateModel(e);
             this.onInput.emit(e);
 
             e.preventDefault();
-        }
-        else if ( k === 13 ) { // enter
+        } else if (k === 13) {
+            // enter
             this.onInputBlur(e);
             this.updateModel(e);
-        }
-        else if (k === 27) { // escape
+        } else if (k === 27) {
+            // escape
             this.inputViewChild.nativeElement.value = this.focusText;
             this.caret(0, this.checkVal());
             this.updateModel(e);
@@ -451,7 +470,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
     }
 
     onKeyPress(e) {
-        if (this.readonly){
+        if (this.readonly) {
             return;
         }
 
@@ -462,12 +481,13 @@ export class InputMask implements OnInit,ControlValueAccessor {
             next,
             completed;
 
-        if (e.ctrlKey || e.altKey || e.metaKey || k < 32  || (k > 34 && k < 41)) {//Ignore
+        if (e.ctrlKey || e.altKey || e.metaKey || k < 32 || (k > 34 && k < 41)) {
+            //Ignore
             return;
-        } else if ( k && k !== 13 ) {
-            if (pos.end - pos.begin !== 0){
+        } else if (k && k !== 13) {
+            if (pos.end - pos.begin !== 0) {
                 this.clearBuffer(pos.begin, pos.end);
-                this.shiftL(pos.begin, pos.end-1);
+                this.shiftL(pos.begin, pos.end - 1);
             }
 
             p = this.seekNext(pos.begin - 1);
@@ -486,9 +506,8 @@ export class InputMask implements OnInit,ControlValueAccessor {
                             this.caret(next);
                         };
 
-                        setTimeout(proxy,0);
-                    }
-                    else {
+                        setTimeout(proxy, 0);
+                    } else {
                         this.caret(next);
                     }
 
@@ -512,10 +531,12 @@ export class InputMask implements OnInit,ControlValueAccessor {
     }
 
     clearBuffer(start, end) {
-        let i;
-        for (i = start; i < end && i < this.len; i++) {
-            if (this.tests[i]) {
-                this.buffer[i] = this.getPlaceholder(i);
+        if (!this.keepBuffer) {
+            let i;
+            for (i = start; i < end && i < this.len; i++) {
+                if (this.tests[i]) {
+                    this.buffer[i] = this.getPlaceholder(i);
+                }
             }
         }
     }
@@ -538,7 +559,9 @@ export class InputMask implements OnInit,ControlValueAccessor {
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
                     if (this.tests[i].test(c)) {
-                        this.buffer[i] = c;
+                        if (!this.keepBuffer) {
+                            this.buffer[i] = c;
+                        }
                         lastMatch = i;
                         break;
                     }
@@ -551,7 +574,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
                 if (this.buffer[i] === test.charAt(pos)) {
                     pos++;
                 }
-                if ( i < this.partialPosition){
+                if (i < this.partialPosition) {
                     lastMatch = i;
                 }
             }
@@ -573,11 +596,11 @@ export class InputMask implements OnInit,ControlValueAccessor {
             this.writeBuffer();
             this.inputViewChild.nativeElement.value = this.inputViewChild.nativeElement.value.substring(0, lastMatch + 1);
         }
-        return (this.partialPosition ? i : this.firstNonMaskPos);
+        return this.partialPosition ? i : this.firstNonMaskPos;
     }
 
     onInputFocus(event) {
-        if (this.readonly){
+        if (this.readonly) {
             return;
         }
 
@@ -588,14 +611,14 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
         this.focusText = this.inputViewChild.nativeElement.value;
 
-        pos = this.checkVal();
+        pos = this.keepBuffer ? this.inputViewChild.nativeElement.value.length : this.checkVal();
 
         this.caretTimeoutId = setTimeout(() => {
-            if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement){
+            if (this.inputViewChild.nativeElement !== this.inputViewChild.nativeElement.ownerDocument.activeElement) {
                 return;
             }
             this.writeBuffer();
-            if (pos == this.mask.replace("?","").length) {
+            if (pos == this.mask.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
                 this.caret(pos);
@@ -606,16 +629,14 @@ export class InputMask implements OnInit,ControlValueAccessor {
     }
 
     onInputChange(event) {
-        if (this.androidChrome)
-            this.handleAndroidInput(event);
-        else
-            this.handleInputChange(event);
+        if (this.androidChrome) this.handleAndroidInput(event);
+        else this.handleInputChange(event);
 
         this.onInput.emit(event);
     }
 
     handleInputChange(event) {
-        if (this.readonly){
+        if (this.readonly) {
             return;
         }
 
@@ -631,7 +652,7 @@ export class InputMask implements OnInit,ControlValueAccessor {
 
     getUnmaskedValue() {
         let unmaskedBuffer = [];
-        for(let i = 0; i < this.buffer.length; i++) {
+        for (let i = 0; i < this.buffer.length; i++) {
             let c = this.buffer[i];
             if (this.tests[i] && c != this.getPlaceholder(i)) {
                 unmaskedBuffer.push(c);
@@ -666,8 +687,8 @@ export class InputMask implements OnInit,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule],
+    imports: [CommonModule, InputTextModule, AutoFocusModule],
     exports: [InputMask],
     declarations: [InputMask]
 })
-export class InputMaskModule { }
+export class InputMaskModule {}

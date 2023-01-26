@@ -14,6 +14,7 @@ export class PrimeIcons {
     public static readonly ANGLE_RIGHT = 'pi pi-angle-right';
     public static readonly ANGLE_UP = 'pi pi-angle-up';
     public static readonly APPLE = 'pi pi-apple';
+    public static readonly ARROWS_ALT = 'pi pi-arrows-alt';
     public static readonly ARROW_CIRCLE_DOWN = 'pi pi-arrow-circle-down';
     public static readonly ARROW_CIRCLE_LEFT = 'pi pi-arrow-circle-left';
     public static readonly ARROW_CIRCLE_RIGHT = 'pi pi-arrow-circle-right';
@@ -22,6 +23,7 @@ export class PrimeIcons {
     public static readonly ARROW_DOWN_LEFT = 'pi pi-arrow-down-left';
     public static readonly ARROW_DOWN_RIGHT = 'pi pi-arrow-down-right';
     public static readonly ARROW_LEFT = 'pi pi-arrow-left';
+    public static readonly ARROW_RIGHT_ARROW_LEFT = 'pi pi-arrow-right-arrow-left';
     public static readonly ARROW_RIGHT = 'pi pi-arrow-right';
     public static readonly ARROW_UP = 'pi pi-arrow-up';
     public static readonly ARROW_UP_LEFT = 'pi pi-arrow-up-left';
@@ -33,6 +35,7 @@ export class PrimeIcons {
     public static readonly BAN = 'pi pi-ban';
     public static readonly BARS = 'pi pi-bars';
     public static readonly BELL = 'pi pi-bell';
+    public static readonly BITCOIN = 'pi pi-bitcoin';
     public static readonly BOLT = 'pi pi-bolt';
     public static readonly BOOK = 'pi pi-book';
     public static readonly BOOKMARK = 'pi pi-bookmark';
@@ -40,6 +43,7 @@ export class PrimeIcons {
     public static readonly BOX = 'pi pi-box';
     public static readonly BRIEFCASE = 'pi pi-briefcase';
     public static readonly BUILDING = 'pi pi-building';
+    public static readonly CALCULATOR = 'pi pi-calculator';
     public static readonly CALENDAR = 'pi pi-calendar';
     public static readonly CALENDAR_MINUS = 'pi pi-calendar-minus';
     public static readonly CALENDAR_PLUS = 'pi pi-calendar-plus';
@@ -50,6 +54,7 @@ export class PrimeIcons {
     public static readonly CARET_LEFT = 'pi pi-caret-left';
     public static readonly CARET_RIGHT = 'pi pi-caret-right';
     public static readonly CARET_UP = 'pi pi-caret-up';
+    public static readonly CART_PLUS = 'pi pi-cart-plus';
     public static readonly CHART_BAR = 'pi pi-chart-bar';
     public static readonly CHART_LINE = 'pi pi-chart-line';
     public static readonly CHART_PIE = 'pi pi-chart-pie';
@@ -80,6 +85,7 @@ export class PrimeIcons {
     public static readonly CREDIT_CARD = 'pi pi-credit-card';
     public static readonly DATABASE = 'pi pi-database';
     public static readonly DESKTOP = 'pi pi-desktop';
+    public static readonly DELETE_LEFT = 'pi pi-delete-left';
     public static readonly DIRECTIONS = 'pi pi-directions';
     public static readonly DIRECTIONS_ALT = 'pi pi-directions-alt';
     public static readonly DISCORD = 'pi pi-discord';
@@ -89,9 +95,10 @@ export class PrimeIcons {
     public static readonly ELLIPSIS_H = 'pi pi-ellipsis-h';
     public static readonly ELLIPSIS_V = 'pi pi-ellipsis-v';
     public static readonly ENVELOPE = 'pi pi-envelope';
+    public static readonly ERASER = 'pi pi-eraser';
     public static readonly EURO = 'pi pi-euro';
     public static readonly EXCLAMATION_CIRCLE = 'pi pi-exclamation-circle';
-    public static readonly EXCLAMATION_TRIANGLE  = 'pi pi-exclamation-triangle';
+    public static readonly EXCLAMATION_TRIANGLE = 'pi pi-exclamation-triangle';
     public static readonly EXTERNAL_LINK = 'pi pi-external-link';
     public static readonly EYE = 'pi pi-eye';
     public static readonly EYE_SLASH = 'pi pi-eye-slash';
@@ -99,8 +106,12 @@ export class PrimeIcons {
     public static readonly FAST_BACKWARD = 'pi pi-fast-backward';
     public static readonly FAST_FORWARD = 'pi pi-fast-forward';
     public static readonly FILE = 'pi pi-file';
-    public static readonly FILE_EXCEL = 'pi pi-file-excel';
+    public static readonly FILE_EDIT = 'pi pi-file-edit';
+    public static readonly FILE_IMPORT = 'pi pi-file-import';
     public static readonly FILE_PDF = 'pi pi-file-pdf';
+    public static readonly FILE_EXCEL = 'pi pi-file-excel';
+    public static readonly FILE_EXPORT = 'pi pi-file-export';
+    public static readonly FILE_WORD = 'pi pi-file-word';
     public static readonly FILTER = 'pi pi-filter';
     public static readonly FILTER_FILL = 'pi pi-filter-fill';
     public static readonly FILTER_SLASH = 'pi pi-filter-slash';
@@ -109,6 +120,7 @@ export class PrimeIcons {
     public static readonly FOLDER = 'pi pi-folder';
     public static readonly FOLDER_OPEN = 'pi pi-folder-open';
     public static readonly FORWARD = 'pi pi-forward';
+    public static readonly GIFT = 'pi pi-gift';
     public static readonly GITHUB = 'pi pi-github';
     public static readonly GLOBE = 'pi pi-globe';
     public static readonly GOOGLE = 'pi pi-google';
@@ -117,6 +129,7 @@ export class PrimeIcons {
     public static readonly HEART_FILL = 'pi pi-heart-fill';
     public static readonly HISTORY = 'pi pi-history';
     public static readonly HOME = 'pi pi-home';
+    public static readonly HOURGLASS = 'pi pi-hourglass';
     public static readonly ID_CARD = 'pi pi-id-card';
     public static readonly IMAGE = 'pi pi-image';
     public static readonly IMAGES = 'pi pi-images';
@@ -125,6 +138,7 @@ export class PrimeIcons {
     public static readonly INFO_CIRCLE = 'pi pi-info-circle';
     public static readonly INSTAGRAM = 'pi pi-instagram';
     public static readonly KEY = 'pi pi-key';
+    public static readonly LANGUAGE = 'pi pi-language';
     public static readonly LINK = 'pi pi-link';
     public static readonly LINKEDIN = 'pi pi-linkedin';
     public static readonly LIST = 'pi pi-list';
@@ -132,6 +146,8 @@ export class PrimeIcons {
     public static readonly LOCK_OPEN = 'pi pi-lock-open';
     public static readonly MAP = 'pi pi-map';
     public static readonly MAP_MARKER = 'pi pi-map-marker';
+    public static readonly MEGAPHONE = 'pi pi-megaphone';
+    public static readonly MICROPHONE = 'pi pi-microphone';
     public static readonly MICROSOFT = 'pi pi-microsoft';
     public static readonly MINUS = 'pi pi-minus';
     public static readonly MINUS_CIRCLE = 'pi pi-minus-circle';
@@ -201,6 +217,7 @@ export class PrimeIcons {
     public static readonly STEP_FORWARD_ALT = 'pi pi-step-forward-alt';
     public static readonly STOP = 'pi pi-stop';
     public static readonly STOP_CIRCLE = 'pi pi-stop-circle';
+    public static readonly STOPWATCH = 'pi pi-stopwatch';
     public static readonly SUN = 'pi pi-sun';
     public static readonly SYNC = 'pi pi-sync';
     public static readonly TABLE = 'pi pi-table';
@@ -210,11 +227,14 @@ export class PrimeIcons {
     public static readonly TELEGRAM = 'pi pi-telegram';
     public static readonly TH_LARGE = 'pi pi-th-large';
     public static readonly THUMBS_DOWN = 'pi pi-thumbs-down';
+    public static readonly THUMBS_DOWN_FILL = 'pi pi-thumbs-down-fill';
     public static readonly THUMBS_UP = 'pi pi-thumbs-up';
+    public static readonly THUMBS_UP_FILL = 'pi pi-thumbs-up-fill';
     public static readonly TICKET = 'pi pi-ticket';
     public static readonly TIMES = 'pi pi-times';
     public static readonly TIMES_CIRCLE = 'pi pi-times-circle';
     public static readonly TRASH = 'pi pi-trash';
+    public static readonly TRUCK = 'pi pi-truck';
     public static readonly TWITTER = 'pi pi-twitter';
     public static readonly UNDO = 'pi pi-undo';
     public static readonly UNLOCK = 'pi pi-unlock';
@@ -224,6 +244,7 @@ export class PrimeIcons {
     public static readonly USER_MINUS = 'pi pi-user-minus';
     public static readonly USER_PLUS = 'pi pi-user-plus';
     public static readonly USERS = 'pi pi-users';
+    public static readonly VERIFIED = 'pi pi-verified';
     public static readonly VIDEO = 'pi pi-video';
     public static readonly VIMEO = 'pi pi-vimeo';
     public static readonly VOLUME_DOWN = 'pi pi-volume-down';
@@ -234,5 +255,6 @@ export class PrimeIcons {
     public static readonly WIFI = 'pi pi-wifi';
     public static readonly WINDOW_MAXIMIZE = 'pi pi-window-maximize';
     public static readonly WINDOW_MINIMIZE = 'pi pi-window-minimize';
-    public static readonly YOUTUBE = 'pi pi-youtube'
+    public static readonly WRENCH = 'pi pi-wrench';
+    public static readonly YOUTUBE = 'pi pi-youtube';
 }

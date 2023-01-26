@@ -1,7 +1,7 @@
 <div class="content-section introduction">
     <div class="feature-intro">
         <h1>Tree <span>Scroll</span></h1>
-        <p>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performant approach to large data rendering.</p>
+        <p>Regular scrolling is used to preserve space as content of the tree is dynamic whereas virtual scrolling is a performance-approach to large data rendering.</p>
     </div>
     <app-demoActions github="tree" stackblitz="treescroll-demo"></app-demoActions>
 </div>
@@ -90,6 +90,7 @@ export class TreeScrollDemo implements OnInit &#123;
         let node: TreeNode = &#123;
             label: 'Node ' + i,
             data: 'Node ' + i,
+            key: 'node-key' + i,
             expandedIcon: 'pi pi-folder-open',
             collapsedIcon: 'pi pi-folder',
             children: Array.from(&#123;length: children&#125;).map((_,j) => &#123;

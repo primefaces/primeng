@@ -1,9 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './fieldsetdemo.html',
     styleUrls: ['./fieldsetdemo.scss']
 })
-export class FieldsetDemo {
-
-}
+export class FieldsetDemo {}

@@ -1,4 +1,22 @@
-import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    Input,
+    ElementRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    TemplateRef,
+    AfterContentInit,
+    ContentChildren,
+    QueryList,
+    Output,
+    EventEmitter,
+    ChangeDetectorRef,
+    ViewChild,
+    OnDestroy,
+    OnInit,
+    AfterViewInit
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -17,32 +35,59 @@ import { RouterModule } from '@angular/router';
                 </ng-container>
             </button>
             <ul #list class="p-speeddial-list" role="menu">
-                <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item" pTooltip [tooltipOptions]="item.tooltipOptions" [ngClass]="{'p-hidden': item.visible === false}">
-                    <a *ngIf="isClickableRouterLink(item); else elseBlock" pRipple [routerLink]="item.routerLink" [queryParams]="item.queryParams" class="p-speeddial-action" [ngClass]="{'p-disabled':item.disabled}"  role="menuitem" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}" (click)="onItemClick($event, item)" (keydown.enter)="onItemClick($event, item, i)"
-                        [target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled || readonly ? null : (item.tabindex ? item.tabindex : '0')"
-                        [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
-                            <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item" pTooltip [tooltipOptions]="item.tooltipOptions" [ngClass]="{ 'p-hidden': item.visible === false }">
+                    <a
+                        *ngIf="isClickableRouterLink(item); else elseBlock"
+                        pRipple
+                        [routerLink]="item.routerLink"
+                        [queryParams]="item.queryParams"
+                        class="p-speeddial-action"
+                        [ngClass]="{ 'p-disabled': item.disabled }"
+                        role="menuitem"
+                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                        (click)="onItemClick($event, item)"
+                        (keydown.enter)="onItemClick($event, item, i)"
+                        [attr.target]="item.target"
+                        [attr.id]="item.id"
+                        [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                        [fragment]="item.fragment"
+                        [queryParamsHandling]="item.queryParamsHandling"
+                        [preserveFragment]="item.preserveFragment"
+                        [skipLocationChange]="item.skipLocationChange"
+                        [replaceUrl]="item.replaceUrl"
+                        [state]="item.state"
+                    >
+                        <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
                     <ng-template #elseBlock>
-                        <a [attr.href]="item.url||null" class="p-speeddial-action" role="menuitem" pRipple (click)="onItemClick($event, item)" [ngClass]="{'p-disabled':item.disabled}"
-                            (keydown.enter)="onItemClick($event, item, i)" [target]="item.target" [attr.id]="item.id" [attr.tabindex]="item.disabled||(i !== activeIndex && readonly) ? null : (item.tabindex ? item.tabindex : '0')">
+                        <a
+                            [attr.href]="item.url || null"
+                            class="p-speeddial-action"
+                            role="menuitem"
+                            pRipple
+                            (click)="onItemClick($event, item)"
+                            [ngClass]="{ 'p-disabled': item.disabled }"
+                            (keydown.enter)="onItemClick($event, item, i)"
+                            [attr.target]="item.target"
+                            [attr.id]="item.id"
+                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                        >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
                     </ng-template>
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [ngClass]="{'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible}" [class]="maskClassName" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }" [class]="maskClassName" [ngStyle]="maskStyle"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./speeddial.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
-
     @Input() id: string;
 
     @Input() model: any[] = null;
@@ -50,13 +95,12 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     @Input() get visible(): any {
         return this._visible;
     }
-    set visible(value:any) {
+    set visible(value: any) {
         this._visible = value;
 
         if (this._visible) {
             this.bindDocumentClickListener();
-        }
-        else {
+        } else {
             this.unbindDocumentClickListener();
         }
     }
@@ -65,11 +109,11 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() className: string;
 
-    @Input() direction: string =  'up'
+    @Input() direction: string = 'up';
 
     @Input() transitionDelay: number = 30;
 
-    @Input() type: string =  'linear'
+    @Input() type: string = 'linear';
 
     @Input() radius: number = 0;
 
@@ -117,7 +161,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef) { }
+    constructor(private el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         if (this.type !== 'linear') {
@@ -135,10 +179,10 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -163,7 +207,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onButtonClick(event) {
         this.visible ? this.hide() : this.show();
-        this.onClick.emit(event)
+        this.onClick.emit(event);
         this.isItemClicked = true;
     }
 
@@ -177,55 +221,46 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this.isItemClicked = true;
     }
 
-
     calculatePointStyle(index) {
         const type = this.type;
 
         if (type !== 'linear') {
             const length = this.model.length;
-            const radius = this.radius || (length * 20);
+            const radius = this.radius || length * 20;
 
             if (type === 'circle') {
-                const step = 2 * Math.PI / length;
+                const step = (2 * Math.PI) / length;
 
                 return {
                     left: `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`,
-                    top: `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`,
-                }
-            }
-            else if (type === 'semi-circle') {
+                    top: `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`
+                };
+            } else if (type === 'semi-circle') {
                 const direction = this.direction;
                 const step = Math.PI / (length - 1);
                 const x = `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`;
                 const y = `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`;
                 if (direction === 'up') {
                     return { left: x, bottom: y };
-                }
-                else if (direction === 'down') {
+                } else if (direction === 'down') {
                     return { left: x, top: y };
-                }
-                else if (direction === 'left') {
+                } else if (direction === 'left') {
                     return { right: y, top: x };
-                }
-                else if (direction === 'right') {
+                } else if (direction === 'right') {
                     return { left: y, top: x };
                 }
-            }
-            else if (type === 'quarter-circle') {
+            } else if (type === 'quarter-circle') {
                 const direction = this.direction;
                 const step = Math.PI / (2 * (length - 1));
                 const x = `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`;
                 const y = `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`;
                 if (direction === 'up-left') {
                     return { right: x, bottom: y };
-                }
-                else if (direction === 'up-right') {
+                } else if (direction === 'up-right') {
                     return { left: x, bottom: y };
-                }
-                else if (direction === 'down-left') {
+                } else if (direction === 'down-left') {
                     return { right: y, top: x };
-                }
-                else if (direction === 'down-right') {
+                } else if (direction === 'down-right') {
                     return { left: y, top: x };
                 }
             }
@@ -258,7 +293,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     get buttonIconClass() {
-        return ((!this.visible && this.showIcon) || !this.hideIcon) ? this.showIcon : this.hideIcon;
+        return (!this.visible && this.showIcon) || !this.hideIcon ? this.showIcon : this.hideIcon;
     }
 
     getItemStyle(index) {
@@ -308,4 +343,4 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     exports: [SpeedDial, SharedModule, ButtonModule, TooltipModule, RouterModule],
     declarations: [SpeedDial]
 })
-export class SpeedDialModule { }
+export class SpeedDialModule {}

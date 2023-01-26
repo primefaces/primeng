@@ -8,7 +8,6 @@
  */
 // @dynamic
 export class DomHandler {
-
     public static zindex: number = 1000;
 
     private static calculatedScrollbarWidth: number = null;
@@ -18,40 +17,42 @@ export class DomHandler {
     private static browser: any;
 
     public static addClass(element: any, className: string): void {
-        if (element.classList)
-            element.classList.add(className);
-        else
-            element.className += ' ' + className;
+        if (element && className) {
+            if (element.classList) element.classList.add(className);
+            else element.className += ' ' + className;
+        }
     }
 
     public static addMultipleClasses(element: any, className: string): void {
-        if (element.classList) {
-            let styles: string[] = className.trim().split(' ');
-            for (let i = 0; i < styles.length; i++) {
-                element.classList.add(styles[i]);
-            }
-
-        }
-        else {
-            let styles: string[] = className.split(' ');
-            for (let i = 0; i < styles.length; i++) {
-                element.className += ' ' + styles[i];
+        if (element && className) {
+            if (element.classList) {
+                let styles: string[] = className.trim().split(' ');
+                for (let i = 0; i < styles.length; i++) {
+                    element.classList.add(styles[i]);
+                }
+            } else {
+                let styles: string[] = className.split(' ');
+                for (let i = 0; i < styles.length; i++) {
+                    element.className += ' ' + styles[i];
+                }
             }
         }
     }
 
     public static removeClass(element: any, className: string): void {
-        if (element.classList)
-            element.classList.remove(className);
-        else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        if (element && className) {
+            if (element.classList) element.classList.remove(className);
+            else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
     }
 
     public static hasClass(element: any, className: string): boolean {
-        if (element.classList)
-            return element.classList.contains(className);
-        else
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+        if (element && className) {
+            if (element.classList) return element.classList.contains(className);
+            else return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
+        }
+
+        return false;
     }
 
     public static siblings(element: any): any {
@@ -91,36 +92,61 @@ export class DomHandler {
         return -1;
     }
 
+    public static appendOverlay(overlay: any, target: any, appendTo: any = 'self') {
+        if (appendTo !== 'self' && overlay && target) {
+            this.appendChild(overlay, target);
+        }
+    }
+
+    public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
+        if (overlay && target) {
+            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+
+            if (appendTo === 'self') {
+                this.relativePosition(overlay, target);
+            } else {
+                this.absolutePosition(overlay, target);
+            }
+        }
+    }
+
     public static relativePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const getClosestRelativeElement = (el) => {
+            if (!el) return;
+
+            return getComputedStyle(el).getPropertyValue('position') === 'relative' ? el : getClosestRelativeElement(el.parentElement);
+        };
+
+        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const targetHeight = target.offsetHeight;
         const targetOffset = target.getBoundingClientRect();
+        const windowScrollTop = this.getWindowScrollTop();
+        const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
+        const relativeElement = getClosestRelativeElement(element);
+        const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
         let top: number, left: number;
 
-        if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
-            top = -1 * (elementDimensions.height);
+        if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
+            top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
             element.style.transformOrigin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
-        }
-        else {
-            top = targetHeight;
+        } else {
+            top = targetHeight + targetOffset.top - relativeElementOffset.top;
             element.style.transformOrigin = 'top';
         }
 
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
-            left = targetOffset.left * -1;
-        }
-        else if ((targetOffset.left + elementDimensions.width) > viewport.width) {
+            left = (targetOffset.left - relativeElementOffset.left) * -1;
+        } else if (targetOffset.left - relativeElementOffset.left + elementDimensions.width > viewport.width) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left + elementDimensions.width - viewport.width) * -1;
-        }
-        else {
+            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
+        } else {
             // element fits on screen (align with target)
-            left = 0;
+            left = targetOffset.left - relativeElementOffset.left;
         }
 
         element.style.top = top + 'px';
@@ -128,16 +154,16 @@ export class DomHandler {
     }
 
     public static absolutePosition(element: any, target: any): void {
-        let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        let elementOuterHeight = elementDimensions.height;
-        let elementOuterWidth = elementDimensions.width;
-        let targetOuterHeight = target.offsetHeight;
-        let targetOuterWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = this.getWindowScrollTop();
-        let windowScrollLeft = this.getWindowScrollLeft();
-        let viewport = this.getViewport();
-        let top, left;
+        const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
+        const elementOuterHeight = elementDimensions.height;
+        const elementOuterWidth = elementDimensions.width;
+        const targetOuterHeight = target.offsetHeight;
+        const targetOuterWidth = target.offsetWidth;
+        const targetOffset = target.getBoundingClientRect();
+        const windowScrollTop = this.getWindowScrollTop();
+        const windowScrollLeft = this.getWindowScrollLeft();
+        const viewport = this.getViewport();
+        let top: number, left: number;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
@@ -146,22 +172,19 @@ export class DomHandler {
             if (top < 0) {
                 top = windowScrollTop;
             }
-        }
-        else {
+        } else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width)
-            left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else
-            left = targetOffset.left + windowScrollLeft;
+        if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+        else left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
     }
 
-    static getParents(element: any, parents:any = []): any {
+    static getParents(element: any, parents: any = []): any {
         return element['parentNode'] === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
     }
 
@@ -236,15 +259,14 @@ export class DomHandler {
         let paddingTop: number = paddingTopValue ? parseFloat(paddingTopValue) : 0;
         let containerRect = container.getBoundingClientRect();
         let itemRect = item.getBoundingClientRect();
-        let offset = (itemRect.top + document.body.scrollTop) - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
+        let offset = itemRect.top + document.body.scrollTop - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
         let scroll = container.scrollTop;
         let elementHeight = container.clientHeight;
         let itemHeight = this.getOuterHeight(item);
 
         if (offset < 0) {
             container.scrollTop = scroll + offset;
-        }
-        else if ((offset + itemHeight) > elementHeight) {
+        } else if (offset + itemHeight > elementHeight) {
             container.scrollTop = scroll + offset - elementHeight + itemHeight;
         }
     }
@@ -255,7 +277,7 @@ export class DomHandler {
         let last = +new Date();
         let opacity = 0;
         let tick = function () {
-            opacity = +element.style.opacity.replace(",", ".") + (new Date().getTime() - last) / duration;
+            opacity = +element.style.opacity.replace(',', '.') + (new Date().getTime() - last) / duration;
             element.style.opacity = opacity;
             last = +new Date();
 
@@ -297,9 +319,14 @@ export class DomHandler {
 
     public static matches(element, selector: string): boolean {
         var p = Element.prototype;
-        var f = p['matches'] || p.webkitMatchesSelector || p['mozMatchesSelector'] || p['msMatchesSelector'] || function (s) {
-            return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
-        };
+        var f =
+            p['matches'] ||
+            p.webkitMatchesSelector ||
+            p['mozMatchesSelector'] ||
+            p['msMatchesSelector'] ||
+            function (s) {
+                return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+            };
         return f.call(element, selector);
     }
 
@@ -393,14 +420,13 @@ export class DomHandler {
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
+            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0)
         };
     }
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if (!parentNode)
-            throw `Can't replace element`;
+        if (!parentNode) throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
 
@@ -408,7 +434,7 @@ export class DomHandler {
         return navigator.userAgent;
     }
 
-    public static  isIE() {
+    public static isIE() {
         var ua = window.navigator.userAgent;
 
         var msie = ua.indexOf('MSIE ');
@@ -426,8 +452,8 @@ export class DomHandler {
 
         var edge = ua.indexOf('Edge/');
         if (edge > 0) {
-           // Edge (IE 12+) => return version number
-           return true;
+            // Edge (IE 12+) => return version number
+            return true;
         }
 
         // other browser
@@ -443,51 +469,39 @@ export class DomHandler {
     }
 
     public static isTouchDevice() {
-        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     }
 
     public static appendChild(element: any, target: any) {
-        if (this.isElement(target))
-            target.appendChild(element);
-        else if (target.el && target.el.nativeElement)
-            target.el.nativeElement.appendChild(element);
-        else
-            throw 'Cannot append ' + target + ' to ' + element;
+        if (this.isElement(target)) target.appendChild(element);
+        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else throw 'Cannot append ' + target + ' to ' + element;
     }
 
     public static removeChild(element: any, target: any) {
-        if (this.isElement(target))
-            target.removeChild(element);
-        else if (target.el && target.el.nativeElement)
-            target.el.nativeElement.removeChild(element);
-        else
-            throw 'Cannot remove ' + element + ' from ' + target;
+        if (this.isElement(target)) target.removeChild(element);
+        else if (target.el && target.el.nativeElement) target.el.nativeElement.removeChild(element);
+        else throw 'Cannot remove ' + element + ' from ' + target;
     }
 
     public static removeElement(element: Element) {
-        if (!('remove' in Element.prototype))
-            element.parentNode.removeChild(element);
-        else
-            element.remove();
+        if (!('remove' in Element.prototype)) element.parentNode.removeChild(element);
+        else element.remove();
     }
 
     public static isElement(obj: any) {
-        return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
-            obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
-        );
+        return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
     }
 
     public static calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
-            return (el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth));
-        }
-        else {
-            if (this.calculatedScrollbarWidth !== null)
-                return this.calculatedScrollbarWidth;
+            return el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
+        } else {
+            if (this.calculatedScrollbarWidth !== null) return this.calculatedScrollbarWidth;
 
-            let scrollDiv = document.createElement("div");
-            scrollDiv.className = "p-scrollbar-measure";
+            let scrollDiv = document.createElement('div');
+            scrollDiv.className = 'p-scrollbar-measure';
             document.body.appendChild(scrollDiv);
 
             let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
@@ -500,11 +514,10 @@ export class DomHandler {
     }
 
     public static calculateScrollbarHeight(): number {
-        if (this.calculatedScrollbarHeight !== null)
-            return this.calculatedScrollbarHeight;
+        if (this.calculatedScrollbarHeight !== null) return this.calculatedScrollbarHeight;
 
-        let scrollDiv = document.createElement("div");
-        scrollDiv.className = "p-scrollbar-measure";
+        let scrollDiv = document.createElement('div');
+        scrollDiv.className = 'p-scrollbar-measure';
         document.body.appendChild(scrollDiv);
 
         let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
@@ -526,11 +539,10 @@ export class DomHandler {
             } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
                 window.getSelection().removeAllRanges();
             }
-        }
-        else if (document['selection'] && document['selection'].empty) {
+        } else if (document['selection'] && document['selection'].empty) {
             try {
                 document['selection'].empty();
-            } catch(error) {
+            } catch (error) {
                 //ignore IE bug
             }
         }
@@ -558,50 +570,118 @@ export class DomHandler {
 
     public static resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
-        let match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-            /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-            /(msie) ([\w.]+)/.exec(ua) ||
-            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
-            [];
+        let match =
+            /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
 
         return {
-            browser: match[1] || "",
-            version: match[2] || "0"
+            browser: match[1] || '',
+            version: match[2] || '0'
         };
     }
 
     public static isInteger(value): boolean {
         if (Number.isInteger) {
             return Number.isInteger(value);
-        }
-        else {
-            return typeof value === "number" && isFinite(value) &&  Math.floor(value) === value;
+        } else {
+            return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
         }
     }
 
     public static isHidden(element: HTMLElement): boolean {
-        return element.offsetParent === null;
+        return !element || element.offsetParent === null;
     }
 
-    public static getFocusableElements(element:HTMLElement) {
-        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+    public static isVisible(element: HTMLElement) {
+        return element && element.offsetParent != null;
+    }
+
+    public static isExist(element: HTMLElement) {
+        return element !== null && typeof element !== 'undefined' && element.nodeName && element.parentNode;
+    }
+
+    public static focus(element: HTMLElement, options?: FocusOptions): void {
+        element && document.activeElement !== element && element.focus(options);
+    }
+
+    public static getFocusableElements(element: HTMLElement) {
+        let focusableElements = DomHandler.find(
+            element,
+            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
-            );
+        );
 
-            let visibleFocusableElements = [];
-            for(let focusableElement of focusableElements) {
-                if (getComputedStyle(focusableElement).display != "none" && getComputedStyle(focusableElement).visibility != "hidden")
-                    visibleFocusableElements.push(focusableElement);
-            }
+        let visibleFocusableElements = [];
+        for (let focusableElement of focusableElements) {
+            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
+        }
         return visibleFocusableElements;
     }
 
+    public static getNextFocusableElement(element: HTMLElement, reverse = false) {
+        const focusableElements = DomHandler.getFocusableElements(element);
+        let index = 0;
+        if (focusableElements && focusableElements.length > 0) {
+            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+            if (reverse) {
+                if (focusedIndex == -1 || focusedIndex === 0) {
+                    index = focusableElements.length - 1;
+                } else {
+                    index = focusedIndex - 1;
+                }
+            } else if (focusedIndex != -1 && focusedIndex !== focusableElements.length - 1) {
+                index = focusedIndex + 1;
+            }
+        }
+
+        return focusableElements[index];
+    }
+
     static generateZIndex() {
-        this.zindex = this.zindex||999;
+        this.zindex = this.zindex || 999;
         return ++this.zindex;
+    }
+
+    public static getSelection() {
+        if (window.getSelection) return window.getSelection().toString();
+        else if (document.getSelection) return document.getSelection().toString();
+        else if (document['selection']) return document['selection'].createRange().text;
+
+        return null;
+    }
+
+    public static getTargetElement(target: any, el?: HTMLElement) {
+        if (!target) return null;
+
+        switch (target) {
+            case 'document':
+                return document;
+            case 'window':
+                return window;
+            case '@next':
+                return el?.nextElementSibling;
+            case '@prev':
+                return el?.previousElementSibling;
+            case '@parent':
+                return el?.parentElement;
+            case '@grandparent':
+                return el?.parentElement.parentElement;
+            default:
+                const type = typeof target;
+
+                if (type === 'string') {
+                    return document.querySelector(target);
+                } else if (type === 'object' && target.hasOwnProperty('nativeElement')) {
+                    return this.isExist(target.nativeElement) ? target.nativeElement : undefined;
+                }
+
+                const isFunction = (obj: any) => !!(obj && obj.constructor && obj.call && obj.apply);
+                const element = isFunction(target) ? target() : target;
+
+                return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
+        }
     }
 }

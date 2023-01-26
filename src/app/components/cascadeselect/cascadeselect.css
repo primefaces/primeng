@@ -27,16 +27,6 @@
     visibility: hidden;
 }
 
-.p-cascadeselect .p-cascadeselect-panel {
-    min-width: 100%;
-}
-
-.p-cascadeselect-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 .p-cascadeselect-item {
     cursor: pointer;
     font-weight: normal;
@@ -94,4 +84,13 @@
 
 .p-cascadeselect-clearable {
     position: relative;
-} 
+}
+
+/* Modal */
+.p-overlay-modal .p-cascadeselect-sublist {
+    position: relative;
+}
+
+.p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-sublist {
+    left: 0;
+}

@@ -1,21 +1,29 @@
-import {NgModule,Component,Input,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'p-message',
     template: `
-        <div aria-live="polite" class="p-inline-message p-component p-inline-message" *ngIf="severity" [ngStyle]="style" [class]="styleClass"
-        [ngClass]="{'p-inline-message-info': (severity === 'info'),
-                'p-inline-message-warn': (severity === 'warn'),
-                'p-inline-message-error': (severity === 'error'),
-                'p-inline-message-success': (severity === 'success'),
-                'p-inline-message-icon-only': this.text == null}">
+        <div
+            aria-live="polite"
+            class="p-inline-message p-component p-inline-message"
+            *ngIf="severity"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [ngClass]="{
+                'p-inline-message-info': severity === 'info',
+                'p-inline-message-warn': severity === 'warn',
+                'p-inline-message-error': severity === 'error',
+                'p-inline-message-success': severity === 'success',
+                'p-inline-message-icon-only': this.text == null
+            }"
+        >
             <span class="p-inline-message-icon" [ngClass]="icon"></span>
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
             </div>
             <ng-template #escapeOut>
-                <span *ngIf="escape" class="p-inline-message-text">{{text}}</span>
+                <span *ngIf="escape" class="p-inline-message-text">{{ text }}</span>
             </ng-template>
         </div>
     `,
@@ -23,11 +31,10 @@ import {CommonModule} from '@angular/common';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./message.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
 export class UIMessage {
-
     @Input() severity: string;
 
     @Input() text: string;
@@ -42,26 +49,26 @@ export class UIMessage {
         let icon: string = null;
 
         if (this.severity) {
-            switch(this.severity) {
+            switch (this.severity) {
                 case 'success':
                     icon = 'pi pi-check';
-                break;
+                    break;
 
                 case 'info':
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
 
                 case 'error':
                     icon = 'pi pi-times-circle';
-                break;
+                    break;
 
                 case 'warn':
                     icon = 'pi pi-exclamation-triangle';
-                break;
+                    break;
 
                 default:
                     icon = 'pi pi-info-circle';
-                break;
+                    break;
             }
         }
 
@@ -74,4 +81,4 @@ export class UIMessage {
     exports: [UIMessage],
     declarations: [UIMessage]
 })
-export class MessageModule { }
+export class MessageModule {}

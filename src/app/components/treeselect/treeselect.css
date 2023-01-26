@@ -38,16 +38,6 @@
     flex: 0 0 auto;
 }
 
-.p-treeselect .p-treeselect-panel {
-    min-width: 100%;
-}
-
-.p-treeselect-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 .p-treeselect-items-wrapper {
     overflow: auto;
 }

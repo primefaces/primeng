@@ -18,6 +18,16 @@
     display: inline-flex;
     align-items: center;
     flex: 0 0 auto;
+    max-width: 100%;
+}
+
+.p-chips-token-label {
+    min-width: 0%;
+    overflow: auto;
+}
+
+.p-chips-token-label::-webkit-scrollbar {
+    display: none;
 }
 
 .p-chips-input-token {

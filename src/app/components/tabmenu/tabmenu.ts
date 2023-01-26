@@ -1,42 +1,100 @@
-import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';
-import {PrimeTemplate, SharedModule, MenuItem} from 'primeng/api';
-import {ActivatedRoute, Router, RouterModule} from '@angular/router';
-import {DomHandler} from 'primeng/dom';
-import {TooltipModule} from 'primeng/tooltip';
+import { CommonModule } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'p-tabMenu',
     template: `
-        <div [ngClass]="{'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable}" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
                     <span class="pi pi-chevron-left"></span>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
-                        <li *ngFor="let item of model; let i = index" role="tab" [ngStyle]="item.style" [class]="item.styleClass" [attr.aria-selected]="isActive(item)" [attr.aria-expanded]="isActive(item)"
-                            [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':isActive(item),'p-hidden': item.visible === false}" pTooltip [tooltipOptions]="item.tooltipOptions">
-                            <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
-                                [target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
+                        <li
+                            *ngFor="let item of model; let i = index"
+                            role="tab"
+                            [ngStyle]="item.style"
+                            [class]="item.styleClass"
+                            [attr.aria-selected]="isActive(item)"
+                            [attr.aria-expanded]="isActive(item)"
+                            [ngClass]="{ 'p-tabmenuitem': true, 'p-disabled': item.disabled, 'p-highlight': isActive(item), 'p-hidden': item.visible === false }"
+                            pTooltip
+                            [tooltipOptions]="item.tooltipOptions"
+                        >
+                            <a
+                                *ngIf="!item.routerLink"
+                                [attr.href]="item.url"
+                                class="p-menuitem-link"
+                                role="presentation"
+                                (click)="itemClick($event, item)"
+                                (keydown.enter)="itemClick($event, item)"
+                                [attr.tabindex]="item.disabled ? null : '0'"
+                                [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.id]="item.id"
+                                pRipple
+                            >
                                 <ng-container *ngIf="!itemTemplate">
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
+                                    <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
-                            <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
-                                role="presentation" class="p-menuitem-link" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
-                                [target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
-                                [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
+                            <a
+                                *ngIf="item.routerLink"
+                                [routerLink]="item.routerLink"
+                                [queryParams]="item.queryParams"
+                                [routerLinkActive]="'p-menuitem-link-active'"
+                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                role="presentation"
+                                class="p-menuitem-link"
+                                (click)="itemClick($event, item)"
+                                (keydown.enter)="itemClick($event, item)"
+                                [attr.tabindex]="item.disabled ? null : '0'"
+                                [target]="item.target"
+                                [attr.title]="item.title"
+                                [attr.id]="item.id"
+                                [fragment]="item.fragment"
+                                [queryParamsHandling]="item.queryParamsHandling"
+                                [preserveFragment]="item.preserveFragment"
+                                [skipLocationChange]="item.skipLocationChange"
+                                [replaceUrl]="item.replaceUrl"
+                                [state]="item.state"
+                                pRipple
+                            >
                                 <ng-container *ngIf="!itemTemplate">
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
-                                    <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
+                                    <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item, index: i}"></ng-container>
+                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
                         </li>
                         <li #inkbar class="p-tabmenu-ink-bar"></li>
@@ -52,14 +110,15 @@ import {TooltipModule} from 'primeng/tooltip';
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./tabmenu.css'],
     host: {
-        'class': 'p-element'
+        class: 'p-element'
     }
 })
-export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,OnDestroy {
-
+export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
     @Input() model: MenuItem[];
 
     @Input() activeItem: MenuItem;
+
+    @Output() activeItemChange = new EventEmitter<MenuItem>();
 
     @Input() scrollable: boolean;
 
@@ -91,18 +150,18 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
 
     private timerIdForInitialAutoScroll: number | null = null;
 
-    constructor(private router: Router, private route:ActivatedRoute, private cd: ChangeDetectorRef) { }
+    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-            switch(item.getType()) {
+            switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
-                break;
+                    break;
 
                 default:
                     this.itemTemplate = item.template;
-                break;
+                    break;
             }
         });
     }
@@ -125,12 +184,12 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
     }
 
     isActive(item: MenuItem) {
-        if (item.routerLink){
+        if (item.routerLink) {
             const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
-            return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
+            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), item.routerLinkActiveOptions?.exact ?? item.routerLinkActiveOptions ?? false);
         }
-            
+
         return item === this.activeItem;
     }
 
@@ -152,6 +211,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
         }
 
         this.activeItem = item;
+        this.activeItemChange.emit(item);
         this.tabChanged = true;
     }
 
@@ -164,7 +224,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
     }
 
     getVisibleButtonWidths() {
-        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => el ? acc + DomHandler.getWidth(el) : acc, 0);
+        return [this.prevBtn?.nativeElement, this.nextBtn?.nativeElement].reduce((acc, el) => (el ? acc + DomHandler.getWidth(el) : acc), 0);
     }
 
     updateButtonState() {
@@ -175,7 +235,6 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
         this.backwardIsDisabled = scrollLeft === 0;
         this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
     }
-
 
     updateScrollBar(index: number): void {
         const tabHeader = this.navbar.nativeElement.children[index];
@@ -216,7 +275,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
         this.clearAutoScrollHandler();
         // We have to wait for the rendering and then can scroll to element.
         this.timerIdForInitialAutoScroll = setTimeout(() => {
-            const activeItem = this.model.findIndex(menuItem => this.isActive(menuItem));
+            const activeItem = this.model.findIndex((menuItem) => this.isActive(menuItem));
 
             if (activeItem !== -1) {
                 this.updateScrollBar(activeItem);
@@ -244,8 +303,8 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked,
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule,SharedModule,RippleModule,TooltipModule],
-    exports: [TabMenu,RouterModule,SharedModule,TooltipModule],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule],
+    exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu]
 })
-export class TabMenuModule { }
+export class TabMenuModule {}

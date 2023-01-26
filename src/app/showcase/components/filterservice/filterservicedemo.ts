@@ -7,14 +7,13 @@ import { SelectItem, FilterService, FilterMatchMode } from 'primeng/api';
     templateUrl: './filterservicedemo.html'
 })
 export class FilterServiceDemo implements OnInit {
-
     cars: Car[];
 
     cols: any[];
 
     matchModeOptions: SelectItem[];
 
-    constructor(private carService:CarService, private filterService: FilterService) {}
+    constructor(private carService: CarService, private filterService: FilterService) {}
 
     ngOnInit() {
         const customFilterName = 'custom-equals';
@@ -23,11 +22,11 @@ export class FilterServiceDemo implements OnInit {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
             }
-    
+
             if (value === undefined || value === null) {
                 return false;
             }
-            
+
             return value.toString() === filter.toString();
         });
 
@@ -41,9 +40,9 @@ export class FilterServiceDemo implements OnInit {
         this.matchModeOptions = [
             { label: 'Custom Equals', value: customFilterName },
             { label: 'Starts With', value: FilterMatchMode.STARTS_WITH },
-            { label: 'Contains', value: FilterMatchMode.CONTAINS },
+            { label: 'Contains', value: FilterMatchMode.CONTAINS }
         ];
 
-        this.carService.getCarsMedium().then(cars => this.cars = cars);
+        this.carService.getCarsMedium().then((cars) => (this.cars = cars));
     }
 }
