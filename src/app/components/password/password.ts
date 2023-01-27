@@ -1,35 +1,35 @@
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
     Directive,
+    DoCheck,
     ElementRef,
+    EventEmitter,
+    forwardRef,
     HostListener,
     Input,
-    OnDestroy,
-    DoCheck,
+    NgModule,
     NgZone,
+    OnDestroy,
     OnInit,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
-    ContentChildren,
+    Output,
+    Pipe,
+    PipeTransform,
     QueryList,
     TemplateRef,
-    Component,
-    AfterContentInit,
     ViewChild,
-    ChangeDetectorRef,
-    forwardRef,
-    Output,
-    EventEmitter,
-    Pipe,
-    PipeTransform
+    ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
+import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -510,7 +510,6 @@ export class Password implements AfterContentInit, OnInit {
     onInput(event) {
         this.value = event.target.value;
         this.onModelChange(this.value);
-        this.onModelTouched();
     }
 
     onInputFocus(event: Event) {
@@ -528,6 +527,7 @@ export class Password implements AfterContentInit, OnInit {
             this.overlayVisible = false;
         }
 
+        this.onModelTouched();
         this.onBlur.emit(event);
     }
 
