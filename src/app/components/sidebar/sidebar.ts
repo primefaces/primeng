@@ -1,26 +1,26 @@
-import {
-    NgModule,
-    Component,
-    AfterViewInit,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    ElementRef,
-    Renderer2,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    TemplateRef,
-    ChangeDetectorRef
-} from '@angular/core';
-import { trigger, style, transition, animate, animation, useAnimation } from '@angular/animations';
+import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
-import { DomHandler } from 'primeng/dom';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
@@ -211,8 +211,10 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         this.visibleChange.emit(true);
     }
 
-    hide() {
-        this.onHide.emit({});
+    hide(emit: boolean = true) {
+        if (emit) {
+            this.onHide.emit({});
+        }
 
         if (this.modal) {
             this.disableModality();
@@ -286,7 +288,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event) {
         switch (event.toState) {
             case 'void':
-                this.hide();
+                this.hide(false);
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;
