@@ -244,6 +244,15 @@ export class DropdownDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-dropdown&gt;
 </app-code>
+            
+<h5>CSS Customization</h5>   
+<p>In order to customize the building blocks of the Dropdown is necesarry to leverage the `::ng-deep` selector before the desired class to correctly hook the stile to the element.
+    This example shows how to customize the height of the dropdown</p> 
+<app-code lang="css" ngNonBindable ngPreserveWhitespaces> 
+::ng-deep .p-dropdown {
+  width: 15rem;
+}
+</app-code>
 
             <h5>Properties</h5>
             <div class="doc-tablewrapper">
