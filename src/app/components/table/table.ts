@@ -128,7 +128,7 @@ export class TableService {
                 [showPageLinks]="showPageLinks"
             ></p-paginator>
 
-            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight }">
+            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight, height: expandedTable ? scrollHeight : undefined }">
                 <p-scroller
                     #scroller
                     *ngIf="virtualScroll"
@@ -333,6 +333,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() rowGroupMode: string;
 
     @Input() scrollHeight: string;
+
+    @Input() expandedTable: boolean = false;
 
     @Input() virtualScroll: boolean;
 
