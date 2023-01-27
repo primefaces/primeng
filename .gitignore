@@ -42,6 +42,5 @@ testem.log
 Thumbs.db
 
 # Themes
-src/assets/components/themes/viva-dark/
 src/assets/components/themes/mira/
 src/assets/components/themes/nano/
