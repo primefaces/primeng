@@ -297,6 +297,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
                 (keyup)="onKeyUp($event)"
                 (keydown)="onKeyDown($event)"
+                [attr.maxlength]="maxLength"
             />
             <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
@@ -354,6 +355,8 @@ export class Password implements AfterContentInit, OnInit {
     @Input() weakLabel: string;
 
     @Input() mediumLabel: string;
+
+    @Input() maxLength: number;
 
     @Input() strongLabel: string;
 
