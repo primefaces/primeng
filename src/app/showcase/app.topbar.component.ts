@@ -2,9 +2,9 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, 
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
-import { JsonService } from './service/jsonservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import Versions from './data/versions.json';
 
 @Component({
     selector: 'app-topbar',
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a>
                         </li>
                         <li>
-                            <a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a>
+                            <a href="https://designer.primeng.org"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a>
                         </li>
                         <li>
                             <a [routerLink]="['/uikit']"><i class="pi pi-fw pi-pencil"></i><span>UI Kit</span></a>
@@ -365,7 +365,7 @@ import { Subscription } from 'rxjs';
                     </ul>
                 </li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" href="https://www.primefaces.org/primeblocks-ng/" target="_blank">Blocks</a>
+                    <a tabindex="0" href="https://blocks.primeng.org" target="_blank">Blocks</a>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 3)">{{ versions ? versions[0].version : 'Latest' }}</a>
@@ -452,16 +452,15 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'tailwind-light': 'tailwind-light.png'
     };
 
-    versions: any[];
+    versions: any[] = Versions;
 
     scrollListener: any;
 
-    constructor(private router: Router, private JsonService: JsonService, private configService: AppConfigService) {}
+    constructor(private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-        this.JsonService.getVersions().then((data) => (this.versions = data));
 
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {

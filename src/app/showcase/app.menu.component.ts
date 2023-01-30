@@ -64,7 +64,7 @@ declare let gtag: Function;
                 <div class="menu-items">
                     <a [routerLink]="['/theming']" routerLinkActive="router-link-exact-active">Guide</a>
                     <a href="https://www.primefaces.org/designer/primeng">Theme Designer</a>
-                    <a href="https://www.primefaces.org/designer-ng">Visual Editor</a>
+                    <a href="https://designer.primeng.org">Visual Editor</a>
                     <a [routerLink]="['/colors']" routerLinkActive="router-link-exact-active">Colors</a>
                     <a href="https://www.primefaces.org/designer/api/primeng/14.0.0">SASS API</a>
                 </div>
@@ -81,8 +81,8 @@ declare let gtag: Function;
 
                 <div class="menu-category">PrimeBlocks</div>
                 <div class="menu-items">
-                    <a href="https://www.primefaces.org/primeblocks-ng/#/free" target="_blank">Free Blocks</a>
-                    <a href="https://www.primefaces.org/primeblocks-ng/#/" target="_blank">All Blocks</a>
+                    <a href="https://blocks.primeng.org/#/free" target="_blank">Free Blocks</a>
+                    <a href="https://blocks.primeng.org" target="_blank">All Blocks</a>
                 </div>
 
                 <div class="menu-category">PrimeFlex</div>
