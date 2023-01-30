@@ -7,6 +7,9 @@
 - Free premium themes [\#12561](https://github.com/primefaces/primeng/issues/12561)
 - Password | Add maxlength [\#12531](https://github.com/primefaces/primeng/issues/12531)
 
+**Enhancements:**
+- Migrate to eslint [\#12577](https://github.com/primefaces/primeng/issues/12577)
+
 **Fixed bugs:**
 - Menubar: Overflow problem [\#12549](https://github.com/primefaces/primeng/issues/12549)
 - DynamicDialog need to steal focus [\#12319](https://github.com/primefaces/primeng/issues/12319)
