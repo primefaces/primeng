@@ -33,6 +33,10 @@
         "@angular/forms": "^15.1.0",
         "@angular/platform-browser": "^15.1.0",
         "@angular/platform-browser-dynamic": "^15.1.0",
+        "@angular-eslint/eslint-plugin": "15.1.0",
+        "@angular-eslint/eslint-plugin-template": "15.1.0",
+        "@angular-eslint/schematics": "15.1.0",
+        "@angular-eslint/template-parser": "15.1.0",
         "@angular/router": "^15.1.0",
         "@types/jasmine": "~3.10.0",
         "@types/node": "^12.11.1",
@@ -76,6 +80,8 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "latest",
         "eslint-plugin-jsdoc": "latest",
-        "eslint-plugin-prefer-arrow": "latest"
+        "eslint-plugin-prefer-arrow": "latest",
+        "@typescript-eslint/eslint-plugin": "5.47.1",
+        "@typescript-eslint/parser": "5.47.1"
     }
 }
