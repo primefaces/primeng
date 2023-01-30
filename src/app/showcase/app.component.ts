@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public announcement: any;
 
-    public newsActive: boolean;
+    public newsActive: boolean = false;
 
     storageKey = 'primeng';
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.config = config;
         });
 
-        if (environment.production) {
+        /*if (environment.production) {
             this.JsonService.getAnnouncement().then((data) => {
                 this.announcement = data;
 
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
                     this.newsActive = true;
                 }
             });
-        }
+        }*/
     }
 
     onNewsClose() {
