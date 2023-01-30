@@ -36,11 +36,11 @@
         "@angular/router": "^15.1.0",
         "@types/jasmine": "~3.10.0",
         "@types/node": "^12.11.1",
-        "@fullcalendar/core": "6.0.0-beta.1",
-        "@fullcalendar/daygrid": "6.0.0-beta.1",
-        "@fullcalendar/interaction": "6.0.0-beta.1",
-        "@fullcalendar/timegrid": "6.0.0-beta.1",
-        "@fullcalendar/web-component": "6.0.0-beta.1",
+        "@fullcalendar/angular": "^6.0.3",
+        "@fullcalendar/core": "^6.0.3",
+        "@fullcalendar/daygrid": "^6.0.3",
+        "@fullcalendar/interaction": "^6.0.3",
+        "@fullcalendar/timegrid": "^6.0.3",
         "chart.js": "3.3.2",
         "codelyzer": "^6.0.0",
         "del": "^2.2.0",
@@ -69,9 +69,13 @@
         "rxjs": "~7.5.0",
         "ts-node": "~8.3.0",
         "tslib": "^2.3.0",
-        "tslint": "~6.1.0",
         "typescript": "~4.8.4",
         "xlsx": "^0.15.1",
-        "zone.js": "~0.11.4"
+        "zone.js": "~0.11.4",
+        "eslint": "^8.28.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "latest",
+        "eslint-plugin-jsdoc": "latest",
+        "eslint-plugin-prefer-arrow": "latest"
     }
 }

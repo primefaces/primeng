@@ -7,11 +7,11 @@
         "root": "src",
         "projectType": "library",
         "architect": {
-            "build": {
+          "build": {
             "builder": "@angular-devkit/build-angular:ng-packagr",
             "options": {
-                "project": "src/app/components/ng-package.json",
-                "tsConfig": "src/app/components/tsconfig.lib.prod.json"
+              "project": "src/app/components/ng-package.json",
+              "tsConfig": "src/app/components/tsconfig.lib.prod.json"
             }
           }
         }
@@ -62,7 +62,7 @@
                 "file-saver",
                 "jspdf",
                 "quill"
-             ]
+              ]
             },
             "configurations": {
               "production": {
@@ -143,14 +143,11 @@
             }
           },
           "lint": {
-            "builder": "@angular-devkit/build-angular:tslint",
+            "builder": "@angular-eslint/builder:lint",
             "options": {
-              "tsConfig": [
-                "tsconfig.app.json",
-                "tsconfig.spec.json"
-              ],
-              "exclude": [
-                "**/node_modules/**"
+              "lintFilePatterns": [
+                "src/**/*.ts",
+                "src/**/*.html"
               ]
             }
           }
@@ -159,6 +156,9 @@
     },
     "defaultProject": "primeng",
     "cli": {
-      "analytics": false
+      "analytics": false,
+      "schematicCollections": [
+        "@angular-eslint/schematics"
+      ]
     }
-}
+  }
