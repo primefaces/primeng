@@ -1,5 +1,23 @@
 # Changelog
 
+## [15.2.0](https://github.com/primefaces/primeng/tree/15.2.0) (2023-01-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.1.1...15.2.0)
+**New Features:**
+- Free premium themes [\#12561](https://github.com/primefaces/primeng/issues/12561)
+- Password | Add maxlength [\#12531](https://github.com/primefaces/primeng/issues/12531)
+
+**Fixed bugs:**
+- Menubar: Overflow problem [\#12549](https://github.com/primefaces/primeng/issues/12549)
+- DynamicDialog need to steal focus [\#12319](https://github.com/primefaces/primeng/issues/12319)
+- ContextMenu | triggerEvent="click" does not have any effect [\#12532](https://github.com/primefaces/primeng/issues/12532)
+- Sidebar: onHide ist emitted twice [\#12564](https://github.com/primefaces/primeng/issues/12564)
+- Calendar: Shows null values when date is passed from iframe [\#12555](https://github.com/primefaces/primeng/issues/12555)
+- pFocusTrap: ignoring anchor tags as focusable elements [\#12527](https://github.com/primefaces/primeng/issues/12527)
+- Rendering RadioButton inside Table column error [\#12511](https://github.com/primefaces/primeng/issues/12555)
+- Panel menu with submenu expanded by itself when in sideBar [\#12173](https://github.com/primefaces/primeng/issues/12173)
+- VirtualScroller | fails to initalize correctly inside tabView [\#12542](https://github.com/primefaces/primeng/issues/12542)
+
 ## [15.1.0](https://github.com/primefaces/primeng/tree/15.1.1) (2023-01-20)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.1.0...15.1.1)
