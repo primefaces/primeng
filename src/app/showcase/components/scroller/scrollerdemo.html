@@ -200,7 +200,7 @@ export class ScrollerDemo implements OnInit &#123;
 </app-code>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-scroller [value]="cars" scrollHeight="200px" [itemSize]="50"&gt;
+&lt;p-scroller [items]="cars" scrollHeight="200px" [itemSize]="50"&gt;
     &lt;ng-template pTemplate="item" let-car let-scrollOptions="options"&gt;
         Car content
     &lt;/ng-template&gt;
@@ -211,7 +211,7 @@ export class ScrollerDemo implements OnInit &#123;
             <p>Scroller has a special loader. It can be activated with the <i>showLoader</i> property.
                 In addition, <i>loader</i> or <i>loadericon</i> templates can be used to add custom loaders to item elements.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-scroller [value]="cars" scrollHeight="200px" [itemSize]="50" [showLoader]="true" [delay]="250"&gt;
+&lt;p-scroller [items]="cars" scrollHeight="200px" [itemSize]="50" [showLoader]="true" [delay]="250"&gt;
     &lt;ng-template pTemplate="item" let-car let-scrollOptions="options"&gt;
         Car content
     &lt;/ng-template&gt;
@@ -254,7 +254,7 @@ export class ScrollerDemo implements OnInit &#123;
             enable <i>lazy</i> attribute, initialize your data as a placeholder with a length and finally implement a method callback using <i>onLazyLoad</i> that actually loads a chunk from a datasource. onLazyLoad gets an event object
             that contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.</p>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-scroller [value]="virtualCars" scrollHeight="200px" [itemSize]="50"
+&lt;p-scroller [items]="virtualCars" scrollHeight="200px" [itemSize]="50"
     [lazy]="true" (onLazyLoad)="loadCarsLazy($event)"&gt;
     &lt;ng-template pTemplate="item" let-car&gt;
         Car content
