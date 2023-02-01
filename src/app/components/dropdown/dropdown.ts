@@ -112,7 +112,7 @@ export class DropdownItem {
                     [attr.placeholder]="placeholder"
                     aria-haspopup="listbox"
                     [attr.aria-label]="ariaLabel"
-                    [attr.aria-expanded]="false"
+                    [attr.aria-expanded]="overlayVisible"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     (blur)="onInputBlur($event)"
                     (keydown)="onKeydown($event, true)"
