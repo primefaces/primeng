@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { AppConfigService } from './service/appconfigservice';
-import { AppConfig } from './domain/appconfig';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
+import { Subscription } from 'rxjs';
+import { AppConfig } from './domain/appconfig';
+import { AppConfigService } from './service/appconfigservice';
 
 @Component({
     selector: 'app-config',
@@ -137,7 +137,7 @@ import { DomHandler } from 'primeng/dom';
                                 <span>Fluent Light</span>
                             </div>
                         </div>
-                        <h5>PrimeOne Design - 2022</h5>
+                        <h5>PrimeOne Design</h5>
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'lara-light-indigo', false)">
@@ -190,7 +190,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
 
-                        <h5>PrimeOne Design - 2021</h5>
+                        <h5>PrimeOne Design - Legacy</h5>
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'saga-blue', false)">
@@ -266,9 +266,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
 
-                        <h4>Premium Themes</h4>
-                        <p>Premium themes are only available exclusively for <a href="https://www.primefaces.org/designer/primeng">PrimeNG Theme Designer</a> subscribers and therefore not included in PrimeNG core.</p>
-
+                        <h4>Misc</h4>
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'soho-light', false)">
@@ -308,7 +306,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
 
-                        <h4>Legacy Free Themes</h4>
+                        <h4>Legacy</h4>
                         <div class="grid free-themes">
                             <div class="col-3">
                                 <button class="p-link" (click)="changeTheme($event, 'nova', false)">

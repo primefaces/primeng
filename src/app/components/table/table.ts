@@ -1396,7 +1396,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             } else {
-                if (this.selection instanceof Array) return this.findIndexInSelection(rowData) > -1;
+                if (Array.isArray(this.selection)) return this.findIndexInSelection(rowData) > -1;
                 else return this.equals(rowData, this.selection);
             }
         }
@@ -1543,7 +1543,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) return true;
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (Array.isArray(filter) && filter.length == 0)) return true;
             else return false;
         }
         return true;
@@ -3832,9 +3832,9 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
+        <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
             </div>
             <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="radio" [attr.aria-checked]="checked">
                 <div class="p-radiobutton-icon"></div>
@@ -3860,13 +3860,15 @@ export class TableRadioButton {
 
     @Input() ariaLabel: string;
 
+    @ViewChild('rb') inputViewChild: ElementRef;
+
     checked: boolean;
 
     focused: boolean;
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
             this.cd.markForCheck();
@@ -3886,6 +3888,8 @@ export class TableRadioButton {
                 },
                 this.value
             );
+
+            this.inputViewChild.nativeElement?.focus();
         }
         DomHandler.clearSelection();
     }

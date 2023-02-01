@@ -23,8 +23,8 @@ export class ObjectUtils {
 
             if (arrA != arrB) return false;
 
-            var dateA = obj1 instanceof Date,
-                dateB = obj2 instanceof Date;
+            var dateA = this.isDate(obj1),
+                dateB = this.isDate(obj2);
             if (dateA != dateB) return false;
             if (dateA && dateB) return obj1.getTime() == obj2.getTime();
 
@@ -162,8 +162,12 @@ export class ObjectUtils {
         return str;
     }
 
+    public static isDate(input: any) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     public static isEmpty(value) {
-        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!(value instanceof Date) && typeof value === 'object' && Object.keys(value).length === 0);
+        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!this.isDate(value) && typeof value === 'object' && Object.keys(value).length === 0);
     }
 
     public static isNotEmpty(value) {

@@ -522,7 +522,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngAfterViewInit() {
-        this.viewInit();
+        Promise.resolve().then(() => {
+            this.viewInit();
+        });
     }
 
     ngAfterViewChecked() {

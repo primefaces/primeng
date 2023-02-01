@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AppConfig } from './domain/appconfig';
 import { AppConfigService } from './service/appconfigservice';
-import { JsonService } from './service/jsonservice';
+import Announcement from './data/news.json';
 
 @Component({
     selector: 'app-root',
@@ -11,13 +10,13 @@ import { JsonService } from './service/jsonservice';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-    constructor(private configService: AppConfigService, private JsonService: JsonService) {}
+    constructor(private configService: AppConfigService) {}
 
     config: AppConfig;
 
     public subscription: Subscription;
 
-    public announcement: any;
+    public announcement: any = Announcement;
 
     public newsActive: boolean;
 
@@ -32,20 +31,14 @@ export class AppComponent implements OnInit, OnDestroy {
             this.config = config;
         });
 
-        if (environment.production) {
-            this.JsonService.getAnnouncement().then((data) => {
-                this.announcement = data;
-
-                const itemString = localStorage.getItem(this.storageKey);
-                if (itemString) {
-                    const item = JSON.parse(itemString);
-                    if (item.hiddenNews && item.hiddenNews !== data.id) {
-                        this.newsActive = true;
-                    }
-                } else {
-                    this.newsActive = true;
-                }
-            });
+        const itemString = localStorage.getItem(this.storageKey);
+        if (itemString) {
+            const item = JSON.parse(itemString);
+            if (item.hiddenNews && item.hiddenNews !== Announcement.id) {
+                this.newsActive = true;
+            }
+        } else {
+            this.newsActive = true;
         }
     }
 

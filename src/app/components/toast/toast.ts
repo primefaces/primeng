@@ -238,7 +238,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
     ngOnInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
             if (messages) {
-                if (messages instanceof Array) {
+                if (Array.isArray(messages)) {
                     const filteredMessages = messages.filter((m) => this.canAdd(m));
                     this.add(filteredMessages);
                 } else if (this.canAdd(messages)) {

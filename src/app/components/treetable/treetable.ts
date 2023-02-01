@@ -1402,7 +1402,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
             } else {
-                if (this.selection instanceof Array) return this.findIndexInSelection(node) > -1;
+                if (Array.isArray(this.selection)) return this.findIndexInSelection(node) > -1;
                 else return this.equals(node, this.selection);
             }
         }
@@ -1459,7 +1459,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) return true;
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (Array.isArray(filter) && filter.length == 0)) return true;
             else return false;
         }
         return true;
