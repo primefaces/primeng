@@ -134,8 +134,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.requestAnimationFrame(() => {
             if (this.scrollXRatio >= 1) {
+                DomHandler.removeClass(container, 'p-scrollpanel-x');
                 DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
             } else {
+                DomHandler.addClass(container, 'p-scrollpanel-x');
                 DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max(this.scrollXRatio * 100, 10);
                 const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
@@ -143,8 +145,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
             }
 
             if (this.scrollYRatio >= 1) {
+                DomHandler.removeClass(container, 'p-scrollpanel-y');
                 DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
             } else {
+                DomHandler.addClass(container, 'p-scrollpanel-y');
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max(this.scrollYRatio * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);

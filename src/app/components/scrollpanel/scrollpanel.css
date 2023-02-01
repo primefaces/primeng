@@ -8,12 +8,28 @@
 }
 
 .p-scrollpanel-content {
-    height: calc(100% + 18px);
-    width: calc(100% + 18px);
-    padding: 0 18px 18px 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
     position: relative;
     overflow: auto;
     box-sizing: border-box;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.p-scrollpanel-content::-webkit-scrollbar {
+    display: none;
+}
+
+.p-scrollpanel-x > .p-scrollpanel-wrapper > .p-scrollpanel-content {
+    padding-bottom: 18px;
+}
+
+.p-scrollpanel-y > .p-scrollpanel-wrapper > .p-scrollpanel-content {
+    padding-right: 18px;
 }
 
 .p-scrollpanel-bar {
