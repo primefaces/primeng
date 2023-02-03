@@ -138,9 +138,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
+                [autoZIndex]="autoZIndex"
+                [baseZIndex]="baseZIndex"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -278,9 +280,25 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() type: string = 'text';
 
-    @Input() autoZIndex: boolean = true;
+    /* @deprecated */
+    _autoZIndex: boolean;
+    @Input() get autoZIndex(): boolean {
+        return this._autoZIndex;
+    }
+    set autoZIndex(val: boolean) {
+        this._autoZIndex = val;
+        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
 
-    @Input() baseZIndex: number = 0;
+    /* @deprecated */
+    _baseZIndex: number;
+    @Input() get baseZIndex(): number {
+        return this._baseZIndex;
+    }
+    set baseZIndex(val: number) {
+        this._baseZIndex = val;
+        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
 
     @Input() ariaLabel: string;
 
