@@ -19,7 +19,7 @@ import { Product } from '../../domain/product';
             <ng-template pTemplate="body" let-product>
                 <tr>
                     <td>{{ product.name }}</td>
-                    <td><img src="assets/showcase/images/demo/product/{{ product.image }}" [alt]="product.image" class="product-image" /></td>
+                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="product-image" /></td>
                     <td>{{ product.price }}</td>
                     <td>
                         <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>

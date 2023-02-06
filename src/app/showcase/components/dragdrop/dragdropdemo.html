@@ -14,7 +14,7 @@
                 <div *ngFor="let product of availableProducts">
                     <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
-                                <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                         </div>
                         <div class="product-list-detail">
                             <h5 class="mb-2">{{product.name}}</h5>
@@ -235,7 +235,7 @@ import &#123;DragDropModule&#125; from 'primeng/dragdrop';
         &lt;div *ngFor="let product of availableProducts"&gt;
             &lt;div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()"&gt;
                 &lt;div class="image-container"&gt;
-                        &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                        &lt;img src="https://primefaces.org/cdn/primeng/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
                 &lt;/div&gt;
                 &lt;div class="product-list-detail"&gt;
                     &lt;h5 class="mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;

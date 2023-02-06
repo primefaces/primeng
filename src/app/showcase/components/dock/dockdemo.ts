@@ -37,19 +37,19 @@ export class DockDemo {
         this.dockBasicItems = [
             {
                 label: 'Finder',
-                icon: 'assets/showcase/images/dock/finder.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg'
             },
             {
                 label: 'App Store',
-                icon: 'assets/showcase/images/dock/appstore.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg'
             },
             {
                 label: 'Photos',
-                icon: 'assets/showcase/images/dock/photos.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg'
             },
             {
                 label: 'Trash',
-                icon: 'assets/showcase/images/dock/trash.png'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png'
             }
         ];
 
@@ -63,7 +63,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/finder.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
                 command: () => {
                     this.displayFinder = true;
                 }
@@ -77,7 +77,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/terminal.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
                 command: () => {
                     this.displayTerminal = true;
                 }
@@ -91,7 +91,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/appstore.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
                 command: () => {
                     this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
                 }
@@ -105,7 +105,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/safari.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
                 command: () => {
                     this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working' });
                 }
@@ -119,7 +119,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/photos.svg',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
                 command: () => {
                     this.displayGalleria = true;
                 }
@@ -133,7 +133,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/github.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg'
             },
             {
                 label: 'Trash',
@@ -144,7 +144,7 @@ export class DockDemo {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'assets/showcase/images/dock/trash.png',
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Empty Trash' });
                 }
