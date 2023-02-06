@@ -15,7 +15,7 @@
         <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
                     <div>{{country.name}}</div>
                 </div>
             </ng-template>
@@ -25,7 +25,7 @@
         <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true">
             <ng-template let-group pTemplate="group">
                 <div class="flex align-items-center">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
                     <span>{{group.label}}</span>
                 </div>
             </ng-template>
@@ -178,7 +178,7 @@ export class AutoCompleteDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"&gt;
     &lt;ng-template let-brand pTemplate="item"&gt;
-            &lt;img src="assets/showcase/images/demo/car/&#123;&#123;brand&#125;&#125;.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
+            &lt;img src="https://primefaces.org/cdn/primeng/images/demo/car/&#123;&#123;brand&#125;&#125;.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/&gt;
             &lt;div style="font-size:18px;float:right;margin:10px 10px 0 0"&gt;&#123;&#123;brand&#125;&#125;&lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-autoComplete&gt;
@@ -718,7 +718,7 @@ export class AutoCompleteDemo &#123;
     &lt;p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true"&gt;
         &lt;ng-template let-country pTemplate="item"&gt;
             &lt;div class="country-item"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
                 &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
@@ -728,7 +728,7 @@ export class AutoCompleteDemo &#123;
     &lt;p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true"&gt;
         &lt;ng-template let-group pTemplate="group"&gt;
             &lt;div class="flex align-items-center"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
                 &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;

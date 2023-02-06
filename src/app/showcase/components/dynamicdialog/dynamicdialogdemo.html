@@ -499,7 +499,7 @@ export class DynamicDialogDemo implements OnDestroy &#123;
     &lt;ng-template pTemplate="body" let-product&gt;
         &lt;tr&gt;
             &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
-            &lt;td&gt;&lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.image" class="product-image" /&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;img src="https://primefaces.org/cdn/primeng/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.image" class="product-image" /&gt;&lt;/td&gt;
             &lt;td&gt;&#123;&#123;product.price&#125;&#125;&lt;/td&gt;
             &lt;td&gt;&lt;span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;&lt;/td&gt;
             &lt;td&gt;
