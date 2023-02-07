@@ -374,6 +374,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     page: number = 0;
 
+    isRangeChanged: boolean = false;
+
     numItemsInViewport: any = 0;
 
     lastScrollPos: any = 0;
@@ -397,6 +399,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     defaultWidth: number;
 
     defaultHeight: number;
+
+    defaultContentWidth: number;
+
+    defaultContentHeight: number;
 
     get vertical() {
         return this._orientation === 'vertical';
@@ -516,7 +522,9 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngAfterViewInit() {
-        this.viewInit();
+        Promise.resolve().then(() => {
+            this.viewInit();
+        });
     }
 
     ngAfterViewChecked() {
@@ -540,6 +548,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
             this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
+            this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+            this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
             this.initialized = true;
         }
     }
@@ -590,14 +600,18 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
         const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
         const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+        let newFirst: any = 0;
 
         if (this.both) {
-            this.first = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
-            scrollTo(calculateCoord(this.first.cols, this._itemSize[1], contentPos.left), calculateCoord(this.first.rows, this._itemSize[0], contentPos.top));
+            newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
+            scrollTo(calculateCoord(newFirst.cols, this._itemSize[1], contentPos.left), calculateCoord(newFirst.rows, this._itemSize[0], contentPos.top));
         } else {
-            this.first = calculateFirst(index, numToleratedItems);
-            this.horizontal ? scrollTo(calculateCoord(this.first, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(this.first, this._itemSize, contentPos.top));
+            newFirst = calculateFirst(index, numToleratedItems);
+            this.horizontal ? scrollTo(calculateCoord(newFirst, this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, this._itemSize, contentPos.top));
         }
+
+        this.isRangeChanged = this.first !== newFirst;
+        this.first = newFirst;
     }
 
     scrollInView(index: number, to: ScrollerToType, behavior: ScrollBehavior = 'auto') {
@@ -716,12 +730,20 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             Promise.resolve().then(() => {
                 if (this.contentEl) {
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = 'auto';
+                    this.contentEl.style.position = 'relative';
+                    this.elementViewChild.nativeElement.style.contain = 'none';
 
-                    const { offsetWidth, offsetHeight } = this.contentEl;
+                    const [contentWidth, contentHeight] = [DomHandler.getWidth(this.contentEl), DomHandler.getHeight(this.contentEl)];
+                    contentWidth !== this.defaultContentWidth && (this.elementViewChild.nativeElement.style.width = '');
+                    contentHeight !== this.defaultContentHeight && (this.elementViewChild.nativeElement.style.height = '');
 
-                    (this.both || this.horizontal) && (this.elementViewChild.nativeElement.style.width = (offsetWidth < this.defaultWidth ? offsetWidth : this.defaultWidth) + 'px');
-                    (this.both || this.vertical) && (this.elementViewChild.nativeElement.style.height = (offsetHeight < this.defaultHeight ? offsetHeight : this.defaultHeight) + 'px');
+                    const [width, height] = [DomHandler.getWidth(this.elementViewChild.nativeElement), DomHandler.getHeight(this.elementViewChild.nativeElement)];
+                    (this.both || this.horizontal) && (this.elementViewChild.nativeElement.style.width = width < this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
+                    (this.both || this.vertical) && (this.elementViewChild.nativeElement.style.height = height < this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
+
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
+                    this.contentEl.style.position = '';
+                    this.elementViewChild.nativeElement.style.contain = '';
                 }
             });
         }
@@ -840,7 +862,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
                 };
 
-                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols;
+                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols || this.isRangeChanged;
                 newScrollPos = { top: scrollTop, left: scrollLeft };
             }
         } else {
@@ -853,7 +875,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
                 newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
-                isRangeChanged = newFirst !== this.first || newLast !== this.last;
+                isRangeChanged = newFirst !== this.first || newLast !== this.last || this.isRangeChanged;
                 newScrollPos = scrollPos;
             }
         }
@@ -961,6 +983,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.d_numToleratedItems = this._numToleratedItems;
                         this.defaultWidth = width;
                         this.defaultHeight = height;
+                        this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+                        this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
 
                         this.init();
                     });

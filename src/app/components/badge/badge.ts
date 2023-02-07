@@ -5,6 +5,7 @@ import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 
 type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
+type BadgeSize = 'large' | 'xlarge';
 
 @Directive({
     selector: '[pBadge]',
@@ -22,13 +23,26 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         this._disabled = val;
     }
 
+    @Input() public get size(): BadgeSize {
+        return this._size;
+    }
+    set size(val: BadgeSize) {
+        this._size = val;
+
+        if (this.initialized) {
+            this.setSizeClasses();
+        }
+    }
+
     public _value: string;
 
     public initialized: boolean;
 
     private id: string;
 
-    _disabled: boolean = false;
+    private _disabled: boolean = false;
+
+    private _size: BadgeSize;
 
     constructor(public el: ElementRef) {}
 
@@ -47,6 +61,8 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         if (this.severity) {
             DomHandler.addClass(badge, 'p-badge-' + this.severity);
         }
+
+        this.setSizeClasses(badge);
 
         if (this.value != null) {
             badge.appendChild(document.createTextNode(this.value));
@@ -95,6 +111,29 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     @Input() severity: string;
 
+    private setSizeClasses(element?: HTMLElement): void {
+        const badge = element ?? document.getElementById(this.id);
+
+        if (!badge) {
+            return;
+        }
+
+        if (this._size) {
+            if (this._size === 'large') {
+                DomHandler.addClass(badge, 'p-badge-lg');
+                DomHandler.removeClass(badge, 'p-badge-xl');
+            }
+
+            if (this._size === 'xlarge') {
+                DomHandler.addClass(badge, 'p-badge-xl');
+                DomHandler.removeClass(badge, 'p-badge-lg');
+            }
+        } else {
+            DomHandler.removeClass(badge, 'p-badge-lg');
+            DomHandler.removeClass(badge, 'p-badge-xl');
+        }
+    }
+
     ngOnDestroy() {
         this.initialized = false;
     }
@@ -115,7 +154,7 @@ export class Badge {
 
     @Input() style: any;
 
-    @Input() size: string;
+    @Input() size: BadgeSize;
 
     @Input() severity: string;
 

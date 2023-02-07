@@ -21,7 +21,7 @@
         <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip">
             <ng-template let-group pTemplate="group">
                 <div class="flex align-items-center">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/>
                     <span>{{group.label}}</span>
                 </div>
             </ng-template>
@@ -31,7 +31,7 @@
         <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
             <ng-template let-value pTemplate="selectedItems">
                 <div class="country-item country-item-value" *ngFor="let option of selectedCountries1">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
                     <div>{{option.name}}</div>
                 </div>
                 <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder">
@@ -40,7 +40,7 @@
             </ng-template>
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
                     <div>{{country.name}}</div>
                 </div>
             </ng-template>
@@ -50,7 +50,7 @@
         <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
-                    <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
                     <div>{{country.name}}</div>
                 </div>
             </ng-template>
@@ -179,7 +179,7 @@ export class MultiSelectDemo &#123;
     &lt;/ng-template&gt;
     &lt;ng-template let-value pTemplate="selectedItems"&gt;
         &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
+            &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
             &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div *ngIf="!selectedCountries || selectedCountries.length === 0" class="country-placeholder"&gt;
@@ -195,7 +195,7 @@ export class MultiSelectDemo &#123;
     &lt;/ng-template&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;
-            &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+            &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
             &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -700,6 +700,11 @@ export class MultiSelectDemo &#123;
                             </td>
                             <td>Callback to invoke in lazy mode to load new data.</td>
                         </tr>
+                        <tr>
+                            <td>onRemove</td>
+                            <td>event: MultiselectOnRemoveEvent</td>
+                            <td>Callback to invoke in lazy mode to load new data.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -833,7 +838,7 @@ export class MultiSelectDemo &#123;
     &lt;p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities4" defaultLabel="Select a City" scrollHeight="250px" display="chip"&gt;
         &lt;ng-template let-group pTemplate="group"&gt;
             &lt;div class="flex align-items-center"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px"/&gt;
                 &lt;span&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
@@ -843,7 +848,7 @@ export class MultiSelectDemo &#123;
     &lt;p-multiSelect [options]="countries" [(ngModel)]="selectedCountries1" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom"&gt;
         &lt;ng-template let-value pTemplate="selectedItems"&gt;
             &lt;div class="country-item country-item-value" *ngFor="let option of selectedCountries1"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" /&gt;
                 &lt;div&gt;&#123;&#123;option.name&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
             &lt;div *ngIf="!selectedCountries1 || selectedCountries1.length === 0" class="country-placeholder"&gt;
@@ -852,7 +857,7 @@ export class MultiSelectDemo &#123;
         &lt;/ng-template&gt;
         &lt;ng-template let-country pTemplate="item"&gt;
             &lt;div class="country-item"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
                 &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;
@@ -862,7 +867,7 @@ export class MultiSelectDemo &#123;
     &lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll"&gt;
         &lt;ng-template let-country pTemplate="item"&gt;
             &lt;div class="country-item"&gt;
-                &lt;img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
+                &lt;img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /&gt;
                 &lt;div&gt;&#123;&#123;country.name&#125;&#125;&lt;/div&gt;
             &lt;/div&gt;
         &lt;/ng-template&gt;

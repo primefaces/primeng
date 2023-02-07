@@ -34,7 +34,6 @@ import { NodeService } from './service/nodeservice';
 import { AppConfigService } from './service/appconfigservice';
 import { CustomerService } from './service/customerservice';
 import { IconService } from './service/iconservice';
-import { JsonService } from './service/jsonservice';
 import { PhotoService } from './service/photoservice';
 import { ProductService } from './service/productservice';
 
@@ -80,7 +79,7 @@ import { LandingComponent } from './components/landing/landing.component';
         InputMaskModule,
         DropdownModule
     ],
-    providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, JsonService, AppConfigService, ProductService],
+    providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

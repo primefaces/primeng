@@ -1,5 +1,5 @@
-import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'p-progressBar',
@@ -13,11 +13,11 @@ import { CommonModule } from '@angular/common';
             aria-valuemax="100"
             [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
         >
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex">
+            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color">
                 <div *ngIf="showValue" class="p-progressbar-label" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
             </div>
             <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container">
-                <div class="p-progressbar-value p-progressbar-value-animate"></div>
+                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color"></div>
             </div>
         </div>
     `,
@@ -40,6 +40,8 @@ export class ProgressBar {
     @Input() unit: string = '%';
 
     @Input() mode: string = 'determinate';
+
+    @Input() color: string;
 }
 
 @NgModule({

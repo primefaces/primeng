@@ -44,6 +44,7 @@ export interface OverlayOptions {
     baseZIndex?: number;
     showTransitionOptions?: string;
     hideTransitionOptions?: string;
+    hideOnEscape?: boolean;
     listener?: (event: Event, options?: OverlayListenerOptions) => boolean | void;
     responsive?: ResponsiveOverlayOptions | undefined;
     onBeforeShow?: (event?: OverlayOnBeforeShowEvent) => void;

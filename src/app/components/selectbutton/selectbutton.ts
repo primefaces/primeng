@@ -165,7 +165,7 @@ export class SelectButton implements ControlValueAccessor {
         let optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
-            if (this.value && this.value instanceof Array) {
+            if (this.value && Array.isArray(this.value)) {
                 for (let val of this.value) {
                     if (ObjectUtils.equals(val, optionValue, this.dataKey)) {
                         selected = true;

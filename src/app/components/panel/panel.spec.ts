@@ -1,7 +1,7 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Panel } from './panel';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Panel } from './panel';
 
 describe('Panel', () => {
     let panel: Panel;
@@ -49,5 +49,6 @@ describe('Panel', () => {
 
         togglerEl.click();
         expect(panel.collapsed).toEqual(false);
+        flush();
     }));
 });

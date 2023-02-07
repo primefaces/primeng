@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { defineFullCalendarElement } from '@fullcalendar/web-component';
+import { EventService } from '../../service/eventservice';
 // @fullcalendar plugins
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { EventService } from '../../service/eventservice';
-
-defineFullCalendarElement();
 
 @Component({
     templateUrl: './fullcalendardemo.html',
@@ -23,8 +20,6 @@ export class FullCalendarDemo implements OnInit {
     events: any[];
 
     options: any;
-
-    header: any;
 
     constructor(private eventService: EventService) {}
 

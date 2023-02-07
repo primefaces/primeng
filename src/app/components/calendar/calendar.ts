@@ -1370,7 +1370,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isDateEquals(value, dateMeta) {
-        if (value && value instanceof Date) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        if (value && ObjectUtils.isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else return false;
     }
 
@@ -2365,7 +2365,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isValidDate(date) {
-        return date instanceof Date && ObjectUtils.isNotEmpty(date);
+        return ObjectUtils.isDate(date) && ObjectUtils.isNotEmpty(date);
     }
 
     updateUI() {

@@ -1,35 +1,35 @@
+import { animate, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 import {
-    NgModule,
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
     Directive,
+    DoCheck,
     ElementRef,
+    EventEmitter,
+    forwardRef,
     HostListener,
     Input,
-    OnDestroy,
-    DoCheck,
+    NgModule,
     NgZone,
+    OnDestroy,
     OnInit,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
-    ContentChildren,
+    Output,
+    Pipe,
+    PipeTransform,
     QueryList,
     TemplateRef,
-    Component,
-    AfterContentInit,
     ViewChild,
-    ChangeDetectorRef,
-    forwardRef,
-    Output,
-    EventEmitter,
-    Pipe,
-    PipeTransform
+    ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
+import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -297,6 +297,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
                 (keyup)="onKeyUp($event)"
                 (keydown)="onKeyDown($event)"
+                [attr.maxlength]="maxLength"
             />
             <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
             <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
@@ -354,6 +355,8 @@ export class Password implements AfterContentInit, OnInit {
     @Input() weakLabel: string;
 
     @Input() mediumLabel: string;
+
+    @Input() maxLength: number;
 
     @Input() strongLabel: string;
 
@@ -510,7 +513,6 @@ export class Password implements AfterContentInit, OnInit {
     onInput(event) {
         this.value = event.target.value;
         this.onModelChange(this.value);
-        this.onModelTouched();
     }
 
     onInputFocus(event: Event) {
@@ -528,6 +530,7 @@ export class Password implements AfterContentInit, OnInit {
             this.overlayVisible = false;
         }
 
+        this.onModelTouched();
         this.onBlur.emit(event);
     }
 

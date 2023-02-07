@@ -1,13 +1,13 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, Renderer2, Inject, forwardRef, ViewChild, NgZone, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { MenuItem, ContextMenuService, PrimeNGConfig } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { ZIndexUtils } from 'primeng/utils';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ContextMenuService, MenuItem, PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -267,7 +267,6 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         if (this.global) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
             this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
                 this.show(event);
                 event.preventDefault();
@@ -447,7 +446,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2) {
+                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
                     this.hide();
                 }
             });

@@ -52,7 +52,7 @@ CHANGELOG.md
 .angular-cli.json
 angular.json
 tsconfig*.json
-tslint.json
+.eslintrc.json
 gulpfile.js
 .github
 package-lock.json
