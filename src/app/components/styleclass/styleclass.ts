@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
@@ -8,8 +8,8 @@ import { DomHandler } from 'primeng/dom';
         class: 'p-element'
     }
 })
-export class StyleClass implements AfterViewInit, OnDestroy {
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+export class StyleClass implements OnDestroy {
+    constructor(public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
 
     @Input('pStyleClass') selector: string;
 
@@ -29,9 +29,13 @@ export class StyleClass implements AfterViewInit, OnDestroy {
 
     @Input() toggleClass: string;
 
+    @Input() hideOnEscape: boolean;
+
     eventListener: Function;
 
-    documentListener: Function;
+    documentClickListener: Function;
+
+    documentKeydownListener: Function;
 
     target: HTMLElement;
 
@@ -41,18 +45,21 @@ export class StyleClass implements AfterViewInit, OnDestroy {
 
     animating: boolean;
 
-    ngAfterViewInit() {
-        this.eventListener = this.renderer.listen(this.el.nativeElement, 'click', () => {
-            this.target = this.resolveTarget();
+    @HostListener('click', ['$event'])
+    clickListener() {
+        this.target = this.resolveTarget();
 
-            if (this.toggleClass) {
-                if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
-                else DomHandler.addClass(this.target, this.toggleClass);
-            } else {
-                if (this.target.offsetParent === null) this.enter();
-                else this.leave();
-            }
-        });
+        if (this.toggleClass) {
+            this.toggle();
+        } else {
+            if (this.target.offsetParent === null) this.enter();
+            else this.leave();
+        }
+    }
+
+    toggle() {
+        if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
+        else DomHandler.addClass(this.target, this.toggleClass);
     }
 
     enter() {
@@ -97,7 +104,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.bindDocumentListener();
+            this.bindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.bindDocumentKeydownListener();
         }
     }
 
@@ -130,7 +141,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.unbindDocumentListener();
+            this.unbindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.unbindDocumentKeydownListener();
         }
     }
 
@@ -157,11 +172,23 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         }
     }
 
-    bindDocumentListener() {
-        if (!this.documentListener) {
-            this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
-                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentListener();
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
+                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentClickListener();
                 else if (this.isOutsideClick(event)) this.leave();
+            });
+        }
+    }
+
+    bindDocumentKeydownListener() {
+        if (!this.documentKeydownListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
+                    const { key, keyCode, which, type } = event;
+                    if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
+                    if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
+                });
             });
         }
     }
@@ -174,10 +201,17 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(<HTMLElement>event.target);
     }
 
-    unbindDocumentListener() {
-        if (this.documentListener) {
-            this.documentListener();
-            this.documentListener = null;
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    unbindDocumentKeydownListener() {
+        if (this.documentKeydownListener) {
+            this.documentKeydownListener();
+            this.documentKeydownListener = null;
         }
     }
 
@@ -186,7 +220,8 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         if (this.eventListener) {
             this.eventListener();
         }
-        this.unbindDocumentListener();
+        this.unbindDocumentClickListener();
+        this.unbindDocumentKeydownListener();
     }
 }
 

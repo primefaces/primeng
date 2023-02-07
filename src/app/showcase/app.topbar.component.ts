@@ -2,9 +2,9 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Input, OnInit, 
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
-import { JsonService } from './service/jsonservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
+import Versions from './data/versions.json';
 
 @Component({
     selector: 'app-topbar',
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
                 <i class="pi pi-bars"></i>
             </a>
             <div class="app-theme" [pTooltip]="config.theme" tooltipPosition="bottom">
-                <img [src]="'assets/showcase/images/themes/' + logoMap[config.theme]" />
+                <img [src]="'https://primefaces.org/cdn/primeng/images/themes/' + logoMap[config.theme]" />
             </div>
             <ul #topbarMenu class="topbar-menu">
                 <li class="topbar-submenu">
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
                             <a href="https://www.primefaces.org/designer/primeng"><i class="pi pi-fw pi-palette"></i><span>Designer</span></a>
                         </li>
                         <li>
-                            <a href="https://www.primefaces.org/designer-ng"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a>
+                            <a href="https://designer.primeng.org"><i class="pi pi-fw pi-desktop"></i><span>Visual Editor</span></a>
                         </li>
                         <li>
                             <a [routerLink]="['/uikit']"><i class="pi pi-fw pi-pencil"></i><span>UI Kit</span></a>
@@ -39,176 +39,176 @@ import { Subscription } from 'rxjs';
 
                         <li class="topbar-submenu-header">BOOTSTRAP</li>
                         <li>
-                            <a (click)="changeTheme($event, 'bootstrap4-light-blue', false)"><img src="assets/showcase/images/themes/bootstrap4-light-blue.svg" alt="Blue Light" /><span>Blue Light</span></a>
+                            <a (click)="changeTheme($event, 'bootstrap4-light-blue', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-blue.svg" alt="Blue Light" /><span>Blue Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'bootstrap4-light-purple', false)"><img src="assets/showcase/images/themes/bootstrap4-light-purple.svg" alt="Purple Light" /><span>Purple Light</span></a>
+                            <a (click)="changeTheme($event, 'bootstrap4-light-purple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-purple.svg" alt="Purple Light" /><span>Purple Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'bootstrap4-dark-blue', true)"><img src="assets/showcase/images/themes/bootstrap4-dark-blue.svg" alt="Blue Dark" /><span>Blue Dark</span></a>
+                            <a (click)="changeTheme($event, 'bootstrap4-dark-blue', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-dark-blue.svg" alt="Blue Dark" /><span>Blue Dark</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'bootstrap4-dark-purple', true)"><img src="assets/showcase/images/themes/bootstrap4-dark-purple.svg" alt="Purple Dark" /><span>Purple Dark</span></a>
+                            <a (click)="changeTheme($event, 'bootstrap4-dark-purple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-dark-purple.svg" alt="Purple Dark" /><span>Purple Dark</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">MATERIAL DESIGN</li>
                         <li>
-                            <a (click)="changeTheme($event, 'md-light-indigo', false)"><img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Indigo Light" /><span>Indigo Light</span></a>
+                            <a (click)="changeTheme($event, 'md-light-indigo', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Indigo Light" /><span>Indigo Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'md-light-deeppurple', false)"><img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Deep Purple Light" /><span>Deep Purple Light</span></a>
+                            <a (click)="changeTheme($event, 'md-light-deeppurple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-light-deeppurple.svg" alt="Deep Purple Light" /><span>Deep Purple Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'md-dark-indigo', true)"><img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a>
+                            <a (click)="changeTheme($event, 'md-dark-indigo', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'md-dark-deeppurple', true)"><img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a>
+                            <a (click)="changeTheme($event, 'md-dark-deeppurple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">MATERIAL DESIGN COMPACT</li>
                         <li>
-                            <a (click)="changeTheme($event, 'mdc-light-indigo', false)"><img src="assets/showcase/images/themes/md-light-indigo.svg" alt="Indigo Light" /><span>Indigo Light</span></a>
+                            <a (click)="changeTheme($event, 'mdc-light-indigo', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Indigo Light" /><span>Indigo Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'mdc-light-deeppurple', false)"><img src="assets/showcase/images/themes/md-light-deeppurple.svg" alt="Deep Purple Light" /><span>Deep Purple Light</span></a>
+                            <a (click)="changeTheme($event, 'mdc-light-deeppurple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-light-deeppurple.svg" alt="Deep Purple Light" /><span>Deep Purple Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'mdc-dark-indigo', true)"><img src="assets/showcase/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a>
+                            <a (click)="changeTheme($event, 'mdc-dark-indigo', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-indigo.svg" alt="Indigo Dark" /><span>Indigo Dark</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'mdc-dark-deeppurple', true)"><img src="assets/showcase/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a>
+                            <a (click)="changeTheme($event, 'mdc-dark-deeppurple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-deeppurple.svg" alt="Deep Purple Dark" /><span>Deep Purple Dark</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">TAILWIND</li>
                         <li>
-                            <a (click)="changeTheme($event, 'tailwind-light', false)"><img src="assets/showcase/images/themes/tailwind-light.png" alt="Tailwind Light" /><span>Tailwind Light</span></a>
+                            <a (click)="changeTheme($event, 'tailwind-light', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/tailwind-light.png" alt="Tailwind Light" /><span>Tailwind Light</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">FLUENT UI</li>
                         <li>
-                            <a (click)="changeTheme($event, 'fluent-light', false)"><img src="assets/showcase/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a>
+                            <a (click)="changeTheme($event, 'fluent-light', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/fluent-light.png" alt="Fluent Light" /><span>Fluent Light</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">PRIMEONE - 2022</li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-blue', false)"><img src="assets/showcase/images/themes/lara-light-blue.png" alt="Lara Light Blue" /><span>Lara Light Blue</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-blue', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-blue.png" alt="Lara Light Blue" /><span>Lara Light Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-blue', true)"><img src="assets/showcase/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" /><span>Lara Dark Blue</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-blue', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" /><span>Lara Dark Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-teal', false)"><img src="assets/showcase/images/themes/lara-light-teal.png" alt="Lara Light Teal" /><span>Lara Light Teal</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-teal', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-teal.png" alt="Lara Light Teal" /><span>Lara Light Teal</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-teal', true)"><img src="assets/showcase/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" /><span>Lara Dark Teal</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-teal', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" /><span>Lara Dark Teal</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">PRIMEONE - 2021</li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="assets/showcase/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-indigo', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" /><span>Lara Light Indigo</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="assets/showcase/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-indigo', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" /><span>Lara Dark Indigo</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="assets/showcase/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a>
+                            <a (click)="changeTheme($event, 'lara-light-purple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-purple.png" alt="Lara Light Indigo" /><span>Lara Light Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="assets/showcase/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a>
+                            <a (click)="changeTheme($event, 'lara-dark-purple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-purple.png" alt="Lara Dark Indigo" /><span>Lara Dark Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'saga-blue', false)"><img src="assets/showcase/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a>
+                            <a (click)="changeTheme($event, 'saga-blue', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/saga-blue.png" alt="Saga Blue" /><span>Saga Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'saga-green', false)"><img src="assets/showcase/images/themes/saga-green.png" alt="Saga Green" /><span>Saga Green</span></a>
+                            <a (click)="changeTheme($event, 'saga-green', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/saga-green.png" alt="Saga Green" /><span>Saga Green</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'saga-orange', false)"><img src="assets/showcase/images/themes/saga-orange.png" alt="Saga Orange" /><span>Saga Orange</span></a>
+                            <a (click)="changeTheme($event, 'saga-orange', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/saga-orange.png" alt="Saga Orange" /><span>Saga Orange</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'saga-purple', false)"><img src="assets/showcase/images/themes/saga-purple.png" alt="Saga Purple" /><span>Saga Purple</span></a>
+                            <a (click)="changeTheme($event, 'saga-purple', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/saga-purple.png" alt="Saga Purple" /><span>Saga Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'vela-blue', true)"><img src="assets/showcase/images/themes/vela-blue.png" alt="Vela Blue" /><span>Vela Blue</span></a>
+                            <a (click)="changeTheme($event, 'vela-blue', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/vela-blue.png" alt="Vela Blue" /><span>Vela Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'vela-green', true)"><img src="assets/showcase/images/themes/vela-green.png" alt="Vela Green" /><span>Vela Green</span></a>
+                            <a (click)="changeTheme($event, 'vela-green', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/vela-green.png" alt="Vela Green" /><span>Vela Green</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'vela-orange', true)"><img src="assets/showcase/images/themes/vela-orange.png" alt="Vela Orange" /><span>Vela Orange</span></a>
+                            <a (click)="changeTheme($event, 'vela-orange', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/vela-orange.png" alt="Vela Orange" /><span>Vela Orange</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'vela-purple', true)"><img src="assets/showcase/images/themes/vela-purple.png" alt="Vela Purple" /><span>Vela Purple</span></a>
+                            <a (click)="changeTheme($event, 'vela-purple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/vela-purple.png" alt="Vela Purple" /><span>Vela Purple</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'arya-blue', true)"><img src="assets/showcase/images/themes/arya-blue.png" alt="Arya Blue" /><span>Arya Blue</span></a>
+                            <a (click)="changeTheme($event, 'arya-blue', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/arya-blue.png" alt="Arya Blue" /><span>Arya Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'arya-green', true)"><img src="assets/showcase/images/themes/arya-green.png" alt="Arya Green" /><span>Arya Green</span></a>
+                            <a (click)="changeTheme($event, 'arya-green', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/arya-green.png" alt="Arya Green" /><span>Arya Green</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'arya-orange', true)"><img src="assets/showcase/images/themes/arya-orange.png" alt="Arya Orange" /><span>Arya Orange</span></a>
+                            <a (click)="changeTheme($event, 'arya-orange', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/arya-orange.png" alt="Arya Orange" /><span>Arya Orange</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'arya-purple', true)"><img src="assets/showcase/images/themes/arya-purple.png" alt="Arya Purple" /><span>Arya Purple</span></a>
+                            <a (click)="changeTheme($event, 'arya-purple', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/arya-purple.png" alt="Arya Purple" /><span>Arya Purple</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">PREMIUM</li>
                         <li>
-                            <a (click)="changeTheme($event, 'soho-light', false)"><img src="assets/showcase/images/themes/soho-light.png" alt="Soho Light" /><span>Soho Light</span></a>
+                            <a (click)="changeTheme($event, 'soho-light', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/soho-light.png" alt="Soho Light" /><span>Soho Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'soho-dark', true)"><img src="assets/showcase/images/themes/soho-dark.png" alt="Soho Dark" /><span>Soho Dark</span></a>
+                            <a (click)="changeTheme($event, 'soho-dark', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/soho-dark.png" alt="Soho Dark" /><span>Soho Dark</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'viva-light', false)"><img src="assets/showcase/images/themes/viva-light.svg" alt="Viva Light" /><span>Viva Light</span></a>
+                            <a (click)="changeTheme($event, 'viva-light', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/viva-light.svg" alt="Viva Light" /><span>Viva Light</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'viva-dark', true)"><img src="assets/showcase/images/themes/viva-dark.svg" alt="Viva Dark" /><span>Viva Dark</span></a>
+                            <a (click)="changeTheme($event, 'viva-dark', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/viva-dark.svg" alt="Viva Dark" /><span>Viva Dark</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'mira', false)"><img src="assets/showcase/images/themes/mira.jpg" alt="Mira" /><span>Mira</span></a>
+                            <a (click)="changeTheme($event, 'mira', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/mira.jpg" alt="Mira" /><span>Mira</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'nano', false)"><img src="assets/showcase/images/themes/nano.jpg" alt="Nano" /><span>Nano</span></a>
+                            <a (click)="changeTheme($event, 'nano', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/nano.jpg" alt="Nano" /><span>Nano</span></a>
                         </li>
 
                         <li class="topbar-submenu-header">LEGACY</li>
                         <li>
-                            <a (click)="changeTheme($event, 'nova', false)"><img src="assets/showcase/images/themes/nova.png" alt="Nova" /><span>Nova</span></a>
+                            <a (click)="changeTheme($event, 'nova', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/nova.png" alt="Nova" /><span>Nova</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'nova-alt', false)"><img src="assets/showcase/images/themes/nova-alt.png" alt="Nova Alt" /><span>Nova Alt</span></a>
+                            <a (click)="changeTheme($event, 'nova-alt', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/nova-alt.png" alt="Nova Alt" /><span>Nova Alt</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'nova-accent', false)"><img src="assets/showcase/images/themes/nova-accent.png" alt="Nova Accent" /><span>Nova Accent</span></a>
+                            <a (click)="changeTheme($event, 'nova-accent', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/nova-accent.png" alt="Nova Accent" /><span>Nova Accent</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'luna-amber', true)"><img src="assets/showcase/images/themes/luna-amber.png" alt="Luna Amber" /><span>Luna Amber</span></a>
+                            <a (click)="changeTheme($event, 'luna-amber', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/luna-amber.png" alt="Luna Amber" /><span>Luna Amber</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'luna-blue', true)"><img src="assets/showcase/images/themes/luna-blue.png" alt="Luna Blue" /><span>Luna Blue</span></a>
+                            <a (click)="changeTheme($event, 'luna-blue', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/luna-blue.png" alt="Luna Blue" /><span>Luna Blue</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'luna-green', true)"><img src="assets/showcase/images/themes/luna-green.png" alt="Luna Green" /><span>Luna Green</span></a>
+                            <a (click)="changeTheme($event, 'luna-green', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/luna-green.png" alt="Luna Green" /><span>Luna Green</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'luna-pink', true)"><img src="assets/showcase/images/themes/luna-pink.png" alt="Luna Pink" /><span>Luna Pink</span></a>
+                            <a (click)="changeTheme($event, 'luna-pink', true)"><img src="https://primefaces.org/cdn/primeng/images/themes/luna-pink.png" alt="Luna Pink" /><span>Luna Pink</span></a>
                         </li>
                         <li>
-                            <a (click)="changeTheme($event, 'rhea', false)"><img src="assets/showcase/images/themes/rhea.png" alt="Rhea" /><span>Rhea</span></a>
+                            <a (click)="changeTheme($event, 'rhea', false)"><img src="https://primefaces.org/cdn/primeng/images/themes/rhea.png" alt="Rhea" /><span>Rhea</span></a>
                         </li>
                     </ul>
                 </li>
@@ -218,7 +218,7 @@ import { Subscription } from 'rxjs';
                         <li class="topbar-submenu-header">FREE ADMIN TEMPLATE</li>
                         <li>
                             <a href="https://www.primefaces.org/sakai-ng">
-                                <img alt="Sakai" src="assets/showcase/images/layouts/sakai-logo.svg" />
+                                <img alt="Sakai" src="https://primefaces.org/cdn/primeng/images/layouts/sakai-logo.svg" />
                                 <span>Sakai</span>
                             </a>
                         </li>
@@ -226,146 +226,146 @@ import { Subscription } from 'rxjs';
 
                         <li>
                             <a href="https://www.primefaces.org/layouts/apollo-ng">
-                                <img alt="Apollo" src="assets/showcase/images/layouts/apollo-logo.svg" />
+                                <img alt="Apollo" src="https://primefaces.org/cdn/primeng/images/layouts/apollo-logo.svg" />
                                 <span>Apollo</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/verona-ng">
-                                <img alt="Verona" src="assets/showcase/images/layouts/verona-logo.png" />
+                                <img alt="Verona" src="https://primefaces.org/cdn/primeng/images/layouts/verona-logo.png" />
                                 <span>Verona</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/atlantis-ng">
-                                <img alt="Atlantis" src="assets/showcase/images/layouts/atlantis-logo.svg" />
+                                <img alt="Atlantis" src="https://primefaces.org/cdn/primeng/images/layouts/atlantis-logo.svg" />
                                 <span>Atlantis</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/ultima-ng">
-                                <img alt="Ultima" src="assets/showcase/images/layouts/ultima-logo.png" />
+                                <img alt="Ultima" src="https://primefaces.org/cdn/primeng/images/layouts/ultima-logo.png" />
                                 <span>Ultima</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/freya-ng">
-                                <img alt="Freya" src="assets/showcase/images/layouts/freya-logo.png" />
+                                <img alt="Freya" src="https://primefaces.org/cdn/primeng/images/layouts/freya-logo.png" />
                                 <span>Freya</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/poseidon-ng">
-                                <img alt="Poseidon" src="assets/showcase/images/layouts/poseidon-logo.svg" />
+                                <img alt="Poseidon" src="https://primefaces.org/cdn/primeng/images/layouts/poseidon-logo.svg" />
                                 <span>Poseidon</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/diamond-ng">
-                                <img alt="Diamond" src="assets/showcase/images/layouts/diamond-logo.png" />
+                                <img alt="Diamond" src="https://primefaces.org/cdn/primeng/images/layouts/diamond-logo.png" />
                                 <span>Diamond</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/mirage-ng">
-                                <img alt="Mirage" src="assets/showcase/images/layouts/mirage-logo.png" />
+                                <img alt="Mirage" src="https://primefaces.org/cdn/primeng/images/layouts/mirage-logo.png" />
                                 <span>Mirage</span><span class="theme-badge bootstrap">bootstrap</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/prestige-ng">
-                                <img alt="Prestige" src="assets/showcase/images/layouts/prestige-logo.png" />
+                                <img alt="Prestige" src="https://primefaces.org/cdn/primeng/images/layouts/prestige-logo.png" />
                                 <span>Prestige</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/sapphire-ng">
-                                <img alt="Sapphire" src="assets/showcase/images/layouts/sapphire-logo.png" />
+                                <img alt="Sapphire" src="https://primefaces.org/cdn/primeng/images/layouts/sapphire-logo.png" />
                                 <span>Sapphire</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/roma-ng">
-                                <img alt="Roma" src="assets/showcase/images/layouts/roma-logo.png" />
+                                <img alt="Roma" src="https://primefaces.org/cdn/primeng/images/layouts/roma-logo.png" />
                                 <span>Roma</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/babylon-ng">
-                                <img alt="Babylon" src="assets/showcase/images/layouts/babylon-logo.png" />
+                                <img alt="Babylon" src="https://primefaces.org/cdn/primeng/images/layouts/babylon-logo.png" />
                                 <span>Babylon</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/olympia-ng">
-                                <img alt="Olympia" src="assets/showcase/images/layouts/olympia-logo.png" />
+                                <img alt="Olympia" src="https://primefaces.org/cdn/primeng/images/layouts/olympia-logo.png" />
                                 <span>Olympia</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/california-ng">
-                                <img alt="California" src="assets/showcase/images/layouts/california-logo.png" />
+                                <img alt="California" src="https://primefaces.org/cdn/primeng/images/layouts/california-logo.png" />
                                 <span>California</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/ecuador-ng">
-                                <img alt="Ecuador" src="assets/showcase/images/layouts/ecuador-logo.png" />
+                                <img alt="Ecuador" src="https://primefaces.org/cdn/primeng/images/layouts/ecuador-logo.png" />
                                 <span>Ecuador</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/harmony-ng">
-                                <img alt="Harmony" src="assets/showcase/images/layouts/harmony-logo.png" />
+                                <img alt="Harmony" src="https://primefaces.org/cdn/primeng/images/layouts/harmony-logo.png" />
                                 <span>Harmony</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/serenity-ng">
-                                <img alt="Serenity" src="assets/showcase/images/layouts/serenity-logo.png" />
+                                <img alt="Serenity" src="https://primefaces.org/cdn/primeng/images/layouts/serenity-logo.png" />
                                 <span>Serenity</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/avalon-ng">
-                                <img alt="Avalon" src="assets/showcase/images/layouts/avalon-logo.png" />
+                                <img alt="Avalon" src="https://primefaces.org/cdn/primeng/images/layouts/avalon-logo.png" />
                                 <span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/manhattan-ng">
-                                <img alt="Manhattan" src="assets/showcase/images/layouts/manhattan-logo.png" />
+                                <img alt="Manhattan" src="https://primefaces.org/cdn/primeng/images/layouts/manhattan-logo.png" />
                                 <span>Manhattan</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/paradise-ng">
-                                <img alt="Paradise" src="assets/showcase/images/layouts/paradise-logo.png" />
+                                <img alt="Paradise" src="https://primefaces.org/cdn/primeng/images/layouts/paradise-logo.png" />
                                 <span>Paradise</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/barcelona-ng">
-                                <img alt="Barcelona" src="assets/showcase/images/layouts/barcelona-logo.png" />
+                                <img alt="Barcelona" src="https://primefaces.org/cdn/primeng/images/layouts/barcelona-logo.png" />
                                 <span>Barcelona</span><span class="theme-badge material">material</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/morpheus-ng">
-                                <img alt="Morpheus" src="assets/showcase/images/layouts/morpheus-logo.png" />
+                                <img alt="Morpheus" src="https://primefaces.org/cdn/primeng/images/layouts/morpheus-logo.png" />
                                 <span>Morpheus</span>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.primefaces.org/layouts/omega-ng">
-                                <img alt="Omega" src="assets/showcase/images/layouts/omega-logo.png" />
+                                <img alt="Omega" src="https://primefaces.org/cdn/primeng/images/layouts/omega-logo.png" />
                                 <span>Omega</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="topbar-submenu">
-                    <a tabindex="0" href="https://www.primefaces.org/primeblocks-ng/" target="_blank">Blocks</a>
+                    <a tabindex="0" href="https://blocks.primeng.org" target="_blank">Blocks</a>
                 </li>
                 <li class="topbar-submenu">
                     <a tabindex="0" (click)="toggleMenu($event, 3)">{{ versions ? versions[0].version : 'Latest' }}</a>
@@ -452,16 +452,15 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         'tailwind-light': 'tailwind-light.png'
     };
 
-    versions: any[];
+    versions: any[] = Versions;
 
     scrollListener: any;
 
-    constructor(private router: Router, private JsonService: JsonService, private configService: AppConfigService) {}
+    constructor(private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-        this.JsonService.getVersions().then((data) => (this.versions = data));
 
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {

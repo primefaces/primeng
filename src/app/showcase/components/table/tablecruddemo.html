@@ -54,7 +54,7 @@
                         <p-tableCheckbox [value]="product"></p-tableCheckbox>
                     </td>
                     <td>{{product.name}}</td>
-                    <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+                    <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                     <td>{{product.price | currency:'USD'}}</td>
                     <td>{{product.category}}</td>
                     <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
@@ -75,7 +75,7 @@
 
     <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
-            <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
+            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image">
             <div class="field">
                 <label for="name">Name</label>
                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
@@ -89,6 +89,9 @@
             <div class="field">
                 <label for="inventoryStatus">Inventory Status</label>
                 <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Select">
+                    <ng-template pTemplate="selectedItem">
+                        <span *ngIf="product && product.inventoryStatus" [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    </ng-template>
                     <ng-template let-option pTemplate="item">
                         <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
                     </ng-template>
@@ -196,7 +199,7 @@
                     &lt;p-tableCheckbox [value]="product"&gt;&lt;/p-tableCheckbox&gt;
                 &lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.name&#125;&#125;&lt;/td&gt;
-                &lt;td&gt;&lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /&gt;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.price | currency:'USD'&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&#123;&#123;product.category&#125;&#125;&lt;/td&gt;
                 &lt;td&gt;&lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;&lt;/td&gt;
@@ -217,7 +220,7 @@
 
 &lt;p-dialog [(visible)]="productDialog" [style]="&#123;width: '450px'&#125;" header="Product Details" [modal]="true" styleClass="p-fluid"&gt;
     &lt;ng-template pTemplate="content"&gt;
-        &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"&gt;
+        &lt;img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="product-image" *ngIf="product.image"&gt;
         &lt;div class="field"&gt;
             &lt;label for="name"&gt;Name&lt;/label&gt;
             &lt;input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus /&gt;

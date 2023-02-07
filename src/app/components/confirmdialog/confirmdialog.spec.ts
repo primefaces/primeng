@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ConfirmDialog } from './confirmdialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialog } from './confirmdialog';
 
 @Component({
     template: `<p-confirmDialog></p-confirmDialog>
@@ -157,6 +157,7 @@ describe('ConfirmDialog', () => {
 
         const confirmDialogEl = fixture.debugElement.query(By.css('.iui-dialog'));
         expect(confirmDialogEl).toBeFalsy();
+        flush();
     }));
 
     it('should close with esc', fakeAsync(() => {
@@ -173,5 +174,6 @@ describe('ConfirmDialog', () => {
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();
+        flush();
     }));
 });

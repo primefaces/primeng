@@ -40,6 +40,7 @@ const responsiveOptions: ResponsiveOverlayOptions = &#123;
     // breakpoint?: string;                             // Breakpoint required to show component in modal mode. Exp: '640px', '10rem' etc.
     // media?: string;                                  // Media query required to show component in modal mode. Exp: '@media screen and (max-width: 640px)', '@media screen and (min-width: 640px) and (max-width: 900px)' etc.
     // direction?: ResponsiveOverlayDirectionType;      // Direction in which the component will be displayed in modal mode.
+    // hideOnEscape?: boolean;                          // Hides overlay when escape key pressed.
 &#125;
 
 this.primengConfig.overlayOptions: OverlayOptions = &#123;
@@ -93,6 +94,9 @@ this.primengConfig.overlayOptions: OverlayOptions = &#123;
 
     <h6>BaseZIndex</h6>
     <p>The <i>baseZIndex</i> is base zIndex value to use in layering. Its default value is 0.</p>
+
+    <h6>HideOnEscape</h6>
+    <p>The <i>hideOnEscape</i> determines to hide the overlay when escape key pressed. Accepts boolean, default value is 'false'.</p>
 
     <h6>ShowTransitionOptions and HideTransitionOptions</h6>
     <p>Transition options of the show or hide animation. The default value of <i>showTransitionOptions</i> is '.12s cubic-bezier(0, 0, 0.2, 1)' and the default value of <i>hideTransitionOptions</i> is '.1s linear'.</p>

@@ -1,8 +1,8 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils';
 
 export interface TooltipOptions {
     tooltipLabel?: string;
@@ -19,6 +19,7 @@ export interface TooltipOptions {
     positionTop?: number;
     positionLeft?: number;
     life?: number;
+    autoHide?: boolean;
 }
 
 @Directive({
@@ -52,6 +53,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() positionLeft: number;
 
+    @Input() autoHide: boolean = true;
+
     @Input() fitContent: boolean = true;
 
     @Input('pTooltip') text: string;
@@ -73,7 +76,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         tooltipZIndex: 'auto',
         escape: true,
         positionTop: 0,
-        positionLeft: 0
+        positionLeft: 0,
+        autoHide: true
     };
 
     _disabled: boolean;
@@ -94,6 +98,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     mouseLeaveListener: Function;
 
+    containerMouseleaveListener: Function;
+
     clickListener: Function;
 
     focusListener: Function;
@@ -104,17 +110,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
             if (this.getOption('tooltipEvent') === 'hover') {
                 this.mouseEnterListener = this.onMouseEnter.bind(this);
                 this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onClick.bind(this);
+                this.clickListener = this.onInputClick.bind(this);
                 this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
                 this.el.nativeElement.addEventListener('click', this.clickListener);
+                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
             } else if (this.getOption('tooltipEvent') === 'focus') {
                 this.focusListener = this.onFocus.bind(this);
                 this.blurListener = this.onBlur.bind(this);
@@ -196,6 +202,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             }
         }
 
+        if (simpleChange.autoHide) {
+            this.setOption({ autoHide: simpleChange.autoHide.currentValue });
+        }
+
         if (simpleChange.tooltipOptions) {
             this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
             this.deactivate();
@@ -215,14 +225,23 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
+    isAutoHide(): boolean {
+        return this.getOption('autoHide');
+    }
+
     onMouseEnter(e: Event) {
         if (!this.container && !this.showTimeout) {
             this.activate();
         }
     }
 
-    onMouseLeave(e: Event) {
-        this.deactivate();
+    onMouseLeave(e) {
+        if (!this.isAutoHide()) {
+            const valid = DomHandler.hasClass(e.toElement, 'p-tooltip') || DomHandler.hasClass(e.toElement, 'p-tooltip-arrow') || DomHandler.hasClass(e.toElement, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
+            !valid && this.deactivate();
+        } else {
+            this.deactivate();
+        }
     }
 
     onFocus(e: Event) {
@@ -233,7 +252,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    onClick(e: Event) {
+    onInputClick(e: Event) {
         this.deactivate();
     }
 
@@ -300,6 +319,27 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         if (this.fitContent) {
             this.container.style.width = 'fit-content';
+        }
+
+        if (!this.isAutoHide()) {
+            this.bindContainerMouseleaveListener();
+        }
+    }
+
+    bindContainerMouseleaveListener() {
+        if (!this.containerMouseleaveListener) {
+            const targetEl: any = this.container ?? this.container.nativeElement;
+
+            this.containerMouseleaveListener = this.renderer.listen(targetEl, 'mouseleave', (e) => {
+                this.deactivate();
+            });
+        }
+    }
+
+    unbindContainerMouseleaveListener() {
+        if (this.containerMouseleaveListener) {
+            this.bindContainerMouseleaveListener();
+            this.containerMouseleaveListener = null;
         }
     }
 
@@ -539,6 +579,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
+        this.unbindContainerMouseleaveListener();
         this.clearTimeouts();
         this.container = null;
         this.scrollHandler = null;

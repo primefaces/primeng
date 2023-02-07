@@ -17,7 +17,7 @@
             [optionGroupChildren]="['states', 'cities']" [style]="{'minWidth': '14rem'}" placeholder="Select a City">
             <ng-template pTemplate="option" let-option>
                 <div class="country-item">
-                    <img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/>
+                    <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/>
                     <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                     <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
                     <span>{{option.cname || option.name}}</span>
@@ -135,7 +135,7 @@ ngOnInit() &#123;
     [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;" placeholder="Select a City"&gt;
     &lt;ng-template pTemplate="option" let-option&gt;
         &lt;div class="country-item"&gt;
-            &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
+            &lt;img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
             &lt;i class="pi pi-compass mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
             &lt;i class="pi pi-map-marker mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
             &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;
@@ -426,7 +426,7 @@ ngOnInit() &#123;
     [optionGroupChildren]="['states', 'cities']" [style]="&#123;'minWidth': '14rem'&#125;" placeholder="Select a City"&gt;
     &lt;ng-template pTemplate="option" let-option&gt;
         &lt;div class="country-item"&gt;
-            &lt;img *ngIf="option.states" src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
+            &lt;img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()"/&gt;
             &lt;i class="pi pi-compass mr-2" *ngIf="option.cities"&gt;&lt;/i&gt;
             &lt;i class="pi pi-map-marker mr-2" *ngIf="option.cname"&gt;&lt;/i&gt;
             &lt;span&gt;&#123;&#123;option.cname || option.name&#125;&#125;&lt;/span&gt;

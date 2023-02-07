@@ -12,7 +12,7 @@
             <ng-template let-product pTemplate="item">
                 <div class="product-item">
                     <div class="image-container">
-                            <img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" />
                     </div>
                     <div class="product-list-detail">
                         <h5 class="mb-2">{{product.name}}</h5>
@@ -50,7 +50,7 @@ import &#123;OrderListModule&#125; from 'primeng/orderlist';
 &lt;p-orderList [value]="cars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;img src="https://primefaces.org/cdn/primeng/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -78,7 +78,7 @@ export class MyComponent &#123;
 &lt;p-orderList [value]="cars" [(selection)]="selectedCars"&gt;
     &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div&gt;
-            &lt;img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
+            &lt;img src="https://primefaces.org/cdn/primeng/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"&gt;
             &lt;div style="font-size:14px;float:right;margin:15px 5px 0 0"&gt;{{car.brand}} - {{car.year}} - {{car.color}}&lt;/div&gt;
         &lt;/div&gt;
     &lt;/ng-template&gt;
@@ -402,7 +402,7 @@ export class MyComponent &#123;
     &lt;ng-template let-product pTemplate="item"&gt;
         &lt;div class="product-item"&gt;
             &lt;div class="image-container"&gt;
-                    &lt;img src="assets/showcase/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
+                    &lt;img src="https://primefaces.org/cdn/primeng/images/demo/product/&#123;&#123;product.image&#125;&#125;" [alt]="product.name" class="product-image" /&gt;
             &lt;/div&gt;
             &lt;div class="product-list-detail"&gt;
                 &lt;h5 class="mb-2"&gt;&#123;&#123;product.name&#125;&#125;&lt;/h5&gt;

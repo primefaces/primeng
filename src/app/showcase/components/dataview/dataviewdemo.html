@@ -23,7 +23,7 @@
             <ng-template let-product pTemplate="listItem">
                 <div class="col-12">
                     <div class="product-list-item">
-                        <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name"/>
                         <div class="product-list-detail">
                             <div class="product-name">{{product.name}}</div>
                             <div class="product-description">{{product.description}}</div>
@@ -49,7 +49,7 @@
                             <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
                         </div>
                         <div class="product-grid-item-content">
-                            <img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/>
+                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name"/>
                             <div class="product-name">{{product.name}}</div>
                             <div class="product-description">{{product.description}}</div>
                             <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
@@ -491,6 +491,12 @@ export class DataViewSortDemo implements OnInit &#123;
                             <td>Style class of the component.</td>
                         </tr>
                         <tr>
+                            <td>gridStyleClass</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Style class of the grid.</td>
+                        </tr>
+                        <tr>
                             <td>trackBy</td>
                             <td>Function</td>
                             <td>null</td>
@@ -684,7 +690,7 @@ export class DataViewSortDemo implements OnInit &#123;
         &lt;ng-template let-product pTemplate="listItem"&gt;
             &lt;div class="col-12"&gt;
                 &lt;div class="product-list-item"&gt;
-                    &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
+                    &lt;img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name"/&gt;
                     &lt;div class="product-list-detail"&gt;
                         &lt;div class="product-name"&gt;&#123;&#123;product.name&#125;&#125;&lt;/div&gt;
                         &lt;div class="product-description"&gt;&#123;&#123;product.description&#125;&#125;&lt;/div&gt;
@@ -710,7 +716,7 @@ export class DataViewSortDemo implements OnInit &#123;
                         &lt;span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()"&gt;&#123;&#123;product.inventoryStatus&#125;&#125;&lt;/span&gt;
                     &lt;/div&gt;
                     &lt;div class="product-grid-item-content"&gt;
-                        &lt;img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name"/&gt;
+                        &lt;img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name"/&gt;
                         &lt;div class="product-name"&gt;&#123;&#123;product.name&#125;&#125;&lt;/div&gt;
                         &lt;div class="product-description"&gt;&#123;&#123;product.description&#125;&#125;&lt;/div&gt;
                         &lt;p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"&gt;&lt;/p-rating&gt;

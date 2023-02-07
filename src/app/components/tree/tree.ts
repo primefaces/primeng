@@ -64,7 +64,7 @@ import { Subscription } from 'rxjs';
                     [attr.aria-expanded]="this.node.expanded"
                     [attr.aria-selected]="isSelected()"
                     [attr.aria-label]="node.label"
-                    [attr.data-id]="node.data"
+                    [attr.data-id]="node.key"
                 >
                     <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <span class="p-tree-toggler-icon pi pi-fw" [ngClass]="{ 'pi-chevron-right': !node.expanded, 'pi-chevron-down': node.expanded }"></span>
@@ -555,7 +555,7 @@ export class UITreeNode implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = DomHandler.findSingle(document.body, `[data-id="${this.node.data}"]`);
+            let node = DomHandler.findSingle(document.body, `[data-id="${this.node.key ?? this.node.data}"]`);
             DomHandler.focus(node);
         }, 1);
     }
@@ -589,7 +589,8 @@ export class UITreeNode implements OnInit {
                 [items]="serializedValue"
                 [tabindex]="-1"
                 styleClass="p-tree-wrapper"
-                [style]="{ height: scrollHeight }"
+                [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
+                [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
                 [itemSize]="virtualScrollItemSize || _virtualNodeHeight"
                 [lazy]="lazy"
                 (onScroll)="onScroll.emit($event)"
@@ -1246,11 +1247,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         if (dropScope) {
             if (typeof dropScope === 'string') {
                 if (typeof dragScope === 'string') return dropScope === dragScope;
-                else if (dragScope instanceof Array) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            } else if (dropScope instanceof Array) {
+                else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
+            } else if (Array.isArray(dropScope)) {
                 if (typeof dragScope === 'string') {
                     return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                } else if (dragScope instanceof Array) {
+                } else if (Array.isArray(dragScope)) {
                     for (let s of dropScope) {
                         for (let ds of dragScope) {
                             if (s === ds) {
