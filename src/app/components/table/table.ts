@@ -724,6 +724,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (this.isStateful() && this.resizableColumns) {
             this.restoreColumnWidths();
         }
+        if (this.scrollHeight && this.scrollable) {
+            this.registerResizeListener();
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -1396,7 +1399,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !== undefined;
             } else {
-                if (Array.isArray(this.selection)) return this.findIndexInSelection(rowData) > -1;
+                if (this.selection instanceof Array) return this.findIndexInSelection(rowData) > -1;
                 else return this.equals(rowData, this.selection);
             }
         }
@@ -1543,7 +1546,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isFilterBlank(filter: any): boolean {
         if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (Array.isArray(filter) && filter.length == 0)) return true;
+            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0)) return true;
             else return false;
         }
         return true;
@@ -2472,9 +2475,385 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.editingCell = null;
         this.initialized = null;
 
+        this.unregisterResizeListener();
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
     }
+     // ---------------------------scroll-monitor---------------------------
+     _SIZING_ERROR_MARGIN = 0.05;
+     cssClasses = {
+         _TABLE_SCROLL_VERTICAL_CLASS: 'p-datatable-scroll-vertical',
+         _TABLE_SCROLL_HORIZONTAL_CLASS: 'p-datatable-scroll-horizontal',
+         _TABLE_STUCK_ROW_CLASS: 'p-datatable-stuck-row'
+     };
+     cssProp = {
+         _DISPLAY: 'display',
+         _VISIBILITY: 'visibility',
+         _POSITION: 'position',
+         _HEIGHT: 'height',
+         _WIDTH: 'width',
+         _TOP: 'top',
+         _BOTTOM: 'bottom',
+         _LEFT: 'left',
+         _RIGHT: 'right',
+         _PADDING_TOP: 'padding-top',
+         _PADDING_BOTTOM: 'padding-bottom',
+         _PADDING_LEFT: 'padding-left',
+         _PADDING_RIGHT: 'padding-right',
+         _OVERFLOW: 'overflow',
+         _OVERFLOW_X: 'overflow-x',
+         _OVERFLOW_Y: 'overflow-y',
+         _MIN_WIDTH: 'min-width',
+         _MAX_WIDTH: 'max-width',
+         _MIN_HEIGHT: 'min-height',
+         _FLOAT: 'float',
+         _BORDER_TOP: 'border-top',
+         _BORDER_TOP_WIDTH: 'border-top-width',
+         _BORDER_BOTTOM_WIDTH: 'border-bottom-width',
+         _BORDER_LEFT_WIDTH: 'border-left-width',
+         _BORDER_RIGHT_WIDTH: 'border-right-width',
+         _BORDER_COLOR: 'border-color',
+         _MARGIN_BOTTOM: 'margin-bottom',
+         _VERTICAL_ALIGN: 'vertical-align',
+         _CURSOR: 'cursor',
+         _ZINDEX: 'z-index',
+         _BACKGROUND_COLOR: 'background-color',
+         _BOX_SIZING: 'box-sizing'
+     };
+     sizingState: {
+         outerWidth: number;
+         outerHeight: number;
+         hasHorizontalOverflow: boolean;
+         hasVerticalOverflow: boolean;
+     };
+     defaultScrollBarSize: any;
+     resizeListener: any;
+ 
+ 
+     /**
+     * Register event listeners for resize the container DOM element.
+     */
+     registerResizeListener() {
+         if (this.resizeListener == null) {
+             this.resizeListener = (dimensions: number[]) => {
+                 let containerStyle = window.getComputedStyle(this.el.nativeElement);
+                 // Check if the width and height values should result in a sizing refresh
+                 if (this.isSizingRefreshRequired(this.getExactOffsetWidth(containerStyle), this.getExactOffsetHeight(containerStyle))) {
+                     this.refreshTableDimensions();
+                 }
+             }
+         }
+         ResizeUtils.addResizeListener(this.el.nativeElement, this.resizeListener, 100, true);
+     };
+ 
+     unregisterResizeListener() {
+         ResizeUtils.removeResizeListener(this.el.nativeElement, this.resizeListener);
+     };
+ 
+     isSizingRefreshRequired(width: number, height: number) {
+         if (width != null && height != null) {
+             // When a width and height are supplied, we need to ensure they are both non-zero,
+             // and also that they are not the same as our cached values (if available).
+             let sizingState = this.getSizingState();
+             return (width > 0 && height > 0 &&
+                 (width !== sizingState.outerWidth ||
+                     height !== sizingState.outerHeight));
+         }
+         //  Otherwise, we only need to ensure the tableContainer's size is non-zero.
+         return this.hasRenderedSize();
+     };
+ 
+     /**
+      * Determines if the Table has a 'real' size (and can be scrolled, frozen, etc...)
+      */
+     hasRenderedSize() {
+         let tableContainer = this.el.nativeElement;
+         return tableContainer.offsetWidth > 0 && tableContainer.offsetHeight > 0;
+     };
+ 
+     getScroller(): HTMLElement {
+         return this.el.nativeElement.querySelector('.p-datatable-wrapper');
+     }
+ 
+     getTableHeader(): HTMLElement {
+         return this.el.nativeElement.querySelector('.p-datatable-thead');
+     }
+ 
+     getTableFooter(): HTMLElement {
+         return this.el.nativeElement.querySelector('.p-datatable-tfoot');
+     }
+ 
+     getTable(): HTMLElement {
+         return this.el.nativeElement.querySelector('table');
+     }
+ 
+     // TODO: fix this class name
+     getTableBodyStickyRows(): HTMLElement[] {
+         return this.el.nativeElement.querySelectorAll('.fix-this-here');
+     }
+ 
+     scrollRowIntoViewport(tableBodyRow: HTMLElement) {
+         let scrollingElement = this.wrapperViewChild.nativeElement;
+         let vertOverflowDiff = this.getVerticalOverflowDiff(tableBodyRow);
+ 
+         let topOverflowDiff = vertOverflowDiff.top;
+         let hasTopOverflow = topOverflowDiff >= 0;
+         let bottomOverflowDiff = vertOverflowDiff.bottom;
+         let hasBottomOverflow = bottomOverflowDiff >= 0;
+ 
+         // don't adjust scroll position if row has overflow in both directions
+         if (hasTopOverflow && hasBottomOverflow) {
+             return;
+         }
+         // if row fits fully in viewport, scroll overflow side into view
+         // otherwise, scroll the shortest amount to fill viewport with row
+         if (hasBottomOverflow) {
+             if (Math.abs(topOverflowDiff) > Math.abs(bottomOverflowDiff)) {
+                 scrollingElement.scrollTop = scrollingElement.scrollTop + bottomOverflowDiff;
+             } else {
+                 scrollingElement.scrollTop = scrollingElement.scrollTop - topOverflowDiff;
+             }
+         } else if (hasTopOverflow) {
+             if (Math.abs(bottomOverflowDiff) > Math.abs(topOverflowDiff)) {
+                 scrollingElement.scrollTop = scrollingElement.scrollTop - topOverflowDiff;
+             } else {
+                 scrollingElement.scrollTop = scrollingElement.scrollTop + bottomOverflowDiff;
+             }
+         }
+     };
+ 
+     getVerticalOverflowDiff(tableBodyRow: HTMLElement) {
+         let scrollerTop: number;
+         let scrollerBottom: number;
+         let scrollerTopOffset: number;
+         let scrollerBottomOffset: number;
+ 
+         let rowRect = tableBodyRow.getBoundingClientRect();
+ 
+         scrollerTopOffset = 0;
+         scrollerBottomOffset = 0;
+ 
+         let header = this.tableHeaderViewChild?.nativeElement;
+         if (header != null) {
+             scrollerTopOffset += header.offsetHeight;
+         }
+ 
+         let footer = this.tableFooterViewChild?.nativeElement;
+         if (footer != null) {
+             scrollerBottomOffset += footer.offsetHeight;
+         }
+ 
+         let stickyRows = this.getTableBodyStickyRows();
+         for (let i = stickyRows.length - 1; i >= 0; i--) {
+             let stickyRow = stickyRows[i];
+             if (stickyRow === tableBodyRow) {
+                 break;
+             }
+             if (stickyRow.classList.contains(this.cssClasses._TABLE_STUCK_ROW_CLASS)) {
+                 scrollerTopOffset += stickyRow.offsetHeight;
+                 break;
+             }
+         }
+ 
+         let scrollBarHeight = this.getScrollBarHeight();
+         let scrollingElementRect = this.wrapperViewChild.nativeElement.getBoundingClientRect();
+ 
+         scrollerTop = scrollingElementRect.top;
+         scrollerBottom = scrollingElementRect.bottom - scrollBarHeight;
+ 
+         let vertDiff = {
+             top: (scrollerTop + scrollerTopOffset) - rowRect.top,
+             bottom: (rowRect.bottom - scrollerBottom + scrollerBottomOffset)
+         };
+         return vertDiff;
+     };
+ 
+     getScrollBarHeight() {
+         return this.isTableWidthConstrained() ? this.getDefaultScrollBarSize() : 0;
+     };
+     /**
+     * Returns the default scrollbar size for the table when visible
+     */
+     getDefaultScrollBarSize() {
+         // cache browser scroll bar width for future sizing of table body element
+         if (this.defaultScrollBarSize == null) {
+             this.defaultScrollBarSize = this.getDefaultScrollBarWidth(this.wrapperViewChild.nativeElement);
+         }
+         return this.defaultScrollBarSize;
+     };
+ 
+     isTableWidthConstrained() {
+         return this.getSizingState().hasHorizontalOverflow;
+     };
+ 
+     getSizingState() {
+         if (this.sizingState == null) {
+             this.sizingState = {
+                 outerWidth: null,
+                 outerHeight: null,
+                 hasHorizontalOverflow: false,
+                 hasVerticalOverflow: false
+             };
+         }
+         return this.sizingState;
+     };
+ 
+     getDefaultScrollBarWidth(element: HTMLElement) {
+         let scrollBarWidth: number;
+         if (element && element.style) {
+             // save current styling to ensure it is restored once completed
+             let visibility = element.style.visibility;
+             let position = element.style.position;
+             let overflowY = element.style.overflowY;
+             let height = element.style.height;
+             let width = element.style.width;
+ 
+             /* eslint-disable no-param-reassign */
+             element.style.visibility = 'hidden';
+             element.style.position = 'absolute';
+             element.style.overflowY = 'hidden';
+             element.style.height = '50px';
+             element.style.width = '50px';
+ 
+             // since offsetWidth includes padding and borders that clientWidth does not,
+             // first save the initial difference when overflow is hidden to use below
+             let initialDiff = element.offsetWidth - element.clientWidth;
+ 
+             // set overflow to 'scroll', and then find the difference in offsetWidth and clientWidth
+             // compared to the initial difference found above
+             element.style.overflowY = 'scroll';
+             scrollBarWidth = element.offsetWidth - element.clientWidth - initialDiff;
+ 
+             element.style.width = width;
+             element.style.height = height;
+             element.style.overflowY = overflowY;
+             element.style.position = position;
+             element.style.visibility = visibility;
+         }
+         return scrollBarWidth;
+     };
+ 
+     refreshTableDimensions() {
+         let sizingState = this.getSizingState();
+         let tableContainerScrollableState =
+             this.getTableContainerScrollableState();
+         if (tableContainerScrollableState[0] === 1) {
+             sizingState.hasVerticalOverflow = true;
+             this.el.nativeElement.classList.add(this.cssClasses._TABLE_SCROLL_VERTICAL_CLASS);
+         } else {
+             sizingState.hasVerticalOverflow = false;
+         }
+         if (tableContainerScrollableState[1] === 1) {
+             sizingState.hasHorizontalOverflow = true;
+             this.el.nativeElement.classList.add(this.cssClasses._TABLE_SCROLL_HORIZONTAL_CLASS);
+         } else {
+             sizingState.hasHorizontalOverflow = false;
+         }
+ 
+         this.finalizeTableDimensions();
+     };
+ 
+     finalizeTableDimensions() {
+         // cache the final dimensions
+         let sizingState = this.getSizingState();
+         let containerStyle = window.getComputedStyle(this.el.nativeElement);
+         sizingState.outerWidth = this.getExactOffsetWidth(containerStyle);
+         sizingState.outerHeight = this.getExactOffsetHeight(containerStyle);
+     };
+ 
+     /**
+      * Returns an array describing the table container's scrollable state.
+      * Index 0 describes the vertical state, while index 1 describeds the horizontal state.
+      * Overflow is a 1, underflow is a -1, and properly filled is a 0.
+      */
+     getTableContainerScrollableState() {
+         // clientHeight and clientWidth do not include partial px values, so computed style should be used
+         let containerStyle = window.getComputedStyle(this.el.nativeElement);
+         let containerClientHeight = this.getExactClientHeight(containerStyle);
+         let containerClientWidth = this.getExactClientWidth(containerStyle);
+ 
+         // offsetHeight and offsetWidth do not include partial px values, so computed style should be used
+         let tableElemStyle = window.getComputedStyle(this.tableViewChild.nativeElement);
+         let tableElemHeight = this.getExactOffsetHeight(tableElemStyle);
+         let tableElemWidth = this.getExactOffsetWidth(tableElemStyle);
+ 
+         let result = [];
+         if (containerClientHeight > 0) {
+             let innerHeight = tableElemHeight;
+             if (innerHeight - containerClientHeight > this._SIZING_ERROR_MARGIN) {
+                 // overflow
+                 result[0] = 1;
+             } else if (containerClientHeight - innerHeight > this._SIZING_ERROR_MARGIN) {
+                 // underflow
+                 result[0] = -1;
+             } else {
+                 result[0] = 0;
+             }
+         } else {
+             result[0] = 0;
+         }
+ 
+         if (containerClientWidth > 0) {
+             if (tableElemWidth - containerClientWidth > this._SIZING_ERROR_MARGIN) {
+                 // overflow
+                 result[1] = 1;
+             } else if (containerClientWidth - tableElemWidth > this._SIZING_ERROR_MARGIN) {
+                 // underflow
+                 result[1] = -1;
+             } else {
+                 result[1] = 0;
+             }
+         } else {
+             result[1] = 0;
+         }
+         return result;
+     };
+ 
+     getExactClientHeight(computedStyle: { [key: string]: any }) {
+         let boxStyle = this.getBoxStyle(computedStyle, true);
+         let height = parseFloat(computedStyle[this.cssProp._HEIGHT]) - boxStyle.borderWidth - boxStyle.paddingWidth;
+         return Math.round((height + Number.EPSILON) * 1000) / 1000;
+     };
+ 
+     getExactClientWidth(computedStyle: { [key: string]: any }) {
+         let boxStyle = this.getBoxStyle(computedStyle, false);
+         let width = parseFloat(computedStyle[this.cssProp._WIDTH]) - boxStyle.borderWidth - boxStyle.paddingWidth;
+         return Math.round((width + Number.EPSILON) * 1000) / 1000;
+     };
+ 
+     getExactOffsetHeight(computedStyle: { [key: string]: any }) {
+         let height = parseFloat(computedStyle[this.cssProp._HEIGHT]);
+         return Math.round((height + Number.EPSILON) * 1000) / 1000;
+     };
+ 
+     getExactOffsetWidth(computedStyle: { [key: string]: any }) {
+         let width = parseFloat(computedStyle[this.cssProp._WIDTH]);
+         return Math.round((width + Number.EPSILON) * 1000) / 1000;
+     };
+ 
+     /**
+     * Get style related to box width of an element
+     * @param {Object} style - the style of an element
+     * @return {Object} An object with boxSizing, borderWidth, and paddingWidth properties
+     */
+     getBoxStyle(style: { [key: string]: any }, isVert: boolean) {
+         if (isVert) {
+             return {
+                 boxSizing: style[this.cssProp._BOX_SIZING],
+                 borderWidth: (parseFloat(style[this.cssProp._BORDER_TOP_WIDTH]) || 0) +
+                     (parseFloat(style[this.cssProp._BORDER_BOTTOM_WIDTH]) || 0),
+                 paddingWidth: (parseFloat(style[this.cssProp._PADDING_TOP]) || 0) +
+                     (parseFloat(style[this.cssProp._PADDING_BOTTOM]) || 0)
+             };
+         }
+         return {
+             boxSizing: style[this.cssProp._BOX_SIZING],
+             borderWidth: (parseFloat(style[this.cssProp._BORDER_RIGHT_WIDTH]) || 0) +
+                 (parseFloat(style[this.cssProp._BORDER_LEFT_WIDTH]) || 0),
+             paddingWidth: (parseFloat(style[this.cssProp._PADDING_RIGHT]) || 0) +
+                 (parseFloat(style[this.cssProp._PADDING_LEFT]) || 0)
+         };
+     };
 }
 
 @Component({
@@ -2599,7 +2978,6 @@ export class TableBody implements AfterViewInit, OnDestroy {
         if (this.frozenRows) {
             this.updateFrozenRowStickyPosition();
         }
-
         if (this.dt.scrollable && this.dt.rowGroupMode === 'subheader') {
             this.updateFrozenRowGroupHeaderStickyPosition();
         }
@@ -2924,16 +3302,15 @@ export class SortIcon implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[pSelectableRow]',
     host: {
         class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
-        '[class.p-highlight]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+        '[class.p-highlight]': 'selected'
     }
 })
-export class SelectableRow implements OnInit, OnDestroy {
-    @Input('pSelectableRow') data: any;
+export class SelectableBaseClass implements OnInit, OnDestroy {
+
+    data: any;
 
     @Input('pSelectableRowIndex') index: number;
 
@@ -2941,21 +3318,72 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     selected: boolean;
 
-    subscription: Subscription;
-
-    constructor(public dt: Table, public tableService: TableService) {
-        if (this.isEnabled()) {
-            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dt.isSelected(this.data);
-            });
-        }
-    }
+    subscription = new Subscription();
 
     ngOnInit() {
         if (this.isEnabled()) {
             this.selected = this.dt.isSelected(this.data);
         }
     }
+
+    constructor(public dt: Table, public tableService: TableService, public el: ElementRef) {
+        if (this.isEnabled()) {
+            this.subscription.add(
+                this.dt.tableService.selectionSource$.subscribe(() => {
+                    this.selected = this.dt.isSelected(this.data);
+                })
+            );
+        }
+    }
+
+    @HostListener('focus', ['$event'])
+    changeScroll(event: any) {
+        if (this.dt.scrollHeight && this.dt.scrollable) {
+            this.dt.scrollRowIntoViewport(event.currentTarget);
+        }
+    }
+    
+    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
+        if (nextRow) {
+            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            else return this.findNextSelectableRow(nextRow);
+        } else {
+            return null;
+        }
+    }
+
+    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
+        if (prevRow) {
+            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            else return this.findPrevSelectableRow(prevRow);
+        } else {
+            return null;
+        }
+    }
+
+    isEnabled() {
+        return this.pSelectableRowDisabled !== true;
+    }
+
+    focusElement() {
+        this.el.nativeElement.focus();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+}
+
+@Directive({
+    selector: '[pSelectableRow]',
+    host: {
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+    }
+})
+export class SelectableRow extends SelectableBaseClass {
+    @Input('pSelectableRow') override data: any;
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -3039,69 +3467,13 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
-        if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
-            else return this.findNextSelectableRow(nextRow);
-        } else {
-            return null;
-        }
-    }
-
-    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
-        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
-        if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
-            else return this.findPrevSelectableRow(prevRow);
-        } else {
-            return null;
-        }
-    }
-
-    isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
-    selector: '[pSelectableRowDblClick]',
-    host: {
-        class: 'p-element',
-        '[class.p-selectable-row]': 'isEnabled()',
-        '[class.p-highlight]': 'selected'
-    }
+    selector: '[pSelectableRowDblClick]'
 })
-export class SelectableRowDblClick implements OnInit, OnDestroy {
-    @Input('pSelectableRowDblClick') data: any;
-
-    @Input('pSelectableRowIndex') index: number;
-
-    @Input() pSelectableRowDisabled: boolean;
-
-    selected: boolean;
-
-    subscription: Subscription;
-
-    constructor(public dt: Table, public tableService: TableService) {
-        if (this.isEnabled()) {
-            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-                this.selected = this.dt.isSelected(this.data);
-            });
-        }
-    }
-
-    ngOnInit() {
-        if (this.isEnabled()) {
-            this.selected = this.dt.isSelected(this.data);
-        }
-    }
+export class SelectableRowDblClick extends SelectableBaseClass {
+    @Input('pSelectableRowDblClick') override data: any;
 
     @HostListener('dblclick', ['$event'])
     onClick(event: Event) {
@@ -3114,15 +3486,6 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
         }
     }
 
-    isEnabled() {
-        return this.pSelectableRowDisabled !== true;
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -3832,9 +4195,9 @@ export class CellEditor implements AfterContentInit {
 @Component({
     selector: 'p-tableRadioButton',
     template: `
-        <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
+        <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
+                <input type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
             </div>
             <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="radio" [attr.aria-checked]="checked">
                 <div class="p-radiobutton-icon"></div>
@@ -3860,15 +4223,13 @@ export class TableRadioButton {
 
     @Input() ariaLabel: string;
 
-    @ViewChild('rb') inputViewChild: ElementRef;
-
     checked: boolean;
 
     focused: boolean;
 
     subscription: Subscription;
 
-    constructor(public dt: Table, public cd: ChangeDetectorRef) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
             this.cd.markForCheck();
@@ -3888,8 +4249,6 @@ export class TableRadioButton {
                 },
                 this.value
             );
-
-            this.inputViewChild.nativeElement?.focus();
         }
         DomHandler.clearSelection();
     }
@@ -4949,6 +5308,313 @@ export class ColumnFilterFormElement implements OnInit {
             event.preventDefault();
         }
     }
+}
+
+export class CollapsingListenerManager {
+
+    lastArgs: number[] = [];
+    timerId: any;
+
+    constructor(private originalCallback: any, private timeout: number) { }
+
+    timerCallback() {
+        this.originalCallback.apply(null, this.lastArgs);
+        this.timerId = null;
+    }
+
+    callback(width: number, height: number) {
+        this.lastArgs = Array.prototype.slice.call(arguments);
+        if (this.timerId == null) {
+            this.timerId = window.setTimeout(this.timerCallback.bind(this), this.timeout);
+        }
+    }
+
+    stop() {
+        if (this.timerId != null) {
+            window.clearTimeout(this.timerId);
+            this.timerId = null;
+        }
+    }
+}
+
+export class ResizeTracker {
+
+    listeners = new Map<number, any>();
+    collapsingManagers: CollapsingListenerManager[] = [];
+    collapsingListeners: any[] = [];
+    _RETRY_MAX_COUNT = 2;
+    retrySetScroll = 0;
+    invokeId: any;
+    oldWidth: number
+    oldHeight: number
+    detectExpansion: HTMLElement;
+    detectContraction: HTMLElement;
+    scrollListener: any;
+    resizeObserver: ResizeObserver;
+    styleElement: any;
+
+    constructor(private div: HTMLElement, private useResizeObserver: boolean) { }
+
+    addListener(listener: any, collapseEventTimeout: number) {
+        if (collapseEventTimeout === undefined || isNaN(collapseEventTimeout) || collapseEventTimeout === 0) {
+            this.listeners.set(this.listeners.size, listener);
+        } else {
+            this.collapsingManagers.push(
+                new CollapsingListenerManager(
+                    listener,
+                    collapseEventTimeout
+                ));
+            this.collapsingListeners.push(listener);
+        }
+    };
+
+    removeListener(listener: any) {
+        let index = this.collapsingListeners.indexOf(listener);
+        if (index >= 0) {
+            this.collapsingListeners.splice(index, 1);
+            let removed = this.collapsingManagers.splice(index, 1);
+            removed[0].stop();
+        } else {
+            this.listeners.forEach((val, key) => {
+                if (val == listener) {
+                    this.listeners.delete(key);
+                }
+            })
+        }
+    };
+
+    isEmpty() {
+        return this.listeners.size === 0 && this.collapsingListeners.length === 0;
+    };
+
+    start() {
+        if (this.useResizeObserver && window.ResizeObserver instanceof Function) {
+            this.resizeObserver = new ResizeObserver(this.resizeObserverCallback.bind(this));
+            this.resizeObserver.observe(this.div, { box: 'border-box' });
+        } else {
+            this.scrollListener = this.handleScroll;
+            let firstChild = this.div.childNodes[0];
+            // This child DIV will track expansion events. It is meant to be 1px taller and wider than the DIV
+            // whose resize events we are tracking. After we set its scrollTop and scrollLeft to 1, any increate in size
+            // will fire a scroll event
+            this.detectExpansion = document.createElement('div');
+            this.detectExpansion.className = 'p-helper-detect-expansion';
+            let expansionChild = document.createElement('div');
+            this.detectExpansion.appendChild(expansionChild); // @HTMLUpdateOK expansionChild constructed by the code above
+
+            if (firstChild != null) {
+                this.div.insertBefore(this.detectExpansion, firstChild);// @HTMLUpdateOK detectExpansion constructed by the code above
+            } else {
+                this.div.appendChild(this.detectExpansion);// @HTMLUpdateOK detectExpansion constructed by the code above
+            }
+
+            this.detectExpansion.addEventListener('scroll', this.scrollListener.bind(this), false);
+            // This child DIV will track contraction events. Its height and width are set to 200%. After we set its scrollTop and
+            // scrollLeft to the current height and width of its parent, any decrease in size will fire a scroll event
+            this.detectContraction = document.createElement('div');
+            this.detectContraction.className = 'p-helper-detect-contraction';
+
+            let contractionChild = document.createElement('div');
+            contractionChild.style.width = '200%';
+            contractionChild.style.height = '200%';
+            this.detectContraction.appendChild(contractionChild); // @HTMLUpdateOK contractionChild constructed by the code above
+            this.div.insertBefore(this.detectContraction, this.detectExpansion); // @HTMLUpdateOK detectContraction constructed by the code above
+
+            this.detectContraction.addEventListener('scroll', this.scrollListener.bind(this), false);
+            this.createStyleElement();
+            this.init(false);
+        }
+    };
+
+    stop() {
+        if (this.invokeId != null) {
+            clearTimeout(this.invokeId);
+            this.invokeId = null;
+        }
+        if (this.resizeObserver != null) {
+            this.resizeObserver.disconnect();
+            this.resizeObserver = null;
+        } else if (this.detectExpansion != null) {
+            this.detectExpansion.removeEventListener('scroll', this.scrollListener);
+            this.detectContraction.removeEventListener('scroll', this.scrollListener);
+            // Check before removing to prevent CustomElement polyfill from throwing
+            // a NotFoundError when removeChild is called with an element not in the DOM
+            if (this.detectExpansion.parentNode) {
+                this.div.removeChild(this.detectExpansion);
+            }
+            if (this.detectContraction.parentNode) {
+                this.div.removeChild(this.detectContraction);
+            }
+            this.destroyStyleElement();
+        }
+    };
+
+    init(isFixup: boolean) {
+        if (this.detectExpansion) {
+            let adjusted = this.checkSize(isFixup);
+            if (isFixup && !adjusted && this.detectExpansion.offsetParent != null) {
+                this.adjust(this.oldWidth, this.oldHeight);
+            }
+        }
+    };
+
+    checkSize(fireEvent: boolean) {
+        let adjusted = false;
+
+        if (this.detectExpansion.offsetParent != null) {
+            let newWidth = this.detectExpansion.offsetWidth;
+            let newHeight = this.detectExpansion.offsetHeight;
+
+            if (this.oldWidth !== newWidth || this.oldHeight !== newHeight) {
+                this.retrySetScroll = this._RETRY_MAX_COUNT;
+                this.adjust(newWidth, newHeight);
+                adjusted = true;
+
+                if (fireEvent) {
+                    this.notifyListeners(true, null);
+                }
+            }
+        }
+        return adjusted;
+    }
+
+    resizeObserverCallback(entries: any) {
+        // we are observing only one element, so there should be a single entry
+        const outer = entries[0].borderBoxSize;
+        // MDN states that borderBoxSize may be either a direct entry (true for Firefox) or
+        // an array of entries (true for Chrome)
+        const newWidth = outer ? (outer[0] || outer).inlineSize : this.div.offsetWidth;
+        const newHeight = outer ? (outer[0] || outer).blockSize : this.div.offsetHeight;
+        this.notifyListeners(false, [newWidth, newHeight]);
+    }
+
+    // the size parameter will be dfined only for ResizeObserver
+    notifyListeners(useAfterPaint: boolean, size: any) {
+        let newWidth = size ? size[0] : this.div.offsetWidth;
+        let newHeight = size ? size[1] : this.div.offsetHeight;
+        let listenersWrapper = (width: number, height: number) => {
+            this.listeners.forEach((listener) => { listener(width, height); })
+        };
+
+        if (this.listeners.size !== 0) {
+            if (!useAfterPaint) {
+                listenersWrapper(newWidth, newHeight);
+            } else {
+                if (this.invokeId !== null) {
+                    clearTimeout(this.invokeId);
+                }
+                this.invokeId = setTimeout(() => {
+                    this.invokeId = null;
+                    listenersWrapper(newWidth, newHeight);
+                }, 0);
+            }
+        }
+
+        for (let i = 0; i < this.collapsingManagers.length; i++) {
+            this.collapsingManagers[i].callback(newWidth, newHeight);
+        }
+    }
+
+    handleScroll(evt: Event) {
+        evt.stopPropagation();
+        if (!this.checkSize(true)) {
+            // Workaround for the WebKit issue where scrollLeft gets reset to 0 without the DIV being expanded
+            // We will retry to the set the scrollTop only twice to avoid infinite loops
+            if (this.retrySetScroll > 0 && this.detectExpansion.offsetParent != null &&
+                (this.detectExpansion.scrollLeft === 0 || this.detectExpansion.scrollTop === 0)) {
+                this.retrySetScroll -= 1;
+                this.adjust(this.oldWidth, this.oldHeight);
+            }
+        }
+    }
+
+    adjust(width: number, height: number) {
+        this.oldWidth = width;
+        this.oldHeight = height;
+        let expansionChildStyle = (<HTMLElement>this.detectExpansion.firstChild)?.style;
+        let delta = 1;
+        // The following loop is a workaround for the WebKit issue with zoom < 100% -
+        // the scrollTop/Left gets reset to 0 because it gets computed to a value less than 1px.
+        // We will try up to the delta of 5 to support scaling down to 20% of the original size
+        do {
+            expansionChildStyle.width = width + delta + 'px';
+            expansionChildStyle.height = height + delta + 'px';
+            this.detectExpansion.scrollLeft = delta;
+            this.detectExpansion.scrollTop = delta;
+            delta += 1;
+        } while ((this.detectExpansion.scrollTop === 0 || this.detectExpansion.scrollLeft === 0) && delta <= 5);
+
+        this.detectContraction.scrollLeft = width;
+        this.detectContraction.scrollTop = height;
+    }
+
+    createStyleElement() {
+        this.styleElement = document.createElement('style');
+        this.styleElement.type = 'text/css';
+        this.styleElement.innerHTML = `
+        .p-helper-detect-expansion, .p-helper-detect-contraction{
+            position: absolute;
+            overflow: hidden;
+            visibility: hidden;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            direction: ltr;
+        }
+        `;
+        this.div.style.position = 'relative';
+        this.div.style.overflow = 'hidden';
+        document.head.appendChild(this.styleElement);
+    }
+
+    destroyStyleElement() {
+        if (this.styleElement) {
+            document.head.removeChild(this.styleElement);
+            this.styleElement = null;
+        }
+    }
+}
+
+export class ResizeUtils {
+
+    // a weak element-to-legacy-tracker map
+    public static rszTracker = new WeakMap<HTMLElement, ResizeTracker>();
+    // a weak element-observer-based-tracker map
+    public static rszTrackerObs = new WeakMap<HTMLElement, ResizeTracker>();
+    // a weak map with true values for observer-based resize listeners
+    public static obsBase = new WeakMap<any, boolean>();
+
+    public static addResizeListener(elem: HTMLElement, listener: any, collapseEventTimeout: number, useResizeObserver: boolean) {
+        let map = ResizeUtils.rszTracker;
+        if (useResizeObserver) {
+            map = ResizeUtils.rszTrackerObs;
+            // remember that this particular listener is associated with a resize observer-based tracker
+            ResizeUtils.obsBase.set(listener, true);
+        }
+        let tracker = map.get(elem);
+        if (tracker == null) {
+            tracker = new ResizeTracker(elem, useResizeObserver);
+            map.set(elem, tracker);
+            tracker.start();
+        }
+        tracker.addListener(listener, collapseEventTimeout);
+    }
+
+    public static removeResizeListener(elem: HTMLElement, listener: any) {
+        const useResizeObserver = ResizeUtils.obsBase.get(listener);
+        const map = useResizeObserver ? ResizeUtils.rszTrackerObs : ResizeUtils.rszTracker;
+        const tracker = map.get(elem);
+
+        if (tracker != null) {
+            tracker.removeListener(listener);
+            if (tracker.isEmpty()) {
+                tracker.stop();
+                map.delete(elem);
+            }
+        }
+    }
+
 }
 
 @NgModule({
