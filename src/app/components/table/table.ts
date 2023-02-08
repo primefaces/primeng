@@ -3009,6 +3009,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     @HostListener('keydown.enter', ['$event'])
     @HostListener('keydown.shift.enter', ['$event'])
+    @HostListener('keydown.control.enter', ['$event'])
     @HostListener('keydown.meta.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
         if (!this.isEnabled()) {
