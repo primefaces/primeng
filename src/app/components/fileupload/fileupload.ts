@@ -27,7 +27,9 @@ import { DomHandler } from 'primeng/dom';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
+
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'p-fileUpload',
@@ -103,6 +105,7 @@ import { Subscription } from 'rxjs';
     }
 })
 export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI {
+    private destroy$: Subject<any> = new Subject<any>();
     @Input() name: string;
 
     @Input() url: string;
@@ -435,7 +438,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
                 reportProgress: true,
                 observe: 'events',
                 withCredentials: this.withCredentials
-            }).subscribe(
+            }).pipe(takeUntil(this.destroy$)).subscribe(
                 (event: HttpEvent<any>) => {
                     switch (event.type) {
                         case HttpEventType.Sent:
@@ -634,6 +637,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         if (this.content && this.content.nativeElement) {
             this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
         }

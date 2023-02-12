@@ -2,8 +2,10 @@ import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterConte
 import { CommonModule } from '@angular/common';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { Message, PrimeTemplate, MessageService } from 'primeng/api';
-import { Subscription, timer } from 'rxjs';
+import { Subscription, timer, Subject } from 'rxjs';
 import { RippleModule } from 'primeng/ripple';
+
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'p-messages',
@@ -58,6 +60,7 @@ import { RippleModule } from 'primeng/ripple';
     }
 })
 export class Messages implements AfterContentInit, OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     @Input() set value(messages: Message[]) {
         this.messages = messages;
         this.startMessageLifes(this.messages);
@@ -188,6 +191,8 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
@@ -204,7 +209,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     private startMessageLife(message: Message): void {
-        const timerSubsctiption = timer(message.life).subscribe(() => {
+        const timerSubsctiption = timer(message.life).pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.messages = this.messages?.filter((msgEl) => msgEl !== message);
             this.timerSubscriptions = this.timerSubscriptions?.filter((timerEl) => timerEl !== timerSubsctiption);
             this.valueChange.emit(this.messages);

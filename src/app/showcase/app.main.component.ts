@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { PrimeNGConfig } from 'primeng/api';
 import { AppComponent } from './app.component';
+
+import { takeUntil } from "rxjs/operators";
 
 declare let gtag: Function;
 
@@ -13,6 +15,7 @@ declare let gtag: Function;
     templateUrl: './app.main.component.html'
 })
 export class AppMainComponent implements OnInit {
+    private destroy$: Subject<any> = new Subject<any>();
     menuActive: boolean;
 
     newsActive: boolean = true;
@@ -34,7 +37,7 @@ export class AppMainComponent implements OnInit {
             this.config = config;
         });
 
-        this.router.events.subscribe((event) => {
+        this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 gtag('config', 'UA-93461466-1', {
                     page_path: '/primeng' + event.urlAfterRedirects
@@ -106,6 +109,8 @@ export class AppMainComponent implements OnInit {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }

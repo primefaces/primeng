@@ -1,11 +1,13 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ZIndexUtils } from 'primeng/utils';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'p-confirmPopup',
@@ -78,6 +80,7 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
     }
 })
 export class ConfirmPopup implements OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     @Input() key: string;
 
     @Input() defaultFocus: string = 'accept';
@@ -340,6 +343,8 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         this.restoreAppend();
 
         if (this.subscription) {

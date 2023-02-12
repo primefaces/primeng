@@ -3,8 +3,10 @@ import { trigger, style, transition, animate, AnimationEvent } from '@angular/an
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import Versions from './data/versions.json';
+
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'app-topbar',
@@ -386,6 +388,7 @@ import Versions from './data/versions.json';
     ]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
@@ -462,7 +465,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
 
-        this.router.events.subscribe((event) => {
+        this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.activeMenuIndex = null;
             }
@@ -544,6 +547,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }

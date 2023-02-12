@@ -1,11 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, HostListener } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
 import { AppConfigService } from './service/appconfigservice';
+
+import { takeUntil } from "rxjs/operators";
 
 declare let gtag: Function;
 
@@ -373,7 +375,8 @@ declare let gtag: Function;
         ])
     ]
 })
-export class AppMenuComponent {
+export class AppMenuComponent implements OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     @Input() active: boolean;
 
     activeSubmenus: { [key: string]: boolean } = {};
@@ -706,7 +709,7 @@ export class AppMenuComponent {
     constructor(private el: ElementRef, private router: Router, private filterService: FilterService, private configService: AppConfigService) {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-        router.events.subscribe((routerEvent) => {
+        router.events.pipe(takeUntil(this.destroy$)).subscribe((routerEvent) => {
             if (routerEvent instanceof NavigationStart && (routerEvent.navigationTrigger === 'popstate' || this.scrollable)) {
                 let routeUrl = routerEvent.url;
 
@@ -787,5 +790,12 @@ export class AppMenuComponent {
         }
 
         return false;
+    }
+
+    @HostListener('unloaded')
+    public ngOnDestroy(): void {
+        this.subscription?.unsubscribe();
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

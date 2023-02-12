@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { IconService } from '../../service/iconservice';
+
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 @Component({
     templateUrl: './icons.component.html',
     styleUrls: ['./icons.component.scss']
 })
-export class IconsComponent implements OnInit {
+export class IconsComponent implements OnInit, OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     icons: any[];
 
     filteredIcons: any[];
@@ -15,7 +19,7 @@ export class IconsComponent implements OnInit {
     constructor(private iconService: IconService) {}
 
     ngOnInit() {
-        this.iconService.getIcons().subscribe((data) => {
+        this.iconService.getIcons().pipe(takeUntil(this.destroy$)).subscribe((data) => {
             data = data.filter((value) => {
                 return value.icon.tags.indexOf('deprecate') === -1;
             });
@@ -42,5 +46,11 @@ export class IconsComponent implements OnInit {
                 return it.icon.tags[0].includes(searchText);
             });
         }
+    }
+
+    @HostListener('unloaded')
+    public ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

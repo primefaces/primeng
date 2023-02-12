@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    Renderer2,
+    ViewChild,
+    ViewEncapsulation,
+    HostListener,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ContextMenuService, MenuItem, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -84,7 +102,7 @@ import { takeUntil } from 'rxjs/operators';
         class: 'p-element'
     }
 })
-export class ContextMenuSub {
+export class ContextMenuSub implements OnDestroy {
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -206,6 +224,11 @@ export class ContextMenuSub {
 
     isActive(key) {
         return this.activeItemKey && (this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key);
+    }
+
+    @HostListener('unloaded')
+    public ngOnDestroy(): void {
+        this.activeItemKeyChangeSubscription?.unsubscribe();
     }
 }
 

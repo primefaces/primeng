@@ -26,9 +26,11 @@ import { Footer, SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, Co
 import { ButtonModule } from 'primeng/button';
 import { Confirmation } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
+
+import { takeUntil } from "rxjs/operators";
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -104,6 +106,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     }
 })
 export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     @Input() header: string;
 
     @Input() icon: string;
@@ -539,6 +542,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         this.restoreAppend();
         this.onOverlayHide();
         this.subscription.unsubscribe();

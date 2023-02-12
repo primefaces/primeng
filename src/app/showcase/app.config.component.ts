@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { AppConfig } from './domain/appconfig';
 import { AppConfigService } from './service/appconfigservice';
+
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'app-config',
@@ -490,6 +492,7 @@ import { AppConfigService } from './service/appconfigservice';
     `
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     active: boolean;
 
     scale: number = 14;
@@ -513,7 +516,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             this.applyScale();
         });
 
-        this.router.events.subscribe((event) => {
+        this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.active = false;
             }
@@ -584,6 +587,8 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
         if (this.subscription) {
             this.subscription.unsubscribe();
         }

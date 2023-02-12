@@ -1,11 +1,25 @@
-import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef } from '@angular/core';
+import {
+    Injectable,
+    ComponentFactoryResolver,
+    ApplicationRef,
+    Injector,
+    Type,
+    EmbeddedViewRef,
+    ComponentRef,
+    OnDestroy,
+    HostListener,
+} from '@angular/core';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+
 @Injectable()
-export class DialogService {
+export class DialogService implements OnDestroy {
+    private destroy$: Subject<any> = new Subject<any>();
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {}
@@ -25,11 +39,11 @@ export class DialogService {
         const dialogRef = new DynamicDialogRef();
         map.set(DynamicDialogRef, dialogRef);
 
-        const sub = dialogRef.onClose.subscribe(() => {
+        const sub = dialogRef.onClose.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.dialogComponentRefMap.get(dialogRef).instance.close();
         });
 
-        const destroySub = dialogRef.onDestroy.subscribe(() => {
+        const destroySub = dialogRef.onDestroy.pipe(takeUntil(this.destroy$)).subscribe(() => {
             this.removeDialogComponentFromBody(dialogRef);
             destroySub.unsubscribe();
             sub.unsubscribe();
@@ -57,5 +71,11 @@ export class DialogService {
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
         this.dialogComponentRefMap.delete(dialogRef);
+    }
+
+    @HostListener('unloaded')
+    public ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }
