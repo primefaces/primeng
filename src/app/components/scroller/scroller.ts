@@ -715,9 +715,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         if (this._lazy) {
             Promise.resolve().then(() => {
+                let step = this._step;
+                if (this._step) {
+                    while (step <= (this.both ? numItemsInViewport.rows : numItemsInViewport)) {
+                        step += this._step
+                    }
+                }
                 this.lazyLoadState = {
                     first: this._step ? (this.both ? { rows: 0, cols: first.cols } : 0) : first,
-                    last: Math.min(this._step ? this._step : this.last, this.items.length)
+                    last: Math.min(this._step ? step : this.last, this.items.length)
                 };
 
                 this.handleEvents('onLazyLoad', this.lazyLoadState);
@@ -862,7 +868,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     cols: calculateLast(currentIndex.cols, newFirst.cols, this.last.cols, this.numItemsInViewport.cols, this.d_numToleratedItems[1], true)
                 };
 
-                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols || this.isRangeChanged;
+                isRangeChanged = newFirst.rows !== this.first.rows || newLast.rows !== this.last.rows || newFirst.cols !== this.first.cols || newLast.cols !== this.last.cols || this.isRangeChanged || (this._lazy && this.isPageChanged);
                 newScrollPos = { top: scrollTop, left: scrollLeft };
             }
         } else {
@@ -875,7 +881,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 newFirst = calculateFirst(currentIndex, triggerIndex, this.first, this.last, this.numItemsInViewport, this.d_numToleratedItems, isScrollDownOrRight);
                 newLast = calculateLast(currentIndex, newFirst, this.last, this.numItemsInViewport, this.d_numToleratedItems);
-                isRangeChanged = newFirst !== this.first || newLast !== this.last || this.isRangeChanged;
+                isRangeChanged = newFirst !== this.first || newLast !== this.last || this.isRangeChanged || (this._lazy && this.isPageChanged);
                 newScrollPos = scrollPos;
             }
         }
