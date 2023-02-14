@@ -281,4 +281,21 @@ describe('Tree', () => {
         expect(tree.filteredNodes).toBeTruthy();
         expect(tree.filteredNodes.length).toEqual(2);
     });
+
+
+    it('should select with togleAll Checkbox', () => {
+		tree.selectionMode = 'checkbox';
+		tree.showToggleAll = true;
+		fixture.detectChanges();
+
+		const itemClickSpy = spyOn(tree,'toggleAll').and.callThrough();
+		fixture.detectChanges();
+
+		const allCheckedEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
+		allCheckedEl.click();
+		fixture.detectChanges();
+
+		expect(tree.selection.length).toEqual(17);
+		expect(itemClickSpy).toHaveBeenCalled();
+    });
 });

@@ -9,10 +9,10 @@
 <div class="content-section implementation">
     <div class="card">
         <h5>Lenient Filter Mode</h5>
-        <p-tree [value]="files1" [filter]="true"></p-tree>
+        <p-tree [value]="files1" [filter]="true" selectionMode="checkbox" [showToggleAll]="true" ></p-tree>
 
         <h5>Strict Filter Mode</h5>
-        <p-tree [value]="files2" [filter]="true" filterMode="strict"></p-tree>
+        <p-tree [value]="files2" [filter]="true" filterMode="strict" selectionMode="checkbox" [showToggleAll]="true" ></p-tree>
     </div>
 </div>
 
@@ -61,4 +61,4 @@ export class TreeFilterDemo implements OnInit &#123;
             </ng-template>
         </p-tabPanel>
     </p-tabView>
-</div>
+</div>  s

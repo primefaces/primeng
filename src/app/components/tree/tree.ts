@@ -577,10 +577,29 @@ export class UITreeNode implements OnInit {
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
+            
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <div *ngIf="filter" class="p-tree-filter-container">
-                <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
-                <span class="p-tree-filter-icon pi pi-search"></span>
+
+            <div class="p-tree-header" *ngIf="(showToggleAll && isCheckboxSelectionMode()) || filter"> 
+                <div class="p-checkbox p-component" *ngIf="showToggleAll && isCheckboxSelectionMode()">
+                    <div class="p-hidden-accessible">
+                        <input type="checkbox" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)">
+                    </div>
+                    <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allChecked" [ngClass]="{'p-highlight':allChecked, 'p-focus': headerCheckboxFocus}" (click)="toggleAll($event)">
+                        <span class="p-checkbox-icon" [ngClass]="{'pi pi-check':allChecked}"></span>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="filterTemplate; else builtInFilterElement">
+                    <ng-container *ngTemplateOutlet="filterTemplate"></ng-container>
+                </ng-container>
+
+                <ng-template #builtInFilterElement>
+                    <div *ngIf="filter" class="p-tree-filter-container">
+                        <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
+                        <span class="p-tree-filter-icon pi pi-search"></span>
+                    </div>
+                </ng-template>
             </div>
 
             <p-scroller
@@ -700,6 +719,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
+    @Input() showToggleAll: boolean;
+
     @Input() emptyMessage: string = '';
 
     @Input() ariaLabel: string;
@@ -782,6 +803,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     headerTemplate: TemplateRef<any>;
 
+    public filterTemplate: TemplateRef<any>;
+
     footerTemplate: TemplateRef<any>;
 
     loaderTemplate: TemplateRef<any>;
@@ -805,6 +828,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     public dragStartSubscription: Subscription;
 
     public dragStopSubscription: Subscription;
+
+    public headerCheckboxFocus: boolean;
 
     constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
@@ -839,6 +864,29 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         return this.layout == 'horizontal';
     }
 
+    get allChecked(): boolean {
+        let checked: boolean;
+        const data = this.filteredNodes||this.value;
+
+        if (data) {
+            for (let node of data) {
+                if (this.isSelected(node)) {
+                    checked = true;
+                }
+                else  {
+                    checked = false;
+                    break;
+                }
+            }
+        }
+        else {
+            checked = false;
+        }
+
+        return checked;
+
+    }
+
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -852,6 +900,10 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'filter':
+                    this.filterTemplate = item.template;
                     break;
 
                 case 'empty':
@@ -1064,6 +1116,25 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 }
             }
         }
+    }
+
+    toggleAll(event: Event) {
+        let allChecked = this.allChecked;
+
+        let data = this.filteredNodes || this.value;
+        this.selection = allChecked && data ? data.slice() : [];
+        if (allChecked) {
+            this.selection = [];   
+        }
+        else {
+            if (data && data.length) {
+                for (let node of data) {
+                    this.propagateDown(node, true);
+                }
+            }
+        }
+
+        this.selectionChange.emit(this.selection);
     }
 
     propagateUp(node: TreeNode, select: boolean) {
@@ -1361,6 +1432,14 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     getIndex(options, index) {
         const getItemOptions = options['getItemOptions'];
         return getItemOptions ? getItemOptions(index).index : index;
+    }
+
+    onHeaderCheckboxFocus() {
+        this.headerCheckboxFocus = true;
+    }
+
+    onHeaderCheckboxBlur() {
+        this.headerCheckboxFocus = false;
     }
 
     getBlockableElement(): HTMLElement {
