@@ -398,6 +398,12 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     parseValue(text) {
         let filteredText = text
+            /* 
+                Replace other languages digits with english digits first will prevent
+                detecting digit '1' in others language as prefix and don't type it, 
+                like '۱' in presian language when locale is 'fa-IR. 
+             */
+            .replace(this._numeral, this._index)
             .replace(this._suffix, '')
             .replace(this._prefix, '')
             .trim()
@@ -405,8 +411,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             .replace(this._currency, '')
             .replace(this._group, '')
             .replace(this._minusSign, '-')
-            .replace(this._decimal, '.')
-            .replace(this._numeral, this._index);
+            .replace(this._decimal, '.');
 
         if (filteredText) {
             if (filteredText === '-')
@@ -652,6 +657,12 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                 break;
 
             default:
+                /*
+                    Fix cursor stay at begining when type first digit in language
+                    like perasian when locale is 'fa-IR'.
+                */
+                newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
+                this.updateValue(event, newValueStr, null, 'insert');
                 break;
         }
 
