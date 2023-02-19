@@ -111,4 +111,8 @@ export class DynamicDialogConfig<T = any> {
      * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
      */
     position?: string;
+    /**
+     * Whether to automatically focus.
+     */
+    autoFocus?: boolean;
 }

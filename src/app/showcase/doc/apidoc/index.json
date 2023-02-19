@@ -9356,6 +9356,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"left\", \"right\", \"top-left\", \"top-right\", \"bottom-left\" or \"bottom-right\"."
+                        },
+                        {
+                            "name": "autoFocus",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether to automatically focus."
                         }
                     ]
                 }
