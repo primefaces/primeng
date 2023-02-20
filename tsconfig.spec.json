@@ -4,7 +4,9 @@
       "outDir": "./out-tsc/spec",
       "types": [
         "jasmine"
-      ]
+      ],
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true
     },
     "files": [
       "src/test.ts",
