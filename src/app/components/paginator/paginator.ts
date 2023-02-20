@@ -2,9 +2,8 @@ import { NgModule, Component, OnInit, Input, Output, ChangeDetectorRef, EventEmi
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, SharedModule, PageChangeEvent } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { SharedModule } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
@@ -76,7 +75,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 export class Paginator implements OnInit, OnChanges {
     @Input() pageLinkSize: number = 5;
 
-    @Output() onPageChange: EventEmitter<any> = new EventEmitter();
+    @Output() onPageChange: EventEmitter<PageChangeEvent> = new EventEmitter();
 
     @Input() style: any;
 
@@ -195,7 +194,7 @@ export class Paginator implements OnInit, OnChanges {
             end = Math.min(numberOfPages - 1, start + visiblePages - 1);
 
         //check when approaching to last page
-        var delta = this.pageLinkSize - (end - start + 1);
+        const delta = this.pageLinkSize - (end - start + 1);
         start = Math.max(0, start - delta);
 
         return [start, end];
@@ -220,11 +219,11 @@ export class Paginator implements OnInit, OnChanges {
     }
 
     changePage(p: number) {
-        var pc = this.getPageCount();
+        const pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
             this._first = this.rows * p;
-            var state = {
+            const state: PageChangeEvent = {
                 page: p,
                 first: this.first,
                 rows: this.rows,
