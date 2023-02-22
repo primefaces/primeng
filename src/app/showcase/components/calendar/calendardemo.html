@@ -81,6 +81,9 @@
                     <ng-template pTemplate="date" let-date>
                         <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
                     </ng-template>
+                    <ng-template pTemplate="decade" let-decade>
+                        <span>{{ decade[0] + ' - ' + decade[decade.length - 1]}}</span>
+                    </ng-template>
                 </p-calendar>
             </div>
 
@@ -214,7 +217,7 @@ export class MyModel &#123;
             <p>In addition, "disabledDateTemplate" is provided in case you need to customize the content of disabled dates as well.</p>
 
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
-&lt;p-calendar [(ngModel)]="date10"&gt;
+&lt;p-calendar [(ngModel)]="date12"&gt;
     &lt;ng-template pTemplate="date" let-date&gt;
         &lt;span [ngStyle]="&#123;textDecoration: (date.day &lt; 21 && date.day &gt; 10) ? 'line-through' : 'inherit'&#125;"&gt;{{date.day}}&lt;/span&gt;
     &lt;/ng-template&gt;

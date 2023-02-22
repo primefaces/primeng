@@ -123,7 +123,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
                                         <ng-container *ngIf="!decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                        <ng-container *ngTemplateOutlet="decadeTemplate; context: { $implicit: yearPickerValues() }"></ng-container>
                                     </span>
                                 </div>
                                 <button
