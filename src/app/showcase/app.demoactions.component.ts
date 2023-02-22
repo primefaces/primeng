@@ -42,8 +42,8 @@ export class AppDemoActions {
     }
 
     viewOnFigma() {
-        if (this.configService.config.dark) window.open('https://www.figma.com/file/LJBqVfMpK8xY6KR2KIc8RK/Preview-%7C-Dark-%7C-PrimeOne-2022-%7C-1.0.0?node-id=806%3A36648', '_blank');
-        else window.open('https://www.figma.com/file/c3BuENd8nGcyPmn7ADieee/Preview-%7C-PrimeOne-2022-%7C-1.0.0?node-id=806%3A36648', '_blank');
+        if (this.configService.config.dark) window.open('https://www.figma.com/file/lwsadx20eWq3UWS4eAxCYo/Preview-%7C-Dark-%7C-PrimeOne-%7C-2.0?node-id=806%3A36648&t=Qw2Pi6W4Q4rtbnZ5-1', '_blank');
+        else window.open('https://www.figma.com/file/1rMJ9BAiZovyQYNUG06T0j/Preview-%7C-PrimeOne-%7C-2.0?node-id=806%3A36648&t=MnxlHT9snz8Y6DwL-1', '_blank');
     }
 
     editOnStackblitz() {
