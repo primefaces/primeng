@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
             <p>Children of the component are passed as the content for templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tag [style]="{ background: 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)' }">
+            <p-tag [tagStyle]="{ background: 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)' }">
                 <div class="flex align-items-center gap-2">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: '18px'" />
                     <span class="text-base">Italia</span>
@@ -26,7 +26,7 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `
-<p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">
+<p-tag [tagStyle]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">
     <div class="flex align-items-center gap-2">
         <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: '18px'" />
         <span class="text-base">Italia</span>
@@ -35,7 +35,7 @@ export class TemplateDoc {
 </p-tag>`,
         html: `
 <div class="card flex justify-content-center">
-    <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">
+    <p-tag [tagStyle]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">
         <div class="flex align-items-center gap-2">
             <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: '18px'" />
             <span class="text-base">Italia</span>

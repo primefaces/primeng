@@ -8,7 +8,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 @Component({
     selector: 'p-tag',
     template: `
-        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+        <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="tagStyle">
             <ng-content></ng-content>
             <ng-container *ngIf="!iconTemplate">
                 <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
@@ -31,7 +31,7 @@ export class Tag {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() tagStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props

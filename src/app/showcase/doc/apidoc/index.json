@@ -21306,7 +21306,7 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "style",
+                            "name": "tagStyle",
                             "optional": false,
                             "readonly": false,
                             "type": "Object",
