@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Injector, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
@@ -271,7 +271,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         if (this.timer) this.clearTimer();
     }
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    private ngControl: NgControl | null = null;
+
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -281,6 +283,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     ngOnInit() {
+        this.ngControl = this.injector.get(NgControl, null, { optional: true });
+
         this.constructParser();
 
         this.initialized = true;
@@ -1060,8 +1064,15 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     updateModel(event, value) {
+        const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
+
         if (this.value !== value) {
             this.value = value;
+
+            if (!(isBlurUpdateOnMode && this.focused)) {
+                this.onModelChange(value);
+            }
+        } else if (isBlurUpdateOnMode) {
             this.onModelChange(value);
         }
 
