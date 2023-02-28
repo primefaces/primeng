@@ -250,6 +250,22 @@ export class ModelComponent &#123;
 
 &lt;h5&gt;Disabled&lt;/h5&gt;
 &lt;p-rating [ngModel]="val4" disabled="true" stars="10"&gt;&lt;/p-rating&gt;
+
+&lt;h5&gt;Custom Icons&lt;/h5&gt;
+&lt;p-rating [(ngModel)]=&quot;val5&quot; iconCancelClass=&quot;pi pi-times&quot; iconOnClass=&quot;pi pi-heart-fill&quot; iconOffClass=&quot;pi pi-heart&quot;&gt;&lt;/p-rating&gt;
+
+&lt;h5&gt;Template&lt;/h5&gt;
+&lt;p-rating [(ngModel)]=&quot;val6&quot; stars=&quot;5&quot;&gt;
+    &lt;ng-template pTemplate=&quot;cancel&quot;&gt;
+        &lt;img src=&quot;https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png&quot; width=&quot;25px&quot; height=&quot;25px&quot;&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate=&quot;onicon&quot;&gt;
+        &lt;img src=&quot;https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png&quot; width=&quot;25px&quot; height=&quot;25px&quot;&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate=&quot;officon&quot;&gt;
+        &lt;img src=&quot;https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png&quot; width=&quot;25px&quot; height=&quot;25px&quot;&gt;
+    &lt;/ng-template&gt;
+&lt;/p-rating&gt;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
