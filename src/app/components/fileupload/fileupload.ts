@@ -63,7 +63,7 @@ import { Subscription } from 'rxjs';
                 <div class="p-fileupload-files" *ngIf="hasFiles()">
                     <div *ngIf="!fileTemplate">
                         <div class="p-fileupload-row" *ngFor="let file of files; let i = index">
-                            <div><img [src]="file.objectURL" *ngIf="isImage(file)" [width]="previewWidth" (error)="imageError($event)" /></div>
+                            <div *ngIf="isImage(file)"><img [src]="file.objectURL" [width]="previewWidth" (error)="imageError($event)" /></div>
                             <div class="p-fileupload-filename">{{ file.name }}</div>
                             <div>{{ formatSize(file.size) }}</div>
                             <div>
