@@ -6,19 +6,22 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Injectable()
 export class DialogService {
-    dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
+    dialogComponentRefMap: Map<Type<any>, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {}
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) { }
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
-        const dialogRef = this.appendDialogComponentToBody(config);
+        if (this.dialogComponentRefMap.has(componentType)) {
+            return;
+        }
+        const dialogRef = this.appendDialogComponentToBody(config, componentType);
 
-        this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
+        this.dialogComponentRefMap.get(componentType).instance.childComponentType = componentType;
 
         return dialogRef;
     }
 
-    private appendDialogComponentToBody(config: DynamicDialogConfig) {
+    private appendDialogComponentToBody(config: DynamicDialogConfig, componentType: Type<any>) {
         const map = new WeakMap();
         map.set(DynamicDialogConfig, config);
 
@@ -26,11 +29,11 @@ export class DialogService {
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
-            this.dialogComponentRefMap.get(dialogRef).instance.close();
+            this.dialogComponentRefMap.get(componentType).instance.close();
         });
 
         const destroySub = dialogRef.onDestroy.subscribe(() => {
-            this.removeDialogComponentFromBody(dialogRef);
+            this.removeDialogComponentFromBody(componentType);
             destroySub.unsubscribe();
             sub.unsubscribe();
         });
@@ -43,19 +46,19 @@ export class DialogService {
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
         document.body.appendChild(domElem);
 
-        this.dialogComponentRefMap.set(dialogRef, componentRef);
+        this.dialogComponentRefMap.set(componentType, componentRef);
 
         return dialogRef;
     }
 
-    private removeDialogComponentFromBody(dialogRef: DynamicDialogRef) {
-        if (!dialogRef || !this.dialogComponentRefMap.has(dialogRef)) {
+    private removeDialogComponentFromBody(componentType: Type<any>) {
+        if (!componentType || !this.dialogComponentRefMap.has(componentType)) {
             return;
         }
 
-        const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
+        const dialogComponentRef = this.dialogComponentRefMap.get(componentType);
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
-        this.dialogComponentRefMap.delete(dialogRef);
+        this.dialogComponentRefMap.delete(componentType);
     }
 }
