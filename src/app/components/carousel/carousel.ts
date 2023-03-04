@@ -100,7 +100,6 @@ export class Carousel implements AfterContentInit {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
                 this.stopAutoplay();
-                this.allowAutoplay = false;
             }
 
             if (val > this._page && val <= this.totalDots() - 1) {
@@ -220,8 +219,6 @@ export class Carousel implements AfterContentInit {
 
     interval: any;
 
-    playing: boolean;
-
     isCreated: boolean;
 
     swipeThreshold: number = 20;
@@ -312,7 +309,7 @@ export class Carousel implements AfterContentInit {
 
         if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
             if (this.autoplayInterval) {
-                this.stopAutoplay();
+                this.stopAutoplay(false);
             }
 
             this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
@@ -521,7 +518,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -536,7 +532,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -549,7 +544,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (index > page) {
@@ -606,29 +600,30 @@ export class Carousel implements AfterContentInit {
     }
 
     startAutoplay() {
-        if(!this.playing) {
-            this.interval = setInterval(() => {
-                if (this.totalDots() > 0) {
-                    if (this.page === this.totalDots() - 1) {
-                        this.step(-1, 0);
-                    } else {
-                        this.step(-1, this.page + 1);
-                    }
+        this.interval = setInterval(() => {
+            if (this.totalDots() > 0) {
+                if (this.page === this.totalDots() - 1) {
+                    this.step(-1, 0);
+                } else {
+                    this.step(-1, this.page + 1);
                 }
-            }, this.autoplayInterval);
-            this.playing = true;
-        }
+            }
+        }, this.autoplayInterval);
+        this.allowAutoplay = true;
     }
 
-    stopAutoplay() {
+    stopAutoplay(changeAllow: boolean = true) {
         if (this.interval) {
             clearInterval(this.interval);
-            this.playing = false;
+            this.interval = undefined;
+            if(changeAllow){
+                this.allowAutoplay = false;
+            }
         }
     }
 
     isPlaying(){
-        return this.playing;
+        return this.interval;
     }
 
     onTransitionEnd() {
