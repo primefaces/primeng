@@ -220,6 +220,8 @@ export class Carousel implements AfterContentInit {
 
     interval: any;
 
+    playing: boolean;
+
     isCreated: boolean;
 
     swipeThreshold: number = 20;
@@ -604,21 +606,29 @@ export class Carousel implements AfterContentInit {
     }
 
     startAutoplay() {
-        this.interval = setInterval(() => {
-            if (this.totalDots() > 0) {
-                if (this.page === this.totalDots() - 1) {
-                    this.step(-1, 0);
-                } else {
-                    this.step(-1, this.page + 1);
+        if(!this.playing) {
+            this.interval = setInterval(() => {
+                if (this.totalDots() > 0) {
+                    if (this.page === this.totalDots() - 1) {
+                        this.step(-1, 0);
+                    } else {
+                        this.step(-1, this.page + 1);
+                    }
                 }
-            }
-        }, this.autoplayInterval);
+            }, this.autoplayInterval);
+            this.playing = true;
+        }
     }
 
     stopAutoplay() {
         if (this.interval) {
             clearInterval(this.interval);
+            this.playing = false;
         }
+    }
+
+    isPlaying(){
+        return this.playing;
     }
 
     onTransitionEnd() {
