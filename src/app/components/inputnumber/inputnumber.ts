@@ -205,6 +205,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     @Input() showClear: boolean = false;
 
+    @Input() isSaveByTab: boolean = false;
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
@@ -561,12 +563,16 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                 }
                 break;
 
+            //tab
+            case 9:
+                if (this.isSaveByTab) {
+                    this.setValueAndUpdateModel(event);
+                }
+                break;
+
             //enter
             case 13:
-                newValueStr = this.validateValue(this.parseValue(this.input.nativeElement.value));
-                this.input.nativeElement.value = this.formatValue(newValueStr);
-                this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
-                this.updateModel(event, newValueStr);
+                this.setValueAndUpdateModel(event);
                 break;
 
             //backspace
@@ -1046,10 +1052,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     onInputBlur(event) {
         this.focused = false;
 
-        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
-        this.input.nativeElement.value = this.formatValue(newValue);
-        this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-        this.updateModel(event, newValue);
+        this.setValueAndUpdateModel(event);
 
         this.onBlur.emit(event);
     }
@@ -1098,6 +1101,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     getFormatter() {
         return this.numberFormat;
+    }
+
+    private setValueAndUpdateModel(event: Event): void {
+        const newValueStr = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        this.input.nativeElement.value = this.formatValue(newValueStr);
+        this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
+        this.updateModel(event, newValueStr);
     }
 }
 
