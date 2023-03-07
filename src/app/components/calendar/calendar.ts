@@ -412,6 +412,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() showWeek: boolean = false;
 
+    @Input() startWeekFromFirstDayOfYear: boolean = false;
+
     @Input() showClear: boolean = false;
 
     @Input() dataType: string = 'date';
@@ -878,7 +880,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     getWeekNumber(date: Date) {
         let checkDate = new Date(date.getTime());
-        checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+        if (this.startWeekFromFirstDayOfYear) {
+            let firstDayOfWeek: number = +this.getFirstDateOfWeek();
+            checkDate.setDate(checkDate.getDate() + 6 + firstDayOfWeek - checkDate.getDay());
+        } else {
+            checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+        }
         let time = checkDate.getTime();
         checkDate.setMonth(0);
         checkDate.setDate(1);

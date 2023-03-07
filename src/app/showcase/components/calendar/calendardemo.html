@@ -91,7 +91,7 @@
         </div>
 
         <h5>Inline</h5>
-        <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
+        <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true" [startWeekFromFirstDayOfYear]="true"></p-calendar>
     </div>
 
 </div>
@@ -362,6 +362,12 @@ export class MyModel &#123;
                             <td>boolean</td>
                             <td>false</td>
                             <td>When enabled, calendar will show week numbers.</td>
+                        </tr>
+                        <tr>
+                            <td>startWeekFromFirstDayOfYear</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>When enabled, calendar will show week numbers starting from day one of the year instead of week numbers continued from previous year.</td>
                         </tr>
                         <tr>
                             <td>icon</td>
