@@ -978,7 +978,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
                 if (prevItem) {
                     prevItem.focus();
-                } else if (this.filterInputChild.nativeElement) {
+                } else if (this.filterInputChild && this.filterInputChild.nativeElement) {
                     this.filterInputChild.nativeElement.focus();
                 }
 
