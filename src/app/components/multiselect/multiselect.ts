@@ -210,6 +210,7 @@ export class MultiSelectItem {
                                         [attr.autocomplete]="autocomplete"
                                         role="textbox"
                                         [value]="filterValue || ''"
+                                        (keydown.arrowdown)="onFilterArrowDown($event)"
                                         (input)="onFilterInputChange($event)"
                                         class="p-multiselect-filter p-inputtext p-component"
                                         [disabled]="disabled"
@@ -977,6 +978,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
                 if (prevItem) {
                     prevItem.focus();
+                } else if (this.filterInputChild.nativeElement) {
+                    this.filterInputChild.nativeElement.focus();
                 }
 
                 event.originalEvent.preventDefault();
@@ -1167,6 +1170,17 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     isEmpty() {
         return !this.optionsToRender || (this.optionsToRender && this.optionsToRender.length === 0);
+    }
+
+    onFilterArrowDown(event: KeyboardEvent) {
+        if (this.itemsViewChild.nativeElement.children) {
+            var nextItem = this.itemsViewChild.nativeElement.children[0];
+            nextItem = DomHandler.hasClass(nextItem.children[0], 'p-disabled') || DomHandler.isHidden(nextItem.children[0]) || DomHandler.hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
+            if (nextItem) {
+                nextItem.focus();
+            }
+            event.preventDefault();
+        }
     }
 
     onFilterInputChange(event: KeyboardEvent) {
