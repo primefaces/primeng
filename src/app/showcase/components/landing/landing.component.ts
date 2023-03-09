@@ -86,6 +86,8 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     theme: string = 'lara-light-blue';
 
+    isNpmCopied: boolean = false;
+
     constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent) {}
 
     ngOnInit() {
@@ -307,5 +309,13 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     onRepresentativeChange(event) {
         this.table.filter(event.value, 'representative', 'in');
+    }
+
+    copyNpm(){
+        navigator.clipboard.writeText("npm i primeng");
+        this.isNpmCopied = true;
+        setTimeout(() => {
+            this.isNpmCopied = false;
+        }, 2000);
     }
 }
