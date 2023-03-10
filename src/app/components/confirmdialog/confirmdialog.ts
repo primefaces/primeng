@@ -17,10 +17,10 @@ import {
     TemplateRef,
     AfterContentInit,
     Output,
-    OnInit
+    OnInit, Inject
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, useAnimation, animation } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Footer, SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, ConfirmEventType } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -262,7 +262,13 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     translationSubscription: Subscription;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(public el: ElementRef,
+                public renderer: Renderer2,
+                private confirmationService: ConfirmationService,
+                public zone: NgZone,
+                private cd: ChangeDetectorRef,
+                public config: PrimeNGConfig,
+                @Inject(DOCUMENT) private document: Document) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
