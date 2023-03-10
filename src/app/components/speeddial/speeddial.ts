@@ -1,7 +1,4 @@
-import {
-    NgModule,
-    Component,
-    Input,
+import {NgModule, Component, Input,
     ElementRef,
     ChangeDetectionStrategy,
     ViewEncapsulation,
@@ -14,7 +11,6 @@ import {
     ChangeDetectorRef,
     ViewChild,
     OnDestroy,
-    OnInit,
     AfterViewInit, Inject
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';

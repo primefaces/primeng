@@ -1,16 +1,4 @@
-import {
-    NgModule,
-    Component,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ElementRef,
-    ChangeDetectorRef,
-    OnDestroy,
-    Input,
-    EventEmitter,
-    Renderer2,
-    Inject
-} from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { Subscription } from 'rxjs';

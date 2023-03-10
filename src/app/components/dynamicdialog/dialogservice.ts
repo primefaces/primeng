@@ -1,13 +1,4 @@
-import {
-    Injectable,
-    ComponentFactoryResolver,
-    ApplicationRef,
-    Injector,
-    Type,
-    EmbeddedViewRef,
-    ComponentRef,
-    Inject
-} from '@angular/core';
+import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef, Inject } from '@angular/core';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';

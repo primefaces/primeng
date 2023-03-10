@@ -1,21 +1,4 @@
-import {
-    NgModule,
-    Component,
-    Input,
-    AfterViewInit,
-    OnDestroy,
-    ElementRef,
-    NgZone,
-    ViewChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    AfterContentInit,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    Inject
-} from '@angular/core';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
