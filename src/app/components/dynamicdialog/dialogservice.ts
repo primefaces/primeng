@@ -3,14 +3,13 @@ import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class DialogService {
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef,
-                private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
 
     public open(componentType: Type<any>, config: DynamicDialogConfig) {
         const dialogRef = this.appendDialogComponentToBody(config);

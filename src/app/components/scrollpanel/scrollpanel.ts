@@ -1,5 +1,5 @@
 import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
-import {CommonModule, DOCUMENT} from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
 
@@ -29,8 +29,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef,
-                @Inject(DOCUMENT) private document: Document) {}
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
 
     @ViewChild('container') containerViewChild: ElementRef;
 

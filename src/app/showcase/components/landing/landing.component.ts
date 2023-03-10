@@ -311,8 +311,8 @@ export class LandingComponent implements OnInit, OnDestroy {
         this.table.filter(event.value, 'representative', 'in');
     }
 
-    copyNpm(){
-        navigator.clipboard.writeText("npm i primeng");
+    copyNpm() {
+        navigator.clipboard.writeText('npm i primeng');
         this.isNpmCopied = true;
         setTimeout(() => {
             this.isNpmCopied = false;

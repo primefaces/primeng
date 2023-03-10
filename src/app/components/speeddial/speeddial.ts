@@ -1,4 +1,7 @@
-import {NgModule, Component, Input,
+import {
+    NgModule,
+    Component,
+    Input,
     ElementRef,
     ChangeDetectionStrategy,
     ViewEncapsulation,
@@ -11,9 +14,10 @@ import {NgModule, Component, Input,
     ChangeDetectorRef,
     ViewChild,
     OnDestroy,
-    AfterViewInit, Inject
+    AfterViewInit,
+    Inject
 } from '@angular/core';
-import {CommonModule, DOCUMENT} from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
