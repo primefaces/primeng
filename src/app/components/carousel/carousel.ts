@@ -622,8 +622,8 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    isPlaying(){
-        return this.interval;
+    isPlaying(): boolean{
+        return !!this.interval;
     }
 
     onTransitionEnd() {
