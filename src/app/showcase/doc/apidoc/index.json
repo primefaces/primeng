@@ -3747,33 +3747,19 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "iconPos",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
-                            "default": "left",
-                            "description": "Icon position of the component."
-                        },
-                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "When specified, disables the component."
                         },
                         {
-                            "name": "size",
+                            "name": "badgeSize",
                             "optional": false,
                             "readonly": false,
                             "type": "\"large\" | \"xlarge\"",
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Value to display inside the badge."
                         },
                         {
                             "name": "severity",
@@ -3781,6 +3767,13 @@
                             "readonly": false,
                             "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
                             "description": "Severity type of the badge."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | number",
+                            "description": "Value to display inside the badge."
                         }
                     ]
                 }
@@ -3805,7 +3798,7 @@
                             "description": "Inline style of the element."
                         },
                         {
-                            "name": "size",
+                            "name": "badgeSize",
                             "optional": false,
                             "readonly": false,
                             "type": "\"large\" | \"xlarge\"",
@@ -3822,7 +3815,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | number",
                             "description": "Value to display inside the badge."
                         },
                         {
