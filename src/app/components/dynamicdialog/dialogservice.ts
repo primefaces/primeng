@@ -42,7 +42,7 @@ export class DialogService {
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        document.body.appendChild(domElem);
+        this.document.body.appendChild(domElem);
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);
 

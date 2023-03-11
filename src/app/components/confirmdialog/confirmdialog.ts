@@ -375,7 +375,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
@@ -388,7 +388,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     enableModality() {
         if (this.option('blockScroll')) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.option('dismissableMask')) {
@@ -404,7 +404,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.option('blockScroll')) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.dismissableMask) {
@@ -418,9 +418,9 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     createStyle() {
         if (!this.styleElement) {
-            this.styleElement = document.createElement('style');
+            this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
+            this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
                 innerHTML += `
@@ -534,7 +534,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     destroyStyle() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.document.head.removeChild(this.styleElement);
             this.styleElement = null;
         }
     }

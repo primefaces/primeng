@@ -151,7 +151,7 @@ export class ConfirmPopup implements OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            document.body.appendChild(this.container);
+            this.document.body.appendChild(this.container);
             this.align();
             this.bindListeners();
 
@@ -333,7 +333,7 @@ export class ConfirmPopup implements OnDestroy {
 
     restoreAppend() {
         if (this.container) {
-            document.body.removeChild(this.container);
+            this.document.body.removeChild(this.container);
         }
 
         this.onContainerDestroy();

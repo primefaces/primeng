@@ -322,13 +322,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
                 this.isItemClicked = false;
             };
-            document.addEventListener('click', this.documentClickListener);
+            this.document.addEventListener('click', this.documentClickListener);
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.document.removeEventListener('click', this.documentClickListener);
             this.documentClickListener = null;
         }
     }

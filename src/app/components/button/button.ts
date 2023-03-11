@@ -118,13 +118,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     createLabel() {
         if (this.label) {
-            let labelElement = document.createElement('span');
+            let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
             }
 
             labelElement.className = 'p-button-label';
-            labelElement.appendChild(document.createTextNode(this.label));
+            labelElement.appendChild(this.document.createTextNode(this.label));
 
             this.htmlElement.appendChild(labelElement);
         }
@@ -132,7 +132,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     createIcon() {
         if (this.icon || this.loading) {
-            let iconElement = document.createElement('span');
+            let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
             iconElement.setAttribute('aria-hidden', 'true');
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
