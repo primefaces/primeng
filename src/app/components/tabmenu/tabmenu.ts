@@ -213,6 +213,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         this.activeItem = item;
         this.activeItemChange.emit(item);
         this.tabChanged = true;
+        this.cd.markForCheck();
     }
 
     updateInkBar() {
