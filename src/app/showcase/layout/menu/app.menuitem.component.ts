@@ -14,6 +14,7 @@ export class AppMenuItemComponent {
     constructor(private router: Router) {}
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
-        return menuitem.children && !menuitem.children.some((item) => item.routerLink === `${this.router.url}` || (item.children && item.children.some((it) => it.routerLink === `${this.router.url}`)));
+        const url = this.router.url.split('#')[0];
+        return menuitem.children && !menuitem.children.some((item) => item.routerLink === `${url}` || (item.children && item.children.some((it) => it.routerLink === `${url}`)));
     }
 }
