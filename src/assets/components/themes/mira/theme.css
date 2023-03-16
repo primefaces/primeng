@@ -41,6 +41,8 @@
   --surface-border:#E5E9F0;
   --surface-hover:#D8DEE9;
   --maskbg: rgba(112, 120, 136, 0.5);
+  --highlight-bg: #D8DEE9;
+  --highlight-text-color: #2E3440;
   --focus-ring: 0 0 0 0.2rem #C0D0E0;
   color-scheme: light;
 }

@@ -1,4 +1,5 @@
 .landing-designer {
+
     .designer-demo {
         --dd-primary:#03C4E8;
         --dd-primary-darker:#029dba;
@@ -133,15 +134,12 @@
     }
 
     .formgrid > .field {
-        padding: 1rem 2rem 1rem;
+        padding: 2rem;
     }
 
     .designer-editor {
         backdrop-filter: blur(1rem);
         box-shadow: var(--home-card-shadow);
-        max-width: 1250px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
     }
 
     .designer-controls {

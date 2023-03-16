@@ -27,11 +27,3 @@
         color: var(--home-primary-text-color);
     }
 }
-
-@media screen and (min-width: 1660px) {
-    .components-main-container {
-        width: 1504px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}

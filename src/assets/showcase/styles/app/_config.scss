@@ -1,66 +1,4 @@
 .layout-config {
-    position: fixed;
-    padding: 0;
-    top: 0;
-    right: 0;
-    display: block;
-    width: 550px;
-    z-index: 1101;
-    height: 100%;
-    transition: transform .4s cubic-bezier(.05,.74,.2,.99);
-    transform: translateX(100%);
-    backface-visibility: hidden;
-
-    &.layout-config-active {
-        transform: translateX(0);
-
-        .layout-config-content-wrapper {
-            .layout-config-button {
-                i {
-                    transform: rotate(0deg);
-                }
-            }
-        }
-    }
-
-    .layout-config-content-wrapper {
-        position: relative;
-        height: 100%;
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.24);
-        color: var(--text-color);
-        background-color: var(--surface-f);
-
-        .layout-config-button {
-            display: block;
-            position: absolute;
-            width: 52px;
-            height: 52px;
-            line-height: 52px;
-            background-color: var(--primary-color);
-            text-align: center;
-            color: var(--primary-color-text);
-            top: 270px;
-            left: -51px;
-            z-index: -1;
-            overflow: hidden;
-            cursor: pointer;
-            outline: 0 none;
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-
-            i {
-                font-size: 26px;
-                line-height: inherit;
-                cursor: pointer;
-                transform: rotate(360deg);
-                transition: transform 1s;
-            }
-        }
-    }
-
     a {
         color: $linkColor;
         font-weight: 600;
@@ -68,12 +6,6 @@
         &:hover {
             text-decoration: underline;
         }
-    }
-
-    .layout-config-content {
-        overflow: auto;
-        height: 100%;
-        padding: 2rem;
     }
 
     .config-scale {
@@ -92,7 +24,7 @@
 
             &.scale-active {
                 font-size: 1.25rem;
-                color: $linkColor;
+                color: var(--primary-color);
             }
         }
     }
@@ -105,10 +37,9 @@
         text-align: center;
         right: 20px;
         top: 20px;
-        z-index: 999;
+        z-index: 1102;
         background-color: var(--primary-color);
         border-radius: 50%;
-        cursor: pointer;
         transition: background-color .2s, box-shadow .2s, transform .2s;
 
         i {
@@ -122,7 +53,8 @@
         }
 
         &:focus {
-            @include focused();
+            outline: 0 none;
+            box-shadow: var(--focus-ring);
         }
     }
 
@@ -138,10 +70,6 @@
             position: relative;
             display: inline-flex;
             justify-content: center;
-
-            &:focus {
-                @include focused();
-            }
         }
     }
 

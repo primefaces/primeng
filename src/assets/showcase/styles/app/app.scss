@@ -1,3 +1,6 @@
+@charset 'UTF-8';
+
+@import './_mixins';
 @import './_core';
 @import './_topbar';
 @import './_menu';
@@ -6,7 +9,11 @@
 @import './_footer';
 @import './_config';
 @import './_designer';
+@import './_doc';
 @import './_home';
 @import './_responsive';
 @import './_demo';
+@import './_code';
 @import './landing/_landing';
+@import '@docsearch/css';
+@import './_docsearch';

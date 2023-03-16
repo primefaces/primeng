@@ -61,7 +61,10 @@
                 "jspdf-autotable",
                 "file-saver",
                 "jspdf",
-                "quill"
+                "quill",
+                "core-js",
+                "raf",
+                "rgbcolor"
               ]
             },
             "configurations": {

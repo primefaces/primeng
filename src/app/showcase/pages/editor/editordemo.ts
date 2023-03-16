@@ -1,0 +1,66 @@
+import { Component } from '@angular/core';
+import { BasicDoc } from '../../doc/editor/basicdoc';
+import { CustomToolbarDoc } from '../../doc/editor/customtoolbardoc';
+import { EventsDoc } from '../../doc/editor/eventsdoc';
+import { ImportDoc } from '../../doc/editor/importdoc';
+import { MethodsDoc } from '../../doc/editor/methodsdoc';
+import { PropsDoc } from '../../doc/editor/propsdoc';
+import { QuillDoc } from '../../doc/editor/quilldoc';
+import { ReadOnlyDoc } from '../../doc/editor/readonlydoc';
+import { StyleDoc } from '../../doc/editor/styledoc';
+
+@Component({
+    templateUrl: './editordemo.html'
+})
+export class EditorDemo {
+    docs = [
+        {
+            id: 'import',
+            label: 'Import',
+            component: ImportDoc
+        },
+        {
+            id: 'quill',
+            label: 'Quill',
+            component: QuillDoc
+        },
+        {
+            id: 'basic',
+            label: 'Basic',
+            component: BasicDoc
+        },
+        {
+            id: 'readonly',
+            label: 'Read Only',
+            component: ReadOnlyDoc
+        },
+        {
+            id: 'customtoolbar',
+            label: 'Custom Toolbar',
+            component: CustomToolbarDoc
+        },
+        {
+            id: 'style',
+            label: 'Style',
+            component: StyleDoc
+        }
+    ];
+
+    apiDocs = [
+        {
+            id: 'properties',
+            label: 'Properties',
+            component: PropsDoc
+        },
+        {
+            id: 'events',
+            label: 'Events',
+            component: EventsDoc
+        },
+        {
+            id: 'methods',
+            label: 'Methods',
+            component: MethodsDoc
+        }
+    ];
+}
