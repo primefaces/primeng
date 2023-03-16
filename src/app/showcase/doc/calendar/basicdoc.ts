@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'calendar-basic-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Two-way value binding is defined using the standard ngModel directive referencing to a Date property.</p>
+            <p>Two-way value binding is defined using the standard <i>ngModel</i> directive referencing to a <i>Date</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date"></p-calendar>
@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date!: Date;
 
     code: Code = {
         basic: `
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
 })
 
 export class CalendarBasicDemo {
-    date: Date;
+    date!: Date;
 }`
     };
 }
