@@ -28,35 +28,38 @@ export class AppMenuComponent {
 
     subscription!: Subscription;
 
-    routeSubscription!: Subscription;
-
     constructor(private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-        this.routeSubscription = this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                setTimeout(() => {
-                    this.scrollToActiveItem();
-                }, 1);
-            }
-        });
+    }
+
+    ngOnInit() {
+        setTimeout(() => {
+            this.scrollToActiveItem();
+        }, 1);
     }
 
     scrollToActiveItem() {
         let activeItem = DomHandler.findSingle(this.el.nativeElement, '.router-link-active');
-        if (activeItem) {
-            activeItem.scrollIntoView({ inline: 'start', behavior: 'smooth' });
+        if (activeItem && !this.isInViewport(activeItem)) {
+            activeItem.scrollIntoView({ inline: 'start'});
         }
     }
+
+    isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
 
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
-        }
-
-        if (this.routeSubscription) {
-            this.routeSubscription.unsubscribe();
         }
     }
 }
