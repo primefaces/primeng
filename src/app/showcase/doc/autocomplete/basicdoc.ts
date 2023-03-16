@@ -8,7 +8,7 @@ import { CountryService } from '../../service/countryservice';
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                AutoComplete uses ngModel for two-way binding, requires a list of suggestions and a completeMethod to query for the results. The completeMethod gets the query text as event.query property and should update the suggestions with the
+                AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the suggestions with the
                 search results.
             </p>
         </app-docsectiontext>

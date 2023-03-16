@@ -133,15 +133,15 @@ import { CountryService } from 'src/service/countryservice';
     styleUrls: ['./autocomplete-template-demo.scss']
 })
 export class AutocompleteTemplateDemo {
-    countries: any[];
+    countries!: any[];
 
-    items: any[];
+    items!: any[];
 
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCountryAdvanced: any[];
+    selectedCountryAdvanced!: any[];
 
-    filteredCountries: any[];
+    filteredCountries!: any[];
 
     constructor(private countryService: CountryService) {}
 

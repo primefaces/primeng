@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiplescroll-demo',
+    selector: 'autocomplete-multiple-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
@@ -14,7 +14,7 @@ import { CountryService } from '../../service/countryservice';
                 <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"> </p-autoComplete>
             </span>
         </div>
-        <app-code [code]="code" selector="autocomplete-multiplescroll-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>
     </div>`
 })
 export class MultipleDoc {
@@ -113,11 +113,11 @@ import { Component } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiplescroll-demo',
-    templateUrl: './autocomplete-multiplescroll-demo.html',
-    styleUrls: ['./autocomplete-multiplescroll-demo.scss']
+    selector: 'autocomplete-multiple-demo',
+    templateUrl: './autocomplete-multiple-demo.html',
+    styleUrls: ['./autocomplete-multiple-demo.scss']
 })
-export class AutocompleteMultiplescrollDemo {
+export class AutocompleteMultipleDemo {
     countries: any[];
 
     items: any[];

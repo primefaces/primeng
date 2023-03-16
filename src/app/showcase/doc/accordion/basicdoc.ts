@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'accordion-basic-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Accordion consists of one or more AccordionTab elements which are collapsed by default. Tab to expand initially can be defined with the <i>activeIndex</i> property.</p>
+            <p>Accordion consists of one or more <i>AccordionTab</i> elements which are collapsed by default. Tab to expand initially can be defined with the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-accordion [activeIndex]="0">

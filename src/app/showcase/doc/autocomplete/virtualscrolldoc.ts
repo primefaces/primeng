@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'autocomplete-virtualscroll-demo',
+    selector: 'autocomplete-virtual-scroll-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-virtualscroll-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>
     </div>`
 })
 export class VirtualScrollDoc {
@@ -62,11 +62,11 @@ export class VirtualScrollDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'autocomplete-virtualscroll-demo',
-    templateUrl: './autocomplete-virtualscroll-demo.html',
-    styleUrls: ['./autocomplete-virtualscroll-demo.scss']
+    selector: 'autocomplete-virtual-scroll-demo',
+    templateUrl: './autocomplete-virtual-scroll-demo.html',
+    styleUrls: ['./autocomplete-virtual-scroll-demo.scss']
 })
-export class AutocompleteVirtualscrollDemo {
+export class AutocompleteVirtualScrollDemo {
     selectedItem: any;
 
     filteredItems: any[];
