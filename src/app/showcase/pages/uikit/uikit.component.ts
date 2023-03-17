@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 import { UIKitService } from '../../service/uikitservice';
@@ -16,7 +17,10 @@ export class UIKitComponent implements OnInit, OnDestroy {
 
     pricing: any;
 
-    constructor(private configService: AppConfigService, private uiKitService: UIKitService) {}
+    constructor(private configService: AppConfigService, private uiKitService: UIKitService, private titleService: Title, private metaService: Meta) {
+        this.titleService.setTitle('UI Kit - PrimeNG');
+        this.metaService.updateTag({ name: 'description', content: 'PrimeNG Angular UI Kit' });
+    }
 
     ngOnInit() {
         this.subscription = this.configService.configUpdate$.subscribe((config) => {

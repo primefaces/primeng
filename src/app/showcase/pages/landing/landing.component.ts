@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { AppConfig } from '../../domain/appconfig';
@@ -86,9 +87,11 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     theme: string = 'lara-light-blue';
 
-    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent) {}
+    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {}
 
     ngOnInit() {
+        this.titleService.setTitle('PrimeNG - Angular UI Component Library');
+        this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
         this.config = this.configService.config;
         this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
         this.configService.updateConfig({ ...this.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue' } });
