@@ -62,8 +62,7 @@ import { CountryService } from 'src/service/countryservice';
 
 @Component({
     selector: 'autocomplete-force-selection-demo',
-    templateUrl: './autocomplete-force-selection-demo.html',
-    styleUrls: ['./autocomplete-force-selection-demo.scss']
+    templateUrl: './autocomplete-force-selection-demo.html'
 })
 export class ForceSelectionDoc implements OnInit {
     countries: any[];

@@ -65,8 +65,7 @@ import { CountryService } from 'src/service/countryservice';
 
 @Component({
     selector: 'autocomplete-dropdown-demo',
-    templateUrl: './autocomplete-dropdown-demo.html',
-    styleUrls: ['./autocomplete-dropdown-demo.scss']
+    templateUrl: './autocomplete-dropdown-demo.html'
 })
 export class AutocompleteDropdownDemo implements OnInit {
     countries: any[];

@@ -32,8 +32,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-basic-demo',
-    templateUrl: './button-basic-demo.html',
-    styleUrls: ['./button-basic-demo.scss']
+    templateUrl: './button-basic-demo.html'
 })
 export class ButtonBasicDemo { }`
     };

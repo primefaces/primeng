@@ -8,13 +8,13 @@ import { Code } from '../../domain/code';
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
-            <button pButton type="button" label="Primary"></button>
-            <button pButton type="button" label="Secondary" class="p-button-secondary"></button>
-            <button pButton type="button" label="Success" class="p-button-success"></button>
-            <button pButton type="button" label="Info" class="p-button-info"></button>
-            <button pButton type="button" label="Warning" class="p-button-warning"></button>
-            <button pButton type="button" label="Help" class="p-button-help"></button>
-            <button pButton type="button" label="Danger" class="p-button-danger"></button>
+            <p-button label="Primary"></p-button>
+            <p-button label="Secondary" styleClass="p-button-secondary"></p-button>
+            <p-button label="Success" styleClass="p-button-success"></p-button>
+            <p-button label="Info" styleClass="p-button-info"></p-button>
+            <p-button label="Warning" styleClass="p-button-warning"></p-button>
+            <p-button label="Help" styleClass="p-button-help"></p-button>
+            <p-button label="Danger" styleClass="p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
     </div>`
@@ -26,23 +26,23 @@ export class SeverityDoc {
 
     code: Code = {
         basic: `
-<button pButton type="button" label="Primary"></button>
-<button pButton type="button" label="Secondary" class="p-button-secondary"></button>
-<button pButton type="button" label="Success" class="p-button-success"></button>
-<button pButton type="button" label="Info" class="p-button-info"></button>
-<button pButton type="button" label="Warning" class="p-button-warning"></button>
-<button pButton type="button" label="Help" class="p-button-help"></button>
-<button pButton type="button" label="Danger" class="p-button-danger"></button>`,
+<p-button label="Primary"></p-button>
+<p-button label="Secondary" styleClass="p-button-secondary"></p-button>
+<p-button label="Success" styleClass="p-button-success"></p-button>
+<p-button label="Info" styleClass="p-button-info"></p-button>
+<p-button label="Warning" styleClass="p-button-warning"></p-button>
+<p-button label="Help" styleClass="p-button-help"></p-button>
+<p-button label="Danger" styleClass="p-button-danger"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
-    <button pButton type="button" label="Primary"></button>
-    <button pButton type="button" label="Secondary" class="p-button-secondary"></button>
-    <button pButton type="button" label="Success" class="p-button-success"></button>
-    <button pButton type="button" label="Info" class="p-button-info"></button>
-    <button pButton type="button" label="Warning" class="p-button-warning"></button>
-    <button pButton type="button" label="Help" class="p-button-help"></button>
-    <button pButton type="button" label="Danger" class="p-button-danger"></button>
+    <p-button label="Primary"></p-button>
+    <p-button label="Secondary" styleClass="p-button-secondary"></p-button>
+    <p-button label="Success" styleClass="p-button-success"></p-button>
+    <p-button label="Info" styleClass="p-button-info"></p-button>
+    <p-button label="Warning" styleClass="p-button-warning"></p-button>
+    <p-button label="Help" styleClass="p-button-help"></p-button>
+    <p-button label="Danger" styleClass="p-button-danger"></p-button>
 </div>`,
 
         typescript: `
@@ -50,8 +50,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-severity-demo',
-    templateUrl: './button-severity-demo.html',
-    styleUrls: ['./button-severity-demo.scss']
+    templateUrl: './button-severity-demo.html'
 })
 export class ButtonSeverityDemo { }`
     };

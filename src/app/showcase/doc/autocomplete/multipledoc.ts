@@ -70,8 +70,7 @@ import { CountryService } from 'src/service/countryservice';
 
 @Component({
     selector: 'autocomplete-multiple-demo',
-    templateUrl: './autocomplete-multiple-demo.html',
-    styleUrls: ['./autocomplete-multiple-demo.scss']
+    templateUrl: './autocomplete-multiple-demo.html'
 })
 export class AutocompleteMultipleDemo {
     countries: any[];

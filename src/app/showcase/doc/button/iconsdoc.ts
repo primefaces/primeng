@@ -38,8 +38,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-icons-demo',
-    templateUrl: './button-icons-demo.html',
-    styleUrls: ['./button-icons-demo.scss']
+    templateUrl: './button-icons-demo.html'
 })
 export class ButtonIconsDemo { }`
     };

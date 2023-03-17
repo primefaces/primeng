@@ -38,8 +38,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-sizes-demo',
-    templateUrl: './button-sizes-demo.html',
-    styleUrls: ['./button-sizes-demo.scss']
+    templateUrl: './button-sizes-demo.html'
 })
 export class ButtonSizesDemo { }`
     };

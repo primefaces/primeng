@@ -45,8 +45,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'autocomplete-basic-demo',
-    templateUrl: './autocomplete-basic-demo.html',
-    styleUrls: ['./autocomplete-basic-demo.scss']
+    templateUrl: './autocomplete-basic-demo.html'
 })
 export class AutocompleteBasicDemo {
     items: any[];

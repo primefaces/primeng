@@ -65,8 +65,7 @@ import { CountryService } from 'src/service/countryservice';
 
 @Component({
     selector: 'autocomplete-objects-demo',
-    templateUrl: './autocomplete-objects-demo.html',
-    styleUrls: ['./autocomplete-objects-demo.scss']
+    templateUrl: './autocomplete-objects-demo.html'
 })
 export class AutocompleteObjectsDemo implements OnInit {
     countries: any[];

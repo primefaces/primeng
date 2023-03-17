@@ -8,13 +8,13 @@ import { Code } from '../../domain/code';
             <p>Raised buttons display a shadow to indicate elevation.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
-            <button pButton type="button" label="Primary" class="p-button-raised"></button>
-            <button pButton type="button" label="Secondary" class="p-button-raised p-button-secondary"></button>
-            <button pButton type="button" label="Success" class="p-button-raised p-button-success"></button>
-            <button pButton type="button" label="Info" class="p-button-raised p-button-info"></button>
-            <button pButton type="button" label="Warning" class="p-button-raised p-button-warning"></button>
-            <button pButton type="button" label="Help" class="p-button-raised p-button-help"></button>
-            <button pButton type="button" label="Danger" class="p-button-raised p-button-danger"></button>
+            <p-button label="Primary" styleClass="p-button-raised"></p-button>
+            <p-button label="Secondary" styleClass="p-button-raised p-button-secondary"></p-button>
+            <p-button label="Success" styleClass="p-button-raised p-button-success"></p-button>
+            <p-button label="Info" styleClass="p-button-raised p-button-info"></p-button>
+            <p-button label="Warning" styleClass="p-button-raised p-button-warning"></p-button>
+            <p-button label="Help" styleClass="p-button-raised p-button-help"></p-button>
+            <p-button label="Danger" styleClass="p-button-raised p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-raised-demo"></app-code>
     </div>`
@@ -26,23 +26,23 @@ export class RaisedDoc {
 
     code: Code = {
         basic: `
-<button pButton type="button" label="Primary" class="p-button-raised"></button>
-<button pButton type="button" label="Secondary" class="p-button-raised p-button-secondary"></button>
-<button pButton type="button" label="Success" class="p-button-raised p-button-success"></button>
-<button pButton type="button" label="Info" class="p-button-raised p-button-info"></button>
-<button pButton type="button" label="Warning" class="p-button-raised p-button-warning"></button>
-<button pButton type="button" label="Help" class="p-button-raised p-button-help"></button>
-<button pButton type="button" label="Danger" class="p-button-raised p-button-danger"></button>`,
+<p-button label="Primary" styleClass="p-button-raised"></p-button>
+<p-button label="Secondary" styleClass="p-button-raised p-button-secondary"></p-button>
+<p-button label="Success" styleClass="p-button-raised p-button-success"></p-button>
+<p-button label="Info" styleClass="p-button-raised p-button-info"></p-button>
+<p-button label="Warning" styleClass="p-button-raised p-button-warning"></p-button>
+<p-button label="Help" styleClass="p-button-raised p-button-help"></p-button>
+<p-button label="Danger" styleClass="p-button-raised p-button-danger"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
-    <button pButton type="button" label="Primary" class="p-button-raised"></button>
-    <button pButton type="button" label="Secondary" class="p-button-raised p-button-secondary"></button>
-    <button pButton type="button" label="Success" class="p-button-raised p-button-success"></button>
-    <button pButton type="button" label="Info" class="p-button-raised p-button-info"></button>
-    <button pButton type="button" label="Warning" class="p-button-raised p-button-warning"></button>
-    <button pButton type="button" label="Help" class="p-button-raised p-button-help"></button>
-    <button pButton type="button" label="Danger" class="p-button-raised p-button-danger"></button>
+    <p-button label="Primary" styleClass="p-button-raised"></p-button>
+    <p-button label="Secondary" styleClass="p-button-raised p-button-secondary"></p-button>
+    <p-button label="Success" styleClass="p-button-raised p-button-success"></p-button>
+    <p-button label="Info" styleClass="p-button-raised p-button-info"></p-button>
+    <p-button label="Warning" styleClass="p-button-raised p-button-warning"></p-button>
+    <p-button label="Help" styleClass="p-button-raised p-button-help"></p-button>
+    <p-button label="Danger" styleClass="p-button-raised p-button-danger"></p-button>
 </div>`,
 
         typescript: `
@@ -50,8 +50,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-raised-demo',
-    templateUrl: './button-raised-demo.html',
-    styleUrls: ['./button-raised-demo.scss']
+    templateUrl: './button-raised-demo.html'
 })
 export class ButtonRaisedDemo { }`
     };

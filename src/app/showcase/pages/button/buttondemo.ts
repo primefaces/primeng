@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { BadgesDoc } from '../../doc/button/badgesdoc';
+import { AccessibilityDoc } from '../../doc/button/accessibilitydoc';
+import { BadgeDoc } from '../../doc/button/badgedoc';
 import { BasicDoc } from '../../doc/button/basicdoc';
 import { ButtonsetDoc } from '../../doc/button/buttonsetdoc';
+import { DirectiveDoc } from '../../doc/button/directivedoc';
 import { DisabledDoc } from '../../doc/button/disableddoc';
 import { IconsDoc } from '../../doc/button/iconsdoc';
 import { IconOnlyDoc } from '../../doc/button/iconsonlydoc';
@@ -35,6 +37,11 @@ export class ButtonDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'directive',
+            label: 'Directive',
+            component: DirectiveDoc
         },
         {
             id: 'link',
@@ -94,7 +101,7 @@ export class ButtonDemo {
         {
             id: 'badges',
             label: 'Badges',
-            component: BadgesDoc
+            component: BadgeDoc
         },
         {
             id: 'buttonset',
@@ -115,6 +122,11 @@ export class ButtonDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -32,8 +32,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-link-demo',
-    templateUrl: './button-link-demo.html',
-    styleUrls: ['./button-link-demo.scss']
+    templateUrl: './button-link-demo.html'
 })
 export class ButtonLinkDemo { }`
     };

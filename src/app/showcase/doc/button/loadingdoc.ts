@@ -42,8 +42,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-loading-demo',
-    templateUrl: './button-loading-demo.html',
-    styleUrls: ['./button-loading-demo.scss']
+    templateUrl: './button-loading-demo.html'
 })
 export class ButtonLoadingDemo {
     loading: boolean = false;

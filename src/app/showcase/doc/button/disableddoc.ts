@@ -32,8 +32,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'button-disabled-demo',
-    templateUrl: './button-disabled-demo.html',
-    styleUrls: ['./button-disabled-demo.scss']
+    templateUrl: './button-disabled-demo.html'
 })
 export class ButtonDisabledDemo { }`
     };

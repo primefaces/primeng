@@ -2,11 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { BadgesDoc } from './badgesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
+import { BadgeDoc } from './badgedoc';
 import { BasicDoc } from './basicdoc';
 import { ButtonsetDoc } from './buttonsetdoc';
+import { DirectiveDoc } from './directivedoc';
 import { DisabledDoc } from './disableddoc';
 import { IconsDoc } from './iconsdoc';
 import { IconOnlyDoc } from './iconsonlydoc';
@@ -26,7 +29,7 @@ import { TemplatesDoc } from './templatesdoc';
 import { TextDoc } from './textdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, RippleModule, RouterModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -42,13 +45,15 @@ import { TextDoc } from './textdoc';
         RaisedTextDoc,
         OutlinedDoc,
         IconOnlyDoc,
-        BadgesDoc,
+        BadgeDoc,
         ButtonsetDoc,
         SizesDoc,
         TemplateDoc,
         StyleDoc,
         PropsDoc,
-        TemplatesDoc
+        TemplatesDoc,
+        AccessibilityDoc,
+        DirectiveDoc
     ]
 })
 export class ButtonDocModule {}

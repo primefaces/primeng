@@ -118,8 +118,7 @@ import { FilterService, SelectItemGroup } from 'primeng/api';
 
 @Component({
     selector: 'autocomplete-grouped-demo',
-    templateUrl: './autocomplete-grouped-demo.html',
-    styleUrls: ['./autocomplete-grouped-demo.scss']
+    templateUrl: './autocomplete-grouped-demo.html'
 })
 export class AutocompleteGroupedDemo implements OnInit {
     selectedCity: any;

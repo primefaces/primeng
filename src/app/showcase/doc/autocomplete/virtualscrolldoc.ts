@@ -63,8 +63,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
-    templateUrl: './autocomplete-virtual-scroll-demo.html',
-    styleUrls: ['./autocomplete-virtual-scroll-demo.scss']
+    templateUrl: './autocomplete-virtual-scroll-demo.html'
 })
 export class AutocompleteVirtualScrollDemo {
     selectedItem: any;
