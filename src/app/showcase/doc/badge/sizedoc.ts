@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="badge-size-demo"></app-code>
     </div>`
 })
-export class BadgeSizeDemo {
+export class SizeDoc {
     @Input() id: string;
 
     @Input() title: string;

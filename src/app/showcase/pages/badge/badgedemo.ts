@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/badge/importdoc';
-import { BadgeSizeDemo } from '../../doc/badge/sizedoc';
-import { BadgeBasicDemo } from '../../doc/badge/basicdoc';
-import { BadgeButtonDemo } from '../../doc/badge/buttondoc';
-import { BadgeDirectiveDemo } from '../../doc/badge/directivedoc';
-import { BadgePositionDemo } from '../../doc/badge/positiondoc';
-import { BadgeSeverityDemo } from '../../doc/badge/severitydoc';
+import { SizeDoc } from '../../doc/badge/sizedoc';
+import { BasicDoc } from '../../doc/badge/basicdoc';
+import { ButtonDoc } from '../../doc/badge/buttondoc';
+import { DirectiveDoc } from '../../doc/badge/directivedoc';
+import { PositionDoc } from '../../doc/badge/positiondoc';
+import { SeverityDoc } from '../../doc/badge/severitydoc';
 import { StyleDoc } from '../../doc/badge/styledoc';
 import { PropsDoc } from '../../doc/badge/propsdoc';
+import { AccessibilityDoc } from '../../doc/badge/accessibilitydoc';
 
 @Component({
     templateUrl: './badgedemo.html'
@@ -22,37 +23,42 @@ export class BadgeDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: BadgeBasicDemo
+            component: BasicDoc
         },
         {
             id: 'directive',
             label: 'Directive',
-            component: BadgeDirectiveDemo
+            component: DirectiveDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: BadgeSeverityDemo
+            component: SeverityDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: BadgeSizeDemo
+            component: SizeDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: BadgePositionDemo
+            component: PositionDoc
         },
         {
             id: 'button',
             label: 'Button',
-            component: BadgeButtonDemo
+            component: ButtonDoc
         },
         {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

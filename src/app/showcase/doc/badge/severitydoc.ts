@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="badge-severity-demo"></app-code>
     </div>`
 })
-export class BadgeSeverityDemo {
+export class SeverityDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -6,18 +6,19 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ImportDoc } from './importdoc';
-import { BadgeBasicDemo } from './basicdoc';
-import { BadgeButtonDemo } from './buttondoc';
-import { BadgeDirectiveDemo } from './directivedoc';
-import { BadgePositionDemo } from './positiondoc';
-import { BadgeSeverityDemo } from './severitydoc';
-import { BadgeSizeDemo } from './sizedoc';
+import { BasicDoc } from './basicdoc';
+import { ButtonDoc } from './buttondoc';
+import { DirectiveDoc } from './directivedoc';
+import { PositionDoc } from './positiondoc';
+import { SeverityDoc } from './severitydoc';
+import { SizeDoc } from './sizedoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, BadgeModule, ButtonModule],
-    declarations: [ImportDoc, BadgeBasicDemo, BadgeButtonDemo, BadgeDirectiveDemo, BadgePositionDemo, BadgeSeverityDemo, BadgeSizeDemo, StyleDoc, PropsDoc],
+    declarations: [ImportDoc, BasicDoc, ButtonDoc, DirectiveDoc, PositionDoc, SeverityDoc, SizeDoc, StyleDoc, PropsDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class BadgeDocModule {}

@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="badge-position-demo"></app-code>
     </div>`
 })
-export class BadgePositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;

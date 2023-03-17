@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="badge-directive-demo"></app-code>
     </div>`
 })
-export class BadgeDirectiveDemo {
+export class DirectiveDoc {
     @Input() id: string;
 
     @Input() title: string;
