@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { StyleDoc } from '../../doc/breadcrumb/styledoc';
-import { BreadcrumbBasicDemo } from '../../doc/breadcrumb/basicdoc';
+import { BasicDoc } from '../../doc/breadcrumb/basicdoc';
 import { EventsDoc } from '../../doc/breadcrumb/eventsdoc';
 import { ImportDoc } from '../../doc/breadcrumb/importdoc';
 import { MenuItemDoc } from '../../doc/breadcrumb/menuitemdoc';
 import { PropsDoc } from '../../doc/breadcrumb/propsdoc';
+import { AccessibilityDoc } from '../../doc/breadcrumb/accessibilitydoc';
 
 @Component({
     templateUrl: './breadcrumbdemo.html'
@@ -19,12 +20,17 @@ export class BreadcrumbDemo {
         {
             basic: 'basic',
             label: 'Basic',
-            component: BreadcrumbBasicDemo
+            component: BasicDoc
         },
         {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

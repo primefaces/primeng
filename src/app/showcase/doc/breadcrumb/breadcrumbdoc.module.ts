@@ -5,15 +5,16 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { StyleDoc } from './styledoc';
-import { BreadcrumbBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { MenuItemDoc } from './menuitemdoc';
 import { PropsDoc } from './propsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, BreadcrumbModule, AppDocModule],
-    declarations: [BreadcrumbBasicDemo, EventsDoc, ImportDoc, MenuItemDoc, PropsDoc, EventsDoc, StyleDoc],
+    declarations: [BasicDoc, EventsDoc, ImportDoc, MenuItemDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class BreadcrumbDocModule {}
