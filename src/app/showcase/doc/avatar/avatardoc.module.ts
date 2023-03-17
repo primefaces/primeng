@@ -8,38 +8,40 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { AvatarGroupDemo } from './avatargroupdoc';
-import { AvatarIconDemo } from './icondoc';
-import { AvatarImageDemo } from './imagedoc';
+import { GroupDoc } from './avatargroupdoc';
+import { IconDoc } from './icondoc';
+import { ImageDoc } from './imagedoc';
 import { ImportDoc } from './importdoc';
-import { AvatarLabelDemo } from './labeldoc';
+import { LabelDoc } from './labeldoc';
 import { AvatarStyleDoc } from './avatarstyledoc';
-import { AvatarShapeDemo } from './shapedoc';
-import { AvatarSizeDemo } from './sizedoc';
-import { AvatarBadgeDemo } from './badgedoc';
-import { AvatarTemplatingDemo } from './templatingdoc';
+import { ShapeDoc } from './shapedoc';
+import { SizeDoc } from './sizedoc';
+import { BadgeDoc } from './badgedoc';
+import { TemplateDoc } from './templatedoc';
 import { AvatarGroupStyleDoc } from './avatargroupstyledoc';
 import { AvatarPropsDoc } from './avatarpropsdoc';
 import { AvatarGroupPropsDoc } from './avatargrouppropsdoc';
 import { EventsDoc } from './eventsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, InputTextModule, FormsModule, AppDocModule, AvatarModule, AvatarGroupModule, BadgeModule],
     declarations: [
         ImportDoc,
-        AvatarLabelDemo,
-        AvatarIconDemo,
-        AvatarGroupDemo,
-        AvatarImageDemo,
+        LabelDoc,
+        IconDoc,
+        GroupDoc,
+        ImageDoc,
         AvatarStyleDoc,
         AvatarGroupStyleDoc,
-        AvatarShapeDemo,
-        AvatarSizeDemo,
-        AvatarBadgeDemo,
-        AvatarTemplatingDemo,
+        ShapeDoc,
+        SizeDoc,
+        BadgeDoc,
+        TemplateDoc,
         AvatarPropsDoc,
         AvatarGroupPropsDoc,
-        EventsDoc
+        EventsDoc,
+        AccessibilityDoc
     ],
     exports: [AppDocModule]
 })

@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="avatar-badge-demo"></app-code>
     </div>`
 })
-export class AvatarBadgeDemo {
+export class BadgeDoc {
     @Input() id: string;
 
     @Input() title: string;

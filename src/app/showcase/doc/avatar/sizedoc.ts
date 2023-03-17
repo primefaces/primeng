@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="avatar-size-demo"></app-code>
     </div>`
 })
-export class AvatarSizeDemo {
+export class SizeDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
     </div>`
 })
-export class AvatarGroupDemo {
+export class GroupDoc {
     @Input() id: string;
 
     @Input() title: string;

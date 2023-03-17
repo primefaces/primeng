@@ -28,7 +28,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
     </div>`
 })
-export class AvatarLabelDemo {
+export class LabelDoc {
     @Input() id: string;
 
     @Input() title: string;

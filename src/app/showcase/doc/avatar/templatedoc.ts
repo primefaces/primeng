@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="avatar-templating-demo"></app-code>
     </div>`
 })
-export class AvatarTemplatingDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;
