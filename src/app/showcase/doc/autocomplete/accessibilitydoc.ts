@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </app-docsectiontext>
 
             <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
-            
+
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -35,47 +35,101 @@ import { Code } from '../../domain/code';
                             <td>
                                 <i>tab</i>
                             </td>
-                            <td>Moves focus to the next the focusable element in the page tab sequence.</td>
-                        </tr>
-                        <tr>
-                            <td><i>shift</i> + <i>tab</i></td>
-                            <td>Moves focus to the previous the focusable element in the page tab sequence.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i>enter</i>
-                            </td>
-                            <td>Toggles the visibility of the content.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i>space</i>
-                            </td>
-                            <td>Toggles the visibility of the content.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i>down arrow</i>
-                            </td>
-                            <td>Moves focus to the next header.</td>
+                            <td>Moves focus to the input element when popup is not visible. If the popup is open and an item is highlighted then popup gets closed, item gets selected and focus moves to the next focusable element.</td>
                         </tr>
                         <tr>
                             <td>
                                 <i>up arrow</i>
                             </td>
-                            <td>Moves focus to the previous header.</td>
+                            <td>Highlights the previous item if popup is visible.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>down arrow</i>
+                            </td>
+                            <td>Highlights the next item if popup is visible.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>enter</i>
+                            </td>
+                            <td>Selects the highlighted item and closes the popup if popup is visible.</td>
                         </tr>
                         <tr>
                             <td>
                                 <i>home</i>
                             </td>
-                            <td>Moves focus to the first header.</td>
+                            <td>Highlights the first item if popup is visible.</td>
                         </tr>
                         <tr>
                             <td>
                                 <i>end</i>
                             </td>
-                            <td>Moves focus to the last header.</td>
+                            <td>Highlights the last item if popup is visible.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>escape</i>
+                            </td>
+                            <td>Hides the popup.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Chips Input Keyboard Support</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <i>backspace</i>
+                            </td>
+                            <td>Deletes the previous chip if the input field is empty.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>left arrow</i>
+                            </td>
+                            <td>Moves focus to the previous chip if available and input field is empty.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Chip Keyboard Support</h3>
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <i>left arrow</i>
+                            </td>
+                            <td>Moves focus to the previous chip if available.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>right arrow</i>
+                            </td>
+                            <td>Moves focus to the next chip, if there is none then input field receives the focus.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>backspace</i>
+                            </td>
+                            <td>Deletes the chips and adds focus to the input field.</td>
                         </tr>
                     </tbody>
                 </table>
