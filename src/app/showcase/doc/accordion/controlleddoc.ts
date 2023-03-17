@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="accordion-controlled-demo"></app-code>
     </div>`
 })
-export class AccordionControlledDemo {
+export class ControlledDoc {
     @Input() id: string;
 
     @Input() title: string;

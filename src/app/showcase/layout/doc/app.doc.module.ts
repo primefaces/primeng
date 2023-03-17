@@ -9,11 +9,12 @@ import { AppDocApiSection } from './docapisection/app.docapisection.component';
 import { AppDocSectionsComponent } from './docsection/app.docsection.component';
 import { AppDocSectionNavComponent } from './docsectionnav/app.docsection-nav.component';
 import { AppDocSectionTextComponent } from './docsectiontext/app.docsectiontext.component';
+import { AppDevelopmentSection } from './developmentsection/app.developmentsection.component';
 import { AppDoc } from './app.doc.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule],
-    exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDoc],
-    declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDoc]
+    exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc],
+    declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc]
 })
 export class AppDocModule {}

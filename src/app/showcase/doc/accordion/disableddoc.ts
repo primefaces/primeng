@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="accordion-disabled-demo"></app-code>
     </div>`
 })
-export class AccordionDisabledDemo {
+export class DisabledDoc {
     @Input() id: string;
 
     @Input() title: string;

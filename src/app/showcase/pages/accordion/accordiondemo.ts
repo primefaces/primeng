@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { AccordionBasicDemo } from '../../doc/accordion/basicdoc';
-import { AccordionControlledDemo } from '../../doc/accordion/controlleddoc';
-import { AccordionDisabledDemo } from '../../doc/accordion/disableddoc';
+import { AccessibilityDoc } from '../../doc/accordion/accessibilitydoc';
+import { BasicDoc } from '../../doc/accordion/basicdoc';
+import { ControlledDoc } from '../../doc/accordion/controlleddoc';
+import { DisabledDoc } from '../../doc/accordion/disableddoc';
 import { EventsDoc } from '../../doc/accordion/eventsdoc';
 import { ImportDoc } from '../../doc/accordion/importdoc';
-import { AccordionMultipleDemo } from '../../doc/accordion/multipledoc';
+import { MultipleDoc } from '../../doc/accordion/multipledoc';
 import { PropsDoc } from '../../doc/accordion/propsdoc';
 import { StyleDoc } from '../../doc/accordion/styledoc';
-import { AccordionTemplateDemo } from '../../doc/accordion/templatedoc';
+import { TemplateDoc } from '../../doc/accordion/templatedoc';
 import { TemplatesDoc } from '../../doc/accordion/templatesdoc';
 
 @Component({
@@ -24,34 +25,40 @@ export class AccordionDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: AccordionBasicDemo
+            component: BasicDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: AccordionMultipleDemo
+            component: MultipleDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: AccordionDisabledDemo
+            component: DisabledDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: AccordionControlledDemo
+            component: ControlledDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: AccordionTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
+
     apiDocs = [
         {
             id: 'properties',

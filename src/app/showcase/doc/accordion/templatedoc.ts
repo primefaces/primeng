@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'accordion-template-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Title section of a tab is customized with the <i>header</i> property.</p>
+            <p>AccordionTab is customized <i>header</i> and <i>content</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-accordion class="w-full">
@@ -59,7 +59,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="accordion-template-demo"></app-code>
     </div>`
 })
-export class AccordionTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;
