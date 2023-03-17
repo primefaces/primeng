@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="animate-basic-demo"></app-code>
     </div>`
 })
-export class AnimateBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
