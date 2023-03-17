@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { BlockUiBasicDemo } from '../../doc/blockui/basicdoc';
-import { BlockUiDocumentDemo } from '../../doc/blockui/documentdoc';
+import { AccessibilityDoc } from '../../doc/blockui/accessibilitydoc';
+import { BasicDoc } from '../../doc/blockui/basicdoc';
+import { DocumentDoc } from '../../doc/blockui/documentdoc';
 import { ImportDoc } from '../../doc/blockui/importdoc';
 import { PropsDoc } from '../../doc/blockui/propsdoc';
 import { StyleDoc } from '../../doc/blockui/styledoc';
@@ -62,17 +63,22 @@ export class BlockUIDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: BlockUiBasicDemo
+            component: BasicDoc
         },
         {
             id: 'document',
             label: 'Document',
-            component: BlockUiDocumentDemo
+            component: DocumentDoc
         },
         {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

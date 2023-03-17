@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="block-ui-basic-demo"></app-code>
     </div>`
 })
-export class BlockUiBasicDemo {
+export class BasicDoc {
     blockedPanel: boolean = false;
 
     @Input() id: string;

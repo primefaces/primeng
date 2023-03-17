@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
     </div>`
 })
-export class BlockUiDocumentDemo {
+export class DocumentDoc {
     @Input() id: string;
 
     @Input() title: string;
