@@ -7,7 +7,7 @@ import { CountryService } from '../../service/countryservice';
     selector: 'autocomplete-template-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Autocomplete is customized using a <i>ng-template</i> element where the value is passed as the implicit variable.</p>
+            <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
@@ -201,6 +201,16 @@ export class AutocompleteTemplateDemo {
         }
 
         this.filteredCountries = filtered;
+    }
+}`,
+        scss: `
+.country-item {
+    display: flex;
+    align-items: center;
+
+    img.flag {
+        width: 18px;
+        margin-right: .5rem;
     }
 }`,
 

@@ -1,29 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiple-demo',
+    selector: 'autocomplete-objects-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
+            <p>
+                AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a
+                Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
+            </p>
         </app-docsectiontext>
-        <div class="card">
-            <span class="p-fluid">
-                <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"></p-autoComplete>
-            </span>
+        <div class="card flex justify-content-center">
+            <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>
     </div>`
 })
-export class MultipleDoc {
+export class ObjectsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
 
     countries: any[];
 
-    selectedCountries: any[];
+    selectedCountry: any;
 
     filteredCountries: any[];
 
@@ -36,7 +37,6 @@ export class MultipleDoc {
     }
 
     filterCountry(event) {
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
@@ -52,31 +52,26 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `
-<span class="p-fluid">
-    <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" field="name" [multiple]="true"></p-autoComplete>
-</span>`,
+<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
 
         html: `
-<div class="card">
-    <span class="p-fluid">
-        <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"> </p-autoComplete>
-    </span>
+<div class="card flex justify-content-center">
+    <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiple-demo',
-    templateUrl: './autocomplete-multiple-demo.html',
-    styleUrls: ['./autocomplete-multiple-demo.scss']
+    selector: 'autocomplete-objects-demo',
+    templateUrl: './autocomplete-objects-demo.html',
+    styleUrls: ['./autocomplete-objects-demo.scss']
 })
-export class AutocompleteMultipleDemo {
+export class AutocompleteObjectsDemo implements OnInit {
     countries: any[];
 
-    selectedCountries: any[];
+    selectedCountry: any;
 
     filteredCountries: any[];
 
@@ -89,7 +84,6 @@ export class AutocompleteMultipleDemo {
     }
 
     filterCountry(event) {
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
@@ -103,14 +97,13 @@ export class AutocompleteMultipleDemo {
         this.filteredCountries = filtered;
     }
 }`,
-
         service: ['CountryService'],
 
         data: `
 //CountryService
 {
-"name": "Afghanistan",
-"code": "AF"
+    "name": "Afghanistan",
+    "code": "AF"
 }
 ...`
     };

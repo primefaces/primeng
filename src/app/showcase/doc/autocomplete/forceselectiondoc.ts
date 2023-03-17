@@ -1,29 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiple-demo',
+    selector: 'autocomplete-force-selection-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
+            <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
-        <div class="card">
-            <span class="p-fluid">
-                <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"></p-autoComplete>
-            </span>
+        <div class="card flex justify-content-center">
+            <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>
+        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>
     </div>`
 })
-export class MultipleDoc {
+export class ForceSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
 
     countries: any[];
 
-    selectedCountries: any[];
+    selectedCountry: any;
 
     filteredCountries: any[];
 
@@ -36,7 +34,6 @@ export class MultipleDoc {
     }
 
     filterCountry(event) {
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
@@ -52,31 +49,26 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `
-<span class="p-fluid">
-    <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" 
-        (completeMethod)="filterCountry($event)" field="name" [multiple]="true"></p-autoComplete>
-</span>`,
+<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
 
         html: `
-<div class="card">
-    <span class="p-fluid">
-        <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true"> </p-autoComplete>
-    </span>
+<div class="card flex justify-content-center">
+    <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
 @Component({
-    selector: 'autocomplete-multiple-demo',
-    templateUrl: './autocomplete-multiple-demo.html',
-    styleUrls: ['./autocomplete-multiple-demo.scss']
+    selector: 'autocomplete-force-selection-demo',
+    templateUrl: './autocomplete-force-selection-demo.html',
+    styleUrls: ['./autocomplete-force-selection-demo.scss']
 })
-export class AutocompleteMultipleDemo {
+export class ForceSelectionDoc implements OnInit {
     countries: any[];
 
-    selectedCountries: any[];
+    selectedCountry: any;
 
     filteredCountries: any[];
 
@@ -89,7 +81,6 @@ export class AutocompleteMultipleDemo {
     }
 
     filterCountry(event) {
-        //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
@@ -103,14 +94,13 @@ export class AutocompleteMultipleDemo {
         this.filteredCountries = filtered;
     }
 }`,
-
         service: ['CountryService'],
 
         data: `
 //CountryService
 {
-"name": "Afghanistan",
-"code": "AF"
+    "name": "Afghanistan",
+    "code": "AF"
 }
 ...`
     };

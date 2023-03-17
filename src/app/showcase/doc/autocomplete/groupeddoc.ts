@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'autocomplete-grouped-demo',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Option groups are specified with the <i>optionGroupLabel</i> and <i>optionGroupChildren</i> properties.</p>
+            <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" field="label" [dropdown]="true">
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>
     </div>`
 })
-export class GroupedDoc {
+export class GroupedDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -31,8 +31,6 @@ export class GroupedDoc {
     filteredGroups: any[];
 
     groupedCities: SelectItemGroup[];
-
-    items: any[];
 
     constructor(private filterService: FilterService) {}
 
@@ -69,11 +67,6 @@ export class GroupedDoc {
                 ]
             }
         ];
-
-        this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-        }
     }
 
     filterGroupedCity(event) {
@@ -120,7 +113,7 @@ export class GroupedDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
 
 @Component({
@@ -128,14 +121,12 @@ import { FilterService, SelectItemGroup } from 'primeng/api';
     templateUrl: './autocomplete-grouped-demo.html',
     styleUrls: ['./autocomplete-grouped-demo.scss']
 })
-export class AutocompleteGroupedDemo {
+export class AutocompleteGroupedDemo implements OnInit {
     selectedCity: any;
 
     filteredGroups: any[];
 
     groupedCities: SelectItemGroup[];
-
-    items: any[];
 
     constructor(private filterService: FilterService) { }
 
@@ -169,11 +160,6 @@ export class AutocompleteGroupedDemo {
                 ]
             }
         ];
-
-        this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-        }
     }
 
     filterGroupedCity(event) {
@@ -192,8 +178,7 @@ export class AutocompleteGroupedDemo {
         }
 
         this.filteredGroups = filteredGroups;
-    }     
-}
-`
+    }
+}`
     };
 }

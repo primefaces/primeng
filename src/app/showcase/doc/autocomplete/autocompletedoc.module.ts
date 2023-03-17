@@ -14,10 +14,14 @@ import { MultipleDoc } from './multipledoc';
 import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
+import { DropdownDoc } from './dropdowndoc';
+import { ForceSelectionDoc } from './forceselectiondoc';
+import { ObjectsDoc } from './objectsdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule],
-    exports: [AppDocModule, ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc]
+    exports: [AppDocModule],
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc]
 })
 export class AutoCompleteDocModule {}

@@ -8,6 +8,10 @@ import { PropsDoc } from '../../doc/autocomplete/propsdoc';
 import { StyleDoc } from '../../doc/autocomplete/styledoc';
 import { TemplateDoc } from '../../doc/autocomplete/templatedoc';
 import { VirtualScrollDoc } from '../../doc/autocomplete/virtualscrolldoc';
+import { AccessibilityDoc } from '../../doc/autocomplete/accessibilitydoc';
+import { DropdownDoc } from '../../doc/autocomplete/dropdowndoc';
+import { ForceSelectionDoc } from '../../doc/autocomplete/forceselectiondoc';
+import { ObjectsDoc } from '../../doc/autocomplete/objectsdoc';
 @Component({
     templateUrl: './autocompletedemo.html'
 })
@@ -24,6 +28,16 @@ export class AutoCompleteDemo {
             component: BasicDoc
         },
         {
+            id: 'dropdown',
+            label: 'Dropdown',
+            component: DropdownDoc
+        },
+        {
+            id: 'objects',
+            label: 'Objects',
+            component: ObjectsDoc
+        },
+        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
@@ -32,6 +46,11 @@ export class AutoCompleteDemo {
             id: 'grouped',
             label: 'Grouped',
             component: GroupedDoc
+        },
+        {
+            id: 'forceselection',
+            label: 'Force Selection',
+            component: ForceSelectionDoc
         },
         {
             id: 'virtualscroll',
@@ -47,6 +66,11 @@ export class AutoCompleteDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
