@@ -43,7 +43,7 @@ export class AppMenuComponent {
     scrollToActiveItem() {
         let activeItem = DomHandler.findSingle(this.el.nativeElement, '.router-link-active');
         if (activeItem && !this.isInViewport(activeItem)) {
-            activeItem.scrollIntoView({ inline: 'start' });
+            activeItem.scrollIntoView({ block: 'center' });
         }
     }
 
