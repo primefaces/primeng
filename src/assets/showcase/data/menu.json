@@ -176,10 +176,6 @@
                             "routerLink": "/scroller"
                         },
                         {
-                            "name": "VirtualScroller",
-                            "routerLink": "/virtualscroller"
-                        },
-                        {
                             "name": "OrderList",
                             "routerLink": "/orderlist"
                         },
@@ -206,6 +202,10 @@
                         {
                             "name": "Timeline",
                             "routerLink": "/timeline"
+                        },
+                        {
+                            "name": "VirtualScroller",
+                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
