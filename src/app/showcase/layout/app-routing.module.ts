@@ -21,7 +21,7 @@ const routes: Routes = [
             { path: 'roadmap', loadChildren: () => import('../pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
             { path: 'team', loadChildren: () => import('../pages/team/team.module').then((m) => m.TeamModule) },
             { path: 'theming', loadChildren: () => import('../pages/theming/theming.module').then((m) => m.ThemingModule) },
-            { path: 'icons', loadChildren: () => import('../pages/icons/icons.module').then((m) => m.IconsModule) },
+            { path: 'icons', loadChildren: () => import('../pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
             { path: 'accordion', loadChildren: () => import('../pages/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },
             { path: 'avatar', loadChildren: () => import('../pages/avatar/avatardemo.module').then((m) => m.AvatarDemoModule) },
             { path: 'autocomplete', loadChildren: () => import('../pages/autocomplete/autocompletedemo.module').then((m) => m.AutoCompleteDemoModule) },
