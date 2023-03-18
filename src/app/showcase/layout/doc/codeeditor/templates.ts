@@ -537,6 +537,7 @@ import { PickListModule } from 'primeng/picklist';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
+import { ScrollerModule } from 'primeng/scroller';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -637,6 +638,7 @@ ${serviceImports}
     RatingModule,
     SelectButtonModule,
     SidebarModule,
+    ScrollerModule,
     ScrollPanelModule,
     ScrollTopModule,
     SkeletonModule,

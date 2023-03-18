@@ -1,48 +1,111 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { BasicDoc } from '../../doc/scroller/basicdoc';
+import { DelayDoc } from '../../doc/scroller/delaydoc';
+import { EventsDoc } from '../../doc/scroller/eventsdoc';
+import { HorizontalDoc } from '../../doc/scroller/horizonntaldoc';
+import { HorizontalAndVerticalDoc } from '../../doc/scroller/horizontalandverticaldoc';
+import { ImportDoc } from '../../doc/scroller/importdoc';
+import { LazyLoadDoc } from '../../doc/scroller/lazyloaddoc';
+import { LoaderBasicDoc } from '../../doc/scroller/loaderbasicdoc';
+import { LoaderTemplateDoc } from '../../doc/scroller/loadertemplatedoc';
+import { MethodsDoc } from '../../doc/scroller/methodsdoc';
+import { PropsDoc } from '../../doc/scroller/propsdoc';
+import { ScrollOptionsDoc } from '../../doc/scroller/scrolloptionsdoc';
+import { StyleDoc } from '../../doc/scroller/styledoc';
+import { TemplateDoc } from '../../doc/scroller/templatedoc';
+import { TemplatesDoc } from '../../doc/scroller/templatesdoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
-    styleUrls: ['./scrollerdemo.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./scrollerdemo.scss']
 })
-export class ScrollerDemo implements OnInit {
-    basicItems: string[];
+export class ScrollerDemo {
 
-    multiItems: string[][];
-
-    templateItems: string[];
-
-    lazyItems: string[];
-
-    lazyLoading: boolean = true;
-
-    loadLazyTimeout: any;
-
-    ngOnInit() {
-        this.basicItems = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
-        this.multiItems = Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => `Item #${i}_${j}`));
-        this.lazyItems = Array.from({ length: 100000 });
-        this.templateItems = Array.from({ length: 10000 }).map((_, i) => `Item #${i}`);
-    }
-
-    onLazyLoad(event) {
-        this.lazyLoading = true;
-
-        if (this.loadLazyTimeout) {
-            clearTimeout(this.loadLazyTimeout);
+    docs = [
+        {
+            id: 'import',
+            label: 'Import',
+            component: ImportDoc
+        },
+        {
+            id: 'basic',
+            label: 'Basic',
+            component: BasicDoc
+        },
+        {
+            id: 'horizontal',
+            label: 'Horizontal',
+            component: HorizontalDoc
+        },
+        {
+            id: 'horizontal-and-vertical',
+            label: 'Horizontal and Vertical',
+            component: HorizontalAndVerticalDoc
+        },
+        {
+            id: 'loader',
+            label: 'Loader',
+            children: [
+                {
+                    id: 'loader-basic',
+                    label: 'Basic',
+                    component: LoaderBasicDoc
+                },
+                {
+                    id: 'loader-template',
+                    label: 'Loader Template',
+                    component: LoaderTemplateDoc
+                }
+            ]
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
+        {
+            id: 'delay',
+            label: 'Delay',
+            component: DelayDoc
+        },
+        {
+            id: 'lazy-load',
+            label: 'Lazy Load',
+            component: LazyLoadDoc
+        },
+        {
+            id: 'scroll-options',
+            label: 'Scroll Options',
+            component: ScrollOptionsDoc
+        },
+        {
+            id: 'style',
+            label: 'Style',
+            component: StyleDoc
         }
+    ];
 
-        //imitate delay of a backend call
-        this.loadLazyTimeout = setTimeout(() => {
-            const { first, last } = event;
-            const lazyItems = [...this.lazyItems];
+    apiDocs = [
+        {
+            id: 'properties',
+            label: 'Properties',
+            component: PropsDoc
+        },
+        {
+            id: 'methods',
+            label: 'Methods',
+            component: MethodsDoc
+        },
+        {
+            id: 'events',
+            label: 'Events',
+            component: EventsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
+        }
+    ];
 
-            for (let i = first; i < last; i++) {
-                lazyItems[i] = `Item #${i}`;
-            }
-
-            this.lazyItems = lazyItems;
-            this.lazyLoading = false;
-        }, Math.random() * 1000 + 250);
-    }
 }
