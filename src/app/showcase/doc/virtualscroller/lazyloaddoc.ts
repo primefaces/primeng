@@ -158,8 +158,7 @@ import { ProductService } from 'src/service/productservice';
 
 @Component({
     selector: 'virtual-scroller-lazy-load-demo',
-    templateUrl: './virtual-scroller-lazy-load-demo.html',
-    styleUrls: ['./virtual-scroller-lazy-load-demo.scss']
+    templateUrl: './virtual-scroller-lazy-load-demo.html'
 })
 export class VirtualScrollerLazyLoadDemo implements OnInit {
     products: Product[];

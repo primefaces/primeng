@@ -7,6 +7,9 @@ import { PropsDoc } from '../../doc/virtualscroller/propsdoc';
 import { EventsDoc } from '../../doc/virtualscroller/eventsdoc';
 import { MethodsDoc } from '../../doc/virtualscroller/methodsdoc';
 import { TemplatesDoc } from '../../doc/virtualscroller/templatesdoc';
+import { ProgrammaticScrollDoc } from '../../doc/virtualscroller/programmaticscrolldoc';
+import { TemplateDoc } from '../../doc/virtualscroller/templatedoc';
+
 @Component({
     templateUrl: './virtualscrollerdemo.html',
     styleUrls: ['./virtualscrollerdemo.scss']
@@ -24,9 +27,19 @@ export class VirtualScrollerDemo {
             component: BasicDoc
         },
         {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
+        {
             id: 'lazyload',
             label: 'Lazy Load',
             component: LazyLoadDoc
+        },
+        {
+            id: 'programmatic',
+            label: 'Programmatic Scroll',
+            component: ProgrammaticScrollDoc
         },
         {
             id: 'style',

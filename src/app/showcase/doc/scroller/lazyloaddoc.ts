@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -12,14 +12,15 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border">
+            <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
                 <ng-template pTemplate="item" let-item let-options="options">
                     <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                 </ng-template>
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
-    </div>`
+    </div>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc {
     @Input() id: string;
@@ -32,8 +33,10 @@ export class LazyLoadDoc {
 
     loadLazyTimeout: any;
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     ngOnInit() {
-        this.items = Array.from({ length: 100000 });
+        this.items = Array.from({ length: 1000 });
     }
 
     onLazyLoad(event) {
@@ -54,12 +57,14 @@ export class LazyLoadDoc {
 
             this.items = lazyItems;
             this.lazyLoading = false;
+            this.cd.markForCheck();
         }, Math.random() * 1000 + 250);
+
     }
 
     code: Code = {
         basic: `
-<p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border">
+<p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
     <ng-template pTemplate="item" let-item let-options="options">
         <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
     </ng-template>
@@ -67,7 +72,7 @@ export class LazyLoadDoc {
 
         html: `
 <div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border">
+    <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
             <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
         </ng-template>
@@ -90,7 +95,7 @@ export class ScrollerLazyLoadDemo implements OnInit {
     loadLazyTimeout: any;
 
     ngOnInit() {
-        this.items = Array.from({ length: 100000 });
+        this.items = Array.from({ length: 1000 });
     }
 
     onLazyLoad(event) {
@@ -116,11 +121,6 @@ export class ScrollerLazyLoadDemo implements OnInit {
 }`,
         scss: `
 :host ::ng-deep {
-    .p-scroller {
-        height: 200px;
-        width: 200px;
-    }
-
     .p-scroller-viewport {
         flex: none;
     }

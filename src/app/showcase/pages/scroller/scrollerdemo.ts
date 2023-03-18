@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/scroller/basicdoc';
 import { DelayDoc } from '../../doc/scroller/delaydoc';
 import { EventsDoc } from '../../doc/scroller/eventsdoc';
-import { HorizontalDoc } from '../../doc/scroller/horizonntaldoc';
-import { HorizontalAndVerticalDoc } from '../../doc/scroller/horizontalandverticaldoc';
+import { HorizontalDoc } from '../../doc/scroller/horizontaldoc';
+import { GridDoc } from '../../doc/scroller/griddoc';
 import { ImportDoc } from '../../doc/scroller/importdoc';
 import { LazyLoadDoc } from '../../doc/scroller/lazyloaddoc';
-import { LoaderBasicDoc } from '../../doc/scroller/loaderbasicdoc';
-import { LoaderTemplateDoc } from '../../doc/scroller/loadertemplatedoc';
+import { LoaderDoc } from '../../doc/scroller/loaderdoc';
 import { MethodsDoc } from '../../doc/scroller/methodsdoc';
 import { PropsDoc } from '../../doc/scroller/propsdoc';
 import { ScrollOptionsDoc } from '../../doc/scroller/scrolloptionsdoc';
 import { StyleDoc } from '../../doc/scroller/styledoc';
 import { TemplateDoc } from '../../doc/scroller/templatedoc';
 import { TemplatesDoc } from '../../doc/scroller/templatesdoc';
+import { ProgrammaticDoc } from '../../doc/scroller/programmaticdoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
@@ -38,25 +38,19 @@ export class ScrollerDemo {
             component: HorizontalDoc
         },
         {
-            id: 'horizontal-and-vertical',
-            label: 'Horizontal and Vertical',
-            component: HorizontalAndVerticalDoc
+            id: 'grid',
+            label: 'Grid',
+            component: GridDoc
+        },
+        {
+            id: 'programmatic',
+            label: 'Programmatic',
+            component: ProgrammaticDoc
         },
         {
             id: 'loader',
             label: 'Loader',
-            children: [
-                {
-                    id: 'loader-basic',
-                    label: 'Basic',
-                    component: LoaderBasicDoc
-                },
-                {
-                    id: 'loader-template',
-                    label: 'Loader Template',
-                    component: LoaderTemplateDoc
-                }
-            ]
+            component: LoaderDoc
         },
         {
             id: 'template',
