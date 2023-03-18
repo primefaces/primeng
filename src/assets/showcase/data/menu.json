@@ -479,10 +479,6 @@
                     "routerLink": "/theming"
                 },
                 {
-                    "name": "Theme Designer",
-                    "href": "https://www.primefaces.org/designer/primeng"
-                },
-                {
                     "name": "Visual Editor",
                     "href": "https://designer.primeng.org"
                 },
