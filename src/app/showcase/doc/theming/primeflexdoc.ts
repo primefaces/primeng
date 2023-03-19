@@ -11,10 +11,10 @@ import { Code } from '../../domain/code';
                 utility approach of PrimeFlex and currently does not provide an extended style property like <i>sx</i>. Same approach is also utilized in <a href="https://blocks.primeng.org">PrimeBlocks for PrimeNG</a> project as well.
             </p>
         </app-docsectiontext>
-        <div class="flex flex-column md:flex-row justify-content-between my-5">
-            <p-button styleClass="mb-3 md:mb-0" label="button 1"></p-button>
-            <p-button styleClass="p-button-secondary mb-3 md:mb-0" label="button 2"></p-button>
-            <p-button styleClass="p-button-help" label="button 3"></p-button>
+        <div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
+            <p-button label="Button 1"></p-button>
+            <p-button styleClass="p-button-secondary" label="Button 2"></p-button>
+            <p-button styleClass="p-button-help" label="Button 3"></p-button>
         </div>
         <app-code [code]="code1" [hideToggleCode]="true"></app-code>
     </section>`
@@ -26,10 +26,10 @@ export class PrimeFlexDoc {
 
     code1: Code = {
         basic: `
-<div class="flex flex-column md:flex-row justify-content-between my-5">
-    <p-button styleClass="mb-3 md:mb-0" label="button 1"></p-button>
-    <p-button styleClass="p-button-secondary mb-3 md:mb-0" label="button 2"></p-button>
-    <p-button styleClass="p-button-help" label="button 3"></p-button>
+<div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
+    <p-button label="Button 1"></p-button>
+    <p-button styleClass="p-button-secondary" label="Button 2"></p-button>
+    <p-button styleClass="p-button-help" label="Button 3"></p-button>
 </div>`
     };
 }

@@ -10,12 +10,7 @@ import { Code } from '../../domain/code';
                 below sets the scale of the components based on 16px. If you reqire bigger or smaller components, just change this variable and components will scale accordingly.
             </p>
         </app-docsectiontext>
-        <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-
-        <p class="doc-section-description">
-            Some commonly used components such as inputs, buttons and datatable also provide per component scaling with special classes. Components with specific scaling options are documented in their own documentation.
-        </p>
-        <app-code [code]="code2" [hideToggleCode]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
 export class ScalingDoc {
@@ -23,16 +18,10 @@ export class ScalingDoc {
 
     @Input() title: string;
 
-    code1: Code = {
+    code: Code = {
         basic: `
 html {
     font-size: 16px;
 }`
-    };
-
-    code2: Code = {
-        basic: `
-<input pInputText type="text" class="p-inputtext-sm" />
-<button pButton label="Button" class="p-button-lg" />`
     };
 }
