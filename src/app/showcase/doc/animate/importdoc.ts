@@ -3,10 +3,10 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animate-import-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ImportDoc {
     @Input() id: string;

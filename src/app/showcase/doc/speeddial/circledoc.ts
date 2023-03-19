@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'speeddial-circle-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speeddial-circle-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class CircleDoc implements OnInit {

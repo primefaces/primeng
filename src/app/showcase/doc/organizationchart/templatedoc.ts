@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'organization-chart-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

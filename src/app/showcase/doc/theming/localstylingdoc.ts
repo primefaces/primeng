@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'local-styling-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Theming styles the components globally, in case you required to change the style of a certain component for a specific use case use the class property and override the defaults. Example below changes the background of the panel. Note
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
 
         <p class="doc-section-description">If the style does not apply due to view encapsulation, try ng-deep scoping.</p>
         <app-code [code]="code3" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class LocalStylingDoc {
     @Input() id: string;

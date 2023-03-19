@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'virtual-scroller-programmatic-scroll-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-programmatic-scroll-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ProgrammaticScrollDoc implements OnInit {
     @Input() id: string;

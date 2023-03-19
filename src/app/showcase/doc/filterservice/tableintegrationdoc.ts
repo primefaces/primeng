@@ -6,7 +6,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { CarService } from '../../service/carservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="filter-service-table-integration-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [FilterService]
 })
 export class FilterServiceTableIntegrationDemo implements OnInit {

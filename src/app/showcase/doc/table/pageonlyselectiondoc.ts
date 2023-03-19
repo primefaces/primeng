@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-page-only-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3"></app-docsectiontext>
         <div class="card">
             <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
@@ -34,7 +34,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-page-only-selection-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablePageOnlySelectionDemo implements OnInit {

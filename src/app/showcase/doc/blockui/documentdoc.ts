@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'block-ui-document-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>fullScreen</i> property controls the document.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DocumentDoc {
     @Input() id: string;

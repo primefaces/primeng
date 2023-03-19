@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slider-input-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Slider is connected to an input field using two-way binding.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InputDoc {
     @Input() id: string;

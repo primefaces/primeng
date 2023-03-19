@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'panel-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-panelMenu [model]="items" [style]="{ width: '300px' }"></p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PanelMenuBasicDemo implements OnInit {
     @Input() id: string;

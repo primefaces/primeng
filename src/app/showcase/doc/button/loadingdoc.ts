@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-loading-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Busy state is controlled with the <i>loading</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class LoadingDoc {
     @Input() id: string;

@@ -8,7 +8,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'dock-advanced-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
@@ -65,7 +65,7 @@ import { PhotoService } from '../../service/photoservice';
             </div>
         </div>
         <app-code [code]="code" selector="dock-advanced-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
 export class DockAdvancedDemo implements OnInit, OnDestroy {

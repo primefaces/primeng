@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputmask-slotchar-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-inputMask [(ngModel)]="value" mask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy"></p-inputMask>
         </div>
         <app-code [code]="code" selector="inputmask-slotchar-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SlotCharDoc {
     @Input() id: string;

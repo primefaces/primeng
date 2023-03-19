@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'intro-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Angular is a fast paced technology with a new major version <a href="https://angular.io/guide/releases">every 6 months</a>. PrimeNG release cycle is aligned with Angular and every 6 months a new major PrimeNG version is released that
@@ -17,7 +17,7 @@ import { Component, Input } from '@angular/core';
         <div class="card">
             <img alt="LTS" src="https://primefaces.org/cdn/primeng/images/lts-timeline.jpg" style="width: 100%">
         </div>
-    </div>`
+    </section>`
 })
 export class IntroDoc {
     @Input() id: string;

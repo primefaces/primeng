@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class BasicDoc {

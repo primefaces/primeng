@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-lazy-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>onNodeExpand</i> event.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class LazyDoc implements OnInit {

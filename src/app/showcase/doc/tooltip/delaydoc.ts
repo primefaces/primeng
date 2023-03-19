@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-delay-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding delays to the show and hide events are defined with <i>showDelay</i> and <i>hideDelay</i> options respectively.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <input type="text" pInputText pTooltip="Enter your username" showDelay="1000" hideDelay="1000" placeholder="hover to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-delay-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TooltipDelayDemo {
     @Input() id: string;

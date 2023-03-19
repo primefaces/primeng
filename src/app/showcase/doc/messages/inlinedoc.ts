@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-inline-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>p-message</i> component is used to display inline messages mostly within forms.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="messages-inline-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MessagesInlineDemo {
     @Input() id: string;

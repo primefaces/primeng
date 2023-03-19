@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputgroup-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MultipleDoc {
     @Input() id: string;

@@ -5,7 +5,7 @@ import { PrimeIcons } from 'primeng/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Constants API is available to reference icons easily when used programmatically.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { PrimeIcons } from 'primeng/api';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="prime-icons-constants-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ConstantsDoc {
     @Input() id: string;

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'listbox-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined with ngModel.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

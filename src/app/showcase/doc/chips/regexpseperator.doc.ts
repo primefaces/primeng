@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-regexpseperator-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A new chip is added when <i>enter</i> key is pressed, <i>separator</i> property allows definining an additional key. Currently only valid value is , to create a new item when comma key is pressed.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chips [(ngModel)]="values" [separator]="separatorExp" placeholder="Hint: a, b c"></p-chips>
         </div>
         <app-code [code]="code" selector="chips-regexpseperator-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RegexpSeperatorDoc {
     @Input() id: string;

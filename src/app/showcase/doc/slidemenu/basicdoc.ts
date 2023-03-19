@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slide-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SlideMenu requires a collection of menuitems as its <i>model</i> along with <i>viewportHeight</i> and <i>menuWidth</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-slideMenu [model]="items" [viewportHeight]="250" [menuWidth]="175"></p-slideMenu>
         </div>
         <app-code [code]="code" selector="slide-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SlideMenuBasicDemo implements OnInit {
     @Input() id: string;

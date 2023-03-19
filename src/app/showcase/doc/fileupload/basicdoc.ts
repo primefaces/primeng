@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'file-upload-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
         </div>
         <app-code [code]="code" selector="file-upload-basic-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class FileUploadBasicDemo {

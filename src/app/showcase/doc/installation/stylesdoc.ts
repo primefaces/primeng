@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'styles-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Theme, core and icons are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. The css dependencies are as follows, Prime
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class StylesDoc {
     @Input() id: string;

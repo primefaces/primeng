@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-basic-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class CarouselBasicDemo implements OnInit {
     @Input() id: string;

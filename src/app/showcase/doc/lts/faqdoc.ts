@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'faq-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card">
             <p-accordion>
@@ -25,7 +25,7 @@ import { Component, Input } from '@angular/core';
                 </p-accordionTab>
             </p-accordion>
         </div>
-    </div>`
+    </section>`
 })
 export class FaqDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tag-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label of the tag is defined with the <i>value</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-tag value="New"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TagBasicDDemo {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-long-content-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>
         </app-docsectiontext>
@@ -31,7 +31,7 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-long-content-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DialogLongContentDemo {
     @Input() id: string;

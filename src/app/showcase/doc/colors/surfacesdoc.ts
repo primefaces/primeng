@@ -5,7 +5,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'surfaces-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette varies between 0 - 900 and named surfaces are also available.</p>
         </app-docsectiontext>
@@ -52,7 +52,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                 </tbody>
             </table>
         </div>
-    </div>`,
+    </section>`,
     styles: [
         `
             .color-stack {

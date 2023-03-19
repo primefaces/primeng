@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'progress-spinner-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An infinite spin animation is displayed by default.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-progressSpinner></p-progressSpinner>
         </div>
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ProgressSpinnerBasicDemo {
     @Input() id: string;

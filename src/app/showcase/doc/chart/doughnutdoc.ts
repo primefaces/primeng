@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-doughnut-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartDoughnutDemo implements OnInit {
     @Input() id: string;

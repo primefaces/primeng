@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-modal-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Mask layer behind the Dialog can be turned on by setting the <i>modal</i> property to <i>true</i>.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-modal-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DialogModalDemo {
     @Input() id: string;

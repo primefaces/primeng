@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-circular-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-circular-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class CarouselCircularDemo implements OnInit {
     @Input() id: string;

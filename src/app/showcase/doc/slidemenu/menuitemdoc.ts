@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'menuitem-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>MenuItem provides the following properties. Note that not all of them may be utilized by the slidemenu component.</p>
         </app-docsectiontext>
@@ -205,7 +205,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class MenuItemDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-position-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A Badge can be positioned at the top right corner of an element by adding <i>p-overlay-badge</i> style class to the element and embedding the badge inside.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
         </div>
         <app-code [code]="code" selector="badge-position-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PositionDoc {
     @Input() id: string;

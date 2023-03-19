@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tag-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Children of the component are passed as the content for templating.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             </p-tag>
         </div>
         <app-code [code]="code" selector="tag-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TagTemplateDemo {
     @Input() id: string;

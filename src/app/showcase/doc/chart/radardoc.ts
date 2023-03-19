@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-radar-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="radar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartRadarDemo implements OnInit {
     @Input() id: string;

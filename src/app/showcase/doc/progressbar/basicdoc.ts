@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'progress-bar-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-progressBar [value]="50"></p-progressBar>
         </div>
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ProgressBarBasicDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'mega-menu-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Layout of the MegaMenu is changed with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as options.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MegaMenuVerticalDemo implements OnInit {
     @Input() id: string;

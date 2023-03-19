@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'auto-zindex-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>autoZIndex</i> determines whether to automatically manage layering. Its default value is 'false'.</p>
         </app-docsectiontext>
-    </div>`
+    </section>`
 })
 export class AutoZIndexDoc {
     @Input() id: string;

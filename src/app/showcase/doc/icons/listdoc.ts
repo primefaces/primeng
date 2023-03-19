@@ -3,7 +3,7 @@ import { IconService } from '../../service/iconservice';
 
 @Component({
     selector: 'list-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Here is the full list of PrimeIcons. More icons will be added periodically and you may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { IconService } from '../../service/iconservice';
                 </div>
             </div>
         </div>
-    </div>`
+    </section>`
 })
 export class ListDoc {
     @Input() id: string;

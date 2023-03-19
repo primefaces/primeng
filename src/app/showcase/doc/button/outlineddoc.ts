@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-outlined-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" styleClass="p-button-outlined p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OutlinedDoc {
     @Input() id: string;

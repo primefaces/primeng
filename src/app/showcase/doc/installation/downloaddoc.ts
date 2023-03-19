@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'download-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>PrimeNG is available for download at <a href="https://www.npmjs.com/package/primeng">npm</a>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class DownloadDoc {
     @Input() id: string;

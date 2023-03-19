@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-service-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 MessageService alternative does not require a value binding to an array. In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself so
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             <p-messages></p-messages>
         </div>
         <app-code [code]="code" selector="messages-service-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class MessagesServiceDemo {

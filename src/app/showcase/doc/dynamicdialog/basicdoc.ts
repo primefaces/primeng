@@ -7,7 +7,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'dynamic-dialog-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Since the dynamically loaded content is not defined at build time, a configuration is necessary
@@ -20,7 +20,7 @@ import { ProductListDemo } from './productlistdemo';
             <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="dynamic-dialog-basic-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [DialogService, MessageService]
 })
 export class DynamicDialogBasicDemo implements OnDestroy {

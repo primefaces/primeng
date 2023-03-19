@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-line-style-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Various styles of a line series can be customized to display customizations like an area chart.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-line-style-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartLineStyleDemo implements OnInit {
     @Input() id: string;

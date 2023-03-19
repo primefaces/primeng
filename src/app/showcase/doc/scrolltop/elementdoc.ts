@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroll-top-element-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollTopElementDemo {
     @Input() id: string;

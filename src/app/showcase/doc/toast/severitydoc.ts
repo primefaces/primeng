@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-severity-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 The <i>severity</i> option specifies the type of the message. There are four types of messages: <i>success</i>, <i>info</i>, <i>warn</i> and <i>error</i>. The severity of the message is used to display the icon and the color of the
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastSeverityDemo {

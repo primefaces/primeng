@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'speeddial-mask-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speeddial-mask-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class MaskDoc implements OnInit {

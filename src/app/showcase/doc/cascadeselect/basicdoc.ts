@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'cascadeselect-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. <i>optionGroupLabel</i> is used for the text of a category and <i>optionGroupChildren</i> is to define the children of the category.
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
         </div>
         <app-code [code]="code" selector="cascadeselect-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text to display on a button is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-button label="Submit"></p-button>
         </div>
         <app-code [code]="code" selector="button-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

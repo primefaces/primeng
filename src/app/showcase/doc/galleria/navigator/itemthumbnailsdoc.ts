@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'itemthumbnails-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Add <i>showItemNavigators</i> to display navigator elements and the left and right side.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code"></app-code>
-    </div>`,
+    </section>`,
     providers: [PhotoService]
 })
 export class ItemThumbnailsDoc implements OnInit {

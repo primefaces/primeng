@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroller-horizontal-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
         <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HorizontalDoc {

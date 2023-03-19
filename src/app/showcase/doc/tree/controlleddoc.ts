@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-controlled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-30rem"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ControlledDoc implements OnInit {
     @Input() id: string;

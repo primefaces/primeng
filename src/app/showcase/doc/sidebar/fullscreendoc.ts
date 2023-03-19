@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sidebar-full-screen-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-button (click)="sidebarVisible = true" icon="pi pi-th-large"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-full-screen-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SidebarFullScreenDemo {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroll-top-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ScrollTop listens window scroll by default.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-scrollTop></p-scrollTop>
         </div>
         <app-code [code]="code" selector="scroll-top-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollTopBasicDemo {
     @Input() id: string;

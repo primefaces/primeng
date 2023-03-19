@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-options-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip is also configurable by using <i>tooltipOptions</i> property.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-options-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TooltipOptionsDemo {
     @Input() id: string;

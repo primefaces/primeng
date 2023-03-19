@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-text-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" styleClass="p-button-danger p-button-text"></p-button>
         </div>
         <app-code [code]="code" selector="button-text-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TextDoc {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-severity-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>severity</i> option specifies the type of the message.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
         </div>
         <app-code [code]="code" selector="messages-severity-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MessagesSeverityDemo implements OnInit {
     @Input() id: string;

@@ -6,7 +6,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'table-virtual-scroll-lazy-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
@@ -39,7 +39,7 @@ import { CarService } from '../../service/carservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-virtual-scroll-lazy-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableVirtualScrollLazyDemo implements OnInit {

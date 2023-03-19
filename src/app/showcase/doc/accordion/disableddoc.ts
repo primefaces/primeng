@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accordion-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>disabled</i> property of an AccordionTab prevents user interaction.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

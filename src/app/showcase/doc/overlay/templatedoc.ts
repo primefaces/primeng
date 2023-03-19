@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content can be customized with the <i>content</i> template.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             </p-overlay>
         </div>
         <app-code [code]="code" selector="overlay-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OverlayTemplateDemo {
     @Input() id: string;

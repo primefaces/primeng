@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sidebar-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SidebarTemplateDemo {
     @Input() id: string;

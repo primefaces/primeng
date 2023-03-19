@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'designer-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 CSS of the themes share the same license as PrimeNG which is MIT, this means the generated CSS can be customized per your needs however this should be avoided if your customizations are not simple. For instance even to change a
@@ -17,7 +17,7 @@ import { Component, Input } from '@angular/core';
             <p class="doc-section-description">Visit <a href="https://www.primefaces.org/designer/primeng">Designer Website</a> for more information and live demos.</p>
         </app-docsectiontext>
         <img alt="PrimeNG Designer" src="https://primefaces.org/cdn/primevue/images/primevue-designer.jpg" class="w-full mb-5" />
-    </div>`
+    </section>`
 })
 export class DesignerDoc {
     @Input() id: string;

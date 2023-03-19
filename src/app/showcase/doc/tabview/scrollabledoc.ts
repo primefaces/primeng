@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector=""></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollableDoc {
     @Input() id: string;

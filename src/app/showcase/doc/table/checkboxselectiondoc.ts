@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-checkbox-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Multiple selection can also be handled using checkboxes by enabling the <i>selectionMode</i> property of column as <i>multiple</i>.</p>
         </app-docsectiontext>
@@ -36,7 +36,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-checkbox-selection-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableCheckboxSelectionDemo implements OnInit {

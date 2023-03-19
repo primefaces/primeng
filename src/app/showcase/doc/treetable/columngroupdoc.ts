@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tree-table-column-group-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="sales">
@@ -46,7 +46,7 @@ import { Code } from '../../domain/code';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ColumnGroupDoc implements OnInit {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tiered-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-tieredMenu [model]="items"></p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TieredMenuBasicDemo implements OnInit {
     @Input() id: string;

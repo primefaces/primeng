@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chartjs-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartjsDoc {
     @Input() id: string;

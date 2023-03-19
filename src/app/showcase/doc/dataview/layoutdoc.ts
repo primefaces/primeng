@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-layout-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The helper <i>DataViewLayoutOptions</i> component can be used to switch between the modes however this component is optional and you
@@ -63,7 +63,7 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-layout-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class LayoutDoc {
     @Input() id: string;

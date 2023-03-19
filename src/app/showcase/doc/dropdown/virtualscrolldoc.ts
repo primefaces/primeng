@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-virtualscroll-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-virtualscroll-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class VirtualScrollDoc {
     @Input() id: string;

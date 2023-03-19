@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ImportDoc {
     @Input() id: string;

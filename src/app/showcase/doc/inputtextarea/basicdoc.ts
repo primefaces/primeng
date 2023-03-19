@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtextarea-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputTextarea is applied to an input field with pInputTextarea directive.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
         </div>
         <app-code [code]="code" selector="inputtextarea-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

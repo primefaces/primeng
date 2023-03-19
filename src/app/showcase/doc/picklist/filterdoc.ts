@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'picklist-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
         </app-docsectiontext>
@@ -42,7 +42,7 @@ import { ProductService } from '../../service/productservice';
             </p-pickList>
         </div>
         <app-code [code]="code" selector="picklist-filter-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc {
     @Input() id: string;

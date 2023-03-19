@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-touchui-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-touchui-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TouchUIDoc {
     @Input() id: string;

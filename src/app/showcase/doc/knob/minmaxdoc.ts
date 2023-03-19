@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'knob-minmax-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> properties whose defaults are 0 and 100 respectively.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" [min]="-50" [max]="50"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-minmax-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MinMaxDoc {
     @Input() id: string;

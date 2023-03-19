@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroll-options-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The properties of scroller component can be used like an object in it.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollOptionsDoc {
     @Input() id: string;

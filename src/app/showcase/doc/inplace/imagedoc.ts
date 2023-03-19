@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inplace-image-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Any content such as an image can be placed inside an Inplace.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InplaceImageDemo {
     @Input() id: string;

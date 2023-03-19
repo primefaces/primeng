@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-label-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
         </div>
         <app-code [code]="code" selector="checkbox-label-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class LabelDoc {
     @Input() id: string;

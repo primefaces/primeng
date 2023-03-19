@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tag-icon-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-tag icon="pi pi-times" severity="danger" value="Danger"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-icon-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TagIconDemo {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-panel-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content of the OverlayPanel is defined by <i>content</i> template.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OverlayPanelTemplateDemo {
     @Input() id: string;

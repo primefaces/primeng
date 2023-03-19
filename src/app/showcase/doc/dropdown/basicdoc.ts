@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dropdown requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

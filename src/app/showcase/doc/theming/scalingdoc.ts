@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scaling-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 PrimeNG utilizes rem units to make sure the components blend in with the rest of your UI perfectly. This also enables scaling, for example changing the size of the components is easy as configuring the font size of your document. Code
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             Some commonly used components such as inputs, buttons and datatable also provide per component scaling with special classes. Components with specific scaling options are documented in their own documentation.
         </p>
         <app-code [code]="code2" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ScalingDoc {
     @Input() id: string;

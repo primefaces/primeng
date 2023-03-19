@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroller-lazy-load-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-lazy-load-demo"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc {

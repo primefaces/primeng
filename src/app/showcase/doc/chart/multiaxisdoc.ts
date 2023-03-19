@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-multi-axis-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple axes can be added using the <i>scales</i> option.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartMultiAxiDemo implements OnInit {
     @Input() id: string;

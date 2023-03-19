@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-radio-button-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
@@ -34,7 +34,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-radio-button-selection-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableRadioButtonSelectionDemo implements OnInit {

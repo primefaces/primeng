@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BadgeDoc {
     @Input() id: string;

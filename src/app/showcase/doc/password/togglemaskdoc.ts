@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'password-togglemask-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-password [(ngModel)]="value" [toggleMask]="true"></p-password>
         </div>
         <app-code [code]="code" selector="password-togglemask-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TogglemaskDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputgroup-button-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can be placed at either side of an input element.</p>
         </app-docsectiontext>
@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-button-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ButtonDoc {
     @Input() id: string;

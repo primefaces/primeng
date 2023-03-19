@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-scroll-horizontal-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>
@@ -34,7 +34,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-horizontal-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollHorizontalDoc implements OnInit {
     @Input() id: string;

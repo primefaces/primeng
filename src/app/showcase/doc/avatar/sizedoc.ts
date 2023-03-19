@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-size-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>size</i> property defines the size of the Avatar with <i>large</i> and <i>xlarge</i> as possible values.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-avatar label="T" size="xlarge"></p-avatar>
         </div>
         <app-code [code]="code" selector="avatar-size-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SizeDoc {
     @Input() id: string;

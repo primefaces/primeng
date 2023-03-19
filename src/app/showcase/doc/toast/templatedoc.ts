@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
@@ -31,7 +31,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastTemplateDemo {

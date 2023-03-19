@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'target-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>target</i> is used to detect the element that will be used to position the overlay. Valid values would be;</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 <li>Use <em>() =&gt; HTMLElement</em></li>
             </ul>
         </div>
-    </div>`
+    </section>`
 })
 export class TargetDoc {
     @Input() id: string;

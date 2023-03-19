@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-year-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Similar to the month picker, year picker can be used to select years only. Set <i>view</i> to "year" to display the year picker.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-year-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class YearDoc {
     @Input() id: string;

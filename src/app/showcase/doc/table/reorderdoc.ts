@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-reorder-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding <i>reorderableColumns</i> property.</p>
             <p>
@@ -36,7 +36,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-reorder-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableReorderDemo implements OnInit {

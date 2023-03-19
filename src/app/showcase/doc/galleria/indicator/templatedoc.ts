@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaIndicatorTemplateDemo implements OnInit {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-link-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A button can be rendered as a link as well.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-button label="Submit" styleClass="p-button-link"></p-button>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class LinkDoc {
     @Input() id: string;

@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'multiselect-virtualscroll-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
@@ -26,7 +26,7 @@ interface Country {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multiselect-virtualscroll-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class VirtualScrollDoc {
     @Input() id: string;

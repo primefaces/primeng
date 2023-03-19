@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-row-expand-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
@@ -81,7 +81,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableRowExpandDemo implements OnInit {

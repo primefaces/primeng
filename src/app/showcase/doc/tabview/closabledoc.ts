@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-view-closable-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>closable</i> is enabled, a close icon is displayed to hide the tab.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-closable-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabViewClosableDemo {
     @Input() id: string;

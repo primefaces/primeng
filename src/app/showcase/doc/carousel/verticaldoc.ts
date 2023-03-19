@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>To create a vertical Carousel, <i>orientation</i> needs to be set to <i>vertical</i> along with a <i>verticalViewPortHeight</i>.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-vertical-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class CarouselVerticalDemo implements OnInit {
     @Input() id: string;

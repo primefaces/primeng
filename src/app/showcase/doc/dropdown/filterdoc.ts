@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dropdown provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-filter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc {
     @Input() id: string;

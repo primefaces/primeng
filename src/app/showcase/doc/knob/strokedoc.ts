@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'knob-stroke-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" [strokeWidth]="5"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-stroke-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class StrokeDoc {
     @Input() id: string;

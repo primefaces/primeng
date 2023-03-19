@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputswitch-preselection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
         </div>
         <app-code [code]="code" selector="inputswitch-preselection-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PreselectionDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-view-controlled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabView can be controlled programmatically using a binding to <i>activeIndex</i> update the active index.</p>
         </app-docsectiontext>
@@ -35,7 +35,7 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-controlled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabViewControlledDemo {
     @Input() id: string;

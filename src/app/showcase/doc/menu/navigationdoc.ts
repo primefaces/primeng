@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-navigation-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>p-menuitem-link-active</i> style class is added as an indicator. Active route link can
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-navigation-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MenuNavigationDemo implements OnInit {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'drag-drop-drag-handle-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class DragDropDragHandleDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { CountryService } from '../../service/countryservice';
 
 @Component({
     selector: 'autocomplete-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { CountryService } from '../../service/countryservice';
             </span>
         </div>
         <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MultipleDoc {
     @Input() id: string;

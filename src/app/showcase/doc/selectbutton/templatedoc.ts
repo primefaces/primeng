@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'select-button-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>For custom content support define a ng-template where the local ng-template variable refers to an option in the options collection.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

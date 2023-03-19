@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'download-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p class="mb-0">
                 PrimeNG-LTS is available at <a href="https://www.npmjs.com/package/primeng-lts">npm</a>, if you have an existing application run the following command to download it to your project. If you require a specific version, refer to the
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class DownloadDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'panel-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PanelBasicDemo {
     @Input() id: string;

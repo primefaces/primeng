@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
@@ -16,7 +16,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc {
     @Input() id: string;

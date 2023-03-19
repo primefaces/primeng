@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-rounded-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Rounded buttons have a circular border radius.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" styleClass="p-button-rounded p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-rounded-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RoundedDoc {
     @Input() id: string;

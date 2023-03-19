@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="bar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-horizontal-bar-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartHorizontalBarDemo implements OnInit {
     @Input() id: string;

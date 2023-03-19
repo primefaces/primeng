@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'image-preview-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Preview mode displays a modal layer when the image is clicked that provides transformation options such as rotating and zooming.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" [preview]="true"></p-image>
         </div>
         <app-code [code]="code" selector="image-preview-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ImagePreviewDemo {
     @Input() id: string;

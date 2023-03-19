@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-datetemplate-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-datetemplate-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DateTemplateDoc {
     @Input() id: string;

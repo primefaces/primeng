@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabMenu requires a collection of menuitems as its model.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-tabMenu [model]="items"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabMenuBasicDemo implements OnInit {
     @Input() id: string;

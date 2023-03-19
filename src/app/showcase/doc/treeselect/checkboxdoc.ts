@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-checkbox-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>. In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that
@@ -16,7 +16,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
         </div>
         <app-code [code]="code" selector="tree-select-checkbox-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class CheckboxDoc {
     @Input() id: string;

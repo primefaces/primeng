@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-multiple-single-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
@@ -37,7 +37,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-selection-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SelectionMultipleDoc implements OnInit {
     @Input() id: string;

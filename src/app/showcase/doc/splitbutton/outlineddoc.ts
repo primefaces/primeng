@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'split-button-outlined-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-danger mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-outlined-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class OutlinedDoc {

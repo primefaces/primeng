@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'table-paginator-programmatic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p _ngcontent-ylv-c94="">Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
@@ -44,7 +44,7 @@ import { Code } from '../../domain/code';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-paginator-programmatic-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablePaginatorProgrammaticDemo {

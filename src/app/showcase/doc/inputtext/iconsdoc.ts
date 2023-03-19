@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-icons-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either <i>.p-input-icon-left</i> or <i>p-input-icon-right</i> class.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="inputtext-icons-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class IconsDoc {
     value: string;

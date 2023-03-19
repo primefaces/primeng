@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'table-paginator-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
                 Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page. For server side pagination, see the
@@ -47,7 +47,7 @@ import { Code } from '../../domain/code';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablePaginatorBasicDemo {

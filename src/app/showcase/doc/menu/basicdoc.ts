@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MenuBasicDemo implements OnInit {
     @Input() id: string;

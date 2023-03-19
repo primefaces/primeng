@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtextarea-autoresize-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When autoResize is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
         </div>
         <app-code [code]="code" selector="inputtextarea-autoresize-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class AutoResizeDoc {
     @Input() id: string;

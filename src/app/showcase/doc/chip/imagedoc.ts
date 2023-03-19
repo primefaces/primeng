@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-image-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>image</i> property is used to display an image like an avatar.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" [removable]="true"></p-chip>
         </div>
         <app-code [code]="code" selector="chip-image-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChipImageDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'mega-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>MegaMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items" baseZIndex="2000"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MegaMenuBasicDemo implements OnInit {
     @Input() id: string;

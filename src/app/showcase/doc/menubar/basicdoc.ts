@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menubar-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Menubar requires nested menuitems as its model.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-menubar [model]="items"></p-menubar>
         </div>
         <app-code [code]="code" selector="menubar-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MenubarBasicDemo implements OnInit {
     @Input() id: string;

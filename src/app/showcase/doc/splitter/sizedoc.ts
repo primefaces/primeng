@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'splitter-size-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25, 75].</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-size-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SplitterSizeDemo {
     @Input() id: string;

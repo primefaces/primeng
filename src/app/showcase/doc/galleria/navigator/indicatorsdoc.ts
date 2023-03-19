@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'indicators-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code"></app-code>
-    </div>`,
+    </section>`,
     providers: [PhotoService]
 })
 export class IndicatorsDoc implements OnInit {

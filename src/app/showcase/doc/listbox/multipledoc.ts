@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'listbox-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 ListBox allows choosing a single item by default, enable <i>multiple</i> property to choose more than one. When the optional <i>metaKeySelection</i> is present, behavior is changed in a way that selecting a new item requires meta key
@@ -19,7 +19,7 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{ width: '15rem' }" [multiple]="true" [metaKeySelection]="false"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MultipleDoc {
     @Input() id: string;

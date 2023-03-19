@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputmask-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When disabled is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-inputMask mask="999-99-9999" [(ngModel)]="value" [disabled]="true"></p-inputMask>
         </div>
         <app-code [code]="code" selector="inputmask-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

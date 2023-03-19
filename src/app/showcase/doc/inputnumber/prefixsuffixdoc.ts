@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputnumber-prefixsuffix-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputnumber-prefixsuffix-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PrefixSuffixDoc {
     @Input() id: string;

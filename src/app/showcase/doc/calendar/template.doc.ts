@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Calendar UI accepts custom content using header and footer templates.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

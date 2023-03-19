@@ -4,7 +4,7 @@ import { CountryService } from '../../service/countryservice';
 
 @Component({
     selector: 'autocomplete-force-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { CountryService } from '../../service/countryservice';
             <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ForceSelectionDoc implements OnInit {
     @Input() id: string;

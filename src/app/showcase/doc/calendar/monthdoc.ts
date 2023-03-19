@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-month-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Month only picker is enabled by specifying view as month in addition to a suitable dateFormat.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-month-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MonthDoc {
     @Input() id: string;

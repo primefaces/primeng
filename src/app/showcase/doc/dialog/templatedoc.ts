@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DialogTemplateDemo {
     @Input() id: string;

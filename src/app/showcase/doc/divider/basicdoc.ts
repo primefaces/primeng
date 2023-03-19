@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Divider is basically placed between the items to separate.</p>
         </app-docsectiontext>
@@ -35,7 +35,7 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DividerBasicDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-position-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
@@ -27,7 +27,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogPositionDemo {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'virtual-scroller-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScroller requires <i>value</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>pTemplate</i> to define the content per item. Size of the viewport is configured using <i>scrollWidth</i>,
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;

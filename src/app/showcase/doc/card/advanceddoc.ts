@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-advanced-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
             </p-card>
         </div>
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class CardAdvancedDemo {
     @Input() id: string;

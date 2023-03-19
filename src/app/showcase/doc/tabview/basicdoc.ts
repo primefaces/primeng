@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-view-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabView consists of one or more <i>TabPanel</i> elements.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabViewBasicDemo {
     @Input() id: string;

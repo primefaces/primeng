@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'speeddial-tooltip-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items display a tooltip on hober when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speeddial-tooltip-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class TooltipDoc implements OnInit {

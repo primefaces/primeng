@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'style-class-toggle-class-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 <i>StyleClass</i> has two modes, <i>toggleClass</i> to simply add-remove a class and enter/leave animations. The target element to change the styling is defined with the <i>selector</i> property that accepts any valid CSS selector or
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <input type="text" pInputText class="block mt-3" />
         </div>
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class StyleClassToggleClassDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'split-button-raised-text-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons can be displayed as raised as well for elevation.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-raised-text-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class RaisedTextDoc {

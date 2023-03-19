@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputnumber-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             ></p-inputNumber>
         </div>
         <app-code [code]="code" selector="inputnumber-vertical-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class VerticalDoc {
     @Input() id: string;

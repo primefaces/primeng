@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-pagination-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the Paginator for more information about customizing the paginator.</p>
         </app-docsectiontext>
@@ -32,7 +32,7 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-pagination-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class PaginationDoc {
     @Input() id: string;

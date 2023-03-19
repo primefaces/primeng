@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-multiple-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
                 In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or <i>shiftkey</i> are required. Setting <i>metaKeySelection</i> property as false
@@ -38,7 +38,7 @@ import { ProductService } from '../../service/productservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-multiple-selection-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableMultipleSelectionDemo implements OnInit {

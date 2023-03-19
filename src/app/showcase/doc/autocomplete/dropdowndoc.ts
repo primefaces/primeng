@@ -4,7 +4,7 @@ import { CountryService } from '../../service/countryservice';
 
 @Component({
     selector: 'autocomplete-dropdown-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using dropdownMode property that takes "blank" or "current" as possible values. "blank" is the default mode to
@@ -15,7 +15,7 @@ import { CountryService } from '../../service/countryservice';
             <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DropdownDoc implements OnInit {
     @Input() id: string;

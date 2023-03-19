@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-icon-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A font icon is displayed as an Avatar with the <i>icon</i> property.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class IconDoc {
     @Input() id: string;

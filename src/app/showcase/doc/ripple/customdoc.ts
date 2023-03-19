@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'ripple-custom-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Styling Demo Content.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <div pRipple class="card styled-box-purple shadow-2">Purple</div>
         </div>
         <app-code [code]="code" selector="ripple-custom-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RippleCustomDemo {
     @Input() id: string;

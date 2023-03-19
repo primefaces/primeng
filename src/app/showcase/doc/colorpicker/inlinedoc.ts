@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'colorpicker-inline-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ColorPicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-colorPicker [(ngModel)]="color" [inline]="true"></p-colorPicker>
         </div>
         <app-code [code]="code" selector="colorpicker-inline-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InlineDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-vertical-bar-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="bar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-vertical-bar-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartVerticalBarDemo implements OnInit {
     @Input() id: string;

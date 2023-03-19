@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-icon-only-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can have icons without labels.</p>
         </app-docsectiontext>
@@ -55,7 +55,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="button-icon-only-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class IconOnlyDoc {
     @Input() id: string;

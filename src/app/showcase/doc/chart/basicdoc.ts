@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 A chart is configured with 3 properties; <i>type</i>, <i>data</i> and <i>options</i>. Chart type is defined using the <i>type</i> property that accepts <i>pie</i>, <i>doughtnut</i>, <i>line</i>, <i>bar</i>, <i>radar</i> and
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartBasicDemo implements OnInit {
     @Input() id: string;

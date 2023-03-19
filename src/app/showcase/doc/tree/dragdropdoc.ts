@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-drag-drop-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [TreeDragDropService]
 })
 export class DragDropDoc implements OnInit {

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'listbox-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-filter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc {
     @Input() id: string;

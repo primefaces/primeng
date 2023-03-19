@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'panel-toggleable-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Content of the panel can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option. By default, toggle icon is used to toggle the contents whereas setting toggler to "header" enables
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-toggleable-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PanelToggleableDemo {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-document-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-contextMenu [model]="items" [global]="true"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ContextMenuDocumentDemo implements OnInit {
     @Input() id: string;

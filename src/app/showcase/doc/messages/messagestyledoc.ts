@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'messagestyle-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
         <div class="doc-tablewrapper">
@@ -45,7 +45,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class MessageStyleDoc {
     @Input() id: string;

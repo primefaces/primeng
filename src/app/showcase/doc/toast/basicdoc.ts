@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Toasts are displayed by calling the <i>add</i> and <i>addAll</i> method provided by the <i>messageService</i>. A single toast is specified by the <i>Message</i> interface that defines various properties such as <i>severity</i>,
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="show()" label="Show"></button>
         </div>
         <app-code [code]="code" selector="toast-basic-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastBasicDemo {

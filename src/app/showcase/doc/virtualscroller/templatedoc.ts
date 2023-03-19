@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'virtual-scroller-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Header and Footer are the two sections that are capable of displaying custom content by using <i>header</i> and <i>footer</i> templates.
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc implements OnInit {
     @Input() id: string;

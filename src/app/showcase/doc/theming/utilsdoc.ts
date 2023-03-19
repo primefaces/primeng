@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'utils-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A couple of utility classes are provided as a solution to common requirements.</p>
         </app-docsectiontext>
@@ -46,7 +46,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class UtilsDoc {
     @Input() id: string;

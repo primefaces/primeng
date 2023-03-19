@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'rating-readonly-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>readOnly</i> present, value cannot be edited.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
         </div>
         <app-code [code]="code" selector="rating-readonly-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ReadOnlyDoc {
     @Input() id: string;

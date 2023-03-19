@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'radio-button-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-radioButton [disabled]="true" [ngModel]="checked"></p-radioButton>
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

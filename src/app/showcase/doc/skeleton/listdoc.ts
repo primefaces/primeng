@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'list-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample List implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
@@ -50,7 +50,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code"></app-code>
-    </div>`
+    </section>`
 })
 export class ListDoc {
     @Input() id: string;

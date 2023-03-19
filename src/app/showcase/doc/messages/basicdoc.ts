@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 A single message is specified by <i>Message</i> interface in PrimeNG that defines the <i>id</i>, <i>severity</i>, <i>summary</i> and <i>detail</i> as the properties. Messages to display can either be defined using the value property
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
         </div>
         <app-code [code]="code" selector="messages-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MessagesBasicDemo implements OnInit {
     @Input() id: string;

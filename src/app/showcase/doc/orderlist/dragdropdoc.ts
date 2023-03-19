@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'orderlist-drag-drop-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class DragDropDoc implements OnInit {
     @Input() id: string;

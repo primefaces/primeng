@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-selection-events-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeTable provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class SelectionEventsDoc implements OnInit {

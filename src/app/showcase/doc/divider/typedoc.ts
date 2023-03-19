@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-type-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Style of the border is configured with the <i>type</i> property that can either be <i>solid</i>, <i>dotted</i> or <i>dashed</i>.</p>
         </app-docsectiontext>
@@ -35,7 +35,7 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-type-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DividerTypeDemo {
     @Input() id: string;

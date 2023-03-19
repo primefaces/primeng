@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accordion-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>AccordionTab is customized <i>header</i> and <i>content</i> templates.</p>
         </app-docsectiontext>
@@ -57,7 +57,7 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

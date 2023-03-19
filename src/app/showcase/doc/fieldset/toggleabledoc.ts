@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'fieldset-toggleable-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content of the fieldset can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-toggleable-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FieldsetToggleableDemo {
     @Input() id: string;

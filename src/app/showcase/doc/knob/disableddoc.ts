@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'knob-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, a visual hint is applied to indicate that the Knob cannot be interacted with.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" [disabled]="true"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

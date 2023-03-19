@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'licence-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>PrimeNG is an open source and free to use library licensed under MIT license whereas <b>PrimeNG LTS</b> is a commercial software licensed under <a href="https://www.primefaces.org/lts/licenses/">LTS License.</a></p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Component, Input } from '@angular/core';
                 <li>Please contact <a href="mailto:contact@primetek.com.tr">PrimeTek</a> regarding any inquiry such as alternative payment methods and license terms.</li>
             </ul>
         </div>
-    </div>`
+    </section>`
 })
 export class LicenceDoc {
     @Input() id: string;

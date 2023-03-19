@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'paginator-images-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample image gallery implementation using paginator.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ first + 1 }}.jpg" />
         </div>
         <app-code [code]="code" selector="paginator-images-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ImagesDoc {
     @Input() id: string;

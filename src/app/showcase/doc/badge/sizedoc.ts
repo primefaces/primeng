@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-size-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Badge sizes are adjusted with the <i>size</i> property that accepts <i>large</i> and <i>xlarge</i> as the possible alternatives to the default size. Currently sizes only apply to component mode.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-badge value="6" size="xlarge" severity="success"></p-badge>
         </div>
         <app-code [code]="code" selector="badge-size-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SizeDoc {
     @Input() id: string;

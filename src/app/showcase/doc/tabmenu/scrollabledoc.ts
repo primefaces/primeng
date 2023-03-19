@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-scrollable-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabMenuScrollableDemo implements OnInit {
     @Input() id: string;

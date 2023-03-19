@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accordion-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Accordion consists of one or more <i>AccordionTab</i> elements which are collapsed by default. Tab to expand initially can be defined with the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

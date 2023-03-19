@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'shapes-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>, <i>borderRadius</i> and <i>styleClass</i>.</p>
         </app-docsectiontext>
@@ -44,7 +44,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code"></app-code>
-    </div>`
+    </section>`
 })
 export class ShapesDoc {
     @Input() id: string;

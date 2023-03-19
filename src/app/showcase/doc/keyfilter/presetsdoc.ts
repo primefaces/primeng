@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'key-filter-presets-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>
@@ -38,7 +38,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-presets-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PresetsDoc {
     @Input() id: string;

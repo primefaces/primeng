@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputnumber-currency-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition <i>currencyDisplay</i> option allows how the currency is displayed, valid values are "symbol" (default) or
@@ -29,7 +29,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputnumber-currency-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class CurrencyDoc {
     @Input() id: string;

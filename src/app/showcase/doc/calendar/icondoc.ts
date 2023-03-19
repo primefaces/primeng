@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-icon-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-icon-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class IconDoc {
     @Input() id: string;

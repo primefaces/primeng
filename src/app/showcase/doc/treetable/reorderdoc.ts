@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-reorder-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Order of the columns can be changed using drag and drop when <i>reorderableColumns</i> is present.</p>
         </app-docsectiontext>
@@ -29,7 +29,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-reorder-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ReorderDoc implements OnInit {
     @Input() id: string;

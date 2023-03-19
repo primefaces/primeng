@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-floatlabel-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="inputtext-floatlabel-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FloatLabelDoc {
     value: string;

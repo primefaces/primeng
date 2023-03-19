@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-hover-event-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-hover-event-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaIndicatorHoverEventDemo implements OnInit {
     @Input() id: string;

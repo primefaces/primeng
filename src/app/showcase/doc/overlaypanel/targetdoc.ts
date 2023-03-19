@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-panel-target-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 <i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OverlayPanelTargetDemo {
     @Input() id: string;

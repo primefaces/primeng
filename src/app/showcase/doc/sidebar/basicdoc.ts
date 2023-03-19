@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sidebar-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is used as a container and visibility is controlled with a binding to <i>visible</i>.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SidebarBasicDemo {
     @Input() id: string;

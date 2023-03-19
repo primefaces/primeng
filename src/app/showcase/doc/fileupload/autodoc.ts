@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'file-upload-auto-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
         </div>
         <app-code [code]="code" selector="file-upload-auto-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class FileUploadAutoDemo {

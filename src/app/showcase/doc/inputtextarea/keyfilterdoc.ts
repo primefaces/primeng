@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtextarea-keyfilter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <textarea pKeyFilter="int" rows="5" cols="30" pInputTextarea></textarea>
         </div>
         <app-code [code]="code" selector="inputtextarea-keyfilter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class KeyfilterDoc {
     @Input() id: string;

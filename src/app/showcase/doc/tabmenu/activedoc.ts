@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-active-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-active-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabMenuActiveDemo implements OnInit {
     @Input() id: string;

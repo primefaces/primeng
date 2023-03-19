@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-custom-content-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-custom-content-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MenuCustomContentDemo implements OnInit {
     @Input() id: string;

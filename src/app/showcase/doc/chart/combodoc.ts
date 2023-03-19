@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-combo-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Different chart types can be combined in the same graph usign the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartComboDemo implements OnInit {
     @Input() id: string;

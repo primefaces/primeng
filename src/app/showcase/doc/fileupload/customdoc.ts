@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'file-upload-custom-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>
         </div>
         <app-code [code]="code" selector="file-upload-custom-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class FileUploadCustomDemo {

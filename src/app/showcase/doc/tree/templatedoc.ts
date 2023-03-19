@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { TreeNode } from 'primeng/api';
             </p-tree>
         </div>
         <app-code [code]="code" selector="tree-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc implements OnInit {
     @Input() id: string;

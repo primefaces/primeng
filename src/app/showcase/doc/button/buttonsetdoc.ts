@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-set-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple buttons are grouped when wrapped inside an element with <i>p-buttonset</i> class.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="button-set-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ButtonsetDoc {
     @Input() id: string;

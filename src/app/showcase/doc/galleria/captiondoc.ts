@@ -4,7 +4,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-caption-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
@@ -25,7 +25,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-caption-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaCaptionDemo implements OnInit {
     @Input() id: string;

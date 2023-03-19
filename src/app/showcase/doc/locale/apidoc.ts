@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'api-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Configuration is managed by the Locale API imported from <i>primeng/config</i>.</p>
 
@@ -200,7 +200,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class ApiDoc {
     @Input() id: string;

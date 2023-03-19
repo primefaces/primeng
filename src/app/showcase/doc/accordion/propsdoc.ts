@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'props-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <h5>Properties for Accordion</h5>
         <div class="doc-tablewrapper">
@@ -143,7 +143,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class PropsDoc {
     @Input() id: string;

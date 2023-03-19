@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputnumber-numerals-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputNumber is used as a controlled input with <i>[(ngModel)]</i> properties.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputnumber-numerals-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class NumeralsDoc {
     @Input() id: string;

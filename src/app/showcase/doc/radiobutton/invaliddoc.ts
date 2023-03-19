@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'radio-button-invalid-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-radioButton class="ng-invalid ng-dirty" [ngModel]="checked"></p-radioButton>
         </div>
         <app-code [code]="code" selector="radio-button-invalid-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InvalidDoc {
     @Input() id: string;

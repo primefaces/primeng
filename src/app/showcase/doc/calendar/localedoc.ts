@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-local-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Locale based settings such as labels, dateFormat and firstDayOfWeek are derived from the global Locale configuration. In case, a certain calendar needs to be customized, locale property can be used to override the global setting.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy" locale="es"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-local-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class LocaleDoc {
     @Input() id: string;

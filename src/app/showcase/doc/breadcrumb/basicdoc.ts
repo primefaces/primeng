@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;

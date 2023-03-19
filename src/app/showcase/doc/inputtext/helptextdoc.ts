@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-helptext-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputtext-helptext-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class HelpTextDoc {
     value: string;

@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-positioned-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
                 Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to
@@ -33,7 +33,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
     @Input() id: string;

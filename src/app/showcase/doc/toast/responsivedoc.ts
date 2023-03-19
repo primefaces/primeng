@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-responsive-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="show()" label="Show"></button>
         </div>
         <app-code [code]="code" selector="toast-responsive-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {

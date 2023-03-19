@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'knob-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label is a string template that can be customized with the <i>valueTemplate</i> property having 60 as the placeholder .</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" valueTemplate="{value}%"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

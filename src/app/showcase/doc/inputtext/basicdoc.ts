@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputText is applied to an input field with pInputText directive.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <input type="text" pInputText [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="inputtext-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     value: string;

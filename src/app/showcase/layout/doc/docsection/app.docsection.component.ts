@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AppDocSectionTextComponent } from '../docsectiontext/app.docsectiontext.component';
 import { Doc } from 'src/app/showcase/domain/doc';
+import { DomHandler } from 'primeng/dom';
 
 interface Props {
     id: string;
@@ -34,13 +35,14 @@ export class AppDocSectionsComponent implements OnInit {
         const newComponent: any = this.docs[this.currentDocIndex];
 
         const viewContainerRef = this.Doc;
-
+        let component;
         if (newComponent.component !== undefined) {
-            let component = viewContainerRef.createComponent<Props>(newComponent.component);
+            component = viewContainerRef.createComponent<Props>(newComponent.component);
             component.instance.id = newComponent.id;
             component.instance.title = newComponent.label;
+
         } else {
-            let component = viewContainerRef.createComponent(AppDocSectionTextComponent);
+            component = viewContainerRef.createComponent(AppDocSectionTextComponent);
             component.instance.id = newComponent.id;
             component.instance.title = newComponent.label;
             component.instance.level = 2;
@@ -48,10 +50,11 @@ export class AppDocSectionsComponent implements OnInit {
         if (newComponent.children) {
             for (let i = 0; i < newComponent.children.length; i++) {
                 const children = newComponent.children[i];
-                let component = viewContainerRef.createComponent<Props>(children.component);
+                component = viewContainerRef.createComponent<Props>(children.component);
                 component.instance.id = children.id;
                 component.instance.title = children.label;
             }
         }
+        DomHandler.findSingle(component.location.nativeElement, 'section').classList.add('py-3')
     }
 }

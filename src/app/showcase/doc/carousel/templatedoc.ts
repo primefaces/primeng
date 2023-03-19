@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -39,7 +39,7 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-template-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class CarouselTemplateDemo implements OnInit {
     @Input() id: string;

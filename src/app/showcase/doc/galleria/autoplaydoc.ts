@@ -4,7 +4,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-autoplay-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A slideshow implementation is defined by adding <i>circular</i> and <i>autoPlay</i> properties.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-autoplay-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaAutoplayDemo implements OnInit {
     @Input() id: string;

@@ -5,7 +5,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
@@ -46,7 +46,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-advanced-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     @Input() id: string;

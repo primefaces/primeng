@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inplace-input-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Inplace can be used within a form to display a value as read only before making it editable. The <i>closable</i> property adds a close button next to the content to switch back to read only mode.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InplaceInputDemo {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'splitter-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-vertical-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SplitterVerticalDemo {
     @Input() id: string;

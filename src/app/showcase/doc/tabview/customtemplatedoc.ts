@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-view-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
         </app-docsectiontext>
@@ -43,7 +43,7 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TabViewTemplateDemo {
     @Input() id: string;

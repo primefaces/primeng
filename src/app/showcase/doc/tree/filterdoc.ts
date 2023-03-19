@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
@@ -18,7 +18,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc implements OnInit {
     @Input() id: string;

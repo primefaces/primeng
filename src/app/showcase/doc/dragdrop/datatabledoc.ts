@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Drag and Drop to Table</p>
         </app-docsectiontext>
@@ -50,7 +50,7 @@ import { ProductService } from '../../service/productservice';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-data-table-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class DragDropDataTableDemo implements OnInit {
     @Input() id: string;

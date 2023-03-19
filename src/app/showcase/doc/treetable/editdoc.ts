@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-edit-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
         </app-docsectiontext>
@@ -34,7 +34,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class EditDoc implements OnInit {
     @Input() id: string;

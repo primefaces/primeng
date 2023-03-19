@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tri-state-checkbox-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <label>{{ value == null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

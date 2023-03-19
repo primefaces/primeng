@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-severity-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" styleClass="p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SeverityDoc {
     @Input() id: string;

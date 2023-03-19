@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-command-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-command-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {

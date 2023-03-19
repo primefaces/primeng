@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toolbar-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Toolbar provides <i>start</i>, <i>center</i> and <i>end</i> templates to place content at these sections.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ToolbarBasicDemo implements OnInit {
     @Input() id: string;

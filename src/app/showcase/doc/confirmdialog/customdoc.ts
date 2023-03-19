@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Properties of the dialog are defined in two ways, <i>message</i>, <i>icon</i>, <i>header</i> properties can either be defined using confirm method or declaratively on p-confirmDialog ng-template by <i>header</i> and
@@ -29,7 +29,7 @@ import { Code } from '../../domain/code';
             <p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogTemplateDemo {

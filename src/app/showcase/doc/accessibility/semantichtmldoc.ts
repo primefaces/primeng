@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'semantic-html-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 HTML offers various element to organize content on a web page that screen readers are aware of. Preferring Semantic HTML for good semantics provide out of the box support for reader which is not possible when regular
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p class="doc-section-description">Same layout can be achieved using the semantic elements with screen reader support built-in.</p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    </div>`
+    </section>`
 })
 export class SemanticHTMLDoc {
     @Input() id: string;

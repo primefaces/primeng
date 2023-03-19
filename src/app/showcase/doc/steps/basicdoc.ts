@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'steps-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Steps requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-steps [model]="items" [readonly]="true"></p-steps>
         </div>
         <app-code [code]="code" selector="steps-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class StepsBasicDemo implements OnInit {
     @Input() id: string;

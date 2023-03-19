@@ -5,7 +5,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'inplace-data-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card">
             <p-inplace>
@@ -38,7 +38,7 @@ import { CarService } from '../../service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class InplaceDataDemo {
     @Input() id: string;

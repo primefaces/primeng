@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-shape-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Avatar comes in two different styles specified with the <i>shape</i> property, <i>square</i> is the default and <i>circle</i> is the alternative.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-avatar label="T"></p-avatar>
         </div>
         <app-code [code]="code" selector="avatar-shape-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ShapeDoc {
     @Input() id: string;

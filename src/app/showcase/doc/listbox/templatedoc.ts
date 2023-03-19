@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'listbox-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ interface Country {
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

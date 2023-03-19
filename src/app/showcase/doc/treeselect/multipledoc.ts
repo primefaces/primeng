@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
@@ -17,7 +17,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>
         </div>
         <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MultipleDoc {
     @Input() id: string;

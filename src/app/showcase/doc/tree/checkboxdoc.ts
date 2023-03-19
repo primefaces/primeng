@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-checkbox-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
             <p>In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that has <i>checked</i> and <i>partialChecked</i> properties to represent the checked state of a node</p>
@@ -15,7 +15,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-checkbox-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class CheckboxDoc implements OnInit {
     @Input() id: string;

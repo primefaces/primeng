@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-keyfilter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="inputtext-keyfilter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class KeyFilterDoc {
     value: number;

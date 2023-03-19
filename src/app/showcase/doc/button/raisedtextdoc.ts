@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-raisedtext-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons can be displayed as raised for elevation.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" styleClass="p-button-raised p-button-text p-button-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-raisedtext-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RaisedTextDoc {
     @Input() id: string;

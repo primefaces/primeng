@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'autocomplete-grouped-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GroupedDoc implements OnInit {
     @Input() id: string;

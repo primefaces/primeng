@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tri-state-checkbox-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <label>{{ value === null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

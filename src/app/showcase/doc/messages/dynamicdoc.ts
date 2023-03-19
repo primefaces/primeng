@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-dynamic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A binding to the value property is required to provide messages to the component.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
         </div>
         <app-code [code]="code" selector="messages-dynamic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MessagesDynamicDemo {
     @Input() id: string;

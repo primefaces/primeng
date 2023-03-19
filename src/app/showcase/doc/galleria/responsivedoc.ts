@@ -4,7 +4,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-responsive-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria responsiveness is defined with the <i>responsiveOptions</i> property.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-responsive-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaResponsiveDemo implements OnInit {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'form-controls-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <p>
             Native form elements should be preferred instead of elements that are meant for other purposes like presentation. As an example, button below is rendered as a form control by the browser, can receive focus via tabbing and can be used with
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <h3>Relations</h3>
         <p class="doc-section-description">Form components must be related to another element that describes what the form element is used for. This is usually achieved with the <i>label</i> element.</p>
         <app-code [code]="code4" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class FormControlsDoc {
     @Input() id: string;

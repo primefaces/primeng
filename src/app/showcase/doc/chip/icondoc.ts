@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-icon-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A font icon next to the label can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true"></p-chip>
         </div>
         <app-code [code]="code" selector="chip-icon-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChipIconDemo {
     @Input() id: string;

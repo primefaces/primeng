@@ -4,7 +4,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and <i>thumbnail</i> template to display as a thumbnail.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaBasicDemo implements OnInit {
     @Input() id: string;

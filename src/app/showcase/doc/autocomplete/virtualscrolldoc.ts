@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid performance
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class VirtualScrollDoc {
     @Input() id: string;

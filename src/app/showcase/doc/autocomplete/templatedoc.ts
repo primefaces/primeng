@@ -5,7 +5,7 @@ import { CountryService } from '../../service/countryservice';
 
 @Component({
     selector: 'autocomplete-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ import { CountryService } from '../../service/countryservice';
             </p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 
 @Component({
     selector: 'drag-drop-drop-indicator-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Product } from '../../domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drop-indicator-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class DropIndicatorDoc {
     @Input() id: string;

@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'galleria-full-screen-without-thumbnails-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Thumbnails can also be hidden in full screen mode.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-without-thumbnails-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaWithoutThumbnailsDemo implements OnInit {
     @Input() id: string;

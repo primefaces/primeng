@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>MultiSelect requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multiselect-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'props-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Any property as style and class are passed to the main container element. Following are the additional properties to configure the component.</p>
         </app-docsectiontext>
@@ -122,7 +122,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class PropsDoc {
     @Input() id: string;

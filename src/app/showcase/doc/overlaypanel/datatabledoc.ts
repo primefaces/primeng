@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'overlay-panel-data-table-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>
@@ -46,7 +46,7 @@ import { ProductService } from '../../service/productservice';
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-data-table-demo" [extFiles]="extFiles"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class OverlayPanelDataTableDemo implements OnInit {

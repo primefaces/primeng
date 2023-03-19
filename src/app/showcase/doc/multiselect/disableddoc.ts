@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-disabled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multiselect-disabled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DisabledDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Overlay is a container to display content in an overlay window. All the options mentioned above can be used as props for this component.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round"> Content </p-overlay>
         </div>
         <app-code [code]="code" selector="overlay-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OverlayBasicDemo {
     @Input() id: string;

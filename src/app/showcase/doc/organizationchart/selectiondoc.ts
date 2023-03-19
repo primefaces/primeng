@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'organization-chart-selection-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SelectionDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
         </app-docsectiontext>
@@ -27,7 +27,7 @@ import { Code } from '../../domain/code';
                 <li>right-end</li>
             </ul>
         </div>
-    </div>`
+    </section>`
 })
 export class ResponsiveDoc {
     @Input() id: string;

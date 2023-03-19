@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'mega-menu-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MegaMenuTemplateDemo implements OnInit {
     @Input() id: string;

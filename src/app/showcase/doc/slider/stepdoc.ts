@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slider-step-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-slider [(ngModel)]="value" [step]="20"></p-slider>
         </div>
         <app-code [code]="code" selector="slider-step-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class StepDoc {
     @Input() id: string;

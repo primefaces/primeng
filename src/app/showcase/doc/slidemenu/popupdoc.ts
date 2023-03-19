@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slide-menu-popup-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-slideMenu #menu [model]="items" [popup]="true" [viewportHeight]="250" [menuWidth]="175"></p-slideMenu>
         </div>
         <app-code [code]="code" selector="slide-menu-popup-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SlideMenuPopupDemo implements OnInit {
     @Input() id: string;

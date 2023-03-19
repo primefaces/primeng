@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-sort-single-column-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-sort-single-column-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SortSingleColumnDoc implements OnInit {
     @Input() id: string;

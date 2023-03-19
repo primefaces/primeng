@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-templating-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             </p-chip>
         </div>
         <app-code [code]="code" selector="chip-templating-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChipTemplatingDemo {
     @Input() id: string;

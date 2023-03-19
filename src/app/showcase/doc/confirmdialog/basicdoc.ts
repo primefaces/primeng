@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-button pRipple (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-basic-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogBasicDemo {

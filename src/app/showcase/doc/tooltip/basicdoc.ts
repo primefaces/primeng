@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <input type="text" pInputText pTooltip="Enter your username" placeholder="hover to display tooltip" />
         </div>
         <app-code [code]="code" selector="tooltip-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TooltipBasicDemo {
     @Input() id: string;

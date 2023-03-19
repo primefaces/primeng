@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animate-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Animate uses PrimeFlex animations, however it can perform animations with custom CSS classes too. Takes <i>enterClass</i> and <i>leaveClass</i> properties to simply add animation class during scroll or page load to manage elements
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="animate-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class BasicDoc {
     @Input() id: string;

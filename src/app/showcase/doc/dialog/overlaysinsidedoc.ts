@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dialog-overlays-inside-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can either append the overlay to the body by using
@@ -24,7 +24,7 @@ interface City {
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-overlays-inside-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DialogOverlaysInsideDemo implements OnInit {
     @Input() id: string;

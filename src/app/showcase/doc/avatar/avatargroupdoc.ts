@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-group-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Grouping is available by wrapping multiple Avatar components inside an AvatarGroup.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-avatarGroup>
         </div>
         <app-code [code]="code" selector="avatar-group-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GroupDoc {
     @Input() id: string;

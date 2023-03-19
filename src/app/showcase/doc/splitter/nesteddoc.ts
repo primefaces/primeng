@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'splitter-nested-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-nested-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SplitterNestedDemo {
     @Input() id: string;

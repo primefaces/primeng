@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tree-table-paginator-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Paginator UI is customized using the <i>paginatorleft</i> and <i>paginatorright</i> property. Each element can also be customized further with your own UI to replace the default one, refer to the
@@ -38,7 +38,7 @@ import { Code } from '../../domain/code';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PaginatorTemplateDoc implements OnInit {
     @Input() id: string;

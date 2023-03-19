@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showMultiple()" label="Show Multiple"></button>
         </div>
         <app-code [code]="code" selector="toast-multiple-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastMultipleDemo {

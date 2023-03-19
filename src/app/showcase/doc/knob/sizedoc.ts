@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'knob-size-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Diameter of the knob is defined in pixels using the <i>size</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" [size]="200"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-size-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SizeDoc {
     @Input() id: string;

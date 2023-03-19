@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tiered-menu-popup-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TieredMenuPopupDemo implements OnInit {
     @Input() id: string;

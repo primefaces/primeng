@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'architecture-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 PrimeNG is a design agnostic library so unlike other UI libraries it does not enforce a certain styling such as material or bootstrap. In order to achieve this, styling has been separated into two parts, core and theme. Core resides
@@ -12,7 +12,7 @@ import { Component, Input } from '@angular/core';
             </p>
         </app-docsectiontext>
         <img alt="Architecture" src="https://primefaces.org/cdn/primeng/images/architecture.jpg" class="w-full mb-5" />
-    </div>`
+    </section>`
 })
 export class ArchitectureDoc {
     @Input() id: string;

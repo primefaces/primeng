@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'zindex-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p class="doc-section-description">The ZIndex of all components is increased according to their groups in harmony with each other. When <i>autoZIndex</i> is false, each group increments its zIndex within itself.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class ZIndexDoc {
     @Input() id: string;

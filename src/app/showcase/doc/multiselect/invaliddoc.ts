@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-invalid-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multiselect-invalid-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InvalidDoc {
     @Input() id: string;

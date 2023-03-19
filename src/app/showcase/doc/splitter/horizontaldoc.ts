@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'splitter-horizontal-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Splitter requires two SplitterPanel components as children which are displayed horizontally by default.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-horizontal-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SplitterHorizontalDemo {
     @Input() id: string;

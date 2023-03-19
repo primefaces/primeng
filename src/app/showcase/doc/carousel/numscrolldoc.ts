@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-num-scroll-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Number of items to scroll is specified with the <i>numScroll</i> option.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-num-scroll-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class CarouselNumScrollDemo implements OnInit {
     @Input() id: string;

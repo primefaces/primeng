@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'image-indicator-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             </p-image>
         </div>
         <app-code [code]="code" selector="image-indicator-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ImageIndicatorTemplateDemo {
     @Input() id: string;

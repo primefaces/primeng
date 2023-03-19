@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p class="line-height-3  bg-indigo-600 text-white p-3 text-lg" style="border-radius: 10px;">
                 Accessibility is a major concern of the Prime UI libraries and PrimeNG is no exception. <a href="https://www.primetek.com.tr" class="text-white">PrimeTek</a> teams have initiated a significant process to review and enhance the
@@ -44,7 +44,7 @@ import { Component, Input } from '@angular/core';
             Cognitive impairments have a wider range that includes people with learning disabilities, depression and dyslexia. A well designed content also leads to better user experience for people without disabilities so designing for cognitive
             impairments result in better design for any user.
         </p>
-    </div>`
+    </section>`
 })
 export class IntroductionDoc {
     @Input() id: string;

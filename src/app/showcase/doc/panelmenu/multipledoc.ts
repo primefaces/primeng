@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'panel-menu-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-panelMenu [model]="items" [style]="{ width: '300px' }" [multiple]="true"></p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PanelMenuMultipleDemo implements OnInit {
     @Input() id: string;

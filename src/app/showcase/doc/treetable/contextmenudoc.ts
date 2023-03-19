@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-context-menu-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-contextMenu #cm [model]="items"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {

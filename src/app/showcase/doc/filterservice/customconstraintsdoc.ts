@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-constraints-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>FilterService can be extended by adding new constraints using the <span>register</span> function.</p></app-docsectiontext
         >
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class CustomConstraintsDoc {
     @Input() id: string;

@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'orderlist-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc implements OnInit {
     @Input() id: string;

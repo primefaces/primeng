@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroller-delay-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>
         </app-docsectiontext>
@@ -34,7 +34,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroller-delay-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DelayDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Vertical divider is enabled by setting the <i>layout</i> property as <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -28,7 +28,7 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-vertical-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DividerVerticalDemo {
     @Input() id: string;

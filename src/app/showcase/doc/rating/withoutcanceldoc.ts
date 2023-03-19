@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'rating-withoutcancel-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-rating [(ngModel)]="value" [cancel]="false"></p-rating>
         </div>
         <app-code [code]="code" selector="rating-withoutcancel-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class WithoutCancelDoc {
     @Input() id: string;

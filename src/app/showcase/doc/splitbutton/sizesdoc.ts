@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'split-button-sizes-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class SizesDoc {

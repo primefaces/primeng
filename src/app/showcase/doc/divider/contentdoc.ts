@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-content-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Children are rendered within the boundaries of the divider where location of the content is configured with the align property. In horizontal layout, alignment options are <i>left</i>, <i>center</i> and <i>right</i> whereas vertical
@@ -47,7 +47,7 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-content-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class DividerContentDemo {
     @Input() id: string;

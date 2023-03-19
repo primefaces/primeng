@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tag-severity-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i> in addition to the default theme color.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-tag severity="danger" value="Danger"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-severity-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TagSeverityDemo {
     @Input() id: string;

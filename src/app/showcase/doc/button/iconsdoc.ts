@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-icons-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Icon of a button is specified with <i>icon</i> property and position is configured using <i>iconPos</i> attribute.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-button label="Submit" icon="pi pi-check" iconPos="right"></p-button>
         </div>
         <app-code [code]="code" selector="button-icons-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class IconsDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inplace-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>Inplace</i> component requires <i>display</i> and <i>content</i> templates to define the content of each state.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InplaceBasicDemo {
     @Input() id: string;

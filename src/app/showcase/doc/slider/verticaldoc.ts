@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slider-vertical-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-slider [(ngModel)]="value" orientation="vertical"></p-slider>
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class VerticalDoc {
     @Input() id: string;

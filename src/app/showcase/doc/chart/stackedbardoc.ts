@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-stacked-bar-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="bar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-stacked-bar-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartStackedBarDemo implements OnInit {
     @Input() id: string;

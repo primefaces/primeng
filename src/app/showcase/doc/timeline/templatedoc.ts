@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'timeline-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>
@@ -27,7 +27,7 @@ import { Code } from '../../domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

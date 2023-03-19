@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-label-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A letter Avatar is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class LabelDoc {
     @Input() id: string;

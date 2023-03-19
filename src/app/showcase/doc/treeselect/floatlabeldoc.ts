@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-floatlabel-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { NodeService } from '../../service/nodeservice';
             </span>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FloatLabelDoc {
     @Input() id: string;

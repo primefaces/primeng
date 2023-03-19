@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-trigger-event-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Trigger event of context menu can be replaced by a different event with <i>triggerEvent</i> property. Default value of <i>triggerEvent</i> is <i>contextmenu</i>.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-contextMenu [target]="img" [model]="items" triggerEvent="click"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-trigger-event-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ContextMenuTriggerEventDemo implements OnInit {
     @Input() id: string;

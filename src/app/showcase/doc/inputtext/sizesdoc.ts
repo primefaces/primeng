@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'inputtext-sizes-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Apply <i>.p-inputtext-sm</i> to reduce the size of the input element or <i>.p-inputtext-lg</i> to enlarge it.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />
         </div>
         <app-code [code]="code" selector="inputtext-sizes-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class SizesDoc {
     value: string;

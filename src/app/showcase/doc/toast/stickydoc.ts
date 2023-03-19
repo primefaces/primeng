@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-sticky-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A toast disappears after 3000ms defined the <i>life</i> option, set <i>sticky</i> option <i>true</i> to display toast that do not hide automatically.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showSticky()" label="Show Sticky"></button>
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastStickyDemo {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'ripple-default-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default Demo Content.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>
         </div>
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RippleDefaultDemo {
     @Input() id: string;

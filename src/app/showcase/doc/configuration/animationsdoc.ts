@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animations-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Various components utilize Angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need to import <i>BrowserAnimationsModule</i> to your application. If you prefer to disable
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class AnimationsDoc {
     @Input() id: string;

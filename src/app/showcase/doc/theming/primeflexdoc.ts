@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'primeflex-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 <a href="https://www.primefaces.org/primeflex/">PrimeFlex</a> is a lightweight responsive CSS utility library to accompany Prime UI libraries and static webpages as well. PrimeNG can be used with any CSS utility library like bootstrap
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <p-button styleClass="p-button-help" label="button 3"></p-button>
         </div>
         <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class PrimeFlexDoc {
     @Input() id: string;

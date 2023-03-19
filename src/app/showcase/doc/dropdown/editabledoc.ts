@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class EditableDoc {
     @Input() id: string;

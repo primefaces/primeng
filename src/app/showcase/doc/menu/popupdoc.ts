@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-popup-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Popup mode is enabled by setting <i>popup</i> property to <i>true</i> and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button>
         </div>
         <app-code [code]="code" selector="menu-popup-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class MenuPopupDemo implements OnInit {

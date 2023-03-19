@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroll-panel-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ScrollPanel is defined using dimensions for the scrollable viewport.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
             </p-scrollPanel>
         </div>
         <app-code [code]="code" selector="scroll-panel-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollPanelBasicDemo {
     @Input() id: string;

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-floatlabel-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ interface City {
             </span>
         </div>
         <app-code [code]="code" selector="dropdown-floatlabel-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FloatLabelDoc {
     @Input() id: string;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-static-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Alternative way to provide the content for the messages is templating. In this case value property and message service is ignored and only static is displayed.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             </p-messages>
         </div>
         <app-code [code]="code" selector=""></app-code>
-    </div>`
+    </section>`
 })
 export class MessagesStaticDemo {
     @Input() id: string;

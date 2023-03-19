@@ -4,7 +4,7 @@ import { CountryService } from '../../service/countryservice';
 
 @Component({
     selector: 'autocomplete-objects-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a
@@ -15,7 +15,7 @@ import { CountryService } from '../../service/countryservice';
             <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ObjectsDoc implements OnInit {
     @Input() id: string;

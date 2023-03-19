@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-multiple-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
@@ -22,7 +22,7 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-30rem" selectionMode="multiple" [(selection)]="selectedFiles"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class MultipleDoc implements OnInit {
     @Input() id: string;

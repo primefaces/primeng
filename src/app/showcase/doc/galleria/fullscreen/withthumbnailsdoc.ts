@@ -4,7 +4,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'galleria-with-thumbnails-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
@@ -22,7 +22,7 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-with-thumbnails-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaWithThumbnailsDemo implements OnInit {
     @Input() id: string;

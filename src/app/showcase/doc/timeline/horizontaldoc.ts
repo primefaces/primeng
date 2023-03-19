@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'timeline-horizontal-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-horizontal-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class HorizontalDoc {
     @Input() id: string;

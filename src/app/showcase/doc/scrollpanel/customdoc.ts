@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scroll-panel-custom-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
@@ -46,7 +46,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroll-panel-custom-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ScrollPanelCustomDemo {
     @Input() id: string;

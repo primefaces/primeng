@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-pie-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-chart type="pie" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ChartPieDemo implements OnInit {
     @Input() id: string;

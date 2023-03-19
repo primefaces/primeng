@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'editor-readonly-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>readonly</i> is present, the value cannot be edited.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>
         </div>
         <app-code [code]="code" selector="editor-readonly-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ReadOnlyDoc {
     @Input() id: string;

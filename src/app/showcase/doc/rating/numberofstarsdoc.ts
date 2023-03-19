@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'rating-numberofstars-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Number of stars to display is defined with <i>stars</i> property.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-rating [(ngModel)]="value" [stars]="10"></p-rating>
         </div>
         <app-code [code]="code" selector="rating-numberofstars-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class NumberOfStarsDoc {
     @Input() id: string;

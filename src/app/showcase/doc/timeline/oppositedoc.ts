@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'timeline-opposite-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-opposite-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OppositeDoc {
     @Input() id: string;

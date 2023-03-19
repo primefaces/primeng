@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tag-pill-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>
         </app-docsectiontext>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
             <p-tag severity="danger" value="Danger" [rounded]="true"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-pill-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TagPillDemo {
     @Input() id: string;

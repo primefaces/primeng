@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'split-button-severity-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class SeverityDoc {

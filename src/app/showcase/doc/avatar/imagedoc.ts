@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-image-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" styleClass="mr-2" shape="circle"></p-avatar>
         </div>
         <app-code [code]="code" selector="avatar-image-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ImageDoc {
     @Input() id: string;

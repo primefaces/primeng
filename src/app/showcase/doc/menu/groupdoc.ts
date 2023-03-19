@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-group-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {

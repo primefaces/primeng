@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'split-button-raised-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Raised buttons display a shadow to indicate elevation.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Danger" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-raised-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class RaisedDoc {

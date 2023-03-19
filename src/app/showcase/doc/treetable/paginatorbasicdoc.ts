@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tree-table-paginator-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>
@@ -28,7 +28,7 @@ import { Code } from '../../domain/code';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class PaginatorBasicDoc implements OnInit {
     @Input() id: string;

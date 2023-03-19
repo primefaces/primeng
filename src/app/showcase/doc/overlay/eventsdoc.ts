@@ -3,10 +3,10 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'events-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`
+    </section>`
 })
 export class EventsDoc {
     @Input() id: string;

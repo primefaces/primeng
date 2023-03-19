@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'megamenuitem-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>MegaMenuItem API</i> provides the following properties.</p>
         </app-docsectiontext>
@@ -187,7 +187,7 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </div>`
+    </section>`
 })
 export class MegaMenuItemDoc {
     @Input() id: string;

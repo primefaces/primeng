@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'cascadeselect-template-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content of an item can be customized with the <i>option</i> template.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
             </p-cascadeSelect>
         </div>
         <app-code [code]="code" selector="cascadeselect-template-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class TemplateDoc {
     @Input() id: string;

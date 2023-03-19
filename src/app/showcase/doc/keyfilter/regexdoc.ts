@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'key-filter-regex-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>In addition to the presets, a regular expression can be configured for customization.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-regex-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class RegexDoc {
     @Input() id: string;

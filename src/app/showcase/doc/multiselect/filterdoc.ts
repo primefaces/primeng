@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-filter-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
@@ -16,7 +16,7 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multiselect-filter-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FilterDoc {
     @Input() id: string;

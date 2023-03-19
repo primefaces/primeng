@@ -5,7 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'passingdata-doc',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 In case you need to pass data to the component that is dynamically loaded, use the <i>data</i> property that can be access using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the
@@ -13,7 +13,7 @@ import { ProductListDemo } from './productlistdemo';
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </div>`,
+    </section>`,
     providers: [DialogService]
 })
 export class PassingDataDoc {

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
         </app-docsectiontext>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <p-contextMenu [target]="img" [model]="items"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class ContextMenuBasicDemo implements OnInit {
     @Input() id: string;

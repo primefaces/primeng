@@ -4,7 +4,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
@@ -25,7 +25,7 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-controlled-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GalleriaControlledDemo implements OnInit {
     @Input() id: string;

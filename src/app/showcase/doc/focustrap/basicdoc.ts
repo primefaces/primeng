@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'focus-trap-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>
@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class FocusTrapBasicDemo {
     @Input() id: string;

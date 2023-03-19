@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-group-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-group-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class GroupDoc {
     @Input() id: string;

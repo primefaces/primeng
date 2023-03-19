@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-panel-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>OverlayPanel is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
             <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-basic-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class OverlayPanelBasicDemo {
     @Input() id: string;

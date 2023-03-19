@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-clear-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Clicking the close icon on the toast, removes it manually. Same can also be achieved programmatically using the clear function of the <i>messageService</i>. Calling it without any arguments, removes all displayed messages whereas
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [MessageService]
 })
 export class ToastClearDemo {

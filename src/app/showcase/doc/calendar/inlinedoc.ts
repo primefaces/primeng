@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-inline-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Calendar is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-inline-demo"></app-code>
-    </div>`
+    </section>`
 })
 export class InlineDoc {
     @Input() id: string;

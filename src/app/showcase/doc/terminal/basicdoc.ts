@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'terminal-basic-demo',
-    template: ` <div>
+    template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
-    </div>`,
+    </section>`,
     providers: [TerminalService]
 })
 export class TerminalBasicDemo implements OnDestroy {
