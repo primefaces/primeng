@@ -55,6 +55,9 @@ export class AppDocSectionsComponent implements OnInit {
                 component.instance.title = children.label;
             }
         }
-        DomHandler.findSingle(component.location.nativeElement, 'section').classList.add('py-3')
+        
+        if(component) {
+            DomHandler.findSingle(component.location.nativeElement, 'section').classList.add('py-3')
+        }
     }
 }
