@@ -147,7 +147,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     @Input() maxlength: number;
 
-    @Input() tabindex: string;
+    @Input() tabindex: number;
 
     @Input() title: string;
 
