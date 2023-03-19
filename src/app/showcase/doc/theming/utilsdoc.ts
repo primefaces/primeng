@@ -20,6 +20,10 @@ import { Component, Input } from '@angular/core';
                         <td>Applies component theming such as font-family and font-size to an element.</td>
                     </tr>
                     <tr>
+                        <td>p-fluid</td>
+                        <td>Applies 100% width to all descendant components.</td>
+                    </tr>
+                    <tr>
                         <td>p-disabled</td>
                         <td>Applies an opacity to display as disabled.</td>
                     </tr>
@@ -38,10 +42,6 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>p-error</td>
                         <td>Indicates an error text.</td>
-                    </tr>
-                    <tr>
-                        <td>p-text-secondary</td>
-                        <td>Applies the text color of the theme with the secondary priority.</td>
                     </tr>
                 </tbody>
             </table>

@@ -2,15 +2,20 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'themes-doc',
+    selector: 'builtin-themes-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>PrimeNG ships with various free themes to choose from. The list below states all the available themes in the npm distribution with import paths.</p>
+            <p>
+                PrimeNG ships with various free themes to choose from. The list below states all the available themes in the npm distribution with import paths. For a live preview, use the configurator
+                <span class="border-round inline-flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center bg-primary"><span class="pi pi-cog"></span></span> at the topbar to switch themes.
+            </p>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <div class="h-20rem overflow-auto">
+            <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        </div>
     </section>`
 })
-export class ThemesDoc {
+export class BuiltInThemesDoc {
     @Input() id: string;
 
     @Input() title: string;
