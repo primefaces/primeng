@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="carousel-vertical-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class CarouselVerticalDemo implements OnInit {
+export class VerticalDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

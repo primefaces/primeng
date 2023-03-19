@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chip-image-demo"></app-code>
     </section>`
 })
-export class ChipImageDemo {
+export class ImageDoc {
     @Input() id: string;
 
     @Input() title: string;

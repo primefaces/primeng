@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="carousel-basic-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class CarouselBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

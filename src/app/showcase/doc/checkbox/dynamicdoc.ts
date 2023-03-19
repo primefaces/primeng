@@ -54,8 +54,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
-    templateUrl: './checkbox-dynamic-demo.html',
-    styleUrls: ['./checkbox-dynamic-demo.scss']
+    templateUrl: './checkbox-dynamic-demo.html'
 })
 export class CheckboxDynamicDemo {
     selectedCategories: any[] = [];

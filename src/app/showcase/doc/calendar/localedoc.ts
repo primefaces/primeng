@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-local-demo',
-    templateUrl: './calendar-local-demo.html',
-    styleUrls: ['./calendar-local-demo.scss']
+    templateUrl: './calendar-local-demo.html'
 })
 export class CalendarLocalDemo {
     date: Date;

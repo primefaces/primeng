@@ -18,7 +18,7 @@ import { TimeDoc } from './timedoc';
 import { MonthDoc } from './monthdoc';
 import { YearDoc } from './yeardoc';
 import { MultipleMonthDoc } from './multiplemonths.doc';
-import { TemplateDoc } from './template.doc';
+import { TemplateDoc } from './templatedoc';
 import { InlineDoc } from './inlinedoc';
 import { TouchUIDoc } from './touchuidoc';
 import { DateTemplateDoc } from './datetemplatedoc';

@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="divider-type-demo"></app-code>
     </section>`
 })
-export class DividerTypeDemo {
+export class TypeDoc {
     @Input() id: string;
 
     @Input() title: string;

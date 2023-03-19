@@ -4,18 +4,18 @@ import { RouterModule } from '@angular/router';
 import { ChipModule } from 'primeng/chip';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { ChipBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
-import { ChipIconDemo } from './icondoc';
-import { ChipImageDemo } from './imagedoc';
+import { IconDoc } from './icondoc';
+import { ImageDoc } from './imagedoc';
 import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
-import { ChipTemplatingDemo } from './templatingdoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ChipModule],
-    declarations: [ImportDoc, ChipBasicDemo, ChipIconDemo, ChipImageDemo, PropsDoc, StyleDoc, ChipTemplatingDemo, EventsDoc],
+    declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, PropsDoc, StyleDoc, TemplateDoc, EventsDoc],
     exports: [AppDocModule]
 })
 export class ChipDocModule {}

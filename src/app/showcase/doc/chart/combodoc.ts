@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
     </section>`
 })
-export class ChartComboDemo implements OnInit {
+export class ComboDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

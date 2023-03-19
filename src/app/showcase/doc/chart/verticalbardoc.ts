@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-vertical-bar-demo"></app-code>
     </section>`
 })
-export class ChartVerticalBarDemo implements OnInit {
+export class VerticalBarDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

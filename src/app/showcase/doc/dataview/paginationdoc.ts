@@ -101,8 +101,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-pagination-demo',
-    templateUrl: './data-view-pagination-demo.html',
-    styleUrls: ['./data-view-pagination-demo.scss']
+    templateUrl: './data-view-pagination-demo.html'
 })
 export class DataViewPaginationDemo {
     products: Product[];

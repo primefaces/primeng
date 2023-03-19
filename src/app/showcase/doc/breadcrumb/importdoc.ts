@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { BreadcrumbModule } from 'primeng/breadcrumb';`
+        typescript: `import { BreadcrumbModule } from 'primeng/breadcrumb';`
     };
 }

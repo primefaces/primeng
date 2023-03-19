@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
     </section>`
 })
-export class ChartPolarAreaDemo implements OnInit {
+export class PolarAreaDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

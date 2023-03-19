@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-basic-demo',
-    templateUrl: './checkbox-basic-demo.html',
-    styleUrls: ['./checkbox-basic-demo.scss']
+    templateUrl: './checkbox-basic-demo.html'
 })
 
 export class CheckboxBasicDemo {

@@ -23,7 +23,7 @@ import { ProductListDemo } from './productlistdemo';
     </section>`,
     providers: [DialogService, MessageService]
 })
-export class DynamicDialogBasicDemo implements OnDestroy {
+export class DynamicBasicDoc implements OnDestroy {
     @Input() id: string;
 
     @Input() title: string;
@@ -81,7 +81,7 @@ import { ProductListDemo } from './productlistdemo';
     templateUrl: './dynamic-dialog-basic-demo.html',
     providers: [DialogService, MessageService]
 })
-export class DynamicDialogBasicDemo implements OnDestroy {
+export class DynamicBasicDoc implements OnDestroy {
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 

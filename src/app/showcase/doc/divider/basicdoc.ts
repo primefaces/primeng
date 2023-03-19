@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="divider-basic-demo"></app-code>
     </section>`
 })
-export class DividerBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -94,6 +94,6 @@ import { Component } from '@angular/core';
     selector: 'divider-basic-demo',
     templateUrl: './divider-basic-demo.html'
 })
-export class DividerBasicDemo {}`
+export class BasicDoc {}`
     };
 }

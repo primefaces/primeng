@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { CheckboxModule } from 'primeng/checkbox';`
+        typescript: `import { CheckboxModule } from 'primeng/checkbox';`
     };
 }

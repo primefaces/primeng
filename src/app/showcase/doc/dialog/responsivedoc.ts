@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-responsive-demo"></app-code>
     </section>`
 })
-export class DialogResponsiveDemo {
+export class ResponsiveDoc {
     @Input() id: string;
 
     @Input() title: string;

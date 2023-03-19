@@ -3,7 +3,7 @@ import { OpenDoc } from '../../doc/dynamicdialog/opendoc';
 import { ImportDoc } from '../../doc/dynamicdialog/importdoc';
 import { PropsDoc } from '../../doc/dynamicdialog/propsdoc';
 import { StyleDoc } from '../../doc/dynamicdialog/styledoc';
-import { DynamicDialogBasicDemo } from '../../doc/dynamicdialog/basicdoc';
+import { DynamicBasicDoc } from '../../doc/dynamicdialog/basicdoc';
 import { UsageDoc } from '../../doc/dynamicdialog/usagedoc';
 import { PassingDataDoc } from '../../doc/dynamicdialog/passingdatadoc';
 import { CloseDoc } from '../../doc/dynamicdialog/closedoc';
@@ -23,7 +23,7 @@ export class DynamicDialogDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: DynamicDialogBasicDemo
+            component: DynamicBasicDoc
         },
         {
             id: 'usage',

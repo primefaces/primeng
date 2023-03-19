@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { DialogBasicDemo } from '../../doc/dialog/basicdoc';
+import { BasicDoc } from '../../doc/dialog/basicdoc';
 import { EventsDoc } from '../../doc/dialog/eventsdoc';
 import { ImportDoc } from '../../doc/dialog/importdoc';
-import { DialogLongContentDemo } from '../../doc/dialog/longcontentdoc';
+import { LongContentDoc } from '../../doc/dialog/longcontentdoc';
 import { PropsDoc } from '../../doc/dialog/propsdoc';
 import { StyleDoc } from '../../doc/dialog/styledoc';
-import { DialogResponsiveDemo } from '../../doc/dialog/responsivedoc';
-import { DialogPositionDemo } from '../../doc/dialog/positiondoc';
-import { DialogMaximizableDemo } from '../../doc/dialog/maximizabledoc';
-import { DialogTemplateDemo } from '../../doc/dialog/templatedoc';
-import { DialogOverlaysInsideDemo } from '../../doc/dialog/overlaysinsidedoc';
-import { DialogModalDemo } from '../../doc/dialog/modaldoc';
+import { ResponsiveDoc } from '../../doc/dialog/responsivedoc';
+import { PositionDoc } from '../../doc/dialog/positiondoc';
+import { MaximizableDoc } from '../../doc/dialog/maximizabledoc';
+import { TemplateDoc } from '../../doc/dialog/templatedoc';
+import { OverlaysInsideDoc } from '../../doc/dialog/overlaysinsidedoc';
+import { ModalDoc } from '../../doc/dialog/modaldoc';
 
 @Component({
     templateUrl: './dialogdemo.html'
@@ -25,42 +25,42 @@ export class DialogDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: DialogBasicDemo
+            component: BasicDoc
         },
         {
             id: 'longcontent',
             label: 'Long Content',
-            component: DialogLongContentDemo
+            component: LongContentDoc
         },
         {
             id: 'modal',
             label: 'Modal',
-            component: DialogModalDemo
+            component: ModalDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: DialogResponsiveDemo
+            component: ResponsiveDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: DialogPositionDemo
+            component: PositionDoc
         },
         {
             id: 'maximizable',
             label: 'Maximizable',
-            component: DialogMaximizableDemo
+            component: MaximizableDoc
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: DialogTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'overlaysinside',
             label: 'Overlays Inside',
-            component: DialogOverlaysInsideDemo
+            component: OverlaysInsideDoc
         },
         {
             id: 'style',

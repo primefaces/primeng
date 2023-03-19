@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ChipModule } from 'primeng/chip';`
+        typescript: `import { ChipModule } from 'primeng/chip';`
     };
 }

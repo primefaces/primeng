@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-disabled-demo',
-    templateUrl: './checkbox-disabled-demo.html',
-    styleUrls: ['./checkbox-disabled-demo.scss']
+    templateUrl: './checkbox-disabled-demo.html'
 })
 export class CheckboxDisabledDemo {
     checked: boolean;

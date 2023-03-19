@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-inline-demo',
-    templateUrl: './calendar-inline-demo.html',
-    styleUrls: ['./calendar-inline-demo.scss']
+    templateUrl: './calendar-inline-demo.html'
 })
-
 export class CalendarInlineDemo {
     date: Date[];
 }`

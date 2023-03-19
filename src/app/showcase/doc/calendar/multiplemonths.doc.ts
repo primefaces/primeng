@@ -34,10 +34,8 @@ import { Component } from '@angular/core'
 
 @Component({
     selector: 'calendar-multiplemonths-demo',
-    templateUrl: './calendar-multiplemonths-demo.html',
-    styleUrls: ['./calendar-multiplemonths-demo.scss']
+    templateUrl: './calendar-multiplemonths-demo.html'
 })
-
 export class CalendarMultiplemonthsDemo {
     date: Date[];
 }`

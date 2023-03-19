@@ -6,18 +6,18 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { DividerBasicDemo } from './basicdoc';
-import { DividerContentDemo } from './contentdoc';
+import { BasicDoc } from './basicdoc';
+import { ContentDoc } from './contentdoc';
 import { ImportDoc } from './importdoc';
-import { DividerLoginDemo } from './logindoc';
+import { LoginDoc } from './logindoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
-import { DividerTypeDemo } from './typedoc';
-import { DividerVerticalDemo } from './verticaldoc';
+import { TypeDoc } from './typedoc';
+import { VerticalDoc } from './verticaldoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, DividerModule, ButtonModule, InputTextModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, DividerBasicDemo, DividerTypeDemo, DividerContentDemo, DividerVerticalDemo, DividerLoginDemo, StyleDoc, PropsDoc]
+    declarations: [ImportDoc, BasicDoc, TypeDoc, ContentDoc, VerticalDoc, LoginDoc, StyleDoc, PropsDoc]
 })
 export class DividerDocModule {}

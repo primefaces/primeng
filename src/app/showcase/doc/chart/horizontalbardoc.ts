@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-horizontal-bar-demo"></app-code>
     </section>`
 })
-export class ChartHorizontalBarDemo implements OnInit {
+export class HorizontalBarDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

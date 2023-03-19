@@ -68,7 +68,7 @@ import { PhotoService } from '../../service/photoservice';
     </section>`,
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
-export class DockAdvancedDemo implements OnInit, OnDestroy {
+export class AdvancedDoc implements OnInit, OnDestroy {
     @Input() id: string;
 
     @Input() title: string;

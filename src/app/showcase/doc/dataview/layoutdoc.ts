@@ -190,8 +190,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-layout-demo',
-    templateUrl: './data-view-layout-demo.html',
-    styleUrls: ['./data-view-layout-demo.scss']
+    templateUrl: './data-view-layout-demo.html'
 })
 export class DataViewLayoutDemo {
     layout: string = 'list';

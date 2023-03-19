@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ContextMenuModule } from 'primeng/contextmenu';`
+        typescript: `import { ContextMenuModule } from 'primeng/contextmenu';`
     };
 }

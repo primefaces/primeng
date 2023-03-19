@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-modal-demo"></app-code>
     </section>`
 })
-export class DialogModalDemo {
+export class ModalDoc {
     @Input() id: string;
 
     @Input() title: string;

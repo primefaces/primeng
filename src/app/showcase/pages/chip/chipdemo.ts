@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ChipIconDemo } from '../../doc/chip/icondoc';
-import { ChipImageDemo } from '../../doc/chip/imagedoc';
+import { IconDoc } from '../../doc/chip/icondoc';
+import { ImageDoc } from '../../doc/chip/imagedoc';
 import { ImportDoc } from '../../doc/chip/importdoc';
-import { ChipTemplatingDemo } from '../../doc/chip/templatingdoc';
-import { ChipBasicDemo } from '../../doc/chip/basicdoc';
+import { TemplateDoc } from '../../doc/chip/templatedoc';
+import { BasicDoc } from '../../doc/chip/basicdoc';
 import { StyleDoc } from '../../doc/chip/styledoc';
 import { PropsDoc } from '../../doc/chip/propsdoc';
 import { EventsDoc } from '../../doc/chip/eventsdoc';
@@ -22,22 +22,22 @@ export class ChipDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ChipBasicDemo
+            component: BasicDoc
         },
         {
             id: 'icon',
             label: 'Icon',
-            component: ChipIconDemo
+            component: IconDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: ChipImageDemo
+            component: ImageDoc
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: ChipTemplatingDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/carousel/importdoc';
-import { CarouselBasicDemo } from '../../doc/carousel/basicdoc';
+import { BasicDoc } from '../../doc/carousel/basicdoc';
 import { PropsDoc } from '../../doc/carousel/propsdoc';
 import { StyleDoc } from '../../doc/carousel/styledoc';
-import { CarouselCircularDemo } from '../../doc/carousel/circulardoc';
-import { CarouselNumScrollDemo } from '../../doc/carousel/numscrolldoc';
+import { CircularDoc } from '../../doc/carousel/circulardoc';
+import { NumScrollDoc } from '../../doc/carousel/numscrolldoc';
 import { ResponsiveDoc } from '../../doc/carousel/responsivedoc';
-import { CarouselVerticalDemo } from '../../doc/carousel/verticaldoc';
-import { CarouselTemplateDemo } from '../../doc/carousel/templatedoc';
+import { VerticalDoc } from '../../doc/carousel/verticaldoc';
+import { TemplateDoc } from '../../doc/carousel/templatedoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
@@ -23,22 +23,22 @@ export class CarouselDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: CarouselBasicDemo
+            component: BasicDoc
         },
         {
             id: 'circular',
             label: 'Circular',
-            component: CarouselCircularDemo
+            component: CircularDoc
         },
         {
             id: 'numscroll',
             label: 'Num Scroll',
-            component: CarouselNumScrollDemo
+            component: NumScrollDoc
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: CarouselTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'responsive',
@@ -48,7 +48,7 @@ export class CarouselDemo {
         {
             id: 'vertical',
             label: 'Vertical',
-            component: CarouselVerticalDemo
+            component: VerticalDoc
         },
         {
             id: 'style',

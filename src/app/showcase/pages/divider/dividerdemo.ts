@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { DividerBasicDemo } from '../../doc/divider/basicdoc';
-import { DividerContentDemo } from '../../doc/divider/contentdoc';
+import { BasicDoc } from '../../doc/divider/basicdoc';
+import { ContentDoc } from '../../doc/divider/contentdoc';
 import { ImportDoc } from '../../doc/divider/importdoc';
-import { DividerLoginDemo } from '../../doc/divider/logindoc';
+import { LoginDoc } from '../../doc/divider/logindoc';
 import { PropsDoc } from '../../doc/divider/propsdoc';
 import { StyleDoc } from '../../doc/divider/styledoc';
-import { DividerTypeDemo } from '../../doc/divider/typedoc';
-import { DividerVerticalDemo } from '../../doc/divider/verticaldoc';
+import { TypeDoc } from '../../doc/divider/typedoc';
+import { VerticalDoc } from '../../doc/divider/verticaldoc';
 
 @Component({
     templateUrl: './dividerdemo.html'
@@ -21,27 +21,27 @@ export class DividerDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: DividerBasicDemo
+            component: BasicDoc
         },
         {
             id: 'type',
             label: 'Type',
-            component: DividerTypeDemo
+            component: TypeDoc
         },
         {
             id: 'content',
             label: 'Content',
-            component: DividerContentDemo
+            component: ContentDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: DividerVerticalDemo
+            component: VerticalDoc
         },
         {
             id: 'login',
             label: 'Login',
-            component: DividerLoginDemo
+            component: LoginDoc
         },
         {
             id: 'style',

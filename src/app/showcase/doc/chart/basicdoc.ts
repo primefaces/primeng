@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
     </section>`
 })
-export class ChartBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

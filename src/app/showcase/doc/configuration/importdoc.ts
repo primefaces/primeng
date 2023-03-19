@@ -19,8 +19,7 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
+        basic: `import { AccordionModule } from 'primeng/accordion';     //accordion and accordion tab
 import { MenuItem } from 'primeng/api';                  //api`
     };
 }

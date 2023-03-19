@@ -47,8 +47,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'animate-basic-demo',
-    templateUrl: './animate-basic-demo.html',
-    styleUrls: ['./animate-basic-demo.scss']
+    templateUrl: './animate-basic-demo.html'
 })
 export class AnimateBasicDemo {}`
     };

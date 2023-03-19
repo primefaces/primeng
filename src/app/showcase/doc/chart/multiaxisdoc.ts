@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
     </section>`
 })
-export class ChartMultiAxiDemo implements OnInit {
+export class MultiAxisDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -111,7 +111,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'chart-multi-axis-demo',
     templateUrl: './chart-multi-axis-demo.html'
 })
-export class ChartMultiAxiDemo implements OnInit {
+export class ChartMultiAxisDemo implements OnInit {
 
     data!: any;
 

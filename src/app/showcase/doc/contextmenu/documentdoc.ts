@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
     </section>`
 })
-export class ContextMenuDocumentDemo implements OnInit {
+export class DocumentDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'cascadeselect-template-demo',
+    selector: 'cascade-select-template-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content of an item can be customized with the <i>option</i> template.</p>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-cascadeSelect>
         </div>
-        <app-code [code]="code" selector="cascadeselect-template-demo"></app-code>
+        <app-code [code]="code" selector="cascade-select-template-demo"></app-code>
     </section>`
 })
 export class TemplateDoc {
@@ -136,14 +136,13 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'cascadeselect-template-demo',
-    templateUrl: './cascadeselect-template-demo.html',
-    styleUrls: ['./cascadeselect-template-demo.scss']
+    selector: 'cascade-select-template-demo',
+    templateUrl: './cascade-select-template-demo.html'
 })
-export class CascadeselectTemplateDemo {
+export class CascadeselectTemplateDemo implements OnInit {
     countries: any[];
 
     selectedCity: any;

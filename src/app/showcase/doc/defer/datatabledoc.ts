@@ -37,7 +37,7 @@ import { CarService } from '../../service/carservice';
                 </ng-template>
             </div>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="defer-data-table-demo"></app-code>
     </section>`,
     providers: [MessageService, CarService]
 })
@@ -117,10 +117,11 @@ import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    templateUrl: './deferdemo.html',
+    selector: 'defer-data-table-demo',
+    templateUrl: './defer-data-table-demo.html',
     providers: [MessageService, CarService]
 })
-export class DeferDemo {
+export class DeferDataTableDemo {
     cars: Car[];
 
     constructor(private carService: CarService, private messageService: MessageService) {}
@@ -129,21 +130,6 @@ export class DeferDemo {
         this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
         this.carService.getCarsSmall().then((cars) => (this.cars = cars));
     }
-}`,
-
-        module: `
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { DeferModule } from 'primeng/defer';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
-
-@NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, DeferModule, TableModule, ToastModule],
-    declarations: [DeferDemo]
-})
-export class DeferDemoModule {}`
+}`
     };
 }

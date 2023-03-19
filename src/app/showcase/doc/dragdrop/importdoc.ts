@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { DragDropModule } from 'primeng/dragdrop';`
+        typescript: `import { DragDropModule } from 'primeng/dragdrop';`
     };
 }

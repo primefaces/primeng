@@ -104,8 +104,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-basic-demo',
-    templateUrl: './data-view-basic-demo.html',
-    styleUrls: ['./data-view-basic-demo.scss']
+    templateUrl: './data-view-basic-demo.html'
 })
 export class DataViewBasicDemo {
     products: Product[];

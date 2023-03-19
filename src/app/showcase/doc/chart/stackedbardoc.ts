@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-stacked-bar-demo"></app-code>
     </section>`
 })
-export class ChartStackedBarDemo implements OnInit {
+export class StackedBarDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

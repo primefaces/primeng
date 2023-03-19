@@ -37,8 +37,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-label-demo',
-    templateUrl: './checkbox-label-demo.html',
-    styleUrls: ['./checkbox-label-demo.scss']
+    templateUrl: './checkbox-label-demo.html'
 })
 
 export class CheckboxLabelDemo {

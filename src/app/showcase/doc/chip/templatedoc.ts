@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'chip-templating-demo',
+    selector: 'chip-template-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
@@ -12,10 +12,10 @@ import { Code } from '../../domain/code';
                 <div class="p-2">Content</div>
             </p-chip>
         </div>
-        <app-code [code]="code" selector="chip-templating-demo"></app-code>
+        <app-code [code]="code" selector="chip-template-demo"></app-code>
     </section>`
 })
-export class ChipTemplatingDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -35,9 +35,9 @@ export class ChipTemplatingDemo {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'chip-templating-demo',
-    templateUrl: './chip-templating-demo.html'
+    selector: 'chip-template-demo',
+    templateUrl: './chip-template-demo.html'
 })
-export class ChipTemplatingDemo {}`
+export class ChipTemplateDemo {}`
     };
 }

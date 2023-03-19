@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { AnimateModule } from 'primeng/animate';`
+        typescript: `import { AnimateModule } from 'primeng/animate';`
     };
 }

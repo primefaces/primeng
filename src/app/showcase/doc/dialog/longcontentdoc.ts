@@ -33,7 +33,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-long-content-demo"></app-code>
     </section>`
 })
-export class DialogLongContentDemo {
+export class LongContentDoc {
     @Input() id: string;
 
     @Input() title: string;

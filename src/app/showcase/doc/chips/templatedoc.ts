@@ -40,10 +40,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chips-template-demo',
-    templateUrl: './chips-template-demo.html',
-    styleUrls: ['./chips-template-demo.scss']
+    templateUrl: './chips-template-demo.html'
 })
-
 export class ChipsTemplateDemo {
     values: string[];
 }`

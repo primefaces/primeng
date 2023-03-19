@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { AutoCompleteModule } from 'primeng/autocomplete';`
+        typescript: `import { AutoCompleteModule } from 'primeng/autocomplete';`
     };
 }

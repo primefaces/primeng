@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="carousel-circular-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class CarouselCircularDemo implements OnInit {
+export class CircularDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

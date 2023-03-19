@@ -35,10 +35,7 @@ import { Component } from '@angular/core'
 @Component({
     selector: 'calendar-range-demo',
     templateUrl: './calendar-range-demo.html',
-    styleUrls: ['./calendar-range-demo.scss']
 })
-
-
 export class CalendarRangeDemo {
     rangeDates: Date[];
 }`

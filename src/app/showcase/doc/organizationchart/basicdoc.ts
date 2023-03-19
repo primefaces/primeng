@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'organization-chart-basic-demo',
+    selector: 'organization-basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>OrganizationChart requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center overflow-x-auto">
             <p-organizationChart [value]="data"></p-organizationChart>
         </div>
-        <app-code [code]="code" selector="organization-chart-basic-demo"></app-code>
+        <app-code [code]="code" selector="organization-basic-doc"></app-code>
     </section>`
 })
 export class BasicDoc {
@@ -66,10 +66,10 @@ import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'organization-chart-basic-demo',
-    templateUrl: './organization-chart-basic-demo.html',
+    selector: 'organization-basic-doc',
+    templateUrl: './organization-basic-doc.html',
 })
-export class OrganizationChartBasicDemo {
+export class OrganizationBasicDoc {
     data: TreeNode[] = [
         {
             label: 'F.C Barcelona',

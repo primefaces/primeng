@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmPopupBasicDemo } from '../../doc/confirmpopup/basicdoc';
+import { BasicDoc } from '../../doc/confirmpopup/basicdoc';
 import { ImportDoc } from '../../doc/confirmpopup/importdoc';
 import { PropsDoc } from '../../doc/confirmpopup/propsdoc';
 import { StyleDoc } from '../../doc/confirmpopup/styledoc';
@@ -19,7 +19,7 @@ export class ConfirmPopupDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ConfirmPopupBasicDemo
+            component: BasicDoc
         },
         {
             id: 'style',

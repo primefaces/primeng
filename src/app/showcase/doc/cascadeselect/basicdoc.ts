@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'cascadeselect-basic-demo',
+    selector: 'cascade-select-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
         </div>
-        <app-code [code]="code" selector="cascadeselect-basic-demo"></app-code>
+        <app-code [code]="code" selector="cascade-select-basic-demo"></app-code>
     </section>`
 })
 export class BasicDoc {
@@ -112,14 +112,13 @@ export class BasicDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'cascadeselect-basic-demo',
-    templateUrl: './cascadeselect-basic-demo.html',
-    styleUrls: ['./cascadeselect-basic-demo.scss']
+    selector: 'cascade-select-basic-demo',
+    templateUrl: './cascade-select-basic-demo.html'
 })
-export class CascadeselectBasicDemo {
+export class CascadeSelectBasicDemo implements OnInit {
     countries: any[];
 
     selectedCity: any;

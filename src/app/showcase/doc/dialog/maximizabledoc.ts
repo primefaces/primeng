@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-maximizable-demo"></app-code>
     </section>`
 })
-export class DialogMaximizableDemo {
+export class MaximizableDoc {
     @Input() id: string;
 
     @Input() title: string;

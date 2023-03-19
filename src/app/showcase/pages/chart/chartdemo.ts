@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { ChartjsDoc } from '../../doc/chart/chartjsdoc';
 import { ImportDoc } from '../../doc/chart/importdoc';
-import { ChartBasicDemo } from '../../doc/chart/basicdoc';
-import { ChartPieDemo } from '../../doc/chart/piedoc';
-import { ChartDoughnutDemo } from '../../doc/chart/doughnutdoc';
-import { ChartComboDemo } from '../../doc/chart/combodoc';
-import { ChartHorizontalBarDemo } from '../../doc/chart/horizontalbardoc';
-import { ChartLineDemo } from '../../doc/chart/linedoc';
-import { ChartMultiAxiDemo } from '../../doc/chart/multiaxisdoc';
-import { ChartPolarAreaDemo } from '../../doc/chart/polarareadoc';
-import { ChartRadarDemo } from '../../doc/chart/radardoc';
-import { ChartStackedBarDemo } from '../../doc/chart/stackedbardoc';
-import { ChartVerticalBarDemo } from '../../doc/chart/verticalbardoc';
-import { ChartLineStyleDemo } from '../../doc/chart/linestyledoc';
+import { BasicDoc } from '../../doc/chart/basicdoc';
+import { PieDoc } from '../../doc/chart/piedoc';
+import { DoughnutDoc } from '../../doc/chart/doughnutdoc';
+import { ComboDoc } from '../../doc/chart/combodoc';
+import { HorizontalBarDoc } from '../../doc/chart/horizontalbardoc';
+import { LineDoc } from '../../doc/chart/linedoc';
+import { MultiAxisDoc } from '../../doc/chart/multiaxisdoc';
+import { PolarAreaDoc } from '../../doc/chart/polarareadoc';
+import { RadarDoc } from '../../doc/chart/radardoc';
+import { StackedBarDoc } from '../../doc/chart/stackedbardoc';
+import { VerticalBarDoc } from '../../doc/chart/verticalbardoc';
+import { LineStyleDoc } from '../../doc/chart/linestyledoc';
 import { PropsDoc } from '../../doc/chart/propsdoc';
 import { MethodsDoc } from '../../doc/chart/methodsdoc';
 
@@ -34,62 +34,62 @@ export class ChartDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ChartBasicDemo
+            component: BasicDoc
         },
         {
             id: 'pie',
             label: 'Pie',
-            component: ChartPieDemo
+            component: PieDoc
         },
         {
             id: 'doughnut',
             label: 'Doughnut',
-            component: ChartDoughnutDemo
+            component: DoughnutDoc
         },
         {
             id: 'verticalbar',
             label: 'Vertical Bar',
-            component: ChartVerticalBarDemo
+            component: VerticalBarDoc
         },
         {
             id: 'horizontalbar',
             label: 'Horizontal Bar',
-            component: ChartHorizontalBarDemo
+            component: HorizontalBarDoc
         },
         {
             id: 'stackedbar',
             label: 'Stacked Bar',
-            component: ChartStackedBarDemo
+            component: StackedBarDoc
         },
         {
             id: 'line',
             label: 'Line',
-            component: ChartLineDemo
+            component: LineDoc
         },
         {
             id: 'multiaxis',
             label: 'MultiAxis',
-            component: ChartMultiAxiDemo
+            component: MultiAxisDoc
         },
         {
             id: 'linestyles',
             label: 'Line Styles',
-            component: ChartLineStyleDemo
+            component: LineStyleDoc
         },
         {
             id: 'polararea',
             label: 'Polar Area',
-            component: ChartPolarAreaDemo
+            component: PolarAreaDoc
         },
         {
             id: 'Radar',
             label: 'Radar',
-            component: ChartRadarDemo
+            component: RadarDoc
         },
         {
             id: 'combo',
             label: 'Combo',
-            component: ChartComboDemo
+            component: ComboDoc
         }
     ];
 

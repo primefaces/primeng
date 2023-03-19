@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-buttonbar-demo',
-    templateUrl: './calendar-buttonbar-demo.html',
-    styleUrls: ['./calendar-buttonbar-demo.scss']
+    templateUrl: './calendar-buttonbar-demo.html'
 })
-
 export class CalendarButtonbarDemo {
     date: Date[];
 }`

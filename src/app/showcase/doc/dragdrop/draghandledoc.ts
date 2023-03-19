@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class DragDropDragHandleDemo {
+export class DragHandleDoc {
     @Input() id: string;
 
     @Input() title: string;

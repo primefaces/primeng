@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'avatar-templating-demo',
+    selector: 'avatar-template-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
                 <span class="text-base">Content</span>
             </p-avatar>
         </div>
-        <app-code [code]="code" selector="avatar-templating-demo"></app-code>
+        <app-code [code]="code" selector="avatar-template-demo"></app-code>
     </section>`
 })
 export class TemplateDoc {
@@ -35,10 +35,10 @@ export class TemplateDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'avatar-templating-demo',
-    templateUrl: './avatar-templating-demo.html'
+    selector: 'avatar-template-demo',
+    templateUrl: './avatar-template-demo.html'
 })
 
-export class AvatarTemplatingDemo {}`
+export class AvatarTemplateDemo {}`
     };
 }

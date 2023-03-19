@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-template-demo"></app-code>
     </section>`
 })
-export class DialogTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

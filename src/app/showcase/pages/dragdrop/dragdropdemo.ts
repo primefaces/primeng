@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/dragdrop/importdoc';
-import { DragDropBasicDemo } from '../../doc/dragdrop/basicdoc';
-import { DragDropDataTableDemo } from '../../doc/dragdrop/datatabledoc';
+import { BasicDoc } from '../../doc/dragdrop/basicdoc';
+import { DataTableDoc } from '../../doc/dragdrop/datatabledoc';
 import { DropIndicatorDoc } from '../../doc/dragdrop/dropindicatordoc';
-import { DragDropDragHandleDemo } from '../../doc/dragdrop/draghandledoc';
+import { DragHandleDoc } from '../../doc/dragdrop/draghandledoc';
 import { DraggablePropsDoc } from '../../doc/dragdrop/draggablepropsdoc';
 import { DraggableEventsDoc } from '../../doc/dragdrop/draggableeventsdoc';
 import { DroppablePropsDoc } from '../../doc/dragdrop/droppablepropsdoc';
@@ -23,12 +23,12 @@ export class DragDropDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: DragDropBasicDemo
+            component: BasicDoc
         },
         {
             id: 'datatable',
             label: 'DataTable',
-            component: DragDropDataTableDemo
+            component: DataTableDoc
         },
         {
             id: 'dropindicator',
@@ -38,7 +38,7 @@ export class DragDropDemo {
         {
             id: 'draghandle',
             label: 'Drag Handle',
-            component: DragDropDragHandleDemo
+            component: DragHandleDoc
         }
     ];
 

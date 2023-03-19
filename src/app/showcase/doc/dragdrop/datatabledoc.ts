@@ -52,7 +52,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="drag-drop-data-table-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class DragDropDataTableDemo implements OnInit {
+export class DataTableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

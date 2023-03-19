@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ConfirmPopupModule } from 'primeng/confirmpopup';`
+        typescript: `import { ConfirmPopupModule } from 'primeng/confirmpopup';`
     };
 }

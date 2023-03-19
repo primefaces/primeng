@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
     </section>`
 })
-export class ChartRadarDemo implements OnInit {
+export class RadarDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

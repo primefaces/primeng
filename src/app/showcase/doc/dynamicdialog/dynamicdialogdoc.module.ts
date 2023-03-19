@@ -13,7 +13,7 @@ import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { ProductListDemo } from './productlistdemo';
-import { DynamicDialogBasicDemo } from './basicdoc';
+import { DynamicBasicDoc } from './basicdoc';
 import { UsageDoc } from './usagedoc';
 import { PassingDataDoc } from './passingdatadoc';
 import { CloseDoc } from './closedoc';
@@ -22,7 +22,7 @@ import { EventsDoc } from './eventsdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [OpenDoc, ImportDoc, PropsDoc, StyleDoc, DynamicDialogBasicDemo, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, EventsDoc],
+    declarations: [OpenDoc, ImportDoc, PropsDoc, StyleDoc, DynamicBasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, EventsDoc],
     exports: [AppDocModule],
     entryComponents: [ProductListDemo]
 })

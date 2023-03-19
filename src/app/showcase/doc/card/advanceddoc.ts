@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
     </section>`
 })
-export class CardAdvancedDemo {
+export class AdvancedDoc {
     @Input() id: string;
 
     @Input() title: string;

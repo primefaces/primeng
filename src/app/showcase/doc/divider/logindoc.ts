@@ -35,7 +35,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="divider-login-demo"></app-code>
     </section>`
 })
-export class DividerLoginDemo {
+export class LoginDoc {
     @Input() id: string;
 
     @Input() title: string;

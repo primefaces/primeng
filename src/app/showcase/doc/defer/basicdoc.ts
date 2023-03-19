@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </div>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="defer-basic-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -56,30 +56,17 @@ import { Component, Input } from '@angular/core';
 import { MessageService } from 'src/app/components/api/messageservice';
 
 @Component({
-    templateUrl: './deferdemo.html',
+    selector: 'defer-basic-demo',
+    templateUrl: './defer-basic-demo.html',
     providers: [MessageService]
 })
-export class DeferDemo {
+export class DeferBasicDemo {
 
     constructor(private messageService: MessageService) {}
 
     onLoad() {
         this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
     }
-}`,
-
-        module: `
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { DeferModule } from 'primeng/defer';
-import { ToastModule } from 'primeng/toast';
-
-@NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, DeferModule, ToastModule],
-    declarations: [DeferDemo]
-})
-export class DeferDemoModule {}`
+}`
     };
 }

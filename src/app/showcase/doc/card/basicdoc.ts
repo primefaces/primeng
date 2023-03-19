@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="card-basic-demo"></app-code>
     </section>`
 })
-export class CardBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

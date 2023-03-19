@@ -19,8 +19,7 @@ export class AnimationsDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-import { BrowserModule } from '@angular/platform-browser';
+        typescript: `import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({

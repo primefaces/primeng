@@ -50,14 +50,13 @@ export class MinMaxDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'calendar-minmax-demo',
-    templateUrl: './calendar-minmax-demo.html',
-    styleUrls: ['./calendar-minmax-demo.scss']
+    templateUrl: './calendar-minmax-demo.html'
 })
-export class CalendarMinmaxDemo {        
+export class CalendarMinmaxDemo implements OnInit {        
     date: Date;
     
     minDate: Date;

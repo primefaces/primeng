@@ -21,8 +21,7 @@ export class ZIndexDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-import { PrimeNGConfig } from 'primeng/api';
+        basic: `import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
     selector: 'app-root',

@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chip-basic-demo"></app-code>
     </section>`
 })
-export class ChipBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

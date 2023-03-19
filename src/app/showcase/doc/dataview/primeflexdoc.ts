@@ -16,7 +16,6 @@ export class PrimeflexDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-npm install primeflex`
+        basic: `npm install primeflex`
     };
 }

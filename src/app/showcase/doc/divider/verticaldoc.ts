@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="divider-vertical-demo"></app-code>
     </section>`
 })
-export class DividerVerticalDemo {
+export class VerticalDoc {
     @Input() id: string;
 
     @Input() title: string;

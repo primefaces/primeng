@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-multiple-demo',
-    templateUrl: './calendar-multiple-demo.html',
-    styleUrls: ['./calendar-multiple-demo.scss']
+    templateUrl: './calendar-multiple-demo.html'
 })
 export class CalendarMultipleDemo {
     dates: Date[];

@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
     </section>`
 })
-export class ContextMenuBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -170,7 +170,7 @@ import { MenuItem } from 'primeng/api';
     selector: 'context-menu-basic-demo',
     templateUrl: './context-menu-basic-demo.html'
 })
-export class ContextMenuDemo implements OnInit {
+export class ContextMenuBasicDemo implements OnInit {
 
     items!: MenuItem[];
 

@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dock-basic-demo"></app-code>
     </section>`
 })
-export class DockBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -105,7 +105,7 @@ import { MenuItem } from 'primeng/api';
     selector: 'dock-basic-demo',
     templateUrl: './dock-basic-demo.html'
 })
-export class DockBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
 
     items!: MenuItem[];
 

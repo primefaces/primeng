@@ -26,7 +26,7 @@ interface City {
         <app-code [code]="code" selector="dialog-overlays-inside-demo"></app-code>
     </section>`
 })
-export class DialogOverlaysInsideDemo implements OnInit {
+export class OverlaysInsideDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

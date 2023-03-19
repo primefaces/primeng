@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CardAdvancedDemo } from '../../doc/card/advanceddoc';
-import { CardBasicDemo } from '../../doc/card/basicdoc';
+import { AdvancedDoc } from '../../doc/card/advanceddoc';
+import { BasicDoc } from '../../doc/card/basicdoc';
 import { ImportDoc } from '../../doc/card/importdoc';
 import { PropsDoc } from '../../doc/card/propsdoc';
 import { StyleDoc } from '../../doc/card/styledoc';
@@ -19,12 +19,12 @@ export class CardDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: CardBasicDemo
+            component: BasicDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: CardAdvancedDemo
+            component: AdvancedDoc
         },
         {
             id: 'style',

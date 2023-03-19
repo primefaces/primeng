@@ -43,10 +43,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-template-demo',
-    templateUrl: './calendar-template-demo.html',
-    styleUrls: ['./calendar-template-demo.scss']
+    templateUrl: './calendar-template-demo.html'
 })
-
 export class CalendarTemplateDemo {
     date: Date[];
 }`

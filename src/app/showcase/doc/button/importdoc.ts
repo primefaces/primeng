@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ButtonModule } from 'primeng/button';`
+        typescript: `import { ButtonModule } from 'primeng/button';`
     };
 }

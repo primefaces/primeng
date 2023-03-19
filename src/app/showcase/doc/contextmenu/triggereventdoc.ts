@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="context-menu-trigger-event-demo"></app-code>
     </section>`
 })
-export class ContextMenuTriggerEventDemo implements OnInit {
+export class TriggerEventDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

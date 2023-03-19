@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
     </section>`
 })
-export class ChartPieDemo implements OnInit {
+export class PieDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

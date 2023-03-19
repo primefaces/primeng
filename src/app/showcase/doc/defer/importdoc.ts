@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { DeferModule } from 'primeng/defer';`
+        typescript: `import { DeferModule } from 'primeng/defer';`
     };
 }

@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="auto-focus-basic-demo"></app-code>
     </section>`
 })
-export class AutoFocusBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

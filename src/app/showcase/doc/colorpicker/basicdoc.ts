@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'colorpicker-basic-demo',
+    selector: 'color-picker-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ColorPicker uses ngModel directive to bind a value.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-colorPicker [(ngModel)]="color"></p-colorPicker>
         </div>
-        <app-code [code]="code" selector="colorpicker-basic-demo"></app-code>
+        <app-code [code]="code" selector="color-picker-basic-demo"></app-code>
     </section>`
 })
 export class BasicDoc {
@@ -33,11 +33,10 @@ export class BasicDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'colorpicker-basic-demo',
-    templateUrl: './colorpicker-basic-demo.html',
-    styleUrls: ['./colorpicker-basic-demo.scss']
+    selector: 'color-picker-basic-demo',
+    templateUrl: './color-picker-basic-demo.html'
 })
-export class ColorpickerBasicDemo {
+export class ColorPickerBasicDemo {
     color: string;
 }`
     };

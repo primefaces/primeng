@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
     </section>`
 })
-export class ChartDoughnutDemo implements OnInit {
+export class DoughnutDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

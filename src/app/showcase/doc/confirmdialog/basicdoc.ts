@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmDialogBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -91,7 +91,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     templateUrl: './confirm-dialog-basic-demo.html',
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmDialogBasicDemo {
+export class ConfirmBasicDoc {
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 

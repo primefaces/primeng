@@ -53,8 +53,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-format-demo',
-    templateUrl: './calendar-format-demo.html',
-    styleUrls: ['./calendar-format-demo.scss']
+    templateUrl: './calendar-format-demo.html'
 })
 export class CalendarFormatDemo {
     date: Date;

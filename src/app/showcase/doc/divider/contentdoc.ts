@@ -49,7 +49,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="divider-content-demo"></app-code>
     </section>`
 })
-export class DividerContentDemo {
+export class ContentDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -124,6 +124,6 @@ import { Component } from '@angular/core';
     selector: 'divider-content-demo',
     templateUrl: './divider-content-demo.html'
 })
-export class DividerContentDemo {}`
+export class ContentDoc {}`
     };
 }

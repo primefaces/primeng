@@ -69,8 +69,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'checkbox-multiple-demo',
-    templateUrl: './checkbox-multiple-demo.html',
-    styleUrls: ['./checkbox-multiple-demo.scss']
+    templateUrl: './checkbox-multiple-demo.html'
 })
 
 export class CheckboxMultipleDemo {

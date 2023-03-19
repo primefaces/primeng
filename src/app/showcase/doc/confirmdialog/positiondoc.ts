@@ -30,7 +30,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmDialogPositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -111,7 +111,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     templateUrl: './confirm-dialog-position-demo.html',
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmDialogPositionDemo {
+export class ConfirmPositionDoc {
 
     position!: string;
 

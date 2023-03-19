@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="carousel-num-scroll-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class CarouselNumScrollDemo implements OnInit {
+export class NumScrollDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -4,42 +4,42 @@ import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { ChartBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { ChartjsDoc } from './chartjsdoc';
-import { ChartComboDemo } from './combodoc';
-import { ChartDoughnutDemo } from './doughnutdoc';
-import { ChartHorizontalBarDemo } from './horizontalbardoc';
+import { ComboDoc } from './combodoc';
+import { DoughnutDoc } from './doughnutdoc';
+import { HorizontalBarDoc } from './horizontalbardoc';
 import { ImportDoc } from './importdoc';
-import { ChartLineDemo } from './linedoc';
-import { ChartLineStyleDemo } from './linestyledoc';
+import { LineDoc } from './linedoc';
+import { LineStyleDoc } from './linestyledoc';
 import { MethodsDoc } from './methodsdoc';
-import { ChartMultiAxiDemo } from './multiaxisdoc';
-import { ChartPieDemo } from './piedoc';
-import { ChartPolarAreaDemo } from './polarareadoc';
+import { MultiAxisDoc } from './multiaxisdoc';
+import { PieDoc } from './piedoc';
+import { PolarAreaDoc } from './polarareadoc';
 import { PropsDoc } from './propsdoc';
-import { ChartRadarDemo } from './radardoc';
-import { ChartStackedBarDemo } from './stackedbardoc';
-import { ChartVerticalBarDemo } from './verticalbardoc';
+import { RadarDoc } from './radardoc';
+import { StackedBarDoc } from './stackedbardoc';
+import { VerticalBarDoc } from './verticalbardoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, ChartModule, AppDocModule],
     declarations: [
-        ChartBasicDemo,
+        BasicDoc,
         ChartjsDoc,
-        ChartComboDemo,
-        ChartDoughnutDemo,
-        ChartHorizontalBarDemo,
+        ComboDoc,
+        DoughnutDoc,
+        HorizontalBarDoc,
         ImportDoc,
-        ChartLineDemo,
-        ChartLineStyleDemo,
+        LineDoc,
+        LineStyleDoc,
         MethodsDoc,
-        ChartMultiAxiDemo,
-        ChartPieDemo,
-        ChartPolarAreaDemo,
+        MultiAxisDoc,
+        PieDoc,
+        PolarAreaDoc,
         PropsDoc,
-        ChartRadarDemo,
-        ChartStackedBarDemo,
-        ChartVerticalBarDemo
+        RadarDoc,
+        StackedBarDoc,
+        VerticalBarDoc
     ],
     exports: [AppDocModule]
 })

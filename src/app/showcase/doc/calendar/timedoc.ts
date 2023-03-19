@@ -34,10 +34,8 @@ import { Component } from '@angular/core'
 
 @Component({
     selector: 'calendar-time-demo',
-    templateUrl: './calendar-time-demo.html',
-    styleUrls: ['./calendar-time-demo.scss']
+    templateUrl: './calendar-time-demo.html'
 })
-
 export class CalendarTimeDemo {
     date: Date[];
 }`

@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { AutoFocusModule } from 'primeng/autofocus';`
+        typescript: `import { AutoFocusModule } from 'primeng/autofocus';`
     };
 }

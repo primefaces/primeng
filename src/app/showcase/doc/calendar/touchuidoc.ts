@@ -34,8 +34,7 @@ import { Component } from '@angular/core'
 
 @Component({
     selector: 'calendar-touchui-demo',
-    templateUrl: './calendar-touchui-demo.html',
-    styleUrls: ['./calendar-touchui-demo.scss']
+    templateUrl: './calendar-touchui-demo.html'
 })
 export class CalendarTouchuiDemo {
     date: Date[];

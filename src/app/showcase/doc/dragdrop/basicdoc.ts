@@ -31,7 +31,7 @@ import { Product } from '../../domain/product';
         <app-code [code]="code" selector="drag-drop-basic-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class DragDropBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

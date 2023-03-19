@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { DialogModule } from 'primeng/dialog';`
+        typescript: `import { DialogModule } from 'primeng/dialog';`
     };
 }

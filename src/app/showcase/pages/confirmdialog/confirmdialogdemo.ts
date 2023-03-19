@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ConfirmDialogBasicDemo } from '../../doc/confirmdialog/basicdoc';
+import { BasicDoc } from '../../doc/confirmdialog/basicdoc';
 import { EventsDoc } from '../../doc/confirmdialog/eventsdoc';
 import { ImportDoc } from '../../doc/confirmdialog/importdoc';
 import { PropsDoc } from '../../doc/confirmdialog/propsdoc';
 import { StyleDoc } from '../../doc/confirmdialog/styledoc';
-import { ConfirmDialogPositionDemo } from '../../doc/confirmdialog/positiondoc';
-import { ConfirmDialogTemplateDemo } from '../../doc/confirmdialog/customdoc';
+import { PositionDoc } from '../../doc/confirmdialog/positiondoc';
+import { TemplateDoc } from '../../doc/confirmdialog/templatedoc';
 import { ServiceDoc } from '../../doc/confirmdialog/servicedoc';
 import { TemplatesDoc } from '../../doc/confirmdialog/templatesdoc';
 
@@ -22,17 +22,17 @@ export class ConfirmDialogDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ConfirmDialogBasicDemo
+            component: BasicDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: ConfirmDialogPositionDemo
+            component: PositionDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: ConfirmDialogTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

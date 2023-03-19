@@ -12,7 +12,7 @@ import { TimeDoc } from '../../doc/calendar/timedoc';
 import { MonthDoc } from '../../doc/calendar/monthdoc';
 import { YearDoc } from '../../doc/calendar/yeardoc';
 import { MultipleMonthDoc } from '../../doc/calendar/multiplemonths.doc';
-import { TemplateDoc } from '../../doc/calendar/template.doc';
+import { TemplateDoc } from '../../doc/calendar/templatedoc';
 import { InlineDoc } from '../../doc/calendar/inlinedoc';
 import { TouchUIDoc } from '../../doc/calendar/touchuidoc';
 import { DateTemplateDoc } from '../../doc/calendar/datetemplatedoc';

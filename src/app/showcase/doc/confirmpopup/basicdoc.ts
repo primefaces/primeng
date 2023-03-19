@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmPopupBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

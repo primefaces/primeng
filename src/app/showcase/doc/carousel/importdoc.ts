@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { CarouselModule } from 'primeng/carousel';`
+        typescript: `import { CarouselModule } from 'primeng/carousel';`
     };
 }

@@ -41,7 +41,7 @@ import { ProductService } from '../../service/productservice';
         <app-code [code]="code" selector="carousel-template-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class CarouselTemplateDemo implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="chip-icon-demo"></app-code>
     </section>`
 })
-export class ChipIconDemo {
+export class IconDoc {
     @Input() id: string;
 
     @Input() title: string;

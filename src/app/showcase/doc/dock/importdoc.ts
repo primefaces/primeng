@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { DockModule } from 'primeng/dock';`
+        typescript: `import { DockModule } from 'primeng/dock';`
     };
 }

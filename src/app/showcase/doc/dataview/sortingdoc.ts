@@ -144,8 +144,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-sorting-demo',
-    templateUrl: './data-view-sorting-demo.html',
-    styleUrls: ['./data-view-sorting-demo.scss']
+    templateUrl: './data-view-sorting-demo.html'
 })
 export class DataViewSortingDemo {
     sortOptions: SelectItem[];

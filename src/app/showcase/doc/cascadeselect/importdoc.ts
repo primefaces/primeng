@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `   
-import { CascadeSelectModule } from 'primeng/cascadeselect';`
+        typescript: `import { CascadeSelectModule } from 'primeng/cascadeselect';`
     };
 }

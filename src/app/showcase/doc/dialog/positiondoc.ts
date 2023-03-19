@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dialog-position-demo"></app-code>
     </section>`
 })
-export class DialogPositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -110,19 +110,6 @@ export class DialogPositionDemo {
         this.position = position;
         this.visible = true;
     }
-}`,
-
-        module: `
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { DialogDemo } from './dialogdemo';
-
-@NgModule({
-    imports: [CommonModule, DialogModule, ButtonModule],
-    declarations: [DialogDemo]
-})
-export class DialogDemoModule {}`
+}`
     };
 }

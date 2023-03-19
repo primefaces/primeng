@@ -16,8 +16,7 @@ export class FilterModeDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
     selector: 'app-root',

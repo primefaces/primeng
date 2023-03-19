@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-icon-demo',
-    templateUrl: './calendar-icon-demo.html',
-    styleUrls: ['./calendar-icon-demo.scss']
+    templateUrl: './calendar-icon-demo.html'
 })
 export class CalendarIconDemo {
     date: Date;
