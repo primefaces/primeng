@@ -37,7 +37,7 @@ export class IconsDemoComponent {
         {
             id: 'color',
             label: 'Color',
-            component: ColorDoc   
+            component: ColorDoc
         },
         {
             id: 'spin',

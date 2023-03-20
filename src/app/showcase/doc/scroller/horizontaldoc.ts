@@ -5,10 +5,10 @@ import { Code } from '../../domain/code';
     selector: 'horizontal-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-        <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
+            <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" orientation="horizontal" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" orientation="horizontal" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
                     <div class="flex align-items-center p-2" style="writing-mode: vertical-lr; width: 50px;" [ngClass]="{ 'surface-ground': options.odd }">{{ item }}</div>
                 </ng-template>

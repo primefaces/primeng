@@ -31,11 +31,11 @@ export class AppDoc implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.title && changes.title.currentValue){
+        if (changes.title && changes.title.currentValue) {
             this.titleService.setTitle(changes.title.currentValue);
         }
 
-        if (changes.description && changes.description.currentValue){
+        if (changes.description && changes.description.currentValue) {
             this.metaService.updateTag({ name: 'description', content: changes.description.currentValue });
         }
     }

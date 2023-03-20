@@ -25,22 +25,7 @@ import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
-    declarations: [
-        BasicDoc,
-        ImportDoc,
-        ClosableDoc,
-        StaticDoc,
-        DynamicDoc,
-        ServiceDoc,
-        SeverityDoc,
-        InlineDoc,
-        MessagesStyleDoc,
-        AnimationDoc,
-        MessageStyleDoc,
-        MessagesPropsDoc,
-        MessagePropsDoc,
-        TemplatesDoc
-    ],
+    declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, MessagesPropsDoc, MessagePropsDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class MessagesDocModule {}

@@ -19,14 +19,14 @@ export class ConstantsDoc {
     @Input() id: string;
 
     @Input() title: string;
-    
+
     items!: MenuItem[];
 
     ngOnInit() {
         this.items = [
             {
                 label: 'New',
-                icon: PrimeIcons.PLUS,
+                icon: PrimeIcons.PLUS
             },
             {
                 label: 'Delete',
@@ -64,6 +64,6 @@ export class PrimeIconsConstantsDemo {
             }
         ];
     }
-}`,
+}`
     };
 }

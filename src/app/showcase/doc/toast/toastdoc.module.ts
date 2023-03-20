@@ -25,24 +25,7 @@ import { ClearDoc } from './cleardoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
-    declarations: [
-        AnimationDoc,
-        BasicDoc,
-        EventsDoc,
-        ImportDoc,
-        InterfaceDoc,
-        MultipleDoc,
-        PositionDoc,
-        PropsDoc,
-        ResponsiveDoc,
-        SeverityDoc,
-        StickyDoc,
-        StyleDoc,
-        TargetDoc,
-        TemplateDoc,
-        TemplatesDoc,
-        ClearDoc
-    ],
+    declarations: [AnimationDoc, BasicDoc, EventsDoc, ImportDoc, InterfaceDoc, MultipleDoc, PositionDoc, PropsDoc, ResponsiveDoc, SeverityDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, TemplatesDoc, ClearDoc],
     exports: [AppDocModule]
 })
 export class ToastDocModule {}

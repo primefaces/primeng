@@ -28,7 +28,7 @@ export class BasicDoc {
     suggestions: any[];
 
     search(event) {
-        this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
+        this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
     code: Code = {

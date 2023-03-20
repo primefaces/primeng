@@ -8,9 +8,9 @@ import { Code } from '../../domain/code';
             <p>Scrolling can be enabled vertically and horizontally when <i>orientation</i> is set as <i>both</i>. In this mode, <i>itemSize</i> should be an array where first value is the height of an item and second is the width.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+            <p-scroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">
+                    <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
                         <div *ngFor="let el of item" style="width: 100px">{{ el }}</div>
                     </div>
                 </ng-template>
