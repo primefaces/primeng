@@ -607,7 +607,18 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     _view: CalendarTypeView = 'date';
 
+    _showBuddhistCalendar: boolean = false;
+
     preventFocus: boolean;
+
+
+    @Input() get showBuddhistCalendar(): boolean {
+        return this.showBuddhistCalendar;
+    }
+
+    set showBuddhistCalendar(showBuddhistCalendar: boolean) {
+        this._showBuddhistCalendar = showBuddhistCalendar;
+    }
 
     @Input() get view(): CalendarTypeView {
         return this._view;
@@ -2598,6 +2609,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this._firstDayOfWeek || this.getTranslation(TranslationKeys.FIRST_DAY_OF_WEEK);
     }
 
+    formatYear(year): string {
+        return this._showBuddhistCalendar
+            ? (parseInt(year.toString()) + 543).toString()
+            : year.toString();
+    }
+
     // Ported from jquery-ui datepicker formatDate
     formatDate(date, format) {
         if (!date) {
@@ -2653,7 +2670,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                             output += formatName('M', date.getMonth(), this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
                             break;
                         case 'y':
-                            output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
+                            let year = lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
+                            output += this.formatYear(year);
                             break;
                         case '@':
                             output += date.getTime();
@@ -2709,6 +2727,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         return output;
+    }
+
+    parseYear(year: number): number {
+        return this._showBuddhistCalendar ? year + 543 : year;
     }
 
     parseTime(value) {
