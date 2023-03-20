@@ -134,6 +134,7 @@ export class Image implements AfterContentInit {
             switch (item.getType()) {
                 case 'indicator':
                     this.indicatorTemplate = item.template;
+                    console.log(this.indicatorTemplate)
                     break;
 
                 default:
@@ -251,7 +252,7 @@ export class Image implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     exports: [Image, SharedModule],
     declarations: [Image]
 })

@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
             <p>An infinite spin animation is displayed by default.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressSpinner></p-progressSpinner>
+            <p-progressSpinner aria-label="loading"></p-progressSpinner>
         </div>
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
     </section>`

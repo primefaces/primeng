@@ -13,10 +13,11 @@ import { PillDoc } from './pilldoc';
 import { PropsDoc } from './propsdoc';
 import { TemplateDoc } from './templatedoc';
 import { SeverityDoc } from './severitydoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, TagModule, ButtonModule],
-    declarations: [ImportDoc, BasicDoc, IconDoc, PillDoc, PropsDoc, StyleDoc, TemplateDoc, SeverityDoc],
+    declarations: [ImportDoc, BasicDoc, IconDoc, PillDoc, PropsDoc, StyleDoc, TemplateDoc, SeverityDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TagDocModule {}

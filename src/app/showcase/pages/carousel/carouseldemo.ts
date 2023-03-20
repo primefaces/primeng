@@ -8,6 +8,7 @@ import { NumScrollDoc } from '../../doc/carousel/numscrolldoc';
 import { ResponsiveDoc } from '../../doc/carousel/responsivedoc';
 import { VerticalDoc } from '../../doc/carousel/verticaldoc';
 import { TemplateDoc } from '../../doc/carousel/templatedoc';
+import { AccessibilityDoc } from '../../doc/carousel/accessibilitydoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
@@ -54,6 +55,11 @@ export class CarouselDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -13,6 +13,7 @@ import { ServiceDoc } from '../../doc/messages/servicedoc';
 import { AnimationDoc } from '../../doc/messages/animationdoc';
 import { TemplatesDoc } from '../../doc/messages/templatesdoc';
 import { SeverityDoc } from '../../doc/messages/severitydoc';
+import { AccessibilityDoc } from '../../doc/messages/accessibilitydoc';
 
 @Component({
     templateUrl: './messagesdemo.html'
@@ -73,6 +74,11 @@ export class MessagesDemo {
             id: 'messagestyle',
             label: 'Styling for Message',
             component: MessageStyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

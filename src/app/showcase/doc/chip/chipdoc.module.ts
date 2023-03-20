@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ChipModule } from 'primeng/chip';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { IconDoc } from './icondoc';
@@ -15,7 +16,7 @@ import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ChipModule],
-    declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, PropsDoc, StyleDoc, TemplateDoc, EventsDoc],
+    declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, PropsDoc, StyleDoc, TemplateDoc, EventsDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ChipDocModule {}

@@ -22,6 +22,7 @@ import { ServiceDoc } from './servicedoc';
 import { InlineDoc } from './inlinedoc';
 import { AnimationDoc } from './animationdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
@@ -39,7 +40,8 @@ import { TemplatesDoc } from './templatesdoc';
         MessageStyleDoc,
         MessagesPropsDoc,
         MessagePropsDoc,
-        TemplatesDoc
+        TemplatesDoc,
+        AccessibilityDoc
     ],
     exports: [AppDocModule]
 })

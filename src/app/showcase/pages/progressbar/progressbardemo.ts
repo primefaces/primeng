@@ -5,6 +5,7 @@ import { ImportDoc } from '../../doc/progressbar/importdoc';
 import { IndeterminateDoc } from '../../doc/progressbar/indeterminatedoc';
 import { DynamicDoc } from '../../doc/progressbar/dynamicdoc';
 import { PropsDoc } from '../../doc/progressbar/propsdoc';
+import { AccessibilityDoc } from '../../doc/progressbar/accessibilitydoc';
 
 @Component({
     templateUrl: './progressbardemo.html'
@@ -35,6 +36,11 @@ export class ProgressBarDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

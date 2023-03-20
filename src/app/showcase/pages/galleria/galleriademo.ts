@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/galleria/accessibilitydoc';
 import { AdvancedDoc } from '../../doc/galleria/advanceddoc';
 import { AutoPlayDoc } from '../../doc/galleria/autoplaydoc';
 import { BasicDoc } from '../../doc/galleria/basicdoc';
@@ -150,6 +151,11 @@ export class GalleriaDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

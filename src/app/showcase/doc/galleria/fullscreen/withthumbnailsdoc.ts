@@ -8,7 +8,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex justify-content-center">
             <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
             <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
@@ -71,7 +71,7 @@ export class WithThumbnailsDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+<div class="card flex justify-content-center">
     <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
     <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '50%'}" [numVisible]="9"
         [circular]="true" [fullScreen]="true" [showItemNavigators]="true">

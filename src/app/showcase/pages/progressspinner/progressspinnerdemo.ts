@@ -4,6 +4,7 @@ import { BasicDoc } from '../../doc/progressspinner/basicdoc';
 import { StyleDoc } from '../../doc/progressspinner/styledoc';
 import { TemplateDoc } from '../../doc/progressspinner/templatedoc';
 import { PropsDoc } from '../../doc/progressspinner/propsdoc';
+import { AccessibilityDoc } from '../../doc/progressspinner/accessibilitydoc';
 
 @Component({
     templateUrl: './progressspinnerdemo.html',
@@ -30,6 +31,11 @@ export class ProgressSpinnerDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

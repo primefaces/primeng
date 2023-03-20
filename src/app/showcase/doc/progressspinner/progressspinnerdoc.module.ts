@@ -9,10 +9,11 @@ import { TemplateDoc } from './templatedoc';
 import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressSpinnerModule],
-    declarations: [BasicDoc, ImportDoc, TemplateDoc, PropsDoc, StyleDoc],
+    declarations: [BasicDoc, ImportDoc, TemplateDoc, PropsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ProgressSpinnerDocModule {}

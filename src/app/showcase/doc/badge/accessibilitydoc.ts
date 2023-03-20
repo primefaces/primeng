@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
                 <i>aria-live</i> may be utilized as well. In case badges need to be tabbable, <i>tabIndex</i> can be added to implement custom key handlers.
             </p>
 
-            <h4>Keyboard Support</h4>
+            <h3>Keyboard Support</h3>
             <p>Component does not include any interactive elements.</p>
         </app-docsectiontext>
     </app-developmentsection>`

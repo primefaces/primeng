@@ -7,6 +7,7 @@ import { BasicDoc } from '../../doc/chip/basicdoc';
 import { StyleDoc } from '../../doc/chip/styledoc';
 import { PropsDoc } from '../../doc/chip/propsdoc';
 import { EventsDoc } from '../../doc/chip/eventsdoc';
+import { AccessibilityDoc } from '../../doc/chip/accessibilitydoc';
 
 @Component({
     templateUrl: './chipdemo.html',
@@ -43,6 +44,11 @@ export class ChipDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

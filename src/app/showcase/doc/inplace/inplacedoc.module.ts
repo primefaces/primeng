@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DataDoc } from './datadoc';
 import { EventsDoc } from './eventsdoc';
@@ -18,7 +19,7 @@ import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule],
-    declarations: [BasicDoc, DataDoc, EventsDoc, ImageDoc, ImportDoc, InputDoc, MethodsDoc, PropsDoc, StyleDoc],
+    declarations: [BasicDoc, DataDoc, EventsDoc, ImageDoc, ImportDoc, InputDoc, MethodsDoc, PropsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class InplaceDocModule {}

@@ -8,6 +8,7 @@ import { DataDoc } from '../../doc/inplace/datadoc';
 import { ImportDoc } from '../../doc/inplace/importdoc';
 import { InputDoc } from '../../doc/inplace/inputdoc';
 import { MethodsDoc } from '../../doc/inplace/methodsdoc';
+import { AccessibilityDoc } from '../../doc/inplace/accessibilitydoc';
 
 @Component({
     templateUrl: './inplacedemo.html'
@@ -43,6 +44,11 @@ export class InplaceDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

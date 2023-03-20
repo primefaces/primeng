@@ -3,6 +3,7 @@ import { BasicDoc } from '../../doc/terminal/basicdoc';
 import { PropsDoc } from '../../doc/terminal/propsdoc';
 import { StyleDoc } from '../../doc/terminal/styledoc';
 import { ImportDoc } from '../../doc/terminal/importdoc';
+import { AccessibilityDoc } from '../../doc/terminal/accessibilitydoc';
 
 @Component({
     templateUrl: './terminaldemo.html'
@@ -23,6 +24,11 @@ export class TerminalDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

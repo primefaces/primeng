@@ -5,6 +5,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { CardDoc } from './carddoc';
 import { DataTableDoc } from './datatabledoc';
 import { ImportDoc } from './importdoc';
@@ -15,7 +16,7 @@ import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, TableModule, SkeletonModule],
-    declarations: [CardDoc, DataTableDoc, ImportDoc, ListDoc, PropsDoc, ShapesDoc, StyleDoc],
-    exports: [CardDoc, DataTableDoc, ImportDoc, ListDoc, PropsDoc, ShapesDoc, StyleDoc]
+    declarations: [CardDoc, DataTableDoc, ImportDoc, ListDoc, PropsDoc, ShapesDoc, StyleDoc, AccessibilityDoc],
+    exports: [AppDocModule]
 })
 export class SkeletonDocModule {}

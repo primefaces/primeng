@@ -15,6 +15,7 @@ import { TargetDoc } from '../../doc/toast/targetdoc';
 import { TemplateDoc } from '../../doc/toast/templatedoc';
 import { TemplatesDoc } from '../../doc/toast/templatesdoc';
 import { ClearDoc } from '../../doc/toast/cleardoc';
+import { AccessibilityDoc } from '../../doc/toast/accessibilitydoc';
 
 @Component({
     templateUrl: './toastdemo.html'
@@ -80,6 +81,11 @@ export class ToastDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

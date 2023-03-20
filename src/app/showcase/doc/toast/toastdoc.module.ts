@@ -22,6 +22,7 @@ import { TargetDoc } from './targetdoc';
 import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
 import { ClearDoc } from './cleardoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
@@ -41,7 +42,8 @@ import { ClearDoc } from './cleardoc';
         TargetDoc,
         TemplateDoc,
         TemplatesDoc,
-        ClearDoc
+        ClearDoc,
+        AccessibilityDoc
     ],
     exports: [AppDocModule]
 })

@@ -7,6 +7,7 @@ import { PropsDoc } from '../../doc/tag/propsdoc';
 import { StyleDoc } from '../../doc/tag/styledoc';
 import { PillDoc } from '../../doc/tag/pilldoc';
 import { TemplateDoc } from '../../doc/tag/templatedoc';
+import { AccessibilityDoc } from '../../doc/tag/accessibilitydoc';
 
 @Component({
     templateUrl: './tagdemo.html'
@@ -47,7 +48,12 @@ export class TagDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
-        }
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
+        },
     ];
 
     apiDocs = [

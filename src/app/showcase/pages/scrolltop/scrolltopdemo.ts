@@ -4,6 +4,7 @@ import { BasicDoc } from '../../doc/scrolltop/basicdoc';
 import { PropsDoc } from '../../doc/scrolltop/propsdoc';
 import { StyleDoc } from '../../doc/scrolltop/styledoc';
 import { ElementDoc } from '../../doc/scrolltop/elementdoc';
+import { AccessibilityDoc } from '../../doc/scrolltop/accessibilitydoc';
 
 @Component({
     templateUrl: './scrolltopdemo.html',
@@ -30,6 +31,11 @@ export class ScrollTopDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

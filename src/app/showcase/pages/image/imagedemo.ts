@@ -5,7 +5,9 @@ import { PropsDoc } from '../../doc/Image/propsdoc';
 import { StyleDoc } from '../../doc/Image/styledoc';
 import { TemplatesDoc } from '../../doc/Image/templatesdoc';
 import { BasicDoc } from '../../doc/Image/basicdoc';
-import { IndicatorTemplateDoc } from '../../doc/Image/indicatortemplatedoc';
+import { TemplateDoc } from '../../doc/Image/templatedoc';
+import { AccessibilityDoc } from '../../doc/Image/accessibilitydoc';
+import { PreviewDoc } from '../../doc/Image/previewdoc';
 
 @Component({
     templateUrl: './imagedemo.html'
@@ -25,12 +27,22 @@ export class ImageDemo {
         {
             id: 'templates',
             label: 'Indicator Template',
-            component: IndicatorTemplateDoc
+            component: TemplateDoc
+        },
+        {
+            id: 'preview',
+            label: 'Preview',
+            component: PreviewDoc
         },
         {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
