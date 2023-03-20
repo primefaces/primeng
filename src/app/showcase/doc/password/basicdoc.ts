@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Component is defined using p-password element with a mask and two-way value binding is enabled with standard ngModel directive.</p>
+            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-password [(ngModel)]="value" [feedback]="false"></p-password>

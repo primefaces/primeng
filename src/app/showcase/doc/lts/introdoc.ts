@@ -15,7 +15,7 @@ import { Component, Input } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <img alt="LTS" src="https://primefaces.org/cdn/primeng/images/lts-timeline.jpg" style="width: 100%">
+            <img alt="LTS" src="https://primefaces.org/cdn/primeng/images/lts-timeline.jpg" style="width: 100%" />
         </div>
     </section>`
 })

@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'calendar-template-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Calendar UI accepts custom content using header and footer templates.</p>
+            <p>Calendar UI accepts custom content using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date">

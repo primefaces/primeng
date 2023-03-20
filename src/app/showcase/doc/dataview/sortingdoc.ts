@@ -8,10 +8,7 @@ import { ProductService } from '../../service/productservice';
     selector: 'data-view-sorting-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>
-                DataView requires a <i>value</i> to display along with an <i>pTemplate</i> that receives an object in the collection to return content. The root element should have the PrimeFlex Grid classes e.g. col-12 to define how items are
-                displayed.
-            </p>
+            <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortField</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">

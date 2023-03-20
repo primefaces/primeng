@@ -20,7 +20,6 @@ import { ProgrammaticDoc } from '../../doc/scroller/programmaticdoc';
     styleUrls: ['./scrollerdemo.scss']
 })
 export class ScrollerDemo {
-
     docs = [
         {
             id: 'import',
@@ -101,5 +100,4 @@ export class ScrollerDemo {
             component: TemplatesDoc
         }
     ];
-
 }

@@ -32,7 +32,7 @@ export class InputGroupDemo {
         },
         {
             id: 'checkbox',
-            label: 'Checkbox',
+            label: 'Checkbox & RadioButton',
             component: CheckboxDoc
         }
     ];

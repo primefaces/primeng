@@ -4,7 +4,9 @@ import { Code } from '../../domain/code';
 @Component({
     selector: 'template-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+        <app-docsectiontext [title]="title" [id]="id">
+            <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
+        </app-docsectiontext>
         <div class="card flex flex-column gap-3">
             <div class="flex align-items-center justify-content-center">
                 <div>

@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>
+            <p>InputMask is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999"></p-inputMask>

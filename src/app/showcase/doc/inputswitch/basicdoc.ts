@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
+            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>

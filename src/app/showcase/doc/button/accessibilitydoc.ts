@@ -7,11 +7,11 @@ import { Code } from '../../domain/code';
         <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
-                Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the <i>ariaLabel</i> property, if not present <i>label</i> property is used as the value. If the button is
-                icon only or custom templating is used, it is recommended to use <i>ariaLabel</i> so that screen readers would be able to read the element properly.
+                Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the <i>ariaLabel</i> property, if not present <i>label</i> property is used as the value. If the
+                button is icon only or custom templating is used, it is recommended to use <i>ariaLabel</i> so that screen readers would be able to read the element properly.
             </p>
         </app-docsectiontext>
-        
+
         <app-code [code]="code" [hideToggleCode]="true" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
 
         <h3>Keyboard Support</h3>

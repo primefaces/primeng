@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>TriStateCheckbox is defined using p-triStateCheckbox element and requires a value binding via ngModel.</p>
+            <p>A model can be bound using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex flex-column gap-3 align-items-center">
             <p-triStateCheckbox [(ngModel)]="value"></p-triStateCheckbox>

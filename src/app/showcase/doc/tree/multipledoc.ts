@@ -13,7 +13,6 @@ import { NodeService } from '../../service/nodeservice';
             </p>
             <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
         </app-docsectiontext>
-        <app-code [code]="miniCode" [hideToggleCode]="true"></app-code>
         <div class="card flex flex-column align-items-center justify-content-center">
             <div class="flex align-items-center mb-4 gap-2">
                 <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection"></p-inputSwitch>
@@ -40,14 +39,6 @@ export class MultipleDoc implements OnInit {
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
-
-    miniCode: Code = {
-        typescript: `
-{
-    '0-0': true,
-    '0-1-0': true
-}`
-    };
 
     code: Code = {
         basic: `

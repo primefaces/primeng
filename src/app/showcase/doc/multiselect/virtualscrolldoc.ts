@@ -12,7 +12,7 @@ interface Country {
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
-                issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining virtualScrollItemSize to specify the height of an item.
+                issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

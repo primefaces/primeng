@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'quill-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Editor uses <i>Quill</i> editor underneath so it needs to be installed as a dependency.</p>
+            <p>Editor uses <a href="https://quilljs.com/">Quill</a> editor underneath so it needs to be installed as a dependency.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`

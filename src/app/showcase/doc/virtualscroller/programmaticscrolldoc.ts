@@ -6,9 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'programmatic-scroll-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>
-                Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.
-            </p>
+            <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
             <p-button label="Reset" (click)="reset()"></p-button>

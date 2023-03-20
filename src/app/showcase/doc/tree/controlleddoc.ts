@@ -7,7 +7,7 @@ import { NodeService } from '../../service/nodeservice';
     selector: 'controlled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
+            <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center justify-content-center">
             <div class="mb-3">

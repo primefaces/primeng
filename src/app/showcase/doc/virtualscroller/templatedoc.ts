@@ -5,9 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>
-                Header and Footer are the two sections that are capable of displaying custom content by using <i>header</i> and <i>footer</i> templates.
-            </p>
+            <p>Header and Footer are the two sections that are capable of displaying custom content by using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-virtualScroller [value]="items" class="border-1 surface-border border-round" [style]="{ width: '200px' }" scrollHeight="200px" [itemSize]="50">

@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex flex-wrap justify-content-center gap-3">
             <div>
                 <span class="font-bold block mb-2">No Delay</span>
-                <p-scroller [items]="items" [itemSize]="50" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+                <p-scroller [items]="items" [itemSize]="50" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
                     <ng-template pTemplate="item" let-item let-options="options">
                         <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                     </ng-template>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
             </div>
             <div>
                 <span class="font-bold block mb-2">150ms</span>
-                <p-scroller [items]="items" [itemSize]="50" [delay]="150" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+                <p-scroller [items]="items" [itemSize]="50" [delay]="150" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
                     <ng-template pTemplate="item" let-item let-options="options">
                         <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                     </ng-template>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
             </div>
             <div>
                 <span class="font-bold block mb-2">500ms</span>
-                <p-scroller [items]="items" [itemSize]="50" [delay]="500" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+                <p-scroller [items]="items" [itemSize]="50" [delay]="500" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
                     <ng-template pTemplate="item" let-item let-options="options">
                         <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                     </ng-template>

@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'calendar-month-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Month only picker is enabled by specifying view as month in addition to a suitable dateFormat.</p>
+            <p>Month only picker is enabled by specifying <i>view</i> as <i>month</i> in addition to a suitable <i>dateFormat</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true"></p-calendar>

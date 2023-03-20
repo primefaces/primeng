@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'numerals-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>InputNumber is used as a controlled input with <i>[(ngModel)]</i> properties.</p>
+            <p>InputNumber is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
             <div class="flex-auto">

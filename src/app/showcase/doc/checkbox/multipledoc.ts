@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'checkbox-multiple-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Multiple mode is enabled by default, ngModel property refers to an array to bind the selected values.</p>
+            <p>Multiple checkboxes can be grouped together.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-3">
             <div class="flex align-items-center gap-1">

@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'color-picker-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>ColorPicker uses ngModel directive to bind a value.</p>
+            <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-colorPicker [(ngModel)]="color"></p-colorPicker>

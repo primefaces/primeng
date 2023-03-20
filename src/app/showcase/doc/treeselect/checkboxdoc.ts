@@ -6,12 +6,8 @@ import { NodeService } from '../../service/nodeservice';
     selector: 'checkbox-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>
-                Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>. In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that
-                has <i>checked</i> and <i>partialChecked</i> properties to represent the checked state of a node obje to indicate selection.
-            </p>
+            <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
-        <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
         <div class="card flex justify-content-center">
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
         </div>
@@ -30,16 +26,6 @@ export class CheckboxDoc {
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
-
-    exampleCode: Code = {
-        typescript: `
-{
-    '0-0': {
-        partialChecked: false,
-        checked: true
-    }
-}`
-    };
 
     code: Code = {
         basic: `

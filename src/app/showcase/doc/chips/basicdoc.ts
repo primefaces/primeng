@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'chips-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Chips requires an array as its model.</p>
+            <p>Chips is used as a controlled input with <i>ngModel</i> property where it should be an array.</p>
         </app-docsectiontext>
         <div class="card p-fluid">
             <p-chips [(ngModel)]="values"></p-chips>

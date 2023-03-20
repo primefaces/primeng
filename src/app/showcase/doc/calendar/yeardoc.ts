@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'calendar-year-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Similar to the month picker, year picker can be used to select years only. Set <i>view</i> to "year" to display the year picker.</p>
+            <p>Similar to the month picker, year picker can be used to select years only. Set <i>view</i> to <i>year</i> to display the year picker.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>

@@ -5,7 +5,10 @@ import { Code } from '../../domain/code';
     selector: 'cascade-select-template-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Content of an item can be customized with the <i>option</i> template.</p>
+            <p>
+                CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is
+                required to define the property that refers to the children of a group. Note that order of the <i>optionGroupChildren</i> matters as it should correspond to the data hierarchy.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">

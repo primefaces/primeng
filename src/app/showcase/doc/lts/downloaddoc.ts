@@ -19,7 +19,7 @@ export class DownloadDoc {
     @Input() title: string;
 
     code: Code = {
-        basic:  `
+        basic: `
 npm install primeng-lts --save`
-    }
+    };
 }

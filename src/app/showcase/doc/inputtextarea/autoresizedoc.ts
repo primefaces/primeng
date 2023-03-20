@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'autoresize-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>When autoResize is enabled, textarea grows instead of displaying a scrollbar.</p>
+            <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
