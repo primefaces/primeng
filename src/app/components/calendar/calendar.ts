@@ -2730,7 +2730,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     parseYear(year: number): number {
-        return this._showBuddhistCalendar ? year + 543 : year;
+        return this._showBuddhistCalendar ? year - 543 : year;
     }
 
     parseTime(value) {
