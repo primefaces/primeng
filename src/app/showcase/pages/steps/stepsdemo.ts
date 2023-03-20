@@ -8,6 +8,7 @@ import { PropsDoc } from '../../doc/steps/propsdoc';
 import { StyleDoc } from '../../doc/steps/styledoc';
 import { EventsDoc } from '../../doc/steps/eventsdoc';
 import { RoutingDoc } from '../../doc/steps/routingdoc';
+import { AccessibilityDoc } from '../../doc/steps/accessibilitydoc';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -39,6 +40,11 @@ export class StepsDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { MenuItemDoc } from './menuitemdoc';
@@ -13,7 +14,7 @@ import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, MultipleDoc, MenuItemDoc, PropsDoc, StyleDoc],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc, MenuItemDoc, PropsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class PanelMenuDocModule {}

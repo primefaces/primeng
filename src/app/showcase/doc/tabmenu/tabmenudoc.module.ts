@@ -17,10 +17,11 @@ import { StyleDoc } from './styledoc';
 import { ScrollableDoc } from './scrollabledoc';
 import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TabMenuModule, ButtonModule, RippleModule, AppDocModule],
-    declarations: [BasicDoc, TemplatesDoc, EventsDoc, ScrollableDoc, ImportDoc, MenuItemDoc, PropsDoc, StyleDoc, ControlledDoc, ActiveDoc, TemplateDoc, TemplatesDoc],
+    declarations: [BasicDoc, TemplatesDoc, EventsDoc, ScrollableDoc, ImportDoc, MenuItemDoc, PropsDoc, StyleDoc, ControlledDoc, ActiveDoc, TemplateDoc, TemplatesDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TabMenuDocModule {}

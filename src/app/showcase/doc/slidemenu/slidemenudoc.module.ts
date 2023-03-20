@@ -12,10 +12,11 @@ import { MethodsDoc } from './methodsdoc';
 import { PopupDoc } from './popupdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, SlideMenuModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, PopupDoc],
+    declarations: [BasicDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, PopupDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class SlideMenuDocModule {}

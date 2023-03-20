@@ -5,6 +5,7 @@ import { MenuItemDoc } from '../../doc/panelmenu/menuitemdoc';
 import { PropsDoc } from '../../doc/panelmenu/propsdoc';
 import { StyleDoc } from '../../doc/panelmenu/styledoc';
 import { MultipleDoc } from '../../doc/panelmenu/multipledoc';
+import { AccessibilityDoc } from '../../doc/panelmenu/accessibilitydoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'
@@ -30,6 +31,11 @@ export class PanelMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -24,10 +24,11 @@ import { RoutingDoc } from './routingdoc';
 import { SeatDemo } from './seatdemo';
 import { StyleDoc } from './styledoc';
 import { TicketService } from '../../service/ticketservice';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMaskModule, CheckboxModule, CardModule],
-    declarations: [BasicDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, InteractiveDoc, EventsDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc],
+    declarations: [BasicDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, InteractiveDoc, EventsDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, AccessibilityDoc],
     exports: [AppDocModule],
     providers: [TicketService]
 })

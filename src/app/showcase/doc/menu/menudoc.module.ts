@@ -18,10 +18,11 @@ import { NavigationDoc } from './navigationdoc';
 import { PopupDoc } from './popupdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MenuModule, ToastModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, CommandDoc, CustomContentDoc, EventsDoc, GroupDoc, ImportDoc, MenuItemDoc, MethodsDoc, NavigationDoc, PopupDoc, PropsDoc, StyleDoc],
+    declarations: [BasicDoc, CommandDoc, CustomContentDoc, EventsDoc, GroupDoc, ImportDoc, MenuItemDoc, MethodsDoc, NavigationDoc, PopupDoc, PropsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MenuDocModule {}

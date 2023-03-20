@@ -15,6 +15,7 @@ import { VerticalBarDoc } from '../../doc/chart/verticalbardoc';
 import { LineStyleDoc } from '../../doc/chart/linestyledoc';
 import { PropsDoc } from '../../doc/chart/propsdoc';
 import { MethodsDoc } from '../../doc/chart/methodsdoc';
+import { AccessibilityDoc } from '../../doc/chart/accessibilitydoc';
 
 @Component({
     templateUrl: './chartdemo.html'
@@ -90,6 +91,11 @@ export class ChartDemo {
             id: 'combo',
             label: 'Combo',
             component: ComboDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

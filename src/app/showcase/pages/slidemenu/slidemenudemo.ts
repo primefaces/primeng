@@ -6,6 +6,7 @@ import { MenuItemDoc } from '../../doc/slidemenu/menuitemdoc';
 import { MethodsDoc } from '../../doc/slidemenu/methodsdoc';
 import { PropsDoc } from '../../doc/slidemenu/propsdoc';
 import { StyleDoc } from '../../doc/slidemenu/styledoc';
+import { AccessibilityDoc } from '../../doc/slidemenu/accessibilitydoc';
 
 @Component({
     templateUrl: './slidemenudemo.html'
@@ -31,6 +32,11 @@ export class SlideMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -11,6 +11,7 @@ import { NavigationDoc } from '../../doc/menu/navigationdoc';
 import { PopupDoc } from '../../doc/menu/popupdoc';
 import { PropsDoc } from '../../doc/menu/propsdoc';
 import { StyleDoc } from '../../doc/menu/styledoc';
+import { AccessibilityDoc } from '../../doc/menu/accessibilitydoc';
 
 @Component({
     templateUrl: './menudemo.html'
@@ -56,6 +57,11 @@ export class MenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

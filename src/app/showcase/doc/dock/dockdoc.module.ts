@@ -20,10 +20,11 @@ import { ImportDoc } from './importdoc';
 import { MenuItemDoc } from './menuitemdoc';
 import { MethodsDoc } from './methodsdoc';
 import { PropsDoc } from './propsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, DockModule, FormsModule, RadioButtonModule, MenubarModule, ToastModule, DialogModule, GalleriaModule, TerminalModule, TreeModule, AppDocModule],
-    declarations: [AdvancedDoc, BasicDoc, EventsDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc],
+    declarations: [AdvancedDoc, BasicDoc, EventsDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class DockDocModule {}

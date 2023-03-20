@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ChartjsDoc } from './chartjsdoc';
 import { ComboDoc } from './combodoc';
@@ -23,7 +24,7 @@ import { VerticalBarDoc } from './verticalbardoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, ChartModule, AppDocModule],
-    declarations: [BasicDoc, ChartjsDoc, ComboDoc, DoughnutDoc, HorizontalBarDoc, ImportDoc, LineDoc, LineStyleDoc, MethodsDoc, MultiAxisDoc, PieDoc, PolarAreaDoc, PropsDoc, RadarDoc, StackedBarDoc, VerticalBarDoc],
+    declarations: [BasicDoc, ChartjsDoc, ComboDoc, DoughnutDoc, HorizontalBarDoc, ImportDoc, LineDoc, LineStyleDoc, MethodsDoc, MultiAxisDoc, PieDoc, PolarAreaDoc, PropsDoc, RadarDoc, StackedBarDoc, VerticalBarDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ChartDocModule {}

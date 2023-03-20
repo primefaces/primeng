@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/contextmenu/accessibilitydoc';
 import { BasicDoc } from '../../doc/contextmenu/basicdoc';
 import { DocumentDoc } from '../../doc/contextmenu/documentdoc';
 import { EventsDoc } from '../../doc/contextmenu/eventsdoc';
@@ -38,6 +39,11 @@ export class ContextMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

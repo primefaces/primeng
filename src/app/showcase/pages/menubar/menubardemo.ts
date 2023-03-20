@@ -6,6 +6,7 @@ import { MenuItemDoc } from '../../doc/menubar/menuitemdoc';
 import { PropsDoc } from '../../doc/menubar/propsdoc';
 import { StyleDoc } from '../../doc/menubar/styledoc';
 import { TemplatesDoc } from '../../doc/menubar/templatesdoc';
+import { AccessibilityDoc } from '../../doc/menubar/accessibilitydoc';
 
 @Component({
     templateUrl: './menubardemo.html'
@@ -31,6 +32,11 @@ export class MenubarDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

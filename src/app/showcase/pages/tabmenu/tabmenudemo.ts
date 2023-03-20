@@ -10,6 +10,7 @@ import { StyleDoc } from '../../doc/tabmenu/styledoc';
 import { ScrollableDoc } from '../../doc/tabmenu/scrollabledoc';
 import { TemplateDoc } from '../../doc/tabmenu/templatedoc';
 import { TemplatesDoc } from '../../doc/tabmenu/templatesdoc';
+import { AccessibilityDoc } from '../../doc/tabmenu/accessibilitydoc';
 
 @Component({
     templateUrl: './tabmenudemo.html'
@@ -50,6 +51,11 @@ export class TabMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

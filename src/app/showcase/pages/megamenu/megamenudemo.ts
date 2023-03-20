@@ -8,6 +8,7 @@ import { StyleDoc } from '../../doc/megamenu/styledoc';
 import { TemplateDoc } from '../../doc/megamenu/templatedoc';
 import { TemplatesDoc } from '../../doc/megamenu/templatesdoc';
 import { VerticalDoc } from '../../doc/megamenu/verticaldoc';
+import { AccessibilityDoc } from '../../doc/megamenu/accessibilitydoc';
 
 @Component({
     templateUrl: './megamenudemo.html'
@@ -38,6 +39,11 @@ export class MegaMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

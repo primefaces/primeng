@@ -7,6 +7,7 @@ import { PopupDoc } from '../../doc/tieredmenu/popupdoc';
 import { PropsDoc } from '../../doc/tieredmenu/propsdoc';
 import { StyleDoc } from '../../doc/tieredmenu/styledoc';
 import { MethodsDoc } from '../../doc/tieredmenu/methodsdoc';
+import { AccessibilityDoc } from '../../doc/tieredmenu/accessibilitydoc';
 
 @Component({
     templateUrl: './tieredmenudemo.html'
@@ -32,6 +33,11 @@ export class TieredMenuDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

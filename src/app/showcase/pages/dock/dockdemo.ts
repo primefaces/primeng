@@ -7,6 +7,7 @@ import { ImportDoc } from '../../doc/dock/importdoc';
 import { MenuItemDoc } from '../../doc/dock/menuitemdoc';
 import { MethodsDoc } from '../../doc/dock/methodsdoc';
 import { PropsDoc } from '../../doc/dock/propsdoc';
+import { AccessibilityDoc } from '../../doc/dock/accessibilitydoc';
 
 @Component({
     templateUrl: './dockdemo.html',
@@ -33,6 +34,11 @@ export class DockDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
