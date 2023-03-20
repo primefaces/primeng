@@ -355,7 +355,7 @@
                     "name": "Messages",
                     "children": [
                         {
-                            "name": "Message",
+                            "name": "Messages",
                             "routerLink": "/messages"
                         },
                         {
