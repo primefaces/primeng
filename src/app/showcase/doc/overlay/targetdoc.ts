@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 @Component({
     selector: 'target-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>The <i>target</i> is used to detect the element that will be used to position the overlay. Valid values would be;</p>
         </app-docsectiontext>
         <div class="card">

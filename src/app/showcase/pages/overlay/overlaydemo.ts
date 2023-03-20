@@ -7,7 +7,6 @@ import { EventsDoc } from '../../doc/overlay/eventsdoc';
 import { HideOnEscapeDoc } from '../../doc/overlay/hideonescapedoc';
 import { ImportDoc } from '../../doc/overlay/importdoc';
 import { ModeDoc } from '../../doc/overlay/modedoc';
-import { OptionsDoc } from '../../doc/overlay/overlayoptionsdoc';
 import { ResponsiveDoc } from '../../doc/overlay/responsivedoc';
 import { StyleDoc } from '../../doc/overlay/styledoc';
 import { TargetDoc } from '../../doc/overlay/targetdoc';
@@ -37,7 +36,6 @@ export class OverlayDemo {
         {
             id: 'options',
             label: 'Options',
-            component: OptionsDoc,
             children: [
                 {
                     id: 'mode',
