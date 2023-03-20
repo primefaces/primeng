@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { OrganizationChartModule } from 'primeng/organizationchart';`
+        typescript: `import { OrganizationChartModule } from 'primeng/organizationchart';`
     };
 }

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'style-class-toggle-class-demo',
+    selector: 'toggle-class-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
     </section>`
 })
-export class StyleClassToggleClassDemo {
+export class ToggleClassDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -36,8 +36,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-class-toggle-class-demo',
-    templateUrl: './style-class-toggle-class-demo.html',
-    styleUrls: ['./style-class-toggle-class-demo.scss']
+    templateUrl: './style-class-toggle-class-demo.html'
 })
 export class StyleClassToggleClassDemo {}`
     };

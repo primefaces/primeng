@@ -19,7 +19,7 @@ export class SetLocaleDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 

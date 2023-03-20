@@ -33,7 +33,7 @@ import { CarService } from '../../service/carservice';
     </section>`,
     providers: [FilterService]
 })
-export class FilterServiceTableIntegrationDemo implements OnInit {
+export class TableIntegrationDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

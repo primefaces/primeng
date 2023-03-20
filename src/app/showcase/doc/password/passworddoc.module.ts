@@ -17,11 +17,11 @@ import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
-import { TogglemaskDoc } from './togglemaskdoc';
+import { ToggleMaskDoc } from './togglemaskdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, DividerModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MeterDoc, TogglemaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc]
 })
 export class PasswordDocModule {}

@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-controlled-demo',
+    selector: 'controlled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
@@ -77,8 +77,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-controlled-demo',
-    templateUrl: './tree-controlled-demo.html',
-    styleUrls: ['./tree-controlled-demo.scss']
+    templateUrl: './tree-controlled-demo.html'
 })
 export class TreeControlledDemo implements OnInit {
     files: TreeNode[];

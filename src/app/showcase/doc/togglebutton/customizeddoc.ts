@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toggle-button-customized-demo',
+    selector: 'customized-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Icons and Labels can be customized using <i>onLabel</i>, <i>offLabel</i>, <i>onIcon</i> and <i>offIcon</i> properties.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'toggle-button-customized-demo',
-    templateUrl: './toggle-button-customized-demo.html',
-    styleUrls: ['./toggle-button-customized-demo.scss']
+    templateUrl: './toggle-button-customized-demo.html'
 })
 export class ToggleButtonCustomizedDemo {
     checked: boolean = false;

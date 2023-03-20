@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'panel-toggleable-demo',
+    selector: 'toggleable-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="panel-toggleable-demo"></app-code>
     </section>`
 })
-export class PanelToggleableDemo {
+export class ToggleableDoc {
     @Input() id: string;
 
     @Input() title: string;

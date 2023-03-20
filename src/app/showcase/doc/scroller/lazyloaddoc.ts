@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@a
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroller-lazy-load-demo',
+    selector: 'lazy-load-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

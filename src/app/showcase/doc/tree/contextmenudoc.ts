@@ -4,7 +4,7 @@ import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-context-menu-demo',
+    selector: 'context-menu-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>

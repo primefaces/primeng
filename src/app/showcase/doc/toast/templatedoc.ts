@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
@@ -34,7 +34,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

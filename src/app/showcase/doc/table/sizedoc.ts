@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-size-demo',
+    selector: 'size-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
@@ -36,7 +36,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableSizeDemo {
+export class SizeDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'listbox-invalid-demo',
-    templateUrl: './listbox-invalid-demo.html',
-    styleUrls: ['./listbox-invalid-demo.scss']
+    templateUrl: './listbox-invalid-demo.html'
 })
 export class ListboxInvalidDemo {
     cities: City[];

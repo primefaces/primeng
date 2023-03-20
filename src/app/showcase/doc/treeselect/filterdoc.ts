@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -46,10 +46,8 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-filter-demo',
-    templateUrl: './tree-select-filter-demo.html',
-    styleUrls: ['./tree-select-filter-demo.scss'],
+    templateUrl: './tree-select-filter-demo.html'
 })
-
 export class TreeSelectFilterDemo {
     nodes: any[];
 

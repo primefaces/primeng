@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-menu-active-demo',
+    selector: 'active-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-menu-active-demo"></app-code>
     </section>`
 })
-export class TabMenuActiveDemo implements OnInit {
+export class ActiveDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

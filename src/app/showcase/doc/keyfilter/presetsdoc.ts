@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'key-filter-presets-demo',
+    selector: 'presets-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
@@ -91,8 +91,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'key-filter-presets-demo',
-    templateUrl: './key-filter-presets-demo.html',
-    styleUrls: ['./key-filter-presets-demo.scss']
+    templateUrl: './key-filter-presets-demo.html'
 })
 export class KeyFilterPresetsDemo {}`
     };

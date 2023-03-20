@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SplitterSizeDemo } from '../../doc/splitter/sizedoc';
-import { SplitterHorizontalDemo } from '../../doc/splitter/horizontaldoc';
+import { SizeDoc } from '../../doc/splitter/sizedoc';
+import { HorizontalDoc } from '../../doc/splitter/horizontaldoc';
 import { ImportDoc } from '../../doc/splitter/importdoc';
-import { SplitterVerticalDemo } from '../../doc/splitter/verticaldoc';
-import { SplitterNestedDemo } from '../../doc/splitter/nesteddoc';
+import { VerticalDoc } from '../../doc/splitter/verticaldoc';
+import { NestedDoc } from '../../doc/splitter/nesteddoc';
 import { StyleDoc } from '../../doc/splitter/styledoc';
 import { PropsDoc } from '../../doc/splitter/propsdoc';
 import { EventsDoc } from '../../doc/splitter/eventsdoc';
@@ -22,22 +22,22 @@ export class SplitterDemo {
         {
             id: 'horizontal',
             label: 'Horizontal',
-            component: SplitterHorizontalDemo
+            component: HorizontalDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SplitterSizeDemo
+            component: SizeDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: SplitterVerticalDemo
+            component: VerticalDoc
         },
         {
             id: 'nested',
             label: 'Nested',
-            component: SplitterNestedDemo
+            component: NestedDoc
         },
         {
             id: 'style',

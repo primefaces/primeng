@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'steps-routing-demo',
+    selector: 'routing-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Example below uses nested routes with Steps.</p>
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
     </section>`,
     providers: [MessageService]
 })
-export class StepsRoutingDemo implements OnInit {
+export class RoutingDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

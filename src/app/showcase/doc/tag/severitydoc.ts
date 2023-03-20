@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tag-severity-demo',
+    selector: 'severity-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i> in addition to the default theme color.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tag-severity-demo"></app-code>
     </section>`
 })
-export class TagSeverityDemo {
+export class SeverityDoc {
     @Input() id: string;
 
     @Input() title: string;

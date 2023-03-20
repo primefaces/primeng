@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class FileUploadCustomDemo {
+export class CustomDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -54,7 +54,7 @@ import { MessageService } from 'primeng/api';
     templateUrl: './file-upload-custom-demo.html',
     providers: [MessageService]
 })
-export class FileUploadCustomDemo {
+export class CustomDoc {
 
     constructor(private messageService: MessageService) {}
 

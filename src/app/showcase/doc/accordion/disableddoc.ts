@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'accordion-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>disabled</i> property of an AccordionTab prevents user interaction.</p>

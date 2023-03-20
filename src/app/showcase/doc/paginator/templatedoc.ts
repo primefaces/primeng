@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'paginator-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card flex flex-column gap-3">

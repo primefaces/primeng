@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-checkbox-selection-demo',
+    selector: 'checkbox-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Multiple selection can also be handled using checkboxes by enabling the <i>selectionMode</i> property of column as <i>multiple</i>.</p>
@@ -39,7 +39,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableCheckboxSelectionDemo implements OnInit {
+export class CheckboxSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

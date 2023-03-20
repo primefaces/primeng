@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tooltip-delay-demo',
+    selector: 'delay-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding delays to the show and hide events are defined with <i>showDelay</i> and <i>hideDelay</i> options respectively.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tooltip-delay-demo"></app-code>
     </section>`
 })
-export class TooltipDelayDemo {
+export class DelayDoc {
     @Input() id: string;
 
     @Input() title: string;

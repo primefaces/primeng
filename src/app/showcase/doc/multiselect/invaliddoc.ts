@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-invalid-demo',
+    selector: 'invalid-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
@@ -56,10 +56,8 @@ interface City {
 
 @Component({
     selector: 'multiselect-invalid-demo',
-    templateUrl: './multiselect-invalid-demo.html',
-    styleUrls: ['./multiselect-invalid-demo.scss']
+    templateUrl: './multiselect-invalid-demo.html'
 })
-
 export class MultiselectInvalidDemo {
 
     cities: City[];

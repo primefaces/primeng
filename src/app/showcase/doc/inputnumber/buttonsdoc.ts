@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputnumber-buttons-demo',
+    selector: 'buttons-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
                 ></p-inputNumber>
             </div>
         </div>
-        <app-code [code]="code" selector="inputnumber-buttons-demo"></app-code>
+        <app-code [code]="code" selector="input-number-buttons-demo"></app-code>
     </section>`
 })
 export class ButtonsDoc {
@@ -91,12 +91,10 @@ export class ButtonsDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputnumber-buttons-demo',
-    templateUrl: './inputnumber-buttons-demo.html',
-    styleUrls: ['./inputnumber-buttons-demo.scss']
+    selector: 'input-number-buttons-demo',
+    templateUrl: './input-number-buttons-demo.html'
 })
-
-export class InputnumberButtonsDemo {
+export class InputNumberButtonsDemo {
     value1: number = 20;
 
     value2: number = 10.5;

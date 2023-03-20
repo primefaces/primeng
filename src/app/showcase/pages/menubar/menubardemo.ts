@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MenubarTemplateDemo } from '../../doc/menubar/templatedoc';
-import { MenubarBasicDemo } from '../../doc/menubar/basicdoc';
+import { TemplateDoc } from '../../doc/menubar/templatedoc';
+import { BasicDoc } from '../../doc/menubar/basicdoc';
 import { ImportDoc } from '../../doc/menubar/importdoc';
 import { MenuItemDoc } from '../../doc/menubar/menuitemdoc';
 import { PropsDoc } from '../../doc/menubar/propsdoc';
@@ -20,12 +20,12 @@ export class MenubarDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: MenubarBasicDemo
+            component: BasicDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: MenubarTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

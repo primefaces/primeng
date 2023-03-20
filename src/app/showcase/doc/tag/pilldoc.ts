@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tag-pill-demo',
+    selector: 'pill-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tag-pill-demo"></app-code>
     </section>`
 })
-export class TagPillDemo {
+export class PillDoc {
     @Input() id: string;
 
     @Input() title: string;

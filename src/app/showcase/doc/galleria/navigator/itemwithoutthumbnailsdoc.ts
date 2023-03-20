@@ -15,7 +15,7 @@ import { PhotoService } from '../../../service/photoservice';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="galleria-item-without-thumbnails-demo"></app-code>
     </section>`,
     providers: [PhotoService]
 })
@@ -69,12 +69,11 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
-    templateUrl: './galleriademo.html',
-    styleUrls: ['./galleriademo.scss'],
+    selector: 'galleria-item-without-thumbnails-demo',
+    templateUrl: './galleria-item-without-thumbnails-demo.html',
     providers: [PhotoService]
 })
-
-export class GalleriaDemo implements OnInit {
+export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
     images: any[];
 
     responsiveOptions: any[] = [

@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/toast/importdoc';
-import { ToastBasicDemo } from '../../doc/toast/basicdoc';
-import { ToastSeverityDemo } from '../../doc/toast/severitydoc';
-import { ToastAnimationDemo } from '../../doc/toast/animationdoc';
+import { BasicDoc } from '../../doc/toast/basicdoc';
+import { SeverityDoc } from '../../doc/toast/severitydoc';
+import { AnimationDoc } from '../../doc/toast/animationdoc';
 import { EventsDoc } from '../../doc/toast/eventsdoc';
 import { InterfaceDoc } from '../../doc/toast/interfacedoc';
-import { ToastMultipleDemo } from '../../doc/toast/multipledoc';
-import { ToastPositionDemo } from '../../doc/toast/positiondoc';
+import { MultipleDoc } from '../../doc/toast/multipledoc';
+import { PositionDoc } from '../../doc/toast/positiondoc';
 import { PropsDoc } from '../../doc/toast/propsdoc';
-import { ToastResponsiveDemo } from '../../doc/toast/responsivedoc';
-import { ToastStickyDemo } from '../../doc/toast/stickydoc';
+import { ResponsiveDoc } from '../../doc/toast/responsivedoc';
+import { StickyDoc } from '../../doc/toast/stickydoc';
 import { StyleDoc } from '../../doc/toast/styledoc';
-import { ToastTargetDemo } from '../../doc/toast/targetdoc';
-import { ToastTemplateDemo } from '../../doc/toast/templatedoc';
+import { TargetDoc } from '../../doc/toast/targetdoc';
+import { TemplateDoc } from '../../doc/toast/templatedoc';
 import { TemplatesDoc } from '../../doc/toast/templatesdoc';
-import { ToastClearDemo } from '../../doc/toast/cleardoc';
+import { ClearDoc } from '../../doc/toast/cleardoc';
 
 @Component({
     templateUrl: './toastdemo.html'
@@ -29,52 +29,52 @@ export class ToastDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ToastBasicDemo
+            component: BasicDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: ToastSeverityDemo
+            component: SeverityDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: ToastPositionDemo
+            component: PositionDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: ToastMultipleDemo
+            component: MultipleDoc
         },
         {
             id: 'target',
             label: 'Target',
-            component: ToastTargetDemo
+            component: TargetDoc
         },
         {
             id: 'sticky',
             label: 'Sticky',
-            component: ToastStickyDemo
+            component: StickyDoc
         },
         {
             id: 'clear',
             label: 'Clearing Messages',
-            component: ToastClearDemo
+            component: ClearDoc
         },
         {
             id: 'templating',
             label: 'Templating',
-            component: ToastTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: ToastResponsiveDemo
+            component: ResponsiveDoc
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: ToastAnimationDemo
+            component: AnimationDoc
         },
         {
             id: 'style',

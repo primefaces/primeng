@@ -14,7 +14,7 @@ export class EventsDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 import { PrimeNGConfig, OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';
 import { AnimationEvent } from '@angular/animations';
 

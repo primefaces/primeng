@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-responsive-scroll-demo',
+    selector: 'responsive-scroll-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>When there is not enough space for the table to fit all the content efficiently, table displays a horizontal scrollbar. It is suggested to give a min-width to the table to avoid design issues due wrapping of cell contents.</p>
@@ -40,7 +40,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableResponsiveScrollDemo implements OnInit {
+export class ResponsiveScrollDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

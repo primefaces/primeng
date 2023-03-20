@@ -3,18 +3,18 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-mask-demo',
+    selector: 'mask-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
+            <div style="height: 350px; position: relative;" class="speed-dial-mask-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-mask-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -64,7 +64,7 @@ export class MaskDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
+    <div style="height: 350px; position: relative;" class="speed-dial-mask-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
     </div>
@@ -75,12 +75,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-mask-demo',
-    templateUrl: './speeddial-mask-demo.html',
-    styleUrls: ['./speeddial-mask-demo.scss'],
+    selector: 'speed-dial-mask-demo',
+    templateUrl: './speed-dial-mask-demo.html',
+    styleUrls: ['./speed-dial-mask-demo.scss'],
     providers: [MessageService]
 })
-export class SpeeddialMaskDemo implements OnInit {
+export class SpeedDialMaskDemo implements OnInit {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tree-table-paginator-basic-demo',
+    selector: 'paginator-basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
@@ -116,9 +116,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-table-paginator-basic-demo',
-    templateUrl: './tree-table-paginator-basic-demo.html',
+    templateUrl: './tree-table-paginator-basic-demo.html'
 })
-export class TreeTablePaginatorBasicDemo implements OnInit{
+export class TreeTablePaginatorBasicDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { SplitButtonModule } from 'primeng/splitbutton';`
+        typescript: `import { SplitButtonModule } from 'primeng/splitbutton';`
     };
 }

@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-severity-demo',
+    selector: 'severity-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastSeverityDemo {
+export class SeverityDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -88,19 +88,6 @@ export class ToastSeverityDemo {
     showError() {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
     }
-}`,
-        module: `
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { ButtonModule } from 'primeng/button';
-import { ToastDemo } from './toastdemo';
-
-@NgModule({
-    imports: [CommonModule, ToastModule, ButtonModule, RippleModule],
-    declarations: [ToastDemo]
-})
-export class ToastDemoModule {}`
+}`
     };
 }

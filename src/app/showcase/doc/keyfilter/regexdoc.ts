@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'key-filter-regex-demo',
+    selector: 'reg-exp-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>In addition to the presets, a regular expression can be configured for customization.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 <input pInputText id="block" [pKeyFilter]="blockChars" class="w-full" />
             </div>
         </div>
-        <app-code [code]="code" selector="key-filter-regex-demo"></app-code>
+        <app-code [code]="code" selector="key-filter-reg-exp-demo"></app-code>
     </section>`
 })
 export class RegexDoc {
@@ -50,11 +50,10 @@ export class RegexDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'key-filter-regex-demo',
-    templateUrl: './key-filter-regex-demo.html',
-    styleUrls: ['./key-filter-regex-demo.scss']
+    selector: 'key-filter-reg-exp-demo',
+    templateUrl: './key-filter-reg-exp-demo.html'
 })
-export class KeyFilterRegexDemo {
+export class KeyFilterRegExpDemo {
     blockSpace: RegExp = /[^\s]/; 
     
     blockChars: RegExp = /^[^<>*!]+$/;

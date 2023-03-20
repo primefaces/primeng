@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'menu-popup-demo',
+    selector: 'popup-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Popup mode is enabled by setting <i>popup</i> property to <i>true</i> and calling <i>toggle</i> method with an event of the target.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class MenuPopupDemo implements OnInit {
+export class PopupDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-paginator-lazy-load-demo',
+    selector: 'lazy-load-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -29,7 +29,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -129,7 +129,7 @@ export class LazyLoadDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -149,7 +149,7 @@ export class LazyLoadDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -164,7 +164,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-lazy-load-demo',
-    templateUrl: './tree-table-lazy-load-demo.html',
+    templateUrl: './tree-table-lazy-load-demo.html'
 })
 export class TreeTableLazyLoadDemo implements OnInit{
     files: TreeNode[];

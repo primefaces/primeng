@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -51,8 +51,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-filter-demo',
-    templateUrl: './tree-filter-demo.html',
-    styleUrls: ['./tree-filter-demo.scss']
+    templateUrl: './tree-filter-demo.html'
 })
 export class TreeFilterDemo implements OnInit {
     files: TreeNode[];

@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-severity-demo',
+    selector: 'severity-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Severity defines the type of button.</p>
@@ -92,7 +92,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-severity-demo',
     templateUrl: './split-button-severity-demo.html',
-    styleUrls: ['./split-button-severity-demo.scss'],
     providers: [ MessageService ]
 })
 export class SplitButtonSeverityDemo {

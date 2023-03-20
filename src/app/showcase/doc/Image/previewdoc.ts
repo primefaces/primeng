@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="image-preview-demo"></app-code>
     </section>`
 })
-export class ImagePreviewDemo {
+export class PreviewDoc {
     @Input() id: string;
 
     @Input() title: string;

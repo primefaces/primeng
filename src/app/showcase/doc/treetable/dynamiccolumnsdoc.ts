@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-dynamic-columns-demo',
+    selector: 'dynamic-columns-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be created programmatically.</p>
@@ -21,7 +21,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -64,7 +64,7 @@ export class DynamicColumnsDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -84,7 +84,7 @@ export class DynamicColumnsDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -99,9 +99,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-dynamic-columns-demo',
-    templateUrl: './tree-table-dynamic-columns-demo.html',
+    templateUrl: './tree-table-dynamic-columns-demo.html'
 })
-export class TreeTableDynamicColumnsDemo implements OnInit{
+export class TreeTableDynamicColumnsDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

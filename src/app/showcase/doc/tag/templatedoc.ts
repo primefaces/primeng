@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tag-template-demo"></app-code>
     </section>`
 })
-export class TagTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

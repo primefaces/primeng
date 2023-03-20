@@ -49,8 +49,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dropdown-virtualscroll-demo',
-    templateUrl: './dropdown-virtualscroll-demo.html',
-    styleUrls: ['./dropdown-virtualscroll-demo.scss']
+    templateUrl: './dropdown-virtualscroll-demo.html'
 })
 export class DropdownVirtualscrollDemo {
     items: SelectItem[];

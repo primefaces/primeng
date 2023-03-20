@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-selection-checkbox-demo',
+    selector: 'selection-checkbox-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
@@ -28,8 +28,8 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                            <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                            <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -81,8 +81,8 @@ export class SelectionCheckboxDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -108,8 +108,8 @@ export class SelectionCheckboxDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -124,7 +124,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-selection-checkbox-demo',
-    templateUrl: './tree-table-selection-checkbox-demo.html',
+    templateUrl: './tree-table-selection-checkbox-demo.html'
 })
 export class TreeTableSelectionCheckboxDemo implements OnInit {
     files: TreeNode[];

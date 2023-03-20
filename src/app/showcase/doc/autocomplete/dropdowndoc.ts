@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    selector: 'autocomplete-dropdown-demo',
+    selector: 'dropdown-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

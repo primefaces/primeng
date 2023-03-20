@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputnumber-vertical-demo',
+    selector: 'vertical-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
                 decrementButtonIcon="pi pi-minus"
             ></p-inputNumber>
         </div>
-        <app-code [code]="code" selector="inputnumber-vertical-demo"></app-code>
+        <app-code [code]="code" selector="input-number-vertical-demo"></app-code>
     </section>`
 })
 export class VerticalDoc {
@@ -45,12 +45,10 @@ export class VerticalDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputnumber-vertical-demo',
-    templateUrl: './inputnumber-vertical-demo.html',
-    styleUrls: ['./inputnumber-vertical-demo.scss']
+    selector: 'input-number-vertical-demo',
+    templateUrl: './input-number-vertical-demo.html'
 })
-
-export class InputnumberVerticalDemo {
+export class InputNumberVerticalDemo {
     value1: number = 50;
 }`
     };

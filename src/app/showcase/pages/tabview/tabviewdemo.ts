@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TabViewDisabledDemo } from '../../doc/tabview/disableddoc';
-import { TabViewBasicDemo } from '../../doc/tabview/basicdoc';
-import { TabViewControlledDemo } from '../../doc/tabview/controlleddoc';
+import { DisabledDoc } from '../../doc/tabview/disableddoc';
+import { BasicDoc } from '../../doc/tabview/basicdoc';
+import { ControlledDoc } from '../../doc/tabview/controlleddoc';
 import { ImportDoc } from '../../doc/tabview/importdoc';
-import { TabViewTemplateDemo } from '../../doc/tabview/customtemplatedoc';
-import { TabViewClosableDemo } from '../../doc/tabview/closabledoc';
+import { TemplateDoc } from '../../doc/tabview/customtemplatedoc';
+import { ClosableDoc } from '../../doc/tabview/closabledoc';
 import { ScrollableDoc } from '../../doc/tabview/scrollabledoc';
 import { StyleDoc } from '../../doc/tabview/styledoc';
 import { PropsDoc } from '../../doc/tabview/propsdoc';
@@ -25,27 +25,27 @@ export class TabViewDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: TabViewBasicDemo
+            component: BasicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: TabViewControlledDemo
+            component: ControlledDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
-            component: TabViewDisabledDemo
+            component: DisabledDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: TabViewTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'closable',
             label: 'Closable',
-            component: TabViewClosableDemo
+            component: ClosableDoc
         },
         {
             id: 'scrollable',

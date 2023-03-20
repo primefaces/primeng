@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-menu-controlled-demo',
+    selector: 'controlled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>For controlled mode, use <i>activeItem</i> property along with <i>activeItemChange</i> event are needed to manage the active item.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-menu-controlled-demo"></app-code>
     </section>`
 })
-export class TabMenuControlledDemo implements OnInit {
+export class ControlledDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

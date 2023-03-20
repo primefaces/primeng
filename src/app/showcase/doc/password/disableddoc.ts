@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-disabled-demo',
-    templateUrl: './password-disabled-demo.html',
-    styleUrls: ['./password-disabled-demo.scss']
+    templateUrl: './password-disabled-demo.html'
 })
-
 export class PasswordDisabledDemo {
     value: string;
 }`

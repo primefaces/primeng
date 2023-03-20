@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'organization-chart-selection-demo',
+    selector: 'selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -36,7 +36,7 @@ export class SelectionDoc {
             expanded: true,
             type: 'person',
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: 'https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -45,7 +45,7 @@ export class SelectionDoc {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -62,7 +62,7 @@ export class SelectionDoc {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
@@ -120,7 +120,7 @@ export class OrganizationChartSelectionDemo {
             expanded: true,
             type: 'person',
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: 'https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -129,7 +129,7 @@ export class OrganizationChartSelectionDemo {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -146,7 +146,7 @@ export class OrganizationChartSelectionDemo {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },

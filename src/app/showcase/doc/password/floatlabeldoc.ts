@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-floatlabel-demo',
+    selector: 'floatlabel-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
@@ -43,8 +43,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-floatlabel-demo',
-    templateUrl: './password-floatlabel-demo.html',
-    styleUrls: ['./password-floatlabel-demo.scss']
+    templateUrl: './password-floatlabel-demo.html'
 })
 export class PasswordFloatlabelDemo {
     value: string;

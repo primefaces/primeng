@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-text-demo',
+    selector: 'text-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons are displayed as textual elements.</p>
@@ -95,7 +95,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-text-demo',
     templateUrl: './split-button-text-demo.html',
-    styleUrls: ['./split-button-text-demo.scss'],
     providers: [MessageService]
 })
 export class SplitButtonTextDemo {

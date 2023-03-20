@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class FileUploadAutoDemo {
+export class AutoDoc {
     @Input() id: string;
 
     @Input() title: string;

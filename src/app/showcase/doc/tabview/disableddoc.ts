@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-view-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>disabled</i> property to <i>true</i> of a <i>TabPanel</i> prevents user interaction.</p>
@@ -33,7 +33,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-view-disabled-demo"></app-code>
     </section>`
 })
-export class TabViewDisabledDemo {
+export class DisabledDoc {
     @Input() id: string;
 
     @Input() title: string;

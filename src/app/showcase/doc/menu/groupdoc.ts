@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class MenuGroupDemo implements OnInit {
+export class GroupDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

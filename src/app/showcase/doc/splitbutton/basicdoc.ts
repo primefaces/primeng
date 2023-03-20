@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
@@ -74,7 +74,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-basic-demo',
     templateUrl: './split-button-basic-demo.html',
-    styleUrls: ['./split-button-basic-demo.scss'],
     providers: [ MessageService ]
 })
 export class SplitButtonBasicDemo {

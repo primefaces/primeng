@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-frozen-rows-demo',
+    selector: 'frozen-rows-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
@@ -47,7 +47,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableFrozenRowsDemo implements OnInit {
+export class FrozenRowsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

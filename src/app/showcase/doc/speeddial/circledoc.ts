@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-circle-demo',
+    selector: 'circle-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                 <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-circle-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -75,12 +75,11 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-circle-demo',
-    templateUrl: './speeddial-circle-demo.html',
-    styleUrls: ['./speeddial-circle-demo.scss'],
+    selector: 'speed-dial-circle-demo',
+    templateUrl: './speed-dial-circle-demo.html',
     providers: [MessageService]
 })
-export class SpeeddialCircleDemo implements OnInit {
+export class SpeedDialCircleDemo implements OnInit {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

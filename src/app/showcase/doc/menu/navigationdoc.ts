@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'menu-navigation-demo',
+    selector: 'navigation-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="menu-navigation-demo"></app-code>
     </section>`
 })
-export class MenuNavigationDemo implements OnInit {
+export class NavigationDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

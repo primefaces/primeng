@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { StepsBasicDemo } from '../../doc/steps/basicdoc';
+import { BasicDoc } from '../../doc/steps/basicdoc';
 import { ImportDoc } from '../../doc/steps/importdoc';
-import { StepsInteractiveDemo } from '../../doc/steps/interactivedoc';
+import { InteractiveDoc } from '../../doc/steps/interactivedoc';
 import { MenuItemDoc } from '../../doc/steps/menuitemdoc';
 import { MethodsDoc } from '../../doc/steps/methodsdoc';
 import { PropsDoc } from '../../doc/steps/propsdoc';
 import { StyleDoc } from '../../doc/steps/styledoc';
 import { EventsDoc } from '../../doc/steps/eventsdoc';
-import { StepsRoutingDemo } from '../../doc/steps/routingdoc';
+import { RoutingDoc } from '../../doc/steps/routingdoc';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -23,17 +23,17 @@ export class StepsDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: StepsBasicDemo
+            component: BasicDoc
         },
         {
             id: 'interactive',
             label: 'Interactive',
-            component: StepsInteractiveDemo
+            component: InteractiveDoc
         },
         {
             id: 'routing',
             label: 'Routing',
-            component: StepsRoutingDemo
+            component: RoutingDoc
         },
         {
             id: 'style',

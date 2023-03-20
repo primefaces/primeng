@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'progress-bar-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ProgressBar is used with the <i>value</i> property.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
     </section>`
 })
-export class ProgressBarBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     selector: 'progress-bar-basic-demo',
     templateUrl: './progress-bar-basic-demo.html'
 })
-
-export class ProgressBarDemo {}`
+export class ProgressBarBasicDemo {}`
     };
 }

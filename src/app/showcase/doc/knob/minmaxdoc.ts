@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-minmax-demo',
+    selector: 'min-max-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> properties whose defaults are 0 and 100 respectively.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-knob [(ngModel)]="value" [min]="-50" [max]="50"></p-knob>
         </div>
-        <app-code [code]="code" selector="knob-minmax-demo"></app-code>
+        <app-code [code]="code" selector="knob-min-max-demo"></app-code>
     </section>`
 })
 export class MinMaxDoc {
@@ -33,11 +33,10 @@ export class MinMaxDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'knob-minmax-demo',
-    templateUrl: './knob-minmax-demo.html',
-    styleUrls: ['./knob-minmax-demo.scss']
+    selector: 'knob-min-max-demo',
+    templateUrl: './knob-min-max-demo.html'
 })
-export class KnobMinmaxDemo {
+export class KnobMinMaxDemo {
     value: number = 10;
 }`
     };

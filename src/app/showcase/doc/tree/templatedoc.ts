@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
 
 @Component({
-    selector: 'tree-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
@@ -82,8 +82,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-template-demo',
-    templateUrl: './tree-template-demo.html',
-    styleUrls: ['./tree-template-demo.scss']
+    templateUrl: './tree-template-demo.html'
 })
 export class TreeTemplateDemo implements OnInit {
     nodes: TreeNode[];

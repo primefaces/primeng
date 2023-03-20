@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'progress-bar-dynamic-demo',
+    selector: 'dynamic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ProgressBarDynamicDemo implements OnInit {
+export class DynamicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -53,7 +53,6 @@ import { MessageService } from 'primeng/api';
     templateUrl: './progress-bar-dynamic-demo.html',
     providers: [MessageService]
 })
-
 export class ProgressBarDynamicDemo implements OnInit {
     value: number = 0;
 

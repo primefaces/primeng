@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { MenuBasicDemo } from '../../doc/menu/basicdoc';
-import { MenuCustomContentDemo } from '../../doc/menu/customdoc';
-import { MenuCommandDemo } from '../../doc/menu/commanddoc';
+import { BasicDoc } from '../../doc/menu/basicdoc';
+import { CustomContentDoc } from '../../doc/menu/customdoc';
+import { CommandDoc } from '../../doc/menu/commanddoc';
 import { EventsDoc } from '../../doc/menu/eventsdoc';
 import { MethodsDoc } from '../../doc/menu/methodsdoc';
-import { MenuGroupDemo } from '../../doc/menu/groupdoc';
+import { GroupDoc } from '../../doc/menu/groupdoc';
 import { ImportDoc } from '../../doc/menu/importdoc';
 import { MenuItemDoc } from '../../doc/menu/menuitemdoc';
-import { MenuNavigationDemo } from '../../doc/menu/navigationdoc';
-import { MenuPopupDemo } from '../../doc/menu/popupdoc';
+import { NavigationDoc } from '../../doc/menu/navigationdoc';
+import { PopupDoc } from '../../doc/menu/popupdoc';
 import { PropsDoc } from '../../doc/menu/propsdoc';
 import { StyleDoc } from '../../doc/menu/styledoc';
 
@@ -25,32 +25,32 @@ export class MenuDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: MenuBasicDemo
+            component: BasicDoc
         },
         {
             id: 'group',
             label: 'Group',
-            component: MenuGroupDemo
+            component: GroupDoc
         },
         {
             id: 'popup',
             label: 'Popup',
-            component: MenuPopupDemo
+            component: PopupDoc
         },
         {
             id: 'custom',
             label: 'Custom Content',
-            component: MenuCustomContentDemo
+            component: CustomContentDoc
         },
         {
             id: 'navigation',
             label: 'Navigation',
-            component: MenuNavigationDemo
+            component: NavigationDoc
         },
         {
             id: 'command',
             label: 'Command',
-            component: MenuCommandDemo
+            component: CommandDoc
         },
         {
             id: 'style',

@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ScrollPanelBasicDemo } from '../../doc/scrollpanel/basicdoc';
+import { BasicDoc } from '../../doc/scrollpanel/basicdoc';
 import { ImportDoc } from '../../doc/scrollpanel/importdoc';
-import { ScrollPanelCustomDemo } from '../../doc/scrollpanel/customdoc';
+import { CusstomDoc } from '../../doc/scrollpanel/customdoc';
 import { StyleDoc } from '../../doc/scrollpanel/styledoc';
 import { PropsDoc } from '../../doc/scrollpanel/propsdoc';
 import { MethodsDoc } from '../../doc/scrollpanel/methodsdoc';
@@ -22,12 +22,12 @@ export class ScrollPanelDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ScrollPanelBasicDemo
+            component: BasicDoc
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: ScrollPanelCustomDemo
+            component: CusstomDoc
         },
         {
             id: 'style',

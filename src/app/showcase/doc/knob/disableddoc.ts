@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, a visual hint is applied to indicate that the Knob cannot be interacted with.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-disabled-demo',
-    templateUrl: './knob-disabled-demo.html',
-    styleUrls: ['./knob-disabled-demo.scss']
+    templateUrl: './knob-disabled-demo.html'
 })
 export class KnobDisabledDemo {
     value: number = 75;

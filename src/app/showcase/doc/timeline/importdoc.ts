@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { TimelineModule } from 'primeng/timeline';`
+        typescript: `import { TimelineModule } from 'primeng/timeline';`
     };
 }

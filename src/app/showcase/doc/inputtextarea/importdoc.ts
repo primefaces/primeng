@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { InputTextareaModule } from 'primeng/inputtextarea';`
+        typescript: `import { InputTextareaModule } from 'primeng/inputtextarea';`
     };
 }

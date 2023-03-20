@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tooltip-auto-hide-demo',
+    selector: 'auto-hide-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip is hidden when mouse leaves the target element, in cases where tooltip needs to be interacted with, set <i>autoHide</i> to false to change the default behavior.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tooltip-auto-hide-demo"></app-code>
     </section>`
 })
-export class TooltipAutoHideDemo {
+export class AutoHideDoc {
     @Input() id: string;
 
     @Input() title: string;

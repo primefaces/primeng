@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    selector: 'table-virtual-scroll-lazy-demo',
+    selector: 'virtual-scroll-lazy-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -42,7 +42,7 @@ import { CarService } from '../../service/carservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableVirtualScrollLazyDemo implements OnInit {
+export class VirtualScrollLazyDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

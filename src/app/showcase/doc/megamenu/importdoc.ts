@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { MegaMenuModule } from 'primeng/megamenu';`
+        typescript: `import { MegaMenuModule } from 'primeng/megamenu';`
     };
 }

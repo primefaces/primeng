@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-selection-single-demo',
+    selector: 'selection-single-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
@@ -29,7 +29,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -79,7 +79,7 @@ export class SelectionSingleDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -103,7 +103,7 @@ export class SelectionSingleDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -118,7 +118,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-selection-single-demo',
-    templateUrl: './tree-table-selection-single-demo.html',
+    templateUrl: './tree-table-selection-single-demo.html'
 })
 export class TreeTableSelectionSingleDemo implements OnInit {
     metaKeySelection: boolean = true;

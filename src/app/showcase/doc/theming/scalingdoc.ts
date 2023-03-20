@@ -19,8 +19,7 @@ export class ScalingDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-html {
+        basic: `html {
     font-size: 16px;
 }`
     };

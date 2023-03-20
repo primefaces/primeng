@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-page-only-selection-demo',
+    selector: 'page-only-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3"></app-docsectiontext>
         <div class="card">
@@ -37,7 +37,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TablePageOnlySelectionDemo implements OnInit {
+export class PageOnlySelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

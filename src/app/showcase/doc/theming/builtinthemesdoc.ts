@@ -21,8 +21,7 @@ export class BuiltInThemesDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-primeng/resources/themes/bootstrap4-light-blue/theme.css
+        basic: `primeng/resources/themes/bootstrap4-light-blue/theme.css
 primeng/resources/themes/bootstrap4-light-purple/theme.css
 primeng/resources/themes/bootstrap4-dark-blue/theme.css
 primeng/resources/themes/bootstrap4-dark-purple/theme.css

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'slider-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way binding is defined using the standard ngModel directive.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'slider-basic-demo',
-    templateUrl: './slider-basic-demo.html',
-    styleUrls: ['./slider-basic-demo.scss']
+    templateUrl: './slider-basic-demo.html'
 })
 export class SliderBasicDemo {
     value: number;

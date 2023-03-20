@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'timeline-alignment-demo',
+    selector: 'alignment-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content location relative the line is defined with the <i>align</i> property.</p>
@@ -89,8 +89,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-alignment-demo',
-    templateUrl: './timeline-alignment-demo.html',
-    styleUrls: ['./timeline-alignment-demo.scss']
+    templateUrl: './timeline-alignment-demo.html'
 })
 export class TimelineAlignmentDemo {
     events: any[];

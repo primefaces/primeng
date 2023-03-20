@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'overlay-panel-target-demo',
+    selector: 'target-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
     </section>`
 })
-export class OverlayPanelTargetDemo {
+export class TargetDoc {
     @Input() id: string;
 
     @Input() title: string;

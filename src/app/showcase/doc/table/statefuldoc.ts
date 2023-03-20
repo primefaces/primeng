@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-stateful-demo',
+    selector: 'stateful-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings.</p>
@@ -70,7 +70,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableStatefulDemo implements OnInit {
+export class StatefulDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

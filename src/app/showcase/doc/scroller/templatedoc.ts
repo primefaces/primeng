@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroller-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>

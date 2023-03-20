@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { SlideMenuModule } from 'primeng/slidemenu';`
+        typescript: `import { SlideMenuModule } from 'primeng/slidemenu';`
     };
 }

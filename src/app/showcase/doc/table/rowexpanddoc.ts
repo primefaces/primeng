@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-row-expand-demo',
+    selector: 'row-expand-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -84,7 +84,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableRowExpandDemo implements OnInit {
+export class RowExpandDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

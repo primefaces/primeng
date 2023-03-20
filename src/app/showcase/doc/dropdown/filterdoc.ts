@@ -90,8 +90,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dropdown-filter-demo',
-    templateUrl: './dropdown-filter-demo.html',
-    styleUrls: ['./dropdown-filter-demo.scss']
+    templateUrl: './dropdown-filter-demo.html'
 })
 export class DropdownFilterDemo {
     countries: any[];

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'rating-numberofstars-demo',
+    selector: 'number-of-stars-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Number of stars to display is defined with <i>stars</i> property.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-rating [(ngModel)]="value" [stars]="10"></p-rating>
         </div>
-        <app-code [code]="code" selector="rating-numberofstars-demo"></app-code>
+        <app-code [code]="code" selector="rating-number-of-stars-demo"></app-code>
     </section>`
 })
 export class NumberOfStarsDoc {
@@ -33,11 +33,10 @@ export class NumberOfStarsDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'rating-numberofstars-demo',
-    templateUrl: './rating-numberofstars-demo.html',
-    styleUrls: ['./rating-numberofstars-demo.scss']
+    selector: 'rating-number-of-stars-demo',
+    templateUrl: './rating-number-of-stars-demo.html'
 })
-export class RatingNumberofstarsDemo {
+export class RatingNumberOfStarsDemo {
     value: number;
 }`
     };

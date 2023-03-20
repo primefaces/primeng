@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'timeline-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample implementation with custom content and styled markers.</p>
@@ -91,8 +91,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-template-demo',
-    templateUrl: './timeline-template-demo.html',
-    styleUrls: ['./timeline-template-demo.scss']
+    templateUrl: './timeline-template-demo.html'
 })
 export class TimelineTemplateDemo {
     events: any[];

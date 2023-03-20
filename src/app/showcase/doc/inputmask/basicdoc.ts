@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputmask-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Component is defined using p-inputMask element with a mask and two-way value binding is enabled with standard ngModel directive.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999"></p-inputMask>
         </div>
-        <app-code [code]="code" selector="inputmask-basic-demo"></app-code>
+        <app-code [code]="code" selector="input-mask-basic-demo"></app-code>
     </section>`
 })
 export class BasicDoc {
@@ -33,12 +33,10 @@ export class BasicDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputmask-basic-demo',
-    templateUrl: './inputmask-basic-demo.html',
-    styleUrls: ['./inputmask-basic-demo.scss']
+    selector: 'input-mask-basic-demo',
+    templateUrl: './input-mask-basic-demo.html'
 })
-
-export class InputmaskBasicDemo {
+export class InputMaskBasicDemo {
     value: string;
 }`
     };

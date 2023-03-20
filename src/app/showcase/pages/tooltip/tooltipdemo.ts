@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { TooltipBasicDemo } from '../../doc/tooltip/basicdoc';
+import { BasicDoc } from '../../doc/tooltip/basicdoc';
 import { ImportDoc } from '../../doc/tooltip/importdoc';
 import { PropsDoc } from '../../doc/tooltip/propsdoc';
 import { StyleDoc } from '../../doc/tooltip/styledoc';
-import { TooltipPositionDemo } from '../../doc/tooltip/positiondoc';
-import { TooltipEventDemo } from '../../doc/tooltip/eventdoc';
-import { TooltipAutoHideDemo } from '../../doc/tooltip/autohidedoc';
-import { TooltipDelayDemo } from '../../doc/tooltip/delaydoc';
-import { TooltipOptionsDemo } from '../../doc/tooltip/optionsdoc';
+import { PositionDoc } from '../../doc/tooltip/positiondoc';
+import { EventDoc } from '../../doc/tooltip/eventdoc';
+import { AutoHideDoc } from '../../doc/tooltip/autohidedoc';
+import { DelayDoc } from '../../doc/tooltip/delaydoc';
+import { OptionsDoc } from '../../doc/tooltip/optionsdoc';
 
 @Component({
     templateUrl: './tooltipdemo.html'
@@ -22,32 +22,32 @@ export class TooltipDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: TooltipBasicDemo
+            component: BasicDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: TooltipPositionDemo
+            component: PositionDoc
         },
         {
             id: 'event',
             label: 'Events',
-            component: TooltipEventDemo
+            component: EventDoc
         },
         {
             id: 'autohide',
             label: 'Auto Hide',
-            component: TooltipAutoHideDemo
+            component: AutoHideDoc
         },
         {
             id: 'delay',
             label: 'Delay',
-            component: TooltipDelayDemo
+            component: DelayDoc
         },
         {
             id: 'options',
             label: 'Tooltip Options',
-            component: TooltipOptionsDemo
+            component: OptionsDoc
         },
         {
             id: 'style',

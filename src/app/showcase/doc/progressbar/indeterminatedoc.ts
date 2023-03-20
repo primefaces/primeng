@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'progress-bar-indeterminate-demo',
+    selector: 'indeterminate-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>For progresses with no value to track, set the <i>mode</i> property to <i>indeterminate</i>.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ProgressBarIndeterminateDemo {
+export class IndeterminateDoc {
     @Input() id: string;
 
     @Input() title: string;

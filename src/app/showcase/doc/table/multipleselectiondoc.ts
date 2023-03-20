@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-multiple-selection-demo',
+    selector: 'multiple-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -41,7 +41,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableMultipleSelectionDemo implements OnInit {
+export class MultipleSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

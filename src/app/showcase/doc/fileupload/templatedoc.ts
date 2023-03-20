@@ -27,7 +27,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="file-upload-template-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class FileUploadTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

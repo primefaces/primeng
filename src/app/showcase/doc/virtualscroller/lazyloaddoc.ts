@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'virtual-scroller-lazy-load-demo',
+    selector: 'lazy-load-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

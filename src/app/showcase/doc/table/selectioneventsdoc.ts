@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-selection-events-demo',
+    selector: 'selection-events-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Table provides <i>onRowSelect</i> and <i>onRowUnselect</i> events to listen selection events.</p>
@@ -36,7 +36,7 @@ import { ProductService } from '../../service/productservice';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
-export class TableSelectionEventsDemo implements OnInit {
+export class SelectionEventsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

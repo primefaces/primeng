@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'animate-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

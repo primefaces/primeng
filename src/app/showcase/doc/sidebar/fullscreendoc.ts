@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'sidebar-full-screen-demo',
+    selector: 'full-screen-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar can cover the whole page when <i>fullScreen</i> property is enabled.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="sidebar-full-screen-demo"></app-code>
     </section>`
 })
-export class SidebarFullScreenDemo {
+export class FullScreenDoc {
     @Input() id: string;
 
     @Input() title: string;

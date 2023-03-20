@@ -27,7 +27,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-controlled-demo"></app-code>
     </section>`
 })
-export class GalleriaControlledDemo implements OnInit {
+export class ControlledDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -113,8 +113,8 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
-    templateUrl: './galleria-controlled-demo.html',
-    styleUrls: ['./galleria-controlled-demo.scss']
+    selector: 'galleria-controlled-demo',
+    templateUrl: './galleria-controlled-demo.html'
 })
 export class GalleriaControlledDemo implements OnInit {
     images: any[];

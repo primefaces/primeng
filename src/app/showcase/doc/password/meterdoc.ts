@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-meter-demo',
+    selector: 'meter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Strength meter is displayed as a popup while a value is being entered.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-meter-demo',
-    templateUrl: './password-meter-demo.html',
-    styleUrls: ['./password-meter-demo.scss']
+    templateUrl: './password-meter-demo.html'
 })
 export class PasswordMeterDemo {
     value: string;

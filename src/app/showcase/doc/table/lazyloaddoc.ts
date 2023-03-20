@@ -5,7 +5,7 @@ import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-lazy-load-demo',
+    selector: 'lazy-load-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -85,7 +85,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableLazyLoadDemo implements OnInit {
+export class LazyLoadDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

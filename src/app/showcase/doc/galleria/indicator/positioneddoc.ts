@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-indicator-positioned-demo',
+    selector: 'positioned-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -35,7 +35,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
     </section>`
 })
-export class GalleriaIndicatorPositionedDemo implements OnInit {
+export class PositionedDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -123,8 +123,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-positioned-demo',
-    templateUrl: './galleria-indicator-positioned-demo.html',
-    styleUrls: ['./galleria-indicator-positioned-demo.scss']
+    templateUrl: './galleria-indicator-positioned-demo.html'
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
     images: any[];

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Component is defined using p-password element with a mask and two-way value binding is enabled with standard ngModel directive.</p>
@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-basic-demo',
-    templateUrl: './password-basic-demo.html',
-    styleUrls: ['./password-basic-demo.scss']
+    templateUrl: './password-basic-demo.html'
 })
-
 export class PasswordBasicDemo {
     value: string;
 }`

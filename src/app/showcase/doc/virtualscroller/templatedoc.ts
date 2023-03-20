@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'virtual-scroller-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

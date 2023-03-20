@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined with ngModel.</p>
@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'listbox-basic-demo',
-    templateUrl: './listbox-basic-demo.html',
-    styleUrls: ['./listbox-basic-demo.scss']
+    templateUrl: './listbox-basic-demo.html'
 })
 export class ListboxBasicDemo {
     cities: City[];

@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastMultipleDemo {
+export class MultipleDoc {
     @Input() id: string;
 
     @Input() title: string;

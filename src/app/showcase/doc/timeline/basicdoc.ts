@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'timeline-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -58,8 +58,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-basic-demo',
-    templateUrl: './timeline-basic-demo.html',
-    styleUrls: ['./timeline-basic-demo.scss']
+    templateUrl: './timeline-basic-demo.html'
 })
 export class TimelineBasicDemo {
     events: any[];

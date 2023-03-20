@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'image-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="image-basic-demo"></app-code>
     </section>`
 })
-export class ImageBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

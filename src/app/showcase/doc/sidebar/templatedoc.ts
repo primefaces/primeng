@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'sidebar-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="sidebar-template-demo"></app-code>
     </section>`
 })
-export class SidebarTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

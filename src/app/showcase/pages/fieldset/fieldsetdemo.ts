@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/fieldset/importdoc';
-import { FieldsetBasicDemo } from '../../doc/fieldset/basicdoc';
-import { FieldsetToggleableDemo } from '../../doc/fieldset/toggleabledoc';
-import { FieldsetTemplateDemo } from '../../doc/fieldset/templatedoc';
+import { BasicDoc } from '../../doc/fieldset/basicdoc';
+import { ToggleableDoc } from '../../doc/fieldset/toggleabledoc';
+import { TemplateDoc } from '../../doc/fieldset/templatedoc';
 import { StyleDoc } from '../../doc/fieldset/styledoc';
 import { PropsDoc } from '../../doc/fieldset/propsdoc';
 import { EventsDoc } from '../../doc/fieldset/eventsdoc';
@@ -21,17 +21,17 @@ export class FieldsetDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: FieldsetBasicDemo
+            component: BasicDoc
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: FieldsetToggleableDemo
+            component: ToggleableDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: FieldsetTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

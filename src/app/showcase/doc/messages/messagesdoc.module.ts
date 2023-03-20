@@ -7,35 +7,35 @@ import { MessageModule } from 'primeng/message';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { ImportDoc } from './importdoc';
-import { MessagesBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { MessagesStyleDoc } from './messagesstyledoc';
 import { MessageStyleDoc } from './messagestyledoc';
 import { MessagesPropsDoc } from './messagespropsdoc';
 import { MessagePropsDoc } from './messagepropsdoc';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessagesSeverityDemo } from './severitydoc';
-import { MessagesClosableDemo } from './closabledoc';
-import { MessagesStaticDemo } from './staticdoc';
-import { MessagesDynamicDemo } from './dynamicdoc';
-import { MessagesServiceDemo } from './servicedoc';
-import { MessagesInlineDemo } from './inlinedoc';
-import { MessagesAnimationDemo } from './animationdoc';
+import { SeverityDoc } from './severitydoc';
+import { ClosableDoc } from './closabledoc';
+import { StaticDoc } from './staticdoc';
+import { DynamicDoc } from './dynamicdoc';
+import { ServiceDoc } from './servicedoc';
+import { InlineDoc } from './inlinedoc';
+import { AnimationDoc } from './animationdoc';
 import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
     declarations: [
-        MessagesBasicDemo,
+        BasicDoc,
         ImportDoc,
-        MessagesClosableDemo,
-        MessagesStaticDemo,
-        MessagesDynamicDemo,
-        MessagesServiceDemo,
-        MessagesSeverityDemo,
-        MessagesInlineDemo,
+        ClosableDoc,
+        StaticDoc,
+        DynamicDoc,
+        ServiceDoc,
+        SeverityDoc,
+        InlineDoc,
         MessagesStyleDoc,
-        MessagesAnimationDemo,
+        AnimationDoc,
         MessageStyleDoc,
         MessagesPropsDoc,
         MessagePropsDoc,

@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-sticky-demo',
+    selector: 'sticky-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>This demo uses position: sticky to implement sticky headers relative to body scroll position. Visit <a href="https://caniuse.com/css-sticky">here</a> for more information about the supported browsers.</p>
@@ -43,7 +43,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableStickyDemo implements OnInit {
+export class StickyDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

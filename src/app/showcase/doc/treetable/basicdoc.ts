@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
@@ -98,7 +98,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-basic-demo',
-    templateUrl: './tree-table-basic-demo.html',
+    templateUrl: './tree-table-basic-demo.html'
 })
 export class TreeTableBasicDemo implements OnInit {
     files: TreeNode[];

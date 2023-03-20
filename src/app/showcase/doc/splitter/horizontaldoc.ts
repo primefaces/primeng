@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'splitter-horizontal-demo',
+    selector: 'horizontal-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Splitter requires two SplitterPanel components as children which are displayed horizontally by default.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="splitter-horizontal-demo"></app-code>
     </section>`
 })
-export class SplitterHorizontalDemo {
+export class HorizontalDoc {
     @Input() id: string;
 
     @Input() title: string;

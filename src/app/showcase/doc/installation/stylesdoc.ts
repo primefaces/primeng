@@ -19,8 +19,7 @@ export class StylesDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-...
+        basic: `...
 "styles": [
     "node_modules/primeicons/primeicons.css",
     "node_modules/primeng/resources/themes/lara-light-blue/theme.css",

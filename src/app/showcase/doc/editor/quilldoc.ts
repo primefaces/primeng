@@ -16,7 +16,6 @@ export class QuillDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-npm install quill`
+        basic: `npm install quill`
     };
 }

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'radio-button-dynamic-demo',
+    selector: 'dynamic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>RadioButtons can be generated using a list of values.</p>
@@ -60,8 +60,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'radio-button-dynamic-demo',
-    templateUrl: './radio-button-dynamic-demo.html',
-    styleUrls: ['./radio-button-dynamic-demo.scss']
+    templateUrl: './radio-button-dynamic-demo.html'
 })
 export class RadioButtonDynamicDemo {
     selectedCategory: any = null;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'select-button-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SelectButton requires a value to bind and a collection of options.</p>
@@ -39,10 +39,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'select-button-basic-demo',
-    templateUrl: './select-button-basic-demo.html',
-    styleUrls: ['./select-button-basic-demo.scss']
+    templateUrl: './select-button-basic-demo.html'
 })
-
 export class SelectButtonBasicDemo {
     stateOptions: any[] = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
 

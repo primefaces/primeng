@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-menu-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabMenu requires a collection of menuitems as its model.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
     </section>`
 })
-export class TabMenuBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

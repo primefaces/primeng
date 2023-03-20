@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-dynamic-demo',
+    selector: 'dynamic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
@@ -31,7 +31,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableDynamicDemo {
+export class DynamicDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-chips-demo',
+    selector: 'chips-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-chips-demo',
-    templateUrl: './multiselect-chips-demo.html',
-    styleUrls: ['./multiselect-chips-demo.scss']
+    templateUrl: './multiselect-chips-demo.html'
 })
 export class MultiselectChipsDemo {
     cities: City[];

@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-target-demo',
+    selector: 'target-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the <i>key</i> property so that toast and the message can match.</p>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastTargetDemo {
+export class TargetDoc {
     @Input() id: string;
 
     @Input() title: string;

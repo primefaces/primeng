@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ScrollPanelModule } from 'primeng/scrollpanel';`
+        typescript: `import { ScrollPanelModule } from 'primeng/scrollpanel';`
     };
 }

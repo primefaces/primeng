@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'radio-button-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'radio-button-disabled-demo',
-    templateUrl: './radio-button-disabled-demo.html',
-    styleUrls: ['./radio-button-disabled-demo.scss']
+    templateUrl: './radio-button-disabled-demo.html'
 })
 export class RadioButtonDisabledDemo { }`
     };

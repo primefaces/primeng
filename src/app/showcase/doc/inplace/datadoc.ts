@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    selector: 'inplace-data-demo',
+    selector: 'data-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card">
@@ -40,7 +40,7 @@ import { CarService } from '../../service/carservice';
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
     </section>`
 })
-export class InplaceDataDemo {
+export class DataDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-sort-multiple-column-demo',
+    selector: 'sort-multiple-column-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
@@ -22,7 +22,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -67,7 +67,7 @@ export class SortMultipleColumnDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -88,7 +88,7 @@ export class SortMultipleColumnDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>

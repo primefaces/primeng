@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-column-selection-demo',
+    selector: 'column-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection using custom elements.</p>
@@ -40,7 +40,7 @@ import { ProductService } from '../../service/productservice';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
-export class TableColumnSelectionDemo implements OnInit {
+export class ColumnSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

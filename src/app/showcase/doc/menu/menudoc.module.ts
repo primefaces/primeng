@@ -6,22 +6,22 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { MenuBasicDemo } from './basicdoc';
-import { MenuCustomContentDemo } from './customdoc';
-import { MenuCommandDemo } from './commanddoc';
+import { BasicDoc } from './basicdoc';
+import { CustomContentDoc } from './customdoc';
+import { CommandDoc } from './commanddoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
-import { MenuGroupDemo } from './groupdoc';
+import { GroupDoc } from './groupdoc';
 import { ImportDoc } from './importdoc';
 import { MenuItemDoc } from './menuitemdoc';
-import { MenuNavigationDemo } from './navigationdoc';
-import { MenuPopupDemo } from './popupdoc';
+import { NavigationDoc } from './navigationdoc';
+import { PopupDoc } from './popupdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MenuModule, ToastModule, ButtonModule, AppDocModule],
-    declarations: [MenuBasicDemo, MenuCommandDemo, MenuCustomContentDemo, EventsDoc, MenuGroupDemo, ImportDoc, MenuItemDoc, MethodsDoc, MenuNavigationDemo, MenuPopupDemo, PropsDoc, StyleDoc],
+    declarations: [BasicDoc, CommandDoc, CustomContentDoc, EventsDoc, GroupDoc, ImportDoc, MenuItemDoc, MethodsDoc, NavigationDoc, PopupDoc, PropsDoc, StyleDoc],
     exports: [AppDocModule]
 })
 export class MenuDocModule {}

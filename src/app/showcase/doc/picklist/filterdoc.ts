@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'picklist-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
@@ -113,8 +113,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'picklist-filter-demo',
-    templateUrl: './picklist-filter-demo.html',
-    styleUrls: ['./picklist-filter-demo.scss']
+    templateUrl: './picklist-filter-demo.html'
 })
 export class PicklistFilterDemo {
     sourceProducts: Product[];

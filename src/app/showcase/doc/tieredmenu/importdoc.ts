@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { MenuModule } from 'primeng/menu';`
+        typescript: `import { TieredMenuModule } from 'primeng/tieredmenu';`
     };
 }

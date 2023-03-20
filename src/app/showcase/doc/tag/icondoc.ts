@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tag-icon-demo',
+    selector: 'icon-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tag-icon-demo"></app-code>
     </section>`
 })
-export class TagIconDemo {
+export class IconDoc {
     @Input() id: string;
 
     @Input() title: string;

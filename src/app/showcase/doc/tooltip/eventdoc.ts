@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tooltip-event-demo',
+    selector: 'event-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip gets displayed on <i>hover</i> event of its target by default, other option is the <i>focus</i> event to display and blur to hide.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tooltip-event-demo"></app-code>
     </section>`
 })
-export class TooltipEventDemo {
+export class EventDoc {
     @Input() id: string;
 
     @Input() title: string;

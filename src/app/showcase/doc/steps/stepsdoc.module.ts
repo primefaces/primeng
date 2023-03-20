@@ -10,24 +10,24 @@ import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { StepsBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { ConfirmationDemo } from './confirmationdemo';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
-import { StepsInteractiveDemo } from './interactivedoc';
+import { InteractiveDoc } from './interactivedoc';
 import { MenuItemDoc } from './menuitemdoc';
 import { MethodsDoc } from './methodsdoc';
 import { PaymentDemo } from './paymentdemo';
 import { PersonalDemo } from './personaldemo';
 import { PropsDoc } from './propsdoc';
-import { StepsRoutingDemo } from './routingdoc';
+import { RoutingDoc } from './routingdoc';
 import { SeatDemo } from './seatdemo';
 import { StyleDoc } from './styledoc';
 import { TicketService } from '../../service/ticketservice';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMaskModule, CheckboxModule, CardModule],
-    declarations: [StepsBasicDemo, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, StepsInteractiveDemo, EventsDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, StepsRoutingDemo],
+    declarations: [BasicDoc, ImportDoc, MenuItemDoc, MethodsDoc, PropsDoc, StyleDoc, InteractiveDoc, EventsDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc],
     exports: [AppDocModule],
     providers: [TicketService]
 })

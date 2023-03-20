@@ -95,8 +95,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dropdown-group-demo',
-    templateUrl: './dropdown-group-demo.html',
-    styleUrls: ['./dropdown-group-demo.scss']
+    templateUrl: './dropdown-group-demo.html'
 })
 export class DropdownGroupDemo {
     groupedCities: SelectItemGroup[];

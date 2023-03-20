@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { FieldsetModule } from 'primeng/fieldset';`
+        typescript: `import { FieldsetModule } from 'primeng/fieldset';`
     };
 }

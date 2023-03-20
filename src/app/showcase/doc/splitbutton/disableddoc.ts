@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -74,7 +74,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-disabled-demo',
     templateUrl: './split-button-disabled-demo.html',
-    styleUrls: ['./split-button-disabled-demo.scss'],
     providers: [ MessageService ]
 })
 export class SplitButtonDisabledDemo {

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-color-demo',
+    selector: 'color-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Colors are customized with the <i>textColor</i>, <i>rangeColor</i> and <i>valueColor</i> properties.</p>
@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-color-demo',
-    templateUrl: './knob-color-demo.html',
-    styleUrls: ['./knob-color-demo.scss']
+    templateUrl: './knob-color-demo.html'
 })
-
 export class KnobColorDemo {
     value: number = 50;
 }`

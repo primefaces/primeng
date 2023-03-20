@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-indicator-click-event-demo',
+    selector: 'click-event-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by default.</p>
@@ -18,7 +18,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-indicator-click-event-demo"></app-code>
     </section>`
 })
-export class GalleriaIndicatorClickEventDemo implements OnInit {
+export class ClickEventDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -69,8 +69,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-click-event-demo',
-    templateUrl: './galleria-indicator-click-event-demo.html',
-    styleUrls: ['./galleria-indicator-click-event-demo.scss']
+    templateUrl: './galleria-indicator-click-event-demo.html'
 })
 export class GalleriaIndicatorClickEventDemo implements OnInit {
     images: any[];

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { EventsDoc } from '../../doc/inplace/eventsdoc';
-import { InplaceImageDemo } from '../../doc/inplace/imagedoc';
+import { ImageDoc } from '../../doc/inplace/imagedoc';
 import { PropsDoc } from '../../doc/inplace/propsdoc';
 import { StyleDoc } from '../../doc/inplace/styledoc';
-import { InplaceBasicDemo } from '../../doc/inplace/basicdoc';
-import { InplaceDataDemo } from '../../doc/inplace/datadoc';
+import { BasicDoc } from '../../doc/inplace/basicdoc';
+import { DataDoc } from '../../doc/inplace/datadoc';
 import { ImportDoc } from '../../doc/inplace/importdoc';
-import { InplaceInputDemo } from '../../doc/inplace/inputdoc';
+import { InputDoc } from '../../doc/inplace/inputdoc';
 import { MethodsDoc } from '../../doc/inplace/methodsdoc';
 
 @Component({
@@ -22,22 +22,22 @@ export class InplaceDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: InplaceBasicDemo
+            component: BasicDoc
         },
         {
             id: 'input',
             label: 'Input',
-            component: InplaceInputDemo
+            component: InputDoc
         },
         {
             id: 'image',
             label: 'Image',
-            component: InplaceImageDemo
+            component: ImageDoc
         },
         {
             id: 'data',
             label: 'Data',
-            component: InplaceDataDemo
+            component: DataDoc
         },
         {
             id: 'style',

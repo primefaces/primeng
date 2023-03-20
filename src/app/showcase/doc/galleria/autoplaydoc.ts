@@ -23,7 +23,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-autoplay-demo"></app-code>
     </section>`
 })
-export class GalleriaAutoplayDemo implements OnInit {
+export class AutoPlayDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -82,8 +82,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-autoplay-demo',
-    templateUrl: './galleria-autoplay-demo.html',
-    styleUrls: ['./galleria-autoplay-demo.scss']
+    templateUrl: './galleria-autoplay-demo.html'
 })
 export class GalleriaAutoplayDemo implements OnInit {
     images: any[];

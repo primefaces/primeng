@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeSelect component requires an array of TreeNode objects as its <i>options</i> and keys of the nodes as its value.</p>
@@ -42,8 +42,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-basic-demo',
-    templateUrl: './tree-select-basic-demo.html',
-    styleUrls: ['./tree-select-basic-demo.scss'],
+    templateUrl: './tree-select-basic-demo.html'
 })
 export class TreeSelectBasicDemo {
     nodes: any[];

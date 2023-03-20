@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { SpeedDialModule } from 'primeng/speeddial';`
+        typescript: `import { SpeedDialModule } from 'primeng/speeddial';`
     };
 }

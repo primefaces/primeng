@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inplace-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>Inplace</i> component requires <i>display</i> and <i>content</i> templates to define the content of each state.</p>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="inplace-basic-demo"></app-code>
     </section>`
 })
-export class InplaceBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

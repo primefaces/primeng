@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'paginator-images-demo',
+    selector: 'images-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample image gallery implementation using paginator.</p>

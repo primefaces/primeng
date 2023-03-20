@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-disabled-demo',
-    templateUrl: './multiselect-disabled-demo.html',
-    styleUrls: ['./multiselect-disabled-demo.scss']
+    templateUrl: './multiselect-disabled-demo.html'
 })
 export class MultiselectDisabledDemo {
 

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'panel-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="panel-template-demo"></app-code>
     </section>`
 })
-export class PanelTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

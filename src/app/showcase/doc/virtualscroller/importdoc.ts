@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { VirtualScrollerModule } from 'primeng/virtualscroller';`
+        typescript: `import { VirtualScrollerModule } from 'primeng/virtualscroller';`
     };
 }

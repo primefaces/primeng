@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'sidebar-position-demo',
+    selector: 'position-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="sidebar-position-demo"></app-code>
     </section>`
 })
-export class SidebarPositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;

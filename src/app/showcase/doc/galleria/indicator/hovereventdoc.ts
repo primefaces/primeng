@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-indicator-hover-event-demo',
+    selector: 'hover-event-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>
@@ -18,7 +18,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-indicator-hover-event-demo"></app-code>
     </section>`
 })
-export class GalleriaIndicatorHoverEventDemo implements OnInit {
+export class HoverEventDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -69,8 +69,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-hover-event-demo',
-    templateUrl: './galleria-indicator-hover-event-demo.html',
-    styleUrls: ['./galleria-indicator-hover-event-demo.scss']
+    templateUrl: './galleria-indicator-hover-event-demo.html'
 })
 export class GalleriaIndicatorHoverEventDemo implements OnInit {
     images: any[];

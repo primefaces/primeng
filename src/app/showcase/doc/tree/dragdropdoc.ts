@@ -4,7 +4,7 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-drag-drop-demo',
+    selector: 'drag-drop-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>

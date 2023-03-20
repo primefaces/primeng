@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputnumber-numerals-demo',
+    selector: 'numerals-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputNumber is used as a controlled input with <i>[(ngModel)]</i> properties.</p>
@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
                 <p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
             </div>
         </div>
-        <app-code [code]="code" selector="inputnumber-numerals-demo"></app-code>
+        <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
     </section>`
 })
 export class NumeralsDoc {
@@ -73,11 +73,10 @@ export class NumeralsDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputnumber-numerals-demo',
-    templateUrl: './inputnumber-numerals-demo.html',
-    styleUrls: ['./inputnumber-numerals-demo.scss']
+    selector: 'input-number-numerals-demo',
+    templateUrl: './input-number-numerals-demo.html'
 })
-export class InputnumberNumeralsDemo {
+export class InputNumberNumeralsDemo {
     value1: number = 42723;
 
     value2: number = 58151;

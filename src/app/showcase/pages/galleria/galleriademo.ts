@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
-import { GalleriaAdvancedDemo } from '../../doc/galleria/advanceddoc';
-import { GalleriaAutoplayDemo } from '../../doc/galleria/autoplaydoc';
-import { GalleriaBasicDemo } from '../../doc/galleria/basicdoc';
-import { GalleriaCaptionDemo } from '../../doc/galleria/captiondoc';
-import { GalleriaControlledDemo } from '../../doc/galleria/controlleddoc';
-import { GalleriaFullScreenTemplateDemo } from '../../doc/galleria/fullscreen/customcontentdoc';
+import { AdvancedDoc } from '../../doc/galleria/advanceddoc';
+import { AutoPlayDoc } from '../../doc/galleria/autoplaydoc';
+import { BasicDoc } from '../../doc/galleria/basicdoc';
+import { CaptionDoc } from '../../doc/galleria/captiondoc';
+import { ControlledDoc } from '../../doc/galleria/controlleddoc';
+import { FullScreenTemplateDoc } from '../../doc/galleria/fullscreen/customcontentdoc';
 import { FullScreenDoc } from '../../doc/galleria/fullscreen/fullscreendoc';
-import { GalleriaWithoutThumbnailsDemo } from '../../doc/galleria/fullscreen/withoutthumbnailsdoc';
-import { GalleriaWithThumbnailsDemo } from '../../doc/galleria/fullscreen/withthumbnailsdoc';
+import { WithoutThumbnailsDoc } from '../../doc/galleria/fullscreen/withoutthumbnailsdoc';
+import { WithThumbnailsDoc } from '../../doc/galleria/fullscreen/withthumbnailsdoc';
 import { ImportDoc } from '../../doc/galleria/importdoc';
-import { GalleriaIndicatorClickEventDemo } from '../../doc/galleria/indicator/clickeventdoc';
-import { GalleriaIndicatorHoverEventDemo } from '../../doc/galleria/indicator/hovereventdoc';
+import { ClickEventDoc } from '../../doc/galleria/indicator/clickeventdoc';
+import { HoverEventDoc } from '../../doc/galleria/indicator/hovereventdoc';
 import { IndicatorDoc } from '../../doc/galleria/indicator/indicatordoc';
-import { GalleriaIndicatorPositionedDemo } from '../../doc/galleria/indicator/positioneddoc';
-import { GalleriaIndicatorTemplateDemo } from '../../doc/galleria/indicator/templatedoc';
+import { PositionedDoc } from '../../doc/galleria/indicator/positioneddoc';
+import { TemplateDoc } from '../../doc/galleria/indicator/templatedoc';
 import { HoverDoc } from '../../doc/galleria/navigator/hoverdoc';
 import { IndicatorsDoc } from '../../doc/galleria/navigator/indicatorsdoc';
 import { ItemThumbnailsDoc } from '../../doc/galleria/navigator/itemthumbnailsdoc';
 import { ItemWithoutThumbnailsDoc } from '../../doc/galleria/navigator/itemwithoutthumbnailsdoc';
 import { NavigatorDoc } from '../../doc/galleria/navigator/navigatordoc';
 import { PropsDoc } from '../../doc/galleria/propsdoc';
-import { GalleriaResponsiveDemo } from '../../doc/galleria/responsivedoc';
+import { ResponsiveDoc } from '../../doc/galleria/responsivedoc';
 import { StyleDoc } from '../../doc/galleria/styledoc';
-import { GalleriaThumbnailDemo } from '../../doc/galleria/thumbnaildoc';
+import { ThumbnailDoc } from '../../doc/galleria/thumbnaildoc';
 
 @Component({
     templateUrl: './galleriademo.html',
@@ -38,12 +38,12 @@ export class GalleriaDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: GalleriaBasicDemo
+            component: BasicDoc
         },
         {
             id: 'controlled',
             label: 'Controlled',
-            component: GalleriaControlledDemo
+            component: ControlledDoc
         },
         {
             id: 'indicator',
@@ -53,34 +53,34 @@ export class GalleriaDemo {
                 {
                     id: 'clickevent',
                     label: 'Click Event',
-                    component: GalleriaIndicatorClickEventDemo
+                    component: ClickEventDoc
                 },
                 {
                     id: 'hoverevent',
                     label: 'Hover Event',
-                    component: GalleriaIndicatorHoverEventDemo
+                    component: HoverEventDoc
                 },
                 {
                     id: 'positioned',
                     label: 'Positioned',
-                    component: GalleriaIndicatorPositionedDemo
+                    component: PositionedDoc
                 },
                 {
                     id: 'template',
                     label: 'Templating',
-                    component: GalleriaIndicatorTemplateDemo
+                    component: TemplateDoc
                 }
             ]
         },
         {
             id: 'thumbnail',
             label: 'Thumbnail',
-            component: GalleriaThumbnailDemo
+            component: ThumbnailDoc
         },
         {
             id: 'responsive',
             label: 'Responsive',
-            component: GalleriaResponsiveDemo
+            component: ResponsiveDoc
         },
         {
             id: 'fullscreen',
@@ -90,17 +90,17 @@ export class GalleriaDemo {
                 {
                     id: 'withthumbnails',
                     label: 'With Thumbnails',
-                    component: GalleriaWithThumbnailsDemo
+                    component: WithThumbnailsDoc
                 },
                 {
                     id: 'withtouthumbnails',
                     label: 'Without Thumbnails',
-                    component: GalleriaWithoutThumbnailsDemo
+                    component: WithoutThumbnailsDoc
                 },
                 {
                     id: 'customcontent',
                     label: 'Custom Content',
-                    component: GalleriaFullScreenTemplateDemo
+                    component: FullScreenTemplateDoc
                 }
             ]
         },
@@ -134,17 +134,17 @@ export class GalleriaDemo {
         {
             id: 'autoplay',
             label: 'AutoPlay',
-            component: GalleriaAutoplayDemo
+            component: AutoPlayDoc
         },
         {
             id: 'caption',
             label: 'Caption',
-            component: GalleriaCaptionDemo
+            component: CaptionDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: GalleriaAdvancedDemo
+            component: AdvancedDoc
         },
         {
             id: 'style',

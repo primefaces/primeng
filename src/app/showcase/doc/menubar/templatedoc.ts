@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="menubar-template-demo"></app-code>
     </section>`
 })
-export class MenubarTemplateDemo implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

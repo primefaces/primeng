@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputgroup-checkbox-demo',
+    selector: 'checkbox-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
@@ -80,10 +80,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'inputgroup-checkbox-demo',
-    templateUrl: './inputgroup-checkbox-demo.html',
-    styleUrls: ['./inputgroup-checkbox-demo.scss']
+    templateUrl: './inputgroup-checkbox-demo.html'
 })
-
 export class InputgroupCheckboxDemo {
     checkbox1!: boolean;
 

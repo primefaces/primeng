@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-horizontal-and-vertical-scroll-demo',
+    selector: 'horizontal-and-vertical-scroll-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
@@ -56,7 +56,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableHorizontalAndVerticalScrollDemo implements OnInit {
+export class HorizontalAndVerticalScrollDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

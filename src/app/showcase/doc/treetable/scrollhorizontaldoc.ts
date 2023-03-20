@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-scroll-horizontal-demo',
+    selector: 'scroll-horizontal-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
@@ -26,7 +26,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -74,7 +74,7 @@ export class ScrollHorizontalDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -99,7 +99,7 @@ export class ScrollHorizontalDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -114,9 +114,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-scroll-horizontal-demo',
-    templateUrl: './tree-table-scroll-horizontal-demo.html',
+    templateUrl: './tree-table-scroll-horizontal-demo.html'
 })
-export class TreeTableScrollHorizontalDemo implements OnInit{
+export class TreeTableScrollHorizontalDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

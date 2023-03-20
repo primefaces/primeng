@@ -8,7 +8,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-group-demo',
+    selector: 'group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Options can be grouped when a nested data structures is provided.</p>
@@ -104,8 +104,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-group-demo',
-    templateUrl: './multiselect-group-demo.html',
-    styleUrls: ['./multiselect-group-demo.scss']
+    templateUrl: './multiselect-group-demo.html'
 })
 export class MultiselectGroupDemo {
 

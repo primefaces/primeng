@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-step-demo',
+    selector: 'step-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Size of each movement is defined with the <i>step</i> property.</p>
@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-step-demo',
-    templateUrl: './knob-step-demo.html',
-    styleUrls: ['./knob-step-demo.scss']
+    templateUrl: './knob-step-demo.html'
 })
-
 export class KnobStepDemo {
     value: number;
 }`

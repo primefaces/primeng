@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-invalid-demo',
+    selector: 'invalid-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-invalid-demo',
-    templateUrl: './password-invalid-demo.html',
-    styleUrls: ['./password-invalid-demo.scss']
+    templateUrl: './password-invalid-demo.html'
 })
 export class PasswordInvalidDemo {
     value: string;

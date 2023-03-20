@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="messages-dynamic-demo"></app-code>
     </section>`
 })
-export class MessagesDynamicDemo {
+export class DynamicDoc {
     @Input() id: string;
 
     @Input() title: string;

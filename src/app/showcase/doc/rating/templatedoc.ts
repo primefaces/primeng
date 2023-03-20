@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'rating-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
@@ -64,8 +64,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'rating-template-demo',
-    templateUrl: './rating-template-demo.html',
-    styleUrls: ['./rating-template-demo.scss']
+    templateUrl: './rating-template-demo.html'
 })
 export class RatingTemplateDemo {
     value: number;

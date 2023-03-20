@@ -16,7 +16,7 @@ export class AppendToDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 import { PrimeNGConfig, OverlayOptions } from 'primeng/api';
 
 this.primengConfig.overlayOptions: OverlayOptions = {

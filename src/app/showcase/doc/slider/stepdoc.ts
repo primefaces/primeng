@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'slider-step-demo',
+    selector: 'step-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Size of each movement is defined with the <i>step</i> property.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'slider-step-demo',
-    templateUrl: './slider-step-demo.html',
-    styleUrls: ['./slider-step-demo.scss']
+    templateUrl: './slider-step-demo.html'
 })
 export class SliderStepDemo {
     value: number;

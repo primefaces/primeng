@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-column-resize-fit-mode-demo',
+    selector: 'column-resize-fit-mode-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to <i>true</i>. Fit mode is the default one and the overall table width does not change when a column is resized.</p>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableColumnResizeFitModeDemo implements OnInit {
+export class ColumnResizeFitModeDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

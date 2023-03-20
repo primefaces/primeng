@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-tooltip-demo',
+    selector: 'tooltip-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items display a tooltip on hober when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
                 <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-tooltip-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -142,12 +142,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-tooltip-demo',
-    templateUrl: './speeddial-tooltip-demo.html',
-    styleUrls: ['./speeddial-tooltip-demo.scss'],
+    selector: 'speed-dial-tooltip-demo',
+    templateUrl: './speed-dial-tooltip-demo.html',
+    styleUrls: ['./speed-dial-tooltip-demo.scss'],
     providers: [MessageService]
 })
-export class SpeeddialTooltipDemo implements OnInit {
+export class SpeedDialTooltipDemo implements OnInit {
     tooltipItems: MenuItem[];
 
     leftTooltipItems: MenuItem[];

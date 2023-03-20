@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-controlled-selection-demo',
+    selector: 'controlled-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Row selection can be controlled by utilizing <i>rowSelectable</i> and <i>disabled</i> properties.</p>
@@ -39,7 +39,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableControlledSelectionDemo implements OnInit {
+export class ControlledSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

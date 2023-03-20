@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'timeline-horizontal-demo',
+    selector: 'horizontal-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
@@ -85,8 +85,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-horizontal-demo',
-    templateUrl: './timeline-horizontal-demo.html',
-    styleUrls: ['./timeline-horizontal-demo.scss']
+    templateUrl: './timeline-horizontal-demo.html'
 })
 export class TimelineHorizontalDemo {
     events: any[];

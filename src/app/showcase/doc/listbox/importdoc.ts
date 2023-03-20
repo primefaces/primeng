@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ListboxModule } from 'primeng/listbox';`
+        typescript: `import { ListboxModule } from 'primeng/listbox';`
     };
 }

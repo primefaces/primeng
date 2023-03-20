@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { KeyFilterModule } from 'primeng/keyfilter';`
+        typescript: `import { KeyFilterModule } from 'primeng/keyfilter';`
     };
 }

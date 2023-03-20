@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-sizes-demo',
+    selector: 'sizes-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
@@ -80,7 +80,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-sizes-demo',
     templateUrl: './split-button-sizes-demo.html',
-    styleUrls: ['./split-button-sizes-demo.scss'],
     providers: [ MessageService ]
 })
 export class SplitButtonSizesDemo {

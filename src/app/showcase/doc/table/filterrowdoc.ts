@@ -5,7 +5,7 @@ import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-filter-row-demo',
+    selector: 'filter-row-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Filters are displayed inline within a separate row.</p>
@@ -109,7 +109,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableFilterRowDemo implements OnInit {
+export class FilterRowDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

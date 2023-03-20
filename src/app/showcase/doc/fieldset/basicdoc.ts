@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="fieldset-basic-demo"></app-code>
     </section>`
 })
-export class FieldsetBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

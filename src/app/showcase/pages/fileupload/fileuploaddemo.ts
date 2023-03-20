@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { FileUploadAdvancedDemo } from '../../doc/fileupload/advanceddoc';
-import { FileUploadAutoDemo } from '../../doc/fileupload/autodoc';
-import { FileUploadBasicDemo } from '../../doc/fileupload/basicdoc';
+import { AdvancedDoc } from '../../doc/fileupload/advanceddoc';
+import { AutoDoc } from '../../doc/fileupload/autodoc';
+import { BasicDoc } from '../../doc/fileupload/basicdoc';
 import { EventsDoc } from '../../doc/fileupload/eventsdoc';
 import { ImportDoc } from '../../doc/fileupload/importdoc';
 import { MethodsDoc } from '../../doc/fileupload/methodsdoc';
 import { PropsDoc } from '../../doc/fileupload/propsdoc';
 import { StyleDoc } from '../../doc/fileupload/styledoc';
-import { FileUploadTemplateDemo } from '../../doc/fileupload/templatedoc';
+import { TemplateDoc } from '../../doc/fileupload/templatedoc';
 import { TemplatesDoc } from '../../doc/fileupload/templatesdoc';
 
 @Component({
@@ -23,22 +23,22 @@ export class FileUploadDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: FileUploadBasicDemo
+            component: BasicDoc
         },
         {
             id: 'auto',
             label: 'Auto',
-            component: FileUploadAutoDemo
+            component: AutoDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: FileUploadTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'advanced',
             label: 'Advanced',
-            component: FileUploadAdvancedDemo
+            component: AdvancedDoc
         },
         {
             id: 'style',

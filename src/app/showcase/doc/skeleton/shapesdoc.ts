@@ -43,7 +43,7 @@ import { Code } from '../../domain/code';
                 </div>
             </div>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="skeleton-shapes-demo"></app-code>
     </section>`
 })
 export class ShapesDoc {
@@ -119,9 +119,9 @@ export class ShapesDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: './skeletondemo.html',
-    styleUrls: ['./skeletondemo.scss']
+    selector: 'skeleton-shapes-demo',
+    templateUrl: './skeleton-shapes-demo.html',
 })
-export class SkeletonDemo {}`
+export class SkeletonShapesDemo {}`
     };
 }

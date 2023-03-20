@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
@@ -56,10 +56,8 @@ interface City {
 
 @Component({
     selector: 'multiselect-filter-demo',
-    templateUrl: './multiselect-filter-demo.html',
-    styleUrls: ['./multiselect-filter-demo.scss']
+    templateUrl: './multiselect-filter-demo.html'
 })
-
 export class MultiselectFilterDemo {
 
     cities: City[];

@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-disabled-demo',
-    templateUrl: './dropdown-disabled-demo.html',
-    styleUrls: ['./dropdown-disabled-demo.scss']
+    templateUrl: './dropdown-disabled-demo.html'
 })
 export class DropdownDisabledDemo {
     cities: City[];

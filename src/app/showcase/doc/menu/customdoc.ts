@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'menu-custom-content-demo',
+    selector: 'custom-content-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="menu-custom-content-demo"></app-code>
     </section>`
 })
-export class MenuCustomContentDemo implements OnInit {
+export class CustomContentDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

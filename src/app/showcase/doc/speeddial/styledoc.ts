@@ -20,19 +20,19 @@ import { Component, Input } from '@angular/core';
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-speeddial-button</td>
+                        <td>p-speed-dial-button</td>
                         <td>Button element of speeddial.</td>
                     </tr>
                     <tr>
-                        <td>p-speeddial-mask</td>
+                        <td>p-speed-dial-mask</td>
                         <td>Mask element of speeddial.</td>
                     </tr>
                     <tr>
-                        <td>p-speeddial-list</td>
+                        <td>p-speed-dial-list</td>
                         <td>List of the actions.</td>
                     </tr>
                     <tr>
-                        <td>p-speeddial-item</td>
+                        <td>p-speed-dial-item</td>
                         <td>Each action item of list.</td>
                     </tr>
                 </tbody>

@@ -3,7 +3,7 @@ import { Scroller } from 'primeng/scroller';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroller-programmatic-demo',
+    selector: 'programmatic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

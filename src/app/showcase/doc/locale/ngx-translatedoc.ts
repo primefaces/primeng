@@ -16,7 +16,7 @@ export class NgxTranslateDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';

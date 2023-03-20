@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputswitch-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way binding to a boolean property is defined using the standard ngModel directive.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
         </div>
-        <app-code [code]="code" selector="inputswitch-basic-demo"></app-code>
+        <app-code [code]="code" selector="input-switch-basic-demo"></app-code>
     </section>`
 })
 export class BasicDoc {
@@ -33,11 +33,10 @@ export class BasicDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputswitch-basic-demo',
-    templateUrl: './inputswitch-basic-demo.html',
-    styleUrls: ['./inputswitch-basic-demo.scss']
+    selector: 'input-switch-basic-demo',
+    templateUrl: './input-switch-basic-demo.html'
 })
-export class InputswitchBasicDemo {
+export class InputSwitchBasicDemo {
     checked: boolean;
 }`
     };

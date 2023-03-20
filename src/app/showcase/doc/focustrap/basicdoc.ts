@@ -39,7 +39,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
     </section>`
 })
-export class FocusTrapBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -106,7 +106,7 @@ import { Component } from '@angular/core';
     selector: 'focus-trap-basic-demo',
     templateUrl: './focus-trap-basic-demo.html'
 })
-export class FocusTrapBasicDemo {
+export class BasicDoc {
     selectedCity!: string;
 
     cities = [

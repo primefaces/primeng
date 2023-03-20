@@ -6,7 +6,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'overlay-panel-data-table-demo',
+    selector: 'data-table-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An example that displays a DataTable inside a popup to select an item.</p>
@@ -49,7 +49,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     providers: [MessageService]
 })
-export class OverlayPanelDataTableDemo implements OnInit {
+export class DataTableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

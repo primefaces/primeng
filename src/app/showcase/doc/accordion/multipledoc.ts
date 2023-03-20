@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'accordion-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Only one tab at a time can be active by default, enabling <i>multiple</i> property changes this behavior to allow multiple tabs. In this case <i>activeIndex</i> needs to be an array.</p>

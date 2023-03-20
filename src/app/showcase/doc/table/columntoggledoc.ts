@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-column-toggle-demo',
+    selector: 'column-toggle-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
@@ -36,7 +36,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableColumnToggleDemo implements OnInit {
+export class ColumnToggleDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

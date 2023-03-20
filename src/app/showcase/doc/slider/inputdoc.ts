@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'slider-input-demo',
+    selector: 'input-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Slider is connected to an input field using two-way binding.</p>
@@ -43,8 +43,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'slider-input-demo',
-    templateUrl: './slider-input-demo.html',
-    styleUrls: ['./slider-input-demo.scss']
+    templateUrl: './slider-input-demo.html'
 })
 export class SliderInputDemo {
     value: number = 50;

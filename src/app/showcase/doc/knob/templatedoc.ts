@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label is a string template that can be customized with the <i>valueTemplate</i> property having 60 as the placeholder .</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-template-demo',
-    templateUrl: './knob-template-demo.html',
-    styleUrls: ['./knob-template-demo.scss']
+    templateUrl: './knob-template-demo.html'
 })
 export class KnobTemplateDemo {
     value: number = 60;

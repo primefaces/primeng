@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-resize-fit-demo',
+    selector: 'resize-fit-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>
@@ -21,7 +21,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -64,7 +64,7 @@ export class ResizeFitDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -84,7 +84,7 @@ export class ResizeFitDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -99,9 +99,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-resize-fit-demo',
-    templateUrl: './tree-table-resize-fit-demo.html',
+    templateUrl: './tree-table-resize-fit-demo.html'
 })
-export class TreeTableResizeFitDemo implements OnInit{
+export class TreeTableResizeFitDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
                 </div>
             </div>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="skeleton-card-demo"></app-code>
     </section>`
 })
 export class CardDoc {
@@ -71,9 +71,9 @@ export class CardDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: './skeletondemo.html',
-    styleUrls: ['./skeletondemo.scss']
+    selector: 'skeleton-card-demo',
+    templateUrl: './skeleton-card-demo.html'
 })
-export class SkeletonDemo {}`
+export class SkeletonCardDemo {}`
     };
 }

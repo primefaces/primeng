@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputgroup-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple add-ons can be placed inside the same group.</p>
@@ -64,8 +64,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'inputgroup-multiple-demo',
-    templateUrl: './inputgroup-multiple-demo.html',
-    styleUrls: ['./inputgroup-multiple-demo.scss']
+    templateUrl: './inputgroup-multiple-demo.html'
 })
 export class InputgroupMultipleDemo {
 }`

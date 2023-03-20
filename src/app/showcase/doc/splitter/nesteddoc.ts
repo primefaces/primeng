@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'splitter-nested-demo',
+    selector: 'nested-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Splitters can be combined to create advanced layouts.</p>
@@ -34,7 +34,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="splitter-nested-demo"></app-code>
     </section>`
 })
-export class SplitterNestedDemo {
+export class NestedDoc {
     @Input() id: string;
 
     @Input() title: string;
