@@ -1,103 +1,15 @@
 .layout-config {
-    a {
-        color: $linkColor;
-        font-weight: 600;
-
-        &:hover {
-            text-decoration: underline;
+    .grid {
+        > div {
+            padding: 1rem;
         }
+
     }
-
-    .config-scale {
-        display: flex;
-        align-items: center;
-        margin: 1rem 0 2rem 0;
-
-        .p-button {
-            margin-right: .5rem;
-        }
-
-        i {
-            margin-right: .5rem;
-            font-size: .75rem;
-            color: var(--text-color-secondary);
-
-            &.scale-active {
-                font-size: 1.25rem;
-                color: var(--primary-color);
-            }
-        }
-    }
-
-    .layout-config-close {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        line-height: 25px;
-        text-align: center;
-        right: 20px;
-        top: 20px;
-        z-index: 1102;
-        background-color: var(--primary-color);
-        border-radius: 50%;
-        transition: background-color .2s, box-shadow .2s, transform .2s;
-
-        i {
-            color:  var(--primary-color-text);
-            line-height: inherit;
-            font-size: 14px;
-        }
+    img {
+        transition: transform .2s;
 
         &:hover {
             transform: scale(1.1);
-        }
-
-        &:focus {
-            outline: 0 none;
-            box-shadow: var(--focus-ring);
-        }
-    }
-
-    .grid > div {
-        padding: 1rem;
-        text-align: center;
-
-        span {
-            display: block;
-        }
-
-        button {
-            position: relative;
-            display: inline-flex;
-            justify-content: center;
-        }
-    }
-
-    .free-themes {
-        img {
-            width: 50px;
-            border-radius: 4px;
-            transition: transform .2s;
-
-            &:hover {
-                transform: scale(1.1);
-            }
-        }
-
-        span {
-            font-size: .875rem;
-            margin-top: .25rem;
-        }
-    }
-
-    .premium-themes {
-        img {
-            width: 100%;
-            transition: transform .2s;
-
-            &:hover {
-                transform: scale(1.1);
-            }
         }
     }
 }

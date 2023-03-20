@@ -518,6 +518,24 @@
             "href": "https://www.primefaces.org/primeflex"
         },
         {
+            "name": "Support",
+            "icon": "pi pi-question",
+            "children": [
+                {
+                    "name": "Discord Server",
+                    "href": "https://discord.gg/gzKFYnpmCY"
+                },
+                {
+                    "name": "Forum",
+                    "href": "https://forum.primefaces.org/viewforum.php?f=35"
+                },
+                {
+                    "name": "PRO Support",
+                    "routerLink": "/support"
+                }
+            ]
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -556,24 +574,6 @@
                 {
                     "name": "PrimeGear",
                     "href": "https://gear.primefaces.org"
-                }
-            ]
-        },
-        {
-            "name": "Support",
-            "icon": "pi pi-question",
-            "children": [
-                {
-                    "name": "Discord Server",
-                    "href": "https://discord.gg/gzKFYnpmCY"
-                },
-                {
-                    "name": "Forum",
-                    "href": "https://forum.primefaces.org/viewforum.php?f=35"
-                },
-                {
-                    "name": "PRO Support",
-                    "routerLink": "/support"
                 }
             ]
         }
