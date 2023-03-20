@@ -7,7 +7,7 @@ import { NodeService } from '../../service/nodeservice';
     selector: 'tree-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
+            <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>

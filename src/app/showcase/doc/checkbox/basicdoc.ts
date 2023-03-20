@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'checkbox-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Checkbox can either be used in multiple selection with other checkboxes or as a single checkbox to provide a boolean value.</p>
+            <p>Binary checkbox is used as a controlled input with <i>ngModel</i> and <i>binary</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>

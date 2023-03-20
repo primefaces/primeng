@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'color-picker-format-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Default color format to use in value binding is "hex" and other possible values are "rgb" and "hsb". Example below has 3 colorpickers having default values with different formats.</p>
+            <p>Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using the <i>format</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3">
             <div class="flex-1 flex flex-column align-items-center gap-3">

@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'slider-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Two-way binding is defined using the standard ngModel directive.</p>
+            <p>Two-way binding is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-slider [(ngModel)]="value"></p-slider>

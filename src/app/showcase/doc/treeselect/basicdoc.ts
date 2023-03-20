@@ -6,7 +6,8 @@ import { NodeService } from '../../service/nodeservice';
     selector: 'tree-select-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>TreeSelect component requires an array of TreeNode objects as its <i>options</i> and keys of the nodes as its value.</p>
+            <p>TreeSelect is used as a controlled component with <i>v-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
+            <p>In single selection mode, value binding should be the <i>key</i> value of a node.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>

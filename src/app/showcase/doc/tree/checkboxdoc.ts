@@ -8,9 +8,7 @@ import { NodeService } from '../../service/nodeservice';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
-            <p>In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that has <i>checked</i> and <i>partialChecked</i> properties to represent the checked state of a node</p>
         </app-docsectiontext>
-        <app-code [code]="miniCode" [hideToggleCode]="true"></app-code>
         <div class="card flex flex-column align-items-center justify-content-center">
             <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
         </div>
@@ -31,16 +29,6 @@ export class CheckboxDoc implements OnInit {
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
-
-    miniCode: Code = {
-        typescript: `
-{
-    '0-0': {
-        partialChecked: false,
-        checked: true
-    }
-}`
-    };
 
     code: Code = {
         basic: `

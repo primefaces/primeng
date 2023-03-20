@@ -87,8 +87,8 @@ export class CalendarDemo {
             component: YearDoc
         },
         {
-            id: 'multiplemonth',
-            label: 'Multiple Month',
+            id: 'multiplemonths',
+            label: 'Multiple Months',
             component: MultipleMonthDoc
         },
         {

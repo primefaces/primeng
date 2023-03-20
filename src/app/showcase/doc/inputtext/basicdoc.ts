@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'inputtext-basic-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>InputText is applied to an input field with pInputText directive.</p>
+            <p>InputText is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <input type="text" pInputText [(ngModel)]="value" />

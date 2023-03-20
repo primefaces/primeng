@@ -24,8 +24,8 @@ export class CheckboxDemo {
             component: BasicDoc
         },
         {
-            id: 'multiple',
-            label: 'Multiple',
+            id: 'group',
+            label: 'Group',
             component: MultipleDoc
         },
         {

@@ -24,8 +24,8 @@ export class PaginatorDemo {
             component: BasicDoc
         },
         {
-            id: 'custom',
-            label: 'Custom',
+            id: 'template',
+            label: 'Template',
             component: TemplateDoc
         },
         {

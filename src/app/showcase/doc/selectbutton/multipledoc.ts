@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'select-button-multiple-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>SelectButton allows selecting only one item by default and enabling <i>multiple</i> allows choosing more. In multiple case, model property should be an array instead of a single value.</p>
+            <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>

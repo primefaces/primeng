@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
     selector: 'data-view-pagination-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the Paginator for more information about customizing the paginator.</p>
+            <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [rows]="9" [paginator]="true">

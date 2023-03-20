@@ -35,8 +35,8 @@ export class EditorDemo {
             component: ReadOnlyDoc
         },
         {
-            id: 'customtoolbar',
-            label: 'Custom Toolbar',
+            id: 'template',
+            label: 'Template',
             component: CustomToolbarDoc
         },
         {
