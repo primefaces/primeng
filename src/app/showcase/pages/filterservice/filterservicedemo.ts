@@ -4,7 +4,7 @@ import { BuiltInConstraintsDoc } from '../../doc/filterservice/builtinconstraint
 import { CustomConstraintsDoc } from '../../doc/filterservice/customconstraintsdoc';
 import { ImportDoc } from '../../doc/filterservice/importdoc';
 import { UsageDoc } from '../../doc/filterservice/usagedoc';
-import { FilterServiceTableIntegrationDemo } from '../../doc/filterservice/tableintegrationdoc';
+import { TableIntegrationDoc } from '../../doc/filterservice/tableintegrationdoc';
 
 @Component({
     templateUrl: './filterservicedemo.html'
@@ -34,7 +34,7 @@ export class FilterServiceDemo {
         {
             id: 'table-integration',
             label: 'Table Integration',
-            component: FilterServiceTableIntegrationDemo
+            component: TableIntegrationDoc
         },
         {
             id: 'api',

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'styleclass-animation-demo',
+    selector: 'animation-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="style-class-animation-demo"></app-code>
     </section>`
 })
-export class StyleClassAnimationDemo {
+export class AnimationDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -54,8 +54,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: './style-class-animation-demo',
-    templateUrl: './style-class-animation-demo.html',
-    styleUrls: ['./style-class-animation-demo.scss']
+    templateUrl: './style-class-animation-demo.html'
 })
 export class StyleClassAnimationDemo {}`
     };

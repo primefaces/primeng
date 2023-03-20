@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-single-demo',
+    selector: 'single-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
@@ -46,8 +46,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-single-demo',
-    templateUrl: './tree-single-demo.html',
-    styleUrls: ['./tree-single-demo.scss']
+    templateUrl: './tree-single-demo.html'
 })
 export class TreeSingleDemo implements OnInit {
     files: TreeNode[];

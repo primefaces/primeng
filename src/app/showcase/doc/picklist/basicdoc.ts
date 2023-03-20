@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'picklist-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>OrderList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
@@ -98,8 +98,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'picklist-basic-demo',
-    templateUrl: './picklist-basic-demo.html',
-    styleUrls: ['./picklist-basic-demo.scss']
+    templateUrl: './picklist-basic-demo.html'
 })
 export class PicklistBasicDemo {
     sourceProducts: Product[];

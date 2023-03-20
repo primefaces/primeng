@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-single-selection-demo',
+    selector: 'single-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -40,7 +40,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableSingleSelectionDemo implements OnInit {
+export class SingleSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -93,8 +93,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'dropdown-template-demo',
-    templateUrl: './dropdown-template-demo.html',
-    styleUrls: ['./dropdown-template-demo.scss']
+    templateUrl: './dropdown-template-demo.html'
 })
 export class DropdownTemplateDemo {
     countries: any[];

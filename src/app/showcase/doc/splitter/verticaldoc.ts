@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'splitter-vertical-demo',
+    selector: 'vertical-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="splitter-vertical-demo"></app-code>
     </section>`
 })
-export class SplitterVerticalDemo {
+export class VerticalDoc {
     @Input() id: string;
 
     @Input() title: string;

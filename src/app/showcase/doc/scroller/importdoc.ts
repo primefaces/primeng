@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ScrollerModule } from 'primeng/scroller';`
+        typescript: `import { ScrollerModule } from 'primeng/scroller';`
     };
 }

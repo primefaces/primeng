@@ -16,7 +16,7 @@ export class UsageDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 export class FilterServiceDemo implements OnInit {
 
     constructor(private filterService: FilterService) {}

@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'orderlist-drag-drop-demo',
+    selector: 'drag-drop-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
@@ -95,8 +95,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'orderlist-drag-drop-demo',
-    templateUrl: './orderlist-drag-drop-demo.html',
-    styleUrls: ['./orderlist-drag-drop-demo.scss']
+    templateUrl: './orderlist-drag-drop-demo.html'
 })
 export class OrderlistDragDropDemo implements OnInit {
     products: Product[];

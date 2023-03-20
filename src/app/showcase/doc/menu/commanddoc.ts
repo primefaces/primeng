@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'menu-command-demo',
+    selector: 'command-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class MenuCommandDemo implements OnInit {
+export class CommandDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

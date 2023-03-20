@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class FileUploadBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -36,7 +36,7 @@ export class FileUploadBasicDemo {
     <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
 </div>`,
         typescript: `
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'select-button-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
@@ -40,10 +40,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'select-button-multiple-demo',
-    templateUrl: './select-button-multiple-demo.html',
-    styleUrls: ['./select-button-multiple-demo.scss']
+    templateUrl: './select-button-multiple-demo.html'
 })
-
 export class SelectButtonMultipleDemo {
     value: number;
     

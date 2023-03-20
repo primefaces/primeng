@@ -65,8 +65,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-floatlabel-demo',
-    templateUrl: './dropdown-floatlabel-demo.html',
-    styleUrls: ['./dropdown-floatlabel-demo.scss']
+    templateUrl: './dropdown-floatlabel-demo.html'
 })
 export class DropdownFloatlabelDemo {
     cities: City[];

@@ -59,8 +59,7 @@ interface City {
 }
 @Component({
     selector: 'dropdown-basic-demo',
-    templateUrl: './dropdown-basic-demo.html',
-    styleUrls: ['./dropdown-basic-demo.scss']
+    templateUrl: './dropdown-basic-demo.html'
 })
 export class DropdownBasicDemo {
     cities: City[];

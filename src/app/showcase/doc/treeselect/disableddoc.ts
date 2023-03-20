@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -42,8 +42,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-disabled-demo',
-    templateUrl: './tree-select-disabled-demo.html',
-    styleUrls: ['./tree-select-disabled-demo.scss'],
+    templateUrl: './tree-select-disabled-demo.html'
 })
 export class TreeSelectDisabledDemo {
     nodes: any[];

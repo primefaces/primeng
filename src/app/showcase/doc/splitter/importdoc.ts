@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { SplitterModule } from 'primeng/splitter';`
+        typescript: `import { SplitterModule } from 'primeng/splitter';`
     };
 }

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'timeline-opposite-demo',
+    selector: 'opposite-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
@@ -64,8 +64,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'timeline-opposite-demo',
-    templateUrl: './timeline-opposite-demo.html',
-    styleUrls: ['./timeline-opposite-demo.scss']
+    templateUrl: './timeline-opposite-demo.html'
 })
 export class TimelineOppositeDemo {
     events: any[];

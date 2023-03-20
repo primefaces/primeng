@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { PanelTemplateDemo } from '../../doc/panel/templatedoc';
-import { PanelBasicDemo } from '../../doc/panel/basicdoc';
+import { TemplateDoc } from '../../doc/panel/templatedoc';
+import { BasicDoc } from '../../doc/panel/basicdoc';
 import { ImportDoc } from '../../doc/panel/importdoc';
-import { PanelToggleableDemo } from '../../doc/panel/toggleabledoc';
+import { ToggleableDoc } from '../../doc/panel/toggleabledoc';
 import { StyleDoc } from '../../doc/panel/styledoc';
 import { PropsDoc } from '../../doc/panel/propsdoc';
 import { EventsDoc } from '../../doc/panel/eventsdoc';
@@ -21,17 +21,17 @@ export class PanelDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: PanelBasicDemo
+            component: BasicDoc
         },
         {
             id: 'toggleable',
             label: 'Toggleable',
-            component: PanelToggleableDemo
+            component: ToggleableDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: PanelTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

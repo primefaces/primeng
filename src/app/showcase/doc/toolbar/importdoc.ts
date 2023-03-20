@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ToolbarModule } from 'primeng/toolbar';`
+        typescript: `import { ToolbarModule } from 'primeng/toolbar';`
     };
 }

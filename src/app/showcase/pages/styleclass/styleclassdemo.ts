@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/styleclass/importdoc';
 import { PropsDoc } from '../../doc/styleclass/propsdoc';
-import { StyleClassAnimationDemo } from '../../doc/styleclass/animationdoc';
-import { StyleClassToggleClassDemo } from '../../doc/styleclass/toggleclassdoc';
+import { AnimationDoc } from '../../doc/styleclass/animationdoc';
+import { ToggleClassDoc } from '../../doc/styleclass/toggleclassdoc';
 
 @Component({
     templateUrl: './styleclassdemo.html'
@@ -17,12 +17,12 @@ export class StyleClassDemo {
         {
             id: 'toggleclass',
             label: 'Toggle Class',
-            component: StyleClassToggleClassDemo
+            component: ToggleClassDoc
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: StyleClassAnimationDemo
+            component: AnimationDoc
         }
     ];
 

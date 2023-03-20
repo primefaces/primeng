@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputtext-helptext-demo',
+    selector: 'helptext-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                 <small id="username-help">Enter your username to reset your password.</small>
             </div>
         </div>
-        <app-code [code]="code" selector="inputtext-helptext-demo"></app-code>
+        <app-code [code]="code" selector="input-text-help-text-demo"></app-code>
     </section>`
 })
 export class HelpTextDoc {
@@ -45,11 +45,10 @@ export class HelpTextDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputtext-helptext-demo',
-    templateUrl: './inputtext-helptext-demo.html',
-    styleUrls: ['./inputtext-helptext-demo.scss']
+    selector: 'input-text-help-text-demo',
+    templateUrl: './input-text-help-text-demo.html'
 })
-export class InputtextHelptextDemo {
+export class InputTextHelpTextDemo {
     value: string;
 }`
     };

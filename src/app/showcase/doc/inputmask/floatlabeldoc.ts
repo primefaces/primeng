@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputmask-floatlabel-demo',
+    selector: 'floatlabel-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
                 <label htmlFor="ssn_input">SSN</label>
             </span>
         </div>
-        <app-code [code]="code" selector="inputmask-floatlabel-demo"></app-code>
+        <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
     </section>`
 })
 export class FloatlabelDoc {
@@ -42,11 +42,10 @@ export class FloatlabelDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputmask-floatlabel-demo',
-    templateUrl: './inputmask-floatlabel-demo.html',
-    styleUrls: ['./inputmask-floatlabel-demo.scss']
+    selector: 'input-mask-floatlabel-demo',
+    templateUrl: './input-mask-floatlabel-demo.html'
 })
-export class InputmaskFloatlabelDemo {
+export class InputMaskFloatlabelDemo {
     value: string;
 }`
     };

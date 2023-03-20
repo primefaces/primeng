@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-menu-template-demo"></app-code>
     </section>`
 })
-export class TabMenuTemplateDemo implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

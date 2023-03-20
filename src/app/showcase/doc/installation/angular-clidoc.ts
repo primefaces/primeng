@@ -18,8 +18,7 @@ export class AngularCliDoc {
     @Input() title: string;
 
     code1: Code = {
-        basic: `
-"dependencies": {
+        basic: `"dependencies": {
     //...
     "primeng": "^15.0.0",
     "primeicons": "^6.0.0"

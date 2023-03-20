@@ -16,7 +16,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        html: `
-import { InputTextModule } from 'primeng/inputtext';`
+        typescript: `import { InputTextModule } from 'primeng/inputtext';`
     };
 }

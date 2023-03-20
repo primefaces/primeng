@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-scroll-frozen-columns-demo',
+    selector: 'scroll-frozen-columns-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A column can be fixed during horizontal scrolling by enabling the <i>frozenColumns</i> property.</p>
@@ -150,9 +150,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-scroll-frozen-columns-demo',
-    templateUrl: './tree-table-scroll-frozen-columns-demo.html',
+    templateUrl: './tree-table-scroll-frozen-columns-demo.html'
 })
-export class TreeTableScrollFrozenColumnsDemo implements OnInit{
+export class TreeTableScrollFrozenColumnsDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

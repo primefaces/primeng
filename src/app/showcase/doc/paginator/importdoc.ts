@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { PaginatorModule } from 'primeng/paginator';`
+        typescript: `import { PaginatorModule } from 'primeng/paginator';`
     };
 }

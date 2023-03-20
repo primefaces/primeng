@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroll-top-element-demo',
+    selector: 'element-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>
@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
     </section>`
 })
-export class ScrollTopElementDemo {
+export class ElementDoc {
     @Input() id: string;
 
     @Input() title: string;

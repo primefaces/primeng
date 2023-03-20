@@ -4,7 +4,7 @@ import { MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-lazy-demo',
+    selector: 'lazy-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>

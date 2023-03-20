@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-outlined-demo',
+    selector: 'outlined-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Outlined buttons display a border without a background initially.</p>
@@ -92,7 +92,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-outlined-demo',
     templateUrl: './split-button-outlined-demo.html',
-    styleUrls: ['./split-button-outlined-demo.scss'],
     providers: [MessageService]
 })
 export class SplitButtonOutlinedDemo {

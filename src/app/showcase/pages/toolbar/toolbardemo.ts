@@ -3,7 +3,7 @@ import { StyleDoc } from '../../doc/toolbar/styledoc';
 import { ImportDoc } from '../../doc/toolbar/importdoc';
 import { PropsDoc } from '../../doc/toolbar/propsdoc';
 import { TemplatesDoc } from '../../doc/toolbar/templatesdoc';
-import { ToolbarBasicDemo } from '../../doc/toolbar/basicdoc';
+import { BasicDoc } from '../../doc/toolbar/basicdoc';
 
 @Component({
     templateUrl: './toolbardemo.html'
@@ -18,7 +18,7 @@ export class ToolbarDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: ToolbarBasicDemo
+            component: BasicDoc
         },
         {
             id: 'style',

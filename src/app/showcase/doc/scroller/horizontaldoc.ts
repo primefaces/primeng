@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroller-horizontal-demo',
+    selector: 'horizontal-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
         <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>

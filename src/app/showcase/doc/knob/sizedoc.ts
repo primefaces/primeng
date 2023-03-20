@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-size-demo',
+    selector: 'size-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Diameter of the knob is defined in pixels using the <i>size</i> property.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-size-demo',
-    templateUrl: './knob-size-demo.html',
-    styleUrls: ['./knob-size-demo.scss']
+    templateUrl: './knob-size-demo.html'
 })
 export class KnobSizeDemo {
     value: number = 60;

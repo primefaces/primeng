@@ -26,7 +26,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-thumbnail-demo"></app-code>
     </section>`
 })
-export class GalleriaThumbnailDemo implements OnInit {
+export class ThumbnailDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -109,8 +109,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-thumbnail-demo',
-    templateUrl: './galleria-thumbnail-demo.html',
-    styleUrls: ['./galleria-thumbnail-demo.scss']
+    templateUrl: './galleria-thumbnail-demo.html'
 })
 export class GalleriaThumbnailDemo implements OnInit {
     images: any[];

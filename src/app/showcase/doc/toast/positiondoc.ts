@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-position-demo',
+    selector: 'position-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastPositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -78,19 +78,6 @@ export class ToastPositionDemo {
     showBottomCenter() {
         this.messageService.add({ key: 'bc', severity: 'success', summary: 'Success', detail: 'Message Content' });
     }
-}`,
-        module: `
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { ButtonModule } from 'primeng/button';
-import { ToastDemo } from './toastdemo';
-
-@NgModule({
-    imports: [CommonModule, ToastModule, ButtonModule, RippleModule],
-    declarations: [ToastDemo]
-})
-export class ToastDemoModule {}`
+}`
     };
 }

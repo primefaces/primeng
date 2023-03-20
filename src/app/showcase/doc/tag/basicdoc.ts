@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tag-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label of the tag is defined with the <i>value</i> property.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
     </section>`
 })
-export class TagBasicDDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

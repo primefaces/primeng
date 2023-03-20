@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-readonly-demo',
+    selector: 'readonly-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>readonly</i> present, value cannot be edited.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-readonly-demo',
-    templateUrl: './knob-readonly-demo.html',
-    styleUrls: ['./knob-readonly-demo.scss']
+    templateUrl: './knob-readonly-demo.html'
 })
 export class KnobReadonlyDemo {
     value: number = 50;

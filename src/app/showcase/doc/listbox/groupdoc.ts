@@ -8,7 +8,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'listbox-group-demo',
+    selector: 'group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Options can be grouped when a nested data structures is provided.</p>
@@ -103,9 +103,8 @@ interface Country {
 }
 
 @Component({
-        selector: 'listbox-group-demo',
-        templateUrl: './listbox-group-demo.html',
-        styleUrls: ['./listbox-group-demo.scss']
+    selector: 'listbox-group-demo',
+    templateUrl: './listbox-group-demo.html'
 })
 export class ListboxGroupDemo {
     groupedCities: SelectItemGroup[];

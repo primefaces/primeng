@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputtextarea-keyfilter-demo',
+    selector: 'key-filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <textarea pKeyFilter="int" rows="5" cols="30" pInputTextarea></textarea>
         </div>
-        <app-code [code]="code" selector="inputtextarea-keyfilter-demo"></app-code>
+        <app-code [code]="code" selector="input-textarea-key-filter-demo"></app-code>
     </section>`
 })
 export class KeyfilterDoc {
@@ -31,11 +31,10 @@ export class KeyfilterDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputtextarea-keyfilter-demo',
-    templateUrl: './inputtextarea-keyfilter-demo.html',
-    styleUrls: ['./inputtextarea-keyfilter-demo.scss']
+    selector:'input-textarea-key-filter-demo',
+    templateUrl: './input-textarea-key-filter-demo.html'
 })
-export class InputtextareaKeyfilterDemo {
+export class InputTextareaKeyFilterDemo {
 }`
     };
 }

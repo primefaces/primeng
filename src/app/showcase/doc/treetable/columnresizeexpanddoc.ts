@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-resize-expand-demo',
+    selector: 'resize-expand-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
@@ -21,7 +21,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -64,7 +64,7 @@ export class ResizeExpandDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr>
             <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -84,7 +84,7 @@ export class ResizeExpandDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -99,9 +99,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-resize-expand-demo',
-    templateUrl: './tree-table-resize-expand-demo.html',
+    templateUrl: './tree-table-resize-expand-demo.html'
 })
-export class TreeTableResizeExpandDemo implements OnInit{
+export class TreeTableResizeExpandDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

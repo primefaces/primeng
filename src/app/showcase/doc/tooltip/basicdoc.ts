@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tooltip-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tooltip-basic-demo"></app-code>
     </section>`
 })
-export class TooltipBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

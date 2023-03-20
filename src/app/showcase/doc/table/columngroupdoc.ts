@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@a
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'table-column-group-demo',
+    selector: 'column-group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
@@ -47,7 +47,7 @@ import { Code } from '../../domain/code';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableColumnGroupDemo {
+export class ColumnGroupDoc {
     @Input() id: string;
 
     @Input() title: string;

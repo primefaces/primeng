@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -64,8 +64,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-multiple-demo',
-    templateUrl: './tree-multiple-demo.html',
-    styleUrls: ['./tree-multiple-demo.scss']
+    templateUrl: './tree-multiple-demo.html'
 })
 export class TreeMultipleDemo implements OnInit {
     metaKeySelection: boolean = false;

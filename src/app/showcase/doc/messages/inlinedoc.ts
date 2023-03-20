@@ -35,7 +35,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="messages-inline-demo"></app-code>
     </section>`
 })
-export class MessagesInlineDemo {
+export class InlineDoc {
     @Input() id: string;
 
     @Input() title: string;

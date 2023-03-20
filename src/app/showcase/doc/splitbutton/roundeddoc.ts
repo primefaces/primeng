@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-rounded-demo',
+    selector: 'rounded-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Rounded buttons have a circular border radius.</p>
@@ -92,7 +92,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-rounded-demo',
     templateUrl: './split-button-rounded-demo.html',
-    styleUrls: ['./split-button-rounded-demo.scss'],
     providers: [MessageService]
 })
 export class SplitButtonRoundedDemo {

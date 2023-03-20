@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'messages-static-demo',
+    selector: 'static-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Alternative way to provide the content for the messages is templating. In this case value property and message service is ignored and only static is displayed.</p>
@@ -15,10 +15,10 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-messages>
         </div>
-        <app-code [code]="code" selector=""></app-code>
+        <app-code [code]="code" selector="messages-static-demo"></app-code>
     </section>`
 })
-export class MessagesStaticDemo {
+export class StaticDoc {
     @Input() id: string;
 
     @Input() title: string;

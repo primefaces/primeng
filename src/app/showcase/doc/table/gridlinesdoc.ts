@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-gridlines-demo',
+    selector: 'gridlines-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableGridlinesDemo {
+export class GridlinesDoc {
     @Input() id: string;
 
     @Input() title: string;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'sidebar-size-demo',
+    selector: 'size-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar dimension can be defined with <i>style</i> or <i>styleClass</i> properties which can also be responsive when used with a CSS utility library like PrimeFlex.</p>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="sidebar-size-demo"></app-code>
     </section>`
 })
-export class SidebarSizeDemo {
+export class SizeDoc {
     @Input() id: string;
 
     @Input() title: string;

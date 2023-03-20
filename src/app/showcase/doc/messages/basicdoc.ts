@@ -3,7 +3,7 @@ import { Message } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'messages-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="messages-basic-demo"></app-code>
     </section>`
 })
-export class MessagesBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -40,7 +40,7 @@ import { NodeService } from '../../service/nodeservice';
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                     <tr>
                         <td *ngFor="let col of cols; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
@@ -110,7 +110,7 @@ export class FilterDoc implements OnInit {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td *ngFor="let col of cols; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
             </td>
         </tr>
@@ -151,7 +151,7 @@ export class FilterDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr>
                 <td *ngFor="let col of cols; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
                 </td>
             </tr>
@@ -171,7 +171,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-filter-demo',
-    templateUrl: './tree-table-filter-demo.html',
+    templateUrl: './tree-table-filter-demo.html'
 })
 export class TreeTableFilterDemo implements OnInit{
     filterMode = 'lenient';

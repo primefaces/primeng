@@ -3,7 +3,7 @@ import { Message, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'messages-service-demo',
+    selector: 'service-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class MessagesServiceDemo {
+export class ServiceDoc {
     @Input() id: string;
 
     @Input() title: string;

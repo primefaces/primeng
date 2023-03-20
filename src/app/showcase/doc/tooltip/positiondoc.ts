@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tooltip-position-demo',
+    selector: 'position-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tooltip-position-demo"></app-code>
     </section>`
 })
-export class TooltipPositionDemo {
+export class PositionDoc {
     @Input() id: string;
 
     @Input() title: string;

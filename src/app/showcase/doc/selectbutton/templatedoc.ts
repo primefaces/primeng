@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'select-button-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>For custom content support define a ng-template where the local ng-template variable refers to an option in the options collection.</p>
@@ -53,10 +53,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'select-button-template-demo',
-    templateUrl: './select-button-template-demo.html',
-    styleUrls: ['./select-button-template-demo.scss']
+    templateUrl: './select-button-template-demo.html'
 })
-
 export class SelectButtonTemplateDemo {
     value: any;
 

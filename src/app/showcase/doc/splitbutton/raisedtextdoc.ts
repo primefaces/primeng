@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'split-button-raised-text-demo',
+    selector: 'raised-text-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons can be displayed as raised as well for elevation.</p>
@@ -95,7 +95,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 @Component({
     selector: 'split-button-raised-text-demo',
     templateUrl: './split-button-raised-text-demo.html',
-    styleUrls: ['./split-button-raised-text-demo.scss'],
     providers: [ MessageService ]
 })
 export class SplitButtonRaisedTextDemo {

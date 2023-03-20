@@ -57,14 +57,10 @@ export class CustomThemeDoc {
     @Input() title: string;
 
     code1: Code = {
-        basic: `
-sass --update themes/mytheme/theme.scss:themes/mytheme/theme.css
-`
+        basic: `sass --update themes/mytheme/theme.scss:themes/mytheme/theme.css`
     };
 
     code2: Code = {
-        basic: `
-@import 'assets/theme.css';
-`
+        basic: `@import 'assets/theme.css';`
     };
 }

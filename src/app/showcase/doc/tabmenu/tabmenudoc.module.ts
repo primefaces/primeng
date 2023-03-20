@@ -6,21 +6,21 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { TabMenuActiveDemo } from './activedoc';
-import { TabMenuBasicDemo } from './basicdoc';
-import { TabMenuControlledDemo } from './controlleddoc';
+import { ActiveDoc } from './activedoc';
+import { BasicDoc } from './basicdoc';
+import { ControlledDoc } from './controlleddoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { MenuItemDoc } from './menuitemdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
-import { TabMenuScrollableDemo } from './scrollabledoc';
-import { TabMenuTemplateDemo } from './templatedoc';
+import { ScrollableDoc } from './scrollabledoc';
+import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TabMenuModule, ButtonModule, RippleModule, AppDocModule],
-    declarations: [TabMenuBasicDemo, TemplatesDoc, EventsDoc, TabMenuScrollableDemo, ImportDoc, MenuItemDoc, PropsDoc, StyleDoc, TabMenuControlledDemo, TabMenuActiveDemo, TabMenuTemplateDemo, TemplatesDoc],
+    declarations: [BasicDoc, TemplatesDoc, EventsDoc, ScrollableDoc, ImportDoc, MenuItemDoc, PropsDoc, StyleDoc, ControlledDoc, ActiveDoc, TemplateDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class TabMenuDocModule {}

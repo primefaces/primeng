@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-sticky-demo',
+    selector: 'sticky-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A toast disappears after 3000ms defined the <i>life</i> option, set <i>sticky</i> option <i>true</i> to display toast that do not hide automatically.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastStickyDemo {
+export class StickyDoc {
     @Input() id: string;
 
     @Input() title: string;

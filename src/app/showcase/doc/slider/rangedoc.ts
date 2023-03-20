@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'slider-range-demo',
+    selector: 'range-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'slider-range-demo',
-    templateUrl: './slider-range-demo.html',
-    styleUrls: ['./slider-range-demo.scss']
+    templateUrl: './slider-range-demo.html'
 })
 export class SliderRangeDemo {
     rangeValues: number[] = [20, 80];

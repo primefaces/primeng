@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-floatlabel-demo',
+    selector: 'floatlabel-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
@@ -65,9 +65,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-floatlabel-demo',
-    templateUrl: './multiselect-floatlabel-demo.html',
-    styleUrls: ['./multiselect-floatlabel-demo.scss']
-
+    templateUrl: './multiselect-floatlabel-demo.html'
 })
 export class MultiselectFloatlabelDemo {
     cities: City[];

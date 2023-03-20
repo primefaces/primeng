@@ -3,7 +3,7 @@ import { MegaMenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'mega-menu-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="mega-menu-template-demo"></app-code>
     </section>`
 })
-export class MegaMenuTemplateDemo implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

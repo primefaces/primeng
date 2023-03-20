@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { ScrollPanelBasicDemo } from './basicdoc';
-import { ScrollPanelCustomDemo } from './customdoc';
+import { BasicDoc } from './basicdoc';
+import { CusstomDoc } from './customdoc';
 import { ImportDoc } from './importdoc';
 import { MethodsDoc } from './methodsdoc';
 import { PropsDoc } from './propsdoc';
@@ -15,6 +15,6 @@ import { TemplatesDoc } from './templatesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ScrollPanelModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, ScrollPanelBasicDemo, ScrollPanelCustomDemo, StyleDoc, PropsDoc, MethodsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, CusstomDoc, StyleDoc, PropsDoc, MethodsDoc, TemplatesDoc]
 })
 export class ScrollPanelDocModule {}

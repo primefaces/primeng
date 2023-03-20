@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tree-table-paginator-template-demo',
+    selector: 'paginator-template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -138,9 +138,9 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-table-paginator-template-demo',
-    templateUrl: './tree-table-paginator-template-demo.html',
+    templateUrl: './tree-table-paginator-template-demo.html'
 })
-export class TreeTablePaginatorTemplateDemo implements OnInit{
+export class TreeTablePaginatorTemplateDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

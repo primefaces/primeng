@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'select-button-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the <i>optionDisabled</i> property.</p>
@@ -47,10 +47,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'select-button-disabled-demo',
-    templateUrl: './select-button-disabled-demo.html',
-    styleUrls: ['./select-button-disabled-demo.scss']
+    templateUrl: './select-button-disabled-demo.html'
 })
-
 export class SelectButtonDisabledDemo {
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },

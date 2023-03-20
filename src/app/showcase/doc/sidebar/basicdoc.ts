@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'sidebar-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is used as a container and visibility is controlled with a binding to <i>visible</i>.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="sidebar-basic-demo"></app-code>
     </section>`
 })
-export class SidebarBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

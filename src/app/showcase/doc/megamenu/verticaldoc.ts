@@ -3,7 +3,7 @@ import { MegaMenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'mega-menu-vertical-demo',
+    selector: 'vertical-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Layout of the MegaMenu is changed with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as options.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
     </section>`
 })
-export class MegaMenuVerticalDemo implements OnInit {
+export class VerticalDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

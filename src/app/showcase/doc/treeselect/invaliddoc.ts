@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-invalid-demo',
+    selector: 'invalid-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
@@ -42,10 +42,8 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-invalid-demo',
-    templateUrl: './tree-select-invalid-demo.html',
-    styleUrls: ['./tree-select-invalid-demo.scss'],
+    templateUrl: './tree-select-invalid-demo.html'
 })
-
 export class TreeSelectInvalidDemo {
     nodes: any[];
 

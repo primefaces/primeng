@@ -7,7 +7,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'listbox-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
@@ -82,8 +82,7 @@ interface Country {
 
 @Component({
     selector: 'listbox-template-demo',
-    templateUrl: './listbox-template-demo.html',
-    styleUrls: ['./listbox-template-demo.scss']
+    templateUrl: './listbox-template-demo.html'
 })
 export class ListboxTemplateDemo {
     countries: Country[];

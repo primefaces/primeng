@@ -23,7 +23,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-responsive-demo"></app-code>
     </section>`
 })
-export class GalleriaResponsiveDemo implements OnInit {
+export class ResponsiveDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -82,8 +82,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-responsive-demo',
-    templateUrl: './galleria-responsive-demo.html',
-    styleUrls: ['./galleria-responsive-demo.scss']
+    templateUrl: './galleria-responsive-demo.html'
 })
 export class GalleriaResponsiveDemo implements OnInit {
     images: any[];

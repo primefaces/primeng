@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-filter-demo',
+    selector: 'filter-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'listbox-filter-demo',
-    templateUrl: './listbox-filter-demo.html',
-    styleUrls: ['./listbox-filter-demo.scss']
+    templateUrl: './listbox-filter-demo.html'
 })
 export class ListboxFilterDemo {
     cities: City[];

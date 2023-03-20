@@ -170,7 +170,7 @@ import { MenuItem } from 'primeng/api';
     selector: 'context-menu-basic-demo',
     templateUrl: './context-menu-basic-demo.html'
 })
-export class ContextMenuBasicDemo implements OnInit {
+export class ContextBasicDoc implements OnInit {
 
     items!: MenuItem[];
 

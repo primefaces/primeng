@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inplace-image-demo',
+    selector: 'image-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Any content such as an image can be placed inside an Inplace.</p>
@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
     </section>`
 })
-export class InplaceImageDemo {
+export class ImageDoc {
     @Input() id: string;
 
     @Input() title: string;

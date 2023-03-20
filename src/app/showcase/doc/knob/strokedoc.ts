@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-stroke-demo',
+    selector: 'stroke-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-stroke-demo',
-    templateUrl: './knob-stroke-demo.html',
-    styleUrls: ['./knob-stroke-demo.scss']
+    templateUrl: './knob-stroke-demo.html'
 })
-
 export class KnobStrokeDemo {
     value: number = 40;
 }`

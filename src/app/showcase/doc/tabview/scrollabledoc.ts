@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                 </p-tabPanel>
             </p-tabView>
         </div>
-        <app-code [code]="code" selector=""></app-code>
+        <app-code [code]="code" selector="tab-view-scrollable-demo"></app-code>
     </section>`
 })
 export class ScrollableDoc {
@@ -47,11 +47,10 @@ export class ScrollableDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    selector: 'tab-view-scrollable-demo',
+    templateUrl: './tab-view-scrollable-demo.html'
 })
-export class AppComponent {
+export class TabViewScrollableDemo {
     activeIndex: number = 0;
 
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: "Title", content: "Content" }));

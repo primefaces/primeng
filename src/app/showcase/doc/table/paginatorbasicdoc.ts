@@ -4,7 +4,7 @@ import { CustomerService } from '../../service/customerservice';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'table-paginator-basic-demo',
+    selector: 'paginator-basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -50,7 +50,7 @@ import { Code } from '../../domain/code';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TablePaginatorBasicDemo {
+export class PaginatorBasicDoc {
     @Input() id: string;
 
     @Input() title: string;

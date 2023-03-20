@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'splitter-size-demo',
+    selector: 'size-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25, 75].</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="splitter-size-demo"></app-code>
     </section>`
 })
-export class SplitterSizeDemo {
+export class SizeDoc {
     @Input() id: string;
 
     @Input() title: string;

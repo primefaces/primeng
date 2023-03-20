@@ -10,7 +10,7 @@ import { PropsDoc } from '../../doc/password/propsdoc';
 import { StyleDoc } from '../../doc/password/styledoc';
 import { TemplateDoc } from '../../doc/password/templatedoc';
 import { TemplatesDoc } from '../../doc/password/templatesdoc';
-import { TogglemaskDoc } from '../../doc/password/togglemaskdoc';
+import { ToggleMaskDoc } from '../../doc/password/togglemaskdoc';
 
 @Component({
     templateUrl: './passworddemo.html'
@@ -35,7 +35,7 @@ export class PasswordDemo {
         {
             id: 'togglemask',
             label: 'Toggle Mask',
-            component: TogglemaskDoc
+            component: ToggleMaskDoc
         },
         {
             id: 'template',

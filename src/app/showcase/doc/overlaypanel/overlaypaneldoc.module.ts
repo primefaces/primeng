@@ -7,20 +7,20 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { OverlayPanelBasicDemo } from './basicdoc';
+import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplatesDoc } from './templatesdoc';
-import { OverlayPanelDataTableDemo } from './datatabledoc';
-import { OverlayPanelTemplateDemo } from './templatedoc';
-import { OverlayPanelTargetDemo } from './targetdoc';
+import { DataTableDoc } from './datatabledoc';
+import { TemplateDoc } from './templatedoc';
+import { TargetDoc } from './targetdoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, OverlayPanelModule, ButtonModule, TableModule, ToastModule, AppDocModule],
-    declarations: [OverlayPanelBasicDemo, ImportDoc, PropsDoc, StyleDoc, TemplatesDoc, OverlayPanelDataTableDemo, OverlayPanelTemplateDemo, OverlayPanelTargetDemo, EventsDoc, MethodsDoc],
+    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, TemplatesDoc, DataTableDoc, TemplateDoc, TargetDoc, EventsDoc, MethodsDoc],
     exports: [AppDocModule]
 })
 export class OverlayPanelDocModule {}

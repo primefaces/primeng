@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { PanelMenuBasicDemo } from '../../doc/panelmenu/basicdoc';
+import { BasicDoc } from '../../doc/panelmenu/basicdoc';
 import { ImportDoc } from '../../doc/panelmenu/importdoc';
 import { MenuItemDoc } from '../../doc/panelmenu/menuitemdoc';
 import { PropsDoc } from '../../doc/panelmenu/propsdoc';
 import { StyleDoc } from '../../doc/panelmenu/styledoc';
-import { PanelMenuMultipleDemo } from '../../doc/panelmenu/multipledoc';
+import { MultipleDoc } from '../../doc/panelmenu/multipledoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'
@@ -19,12 +19,12 @@ export class PanelMenuDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: PanelMenuBasicDemo
+            component: BasicDoc
         },
         {
             id: 'multiple',
             label: 'Multiple',
-            component: PanelMenuMultipleDemo
+            component: MultipleDoc
         },
         {
             id: 'style',

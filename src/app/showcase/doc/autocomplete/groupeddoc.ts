@@ -3,7 +3,7 @@ import { FilterService, SelectItemGroup } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'autocomplete-grouped-demo',
+    selector: 'grouped-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>

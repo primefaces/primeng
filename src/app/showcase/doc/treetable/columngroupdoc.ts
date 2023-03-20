@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tree-table-column-group-demo',
+    selector: 'column-group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
@@ -266,7 +266,7 @@ import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-table-column-group-demo',
-    templateUrl: './tree-table-column-group-demo.html',
+    templateUrl: './tree-table-column-group-demo.html'
 })
 export class TreeTableColumnGroupDemo implements OnInit {
     sales: TreeNode[];

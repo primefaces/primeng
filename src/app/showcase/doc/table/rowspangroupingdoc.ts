@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-rowspan-grouping-demo',
+    selector: 'rowspan-grouping-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>When <i>rowGroupMode</i> is configured to be <i>rowspan</i>, the grouping column spans multiple rows.</p>
@@ -53,7 +53,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableRowspanGroupingDemo implements OnInit {
+export class RowspanGroupingDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

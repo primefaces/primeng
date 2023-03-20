@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'radio-button-group-demo',
+    selector: 'group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>RadioButton is used as a controlled input with <i>value</i> and <i>ngModel</i> properties.</p>
@@ -93,8 +93,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'radio-button-group-demo',
-    templateUrl: './radio-button-group-demo.html',
-    styleUrls: ['./radio-button-group-demo.scss']
+    templateUrl: './radio-button-group-demo.html'
 })
 export class RadioButtonGroupDemo {
     ingredient: string;

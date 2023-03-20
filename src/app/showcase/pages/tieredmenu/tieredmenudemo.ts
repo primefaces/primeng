@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TieredMenuBasicDemo } from '../../doc/tieredmenu/basicdoc';
+import { BasicDoc } from '../../doc/tieredmenu/basicdoc';
 import { EventsDoc } from '../../doc/tieredmenu/eventsdoc';
 import { ImportDoc } from '../../doc/tieredmenu/importdoc';
 import { MenuItemDoc } from '../../doc/tieredmenu/menuitemdoc';
-import { TieredMenuPopupDemo } from '../../doc/tieredmenu/popupdoc';
+import { PopupDoc } from '../../doc/tieredmenu/popupdoc';
 import { PropsDoc } from '../../doc/tieredmenu/propsdoc';
 import { StyleDoc } from '../../doc/tieredmenu/styledoc';
 import { MethodsDoc } from '../../doc/tieredmenu/methodsdoc';
@@ -21,12 +21,12 @@ export class TieredMenuDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: TieredMenuBasicDemo
+            component: BasicDoc
         },
         {
             id: 'popup',
             label: 'Popup',
-            component: TieredMenuPopupDemo
+            component: PopupDoc
         },
         {
             id: 'style',

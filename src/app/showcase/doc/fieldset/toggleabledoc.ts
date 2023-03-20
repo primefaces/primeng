@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="fieldset-toggleable-demo"></app-code>
     </section>`
 })
-export class FieldsetToggleableDemo {
+export class ToggleableDoc {
     @Input() id: string;
 
     @Input() title: string;

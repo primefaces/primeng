@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { MessagesModule } from 'primeng/messages';`
+        typescript: `import { MessagesModule } from 'primeng/messages';`
     };
 }

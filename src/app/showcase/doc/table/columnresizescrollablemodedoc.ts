@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-column-resize-scrollable-mode-demo',
+    selector: 'column-resize-scrollable-mode-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3"></app-docsectiontext>
         <div class="card">
@@ -31,7 +31,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableColumnResizeScrollableModeDemo implements OnInit {
+export class ColumnResizeScrollableModeDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

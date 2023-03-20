@@ -23,7 +23,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class FileUploadAdvancedDemo {
+export class AdvancedDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -66,7 +66,8 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'file-upload-advanced-demo',
-    templateUrl: './file-upload-advanced-demo.html'
+    templateUrl: './file-upload-advanced-demo.html',
+    providers: [MessageService]
 })
 export class FileUploadAdvancedDemo {
     uploadedFiles: any[] = [];

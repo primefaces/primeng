@@ -27,7 +27,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-caption-demo"></app-code>
     </section>`
 })
-export class GalleriaCaptionDemo implements OnInit {
+export class CaptionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -90,8 +90,8 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
-    templateUrl: './galleria-caption-demo.html',
-    styleUrls: ['./galleria-caption-demo.scss']
+    selector: 'galleria-caption-demo',
+    templateUrl: './galleria-caption-demo.html'
 })
 export class GalleriaCaptionDemo implements OnInit {
     images: any[];

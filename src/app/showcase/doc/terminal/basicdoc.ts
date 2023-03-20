@@ -4,7 +4,7 @@ import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'terminal-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
     </section>`,
     providers: [TerminalService]
 })
-export class TerminalBasicDemo implements OnDestroy {
+export class BasicDoc implements OnDestroy {
     @Input() id: string;
 
     @Input() title: string;
@@ -56,7 +56,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './terminal-basic-demo.html',
     providers: [TerminalService]
 })
-export class TerminalDemo implements OnDestroy {
+export class TerminalBasicDemo implements OnDestroy {
     subscription: Subscription;
 
     constructor(private terminalService: TerminalService) {

@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { StyleClassModule } from 'primeng/styleclass';`
+        typescript: `import { StyleClassModule } from 'primeng/styleclass';`
     };
 }

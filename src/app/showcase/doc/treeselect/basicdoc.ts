@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeSelect is used as a controlled component with <i>v-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
@@ -43,8 +43,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-basic-demo',
-    templateUrl: './tree-select-basic-demo.html',
-    styleUrls: ['./tree-select-basic-demo.scss'],
+    templateUrl: './tree-select-basic-demo.html'
 })
 export class TreeSelectBasicDemo {
     nodes: any[];

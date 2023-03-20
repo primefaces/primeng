@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'accordion-controlled-demo',
+    selector: 'controlled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>

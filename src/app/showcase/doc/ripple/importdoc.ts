@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { RippleModule } from 'primeng/ripple';`
+        typescript: `import { RippleModule } from 'primeng/ripple';`
     };
 }

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'image-indicator-template-demo',
+    selector: 'indicator-template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="image-indicator-template-demo"></app-code>
     </section>`
 })
-export class ImageIndicatorTemplateDemo {
+export class IndicatorTemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

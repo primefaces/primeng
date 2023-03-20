@@ -3,7 +3,7 @@ import { VirtualScroller } from 'primeng/virtualscroller';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'virtual-scroller-programmatic-scroll-demo',
+    selector: 'programmatic-scroll-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'password-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
@@ -76,8 +76,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'password-template-demo',
-    templateUrl: './password-template-demo.html',
-    styleUrls: ['./password-template-demo.scss']
+    templateUrl: './password-template-demo.html'
 })
 export class PasswordTemplateDemo {
     value: string;

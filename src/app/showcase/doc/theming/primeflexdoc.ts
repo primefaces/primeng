@@ -25,8 +25,7 @@ export class PrimeFlexDoc {
     @Input() title: string;
 
     code1: Code = {
-        basic: `
-<div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
+        basic: `<div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
     <p-button label="Button 1"></p-button>
     <p-button styleClass="p-button-secondary" label="Button 2"></p-button>
     <p-button styleClass="p-button-help" label="Button 3"></p-button>

@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { TableModule } from 'primeng/table';`
+        typescript: `import { TableModule } from 'primeng/table';`
     };
 }

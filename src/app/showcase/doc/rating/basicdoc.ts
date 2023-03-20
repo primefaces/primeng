@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'rating-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'rating-basic-demo',
-    templateUrl: './rating-basic-demo.html',
-    styleUrls: ['./rating-basic-demo.scss']
+    templateUrl: './rating-basic-demo.html'
 })
 export class RatingBasicDemo {
     value: number;

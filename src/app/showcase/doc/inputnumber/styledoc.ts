@@ -20,35 +20,35 @@ import { Component, Input } from '@angular/core';
                         <td>Container element</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-stacked</td>
+                        <td>p-input-number-stacked</td>
                         <td>Container element with stacked buttons.</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-horizontal</td>
+                        <td>p-input-number-horizontal</td>
                         <td>Container element with horizontal buttons.</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-vertical</td>
+                        <td>p-input-number-vertical</td>
                         <td>Container element with vertical buttons.</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-input</td>
+                        <td>p-input-number-input</td>
                         <td>Input element</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-button</td>
+                        <td>p-input-number-button</td>
                         <td>Input element</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-button-up</td>
+                        <td>p-input-number-button-up</td>
                         <td>Increment button</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-button-down</td>
+                        <td>p-input-number-button-down</td>
                         <td>Decrement button</td>
                     </tr>
                     <tr>
-                        <td>p-inputnumber-button-icon</td>
+                        <td>p-input-number-button-icon</td>
                         <td>Button icon</td>
                     </tr>
                 </tbody>

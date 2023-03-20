@@ -9,20 +9,20 @@ import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
-import { FileUploadAdvancedDemo } from './advanceddoc';
-import { FileUploadBasicDemo } from './basicdoc';
+import { AdvancedDoc } from './advanceddoc';
+import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { MethodsDoc } from './methodsdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
-import { FileUploadTemplateDemo } from './templatedoc';
+import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
-import { FileUploadAutoDemo } from './autodoc';
+import { AutoDoc } from './autodoc';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AppCodeModule, AppDocModule, ButtonModule, TagModule, ProgressBarModule, ToastModule, FileUploadModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, FileUploadBasicDemo, FileUploadTemplateDemo, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, FileUploadAdvancedDemo, MethodsDoc, FileUploadAutoDemo]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AdvancedDoc, MethodsDoc, AutoDoc]
 })
 export class FileUploadDocModule {}

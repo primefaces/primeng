@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
 @Component({
-    selector: 'autocomplete-force-selection-demo',
+    selector: 'force-selection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>

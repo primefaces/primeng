@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-checkbox-demo',
+    selector: 'checkbox-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
@@ -46,8 +46,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-checkbox-demo',
-    templateUrl: './tree-checkbox-demo.html',
-    styleUrls: ['./tree-checkbox-demo.scss']
+    templateUrl: './tree-checkbox-demo.html'
 })
 export class TreeCheckboxDemo implements OnInit {
     files: TreeNode[];

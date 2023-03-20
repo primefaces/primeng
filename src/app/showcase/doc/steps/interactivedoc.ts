@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'steps-interactive-demo',
+    selector: 'interactive-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with <i>activeIndexChange</i> to control the Steps.</p>
@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class StepsInteractiveDemo implements OnInit {
+export class InteractiveDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -4,7 +4,7 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-subheader-grouping-demo',
+    selector: 'subheader-grouping-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -62,7 +62,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableSubheaderGroupingDemo implements OnInit {
+export class SubheaderGroupingDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

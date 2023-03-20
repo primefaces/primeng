@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'knob-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Knob is an input component and used with the standard <i>ngModel</i> directive.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'knob-basic-demo',
-    templateUrl: './knob-basic-demo.html',
-    styleUrls: ['./knob-basic-demo.scss']
+    templateUrl: './knob-basic-demo.html'
 })
 export class KnobBasicDemo {
     value: number;

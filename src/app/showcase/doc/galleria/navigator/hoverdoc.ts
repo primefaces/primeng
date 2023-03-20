@@ -20,7 +20,7 @@ import { PhotoService } from '../../../service/photoservice';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="galleria-navigator-hover-demo"></app-code>
     </section>`,
     providers: [PhotoService]
 })
@@ -84,12 +84,11 @@ import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
-    templateUrl: './galleriademo.html',
-    styleUrls: ['./galleriademo.scss'],
+    selector: 'galleria-navigator-hover-demo',
+    templateUrl: './galleria-navigator-hover-demo.html',
     providers: [PhotoService]
 })
-
-export class GalleriaDemo implements OnInit {
+export class GalleriaNavigatorHoverDemo implements OnInit {
     images: any[];
 
     responsiveOptions: any[] = [

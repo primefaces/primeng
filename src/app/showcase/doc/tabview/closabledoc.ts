@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-view-closable-demo',
+    selector: 'closable-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>closable</i> is enabled, a close icon is displayed to hide the tab.</p>
@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-view-closable-demo"></app-code>
     </section>`
 })
-export class TabViewClosableDemo {
+export class ClosableDoc {
     @Input() id: string;
 
     @Input() title: string;

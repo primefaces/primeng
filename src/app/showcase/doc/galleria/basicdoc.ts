@@ -23,7 +23,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-code [code]="code" selector="galleria-basic-demo"></app-code>
     </section>`
 })
-export class GalleriaBasicDemo implements OnInit {
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -83,8 +83,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-basic-demo',
-    templateUrl: './galleria-basic-demo.html',
-    styleUrls: ['./galleria-basic-demo.scss']
+    templateUrl: './galleria-basic-demo.html'
 })
 export class GalleriaBasicDemo implements OnInit {
     images: any[];

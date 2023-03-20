@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'progress-spinner-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>An infinite spin animation is displayed by default.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
     </section>`
 })
-export class ProgressSpinnerBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     selector: 'progress-spinner-basic-demo',
     templateUrl: './progress-spinner-basic-demo.html'
 })
-
 export class ProgressSpinnerBasicDemo {}`
     };
 }

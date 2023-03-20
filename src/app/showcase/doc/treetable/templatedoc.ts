@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content at <i>caption</i>, <i>header</i>, <i>body</i> and <i>summary</i> sections are supported via templating.</p>
@@ -138,9 +138,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-template-demo',
-    templateUrl: './tree-table-template-demo.html',
+    templateUrl: './tree-table-template-demo.html'
 })
-export class TreeTableTemplateDemo implements OnInit{
+export class TreeTableTemplateDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

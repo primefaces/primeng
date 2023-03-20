@@ -34,10 +34,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'editor-readonly-demo',
-    templateUrl: './editor-readonly-demo.html',
-    styleUrls: ['./editor-readonly-demo.scss']
+    templateUrl: './editor-readonly-demo.html'
 })
-
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';
 }`

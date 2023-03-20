@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroll-panel-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ScrollPanel is defined using dimensions for the scrollable viewport.</p>
@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="scroll-panel-basic-demo"></app-code>
     </section>`
 })
-export class ScrollPanelBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

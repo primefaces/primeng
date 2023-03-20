@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -60,8 +60,7 @@ interface City {
 
 @Component({
     selector: 'multiselect-basic-demo',
-    templateUrl: './multiselect-basic-demo.html',
-    styleUrls: ['./multiselect-basic-demo.scss']
+    templateUrl: './multiselect-basic-demo.html'
 })
 export class MultiselectBasicDemo {
 

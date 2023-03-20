@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputgroup-button-demo',
+    selector: 'button-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can be placed at either side of an input element.</p>
@@ -76,8 +76,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'inputgroup-button-demo',
-    templateUrl: './inputgroup-button-demo.html',
-    styleUrls: ['./inputgroup-button-demo.scss']
+    templateUrl: './inputgroup-button-demo.html'
 })
 export class InputgroupButtonDemo {
 }`

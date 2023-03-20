@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-striped-demo',
+    selector: 'striped-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>p-datatable-striped</i> class displays striped rows.</p>
@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableStripedDemo {
+export class StripedDoc {
     @Input() id: string;
 
     @Input() title: string;

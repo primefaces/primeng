@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputswitch-preselection-demo',
+    selector: 'preselection-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
         </div>
-        <app-code [code]="code" selector="inputswitch-preselection-demo"></app-code>
+        <app-code [code]="code" selector="input-switch-preselection-demo"></app-code>
     </section>`
 })
 export class PreselectionDoc {
@@ -33,11 +33,10 @@ export class PreselectionDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputswitch-preselection-demo',
-    templateUrl: './inputswitch-preselection-demo.html',
-    styleUrls: ['./inputswitch-preselection-demo.scss']
+    selector: 'input-switch-preselection-demo',
+    templateUrl: './input-switch-preselection-demo.html'
 })
-export class InputswitchPreselectionDemo {
+export class InputSwitchPreselectionDemo {
     checked: boolean = true;
 }`
     };

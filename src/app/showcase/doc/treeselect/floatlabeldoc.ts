@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-floatlabel-demo',
+    selector: 'floatlabel-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
@@ -51,10 +51,8 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-floatlabel-demo',
-    templateUrl: './tree-select-floatlabel-demo.html',
-    styleUrls: ['./tree-select-floatlabel-demo.scss'],
+    templateUrl: './tree-select-floatlabel-demo.html'
 })
-
 export class TreeSelectFloatlabelDemo {
     nodes: any[];
 

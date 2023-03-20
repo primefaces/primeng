@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-view-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabView consists of one or more <i>TabPanel</i> elements.</p>
@@ -32,7 +32,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-view-basic-demo"></app-code>
     </section>`
 })
-export class TabViewBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

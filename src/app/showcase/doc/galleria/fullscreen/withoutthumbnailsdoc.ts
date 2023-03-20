@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-full-screen-without-thumbnails-demo',
+    selector: 'without-thumbnails-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Thumbnails can also be hidden in full screen mode.</p>
@@ -19,7 +19,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-full-screen-without-thumbnails-demo"></app-code>
     </section>`
 })
-export class GalleriaWithoutThumbnailsDemo implements OnInit {
+export class WithoutThumbnailsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -95,10 +95,9 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-full-screen-without-thumbnails-demo',
-    templateUrl: './galleria-full-screen-without-thumbnails-demo.html',
-    styleUrls: ['./galleria-full-screen-without-thumbnails-demo.scss']
+    templateUrl: './galleria-full-screen-without-thumbnails-demo.html'
 })
-export class GalleriaWithoutThumbnailsDemo implements OnInit {
+export class GalleriaFullScreenWithoutThumbnailsDemo implements OnInit {
     displayBasic: boolean;
 
     images: any[];

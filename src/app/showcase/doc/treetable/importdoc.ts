@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { TreeTableModule } from 'primeng/treetable';`
+        typescript: `import { TreeTableModule } from 'primeng/treetable';`
     };
 }

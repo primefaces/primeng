@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { InputSwitchModule } from 'primeng/inputswitch';`
+        typescript: `import { InputSwitchModule } from 'primeng/inputswitch';`
     };
 }

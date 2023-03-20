@@ -4,7 +4,7 @@ import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
@@ -44,8 +44,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-basic-demo',
-    templateUrl: './tree-basic-demo.html',
-    styleUrls: ['./tree-basic-demo.scss']
+    templateUrl: './tree-basic-demo.html'
 })
 export class TreeBasicDemo implements OnInit {
     files: TreeNode[];
@@ -57,7 +56,6 @@ export class TreeBasicDemo implements OnInit {
     }
 
 }`,
-
         service: ['NodeService'],
 
         data: `

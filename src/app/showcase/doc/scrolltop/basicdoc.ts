@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroll-top-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>ScrollTop listens window scroll by default.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="scroll-top-basic-demo"></app-code>
     </section>`
 })
-export class ScrollTopBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

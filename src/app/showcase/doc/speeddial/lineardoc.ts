@@ -3,13 +3,13 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-linear-demo',
+    selector: 'linear-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>SpeedDial items are defined with the <i>model</i> property based on MenuModel API. Default orientation of the items is linear and <i>direction</i> property is used to define the position of the items related to the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+            <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up"></p-speedDial>
                 <p-speedDial [model]="items" direction="down"></p-speedDial>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 <p-speedDial [model]="items" direction="right"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-linear-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -70,7 +70,7 @@ export class LinearDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+    <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up"></p-speedDial>
         <p-speedDial [model]="items" direction="down"></p-speedDial>
@@ -84,12 +84,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-linear-demo',
-    templateUrl: './speeddial-linear-demo.html',
-    styleUrls: ['./speeddial-linear-demo.scss'],
+    selector: 'speed-dial-linear-demo',
+    templateUrl: './speed-dial-linear-demo.html',
+    styleUrls: ['./speed-dial-linear-demo.scss'],
     providers: [MessageService]
 })
-export class SpeeddialLinearDemo implements OnInit {
+export class SpeedDialLinearDemo implements OnInit {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

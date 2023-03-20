@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputnumber-currency-demo',
+    selector: 'currency-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -28,7 +28,7 @@ import { Code } from '../../domain/code';
                 <p-inputNumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP"> </p-inputNumber>
             </div>
         </div>
-        <app-code [code]="code" selector="inputnumber-currency-demo"></app-code>
+        <app-code [code]="code" selector="input-number-currency-demo"></app-code>
     </section>`
 })
 export class CurrencyDoc {
@@ -75,12 +75,10 @@ export class CurrencyDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputnumber-currency-demo',
-    templateUrl: './inputnumber-currency-demo.html',
-    styleUrls: ['./inputnumber-currency-demo.scss']
+    selector: 'input-number-currency-demo',
+    templateUrl: './input-number-currency-demo.html'
 })
-
-export class InputnumberCurrencyDemo {
+export class InputNumberCurrencyDemo {
     value1: number = 1500;
 
     value2: number = 2500;

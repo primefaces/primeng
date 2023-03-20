@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-indicator-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
@@ -23,7 +23,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-indicator-template-demo"></app-code>
     </section>`
 })
-export class GalleriaIndicatorTemplateDemo implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -84,8 +84,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-indicator-template-demo',
-    templateUrl: './galleria-indicator-template-demo.html',
-    styleUrls: ['./galleria-indicator-template-demo.scss']
+    templateUrl: './galleria-indicator-template-demo.html'
 })
 export class GalleriaIndicatorTemplateDemo implements OnInit {
     images: any[];

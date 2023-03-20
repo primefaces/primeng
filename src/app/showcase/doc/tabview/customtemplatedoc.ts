@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-view-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
@@ -45,7 +45,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-view-template-demo"></app-code>
     </section>`
 })
-export class TabViewTemplateDemo {
+export class TemplateDoc {
     @Input() id: string;
 
     @Input() title: string;

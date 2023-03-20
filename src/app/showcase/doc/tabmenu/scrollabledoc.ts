@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-menu-scrollable-demo',
+    selector: 'scrollable-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
     </section>`
 })
-export class TabMenuScrollableDemo implements OnInit {
+export class ScrollableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

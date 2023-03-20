@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';`
+        typescript: `import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';`
     };
 }

@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-products-demo',
+    selector: 'products-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>CRUD implementation example with a Dialog.</p>
@@ -89,7 +89,7 @@ import { ProductService } from '../../service/productservice';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })
-export class TableProductsDemo implements OnInit {
+export class ProductsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

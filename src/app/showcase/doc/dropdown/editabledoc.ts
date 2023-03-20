@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    templateUrl: './dropdown-editable-demo.html',
-    styleUrls: ['./dropdown-editable-demo.scss']
+    templateUrl: './dropdown-editable-demo.html'
 })
 export class DropdownEditableDemo {
     cities: City[];

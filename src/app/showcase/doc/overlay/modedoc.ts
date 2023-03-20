@@ -19,7 +19,7 @@ export class ModeDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        typescript: `
 import { PrimeNGConfig, OverlayOptions } from 'primeng/api';
 
 @Component({

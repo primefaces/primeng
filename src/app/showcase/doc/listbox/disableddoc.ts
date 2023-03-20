@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -56,8 +56,7 @@ interface City {
 
 @Component({
     selector: 'listbox-disabled-demo',
-    templateUrl: './listbox-disabled-demo.html',
-    styleUrls: ['./listbox-disabled-demo.scss']
+    templateUrl: './listbox-disabled-demo.html'
 })
 export class ListboxDisabledDemo {
     cities: City[];

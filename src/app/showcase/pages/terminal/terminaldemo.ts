@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TerminalBasicDemo } from '../../doc/terminal/basicdoc';
+import { BasicDoc } from '../../doc/terminal/basicdoc';
 import { PropsDoc } from '../../doc/terminal/propsdoc';
 import { StyleDoc } from '../../doc/terminal/styledoc';
 import { ImportDoc } from '../../doc/terminal/importdoc';
@@ -17,7 +17,7 @@ export class TerminalDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: TerminalBasicDemo
+            component: BasicDoc
         },
         {
             id: 'style',

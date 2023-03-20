@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tab-view-controlled-demo',
+    selector: 'controlled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabView can be controlled programmatically using a binding to <i>activeIndex</i> update the active index.</p>
@@ -37,7 +37,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tab-view-controlled-demo"></app-code>
     </section>`
 })
-export class TabViewControlledDemo {
+export class ControlledDoc {
     @Input() id: string;
 
     @Input() title: string;

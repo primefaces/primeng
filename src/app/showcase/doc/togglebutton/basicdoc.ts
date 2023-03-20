@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toggle-button-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way binding to a boolean property is defined using the standard <i>ngModel</i> directive.</p>
@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'toggle-button-basic-demo',
-    templateUrl: './toggle-button-basic-demo.html',
-    styleUrls: ['./toggle-button-basic-demo.scss']
+    templateUrl: './toggle-button-basic-demo.html'
 })
 export class ToggleButtonBasicDemo {
     checked: boolean = false;

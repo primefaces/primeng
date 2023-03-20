@@ -5,7 +5,7 @@ import { SortEvent } from 'primeng/api';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-custom-sort-demo',
+    selector: 'custom-sort-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -39,7 +39,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableCustomSortDemo implements OnInit {
+export class CustomSortDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

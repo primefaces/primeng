@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'scroll-options-doc',
+    selector: 'options-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>The properties of scroller component can be used like an object in it.</p>
@@ -16,7 +16,7 @@ export class ScrollOptionsDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
+        html: `
 <ng-template pTemplate="item" let-item let-scrollOptions="options">
     // item: Current item.
     // scrollOptions.index: Index of the item.

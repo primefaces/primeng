@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/messages/importdoc';
-import { MessagesBasicDemo } from '../../doc/messages/basicdoc';
+import { BasicDoc } from '../../doc/messages/basicdoc';
 import { MessagesPropsDoc } from '../../doc/messages/messagespropsdoc';
 import { MessagePropsDoc } from '../../doc/messages/messagepropsdoc';
 import { MessagesStyleDoc } from '../../doc/messages/messagesstyledoc';
 import { MessageStyleDoc } from '../../doc/messages/messagestyledoc';
-import { MessagesClosableDemo } from '../../doc/messages/closabledoc';
-import { MessagesInlineDemo } from '../../doc/messages/inlinedoc';
-import { MessagesDynamicDemo } from '../../doc/messages/dynamicdoc';
-import { MessagesStaticDemo } from '../../doc/messages/staticdoc';
-import { MessagesServiceDemo } from '../../doc/messages/servicedoc';
-import { MessagesAnimationDemo } from '../../doc/messages/animationdoc';
+import { ClosableDoc } from '../../doc/messages/closabledoc';
+import { InlineDoc } from '../../doc/messages/inlinedoc';
+import { DynamicDoc } from '../../doc/messages/dynamicdoc';
+import { StaticDoc } from '../../doc/messages/staticdoc';
+import { ServiceDoc } from '../../doc/messages/servicedoc';
+import { AnimationDoc } from '../../doc/messages/animationdoc';
 import { TemplatesDoc } from '../../doc/messages/templatesdoc';
-import { MessagesSeverityDemo } from '../../doc/messages/severitydoc';
+import { SeverityDoc } from '../../doc/messages/severitydoc';
 
 @Component({
     templateUrl: './messagesdemo.html'
@@ -27,42 +27,42 @@ export class MessagesDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: MessagesBasicDemo
+            component: BasicDoc
         },
         {
             id: 'closable',
             label: 'Closable',
-            component: MessagesClosableDemo
+            component: ClosableDoc
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: MessagesDynamicDemo
+            component: DynamicDoc
         },
         {
             id: 'service',
             label: 'Message Service',
-            component: MessagesServiceDemo
+            component: ServiceDoc
         },
         {
             id: 'static',
             label: 'Static Content',
-            component: MessagesStaticDemo
+            component: StaticDoc
         },
         {
             id: 'inline',
             label: 'Inline',
-            component: MessagesInlineDemo
+            component: InlineDoc
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: MessagesSeverityDemo
+            component: SeverityDoc
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: MessagesAnimationDemo
+            component: AnimationDoc
         },
         {
             id: 'messagesstyle',

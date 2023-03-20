@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-reorder-demo',
+    selector: 'reorder-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding <i>reorderableColumns</i> property.</p>
@@ -39,7 +39,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableReorderDemo implements OnInit {
+export class ReorderDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

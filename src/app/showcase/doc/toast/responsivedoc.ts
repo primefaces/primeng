@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'toast-responsive-demo',
+    selector: 'responsive-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
     </section>`,
     providers: [MessageService]
 })
-export class ToastResponsiveDemo {
+export class ResponsiveDoc {
     @Input() id: string;
 
     @Input() title: string;

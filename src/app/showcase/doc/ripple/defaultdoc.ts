@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'ripple-default-demo',
+    selector: 'default-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default Demo Content.</p>
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
     </section>`
 })
-export class RippleDefaultDemo {
+export class DefaultDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     templateUrl: './ripple-default-demo.html',
     styleUrls: ['./ripple-default-demo.scss']
 })
-
 export class RippleDefaultDemo {
 }`,
         scss: `

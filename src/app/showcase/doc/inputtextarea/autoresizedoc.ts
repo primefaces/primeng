@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputtextarea-autoresize-demo',
+    selector: 'autoresize-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
         </div>
-        <app-code [code]="code" selector="inputtextarea-autoresize-demo"></app-code>
+        <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
     </section>`
 })
 export class AutoResizeDoc {
@@ -33,12 +33,10 @@ export class AutoResizeDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputtextarea-autoresize-demo',
-    templateUrl: './inputtextarea-autoresize-demo.html',
-    styleUrls: ['./inputtextarea-autoresize-demo.scss']
+    selector: 'input-textarea-auto-resize-demo',
+    templateUrl: './input-textarea-auto-resize-demo.html'
 })
-
-export class InputtextareaAutoresizeDemo {
+export class InputTextareaAutoResizeDemo {
 }`
     };
 }

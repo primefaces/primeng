@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -58,8 +58,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-multiple-demo',
-    templateUrl: './tree-select-multiple-demo.html',
-    styleUrls: ['./tree-select-multiple-demo.scss'],
+    templateUrl: './tree-select-multiple-demo.html'
 })
 export class TreeSelectMultipleDemo {
     nodes: any[];

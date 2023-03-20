@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { ToastModule } from 'primeng/toast';`
+        typescript: `import { ToastModule } from 'primeng/toast';`
     };
 }

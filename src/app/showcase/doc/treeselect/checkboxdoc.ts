@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-select-checkbox-demo',
+    selector: 'checkbox-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -44,10 +44,8 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-select-checkbox-demo',
-    templateUrl: './tree-select-checkbox-demo.html',
-    styleUrls: ['./tree-select-checkbox-demo.scss'],
+    templateUrl: './tree-select-checkbox-demo.html'
 })
-
 export class TreeSelectCheckboxDemo {
     nodes: any[];
 

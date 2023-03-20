@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'panel-basic-demo',
+    selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="panel-basic-demo"></app-code>
     </section>`
 })
-export class PanelBasicDemo {
+export class BasicDoc {
     @Input() id: string;
 
     @Input() title: string;

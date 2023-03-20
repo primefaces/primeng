@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'panel-menu-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
     </section>`
 })
-export class PanelMenuMultipleDemo implements OnInit {
+export class MultipleDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

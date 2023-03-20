@@ -3,13 +3,13 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-quarter-circle-demo',
+    selector: 'quarter-circle-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>type</i> is defined as <i>quarter-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
+            <div style="height: 500px; position: relative;" class="speed-dial-circle-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
                 <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 <p-speedDial [model]="items" radius="120" direction="down-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-quarter-circle-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-quarter-circle-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -70,7 +70,7 @@ export class QuarterCircleDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
+    <div style="height: 500px; position: relative;" class="speed-dial-circle-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
         <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
@@ -84,12 +84,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-quarter-circle-demo',
-    templateUrl: './speeddial-quarter-circle-demo.html',
-    styleUrls: ['./speeddial-quarter-circle-demo.scss'],
+    selector: 'speed-dial-quarter-circle-demo',
+    templateUrl: './speed-dial-quarter-circle-demo.html',
+    styleUrls: ['./speed-dial-quarter-circle-demo.scss'],
     providers: [MessageService]
 })
-export class SpeeddialQuarterCircleDemo implements OnInit {
+export class SpeedDialQuarterCircleDemo implements OnInit {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

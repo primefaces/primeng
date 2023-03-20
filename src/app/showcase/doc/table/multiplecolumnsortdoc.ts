@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-single-column-sort-demo',
+    selector: 'single-column-sort-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableSingleColumnSortDemo implements OnInit {
+export class SingleColumnSortDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

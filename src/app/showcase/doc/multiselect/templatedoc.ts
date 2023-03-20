@@ -7,7 +7,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'multiselect-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
@@ -103,8 +103,7 @@ interface Country {
 
 @Component({
     selector: 'multiselect-template-demo',
-    templateUrl: './multiselect-template-demo.html',
-    styleUrls: ['./multiselect-template-demo.scss']
+    templateUrl: './multiselect-template-demo.html'
 })
 export class MultiselectTemplateDemo {
 

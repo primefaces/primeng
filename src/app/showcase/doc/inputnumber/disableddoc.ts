@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inputnumber-disabled-demo',
+    selector: 'disabled-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1"> </p-inputNumber>
         </div>
-        <app-code [code]="code" selector="inputnumber-disabled-demo"></app-code>
+        <app-code [code]="code" selector="input-number-disabled-demo"></app-code>
     </section>`
 })
 export class DisabledDoc {
@@ -33,11 +33,10 @@ export class DisabledDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputnumber-disabled-demo',
-    templateUrl: './inputnumber-disabled-demo.html',
-    styleUrls: ['./inputnumber-disabled-demo.scss']
+    selector: 'input-number-disabled-demo',
+    templateUrl: './input-number-disabled-demo.html'
 })
-export class InputnumberDisabledDemo {
+export class InputNumberDisabledDemo {
     value1: number = 50;
 }`
     };

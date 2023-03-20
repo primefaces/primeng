@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
-    selector: 'galleria-full-secreen-template-demo',
+    selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
@@ -34,7 +34,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-code [code]="code" selector="galleria-full-secreen-template-demo"></app-code>
     </section>`
 })
-export class GalleriaFullScreenTemplateDemo implements OnInit {
+export class FullScreenTemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -124,8 +124,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-full-secreen-template-demo',
-    templateUrl: './galleria-full-secreen-template-demo.html',
-    styleUrls: ['./galleria-full-secreen-template-demo.scss']
+    templateUrl: './galleria-full-secreen-template-demo.html'
 })
 export class GalleriaFullScreenTemplateDemo implements OnInit {
     displayCustom: boolean;

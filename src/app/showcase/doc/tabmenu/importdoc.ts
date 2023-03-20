@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { TabMenuModule } from 'primeng/tabmenu';`
+        typescript: `import { TabMenuModule } from 'primeng/tabmenu';`
     };
 }

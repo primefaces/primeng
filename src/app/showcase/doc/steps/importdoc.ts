@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { StepsModule } from 'primeng/steps';`
+        typescript: `import { StepsModule } from 'primeng/steps';`
     };
 }

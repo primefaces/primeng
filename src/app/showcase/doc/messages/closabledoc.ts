@@ -3,7 +3,7 @@ import { Message } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'messages-closable-demo',
+    selector: 'closable-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="messages-closable-demo"></app-code>
     </section>`
 })
-export class MessagesClosableDemo implements OnInit {
+export class ClosableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

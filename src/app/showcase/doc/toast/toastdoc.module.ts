@@ -7,41 +7,41 @@ import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { ImportDoc } from './importdoc';
-import { ToastAnimationDemo } from './animationdoc';
-import { ToastBasicDemo } from './basicdoc';
+import { AnimationDoc } from './animationdoc';
+import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { InterfaceDoc } from './interfacedoc';
-import { ToastMultipleDemo } from './multipledoc';
-import { ToastPositionDemo } from './positiondoc';
+import { MultipleDoc } from './multipledoc';
+import { PositionDoc } from './positiondoc';
 import { PropsDoc } from './propsdoc';
-import { ToastResponsiveDemo } from './responsivedoc';
-import { ToastSeverityDemo } from './severitydoc';
-import { ToastStickyDemo } from './stickydoc';
+import { ResponsiveDoc } from './responsivedoc';
+import { SeverityDoc } from './severitydoc';
+import { StickyDoc } from './stickydoc';
 import { StyleDoc } from './styledoc';
-import { ToastTargetDemo } from './targetdoc';
-import { ToastTemplateDemo } from './templatedoc';
+import { TargetDoc } from './targetdoc';
+import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
-import { ToastClearDemo } from './cleardoc';
+import { ClearDoc } from './cleardoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
     declarations: [
-        ToastAnimationDemo,
-        ToastBasicDemo,
+        AnimationDoc,
+        BasicDoc,
         EventsDoc,
         ImportDoc,
         InterfaceDoc,
-        ToastMultipleDemo,
-        ToastPositionDemo,
+        MultipleDoc,
+        PositionDoc,
         PropsDoc,
-        ToastResponsiveDemo,
-        ToastSeverityDemo,
-        ToastStickyDemo,
+        ResponsiveDoc,
+        SeverityDoc,
+        StickyDoc,
         StyleDoc,
-        ToastTargetDemo,
-        ToastTemplateDemo,
+        TargetDoc,
+        TemplateDoc,
         TemplatesDoc,
-        ToastClearDemo
+        ClearDoc
     ],
     exports: [AppDocModule]
 })

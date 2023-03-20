@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'inplace-input-demo',
+    selector: 'input-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Inplace can be used within a form to display a value as read only before making it editable. The <i>closable</i> property adds a close button next to the content to switch back to read only mode.</p>
@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
     </section>`
 })
-export class InplaceInputDemo {
+export class InputDoc {
     @Input() id: string;
 
     @Input() title: string;

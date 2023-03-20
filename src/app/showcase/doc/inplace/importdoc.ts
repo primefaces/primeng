@@ -14,7 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `
-import { InplaceModule } from 'primeng/inplace';`
+        typescript: `import { InplaceModule } from 'primeng/inplace';`
     };
 }

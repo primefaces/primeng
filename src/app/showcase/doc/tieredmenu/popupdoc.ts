@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'tiered-menu-popup-demo',
+    selector: 'popup-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
     </section>`
 })
-export class TieredMenuPopupDemo implements OnInit {
+export class PopupDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

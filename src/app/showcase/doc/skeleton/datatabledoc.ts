@@ -27,7 +27,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code"></app-code>
+        <app-code [code]="code" selector="skeleton-data-table-demo"></app-code>
     </section>`
 })
 export class DataTableDoc implements OnInit {
@@ -86,10 +86,10 @@ export class DataTableDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    templateUrl: './skeletondemo.html',
-    styleUrls: ['./skeletondemo.scss']
+    selector: 'skeleton-data-table-demo',
+    templateUrl: './skeleton-data-table-demo.html'
 })
-export class SkeletonDemo implements OnInit {
+export class SkeletonDataTableDemo implements OnInit {
 
     products: any[];
 

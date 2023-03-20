@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-export-demo',
+    selector: 'export-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -44,7 +44,7 @@ import { ProductService } from '../../service/productservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableExportDemo implements OnInit {
+export class ExportDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

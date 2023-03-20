@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
-    selector: 'tree-table-edit-demo',
+    selector: 'edit-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
@@ -114,9 +114,9 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'tree-table-edit-demo',
-    templateUrl: './tree-table-edit-demo.html',
+    templateUrl: './tree-table-edit-demo.html'
 })
-export class TreeTableEditDemo implements OnInit{
+export class TreeTableEditDemo implements OnInit {
     files: TreeNode[];
 
     cols: any[];

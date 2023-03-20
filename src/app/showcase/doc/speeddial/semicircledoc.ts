@@ -3,13 +3,13 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'speeddial-semi-circle-demo',
+    selector: 'semi-circle-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>type</i> is defined as <i>semi-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+            <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
                 <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>
             </div>
         </div>
-        <app-code [code]="code" selector="speeddial-semi-circle-demo"></app-code>
+        <app-code [code]="code" selector="speed-dial-semi-circle-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -70,7 +70,7 @@ export class SemiCircleDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
+    <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
         <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
@@ -84,12 +84,12 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'speeddial-semi-circle-demo',
-    templateUrl: './speeddial-semi-circle-demo.html',
-    styleUrls: ['./speeddial-semi-circle-demo.scss'],
+    selector: 'speed-dial-semi-circle-demo',
+    templateUrl: './speed-dial-semi-circle-demo.html',
+    styleUrls: ['./speed-dial-semi-circle-demo.scss'],
     providers: [MessageService]
 })
-export class SpeeddialSemiCircleDemo implements OnInit {
+export class SpeedDialSemiCircleDemo implements OnInit {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

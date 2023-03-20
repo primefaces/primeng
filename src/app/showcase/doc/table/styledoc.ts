@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-style-demo',
+    selector: 'style-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>Certain rows or cells can easily be styled based on conditions.</p>
@@ -60,7 +60,7 @@ import { ProductService } from '../../service/productservice';
         `
     ]
 })
-export class TableStyleDemo implements OnInit {
+export class StyleDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

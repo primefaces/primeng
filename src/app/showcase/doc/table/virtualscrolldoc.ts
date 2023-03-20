@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
-    selector: 'table-virtual-scroll-demo',
+    selector: 'virtual-scroll-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>
@@ -34,7 +34,7 @@ import { CarService } from '../../service/carservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableVirtualScrollDemo implements OnInit {
+export class VirtualScrollDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -5,7 +5,7 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-context-menu-demo',
+    selector: 'context-menu-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -40,7 +40,7 @@ import { ProductService } from '../../service/productservice';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
-export class TableContextMenuDemo implements OnInit {
+export class ContextMenuDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

@@ -5,7 +5,7 @@ import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-filter-menu-demo',
+    selector: 'filter-menu-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>Filters are displayed in an overlay.</p>
@@ -157,7 +157,7 @@ import { CustomerService } from '../../service/customerservice';
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableFilterMenuDemo implements OnInit {
+export class FilterMenuDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

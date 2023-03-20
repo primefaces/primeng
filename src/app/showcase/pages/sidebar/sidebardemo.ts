@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { SidebarBasicDemo } from '../../doc/sidebar/basicdoc';
-import { SidebarTemplateDemo } from '../../doc/sidebar/templatedoc';
+import { BasicDoc } from '../../doc/sidebar/basicdoc';
+import { TemplateDoc } from '../../doc/sidebar/templatedoc';
 import { EventsDoc } from '../../doc/sidebar/eventsdoc';
 import { ImportDoc } from '../../doc/sidebar/importdoc';
 import { PropsDoc } from '../../doc/sidebar/propsdoc';
 import { StyleDoc } from '../../doc/sidebar/styledoc';
 import { TemplatesDoc } from '../../doc/sidebar/templatesdoc';
-import { SidebarPositionDemo } from '../../doc/sidebar/positiondoc';
-import { SidebarFullScreenDemo } from '../../doc/sidebar/fullscreendoc';
-import { SidebarSizeDemo } from '../../doc/sidebar/sizedoc';
+import { PositionDoc } from '../../doc/sidebar/positiondoc';
+import { FullScreenDoc } from '../../doc/sidebar/fullscreendoc';
+import { SizeDoc } from '../../doc/sidebar/sizedoc';
 
 @Component({
     templateUrl: './sidebardemo.html'
@@ -23,27 +23,27 @@ export class SidebarDemo {
         {
             id: 'basic',
             label: 'Basic',
-            component: SidebarBasicDemo
+            component: BasicDoc
         },
         {
             id: 'position',
             label: 'Position',
-            component: SidebarPositionDemo
+            component: PositionDoc
         },
         {
             id: 'fullscreen',
             label: 'Full Screen',
-            component: SidebarFullScreenDemo
+            component: FullScreenDoc
         },
         {
             id: 'size',
             label: 'Size',
-            component: SidebarSizeDemo
+            component: SizeDoc
         },
         {
             id: 'template',
             label: 'Template',
-            component: SidebarTemplateDemo
+            component: TemplateDoc
         },
         {
             id: 'style',

@@ -7,7 +7,7 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-multiple-demo',
+    selector: 'multiple-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
@@ -61,8 +61,7 @@ interface City {
 
 @Component({
     selector: 'listbox-multiple-demo',
-    templateUrl: './listbox-multiple-demo.html',
-    styleUrls: ['./listbox-multiple-demo.scss']
+    templateUrl: './listbox-multiple-demo.html'
 })
 export class ListboxMultipleDemo {
     cities: City[];
