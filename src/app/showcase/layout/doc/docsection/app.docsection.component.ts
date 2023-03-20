@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AppDocSectionTextComponent } from '../docsectiontext/app.docsectiontext.component';
 import { Doc } from 'src/app/showcase/domain/doc';
-import { DomHandler } from 'primeng/dom';
 
 interface Props {
     id: string;
@@ -54,10 +53,6 @@ export class AppDocSectionsComponent implements OnInit {
                 component.instance.id = children.id;
                 component.instance.title = children.label;
             }
-        }
-        
-        if(component) {
-            DomHandler.findSingle(component.location.nativeElement, 'section').classList.add('py-3')
         }
     }
 }

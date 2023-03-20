@@ -12,7 +12,6 @@ import { EventsDoc } from './eventsdoc';
 import { HideOnEscapeDoc } from './hideonescapedoc';
 import { ImportDoc } from './importdoc';
 import { ModeDoc } from './modedoc';
-import { OptionsDoc } from './overlayoptionsdoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
 import { TargetDoc } from './targetdoc';
@@ -22,6 +21,6 @@ import { TransitionOptionsDoc } from './transitionoptionsdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, OverlayModule, ButtonModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [AppendToDoc, AutoZIndexDoc, BaseZIndexDoc, OverlayBasicDemo, EventsDoc, HideOnEscapeDoc, ImportDoc, ModeDoc, OptionsDoc, ResponsiveDoc, StyleDoc, TargetDoc, OverlayTemplateDemo, TransitionOptionsDoc]
+    declarations: [AppendToDoc, AutoZIndexDoc, BaseZIndexDoc, OverlayBasicDemo, EventsDoc, HideOnEscapeDoc, ImportDoc, ModeDoc, ResponsiveDoc, StyleDoc, TargetDoc, OverlayTemplateDemo, TransitionOptionsDoc]
 })
 export class OverlayDocModule {}

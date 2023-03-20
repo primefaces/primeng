@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 @Component({
     selector: 'events-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+        <app-docsectiontext [title]="title" [id]="id" [level]="3"></app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
