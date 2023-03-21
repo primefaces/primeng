@@ -27,5 +27,5 @@ export class AccessibilityDoc {
         html: `<p-card role="region">
     Content
 </p-card>`
-    }
+    };
 }
