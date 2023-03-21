@@ -19,8 +19,7 @@ export class UsageDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-import { ButtonModule } from 'primeng/button';`,
+        typescript: `import { ButtonModule } from 'primeng/button';`,
         html: `
 <div class="card flex justify-content-center">
     <p-button label="Check" icon="pi pi-check"></p-button>
