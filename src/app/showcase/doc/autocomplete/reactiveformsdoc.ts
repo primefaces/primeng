@@ -2,11 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 import { FormControl, FormGroup } from '@angular/forms';
-
-interface Country {
-    name: string;
-    code: string;
-}
 @Component({
     selector: 'reactive-forms-doc',
     template: ` <section>
@@ -42,7 +37,7 @@ export class ReactiveFormsDoc implements OnInit {
         });
 
         this.formGroup = new FormGroup({
-            selectedCountry: new FormControl<Country | null>(null)
+            selectedCountry: new FormControl<object | null>(null)
         });
     }
 
@@ -78,11 +73,6 @@ import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../../service/countryservice';
 import { FormControl, FormGroup } from '@angular/forms';
 
-interface Country {
-    name: string;
-    code: string;
-}
-
 @Component({
     selector: 'autocomplete-reactive-forms-demo',
     templateUrl: './autocomplete-reactive-forms-demo.html'
@@ -102,7 +92,7 @@ export class AutocompleteReactiveFormsDemo implements OnInit {
         });
 
         this.formGroup = new FormGroup({
-            selectedCountry: new FormControl<Country | null>(null)
+            selectedCountry: new FormControl<object | null>(null)
         });
     }
 

@@ -4,6 +4,7 @@ import { BasicDoc } from '../../doc/cascadeselect/basicdoc';
 import { EventsDoc } from '../../doc/cascadeselect/eventsdoc';
 import { ImportDoc } from '../../doc/cascadeselect/importdoc';
 import { PropsDoc } from '../../doc/cascadeselect/propsdoc';
+import { ReactiveFormsDoc } from '../../doc/cascadeselect/reactiveformsdoc';
 import { StyleDoc } from '../../doc/cascadeselect/styledoc';
 import { TemplateDoc } from '../../doc/cascadeselect/templatedoc';
 
@@ -21,6 +22,11 @@ export class CascadeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'template',
