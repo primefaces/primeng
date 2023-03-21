@@ -6,6 +6,7 @@ import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
 import { EventsDoc } from './eventsdoc';
@@ -22,6 +23,6 @@ import { ToggleMaskDoc } from './togglemaskdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, DividerModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc, AccessibilityDoc]
 })
 export class PasswordDocModule {}

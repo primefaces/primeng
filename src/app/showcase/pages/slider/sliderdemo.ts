@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/slider/accessibilitydoc';
 import { BasicDoc } from '../../doc/slider/basicdoc';
 import { EventsDoc } from '../../doc/slider/eventsdoc';
 import { ImportDoc } from '../../doc/slider/importdoc';
@@ -49,6 +50,11 @@ export class SliderDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

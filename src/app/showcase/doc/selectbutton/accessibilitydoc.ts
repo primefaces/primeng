@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -8,12 +7,10 @@ import { Code } from '../../domain/code';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
-                    <i>aria-label</i> props.
+                    The container element that wraps the buttons has a <i>group</i> role whereas each button element uses <i>button</i> role and <i>aria-pressed</i> is updated depending on selection state. Value to describe an option is automatically
+                    set using the <i>aria-label</i> property that refers to the label of an option so it is still suggested to define a label even the option display consists of presentational content like icons only.
                 </p>
             </app-docsectiontext>
-
-            <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
@@ -29,7 +26,13 @@ import { Code } from '../../domain/code';
                             <td>
                                 <i>tab</i>
                             </td>
-                            <td>Moves focus to the input.</td>
+                            <td>Moves focus to the buttons.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>space</i>
+                            </td>
+                            <td>Toggles the checked state of a button.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,14 +44,4 @@ export class AccessibilityDoc {
     @Input() id: string;
 
     @Input() title: string;
-
-    code: Code = {
-        basic: `<label for="firstname">Firstname</label>
-<input pInputText id="firstname"></input>
-
-<span id="lastname">Lastname</span>
-<input pInputText aria-labelledby="lastname"></input>
-
-<input pInputText aria-label="Age"></input>`
-    };
 }

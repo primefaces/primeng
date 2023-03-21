@@ -5,6 +5,7 @@ import { DisabledDoc } from '../../doc/tristatecheckbox/disableddoc';
 import { PropsDoc } from '../../doc/tristatecheckbox/propsdoc';
 import { EventsDoc } from '../../doc/tristatecheckbox/eventsdoc';
 import { StyleDoc } from '../../doc/tristatecheckbox/styledoc';
+import { AccessibilityDoc } from '../../doc/tristatecheckbox/accessibilitydoc';
 
 @Component({
     templateUrl: './tristatecheckboxdemo.html'
@@ -30,6 +31,11 @@ export class TriStateCheckboxDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

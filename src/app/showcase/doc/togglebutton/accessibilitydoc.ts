@@ -8,8 +8,9 @@ import { Code } from '../../domain/code';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
-                    <i>aria-label</i> props.
+                    ToggleButton component uses an element with <i>button</i> role and updates <i>aria-pressed</i> state for screen readers. Value to describe the component can be defined with <i>aria-labelledby</i> or <i>aria-label</i> props, it is
+                    highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria
+                    label that does not change related to state.
                 </p>
             </app-docsectiontext>
 
@@ -29,7 +30,13 @@ import { Code } from '../../domain/code';
                             <td>
                                 <i>tab</i>
                             </td>
-                            <td>Moves focus to the input.</td>
+                            <td>Moves focus to the button.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>space</i>
+                            </td>
+                            <td>Toggles the checked state.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,12 +50,9 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `<label for="firstname">Firstname</label>
-<input pInputText id="firstname"></input>
+        basic: `<span id="rememberme">Remember Me</span>
+<p-toggleButton aria-labelledby="rememberme"></p-toggleButton>
 
-<span id="lastname">Lastname</span>
-<input pInputText aria-labelledby="lastname"></input>
-
-<input pInputText aria-label="Age"></input>`
+<p-toggleButton aria-label="Remember Me"></p-toggleButton>`
     };
 }

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ChipsDoc } from './chipsdoc';
 import { DisabledDoc } from './disableddoc';
@@ -23,6 +24,6 @@ import { VirtualScrollDoc } from './virtualscrolldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MultiSelectModule, FormsModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ChipsDoc, GroupDoc, FilterDoc, TemplateDoc, VirtualScrollDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, ChipsDoc, GroupDoc, FilterDoc, TemplateDoc, VirtualScrollDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class MultiSelectDocModule {}

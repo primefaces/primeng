@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/multiselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/multiselect/basicdoc';
 import { ChipsDoc } from '../../doc/multiselect/chipsdoc';
 import { DisabledDoc } from '../../doc/multiselect/disableddoc';
@@ -74,6 +75,11 @@ export class MultiSelectDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
     apiDocs = [

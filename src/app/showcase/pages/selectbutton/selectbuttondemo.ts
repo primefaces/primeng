@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/selectbutton/accessibilitydoc';
 import { BasicDoc } from '../../doc/selectbutton/basicdoc';
 import { DisabledDoc } from '../../doc/selectbutton/disableddoc';
 import { EventsDoc } from '../../doc/selectbutton/eventsdoc';
@@ -42,6 +43,11 @@ export class SelectButtonDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
