@@ -9,6 +9,7 @@ import { TemplatesDoc } from '../../doc/sidebar/templatesdoc';
 import { PositionDoc } from '../../doc/sidebar/positiondoc';
 import { FullScreenDoc } from '../../doc/sidebar/fullscreendoc';
 import { SizeDoc } from '../../doc/sidebar/sizedoc';
+import { AccessibilityDoc } from '../../doc/sidebar/accessibilitydoc';
 
 @Component({
     templateUrl: './sidebardemo.html'
@@ -49,6 +50,11 @@ export class SidebarDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

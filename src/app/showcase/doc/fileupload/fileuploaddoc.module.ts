@@ -19,10 +19,11 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
 import { AutoDoc } from './autodoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AppCodeModule, AppDocModule, ButtonModule, TagModule, ProgressBarModule, ToastModule, FileUploadModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AdvancedDoc, MethodsDoc, AutoDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AdvancedDoc, MethodsDoc, AutoDoc, AccessibilityDoc]
 })
 export class FileUploadDocModule {}

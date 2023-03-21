@@ -13,10 +13,11 @@ import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, OrderListModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class OrderlistDocModule {}

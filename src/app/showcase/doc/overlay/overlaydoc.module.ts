@@ -17,10 +17,11 @@ import { StyleDoc } from './styledoc';
 import { TargetDoc } from './targetdoc';
 import { OverlayTemplateDemo } from './templatedoc';
 import { TransitionOptionsDoc } from './transitionoptionsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, OverlayModule, ButtonModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [AppendToDoc, AutoZIndexDoc, BaseZIndexDoc, OverlayBasicDemo, EventsDoc, HideOnEscapeDoc, ImportDoc, ModeDoc, ResponsiveDoc, StyleDoc, TargetDoc, OverlayTemplateDemo, TransitionOptionsDoc]
+    declarations: [AppendToDoc, AutoZIndexDoc, BaseZIndexDoc, OverlayBasicDemo, EventsDoc, HideOnEscapeDoc, ImportDoc, ModeDoc, ResponsiveDoc, StyleDoc, TargetDoc, OverlayTemplateDemo, TransitionOptionsDoc, AccessibilityDoc]
 })
 export class OverlayDocModule {}

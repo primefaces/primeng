@@ -15,10 +15,11 @@ import { StyleDoc } from './styledoc';
 import { RouterModule } from '@angular/router';
 import { PropsDoc } from './propsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TimelineModule, CardModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, PropsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, PropsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class TimelineDocModule {}

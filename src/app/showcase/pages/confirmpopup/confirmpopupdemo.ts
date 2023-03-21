@@ -5,6 +5,7 @@ import { PropsDoc } from '../../doc/confirmpopup/propsdoc';
 import { StyleDoc } from '../../doc/confirmpopup/styledoc';
 import { ServiceDoc } from '../../doc/confirmpopup/servicedoc';
 import { ConfirmationApiDoc } from '../../doc/confirmpopup/confirmationapidoc';
+import { AccessibilityDoc } from '../../doc/confirmpopup/accessibilitydoc';
 
 @Component({
     templateUrl: './confirmpopupdemo.html'
@@ -25,6 +26,11 @@ export class ConfirmPopupDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

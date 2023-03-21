@@ -8,6 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CheckboxDoc } from './checkboxdoc';
 import { ContextMenuDoc } from './contextmenudoc';
@@ -29,6 +30,6 @@ import { TemplatesDoc } from './templatesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeModule, ButtonModule, InputSwitchModule, FormsModule, ToastModule, ContextMenuModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class TreeDocModule {}

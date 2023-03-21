@@ -10,6 +10,7 @@ import { StyleDoc } from '../../doc/tabview/styledoc';
 import { PropsDoc } from '../../doc/tabview/propsdoc';
 import { EventsDoc } from '../../doc/tabview/eventsdoc';
 import { TemplatesDoc } from '../../doc/tabview/templatesdoc';
+import { AccessibilityDoc } from '../../doc/tabview/accessibilitydoc';
 
 @Component({
     templateUrl: './tabviewdemo.html',
@@ -56,6 +57,11 @@ export class TabViewDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

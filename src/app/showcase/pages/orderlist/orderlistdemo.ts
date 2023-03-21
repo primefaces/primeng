@@ -8,6 +8,7 @@ import { PropsDoc } from '../../doc/orderlist/propsdoc';
 import { EventsDoc } from '../../doc/orderlist/eventsdoc';
 import { MethodsDoc } from '../../doc/orderlist/methodsdoc';
 import { TemplatesDoc } from '../../doc/orderlist/templatesdoc';
+import { AccessibilityDoc } from '../../doc/orderlist/accessibilitydoc';
 
 @Component({
     templateUrl: './orderlistdemo.html',
@@ -39,6 +40,11 @@ export class OrderListDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

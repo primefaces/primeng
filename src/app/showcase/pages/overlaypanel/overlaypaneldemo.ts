@@ -9,6 +9,7 @@ import { TemplateDoc } from '../../doc/overlaypanel/templatedoc';
 import { TargetDoc } from '../../doc/overlaypanel/targetdoc';
 import { EventsDoc } from '../../doc/overlaypanel/eventsdoc';
 import { MethodsDoc } from '../../doc/overlaypanel/methodsdoc';
+import { AccessibilityDoc } from '../../doc/overlaypanel/accessibilitydoc';
 
 @Component({
     templateUrl: './overlaypaneldemo.html'
@@ -44,6 +45,11 @@ export class OverlayPanelDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

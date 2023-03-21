@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
@@ -16,6 +17,6 @@ import { ToggleableDoc } from './toggleabledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, FieldsetModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class FieldsetDocModule {}

@@ -8,6 +8,7 @@ import { PositionDoc } from '../../doc/confirmdialog/positiondoc';
 import { TemplateDoc } from '../../doc/confirmdialog/templatedoc';
 import { ServiceDoc } from '../../doc/confirmdialog/servicedoc';
 import { TemplatesDoc } from '../../doc/confirmdialog/templatesdoc';
+import { AccessibilityDoc } from '../../doc/confirmdialog/accessibilitydoc';
 
 @Component({
     templateUrl: './confirmdialogdemo.html'
@@ -38,6 +39,11 @@ export class ConfirmDialogDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

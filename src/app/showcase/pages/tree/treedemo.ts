@@ -16,6 +16,7 @@ import { PropsDoc } from '../../doc/tree/propsdoc';
 import { EventsDoc } from '../../doc/tree/eventsdoc';
 import { MethodsDoc } from '../../doc/tree/methodsdoc';
 import { TemplatesDoc } from '../../doc/tree/templatesdoc';
+import { AccessibilityDoc } from '../../doc/tree/accessibilitydoc';
 
 @Component({
     templateUrl: './treedemo.html'
@@ -92,6 +93,11 @@ export class TreeDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

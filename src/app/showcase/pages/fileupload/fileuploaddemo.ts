@@ -9,6 +9,7 @@ import { PropsDoc } from '../../doc/fileupload/propsdoc';
 import { StyleDoc } from '../../doc/fileupload/styledoc';
 import { TemplateDoc } from '../../doc/fileupload/templatedoc';
 import { TemplatesDoc } from '../../doc/fileupload/templatesdoc';
+import { AccessibilityDoc } from '../../doc/fileupload/accessibilitydoc';
 
 @Component({
     templateUrl: './fileuploaddemo.html'
@@ -44,6 +45,11 @@ export class FileUploadDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -7,6 +7,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { SliderModule } from 'primeng/slider';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImagesDoc } from './imagesdoc';
@@ -18,6 +19,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PaginatorModule, ButtonModule, DividerModule, SliderModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, PropsDoc, EventsDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
 })
 export class PaginatorDocModule {}

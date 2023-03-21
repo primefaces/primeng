@@ -8,6 +8,7 @@ import { EventDoc } from '../../doc/tooltip/eventdoc';
 import { AutoHideDoc } from '../../doc/tooltip/autohidedoc';
 import { DelayDoc } from '../../doc/tooltip/delaydoc';
 import { OptionsDoc } from '../../doc/tooltip/optionsdoc';
+import { AccessibilityDoc } from '../../doc/tooltip/accessibilitydoc';
 
 @Component({
     templateUrl: './tooltipdemo.html'
@@ -53,6 +54,11 @@ export class TooltipDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

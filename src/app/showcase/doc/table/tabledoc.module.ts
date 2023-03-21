@@ -82,6 +82,7 @@ import { StylingDoc } from './stylingdoc';
 import { MethodsDoc } from './methodsdoc';
 import { TemplatesDoc } from './templatesdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [
@@ -172,7 +173,8 @@ import { SelectionEventsDoc } from './selectioneventsdoc';
         StylingDoc,
         MethodsDoc,
         TemplatesDoc,
-        SelectionEventsDoc
+        SelectionEventsDoc,
+        AccessibilityDoc
     ],
     exports: [AppDocModule]
 })

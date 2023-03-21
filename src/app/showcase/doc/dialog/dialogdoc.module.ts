@@ -19,10 +19,11 @@ import { MaximizableDoc } from './maximizabledoc';
 import { TemplateDoc } from './templatedoc';
 import { OverlaysInsideDoc } from './overlaysinsidedoc';
 import { ModalDoc } from './modaldoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, DialogModule, ButtonModule, DropdownModule, AppDocModule],
-    declarations: [BasicDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, LongContentDoc, ResponsiveDoc, PositionDoc, MaximizableDoc, TemplateDoc, OverlaysInsideDoc, ModalDoc],
+    declarations: [BasicDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, LongContentDoc, ResponsiveDoc, PositionDoc, MaximizableDoc, TemplateDoc, OverlaysInsideDoc, ModalDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class DialogDocModule {}

@@ -6,6 +6,7 @@ import { StyleDoc } from '../../doc/scrollpanel/styledoc';
 import { PropsDoc } from '../../doc/scrollpanel/propsdoc';
 import { MethodsDoc } from '../../doc/scrollpanel/methodsdoc';
 import { TemplatesDoc } from '../../doc/scrollpanel/templatesdoc';
+import { AccessibilityDoc } from '../../doc/scrollpanel/accessibilitydoc';
 
 @Component({
     templateUrl: './scrollpaneldemo.html',
@@ -33,6 +34,11 @@ export class ScrollPanelDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

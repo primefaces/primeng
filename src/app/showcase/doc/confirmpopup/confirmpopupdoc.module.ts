@@ -12,10 +12,11 @@ import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { ServiceDoc } from './servicedoc';
 import { ConfirmationApiDoc } from './confirmationapidoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ConfirmPopupModule, ButtonModule, ToastModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, ServiceDoc, ConfirmationApiDoc],
+    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, ServiceDoc, ConfirmationApiDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ConfirmPopupDocModule {}

@@ -53,6 +53,7 @@ import { EventsDoc } from '../../doc/table/eventsdoc';
 import { StylingDoc } from '../../doc/table/stylingdoc';
 import { MethodsDoc } from '../../doc/table/methodsdoc';
 import { TemplatesDoc } from '../../doc/table/templatesdoc';
+import { AccessibilityDoc } from '../../doc/table/accessibilitydoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -375,6 +376,11 @@ export class TableDemo {
             id: 'styling',
             label: 'Styling',
             component: StylingDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

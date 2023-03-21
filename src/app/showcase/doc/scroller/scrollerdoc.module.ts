@@ -22,10 +22,11 @@ import { TemplateDoc } from './templatedoc';
 import { TemplatesDoc } from './templatesdoc';
 import { ButtonModule } from 'primeng/button';
 import { ProgrammaticDoc } from './programmaticdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollerModule, SkeletonModule, SpinnerModule, ButtonModule],
-    declarations: [BasicDoc, DelayDoc, ImportDoc, EventsDoc, HorizontalDoc, GridDoc, LazyLoadDoc, LoaderDoc, MethodsDoc, PropsDoc, ScrollOptionsDoc, StyleDoc, TemplatesDoc, TemplateDoc, ProgrammaticDoc],
+    declarations: [BasicDoc, DelayDoc, ImportDoc, EventsDoc, HorizontalDoc, GridDoc, LazyLoadDoc, LoaderDoc, MethodsDoc, PropsDoc, ScrollOptionsDoc, StyleDoc, TemplatesDoc, TemplateDoc, ProgrammaticDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ScrollerDocModule {}

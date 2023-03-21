@@ -7,6 +7,7 @@ import { StyleDoc } from '../../doc/fieldset/styledoc';
 import { PropsDoc } from '../../doc/fieldset/propsdoc';
 import { EventsDoc } from '../../doc/fieldset/eventsdoc';
 import { TemplatesDoc } from '../../doc/fieldset/templatesdoc';
+import { AccessibilityDoc } from '../../doc/fieldset/accessibilitydoc';
 
 @Component({
     templateUrl: './fieldsetdemo.html'
@@ -37,6 +38,11 @@ export class FieldsetDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
