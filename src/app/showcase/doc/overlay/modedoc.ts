@@ -34,8 +34,7 @@ export class AppComponent implements OnInit {
         this.primengConfig.overlayOptions: OverlayOptions = {
             mode: 'modal'
         };
-    }
-
+    } 
 }`
     };
 

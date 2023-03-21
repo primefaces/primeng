@@ -15,7 +15,7 @@ interface City {
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name"></p-multiSelect>
         </div>
-        <app-code [code]="code" selector="multiselect-disabled-demo"></app-code>
+        <app-code [code]="code" selector="muilti-select-disabled-demo"></app-code>
     </section>`
 })
 export class DisabledDoc implements OnInit {
@@ -55,10 +55,10 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-disabled-demo',
-    templateUrl: './multiselect-disabled-demo.html'
+    selector: 'muilti-select-disabled-demo',
+    templateUrl: './muilti-select-disabled-demo.html'
 })
-export class MultiselectDisabledDemo implements OnInit {
+export class MultiSelectDisabledDemo implements OnInit {
 
     cities: City[];
 

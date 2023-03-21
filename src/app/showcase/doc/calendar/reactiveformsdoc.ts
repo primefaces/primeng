@@ -59,8 +59,7 @@ export class CalendarReactiveFormsDemo {
         this.formGroup = new FormGroup({
             date: new FormControl<Date | null>(null)
         });
-    }
-
+    } 
 }`
     };
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/slider/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/slider/accessibilitydoc';
 import { BasicDoc } from '../../doc/slider/basicdoc';
 import { EventsDoc } from '../../doc/slider/eventsdoc';
@@ -25,6 +26,11 @@ export class SliderDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'input',

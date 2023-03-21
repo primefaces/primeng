@@ -10,6 +10,7 @@ import { AccessibilityDoc } from '../../doc/inputtext/accessibilitydoc';
 import { BasicDoc } from '../../doc/inputtext/basicdoc';
 import { KeyFilterDoc } from '../../doc/inputtext/keyfilterdoc';
 import { PropsDoc } from '../../doc/inputtext/propsdoc';
+import { ReactiveFormsDoc } from '../../doc/inputtext/reactiveformsdoc';
 import { StyleDoc } from '../../doc/inputtext/styledoc';
 
 @Component({
@@ -17,19 +18,6 @@ import { StyleDoc } from '../../doc/inputtext/styledoc';
     styleUrls: ['./inputtextdemo.scss']
 })
 export class InputTextDemo {
-    disabled: boolean = true;
-
-    value1: string;
-
-    value2: string;
-
-    value3: string;
-
-    value4: string;
-
-    value5: string = 'Disabled';
-
-    value6: string;
 
     docs = [
         {
@@ -41,6 +29,11 @@ export class InputTextDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'icons',

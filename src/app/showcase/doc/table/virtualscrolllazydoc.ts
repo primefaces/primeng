@@ -179,8 +179,7 @@ export class TableVirtualScrollLazyDemo implements OnInit{
             //trigger change detection
             event.forceUpdate();
         }, Math.random() * 1000 + 250);
-    }
-
+    } 
 }`,
         service: ['CarService']
     };

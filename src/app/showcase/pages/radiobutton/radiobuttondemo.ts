@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/radiobutton/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/radiobutton/accessibilitydoc';
 import { DisabledDoc } from '../../doc/radiobutton/disableddoc';
 import { DynamicDoc } from '../../doc/radiobutton/dynamicdoc';
@@ -29,6 +30,11 @@ export class RadioButtonDemo {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'invalid',

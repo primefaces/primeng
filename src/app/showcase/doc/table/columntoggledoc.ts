@@ -161,8 +161,7 @@ export class TableColumnToggleDemo implements OnInit{
     set selectedColumns(val: any[]) {
         //restore original order
         this._selectedColumns = this.cols.filter((col) => val.includes(col));
-    }
-
+    } 
 }`,
         service: ['ProductService']
     };

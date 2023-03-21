@@ -130,8 +130,7 @@ export class InplaceDataDemo {
 
     ngOnInit() {
         this.carService.getCarsSmall().then((cars) => (this.cars = cars));
-    }
-
+    } 
 }`,
         service: ['CarService']
     };

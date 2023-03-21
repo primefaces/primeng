@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/listbox/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/listbox/accessibilitydoc';
 import { BasicDoc } from '../../doc/listbox/basicdoc';
 import { DisabledDoc } from '../../doc/listbox/disableddoc';
@@ -12,6 +13,7 @@ import { PropsDoc } from '../../doc/listbox/propsdoc';
 import { StyleDoc } from '../../doc/listbox/styledoc';
 import { TemplateDoc } from '../../doc/listbox/templatedoc';
 import { TemplatesDoc } from '../../doc/listbox/templatesdoc';
+
 @Component({
     templateUrl: './listboxdemo.html'
 })
@@ -26,6 +28,11 @@ export class ListboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',

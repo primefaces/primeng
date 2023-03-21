@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/selectbutton/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/selectbutton/accessibilitydoc';
 import { BasicDoc } from '../../doc/selectbutton/basicdoc';
 import { DisabledDoc } from '../../doc/selectbutton/disableddoc';
@@ -23,6 +24,11 @@ export class SelectButtonDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',

@@ -156,8 +156,7 @@ export class TableFrozenColumnsDemo implements OnInit{
 
     formatCurrency(value) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    }
-
+    } 
 }`,
         scss: `
 :host ::ng-deep  .p-frozen-column {

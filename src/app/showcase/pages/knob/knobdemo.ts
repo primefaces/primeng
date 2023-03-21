@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/knob/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/knob/accessibilitydoc';
 import { BasicDoc } from '../../doc/knob/basicdoc';
 import { ColorDoc } from '../../doc/knob/colordoc';
@@ -28,6 +29,11 @@ export class KnobDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'minmax',

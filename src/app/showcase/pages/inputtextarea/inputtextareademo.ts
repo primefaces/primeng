@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/inputtextarea/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/inputtextarea/accessibilitydoc';
 import { AutoResizeDoc } from '../../doc/inputtextarea/autoresizedoc';
 import { BasicDoc } from '../../doc/inputtextarea/basicdoc';
@@ -24,6 +25,11 @@ export class InputTextareaDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'autoresize',

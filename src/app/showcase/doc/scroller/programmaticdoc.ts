@@ -74,8 +74,7 @@ export class ScrollerProgrammaticDemo implements OnInit {
 
     reset() {
         this.sc.scrollToIndex(0, 'smooth');
-    }
-
+    } 
 }`
     };
 }

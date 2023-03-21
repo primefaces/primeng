@@ -554,8 +554,7 @@ export class TableFilterMenuDemo implements OnInit {
 
     clear(table: Table) {
         table.clear();
-    }
-
+    } 
 }`,
         scss: `
 :host ::ng-deep {

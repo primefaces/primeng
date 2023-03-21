@@ -411,8 +411,7 @@ export class TableFilterRowDemo implements OnInit {
 
     clear(table: Table) {
         table.clear();
-    }
-
+    } 
 }`,
         scss: `
 .customer-badge {

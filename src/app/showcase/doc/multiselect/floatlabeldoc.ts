@@ -18,7 +18,7 @@ interface City {
                 <label for="ms-cities">Select Cities</label>
             </span>
         </div>
-        <app-code [code]="code" selector="multiselect-floatlabel-demo"></app-code>
+        <app-code [code]="code" selector="muilti-select-floatlabel-demo"></app-code>
     </section>`
 })
 export class FloatLabelDoc implements OnInit {
@@ -64,10 +64,10 @@ interface City {
 }
 
 @Component({
-    selector: 'multiselect-floatlabel-demo',
-    templateUrl: './multiselect-floatlabel-demo.html'
+    selector: 'muilti-select-floatlabel-demo',
+    templateUrl: './muilti-select-floatlabel-demo.html'
 })
-export class MultiselectFloatlabelDemo implements OnInit {
+export class MultiSelectFloatlabelDemo implements OnInit {
     cities: City[];
 
     selectedCities: City[];

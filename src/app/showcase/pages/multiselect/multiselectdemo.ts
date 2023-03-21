@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/multiselect/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/multiselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/multiselect/basicdoc';
 import { ChipsDoc } from '../../doc/multiselect/chipsdoc';
@@ -30,6 +31,11 @@ export class MultiSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'chips',

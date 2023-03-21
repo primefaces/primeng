@@ -134,8 +134,7 @@ export class TableMultipleSelectionDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    }
-
+    } 
 }`,
 
         service: ['ProductService']

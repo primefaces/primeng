@@ -14,6 +14,7 @@ import { MethodsDoc } from '../../doc/inputnumber/methodsdoc';
 import { EventsDoc } from '../../doc/inputnumber/eventsdoc';
 import { StyleDoc } from '../../doc/inputnumber/styledoc';
 import { AccessibilityDoc } from '../../doc/inputnumber/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/inputnumber/reactiveformsdoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
@@ -30,6 +31,11 @@ export class InputNumberDemo {
             id: 'numeral',
             label: 'Numeral',
             component: NumeralsDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'locale',

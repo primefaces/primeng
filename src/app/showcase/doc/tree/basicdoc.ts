@@ -53,8 +53,7 @@ export class TreeBasicDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
-    }
-
+    } 
 }`,
         service: ['NodeService'],
 

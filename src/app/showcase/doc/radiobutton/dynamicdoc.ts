@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="radio-button-dynamic-demo"></app-code>
     </section>`
 })
-export class DynamicDoc {
+export class DynamicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -32,7 +32,7 @@ export class DynamicDoc {
         { name: 'Research', key: 'R' }
     ];
 
-    constructor() {
+    ngOnInit() {
         this.selectedCategory = this.categories[1];
     }
 
@@ -56,13 +56,13 @@ export class DynamicDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'radio-button-dynamic-demo',
     templateUrl: './radio-button-dynamic-demo.html'
 })
-export class RadioButtonDynamicDemo {
+export class RadioButtonDynamicDemo implements OnInit{
     selectedCategory: any = null;
 
     categories: any[] = [
@@ -72,7 +72,7 @@ export class RadioButtonDynamicDemo {
         { name: 'Research', key: 'R' }
     ];
 
-    constructor() {
+    ngOnInit() {
         this.selectedCategory = this.categories[1];
     }
 }`

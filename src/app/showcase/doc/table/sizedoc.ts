@@ -137,8 +137,7 @@ export class TableSizeDemo {
             { name: 'Normal', class: '' },
             { name: 'Large',  class: 'p-datatable-lg' }
         ];
-    }
-
+    } 
 }`,
         service: ['ProductService']
     };

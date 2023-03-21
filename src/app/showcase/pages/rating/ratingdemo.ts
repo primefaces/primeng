@@ -10,6 +10,7 @@ import { StyleDoc } from '../../doc/rating/styledoc';
 import { PropsDoc } from '../../doc/rating/propsdoc';
 import { EventsDoc } from '../../doc/rating/eventsdoc';
 import { AccessibilityDoc } from '../../doc/rating/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/rating/reactiveformsdoc';
 
 @Component({
     templateUrl: './ratingdemo.html'
@@ -25,6 +26,11 @@ export class RatingDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'withoutcancel',

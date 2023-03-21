@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/keyfilter/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/keyfilter/accessibilitydoc';
 import { ImportDoc } from '../../doc/keyfilter/importdoc';
 import { PresetsDoc } from '../../doc/keyfilter/presetsdoc';
@@ -24,6 +25,11 @@ export class KeyFilterDemo {
             id: 'regex',
             label: 'Regex',
             component: RegexDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'accessibility',

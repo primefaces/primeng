@@ -108,8 +108,7 @@ export class TableColumnResizeFitModeDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    }
-
+    } 
 }`,
         service: ['ProductService']
     };

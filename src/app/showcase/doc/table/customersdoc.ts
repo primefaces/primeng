@@ -782,8 +782,7 @@ export class TableCustomersDemo implements OnInit{
                 }
             }
         }
-    }
-
+    } 
 }`,
         service: ['CustomerService']
     };

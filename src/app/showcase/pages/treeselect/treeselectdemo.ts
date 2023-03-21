@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsDoc } from '../../doc/treeselect/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/treeselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/treeselect/basicdoc';
 import { CheckboxDoc } from '../../doc/treeselect/checkboxdoc';
@@ -27,6 +28,11 @@ export class TreeSelectDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'multiple',
