@@ -14,6 +14,7 @@ import { StyleDoc } from '../../doc/splitbutton/styledoc';
 import { PropsDoc } from '../../doc/splitbutton/propsdoc';
 import { EventsDoc } from '../../doc/splitbutton/eventsdoc';
 import { TemplatesDoc } from '../../doc/splitbutton/templatesdoc';
+import { AccessibilityDoc } from '../../doc/splitbutton/accessibilitydoc';
 
 @Component({
     templateUrl: './splitbuttondemo.html'
@@ -79,6 +80,11 @@ export class SplitButtonDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
