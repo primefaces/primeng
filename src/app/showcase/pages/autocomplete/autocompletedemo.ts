@@ -12,6 +12,7 @@ import { AccessibilityDoc } from '../../doc/autocomplete/accessibilitydoc';
 import { DropdownDoc } from '../../doc/autocomplete/dropdowndoc';
 import { ForceSelectionDoc } from '../../doc/autocomplete/forceselectiondoc';
 import { ObjectsDoc } from '../../doc/autocomplete/objectsdoc';
+import { ReactiveFormsDoc } from '../../doc/autocomplete/reactiveformsdoc';
 @Component({
     templateUrl: './autocompletedemo.html'
 })
@@ -26,6 +27,11 @@ export class AutoCompleteDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'dropdown',

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -18,10 +18,11 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { DropdownDoc } from './dropdowndoc';
 import { ForceSelectionDoc } from './forceselectiondoc';
 import { ObjectsDoc } from './objectsdoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc]
 })
 export class AutoCompleteDocModule {}
