@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
                 <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
 
                 <app-code [code]="code" [hideToggleCode]="true"></app-code>
-                
+
                 <h3>Overlay Keyboard Support</h3>
                 <div class="doc-tablewrapper">
                     <table class="doc-table">

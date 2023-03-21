@@ -13,20 +13,42 @@ import { Code } from '../../domain/code';
                     <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
                 </div>
                 <div class="flex-1">
-                    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                    <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false"></p-paginator>
                 </div>
                 <div class="justify-content-end">
                     <p-button icon="pi pi-search"></p-button>
                 </div>
             </div>
             <p-divider></p-divider>
+            <div class="flex align-items-center justify-content-end">
+                <span class="mx-1 text-color">Items per page: </span>
+                <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0"></p-dropdown>
+                <p-paginator
+                    [first]="first2"
+                    [rows]="rows2"
+                    [totalRecords]="120"
+                    (onPageChange)="onPageChange2($event)"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="{first} - {last} of {totalRecords}"
+                    [showPageLinks]="false"
+                    [showFirstLastIcon]="false"
+                ></p-paginator>
+            </div>
+            <p-divider></p-divider>
             <div class="flex align-items-center justify-content-start">
                 <div class="flex justify-content-center align-items-center gap-3">
                     <span>Items per page: </span>
-                    <p-slider [(ngModel)]="first" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30"></p-slider>
+                    <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30"></p-slider>
                 </div>
-                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
-                <span class="text-color text-center" style="userSelect: none; width: 120px"> {{ first }} - {{ rows + first }} of {{ totalRecords }} </span>
+                <p-paginator
+                    (onPageChange)="onPageChange3($event)"
+                    [first]="first3"
+                    [rows]="rows3"
+                    [totalRecords]="totalRecords"
+                    [showFirstLastIcon]="false"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="{first} - {last} of {totalRecords}"
+                ></p-paginator>
             </div>
         </div>
         <app-code [code]="code" selector="paginator-template-demo"></app-code>
@@ -37,15 +59,40 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    first: number = 0;
+    first1: number = 0;
 
-    rows: number = 10;
+    rows1: number = 10;
+
+    first2: number = 0;
+
+    rows2: number = 10;
+
+    first3: number = 0;
+
+    rows3: number = 10;
 
     totalRecords: number = 120;
 
-    onPageChange(event) {
-        this.first = event.first;
-        this.rows = event.rows;
+    options = [
+        { label: 5, value: 5 },
+        { label: 10, value: 10 },
+        { label: 20, value: 20 },
+        { label: 120, value: 120 }
+    ];
+
+    onPageChange1(event) {
+        this.first1 = event.first;
+        this.rows1 = event.rows;
+    }
+
+    onPageChange2(event) {
+        this.first2 = event.first;
+        this.rows2 = event.rows;
+    }
+
+    onPageChange3(event) {
+        this.first3 = event.first;
+        this.rows3 = event.rows;
     }
 
     code: Code = {
@@ -55,22 +102,28 @@ export class TemplateDoc {
         <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
     </div>
     <div class="flex-1">
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false"></p-paginator>
     </div>
     <div class="justify-content-end">
         <p-button icon="pi pi-search"></p-button>
     </div>
 </div>
 
+<div class="flex align-items-center justify-content-end">
+    <span class="mx-1 text-color">Items per page: </span>
+    <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0"></p-dropdown>
+    <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true"
+        currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
+</div>
+
 <div class="flex align-items-center justify-content-start">
     <div class="flex justify-content-center align-items-center gap-3">
         <span>Items per page: </span>
-        <p-slider [(ngModel)]="first" style="width: 10rem" [min]="10" [max]="120" [step]="30"></p-slider>
+        <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30"></p-slider>
     </div>
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
-    <span class="text-color text-center" style="userSelect: none; width: 120px"> {{ first }} - {{ rows + first }} of {{ totalRecords }} </span>
-</div>
-    `,
+    <p-paginator (onPageChange)="onPageChange3($event)" [first]="first3" [rows]="rows3" [totalRecords]="totalRecords" [showFirstLastIcon]="false" 
+        [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}" ></p-paginator>
+</div>`,
 
         html: `
 <div class="card flex flex-column gap-3">
@@ -79,20 +132,27 @@ export class TemplateDoc {
             <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
         </div>
         <div class="flex-1">
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+            <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false"></p-paginator>
         </div>
         <div class="justify-content-end">
             <p-button icon="pi pi-search"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
+    <div class="flex align-items-center justify-content-end">
+        <span class="mx-1 text-color">Items per page: </span>
+        <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0"></p-dropdown>
+        <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true" 
+            currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
+    </div>
+    <p-divider></p-divider>
     <div class="flex align-items-center justify-content-start">
         <div class="flex justify-content-center align-items-center gap-3">
             <span>Items per page: </span>
-            <p-slider [(ngModel)]="first" style="width: 10rem" [min]="10" [max]="120" [step]="30"></p-slider>
+            <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30"></p-slider>
         </div>
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
-        <span class="text-color text-center" style="userSelect: none; width: 120px"> {{ first }} - {{ rows + first }} of {{ totalRecords }} </span>
+        <p-paginator (onPageChange)="onPageChange3($event)" [first]="first3" [rows]="rows3" [totalRecords]="totalRecords"
+            [showFirstLastIcon]="false" [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}"></p-paginator>
     </div>
 </div>`,
 
@@ -104,15 +164,40 @@ import { Component } from '@angular/core';
     templateUrl: './paginator-template-demo.html'
 })
 export class PaginatorTemplateDemo {
-    first: number = 0;
+    first1: number = 0;
 
-    rows: number = 10;
+    rows1: number = 10;
+
+    first2: number = 0;
+
+    rows2: number = 10;
+
+    first3: number = 0;
+
+    rows3: number = 10;
 
     totalRecords: number = 120;
 
-    onPageChange(event) {
-        this.first = event.first;
-        this.rows = event.rows;
+    options = [
+        { label: 5, value: 5 },
+        { label: 10, value: 10 },
+        { label: 20, value: 20 },
+        { label: 120, value: 120 }
+    ];
+
+    onPageChange1(event) {
+        this.first1 = event.first;
+        this.rows1 = event.rows;
+    }
+
+    onPageChange2(event) {
+        this.first2 = event.first;
+        this.rows2 = event.rows;
+    }
+
+    onPageChange3(event) {
+        this.first3 = event.first;
+        this.rows3 = event.rows;
     }
 }`
     };

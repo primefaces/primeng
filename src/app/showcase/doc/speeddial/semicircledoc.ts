@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>When <i>type</i> is defined as <i>semi-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
+            <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
                 <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
@@ -70,7 +70,7 @@ export class SemiCircleDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
+    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
         <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>

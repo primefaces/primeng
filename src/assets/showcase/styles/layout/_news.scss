@@ -28,13 +28,9 @@
     }
 
     .layout-news-link {
-        margin-left: .5rem;
+        margin-left: 0.5rem;
         line-height: 1.5;
         white-space: nowrap;
-
-        &:hover {
-            text-decoration: underline;
-        }
     }
 
     .layout-news-close {
@@ -46,13 +42,13 @@
         border-radius: 50%;
         width: 1.5rem;
         height: 1.5rem;
-        margin-left:.5rem;
-        transition: background-color .3s;
+        transition: background-color 0.3s;
+        margin-left: 0.5rem;
 
         &:hover {
-            background-color: rgba(255,255,255,.2);
+            background-color: rgba(255, 255, 255, 0.2);
         }
-    } 
+    }
 }
 
 .landing-news-active {
@@ -70,5 +66,11 @@
 
     .layout-content {
         padding-top: 7rem;
+    }
+
+    .doc-section-label,
+    .doc-table tbody td .doc-option-name,
+    .doc-table tbody td > i {
+        scroll-margin-top: 8.5rem;
     }
 }

@@ -16,7 +16,7 @@ export class RippleDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({

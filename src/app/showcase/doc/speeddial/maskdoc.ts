@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 350px; position: relative;" class="speed-dial-mask-demo">
+            <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
             </div>
@@ -64,7 +64,7 @@ export class MaskDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 350px; position: relative;" class="speed-dial-mask-demo">
+    <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
     </div>

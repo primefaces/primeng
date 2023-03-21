@@ -22,21 +22,19 @@ import { ProductService } from '../../service/productservice';
                 filterBy="name"
                 sourceFilterPlaceholder="Search by name"
                 targetFilterPlaceholder="Search by name"
+                breakpoint="1400px"
             >
                 <ng-template let-product pTemplate="item">
-                    <div class="flex align-items-center p-3 w-full flex-nowrap">
-                        <div class="mr-3">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" style="width: 100px" [alt]="product.name" class="w-3rem lg:w-7rem" />
+                    <div class="flex flex-wrap p-2 align-items-center gap-3">
+                        <img class="w-4rem shadow-2 flex-shrink-0 border-round" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" alt="{item.name}" />
+                        <div class="flex-1 flex flex-column gap-2">
+                            <span class="font-bold">{{ product.name }}</span>
+                            <div class="flex align-products-center gap-2">
+                                <i class="pi pi-tag text-sm"></i>
+                                <span>{{ product.category }}</span>
+                            </div>
                         </div>
-                        <div class="flex-1">
-                            <h5 style="width: 150px; height: 14px;" class="block mb-2">{{ product.name }}</h5>
-                            <i class="pi pi-tag vertical-align-middle mr-2"></i>
-                            <span class="vertical-align-middle">{{ product.category }}</span>
-                        </div>
-                        <div class="flex flex-column align-items-end">
-                            <h6 class="mb-2">{{ '$' + product.price }}</h6>
-                            <span [class]="'block product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
-                        </div>
+                        <span class="font-bold text-900">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
             </p-pickList>
@@ -62,45 +60,38 @@ export class FilterDoc {
 
     code: Code = {
         basic: `
-<p-pickList
-    [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true"
-    [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+<p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
+    [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px">
     <ng-template let-product pTemplate="item">
-        <div class="flex align-items-center p-3 w-full flex-nowrap">
-            <div class="mr-3">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" style="width: 100px" [alt]="product.name" class="w-3rem lg:w-7rem" />
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+            <img class="w-4rem shadow-2 flex-shrink-0 border-round" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" alt="{item.name}" />
+            <div class="flex-1 flex flex-column gap-2">
+                <span class="font-bold">{{ product.name }}</span>
+                <div class="flex align-products-center gap-2">
+                    <i class="pi pi-tag text-sm"></i>
+                    <span>{{ product.category }}</span>
+                </div>
             </div>
-            <div class="flex-1">
-                <h5 style="width: 150px; height: 14px;" class="block mb-2">{{ product.name }}</h5>
-                <i class="pi pi-tag vertical-align-middle mr-2"></i>
-                <span class="vertical-align-middle">{{ product.category }}</span>
-            </div>
-            <div class="flex flex-column align-items-end">
-                <h6 class="mb-2">{{ '$' + product.price }}</h6>
-                <span [class]="'block product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
-            </div>
+            <span class="font-bold text-900">{{ '$' + product.price }}</span>
         </div>
     </ng-template>
 </p-pickList>`,
 
         html: `
 <div class="card">
-    <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" 
-        [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+    <p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
+        [targetStyle]="{ height: '30rem' }" filterBy="name" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px">
         <ng-template let-product pTemplate="item">
-            <div class="flex align-items-center p-3 w-full flex-nowrap">
-                <div class="mr-3">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" style="width: 100px" [alt]="product.name" class="w-3rem lg:w-7rem" />
+            <div class="flex flex-wrap p-2 align-items-center gap-3">
+                <img class="w-4rem shadow-2 flex-shrink-0 border-round" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" alt="{item.name}" />
+                <div class="flex-1 flex flex-column gap-2">
+                    <span class="font-bold">{{ product.name }}</span>
+                    <div class="flex align-products-center gap-2">
+                        <i class="pi pi-tag text-sm"></i>
+                        <span>{{ product.category }}</span>
+                    </div>
                 </div>
-                <div class="flex-1">
-                    <h5 style="width: 150px; height: 14px;" class="block mb-2">{{ product.name }}</h5>
-                    <i class="pi pi-tag vertical-align-middle mr-2"></i>
-                    <span class="vertical-align-middle">{{ product.category }}</span>
-                </div>
-                <div class="flex flex-column align-items-end">
-                    <h6 class="mb-2">{{ '$' + product.price }}</h6>
-                    <span [class]="'block product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
-                </div>
+                <span class="font-bold text-900">{{ '$' + product.price }}</span>
             </div>
         </ng-template>
     </p-pickList>
