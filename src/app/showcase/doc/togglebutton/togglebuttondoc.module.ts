@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
@@ -11,11 +11,12 @@ import { CustomizedDoc } from './customizeddoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, ToggleButtonModule, FormsModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, ToggleButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CustomizedDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, CustomizedDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class ToggleButtonDocModule {}

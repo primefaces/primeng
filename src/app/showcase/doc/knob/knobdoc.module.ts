@@ -6,7 +6,7 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { KnobModule } from 'primeng/knob';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MinMaxDoc } from './minmaxdoc';
 import { StepDoc } from './stepdoc';
 import { TemplateDoc } from './templatedoc';
@@ -19,10 +19,11 @@ import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, KnobModule],
+    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AppCodeModule, AppDocModule, KnobModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class KnobDocModule {}

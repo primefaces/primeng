@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
@@ -18,12 +18,13 @@ import { MethodsDoc } from './methodsdoc';
 import { NumeralsDoc } from './numeralsdoc';
 import { PrefixSuffixDoc } from './prefixsuffixdoc';
 import { PropsDoc } from './propsdoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, PropsDoc, MethodsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, PropsDoc, MethodsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class InputNumberDocModule {}
