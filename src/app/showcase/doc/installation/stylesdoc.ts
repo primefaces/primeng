@@ -6,11 +6,15 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Theme, core and icons are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. The css dependencies are as follows, Prime
-                Icons, theme of your choice and structural css of components. In <i>angular.json</i> file find the <i>styles</i> array and add the following:
+                Theme, core and icons are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
+                <i>angular.json</i> or <i>src/styles.css</i> file.
             </p>
+            <h3>angular.json</h3>
+            <app-code [code]="code1" [hideToggleCode]="true"></app-code>
+
+            <h3>styles.css</h3>
+            <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
 export class StylesDoc {
@@ -18,7 +22,7 @@ export class StylesDoc {
 
     @Input() title: string;
 
-    code: Code = {
+    code1: Code = {
         basic: `...
 "styles": [
     "node_modules/primeicons/primeicons.css",
@@ -26,5 +30,11 @@ export class StylesDoc {
     "node_modules/primeng/resources/primeng.min.css",
     ...
 ]`
+    };
+
+    code2: Code = {
+        basic: `@import primeng/resources/themes/lara-light-blue/theme.css
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";`
     };
 }

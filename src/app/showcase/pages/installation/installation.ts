@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DownloadDoc } from '../../doc/installation/downloaddoc';
 import { StylesDoc } from '../../doc/installation/stylesdoc';
 import { UsageDoc } from '../../doc/installation/usagedoc';
-import { AngularCliDoc } from '../../doc/installation/angular-clidoc';
 import { VideosDoc } from '../../doc/installation/videos/videosdoc';
 
 @Component({
@@ -14,11 +13,6 @@ export class InstallationComponent {
             id: 'download',
             label: 'Download',
             component: DownloadDoc
-        },
-        {
-            id: 'angular-cli',
-            label: 'Angular CLI Integration',
-            component: AngularCliDoc
         },
         {
             id: 'styles',

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'videos-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Video tutorials to take you through step-by-step.</p>
+            <p><a href="https://angular.io/cli">Angular CLI</a> is the recommended way to build Angular applications with PrimeNG.</p>
         </app-docsectiontext>
         <div class="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/pkOx7bSBQsg" frameborder="0" allowfullscreen></iframe>

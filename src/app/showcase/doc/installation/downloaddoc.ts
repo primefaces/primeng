@@ -16,12 +16,10 @@ export class DownloadDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-// with npm
+        basic: `// with npm
 npm install primeng primeicons
 
 // with yarn
-yarn add primeng primeicons
-`
+yarn add primeng primeicons`
     };
 }
