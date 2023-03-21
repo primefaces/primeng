@@ -6,6 +6,7 @@ import { RegexpSeperatorDoc } from '../../doc/chips/regexpseperator.doc';
 import { TemplateDoc } from '../../doc/chips/templatedoc';
 import { StyleDoc } from '../../doc/chips/styledoc';
 import { PropsDoc } from '../../doc/chips/propsdoc';
+import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
 
 @Component({
     templateUrl: './chipsdemo.html'
@@ -41,6 +42,11 @@ export class ChipsDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

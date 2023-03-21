@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/password/accessibilitydoc';
 import { BasicDoc } from '../../doc/password/basicdoc';
 import { DisabledDoc } from '../../doc/password/disableddoc';
 import { EventsDoc } from '../../doc/password/eventsdoc';
@@ -61,6 +62,11 @@ export class PasswordDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

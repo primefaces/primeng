@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CheckboxDoc } from './checkboxdoc';
 import { DisabledDoc } from './disableddoc';
@@ -21,6 +22,6 @@ import { TemplatesDoc } from './templatesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeSelectModule, FormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc, AccessibilityDoc]
 })
 export class TreeSelectDocModule {}

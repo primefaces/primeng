@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/knob/accessibilitydoc';
 import { BasicDoc } from '../../doc/knob/basicdoc';
 import { ColorDoc } from '../../doc/knob/colordoc';
 import { DisabledDoc } from '../../doc/knob/disableddoc';
@@ -72,6 +73,11 @@ export class KnobDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

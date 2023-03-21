@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { RatingModule } from 'primeng/rating';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
 import { EventsDoc } from './eventsdoc';
@@ -19,6 +20,6 @@ import { WithoutCancelDoc } from './withoutcanceldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RatingModule, FormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc]
+    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
 })
 export class RatingDocModule {}

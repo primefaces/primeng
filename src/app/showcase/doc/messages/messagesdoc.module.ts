@@ -26,23 +26,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
-    declarations: [
-        BasicDoc,
-        ImportDoc,
-        ClosableDoc,
-        StaticDoc,
-        DynamicDoc,
-        ServiceDoc,
-        SeverityDoc,
-        InlineDoc,
-        MessagesStyleDoc,
-        AnimationDoc,
-        MessageStyleDoc,
-        MessagesPropsDoc,
-        MessagePropsDoc,
-        TemplatesDoc,
-        AccessibilityDoc
-    ],
+    declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, MessagesPropsDoc, MessagePropsDoc, TemplatesDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MessagesDocModule {}

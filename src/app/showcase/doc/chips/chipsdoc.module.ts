@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ChipsModule } from 'primeng/chips';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CommaSeperatorDoc } from './commaseperator.doc';
 import { ImportDoc } from './importdoc';
@@ -15,6 +16,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, ChipsModule, FormsModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, PropsDoc]
+    declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, PropsDoc, AccessibilityDoc]
 })
 export class ChipsDocModule {}

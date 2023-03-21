@@ -13,6 +13,7 @@ import { PropsDoc } from '../../doc/inputnumber/propsdoc';
 import { MethodsDoc } from '../../doc/inputnumber/methodsdoc';
 import { EventsDoc } from '../../doc/inputnumber/eventsdoc';
 import { StyleDoc } from '../../doc/inputnumber/styledoc';
+import { AccessibilityDoc } from '../../doc/inputnumber/accessibilitydoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
@@ -74,6 +75,11 @@ export class InputNumberDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -13,10 +13,11 @@ import { DisabledDoc } from './disableddoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ColorPickerModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, InlineDoc, FormatDoc, DisabledDoc, PropsDoc, StyleDoc, EventsDoc]
+    declarations: [ImportDoc, BasicDoc, InlineDoc, FormatDoc, DisabledDoc, PropsDoc, StyleDoc, EventsDoc, AccessibilityDoc]
 })
 export class ColorPickerDocModule {}

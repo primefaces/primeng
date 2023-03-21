@@ -20,6 +20,7 @@ import { PropsDoc } from '../../doc/calendar/propsdoc';
 import { StyleDoc } from '../../doc/calendar/styledoc';
 import { EventsDoc } from '../../doc/calendar/eventsdoc';
 import { MethodsDoc } from '../../doc/calendar/methodsdoc';
+import { AccessibilityDoc } from '../../doc/calendar/accessibilitydoc';
 
 @Component({
     templateUrl: './calendardemo.html'
@@ -115,6 +116,11 @@ export class CalendarDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

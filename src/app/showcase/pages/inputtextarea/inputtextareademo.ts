@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/inputtextarea/accessibilitydoc';
 import { AutoResizeDoc } from '../../doc/inputtextarea/autoresizedoc';
 import { BasicDoc } from '../../doc/inputtextarea/basicdoc';
 import { DisabledDoc } from '../../doc/inputtextarea/disableddoc';
@@ -48,6 +49,11 @@ export class InputTextareaDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
     apiDocs = [

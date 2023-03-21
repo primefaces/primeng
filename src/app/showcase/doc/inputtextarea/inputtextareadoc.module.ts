@@ -6,6 +6,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { AutoResizeDoc } from './autoresizedoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
@@ -19,6 +20,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, InputTextareaModule, AppDocModule, KeyFilterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, DisabledDoc, KeyfilterDoc, PropsDoc, EventsDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, DisabledDoc, KeyfilterDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
 })
 export class InputtextareaDocModule {}

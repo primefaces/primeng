@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/keyfilter/accessibilitydoc';
 import { ImportDoc } from '../../doc/keyfilter/importdoc';
 import { PresetsDoc } from '../../doc/keyfilter/presetsdoc';
 import { PropsDoc } from '../../doc/keyfilter/propsdoc';
@@ -23,6 +24,11 @@ export class KeyFilterDemo {
             id: 'regex',
             label: 'Regex',
             component: RegexDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

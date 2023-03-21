@@ -6,6 +6,7 @@ import { PreselectionDoc } from '../../doc/inputswitch/preselectiondoc';
 import { PropsDoc } from '../../doc/inputswitch/propsdoc';
 import { EventsDoc } from '../../doc/inputswitch/eventsdoc';
 import { StyleDoc } from '../../doc/inputswitch/styledoc';
+import { AccessibilityDoc } from '../../doc/inputswitch/accessibilitydoc';
 
 @Component({
     templateUrl: './inputswitchdemo.html'
@@ -36,6 +37,11 @@ export class InputSwitchDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

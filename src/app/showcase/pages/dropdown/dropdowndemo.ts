@@ -13,6 +13,7 @@ import { StyleDoc } from '../../doc/dropdown/styledoc';
 import { EventsDoc } from '../../doc/dropdown/eventsdoc';
 import { MethodsDoc } from '../../doc/dropdown/methodsdoc';
 import { TemplatesDoc } from '../../doc/dropdown/templatesdoc';
+import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -69,6 +70,11 @@ export class DropdownDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

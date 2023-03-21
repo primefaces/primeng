@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/radiobutton/accessibilitydoc';
 import { DisabledDoc } from '../../doc/radiobutton/disableddoc';
 import { DynamicDoc } from '../../doc/radiobutton/dynamicdoc';
 import { EventsDoc } from '../../doc/radiobutton/eventsdoc';
@@ -43,6 +44,11 @@ export class RadioButtonDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

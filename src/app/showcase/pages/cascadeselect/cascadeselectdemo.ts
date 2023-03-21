@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/cascadeselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/cascadeselect/basicdoc';
 import { EventsDoc } from '../../doc/cascadeselect/eventsdoc';
 import { ImportDoc } from '../../doc/cascadeselect/importdoc';
@@ -30,6 +31,11 @@ export class CascadeSelectDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

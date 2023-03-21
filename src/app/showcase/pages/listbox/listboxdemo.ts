@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/listbox/accessibilitydoc';
 import { BasicDoc } from '../../doc/listbox/basicdoc';
 import { DisabledDoc } from '../../doc/listbox/disableddoc';
 import { EventsDoc } from '../../doc/listbox/eventsdoc';
@@ -60,6 +61,11 @@ export class ListboxDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

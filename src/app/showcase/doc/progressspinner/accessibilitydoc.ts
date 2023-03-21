@@ -24,5 +24,5 @@ export class AccessibilityDoc {
 
     code: Code = {
         html: `<p-progressSpinner aria-label="Loading"></p-progressSpinner>`
-    }
+    };
 }

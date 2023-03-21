@@ -18,10 +18,11 @@ import { DisabledDoc } from './disableddoc';
 import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, KnobModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
 })
 export class KnobDocModule {}

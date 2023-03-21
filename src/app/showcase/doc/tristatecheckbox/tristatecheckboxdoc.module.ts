@@ -11,10 +11,11 @@ import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { StyleDoc } from './styledoc';
 import { RouterModule } from '@angular/router';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TriStateCheckboxModule, FormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
 })
 export class TristatecheckboxDocModule {}

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
@@ -15,6 +16,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
 })
 export class CascadeSelectDocModule {}
