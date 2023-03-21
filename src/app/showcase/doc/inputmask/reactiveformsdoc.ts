@@ -39,13 +39,13 @@ export class ReactiveFormsDoc implements OnInit {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'input-mask-reactive-forms-demo',
     templateUrl: './input-mask-reactive-forms-demo.html'
 })
-export class InputMaskReactiveFormsDemo {
+export class InputMaskReactiveFormsDemo implements OnInit {
     formGroup: FormGroup;
 
     ngOnInit() {
