@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/paginator/accessibilitydoc';
 import { BasicDoc } from '../../doc/paginator/basicdoc';
 import { EventsDoc } from '../../doc/paginator/eventsdoc';
 import { ImagesDoc } from '../../doc/paginator/imagesdoc';
@@ -37,6 +38,11 @@ export class PaginatorDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -9,6 +9,7 @@ import { WithoutCancelDoc } from '../../doc/rating/withoutcanceldoc';
 import { StyleDoc } from '../../doc/rating/styledoc';
 import { PropsDoc } from '../../doc/rating/propsdoc';
 import { EventsDoc } from '../../doc/rating/eventsdoc';
+import { AccessibilityDoc } from '../../doc/rating/accessibilitydoc';
 
 @Component({
     templateUrl: './ratingdemo.html'
@@ -54,6 +55,11 @@ export class RatingDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

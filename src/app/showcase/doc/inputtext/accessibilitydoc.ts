@@ -43,7 +43,7 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `<label htmlFor="firstname">Firstname</label>
+        basic: `<label for="firstname">Firstname</label>
 <input pInputText id="firstname"></input>
 
 <span id="lastname">Lastname</span>

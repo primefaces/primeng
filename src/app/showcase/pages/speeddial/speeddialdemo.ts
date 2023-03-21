@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/speeddial/accessibilitydoc';
 import { CircleDoc } from '../../doc/speeddial/circledoc';
 import { CustomDoc } from '../../doc/speeddial/customdoc';
 import { EventsDoc } from '../../doc/speeddial/eventsdoc';
@@ -62,6 +63,11 @@ export class SpeedDialDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/treeselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/treeselect/basicdoc';
 import { CheckboxDoc } from '../../doc/treeselect/checkboxdoc';
 import { DisabledDoc } from '../../doc/treeselect/disableddoc';
@@ -61,6 +62,11 @@ export class TreeSelectDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

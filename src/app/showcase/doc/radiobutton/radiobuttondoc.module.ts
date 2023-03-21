@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { DisabledDoc } from './disableddoc';
 import { DynamicDoc } from './dynamicdoc';
 import { EventsDoc } from './eventsdoc';
@@ -18,6 +19,6 @@ import { StyleDoc } from './styledoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RadioButtonModule, FormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc]
+    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc]
 })
 export class RadioButtonDocModule {}

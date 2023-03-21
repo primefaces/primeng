@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/card/accessibilitydoc';
 import { AdvancedDoc } from '../../doc/card/advanceddoc';
 import { BasicDoc } from '../../doc/card/basicdoc';
 import { ImportDoc } from '../../doc/card/importdoc';
@@ -30,6 +31,11 @@ export class CardDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
     apiDocs = [

@@ -8,6 +8,7 @@ import { StyleDoc } from '../../doc/splitter/styledoc';
 import { PropsDoc } from '../../doc/splitter/propsdoc';
 import { EventsDoc } from '../../doc/splitter/eventsdoc';
 import { TemplatesDoc } from '../../doc/splitter/templatesdoc';
+import { AccessibilityDoc } from '../../doc/splitter/accessibilitydoc';
 
 @Component({
     templateUrl: './splitterdemo.html'
@@ -43,6 +44,11 @@ export class SplitterDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

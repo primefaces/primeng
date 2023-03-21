@@ -26,7 +26,7 @@ import { Code } from '../../domain/code';
                     <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
                 </ng-template>
             </p-confirmDialog>
-            <p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+            <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
     </section>`,
@@ -71,7 +71,7 @@ export class TemplateDoc {
         <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
     </ng-template>
 </p-confirmDialog>
-<p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>`,
+<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
@@ -85,7 +85,7 @@ export class TemplateDoc {
             <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
         </ng-template>
     </p-confirmDialog>
-    <p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+    <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
 </div>`,
 
         typescript: `

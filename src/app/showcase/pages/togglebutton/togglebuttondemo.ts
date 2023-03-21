@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/togglebutton/accessibilitydoc';
 import { BasicDoc } from '../../doc/togglebutton/basicdoc';
 import { CustomizedDoc } from '../../doc/togglebutton/customizeddoc';
 import { EventsDoc } from '../../doc/togglebutton/eventsdoc';
@@ -30,6 +31,11 @@ export class ToggleButtonDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

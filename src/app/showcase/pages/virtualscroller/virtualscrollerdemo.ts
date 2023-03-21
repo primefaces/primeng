@@ -9,6 +9,7 @@ import { MethodsDoc } from '../../doc/virtualscroller/methodsdoc';
 import { TemplatesDoc } from '../../doc/virtualscroller/templatesdoc';
 import { ProgrammaticScrollDoc } from '../../doc/virtualscroller/programmaticscrolldoc';
 import { TemplateDoc } from '../../doc/virtualscroller/templatedoc';
+import { AccessibilityDoc } from '../../doc/virtualscroller/accessibilitydoc';
 
 @Component({
     templateUrl: './virtualscrollerdemo.html',
@@ -45,6 +46,11 @@ export class VirtualScrollerDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

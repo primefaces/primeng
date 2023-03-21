@@ -4,6 +4,7 @@ import { ImportDoc } from '../../doc/toolbar/importdoc';
 import { PropsDoc } from '../../doc/toolbar/propsdoc';
 import { TemplatesDoc } from '../../doc/toolbar/templatesdoc';
 import { BasicDoc } from '../../doc/toolbar/basicdoc';
+import { AccessibilityDoc } from '../../doc/toolbar/accessibilitydoc';
 
 @Component({
     templateUrl: './toolbardemo.html'
@@ -24,6 +25,11 @@ export class ToolbarDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

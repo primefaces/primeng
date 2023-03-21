@@ -15,10 +15,11 @@ import { EventDoc } from './eventdoc';
 import { AutoHideDoc } from './autohidedoc';
 import { DelayDoc } from './delaydoc';
 import { OptionsDoc } from './optionsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc],
+    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TooltipDocModule {}

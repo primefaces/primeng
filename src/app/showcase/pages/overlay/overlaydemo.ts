@@ -12,6 +12,7 @@ import { StyleDoc } from '../../doc/overlay/styledoc';
 import { TargetDoc } from '../../doc/overlay/targetdoc';
 import { OverlayTemplateDemo } from '../../doc/overlay/templatedoc';
 import { TransitionOptionsDoc } from '../../doc/overlay/transitionoptionsdoc';
+import { AccessibilityDoc } from '../../doc/overlay/accessibilitydoc';
 
 @Component({
     templateUrl: './overlaydemo.html'
@@ -88,6 +89,11 @@ export class OverlayDemo {
                     component: EventsDoc
                 }
             ]
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 }

@@ -14,6 +14,7 @@ import { StyleDoc } from '../../doc/scroller/styledoc';
 import { TemplateDoc } from '../../doc/scroller/templatedoc';
 import { TemplatesDoc } from '../../doc/scroller/templatesdoc';
 import { ProgrammaticDoc } from '../../doc/scroller/programmaticdoc';
+import { AccessibilityDoc } from '../../doc/scroller/accessibilitydoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
@@ -75,6 +76,11 @@ export class ScrollerDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

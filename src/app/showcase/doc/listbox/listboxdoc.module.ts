@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ListboxModule } from 'primeng/listbox';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
 import { EventsDoc } from './eventsdoc';
@@ -21,6 +22,6 @@ import { TemplatesDoc } from './templatesdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ListboxModule, FormsModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, TemplateDoc, InvalidDoc, DisabledDoc, FilterDoc, GroupDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc, AccessibilityDoc]
 })
 export class ListboxDocModule {}

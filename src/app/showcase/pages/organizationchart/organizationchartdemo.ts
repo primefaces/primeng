@@ -7,6 +7,7 @@ import { ColoredDoc } from '../../doc/organizationchart/colored.doc';
 import { StyleDoc } from '../../doc/organizationchart/styledoc';
 import { PropsDoc } from '../../doc/organizationchart/propsdoc';
 import { EventsDoc } from '../../doc/organizationchart/eventsdoc';
+import { AccessibilityDoc } from '../../doc/organizationchart/accessibilitydoc';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -43,6 +44,11 @@ export class OrganizationChartDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

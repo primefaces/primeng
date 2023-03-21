@@ -28,6 +28,7 @@ import { StyleDoc } from '../../doc/treetable/styledoc';
 import { PropsDoc } from '../../doc/treetable/propsdoc';
 import { EventsDoc } from '../../doc/treetable/eventsdoc';
 import { MethodsDoc } from '../../doc/treetable/methodsdoc';
+import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -193,6 +194,11 @@ export class TreeTableDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

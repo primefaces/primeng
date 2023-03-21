@@ -8,6 +8,7 @@ import { HorizontalDoc } from '../../doc/timeline/horizontaldoc';
 import { StyleDoc } from '../../doc/timeline/styledoc';
 import { PropsDoc } from '../../doc/timeline/propsdoc';
 import { TemplatesDoc } from '../../doc/timeline/templatesdoc';
+import { AccessibilityDoc } from '../../doc/timeline/accessibilitydoc';
 
 @Component({
     templateUrl: './timelinedemo.html'
@@ -48,6 +49,11 @@ export class TimelineDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

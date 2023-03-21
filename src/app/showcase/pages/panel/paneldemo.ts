@@ -7,6 +7,7 @@ import { StyleDoc } from '../../doc/panel/styledoc';
 import { PropsDoc } from '../../doc/panel/propsdoc';
 import { EventsDoc } from '../../doc/panel/eventsdoc';
 import { TemplatesDoc } from '../../doc/panel/templatesdoc';
+import { AccessibilityDoc } from '../../doc/panel/accessibilitydoc';
 
 @Component({
     templateUrl: './paneldemo.html'
@@ -37,6 +38,11 @@ export class PanelDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/divider/accessibilitydoc';
 import { BasicDoc } from '../../doc/divider/basicdoc';
 import { ContentDoc } from '../../doc/divider/contentdoc';
 import { ImportDoc } from '../../doc/divider/importdoc';
@@ -47,6 +48,11 @@ export class DividerDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
     apiDocs = [

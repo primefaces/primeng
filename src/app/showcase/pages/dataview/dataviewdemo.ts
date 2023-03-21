@@ -9,6 +9,7 @@ import { SortingDoc } from '../../doc/dataview/sortingdoc';
 import { PropsDoc } from '../../doc/dataview/propsdoc';
 import { EventsDoc } from '../../doc/dataview/eventsdoc';
 import { TemplatesDoc } from '../../doc/dataview/templatesdoc';
+import { AccessibilityDoc } from '../../doc/dataview/accessibilitydoc';
 
 @Component({
     templateUrl: './dataviewdemo.html',
@@ -50,6 +51,11 @@ export class DataViewDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

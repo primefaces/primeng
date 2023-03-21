@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SliderModule } from 'primeng/slider';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
@@ -19,6 +20,6 @@ import { VerticalDoc } from './verticaldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, SliderModule, AppDocModule, InputTextModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, StyleDoc, PropsDoc, EventsDoc]
+    declarations: [ImportDoc, BasicDoc, InputDoc, StepDoc, RangeDoc, VerticalDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
 })
 export class SliderDocModule {}

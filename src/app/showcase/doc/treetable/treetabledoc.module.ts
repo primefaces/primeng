@@ -41,6 +41,7 @@ import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule],
@@ -74,7 +75,8 @@ import { MethodsDoc } from './methodsdoc';
         StyleDoc,
         PropsDoc,
         EventsDoc,
-        MethodsDoc
+        MethodsDoc,
+        AccessibilityDoc
     ]
 })
 export class TreeTableDocModule {}

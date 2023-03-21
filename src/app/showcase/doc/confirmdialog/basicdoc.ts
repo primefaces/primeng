@@ -11,8 +11,8 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast></p-toast>
             <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
-            <p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
-            <p-button pRipple (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
+            <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+            <p-button (click)="confirm2()" icon="pi pi-times" label="Delete"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-basic-demo"></app-code>
     </section>`,
@@ -71,15 +71,15 @@ export class BasicDoc {
         basic: `
 <p-toast></p-toast>
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-<p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
-<p-button pRipple (click)="confirm2()" icon="pi pi-times" label="Delete" class="p-button-danger"></p-button>`,
+<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+<p-button (click)="confirm2()" icon="pi pi-times" label="Delete" class="p-button-danger"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center gap-2">
     <p-toast></p-toast>
     <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-    <p-button pRipple (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
-    <p-button pRipple (click)="confirm2()" icon="pi pi-times" label="Delete" class="p-button-danger"></p-button>
+    <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+    <p-button (click)="confirm2()" icon="pi pi-times" label="Delete" class="p-button-danger"></p-button>
 </div>`,
 
         typescript: `

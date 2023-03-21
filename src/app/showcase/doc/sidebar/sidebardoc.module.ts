@@ -16,10 +16,11 @@ import { TemplatesDoc } from './templatesdoc';
 import { PositionDoc } from './positiondoc';
 import { FullScreenDoc } from './fullscreendoc';
 import { SizeDoc } from './sizedoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, SidebarModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, TemplateDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, TemplatesDoc, PositionDoc, FullScreenDoc, SizeDoc],
+    declarations: [BasicDoc, TemplateDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, TemplatesDoc, PositionDoc, FullScreenDoc, SizeDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class SidebarDocModule {}

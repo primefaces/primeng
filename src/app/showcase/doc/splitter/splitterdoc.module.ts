@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SplitterModule } from 'primeng/splitter';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { EventsDoc } from './eventsdoc';
 import { HorizontalDoc } from './horizontaldoc';
 import { ImportDoc } from './importdoc';
@@ -17,6 +18,6 @@ import { VerticalDoc } from './verticaldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SplitterModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, HorizontalDoc, SizeDoc, VerticalDoc, NestedDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc]
+    declarations: [ImportDoc, HorizontalDoc, SizeDoc, VerticalDoc, NestedDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class SplitterDocModule {}

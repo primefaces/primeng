@@ -7,6 +7,7 @@ import { EventsDoc } from '../../doc/picklist/eventsdoc';
 import { TemplatesDoc } from '../../doc/picklist/templatesdoc';
 import { MethodsDoc } from '../../doc/picklist/methodsdoc';
 import { StyleDoc } from '../../doc/picklist/styledoc';
+import { AccessibilityDoc } from '../../doc/picklist/accessibilitydoc';
 
 @Component({
     templateUrl: './picklistdemo.html',
@@ -33,6 +34,11 @@ export class PickListDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

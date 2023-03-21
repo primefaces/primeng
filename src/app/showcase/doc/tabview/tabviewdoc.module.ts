@@ -16,10 +16,11 @@ import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TabViewModule, RouterModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
 })
 export class TabViewDocModule {}

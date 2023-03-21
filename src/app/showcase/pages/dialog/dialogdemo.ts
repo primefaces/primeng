@@ -11,6 +11,7 @@ import { MaximizableDoc } from '../../doc/dialog/maximizabledoc';
 import { TemplateDoc } from '../../doc/dialog/templatedoc';
 import { OverlaysInsideDoc } from '../../doc/dialog/overlaysinsidedoc';
 import { ModalDoc } from '../../doc/dialog/modaldoc';
+import { AccessibilityDoc } from '../../doc/dialog/accessibilitydoc';
 
 @Component({
     templateUrl: './dialogdemo.html'
@@ -66,6 +67,11 @@ export class DialogDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
@@ -81,43 +87,4 @@ export class DialogDemo {
             component: EventsDoc
         }
     ];
-
-    // displayModal: boolean;
-
-    // displayBasic: boolean;
-
-    // displayBasic2: boolean;
-
-    // displayMaximizable: boolean;
-
-    // displayResponsive: boolean;
-
-    // displayPosition: boolean;
-
-    // position: string;
-
-    // showModalDialog() {
-    //     this.displayModal = true;
-    // }
-
-    // showBasicDialog() {
-    //     this.displayBasic = true;
-    // }
-
-    // showBasicDialog2() {
-    //     this.displayBasic2 = true;
-    // }
-
-    // showMaximizableDialog() {
-    //     this.displayMaximizable = true;
-    // }
-
-    // showPositionDialog(position: string) {
-    //     this.position = position;
-    //     this.displayPosition = true;
-    // }
-
-    // showResponsiveDialog() {
-    //     this.displayResponsive = true;
-    // }
 }

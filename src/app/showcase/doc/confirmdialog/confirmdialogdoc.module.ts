@@ -15,10 +15,11 @@ import { PositionDoc } from './positiondoc';
 import { TemplateDoc } from './templatedoc';
 import { ServiceDoc } from './servicedoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ConfirmDialogModule, ButtonModule, ToastModule, AppDocModule],
-    declarations: [BasicDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, TemplateDoc, ServiceDoc, TemplatesDoc],
+    declarations: [BasicDoc, EventsDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, TemplateDoc, ServiceDoc, TemplatesDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ConfirmDialogDocModule {}
