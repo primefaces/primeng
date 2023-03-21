@@ -10,21 +10,27 @@ import { ProductService } from '../../service/productservice';
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataView #dv [value]="products" [rows]="9" [paginator]="true">
+            <p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
                 <ng-template let-product pTemplate="listItem">
                     <div class="col-12">
-                        <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
-                            <img class="w-full my-5 md:my-auto md:mr-5 shadow-3 w-9 md:w-11rem" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                            <div class="text-center md:text-left flex-1">
-                                <div class="text-2xl font-bold">{{ product.name }}</div>
-                                <div class="mb-3">{{ product.description }}</div>
-                                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                                <i class="pi pi-tag vertical-align-middle mr-2"></i><span class="font-semibold vertical-align-middle">{{ product.category }}</span>
-                            </div>
-                            <div class="flex align-items-center justify-content-between w-full md:w-auto md:align-items-start md:justify-content-start md:flex-column mt-5 ">
-                                <span class="text-2xl font-semibold mb-2 align-self-center md:align-self-end">{{ '$' + product.price }}</span>
-                                <p-button icon="pi pi-shopping-cart" class="md:align-self-end mb-2" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
-                                <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                            <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                    <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                                    <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <i class="pi pi-tag"></i>
+                                            <span class="font-semibold">{{ product.category }}</span>
+                                        </span>
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                                    </div>
+                                </div>
+                                <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                    <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                                    <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -47,23 +53,45 @@ export class PaginationDoc {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
+    getSeverity (product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warning';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    };
+
     code: Code = {
         basic: `
-<p-dataView #dv [value]="products" [rows]="9" [paginator]="true">
+<p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
     <ng-template let-product pTemplate="listItem">
         <div class="col-12">
-            <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
-                <img class="w-full my-5 md:my-auto md:mr-5 shadow-3 w-9 md:w-11rem" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                <div class="text-center md:text-left flex-1">
-                    <div class="text-2xl font-bold">{{ product.name }}</div>
-                    <div class="mb-3">{{ product.description }}</div>
-                    <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                    <i class="pi pi-tag vertical-align-middle mr-2"></i><span class="font-semibold vertical-align-middle">{{ product.category }}</span>
-                </div>
-                <div class="flex align-items-center justify-content-between w-full md:w-auto md:align-items-start md:justify-content-start md:flex-column mt-5 ">
-                    <span class="text-2xl font-semibold mb-2 align-self-center md:align-self-end">{{ '$' + product.price }}</span>
-                    <p-button icon="pi pi-shopping-cart" class="md:align-self-end mb-2" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
-                    <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                        <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                        <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                        <div class="flex align-items-center gap-3">
+                            <span class="flex align-items-center gap-2">
+                                <i class="pi pi-tag"></i>
+                                <span class="font-semibold">{{ product.category }}</span>
+                            </span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                        </div>
+                    </div>
+                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,21 +100,27 @@ export class PaginationDoc {
 
         html: `
 <div class="card">
-    <p-dataView #dv [value]="products" [rows]="9" [paginator]="true">
+    <p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
         <ng-template let-product pTemplate="listItem">
             <div class="col-12">
-                <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
-                    <img class="w-full my-5 md:my-auto md:mr-5 shadow-3 w-9 md:w-11rem" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                    <div class="text-center md:text-left flex-1">
-                        <div class="text-2xl font-bold">{{ product.name }}</div>
-                        <div class="mb-3">{{ product.description }}</div>
-                        <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        <i class="pi pi-tag vertical-align-middle mr-2"></i><span class="font-semibold vertical-align-middle">{{ product.category }}</span>
-                    </div>
-                    <div class="flex align-items-center justify-content-between w-full md:w-auto md:align-items-start md:justify-content-start md:flex-column mt-5 ">
-                        <span class="text-2xl font-semibold mb-2 align-self-center md:align-self-end">{{ '$' + product.price }}</span>
-                        <p-button icon="pi pi-shopping-cart" class="md:align-self-end mb-2" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></p-button>
-                        <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                            <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                            <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            <div class="flex align-items-center gap-3">
+                                <span class="flex align-items-center gap-2">
+                                    <i class="pi pi-tag"></i>
+                                    <span class="font-semibold">{{ product.category }}</span>
+                                </span>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                            </div>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                            <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                            <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,6 +145,22 @@ export class DataViewPaginationDemo {
     ngOnInit() {
         this.productService.getProducts().then((data) => (this.products = data));
     }
+
+    getSeverity (product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+
+            case 'LOWSTOCK':
+                return 'warning';
+
+            case 'OUTOFSTOCK':
+                return 'danger';
+
+            default:
+                return null;
+        }
+    };
 }`,
 
         data: `
