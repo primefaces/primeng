@@ -179,8 +179,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-dropdown> aria-labelledby="dd1"></p-dropdown>
+<p-dropdown aria-labelledby="dd1"></p-dropdown>
 
-<p-dropdown> aria-label="Options"></p-dropdown>`
+<p-dropdown aria-label="Options"></p-dropdown>`
     };
 }

@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>SpeedDial items are defined with the <i>model</i> property based on MenuModel API. Default orientation of the items is linear and <i>direction</i> property is used to define the position of the items related to the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
+            <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" direction="up"></p-speedDial>
                 <p-speedDial [model]="items" direction="down"></p-speedDial>
@@ -70,7 +70,7 @@ export class LinearDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speed-dial-linear-demo">
+    <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" direction="up"></p-speedDial>
         <p-speedDial [model]="items" direction="down"></p-speedDial>
