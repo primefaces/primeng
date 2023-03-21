@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>When <i>type</i> is defined as <i>quarter-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px; position: relative;" class="speed-dial-circle-demo">
+            <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
                 <p-toast></p-toast>
                 <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
                 <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
@@ -70,7 +70,7 @@ export class QuarterCircleDoc implements OnInit {
 
         html: `
 <div class="card">
-    <div style="height: 500px; position: relative;" class="speed-dial-circle-demo">
+    <div style="height: 500px; position: relative;" class="speeddial-circle-demo">
         <p-toast></p-toast>
         <p-speedDial [model]="items" radius="120" direction="up-left" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
         <p-speedDial [model]="items" radius="120" direction="up-right" type="quarter-circle" buttonClassName="p-button-success"></p-speedDial>
