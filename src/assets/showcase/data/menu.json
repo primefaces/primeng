@@ -13,10 +13,6 @@
                     "routerLink": "/configuration"
                 },
                 {
-                    "name": "Locale",
-                    "routerLink": "/locale"
-                },
-                {
                     "name": "Accessibility",
                     "routerLink": "/accessibility"
                 }

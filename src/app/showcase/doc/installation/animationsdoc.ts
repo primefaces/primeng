@@ -6,8 +6,8 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Various components utilize Angular animations to improve the user experience, starting with Angular 4 animations have their own module so you need to import <i>BrowserAnimationsModule</i> to your application. If you prefer to disable
-                animations globally, import <i>NoopAnimationsModule</i> instead.
+                Various components utilize Angular animations to improve the user experience. Animations have their own module <i>BrowserAnimationsModule</i> is required to be imported in your application. If you prefer to disable animations
+                globally, import <i>NoopAnimationsModule</i> instead.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>

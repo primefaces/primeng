@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnimationsDoc } from '../../doc/installation/animationsdoc';
 import { DownloadDoc } from '../../doc/installation/downloaddoc';
 import { StylesDoc } from '../../doc/installation/stylesdoc';
 import { UsageDoc } from '../../doc/installation/usagedoc';
@@ -23,6 +24,11 @@ export class InstallationComponent {
             id: 'usage',
             label: 'Usage',
             component: UsageDoc
+        },
+        {
+            id: 'animations',
+            label: 'Animations',
+            component: AnimationsDoc
         },
         {
             id: 'videos',
