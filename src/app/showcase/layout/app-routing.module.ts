@@ -122,7 +122,9 @@ const routes: Routes = [
             { path: 'animate', loadChildren: () => import('../pages/animate/animatedemo.module').then((m) => m.AnimateDemoModule) },
             { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) }
         ]
-    }
+    },
+    { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then(m => m.NotFoundModule) },
+    { path: '**', redirectTo: '/notfound' }
 ];
 
 @NgModule({
