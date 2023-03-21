@@ -16,8 +16,8 @@ import { Code } from '../../domain/code';
             <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
 
             <h3>Keyboard Support</h3>
-            <div className="doc-tablewrapper">
-                <table className="doc-table">
+            <div class="doc-tablewrapper">
+                <table class="doc-table">
                     <thead>
                         <tr>
                             <th>Key</th>
