@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -21,7 +21,7 @@ interface City {
         <app-code [code]="code" selector="dropdown-floatlabel-demo"></app-code>
     </section>`
 })
-export class FloatLabelDoc {
+export class FloatLabelDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -30,7 +30,7 @@ export class FloatLabelDoc {
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -56,7 +56,7 @@ export class FloatLabelDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface City {
     name: string;
@@ -67,12 +67,12 @@ interface City {
     selector: 'dropdown-floatlabel-demo',
     templateUrl: './dropdown-floatlabel-demo.html'
 })
-export class DropdownFloatlabelDemo {
+export class DropdownFloatlabelDemo implements OnInit {
     cities: City[];
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },

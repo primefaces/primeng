@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -18,7 +18,7 @@ interface City {
         <app-code [code]="code" selector="multiselect-chips-demo"></app-code>
     </section>`
 })
-export class ChipsDoc {
+export class ChipsDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -27,7 +27,7 @@ export class ChipsDoc {
 
     selectedCities: City[];
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -47,7 +47,7 @@ export class ChipsDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface City {
     name: string,
@@ -58,7 +58,7 @@ interface City {
     selector: 'multiselect-chips-demo',
     templateUrl: './multiselect-chips-demo.html'
 })
-export class MultiselectChipsDemo {
+export class MultiselectChipsDemo implements OnInit {
     cities: City[];
 
     selectedCities: City[];

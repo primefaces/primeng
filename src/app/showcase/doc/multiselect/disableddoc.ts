@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -18,7 +18,7 @@ interface City {
         <app-code [code]="code" selector="multiselect-disabled-demo"></app-code>
     </section>`
 })
-export class DisabledDoc {
+export class DisabledDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -27,7 +27,7 @@ export class DisabledDoc {
 
     selectedCities: City[];
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -47,7 +47,7 @@ export class DisabledDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface City {
     name: string,
@@ -58,13 +58,13 @@ interface City {
     selector: 'multiselect-disabled-demo',
     templateUrl: './multiselect-disabled-demo.html'
 })
-export class MultiselectDisabledDemo {
+export class MultiselectDisabledDemo implements OnInit {
 
     cities: City[];
 
     selectedCities: City[];
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },

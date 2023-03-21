@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -18,7 +18,7 @@ interface City {
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
     </section>`
 })
-export class EditableDoc {
+export class EditableDoc implements OnInit{
     @Input() id: string;
 
     @Input() title: string;
@@ -27,7 +27,7 @@ export class EditableDoc {
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -47,7 +47,7 @@ export class EditableDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface City {
     name: string;
@@ -58,18 +58,18 @@ interface City {
     selector: 'dropdown-editable-demo',
     templateUrl: './dropdown-editable-demo.html'
 })
-export class DropdownEditableDemo {
+export class DropdownEditableDemo implements OnInit {
     cities: City[];
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
         ];
     }
 }`

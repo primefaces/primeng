@@ -6,7 +6,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     selector: 'reactive-forms-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Chips can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>ColorPicker can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">

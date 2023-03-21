@@ -27,7 +27,7 @@ export class DisabledDoc {
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -63,7 +63,7 @@ export class DropdownDisabledDemo {
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },

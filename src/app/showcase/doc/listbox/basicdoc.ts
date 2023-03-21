@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -22,7 +22,7 @@ interface City {
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     </section>`
 })
-export class BasicDoc {
+export class BasicDoc implements OnInit{
     @Input() id: string;
 
     @Input() title: string;
@@ -31,7 +31,7 @@ export class BasicDoc {
 
     selectedCity: City;
 
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -51,7 +51,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface City {
     name: string,
@@ -62,12 +62,12 @@ interface City {
     selector: 'listbox-basic-demo',
     templateUrl: './listbox-basic-demo.html'
 })
-export class ListboxBasicDemo {
+export class ListboxBasicDemo implements OnInit {
     cities: City[];
 
     selectedCity: City;
     
-    constructor() {
+    ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },

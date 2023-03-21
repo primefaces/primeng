@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -29,7 +29,7 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="dropdown-template-demo"></app-code>
     </section>`
 })
-export class TemplateDoc {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -38,7 +38,7 @@ export class TemplateDoc {
 
     selectedCountry: string;
 
-    constructor() {
+    ngOnInit() {
         this.countries = [
             { name: 'Australia', code: 'AU' },
             { name: 'Brazil', code: 'BR' },
@@ -89,18 +89,18 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'dropdown-template-demo',
     templateUrl: './dropdown-template-demo.html'
 })
-export class DropdownTemplateDemo {
+export class DropdownTemplateDemo implements OnInit {
     countries: any[];
 
     selectedCountry: string;
 
-    constructor() {
+    ngOnInit() {
         this.countries = [
             { name: 'Australia', code: 'AU' },
             { name: 'Brazil', code: 'BR' },

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface Country {
@@ -32,7 +32,7 @@ interface Country {
         <app-code [code]="code" selector="multiselect-template-demo"></app-code>
     </section>`
 })
-export class TemplateDoc {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -41,7 +41,7 @@ export class TemplateDoc {
 
     selectedCountries: Country[];
 
-    constructor() {
+    ngOnInit() {
         this.countries = [
             { name: 'Australia', code: 'AU' },
             { name: 'Brazil', code: 'BR' },
@@ -94,7 +94,7 @@ export class TemplateDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 interface Country {
     name: string;
@@ -105,7 +105,7 @@ interface Country {
     selector: 'multiselect-template-demo',
     templateUrl: './multiselect-template-demo.html'
 })
-export class MultiselectTemplateDemo {
+export class MultiselectTemplateDemo implements OnInit {
 
     countries: Country[];
 
