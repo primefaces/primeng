@@ -19,10 +19,11 @@ import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, DropdownModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, PropsDoc, StyleDoc, EventsDoc, MethodsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, PropsDoc, StyleDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
 })
-export class DropdownDocModule {}
+export class DropdownDocModule { }

@@ -26,6 +26,7 @@ import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule],
@@ -51,7 +52,8 @@ import { MethodsDoc } from './methodsdoc';
         PropsDoc,
         StyleDoc,
         EventsDoc,
-        MethodsDoc
+        MethodsDoc,
+        AccessibilityDoc
     ]
 })
-export class CalendarDocModule {}
+export class CalendarDocModule { }

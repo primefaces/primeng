@@ -7,6 +7,7 @@ import { DisabledDoc } from '../../doc/colorpicker/disableddoc';
 import { PropsDoc } from '../../doc/colorpicker/propsdoc';
 import { StyleDoc } from '../../doc/colorpicker/styledoc';
 import { EventsDoc } from '../../doc/colorpicker/eventsdoc';
+import { AccessibilityDoc } from '../../doc/colorpicker/accessibilitydoc';
 
 @Component({
     templateUrl: './colorpickerdemo.html'
@@ -42,6 +43,11 @@ export class ColorPickerDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 

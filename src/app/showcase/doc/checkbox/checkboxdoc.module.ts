@@ -13,10 +13,11 @@ import { DynamicDoc } from './dynamicdoc';
 import { DisabledDoc } from './disableddoc';
 import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule],
     exports: [ImportDoc],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc]
 })
-export class CheckboxDocModule {}
+export class CheckboxDocModule { }

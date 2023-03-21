@@ -15,10 +15,11 @@ import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, EditorModule, FormsModule, DropdownModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc]
+    declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc]
 })
-export class EditorDocModule {}
+export class EditorDocModule { }

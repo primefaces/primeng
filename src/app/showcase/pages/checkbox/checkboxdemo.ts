@@ -7,6 +7,7 @@ import { DynamicDoc } from '../../doc/checkbox/dynamicdoc';
 import { DisabledDoc } from '../../doc/checkbox/disableddoc';
 import { StyleDoc } from '../../doc/checkbox/styledoc';
 import { PropsDoc } from '../../doc/checkbox/propsdoc';
+import { AccessibilityDoc } from '../../doc/checkbox/accessibilitydoc';
 
 @Component({
     templateUrl: './checkboxdemo.html'
@@ -47,6 +48,11 @@ export class CheckboxDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibilirty',
+            component: AccessibilityDoc
         }
     ];
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/editor/accessibilitydoc';
 import { BasicDoc } from '../../doc/editor/basicdoc';
 import { CustomToolbarDoc } from '../../doc/editor/customtoolbardoc';
 import { EventsDoc } from '../../doc/editor/eventsdoc';
@@ -43,6 +44,11 @@ export class EditorDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
