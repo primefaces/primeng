@@ -12,8 +12,8 @@ import { Code } from '../../domain/code';
                     <i>aria-modal</i> is added since focus is kept within the popup.
                 </p>
                 <p>
-                    It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding <i>tabIndex</i> would be necessary. Overlay adds <i>aria-expanded</i> state attribute and <i>aria-controls</i> to
-                    the trigger so that the relation between the trigger and the popup is defined.
+                    It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding <i>tabIndex</i> would be necessary. Overlay adds <i>aria-expanded</i> state attribute and <i>aria-controls</i> to the
+                    trigger so that the relation between the trigger and the popup is defined.
                 </p>
                 <h3>Overlay Keyboard Support</h3>
                 <p>When the popup gets opened, the first focusable element receives the focus and this can be customized by adding <i>autofocus</i> to an element within the popup.</p>
