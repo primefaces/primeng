@@ -7,6 +7,7 @@ import { TemplateDoc } from '../../doc/chips/templatedoc';
 import { StyleDoc } from '../../doc/chips/styledoc';
 import { PropsDoc } from '../../doc/chips/propsdoc';
 import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
 
 @Component({
     templateUrl: './chipsdemo.html'
@@ -22,6 +23,11 @@ export class ChipsDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'commaseperator',

@@ -8,6 +8,7 @@ import { PropsDoc } from '../../doc/colorpicker/propsdoc';
 import { StyleDoc } from '../../doc/colorpicker/styledoc';
 import { EventsDoc } from '../../doc/colorpicker/eventsdoc';
 import { AccessibilityDoc } from '../../doc/colorpicker/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/colorpicker/reactiveformsdoc';
 
 @Component({
     templateUrl: './colorpickerdemo.html'
@@ -23,6 +24,11 @@ export class ColorPickerDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'inline',

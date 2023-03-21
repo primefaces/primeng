@@ -53,7 +53,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     selector: 'checkbox-reactive-forms-demo',
     templateUrl: './checkbox-reactive-forms-demo.html'
 })
-export class CheckboxReactiveFormsDemo {
+export class CheckboxReactiveFormsDemo implements OnInit{
     formGroup: FormGroup;
 
     ngOnInit() {

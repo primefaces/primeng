@@ -34,8 +34,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chips-basic-demo',
-    templateUrl: './chips-basic-demo.html',
-    styleUrls: ['./chips-basic-demo.scss']
+    templateUrl: './chips-basic-demo.html'
 })
 
 export class ChipsBasicDemo {
