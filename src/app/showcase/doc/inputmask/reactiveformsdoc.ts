@@ -40,6 +40,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'input-mask-reactive-forms-demo',
