@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { CalendarModule } from 'primeng/calendar';
@@ -27,9 +27,10 @@ import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -53,7 +54,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         StyleDoc,
         EventsDoc,
         MethodsDoc,
-        AccessibilityDoc
+        AccessibilityDoc,
+        ReactiveFormsDoc
     ]
 })
 export class CalendarDocModule {}
