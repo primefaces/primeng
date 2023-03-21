@@ -10,6 +10,7 @@ import { MaskDoc } from '../../doc/inputmask/maskdoc';
 import { MethodsDoc } from '../../doc/inputmask/methodsdoc';
 import { OptionalDoc } from '../../doc/inputmask/optionaldoc';
 import { PropsDoc } from '../../doc/inputmask/propsdoc';
+import { ReactiveFormsDoc } from '../../doc/inputmask/reactiveformsdoc';
 import { SlotCharDoc } from '../../doc/inputmask/slotchardoc';
 import { StyleDoc } from '../../doc/inputmask/styledoc';
 
@@ -27,6 +28,11 @@ export class InputMaskDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'mask',

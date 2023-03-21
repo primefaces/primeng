@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
@@ -16,12 +16,13 @@ import { MaskDoc } from './maskdoc';
 import { MethodsDoc } from './methodsdoc';
 import { OptionalDoc } from './optionaldoc';
 import { PropsDoc } from './propsdoc';
+import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SlotCharDoc } from './slotchardoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class InputMaskDocModule {}
