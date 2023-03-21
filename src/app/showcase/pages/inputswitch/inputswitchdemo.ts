@@ -7,6 +7,7 @@ import { PropsDoc } from '../../doc/inputswitch/propsdoc';
 import { EventsDoc } from '../../doc/inputswitch/eventsdoc';
 import { StyleDoc } from '../../doc/inputswitch/styledoc';
 import { AccessibilityDoc } from '../../doc/inputswitch/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/inputswitch/reactiveformsdoc';
 
 @Component({
     templateUrl: './inputswitchdemo.html'
@@ -22,6 +23,11 @@ export class InputSwitchDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'preselection',
