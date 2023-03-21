@@ -10,9 +10,9 @@ import { Component, Input } from '@angular/core';
                 avatars need to be tabbable, <i>tabIndex</i> can be added as well to implement custom key handlers.
             </p>
 
-                <h3>Keyboard Support</h3>
-                <p>Component does not include any interactive elements.</p>
-            </app-docsectiontext>
+            <h3>Keyboard Support</h3>
+            <p>Component does not include any interactive elements.</p>
+        </app-docsectiontext>
     </app-developmentsection>`
 })
 export class AccessibilityDoc {

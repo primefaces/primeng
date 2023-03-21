@@ -20,4 +20,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, InlineDoc, FormatDoc, DisabledDoc, PropsDoc, StyleDoc, EventsDoc, AccessibilityDoc]
 })
-export class ColorPickerDocModule { }
+export class ColorPickerDocModule {}

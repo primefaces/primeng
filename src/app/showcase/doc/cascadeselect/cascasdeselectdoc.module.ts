@@ -18,4 +18,4 @@ import { TemplateDoc } from './templatedoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
 })
-export class CascadeSelectDocModule { }
+export class CascadeSelectDocModule {}

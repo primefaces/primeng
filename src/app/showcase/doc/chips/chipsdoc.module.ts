@@ -18,4 +18,4 @@ import { TemplateDoc } from './templatedoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, PropsDoc, AccessibilityDoc]
 })
-export class ChipsDocModule { }
+export class ChipsDocModule {}

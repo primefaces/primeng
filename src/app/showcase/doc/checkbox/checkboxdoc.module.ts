@@ -20,4 +20,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     exports: [ImportDoc],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc]
 })
-export class CheckboxDocModule { }
+export class CheckboxDocModule {}

@@ -134,7 +134,6 @@ export class Image implements AfterContentInit {
             switch (item.getType()) {
                 case 'indicator':
                     this.indicatorTemplate = item.template;
-                    console.log(this.indicatorTemplate)
                     break;
 
                 default:

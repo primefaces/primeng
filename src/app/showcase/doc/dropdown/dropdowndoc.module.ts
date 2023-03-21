@@ -26,4 +26,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, PropsDoc, StyleDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
 })
-export class DropdownDocModule { }
+export class DropdownDocModule {}

@@ -30,5 +30,5 @@ export class AccessibilityDoc {
     [data]="data" [
     canvasProps]="{'role': 'img', 'aria-label': 'Data'}"
 ></p-chart>`
-    }
+    };
 }

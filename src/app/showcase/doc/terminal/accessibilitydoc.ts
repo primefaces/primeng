@@ -13,25 +13,25 @@ import { Component, Input } from '@angular/core';
 
                 <h3>Keyboard Support</h3>
                 <div class="doc-tablewrapper">
-                <table class="doc-table">
-                    <thead>
-                        <tr>
-                            <th>Key</th>
-                            <th>Function</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><i>tab</i></td>
-                            <td>Moves focus through the input element.</td>
-                        </tr>
-                        <tr>
-                            <td><i>enter</i></td>
-                            <td>Executes the command when focus in on the input element.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <table class="doc-table">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Function</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i>tab</i></td>
+                                <td>Moves focus through the input element.</td>
+                            </tr>
+                            <tr>
+                                <td><i>enter</i></td>
+                                <td>Executes the command when focus in on the input element.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </app-docsectiontext>
         </div>
     </app-developmentsection>`

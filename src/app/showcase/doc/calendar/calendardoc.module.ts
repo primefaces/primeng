@@ -56,4 +56,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
         AccessibilityDoc
     ]
 })
-export class CalendarDocModule { }
+export class CalendarDocModule {}

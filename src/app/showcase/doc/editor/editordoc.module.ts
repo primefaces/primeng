@@ -22,4 +22,4 @@ import { AccessibilityDoc } from './accessibilitydoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc]
 })
-export class EditorDocModule { }
+export class EditorDocModule {}

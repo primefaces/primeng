@@ -53,7 +53,7 @@ export class TagDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        },
+        }
     ];
 
     apiDocs = [
