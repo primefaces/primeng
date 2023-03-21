@@ -35,19 +35,19 @@ import { CustomerService } from '../../service/customerservice';
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="min-width:15rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Name
                                 <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:15rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Country
                                 <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:15rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Agent
                                 <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template pTemplate="header">
@@ -69,19 +69,19 @@ import { CustomerService } from '../../service/customerservice';
                             </div>
                         </th>
                         <th style="min-width:10rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Date
                                 <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Balance
                                 <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Status
                                 <p-columnFilter field="status" matchMode="equals" display="menu">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -95,12 +95,12 @@ import { CustomerService } from '../../service/customerservice';
                             </div>
                         </th>
                         <th style="min-width:10rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Activity
                                 <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template pTemplate="filter" let-filter="filterCallback">
                                         <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                                        <div class="flex align-items-center justify-content-center px-2">
+                                        <div class="flex align-items-center px-2">
                                             <span>{{ activityValues[0] }}</span>
                                             <span>{{ activityValues[1] }}</span>
                                         </div>
@@ -109,7 +109,7 @@ import { CustomerService } from '../../service/customerservice';
                             </div>
                         </th>
                         <th style="width: 3rem">
-                            <div class="flex justify-content-center align-items-center">
+                            <div class="flex align-items-center">
                                 Verified
                                 <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                             </div>
@@ -255,19 +255,19 @@ export class FilterMenuDoc implements OnInit {
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:15rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Name
                     <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Country
                     <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Agent
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template pTemplate="header">
@@ -289,19 +289,19 @@ export class FilterMenuDoc implements OnInit {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Date
                     <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Balance
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -315,12 +315,12 @@ export class FilterMenuDoc implements OnInit {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Activity
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
                             <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                            <div class="flex align-items-center justify-content-center px-2">
+                            <div class="flex align-items-center px-2">
                                 <span>{{ activityValues[0] }}</span>
                                 <span>{{ activityValues[1] }}</span>
                             </div>
@@ -329,7 +329,7 @@ export class FilterMenuDoc implements OnInit {
                 </div>
             </th>
             <th style="width: 3rem">
-                <div class="flex justify-content-center align-items-center">
+                <div class="flex align-items-center">
                     Verified
                     <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                 </div>
@@ -398,19 +398,19 @@ export class FilterMenuDoc implements OnInit {
         <ng-template pTemplate="header">
             <tr>
                 <th style="min-width:15rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Name
                         <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Country
                         <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Agent
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="header">
@@ -432,19 +432,19 @@ export class FilterMenuDoc implements OnInit {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Date
                         <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Balance
                         <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Status
                         <p-columnFilter field="status" matchMode="equals" display="menu">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -458,12 +458,12 @@ export class FilterMenuDoc implements OnInit {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Activity
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="filter" let-filter="filterCallback">
                                 <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                                <div class="flex align-items-center justify-content-center px-2">
+                                <div class="flex align-items-center px-2">
                                     <span>{{ activityValues[0] }}</span>
                                     <span>{{ activityValues[1] }}</span>
                                 </div>
@@ -472,7 +472,7 @@ export class FilterMenuDoc implements OnInit {
                     </div>
                 </th>
                 <th style="width: 3rem">
-                    <div class="flex justify-content-center align-items-center">
+                    <div class="flex align-items-center">
                         Verified
                         <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                     </div>
@@ -605,6 +605,25 @@ export class TableFilterMenuDemo implements OnInit {
         }
     }
 }`,
+        data: `{
+    id: 1000,
+    name: 'James Butt',
+    country: {
+        name: 'Algeria',
+        code: 'dz'
+    },
+    company: 'Benton, John B Jr',
+    date: '2015-09-13',
+    status: 'unqualified',
+    verified: true,
+    activity: 17,
+    representative: {
+        name: 'Ioni Bowcher',
+        image: 'ionibowcher.png'
+    },
+    balance: 70663
+},
+...`,
         service: ['CustomerService']
     };
 

@@ -128,6 +128,14 @@ export class TableVirtualScrollDemo implements OnInit{
         this.virtualCars = Array.from({ length: 10000 });
     }
 }`,
+        data: `{
+    id: 1
+    vin: tvACo,
+    brand: Norma,
+    color: Black,
+    year: 2002
+}
+...`,
         service: ['CarService']
     };
 

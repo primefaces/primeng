@@ -117,7 +117,6 @@ export class TreeTableResizeExpandDemo implements OnInit {
         ];
     }
 }`,
-
         service: ['NodeService']
     };
 }

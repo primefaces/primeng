@@ -181,6 +181,14 @@ export class TableVirtualScrollLazyDemo implements OnInit{
         }, Math.random() * 1000 + 250);
     } 
 }`,
+        data: `{
+    id: 1
+    vin: tvACo,
+    brand: Norma,
+    color: Black,
+    year: 2002
+}
+...`,
         service: ['CarService']
     };
 

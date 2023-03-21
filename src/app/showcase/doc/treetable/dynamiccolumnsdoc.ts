@@ -70,7 +70,6 @@ export class DynamicColumnsDoc implements OnInit {
         </tr>
     </ng-template>
 </p-treeTable>`,
-
         html: `
 <div class="card">
     <p-treeTable [value]="files" [columns]="cols">
@@ -91,7 +90,6 @@ export class DynamicColumnsDoc implements OnInit {
         </ng-template>
     </p-treeTable>
 </div>`,
-
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
@@ -117,7 +115,6 @@ export class TreeTableDynamicColumnsDemo implements OnInit {
         ];
     }
 }`,
-
         service: ['NodeService']
     };
 }
