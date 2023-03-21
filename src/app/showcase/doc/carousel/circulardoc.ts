@@ -40,9 +40,9 @@ export class CircularDoc implements OnInit {
 
     @Input() title: string;
 
-    products!: Product[];
+    products: Product[];
 
-    responsiveOptions!: any[];
+    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 
@@ -128,9 +128,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-circular-demo.scss']
 })
 export class CarouselCircularDemo implements OnInit{
-    products!: Product[];
+    products: Product[];
 
-    responsiveOptions!: any[];
+    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 

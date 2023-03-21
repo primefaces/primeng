@@ -18,9 +18,9 @@ export class HorizontalBarDoc implements OnInit {
 
     @Input() title: string;
 
-    data!: any;
+    data: any;
 
-    options!: any;
+    options: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -99,9 +99,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartHorizontalBarDemo implements OnInit {
 
-    data!: any;
+    data: any;
 
-    options!: any;
+    options: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);

@@ -37,9 +37,9 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    visible!: boolean;
+    visible: boolean;
 
-    position!: string;
+    position: string;
 
     showDialog(position: string) {
         this.position = position;
@@ -102,9 +102,9 @@ import { Component } from '@angular/core';
 })
 export class DialogPositionDemo {
 
-    visible!: boolean;
+    visible: boolean;
 
-    position!: string;
+    position: string;
 
     showDialog(position: string) {
         this.position = position;

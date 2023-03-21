@@ -21,7 +21,7 @@ export class CommandDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     constructor(private messageService: MessageService) {}
 
@@ -73,7 +73,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 })
 export class MenuCommandDemo implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     constructor(private messageService: MessageService) {}
     

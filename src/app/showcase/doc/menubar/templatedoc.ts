@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [
@@ -187,7 +187,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class MenubarTemplateDemo implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [

@@ -38,7 +38,7 @@ export class LongContentDoc {
 
     @Input() title: string;
 
-    visible!: boolean;
+    visible: boolean;
 
     showDialog() {
         this.visible = true;
@@ -102,7 +102,7 @@ import { Component } from '@angular/core';
 })
 export class DialogLongContentDemo {
 
-    visible!: boolean;
+    visible: boolean;
 
     showDialog() {
         this.visible = true;

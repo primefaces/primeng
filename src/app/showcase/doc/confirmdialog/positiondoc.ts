@@ -35,7 +35,7 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    position!: string;
+    position: string;
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -113,7 +113,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
 })
 export class ConfirmPositionDoc {
 
-    position!: string;
+    position: string;
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 

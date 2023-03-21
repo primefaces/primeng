@@ -132,9 +132,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-responsive-demo.scss']
 })
 export class CarouselResponsiveDemo {
-    products!: Product[];
+    products: Product[];
 
-    responsiveOptions!: any[];
+    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 

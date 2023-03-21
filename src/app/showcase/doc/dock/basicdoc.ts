@@ -31,7 +31,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     position: string = 'top';
 
@@ -107,7 +107,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class BasicDoc implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     position: string = 'top';
 

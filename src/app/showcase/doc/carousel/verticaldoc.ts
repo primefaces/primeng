@@ -108,9 +108,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-vertical-demo.scss']
 })
 export class CarouselVerticalDemo implements OnInit {
-    products!: Product[];
+    products: Product[];
 
-    responsiveOptions!: any[];
+    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 

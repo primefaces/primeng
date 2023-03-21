@@ -21,7 +21,7 @@ export class InteractiveDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     activeIndex: number = 0;
 
@@ -74,7 +74,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 })
 export class StepsInteractiveDemo implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     activeIndex: number = 0;
 

@@ -146,9 +146,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-template-demo.scss']
 })
 export class CarouselTemplateDemo implements OnInit{
-    products!: Product[];
+    products: Product[];
 
-    responsiveOptions!: any[];
+    responsiveOptions: any[];
 
     constructor(private productService: ProductService) {}
 

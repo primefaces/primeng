@@ -19,7 +19,7 @@ export class ConstantsDoc {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [
@@ -50,7 +50,7 @@ import { PrimeIcons, MenuItem } from 'primeng/api';
     templateUrl: './prime-icons-constants-demo.html'
 })
 export class PrimeIconsConstantsDemo {
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [

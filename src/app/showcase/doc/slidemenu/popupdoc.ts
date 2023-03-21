@@ -20,7 +20,7 @@ export class PopupDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [
@@ -172,7 +172,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class SlideMenuPopupDemo implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [

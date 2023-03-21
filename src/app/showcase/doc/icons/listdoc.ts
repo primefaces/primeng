@@ -25,11 +25,11 @@ export class ListDoc {
 
     @Input() title: string;
 
-    icons!: any[];
+    icons: any[];
 
-    filteredIcons!: any[];
+    filteredIcons: any[];
 
-    selectedIcon!: any;
+    selectedIcon: any;
 
     constructor(private iconService: IconService) {}
 

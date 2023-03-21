@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     home: MenuItem;
 
@@ -48,7 +48,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class BreadcrumbBasicDemo implements OnInit {
 
-    items!: MenuItem[];
+    items: MenuItem[];
 
     home: MenuItem;
 

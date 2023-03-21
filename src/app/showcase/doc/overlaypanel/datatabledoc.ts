@@ -54,9 +54,9 @@ export class DataTableDoc implements OnInit {
 
     @Input() title: string;
 
-    products!: Product[];
+    products: Product[];
 
-    selectedProduct!: Product;
+    selectedProduct: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 
@@ -157,9 +157,9 @@ import { ProductService } from '../../service/productservice';
 })
 export class OverlayPanelDataTableDemo implements OnInit {
 
-    products!: Product[];
+    products: Product[];
 
-    selectedProduct!: Product;
+    selectedProduct: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 

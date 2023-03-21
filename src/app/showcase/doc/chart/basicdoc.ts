@@ -21,9 +21,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    basicData!: any;
+    basicData: any;
 
-    basicOptions!: any;
+    basicOptions: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -92,9 +92,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartBasicDemo implements OnInit {
 
-    basicData!: any;
+    basicData: any;
 
-    basicOptions!: any;
+    basicOptions: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);

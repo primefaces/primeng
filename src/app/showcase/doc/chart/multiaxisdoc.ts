@@ -18,9 +18,9 @@ export class MultiAxisDoc implements OnInit {
 
     @Input() title: string;
 
-    data!: any;
+    data: any;
 
-    options!: any;
+    options: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
@@ -113,9 +113,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartMultiAxisDemo implements OnInit {
 
-    data!: any;
+    data: any;
 
-    options!: any;
+    options: any;
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);

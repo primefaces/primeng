@@ -57,11 +57,11 @@ export class DataTableDoc implements OnInit {
 
     @Input() title: string;
 
-    availableProducts!: Product[];
+    availableProducts: Product[];
 
-    selectedProducts!: Product[];
+    selectedProducts: Product[];
 
-    draggedProduct!: Product;
+    draggedProduct: Product;
 
     constructor(private productService: ProductService) {}
 
@@ -193,11 +193,11 @@ import { ProductService } from '../../service/productservice';
 })
 export class DragDropDataTableDemo implements OnInit {
 
-    availableProducts!: Product[];
+    availableProducts: Product[];
 
-    selectedProducts!: Product[];
+    selectedProducts: Product[];
 
-    draggedProduct!: Product;
+    draggedProduct: Product;
 
     constructor(private productService: ProductService) {}
 

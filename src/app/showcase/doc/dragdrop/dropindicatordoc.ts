@@ -33,11 +33,11 @@ export class DropIndicatorDoc {
 
     @Input() title: string;
 
-    availableProducts!: Product[];
+    availableProducts: Product[];
 
-    selectedProducts!: Product[];
+    selectedProducts: Product[];
 
-    draggedProduct!: Product;
+    draggedProduct: Product;
 
     ngOnInit() {
         this.selectedProducts = [];
@@ -121,11 +121,11 @@ import { ProductService } from '../../service/productservice';
 })
 export class DragDropDropIndicatorDemo implements OnInit {
 
-    availableProducts!: Product[];
+    availableProducts: Product[];
 
-    selectedProducts!: Product[];
+    selectedProducts: Product[];
 
-    draggedProduct!: Product;
+    draggedProduct: Product;
 
     constructor(private productService: ProductService) {}
 
