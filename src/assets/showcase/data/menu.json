@@ -13,14 +13,6 @@
                     "routerLink": "/configuration"
                 },
                 {
-                    "name": "Overlay",
-                    "routerLink": "/overlay"
-                },
-                {
-                    "name": "FilterService",
-                    "routerLink": "/filterservice"
-                },
-                {
                     "name": "Locale",
                     "routerLink": "/locale"
                 },
@@ -465,6 +457,19 @@
                         {
                             "name": "Animate",
                             "routerLink": "/animate"
+                        }
+                    ]
+                },
+                {
+                    "name": "Utilities",
+                    "children": [
+                        {
+                            "name": "Overlay",
+                            "routerLink": "/overlay"
+                        },
+                        {
+                            "name": "FilterService",
+                            "routerLink": "/filterservice"
                         }
                     ]
                 }

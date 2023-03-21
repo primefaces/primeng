@@ -36,10 +36,34 @@ import { Code } from '../../domain/code';
                         <td>--font-family</td>
                         <td>Font family of the theme.</td>
                     </tr>
+                    <tr>
+                        <td>--inline-spacing</td>
+                        <td>Spacing between to adjacent items.</td>
+                    </tr>
+                    <tr>
+                        <td>--border-radius</td>
+                        <td>Common border radius of elements.</td>
+                    </tr>
+                    <tr>
+                        <td>--focus-ring</td>
+                        <td>Box shadow of a focused element.</td>
+                    </tr>
+                    <tr>
+                        <td>--mask-bg</td>
+                        <td>Background of an overlay mask.</td>
+                    </tr>
+                    <tr>
+                        <td>--highlight-bg</td>
+                        <td>Background of a highlighted element.</td>
+                    </tr>
+                    <tr>
+                        <td>--highlight-text-color</td>
+                        <td>Text color of a highlighted element.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-content-center gap-3 text-center">
             <div [ngStyle]="{ backgroundColor: 'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Highlighted Item</div>
             <div [ngStyle]="{ backgroundColor: 'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Primary Color</div>
         </div>

@@ -21,8 +21,7 @@ export class SemanticHTMLDoc {
     @Input() title: string;
 
     code1: Code = {
-        html: `
-<div class="header"/>
+        html: `<div class="header"/>
     <div class="header-text">Header></div>
 </div>
 
@@ -37,8 +36,7 @@ export class SemanticHTMLDoc {
     };
 
     code2: Code = {
-        html: `
-<header>
+        html: `<header>
     <h1>Header</h1>
 </header>
 
