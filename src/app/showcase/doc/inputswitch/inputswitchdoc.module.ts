@@ -12,10 +12,11 @@ import { PreselectionDoc } from './preselectiondoc';
 import { PropsDoc } from './propsdoc';
 import { EventsDoc } from './eventsdoc';
 import { StyleDoc } from './styledoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputSwitchModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc]
+    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc]
 })
 export class InputSwitchDocModule {}

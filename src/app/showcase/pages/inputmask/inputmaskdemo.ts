@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessibilityDoc } from '../../doc/inputmask/accessibilitydoc';
 import { BasicDoc } from '../../doc/inputmask/basicdoc';
 import { DisabledDoc } from '../../doc/inputmask/disableddoc';
 import { EventsDoc } from '../../doc/inputmask/eventsdoc';
@@ -61,6 +62,11 @@ export class InputMaskDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 
