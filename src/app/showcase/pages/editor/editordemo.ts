@@ -7,6 +7,7 @@ import { ImportDoc } from '../../doc/editor/importdoc';
 import { MethodsDoc } from '../../doc/editor/methodsdoc';
 import { PropsDoc } from '../../doc/editor/propsdoc';
 import { QuillDoc } from '../../doc/editor/quilldoc';
+import { ReactiveFormsDoc } from '../../doc/editor/reactiveformsdoc';
 import { ReadOnlyDoc } from '../../doc/editor/readonlydoc';
 import { StyleDoc } from '../../doc/editor/styledoc';
 
@@ -34,6 +35,11 @@ export class EditorDemo {
             id: 'readonly',
             label: 'Read Only',
             component: ReadOnlyDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'template',
