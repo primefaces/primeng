@@ -20,7 +20,7 @@ import { ProductService } from '../../service/productservice';
                 <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
                 <td>{{ product.price }}</td>
                 <td>
-                    <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </td>
                 <td>
                     <button type="button" pButton icon="pi pi-plus" (click)="selectProduct(product)"></button>
@@ -40,5 +40,16 @@ export class ProductListDemo implements OnInit {
 
     selectProduct(product: Product) {
         this.ref.close(product);
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }

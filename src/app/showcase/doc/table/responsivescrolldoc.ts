@@ -29,7 +29,7 @@ import { ProductService } from '../../service/productservice';
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                     </tr>
@@ -67,6 +67,17 @@ export class ResponsiveScrollDoc implements OnInit {
         ];
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
@@ -86,7 +97,7 @@ export class ResponsiveScrollDoc implements OnInit {
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
             <td>{{product.quantity}}</td>
-            <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
         </tr>
     </ng-template>
@@ -110,7 +121,7 @@ export class ResponsiveScrollDoc implements OnInit {
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
                 <td>{{product.quantity}}</td>
-                <td><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
             </tr>
         </ng-template>
@@ -123,8 +134,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'table-responsive-scroll-demo',
-    templateUrl: 'table-responsive-scroll-demo.html',
-    styleUrls: ['table-responsive-scroll-demo.scss']
+    templateUrl: 'table-responsive-scroll-demo.html'
 })
 export class TableResponsiveScrollDemo implements OnInit{
     products: Product[];
@@ -147,29 +157,16 @@ export class TableResponsiveScrollDemo implements OnInit{
             { field: 'rating', header: 'Rating' }
         ];
     }
-}`,
-        scss: `
-.product-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
 
-    &.status-instock {
-        background: #C8E6C9;
-        color: #256029;
-    }
-    
-    &.status-outofstock {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-    
-    &.status-lowstock {
-        background: #FEEDAF;
-        color: #8A5340;
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         service: ['ProductService']

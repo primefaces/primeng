@@ -19,9 +19,10 @@ import { PassingDataDoc } from './passingdatadoc';
 import { CloseDoc } from './closedoc';
 import { ProductListDemoDoc } from './productlistdemodoc';
 import { EventsDoc } from './eventsdoc';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, TagModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
     declarations: [OpenDoc, ImportDoc, PropsDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, EventsDoc],
     exports: [AppDocModule],
     entryComponents: [ProductListDemo]

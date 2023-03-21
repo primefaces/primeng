@@ -17,9 +17,10 @@ import { ButtonModule } from 'primeng/button';
 import { TemplateDoc } from './templatedoc';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, VirtualScrollerModule, ButtonModule, SkeletonModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, VirtualScrollerModule, ButtonModule, SkeletonModule, TagModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, LazyLoadDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc, ProgrammaticScrollDoc, TemplateDoc, ProgrammaticScrollDoc, AccessibilityDoc]
 })

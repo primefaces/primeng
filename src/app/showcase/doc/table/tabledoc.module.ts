@@ -21,6 +21,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -67,7 +68,6 @@ import { SingleColumnSortDoc } from './singlecolumnsortdoc';
 import { SingleSelectionDoc } from './singleselectiondoc';
 import { SizeDoc } from './sizedoc';
 import { StatefulDoc } from './statefuldoc';
-import { StickyDoc } from './stickydoc';
 import { StripedDoc } from './stripeddoc';
 import { StyleDoc } from './styledoc';
 import { SubheaderGroupingDoc } from './subheadergroupingdoc';
@@ -97,6 +97,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ContextMenuModule,
         DropdownModule,
         ButtonModule,
+        TagModule,
         ToastModule,
         InputTextModule,
         InputSwitchModule,
@@ -160,7 +161,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
         SingleSelectionDoc,
         SizeDoc,
         StatefulDoc,
-        StickyDoc,
         StripedDoc,
         StyleDoc,
         SubheaderGroupingDoc,

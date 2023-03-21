@@ -20,7 +20,7 @@ import { ProductService } from '../../service/productservice';
                             <div>
                                 <h4 class="mb-1">{{ product.name }}</h4>
                                 <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                                <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                                 <div class="car-buttons mt-5">
                                     <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                                     <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
@@ -50,6 +50,17 @@ export class VerticalDoc implements OnInit {
         });
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px" [responsiveOptions]="responsiveOptions">
@@ -62,7 +73,7 @@ export class VerticalDoc implements OnInit {
                 <div>
                     <h4 class="mb-1">{{product.name}}</h4>
                     <h6 class="mt-0 mb-3">{{product.price}}</h6>
-                    <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                     <div class="car-buttons mt-5">
                         <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                         <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
@@ -85,7 +96,7 @@ export class VerticalDoc implements OnInit {
                     <div>
                         <h4 class="mb-1">{{product.name}}</h4>
                         <h6 class="mt-0 mb-3">{{product.price}}</h6>
-                        <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         <div class="car-buttons mt-5">
                             <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                             <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
@@ -136,6 +147,17 @@ export class CarouselVerticalDemo implements OnInit {
                 numScroll: 1
             }
         ];
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         scss: `

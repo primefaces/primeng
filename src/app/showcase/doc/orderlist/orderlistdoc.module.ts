@@ -14,9 +14,10 @@ import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { TemplatesDoc } from './templatesdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, OrderListModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, OrderListModule, RouterModule, TagModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, FilterDoc, DragDropDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
 })

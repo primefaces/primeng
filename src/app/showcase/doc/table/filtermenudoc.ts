@@ -58,9 +58,9 @@ import { CustomerService } from '../../service/customerservice';
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                         <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                             <ng-template let-option pTemplate="item">
-                                                <div class="p-multiselect-representative-option">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="32" style="vertical-align: middle" />
-                                                    <span class="ml-1">{{ option.name }}</span>
+                                                <div class="inline-block vertical-align-middle">
+                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
                                         </p-multiSelect>
@@ -87,7 +87,7 @@ import { CustomerService } from '../../service/customerservice';
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                         <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                             <ng-template let-option pTemplate="item">
-                                                <span [class]="'customer-badge status-' + option.value">{{ option.label }}</span>
+                                                <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                             </ng-template>
                                         </p-dropdown>
                                     </ng-template>
@@ -122,12 +122,12 @@ import { CustomerService } from '../../service/customerservice';
                             {{ customer.name }}
                         </td>
                         <td>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                            <span class="image-text">{{ customer.country.name }}</span>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                         </td>
                         <td>
                             <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                            <span class="image-text">{{ customer.representative.name }}</span>
+                            <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                         </td>
                         <td>
                             {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -136,13 +136,13 @@ import { CustomerService } from '../../service/customerservice';
                             {{ customer.balance | currency: 'USD':'symbol' }}
                         </td>
                         <td>
-                            <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                         </td>
                         <td>
                             <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
                         </td>
                         <td class="text-center">
-                            <i class="pi" [ngClass]="{ 'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified }"></i>
+                            <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
                         </td>
                     </tr>
                 </ng-template>
@@ -210,6 +210,25 @@ export class FilterMenuDoc implements OnInit {
         table.clear();
     }
 
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table
@@ -259,9 +278,9 @@ export class FilterMenuDoc implements OnInit {
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                 <ng-template let-option pTemplate="item">
-                                    <div class="p-multiselect-representative-option">
-                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="32" style="vertical-align: middle" />
-                                        <span class="ml-1">{{ option.name }}</span>
+                                    <div class="inline-block vertical-align-middle">
+                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                        <span class="ml-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
                             </p-multiSelect>
@@ -288,7 +307,7 @@ export class FilterMenuDoc implements OnInit {
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
-                                    <span [class]="'customer-badge status-' + option.value">{{ option.label }}</span>
+                                    <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                 </ng-template>
                             </p-dropdown>
                         </ng-template>
@@ -323,12 +342,12 @@ export class FilterMenuDoc implements OnInit {
                 {{ customer.name }}
             </td>
             <td>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                <span class="image-text">{{ customer.country.name }}</span>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                <span class="image-text">{{ customer.representative.name }}</span>
+                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -337,13 +356,13 @@ export class FilterMenuDoc implements OnInit {
                 {{ customer.balance | currency: 'USD':'symbol' }}
             </td>
             <td>
-                <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
             </td>
             <td>
                 <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
             </td>
             <td class="text-center">
-                <i class="pi" [ngClass]="{ 'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified }"></i>
+                <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
             </td>
         </tr>
     </ng-template>
@@ -402,9 +421,9 @@ export class FilterMenuDoc implements OnInit {
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
-                                        <div class="p-multiselect-representative-option">
-                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="32" style="vertical-align: middle" />
-                                            <span class="ml-1">{{ option.name }}</span>
+                                        <div class="inline-block vertical-align-middle">
+                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                            <span class="ml-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
                                 </p-multiSelect>
@@ -431,7 +450,7 @@ export class FilterMenuDoc implements OnInit {
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                     <ng-template let-option pTemplate="item">
-                                        <span [class]="'customer-badge status-' + option.value">{{ option.label }}</span>
+                                        <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                     </ng-template>
                                 </p-dropdown>
                             </ng-template>
@@ -466,12 +485,12 @@ export class FilterMenuDoc implements OnInit {
                     {{ customer.name }}
                 </td>
                 <td>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                    <span class="image-text">{{ customer.country.name }}</span>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="image-text">{{ customer.representative.name }}</span>
+                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -480,13 +499,13 @@ export class FilterMenuDoc implements OnInit {
                     {{ customer.balance | currency: 'USD':'symbol' }}
                 </td>
                 <td>
-                    <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                 </td>
                 <td>
                     <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
                 </td>
                 <td class="text-center">
-                    <i class="pi" [ngClass]="{ 'true-icon pi-check-circle': customer.verified, 'false-icon pi-times-circle': !customer.verified }"></i>
+                    <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
                 </td>
             </tr>
         </ng-template>
@@ -554,7 +573,26 @@ export class TableFilterMenuDemo implements OnInit {
 
     clear(table: Table) {
         table.clear();
-    } 
+    }
+
+    getSeverity(status) {
+        switch (status.toLowerCase()) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
 }`,
         scss: `
 :host ::ng-deep {
@@ -566,53 +604,6 @@ export class TableFilterMenuDemo implements OnInit {
             background-color: #607D8B;
         }
     }
-}
-
-.customer-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.status-qualified {
-        background-color: #C8E6C9;
-        color: #256029;
-    }
-
-    &.status-unqualified {
-        background-color: #FFCDD2;
-        color: #C63737;
-    }
-
-    &.status-negotiation {
-        background-color: #FEEDAF;
-        color: #8A5340;
-    }
-
-    &.status-new {
-        background-color: #B3E5FC;
-        color: #23547B;
-    }
-
-    &.status-renewal {
-        background-color: #ECCFFF;
-        color: #694382;
-    }
-
-    &.status-proposal {
-        background-color: #FFD8B2;
-        color: #805B36;
-    }
-}
-
-.true-icon {
-    color: #256029;
-}
-
-.false-icon {
-    color: #C63737;
 }`,
         service: ['CustomerService']
     };

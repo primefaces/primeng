@@ -35,7 +35,7 @@ import { ProductService } from '../../service/productservice';
                         <td>{{ product.category }}</td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                         <td>
-                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </td>
                     </tr>
                 </ng-template>
@@ -73,6 +73,17 @@ export class TemplateDoc implements OnInit {
         ];
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
@@ -99,7 +110,7 @@ export class TemplateDoc implements OnInit {
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
@@ -134,7 +145,7 @@ export class TemplateDoc implements OnInit {
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -162,6 +173,17 @@ export class TableTemplateDemo implements OnInit {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         service: ['ProductService']

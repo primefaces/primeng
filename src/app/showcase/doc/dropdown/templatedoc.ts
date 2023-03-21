@@ -13,14 +13,14 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
                 <ng-template pTemplate="selectedItem">
-                    <div class="country-item country-item-value" *ngIf="selectedCountry">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" />
+                    <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
                         <div>{{ selectedCountry.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
-                    <div class="country-item">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <div class="flex align-items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -57,14 +57,14 @@ export class TemplateDoc implements OnInit {
         basic: `
 <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
     <ng-template pTemplate="selectedItem">
-        <div class="country-item country-item-value" *ngIf="selectedCountry">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" />
+        <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
             <div>{{ selectedCountry.name }}</div>
         </div>
     </ng-template>
     <ng-template let-country pTemplate="item">
-        <div class="country-item">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+        <div class="flex align-items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
             <div>{{ country.name }}</div>
         </div>
     </ng-template>
@@ -74,14 +74,14 @@ export class TemplateDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
         <ng-template pTemplate="selectedItem">
-            <div class="country-item country-item-value" *ngIf="selectedCountry">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" />
+            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ selectedCountry.name }}</div>
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">
-            <div class="country-item">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+            <div class="flex align-items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>

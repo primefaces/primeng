@@ -311,4 +311,23 @@ export class LandingComponent implements OnInit, OnDestroy {
     onRepresentativeChange(event) {
         this.table.filter(event.value, 'representative', 'in');
     }
+
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
 }

@@ -30,9 +30,7 @@ import { ProductService } from '../../service/productservice';
                         <td><span class="p-column-title">Price</span>{{ product.price | currency: 'USD' }}</td>
                         <td><span class="p-column-title">Category</span>{{ product.category }}</td>
                         <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
-                        <td>
-                            <span class="p-column-title">Status</span><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{ product.inventoryStatus }}</span>
-                        </td>
+                        <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
                         <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                     </tr>
                 </ng-template>
@@ -69,6 +67,17 @@ export class ResponsiveStackDoc implements OnInit {
         ];
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
@@ -88,7 +97,7 @@ export class ResponsiveStackDoc implements OnInit {
             <td><span class="p-column-title">Price</span>{{product.price | currency:'USD'}}</td>
             <td><span class="p-column-title">Category</span>{{product.category}}</td>
             <td><span class="p-column-title">Quantity</span>{{product.quantity}}</td>
-            <td><span class="p-column-title">Status</span><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
             <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
         </tr>
     </ng-template>
@@ -112,7 +121,7 @@ export class ResponsiveStackDoc implements OnInit {
                 <td><span class="p-column-title">Price</span>{{product.price | currency:'USD'}}</td>
                 <td><span class="p-column-title">Category</span>{{product.category}}</td>
                 <td><span class="p-column-title">Quantity</span>{{product.quantity}}</td>
-                <td><span class="p-column-title">Status</span><span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
                 <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
             </tr>
         </ng-template>
@@ -149,29 +158,16 @@ export class TableResponsiveStackDemo implements OnInit{
             { field: 'rating', header: 'Rating' }
         ];
     }
-}`,
-        scss: `
-.product-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
 
-    &.status-instock {
-        background: #C8E6C9;
-        color: #256029;
-    }
-    
-    &.status-outofstock {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-    
-    &.status-lowstock {
-        background: #FEEDAF;
-        color: #8A5340;
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         service: ['ProductService']

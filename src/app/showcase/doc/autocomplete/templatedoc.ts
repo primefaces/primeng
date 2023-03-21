@@ -12,8 +12,8 @@ import { CountryService } from '../../service/countryservice';
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
                 <ng-template let-country pTemplate="item">
-                    <div class="country-item">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+                    <div class="flex align-items-center gap-2">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -102,9 +102,8 @@ export class TemplateDoc {
 <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
-            <div class="country-item">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                    [class]="'flag flag-' + country.code.toLowerCase()" />
+            <div class="flex align-items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
@@ -114,8 +113,8 @@ export class TemplateDoc {
 <div class="card flex justify-content-center">
     <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
-            <div class="country-item">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+            <div class="flex align-items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
@@ -201,16 +200,6 @@ export class AutocompleteTemplateDemo {
         }
 
         this.filteredCountries = filtered;
-    }
-}`,
-        scss: `
-.country-item {
-    display: flex;
-    align-items: center;
-
-    img.flag {
-        width: 18px;
-        margin-right: .5rem;
     }
 }`,
 

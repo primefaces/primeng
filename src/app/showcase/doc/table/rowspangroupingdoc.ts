@@ -33,14 +33,14 @@ import { CustomerService } from '../../service/customerservice';
                             {{ customer.name }}
                         </td>
                         <td>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                            <span class="image-text">{{ customer.country.name }}</span>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                         </td>
                         <td>
                             {{ customer.company }}
                         </td>
                         <td>
-                            <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                         </td>
                         <td>
                             {{ customer.date }}
@@ -83,6 +83,25 @@ export class RowspanGroupingDoc implements OnInit {
         return total;
     }
 
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"  [tableStyle]="{'min-width': '75rem'}">
@@ -108,14 +127,14 @@ export class RowspanGroupingDoc implements OnInit {
                 {{customer.name}}
             </td>
             <td>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                <span class="image-text">{{customer.country.name}}</span>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
             </td>
             <td>
                 {{customer.company}}
             </td>
             <td>
-                <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
             </td>
             <td>
                 {{customer.date}}
@@ -148,14 +167,14 @@ export class RowspanGroupingDoc implements OnInit {
                     {{customer.name}}
                 </td>
                 <td>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                    <span class="image-text">{{customer.country.name}}</span>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                    <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     {{customer.company}}
                 </td>
                 <td>
-                    <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                 </td>
                 <td>
                     {{customer.date}}
@@ -171,8 +190,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'table-rowspan-grouping-demo',
-    templateUrl: 'table-rowspan-grouping-demo.html',
-    styleUrls: ['table-rowspan-grouping-demo.scss']
+    templateUrl: 'table-rowspan-grouping-demo.html'
 })
 export class TableRowspanGroupingDemo implements OnInit{
     customers: Customer[];
@@ -198,44 +216,24 @@ export class TableRowspanGroupingDemo implements OnInit{
 
         return total;
     }
-}`,
-        scss: `
-.customer-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
 
-    &.status-qualified {
-        background-color: #C8E6C9;
-        color: #256029;
-    }
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
 
-    &.status-unqualified {
-        background-color: #FFCDD2;
-        color: #C63737;
-    }
+            case 'qualified':
+                return 'success';
 
-    &.status-negotiation {
-        background-color: #FEEDAF;
-        color: #8A5340;
-    }
+            case 'new':
+                return 'info';
 
-    &.status-new {
-        background-color: #B3E5FC;
-        color: #23547B;
-    }
+            case 'negotiation':
+                return 'warning';
 
-    &.status-renewal {
-        background-color: #ECCFFF;
-        color: #694382;
-    }
-
-    &.status-proposal {
-        background-color: #FFD8B2;
-        color: #805B36;
+            case 'renewal':
+                return null;
+        }
     }
 }`,
         service: ['CustomerService']

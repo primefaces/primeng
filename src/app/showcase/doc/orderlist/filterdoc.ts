@@ -23,7 +23,7 @@ import { ProductService } from '../../service/productservice';
                         </div>
                         <div class="flex flex-column align-items-end">
                             <h6 class="mb-2">{{ '$ ' + product.price }}</h6>
-                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </div>
                     </div>
                 </ng-template>
@@ -45,6 +45,17 @@ export class FilterDoc implements OnInit {
         this.productService.getProductsSmall().then((cars) => (this.products = cars));
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" filterBy="name" filterPlaceholder="Filter by name">
@@ -60,7 +71,7 @@ export class FilterDoc implements OnInit {
             </div>
             <div class="flex flex-column align-items-end">
                 <h6 class="mb-2">{{ '$ ' + product.price }}</h6>
-                <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
             </div>
         </div>
     </ng-template>
@@ -81,7 +92,7 @@ export class FilterDoc implements OnInit {
                 </div>
                 <div class="flex flex-column align-items-end">
                     <h6 class="mb-2">{{ '$ ' + product.price }}</h6>
-                    <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </div>
             </div>
         </ng-template>
@@ -95,8 +106,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'orderlist-filter-demo',
-    templateUrl: './orderlist-filter-demo.html',
-    styleUrls: ['./orderlist-filter-demo.scss']
+    templateUrl: './orderlist-filter-demo.html'
 })
 export class OrderlistFilterDemo implements OnInit {
     products: Product[];
@@ -105,6 +115,17 @@ export class OrderlistFilterDemo implements OnInit {
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => (this.products = cars));
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
 

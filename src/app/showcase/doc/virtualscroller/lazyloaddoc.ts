@@ -28,7 +28,7 @@ import { ProductService } from '../../service/productservice';
                         </div>
                         <div class="flex flex-column align-items-end">
                             <h6 style="width:25px; height:14px;" class="mb-2">{{ '$' + product.price }}</h6>
-                            <span style="width:100px" [class]="'flex align-items-center justify-content-center h-2rem product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </div>
                     </div>
                 </ng-template>
@@ -77,6 +77,17 @@ export class LazyLoadDoc implements OnInit {
         }, 1000);
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
@@ -93,7 +104,7 @@ export class LazyLoadDoc implements OnInit {
             </div>
             <div class="flex flex-column align-items-end">
                 <h6 style="width:25px; height:14px;" class="mb-2">{{ '$' + product.price }}</h6>
-                <span style="width:100px" [class]="'flex align-items-center justify-content-center h-2rem product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
             </div>
         </div>
     </ng-template>
@@ -129,7 +140,7 @@ export class LazyLoadDoc implements OnInit {
                 </div>
                 <div class="flex flex-column align-items-end">
                     <h6 style="width:25px; height:14px;" class="mb-2">{{ '$' + product.price }}</h6>
-                    <span style="width:100px" [class]="'flex align-items-center justify-content-center h-2rem product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </div>
             </div>
         </ng-template>
@@ -182,6 +193,17 @@ export class VirtualScrollerLazyLoadDemo implements OnInit {
 
             event.forceUpdate();
         }, 1000);
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
 

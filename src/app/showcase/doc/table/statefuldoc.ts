@@ -45,17 +45,17 @@ import { CustomerService } from '../../service/customerservice';
                         </td>
                         <td>
                             <span class="p-column-title">Country</span>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                            <span class="image-text">{{ customer.country.name }}</span>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                         </td>
                         <td>
                             <span class="p-column-title">Representative</span>
                             <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                            <span class="image-text">{{ customer.representative.name }}</span>
+                            <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                         </td>
                         <td>
                             <span class="p-column-title">Status</span>
-                            <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                         </td>
                     </tr>
                 </ng-template>
@@ -86,6 +86,25 @@ export class StatefulDoc implements OnInit {
             this.customers = data;
             this.cd.markForCheck();
         });
+    }
+
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
     }
 
     code: Code = {
@@ -122,17 +141,17 @@ export class StatefulDoc implements OnInit {
             </td>
             <td>
                 <span class="p-column-title">Country</span>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                <span class="image-text">{{customer.country.name}}</span>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
             </td>
             <td>
                 <span class="p-column-title">Representative</span>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                <span class="image-text">{{customer.representative.name}}</span>
+                <span class="ml-1 vertical-align-middle">{{customer.representative.name}}</span>
             </td>
             <td>
                 <span class="p-column-title">Status</span>
-                <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
             </td>
         </tr>
     </ng-template>
@@ -176,17 +195,17 @@ export class StatefulDoc implements OnInit {
                 </td>
                 <td>
                     <span class="p-column-title">Country</span>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                    <span class="image-text">{{customer.country.name}}</span>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                    <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Representative</span>
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                    <span class="image-text">{{customer.representative.name}}</span>
+                    <span class="ml-1 vertical-align-middle">{{customer.representative.name}}</span>
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
-                    <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                 </td>
             </tr>
         </ng-template>
@@ -217,44 +236,24 @@ export class TableStatefulDemo implements OnInit{
     ngOnInit() {
         this.customerService.getCustomersMini().then((data) => (this.customers = data));
     }
-}`,
-        scss: `
-.customer-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
 
-    &.status-qualified {
-        background-color: #C8E6C9;
-        color: #256029;
-    }
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
 
-    &.status-unqualified {
-        background-color: #FFCDD2;
-        color: #C63737;
-    }
+            case 'qualified':
+                return 'success';
 
-    &.status-negotiation {
-        background-color: #FEEDAF;
-        color: #8A5340;
-    }
+            case 'new':
+                return 'info';
 
-    &.status-new {
-        background-color: #B3E5FC;
-        color: #23547B;
-    }
+            case 'negotiation':
+                return 'warning';
 
-    &.status-renewal {
-        background-color: #ECCFFF;
-        color: #694382;
-    }
-
-    &.status-proposal {
-        background-color: #FFD8B2;
-        color: #805B36;
+            case 'renewal':
+                return null;
+        }
     }
 }`,
         service: ['CustomerService']

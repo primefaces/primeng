@@ -71,7 +71,7 @@ import { ProductService } from '../../service/productservice';
                         <td>{{ product.category }}</td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                         <td>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </td>
                         <td>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
@@ -203,6 +203,18 @@ export class ProductsDoc implements OnInit {
         }
         return id;
     }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-toast></p-toast>
@@ -265,7 +277,7 @@ export class ProductsDoc implements OnInit {
             <td>{{ product.category }}</td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
             <td>
-                <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{ product.inventoryStatus }}</span>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
             </td>
             <td>
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
@@ -339,7 +351,7 @@ export class ProductsDoc implements OnInit {
                 <td>{{ product.category }}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                 <td>
-                    <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{ product.inventoryStatus }}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
@@ -471,36 +483,23 @@ export class TableProductsDemo implements OnInit{
         }
         return id;
     }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }`,
         scss: `
 :host ::ng-deep .p-dialog .product-image {
     width: 150px;
     margin: 0 auto 2rem auto;
     display: block;
-}
-
-.product-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.status-instock {
-        background: #C8E6C9;
-        color: #256029;
-    }
-    
-    &.status-outofstock {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-    
-    &.status-lowstock {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
 }`,
         service: ['ProductService']
     };

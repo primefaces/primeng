@@ -41,14 +41,14 @@ import { CustomerService } from '../../service/customerservice';
                             {{ customer.name }}
                         </td>
                         <td>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" />
-                            <span class="image-text">{{ customer.country.name }}</span>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                         </td>
                         <td>
                             {{ customer.company }}
                         </td>
                         <td>
-                            <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                         </td>
                         <td>
                             {{ customer.date }}
@@ -91,6 +91,25 @@ export class ExpandableRowGroupDoc implements OnInit {
         return total;
     }
 
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '70rem'}">
@@ -124,14 +143,14 @@ export class ExpandableRowGroupDoc implements OnInit {
                 {{customer.name}}
             </td>
             <td>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                <span class="image-text">{{customer.country.name}}</span>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
             </td>
             <td>
                 {{customer.company}}
             </td>
             <td>
-                <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
             </td>
             <td>
                 {{customer.date}}
@@ -172,14 +191,14 @@ export class ExpandableRowGroupDoc implements OnInit {
                     {{customer.name}}
                 </td>
                 <td>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                    <span class="image-text">{{customer.country.name}}</span>
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                    <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     {{customer.company}}
                 </td>
                 <td>
-                    <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                 </td>
                 <td>
                     {{customer.date}}
@@ -222,6 +241,25 @@ export class TableExpandableRowGroupDemo implements OnInit{
 
         return total;
     }
+
+    getSeverity(status) {
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
+
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
 }`,
         scss: `
 :host ::ng-deep .p-rowgroup-footer td {
@@ -236,45 +274,6 @@ export class TableExpandableRowGroupDemo implements OnInit{
     .p-row-toggler {
         vertical-align: middle;
         margin-right: .25rem;
-    }
-}
-
-.customer-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.status-qualified {
-        background-color: #C8E6C9;
-        color: #256029;
-    }
-
-    &.status-unqualified {
-        background-color: #FFCDD2;
-        color: #C63737;
-    }
-
-    &.status-negotiation {
-        background-color: #FEEDAF;
-        color: #8A5340;
-    }
-
-    &.status-new {
-        background-color: #B3E5FC;
-        color: #23547B;
-    }
-
-    &.status-renewal {
-        background-color: #ECCFFF;
-        color: #694382;
-    }
-
-    &.status-proposal {
-        background-color: #FFD8B2;
-        color: #805B36;
     }
 }`,
         service: ['CustomerService']

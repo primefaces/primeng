@@ -23,7 +23,7 @@ import { ProductService } from '../../service/productservice';
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{ product.price }}</h6>
-                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </div>
                     </div>
                 </div>
@@ -98,6 +98,17 @@ export class DataTableDoc implements OnInit {
         return index;
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <div class="card grid grid-nogutter">
@@ -114,7 +125,7 @@ export class DataTableDoc implements OnInit {
                     </div>
                     <div class="product-list-action">
                     <h6 class="mb-2">{{product.price}}</h6>
-                    <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </div>
             </div>
         </div>
@@ -155,7 +166,7 @@ export class DataTableDoc implements OnInit {
                     </div>
                     <div class="product-list-action">
                     <h6 class="mb-2">{{product.price}}</h6>
-                    <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                 </div>
             </div>
         </div>
@@ -233,6 +244,17 @@ export class DragDropDataTableDemo implements OnInit {
         }
         return index;
     } 
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 }`,
         scss: `
 :host ::ng-deep {

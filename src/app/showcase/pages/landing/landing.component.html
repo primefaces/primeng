@@ -31,7 +31,7 @@
                         </li>
                         <li class="mr-0 lg:mr-2">
                             <a href="https://www.primeng.org/uikit" target="_blank">
-                                <img src="assets/showcase/images/landing/uikit-icon.svg" width="30" alt="Primeng UI Kit">
+                                <img src="assets/showcase/images/landing/uikit-icon.svg" style="width: 20px" alt="Primeng UI Kit">
                                 <span>UI Kit</span>
                             </a>
                         </li>
@@ -415,13 +415,13 @@
                         </td>
                         <td style="width:14%; min-width:14rem;">
                             <span class="p-column-title">Country</span>
-                            <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30">
-                            <span class="image-text">{{customer.country.name}}</span>
+                            <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
+                            <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
                         </td>
                         <td style="width:14%; min-width:14rem;">
                             <span class="p-column-title">Representative</span>
                             <img [alt]="customer.representative.name" src="assets/showcase/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                            <span class="image-text">{{customer.representative.name}}</span>
+                            <span class="ml-1 vertical-align-middle">{{customer.representative.name}}</span>
                         </td>
                         <td style="width:14%; min-width:8rem;">
                             <span class="p-column-title">Date</span>
@@ -433,7 +433,7 @@
                         </td>
                         <td style="width:14%; min-width:10rem;">
                             <span class="p-column-title">Status</span>
-                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                         </td>
                         <td style="width:14%; min-width:6rem;">
                             <span class="p-column-title">Activity</span>

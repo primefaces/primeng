@@ -37,7 +37,7 @@ import { ProductService } from '../../service/productservice';
                         <td>{{ product.category }}</td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                         <td>
-                            <span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{ product.inventoryStatus }}</span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         </td>
                     </tr>
                 </ng-template>
@@ -63,7 +63,7 @@ import { ProductService } from '../../service/productservice';
                                             <td>{{ order.id }}</td>
                                             <td>{{ order.amount | currency: 'USD' }}</td>
                                             <td>
-                                                <span [class]="'order-badge order-' + order.status.toLowerCase()">{{ order.status }}</span>
+                                                <p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag>
                                             </td>
                                             <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                                         </tr>
@@ -100,6 +100,17 @@ export class RowExpandDoc implements OnInit {
         });
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
 <p-table [value]="products" dataKey="name" [tableStyle]="{'min-width': '60rem'}">
@@ -124,7 +135,7 @@ export class RowExpandDoc implements OnInit {
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-product>
@@ -148,7 +159,7 @@ export class RowExpandDoc implements OnInit {
                                 <td>{{order.customer}}</td>
                                 <td>{{order.id}}</td>
                                 <td>{{order.amount | currency:'USD'}}</td>
-                                <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                                <td><p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag></td>
                                 <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                             </tr>
                         </ng-template>
@@ -187,7 +198,7 @@ export class RowExpandDoc implements OnInit {
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-product>
@@ -211,7 +222,7 @@ export class RowExpandDoc implements OnInit {
                                     <td>{{order.customer}}</td>
                                     <td>{{order.id}}</td>
                                     <td>{{order.amount | currency:'USD'}}</td>
-                                    <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+                                    <td><p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag></td>
                                     <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                                 </tr>
                             </ng-template>
@@ -245,58 +256,16 @@ export class TableRowExpandDemo implements OnInit{
     ngOnInit() {
         this.productService.getProductsWithOrdersSmall().then((data) => (this.products = data));
     }
-}`,
-        scss: `
-.product-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
 
-    &.status-instock {
-        background: #C8E6C9;
-        color: #256029;
-    }
-    
-    &.status-outofstock {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-    
-    &.status-lowstock {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-}
-
-.order-badge {
-    border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-
-    &.order-delivered {
-        background: #C8E6C9;
-        color: #256029;
-    }
-    
-    &.order-cancelled {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-    
-    &.order-pending {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-    
-    &.order-returned {
-        background: #ECCFFF;
-        color: #694382;
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         service: ['ProductService']

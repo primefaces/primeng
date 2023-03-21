@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { ImportDoc } from './importdoc';
+import { TagModule } from 'primeng/tag';
 import { BasicDoc } from './basicdoc';
 import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
@@ -18,7 +19,7 @@ import { VerticalDoc } from './verticaldoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, CarouselModule, ButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, CarouselModule, ButtonModule, TagModule],
     declarations: [ImportDoc, BasicDoc, CircularDoc, EventsDoc, NumScrollDoc, PropsDoc, StyleDoc, ResponsiveDoc, TemplateDoc, VerticalDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
