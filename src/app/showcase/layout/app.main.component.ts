@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 import { AppConfigService } from '../service/appconfigservice';
 import { AppComponent } from './app.component';
-
-declare let gtag: Function;
 
 @Component({
     selector: 'app-main',
@@ -32,15 +30,6 @@ export class AppMainComponent implements OnInit {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
-        });
-
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                gtag('config', 'UA-93461466-1', {
-                    page_path: '/primeng' + event.urlAfterRedirects
-                });
-                this.hideMenu();
-            }
         });
 
         this.newsActive = this.newsActive && this.isNewsStorageExpired();
