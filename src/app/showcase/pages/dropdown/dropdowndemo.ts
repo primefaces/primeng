@@ -14,6 +14,7 @@ import { EventsDoc } from '../../doc/dropdown/eventsdoc';
 import { MethodsDoc } from '../../doc/dropdown/methodsdoc';
 import { TemplatesDoc } from '../../doc/dropdown/templatesdoc';
 import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
+import { ReactiveFormsDoc } from '../../doc/dropdown/reactiveformsdoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -30,6 +31,11 @@ export class DropdownDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'reactive-forms',
+            label: 'Reactive Forms',
+            component: ReactiveFormsDoc
         },
         {
             id: 'editable',
