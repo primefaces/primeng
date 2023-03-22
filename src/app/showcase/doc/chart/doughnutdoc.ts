@@ -64,7 +64,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-doughnut-demo.html'
 })
 export class ChartDoughnutDemo implements OnInit {
-
     data: any;
 
     options: any;

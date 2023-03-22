@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-badge-demo',
     templateUrl: './avatar-badge-demo.html'
 })
-
 export class AvatarBadgeDemo {}`
     };
 }

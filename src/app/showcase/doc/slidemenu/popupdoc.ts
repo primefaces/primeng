@@ -171,7 +171,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './slide-menu-popup-demo.html'
 })
 export class SlideMenuPopupDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

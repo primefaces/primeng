@@ -77,7 +77,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-polar-area-demo.html'
 })
 export class ChartPolarAreaDemo implements OnInit {
-
     data: any;
 
     options: any;

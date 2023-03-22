@@ -106,7 +106,6 @@ interface Country {
     templateUrl: './muilti-select-template-demo.html'
 })
 export class MultiSelectTemplateDemo implements OnInit {
-
     countries: Country[];
 
     selectedCountries: Country[];

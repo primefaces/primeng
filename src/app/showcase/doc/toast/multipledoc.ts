@@ -50,7 +50,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastMultipleDemo {
-
     constructor(private messageService: MessageService) {}
 
     showMultiple() {

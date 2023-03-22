@@ -58,7 +58,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTargetDemo {
-
     constructor(private messageService: MessageService) {}
 
     showToast1() {

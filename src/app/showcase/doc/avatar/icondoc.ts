@@ -62,7 +62,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-icon-demo',
     templateUrl: './avatar-icon-demo.html'
 })
-
 export class AvatarIconDemo {}`
     };
 }

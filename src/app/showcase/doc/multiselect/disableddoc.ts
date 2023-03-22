@@ -59,7 +59,6 @@ interface City {
     templateUrl: './muilti-select-disabled-demo.html'
 })
 export class MultiSelectDisabledDemo implements OnInit {
-
     cities: City[];
 
     selectedCities: City[];

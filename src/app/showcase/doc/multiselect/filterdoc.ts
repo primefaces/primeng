@@ -59,7 +59,6 @@ interface City {
     templateUrl: './muilti-select-filter-demo.html'
 })
 export class MultiSelectFilterDemo implements OnInit {
-
     cities: City[];
 
     selectedCities: City[];

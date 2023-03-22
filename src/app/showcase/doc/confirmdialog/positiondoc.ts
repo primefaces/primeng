@@ -112,7 +112,6 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPositionDoc {
-
     position: string;
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}

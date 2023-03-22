@@ -70,7 +70,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
-
     constructor(private messageService: MessageService) {}
 
     showSuccess() {

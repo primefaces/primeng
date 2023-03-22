@@ -38,7 +38,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-template-demo',
     templateUrl: './avatar-template-demo.html'
 })
-
 export class AvatarTemplateDemo {}`
     };
 }

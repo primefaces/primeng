@@ -96,7 +96,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-line-demo.html'
 })
 export class ChartLineDemo implements OnInit {
-
     data: any;
 
     options: any;

@@ -71,7 +71,6 @@ import { Component } from '@angular/core';
     selector: 'checkbox-multiple-demo',
     templateUrl: './checkbox-multiple-demo.html'
 })
-
 export class CheckboxMultipleDemo {
     selectedCities: string[] = [];
 }`

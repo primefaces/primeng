@@ -106,7 +106,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './dock-basic-demo.html'
 })
 export class BasicDoc implements OnInit {
-
     items: MenuItem[];
 
     position: string = 'top';

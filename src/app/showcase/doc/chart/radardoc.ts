@@ -87,7 +87,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-radar-demo.html'
 })
 export class ChartRadarDemo implements OnInit {
-
     data: any;
 
     options: any;

@@ -90,7 +90,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './skeleton-data-table-demo.html'
 })
 export class SkeletonDataTableDemo implements OnInit {
-
     products: any[];
 
     ngOnInit() {

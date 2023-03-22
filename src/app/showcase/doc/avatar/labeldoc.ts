@@ -77,7 +77,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-label-demo',
     templateUrl: './avatar-label-demo.html'
 })
-
 export class AvatarLabelDemo {}`
     };
 }

@@ -64,7 +64,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-pie-demo.html'
 })
 export class ChartPieDemo implements OnInit {
-
     data: any;
 
     options: any;

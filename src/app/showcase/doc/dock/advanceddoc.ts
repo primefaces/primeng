@@ -486,7 +486,6 @@ import { PhotoService } from '../../service/photoservice';
     providers: [MessageService, TerminalService]
 })
 export class DockAdvancedDemo implements OnInit {
-
     displayTerminal: boolean;
 
     displayFinder: boolean;

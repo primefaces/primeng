@@ -36,8 +36,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-image-demo',
     templateUrl: './avatar-image-demo.html'
 })
-
-export class AvatarImageDemo {
-}`
+export class AvatarImageDemo {}`
     };
 }

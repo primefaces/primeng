@@ -83,7 +83,6 @@ interface City {
     templateUrl: './dialog-overlays-inside-demo.html'
 })
 export class DialogOverlaysInsideDemo implements OnInit {
-
     cities: City[];
 
     selectedCity: City;

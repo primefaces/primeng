@@ -45,7 +45,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class FileUploadBasicDemo {
-
     constructor(private messageService: MessageService) {}
 
     onUpload(event) {

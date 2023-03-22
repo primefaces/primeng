@@ -120,7 +120,6 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-drop-indicator-demo.scss']
 })
 export class DragDropDropIndicatorDemo implements OnInit {
-
     availableProducts: Product[];
 
     selectedProducts: Product[];

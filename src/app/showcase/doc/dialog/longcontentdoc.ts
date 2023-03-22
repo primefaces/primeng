@@ -101,7 +101,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-long-content-demo.html'
 })
 export class DialogLongContentDemo {
-
     visible: boolean;
 
     showDialog() {

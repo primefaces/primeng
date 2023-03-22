@@ -124,7 +124,6 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-basic-demo.scss']
 })
 export class DragDropBasicDemo implements OnInit {
-
     availableProducts: Product[];
 
     selectedProducts: Product[];

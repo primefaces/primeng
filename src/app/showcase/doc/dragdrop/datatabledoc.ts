@@ -203,7 +203,6 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-data-table-demo.scss']
 })
 export class DragDropDataTableDemo implements OnInit {
-
     availableProducts: Product[];
 
     selectedProducts: Product[];

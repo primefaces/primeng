@@ -179,7 +179,6 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-template-demo.html'
 })
 export class MegaMenuTemplateDemo implements OnInit {
-
     items: MegaMenuItem[];
 
     ngOnInit() {

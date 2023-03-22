@@ -55,7 +55,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-navigation-demo.html'
 })
 export class MenuNavigationDemo implements OnInit {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

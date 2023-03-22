@@ -98,7 +98,6 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmTemplateDoc {
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm1() {

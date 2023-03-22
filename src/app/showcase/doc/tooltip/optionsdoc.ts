@@ -44,7 +44,6 @@ import { TooltipOptions } from 'primeng/tooltip';
     templateUrl: './tooltip-options-demo.html'
 })
 export class TooltipOptionsDemo {
-
     tooltipOptions: TooltipOptions = {
         showDelay: 150,
         autoHide: false,
