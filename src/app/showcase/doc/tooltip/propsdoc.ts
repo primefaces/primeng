@@ -102,6 +102,12 @@ import { Component, Input } from '@angular/core';
                         <td>true</td>
                         <td>Whether to hide tooltip when hovering over tooltip content.</td>
                     </tr>
+                    <tr>
+                        <td>hideOnEscape</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>Whether to hide tooltip on escape key press.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
