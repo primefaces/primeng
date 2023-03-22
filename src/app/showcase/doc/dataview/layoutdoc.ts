@@ -85,7 +85,7 @@ export class LayoutDoc {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 12)));
     }
 
-    getSeverity (product) {
+    getSeverity(product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -99,7 +99,7 @@ export class LayoutDoc {
             default:
                 return null;
         }
-    };
+    }
 
     code: Code = {
         basic: `

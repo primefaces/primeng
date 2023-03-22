@@ -27,7 +27,7 @@ export class ReactiveFormsDoc implements OnInit {
     @Input() title: string;
 
     cities: City[];
-    
+
     formGroup: FormGroup;
 
     ngOnInit() {

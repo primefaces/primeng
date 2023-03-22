@@ -16,7 +16,7 @@ interface Country {
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>

@@ -25,7 +25,7 @@ export class WithoutThumbnailsDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     displayBasic: boolean;
 

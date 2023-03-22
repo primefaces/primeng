@@ -45,7 +45,7 @@ export class SelectionSingleDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     metaKeySelection: boolean = true;
 

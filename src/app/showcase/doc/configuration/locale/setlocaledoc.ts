@@ -19,7 +19,7 @@ export class SetLocaleDoc {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
         typescript: `

@@ -47,7 +47,7 @@ export class MultipleSelectionDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     products: Product[];
 

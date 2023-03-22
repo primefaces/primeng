@@ -25,7 +25,7 @@ export class TargetDoc {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
         basic: `

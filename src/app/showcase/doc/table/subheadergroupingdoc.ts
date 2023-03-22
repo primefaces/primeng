@@ -68,7 +68,7 @@ export class SubheaderGroupingDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     customers: Customer[];
 

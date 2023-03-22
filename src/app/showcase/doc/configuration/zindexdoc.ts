@@ -21,7 +21,7 @@ export class ZIndexDoc {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
         typescript: `import { PrimeNGConfig } from 'primeng/api';

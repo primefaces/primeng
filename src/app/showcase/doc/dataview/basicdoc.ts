@@ -56,7 +56,7 @@ export class BasicDoc {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
     }
 
-    getSeverity (product) {
+    getSeverity(product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -70,7 +70,7 @@ export class BasicDoc {
             default:
                 return null;
         }
-    };
+    }
 
     code: Code = {
         basic: `

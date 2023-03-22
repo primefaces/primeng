@@ -116,7 +116,7 @@ export class TableSingleColumnSortDemo implements OnInit {
         });
     }
 }`,
-data: `{
+        data: `{
     id: '1000',
     code: 'f230fh0g3',
     name: 'Bamboo Watch',

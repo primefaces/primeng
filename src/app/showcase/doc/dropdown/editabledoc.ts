@@ -18,7 +18,7 @@ interface City {
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
     </section>`
 })
-export class EditableDoc implements OnInit{
+export class EditableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

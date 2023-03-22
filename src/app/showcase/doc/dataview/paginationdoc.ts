@@ -53,7 +53,7 @@ export class PaginationDoc {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
-    getSeverity (product) {
+    getSeverity(product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -67,7 +67,7 @@ export class PaginationDoc {
             default:
                 return null;
         }
-    };
+    }
 
     code: Code = {
         basic: `

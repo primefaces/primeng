@@ -123,7 +123,7 @@ const routes: Routes = [
             { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) }
         ]
     },
-    { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then(m => m.NotFoundModule) },
+    { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then((m) => m.NotFoundModule) },
     { path: '**', redirectTo: '/notfound' }
 ];
 

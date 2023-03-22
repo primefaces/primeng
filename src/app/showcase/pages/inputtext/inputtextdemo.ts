@@ -18,7 +18,6 @@ import { StyleDoc } from '../../doc/inputtext/styledoc';
     styleUrls: ['./inputtextdemo.scss']
 })
 export class InputTextDemo {
-
     docs = [
         {
             id: 'import',

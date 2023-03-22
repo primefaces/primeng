@@ -39,7 +39,7 @@ export class AppDocSectionsComponent {
             component = viewContainerRef.createComponent<Props>(newComponent.component);
             component.instance.id = newComponent.id;
             component.instance.title = newComponent.label;
-        } 
+        }
         if (!newComponent.component && newComponent.children) {
             for (let i = 0; i < newComponent.children.length; i++) {
                 const children = newComponent.children[i];

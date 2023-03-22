@@ -37,7 +37,7 @@ export class ResizeExpandDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     files: TreeNode[];
 

@@ -108,7 +108,7 @@ export class TableDemo {
                 {
                     id: 'responsive-scroll',
                     label: 'Scroll',
-                    component: ResponsiveScrollDoc,
+                    component: ResponsiveScrollDoc
                 },
                 {
                     id: 'responsive-stack',

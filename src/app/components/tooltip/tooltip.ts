@@ -57,7 +57,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input() autoHide: boolean = true;
 
     @Input() fitContent: boolean = true;
-    
+
     @Input() hideOnEscape: boolean = true;
 
     @Input('pTooltip') text: string;
@@ -260,11 +260,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    @HostListener('document:keydown.escape', ['$event']) 
+    @HostListener('document:keydown.escape', ['$event'])
     onPressEscape() {
         if (this.hideOnEscape) {
             this.deactivate();
-          }
+        }
     }
 
     activate() {

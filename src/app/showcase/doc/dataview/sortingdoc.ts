@@ -82,7 +82,7 @@ export class SortingDoc {
         }
     }
 
-    getSeverity (product) {
+    getSeverity(product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -96,7 +96,7 @@ export class SortingDoc {
             default:
                 return null;
         }
-    };
+    }
 
     code: Code = {
         basic: `

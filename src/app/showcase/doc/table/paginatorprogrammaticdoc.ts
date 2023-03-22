@@ -53,7 +53,7 @@ export class PaginatorProgrammaticDoc {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     customers: Customer[];
 
@@ -200,7 +200,7 @@ export class TablePaginatorProgrammaticDemo {
     isFirstPage(): boolean {
         return this.customers ? this.first === 0 : true;
     }
-}`,        
+}`,
         data: `{
     id: 1000,
     name: 'James Butt',

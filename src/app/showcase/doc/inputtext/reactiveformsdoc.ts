@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <input type="text" pInputText formControlName="text"/>
+                <input type="text" pInputText formControlName="text" />
             </form>
         </div>
         <app-code [code]="code" selector="input-text-reactive-forms-demo"></app-code>

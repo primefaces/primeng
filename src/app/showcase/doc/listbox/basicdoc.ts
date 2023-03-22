@@ -22,7 +22,7 @@ interface City {
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     </section>`
 })
-export class BasicDoc implements OnInit{
+export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;

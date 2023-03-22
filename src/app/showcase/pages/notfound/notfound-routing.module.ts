@@ -3,9 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './notfound.component';
 
 @NgModule({
-    imports: [RouterModule.forChild([
-        { path: '', component: NotFoundComponent }
-    ])],
+    imports: [RouterModule.forChild([{ path: '', component: NotFoundComponent }])],
     exports: [RouterModule]
 })
-export class NotFoundRoutingModule { }
+export class NotFoundRoutingModule {}

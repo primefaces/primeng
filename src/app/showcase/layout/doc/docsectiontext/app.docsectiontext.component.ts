@@ -12,7 +12,7 @@ export class AppDocSectionTextComponent {
     @Input() id!: string;
 
     @Input() level: number = 2;
-    
+
     public parentTitle: string;
 
     public parentId: string;
@@ -30,5 +30,4 @@ export class AppDocSectionTextComponent {
 
         hash === this.id && event.preventDefault();
     }
-
 }

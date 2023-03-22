@@ -10,7 +10,15 @@ import { FormControl, FormGroup } from '@angular/forms';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-cascadeSelect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+                <p-cascadeSelect
+                    formControlName="selectedCity"
+                    [options]="countries"
+                    optionLabel="cname"
+                    optionGroupLabel="name"
+                    [optionGroupChildren]="['states', 'cities']"
+                    [style]="{ minWidth: '14rem' }"
+                    placeholder="Select a City"
+                ></p-cascadeSelect>
             </form>
         </div>
         <app-code [code]="code" selector="cascade-select-reactive-forms-demo"></app-code>

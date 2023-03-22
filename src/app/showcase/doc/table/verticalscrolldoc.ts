@@ -39,7 +39,7 @@ export class VerticalScrollDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
+    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     customers: Customer[];
 
@@ -113,7 +113,7 @@ export class TableVerticalScrollDemo implements OnInit{
         });
     }
 }`,
-    data:`{
+        data: `{
         id: 1000,
         name: 'James Butt',
         country: {
