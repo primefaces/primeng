@@ -50,7 +50,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         });
 
         this.bindScrollListener();
-        this.initDocSearch();
+        // this.initDocSearch();
     }
 
     initDocSearch() {
