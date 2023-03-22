@@ -42,6 +42,12 @@ primeng/resources/themes/lara-dark-blue/theme.css
 primeng/resources/themes/lara-dark-indigo/theme.css
 primeng/resources/themes/lara-dark-purple/theme.css
 primeng/resources/themes/lara-dark-teal/theme.css
+primeng/resources/themes/soho-light/theme.css
+primeng/resources/themes/soho-dark/theme.css
+primeng/resources/themes/viva-light/theme.css
+primeng/resources/themes/viva-dark/theme.css
+primeng/resources/themes/mira/theme.css
+primeng/resources/themes/nano/theme.css
 primeng/resources/themes/saga-blue/theme.css
 primeng/resources/themes/saga-green/theme.css
 primeng/resources/themes/saga-orange/theme.css
