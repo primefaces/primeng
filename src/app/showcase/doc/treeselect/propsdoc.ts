@@ -79,7 +79,7 @@ import { Component, Input } from '@angular/core';
                         <td>emptyMessage</td>
                         <td>string</td>
                         <td>No results found</td>
-                        <td>Text to display when there are no options available. Defaults to value from PrimeVue locale configuration.</td>
+                        <td>Text to display when there are no options available. Defaults to value from PrimeNG locale configuration.</td>
                     </tr>
                     <tr>
                         <td>display</td>

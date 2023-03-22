@@ -68,7 +68,7 @@ describe('DomHandler', () => {
         const childEl2 = document.createElement('a');
         const childEl3 = document.createElement('a');
         const childEl4 = document.createElement('button');
-        childEl2.setAttribute('href', 'https://www.primefaces.org/primeng/');
+        childEl2.setAttribute('href', 'https://primeng.org');
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
