@@ -13,7 +13,7 @@ import { IconService } from '../../service/iconservice';
         <div class="card">
             <div class="grid text-center">
                 <div class="col-12 md:col-2 mb-5" *ngFor="let icon of filteredIcons">
-                    <i class="pi pi-{{ icon.properties.name }} text-2xl mb-3 text-color-secondary pi pi-align-center"></i>
+                    <i class="pi pi-{{ icon.properties.name }} text-2xl mb-3 text-color-secondary"></i>
                     <div>pi-{{ icon.properties.name }}</div>
                 </div>
             </div>
