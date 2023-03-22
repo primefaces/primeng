@@ -16,8 +16,7 @@ export class CustomConstraintsDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-this.filterService.register('isPrimeNumber', (value, filter): boolean => {
+        typescript: `this.filterService.register('isPrimeNumber', (value, filter): boolean => {
     if (filter === undefined || filter === null || filter.trim() === '') {
         return true;
     }
