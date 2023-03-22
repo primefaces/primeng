@@ -3,8 +3,8 @@ import { ColorsDoc } from '../../doc/accessibility/colorsdoc';
 import { FormControlsDoc } from '../../doc/accessibility/formcontrolsdoc';
 import { IntroductionDoc } from '../../doc/accessibility/introductiondoc';
 import { SemanticHTMLDoc } from '../../doc/accessibility/semantichtmldoc';
-import { WAIARIADoc } from '../../doc/accessibility/wai-ariadoc';
-//import { WCAGDoc } from '../../doc/accessibility/wcagdoc';
+import { WAIARIADoc } from '../../doc/accessibility/waiariadoc';
+import { WCAGDoc } from '../../doc/accessibility/wcagdoc';
 
 @Component({
     selector: 'accessibility',
