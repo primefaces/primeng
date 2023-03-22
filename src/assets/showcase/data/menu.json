@@ -242,10 +242,6 @@
                     "name": "Overlay",
                     "children": [
                         {
-                            "name": "Overlay",
-                            "routerLink": "/overlay"
-                        },
-                        {
                             "name": "ConfirmDialog",
                             "routerLink": "/confirmdialog"
                         },
