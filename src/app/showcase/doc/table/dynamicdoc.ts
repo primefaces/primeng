@@ -103,7 +103,6 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-dynamic-demo.html'
 })
 export class TableDynamicDemo {
-
     products: Product[];
 
     cols: any[];

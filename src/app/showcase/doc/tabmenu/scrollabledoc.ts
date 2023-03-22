@@ -46,7 +46,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-scrollable-demo.html'
 })
 export class TabMenuScrollableDemo implements OnInit {
-
     items: MenuItem[];
 
     activeItem: MenuItem;

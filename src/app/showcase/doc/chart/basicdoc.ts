@@ -91,7 +91,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-basic-demo.html'
 })
 export class ChartBasicDemo implements OnInit {
-
     basicData: any;
 
     basicOptions: any;

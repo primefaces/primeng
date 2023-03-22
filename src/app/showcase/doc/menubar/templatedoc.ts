@@ -186,7 +186,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menubar-template-demo.html'
 })
 export class MenubarTemplateDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

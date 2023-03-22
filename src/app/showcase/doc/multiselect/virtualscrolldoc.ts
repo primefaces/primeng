@@ -80,7 +80,6 @@ interface Country {
     templateUrl: './muilti-select-virtual-scroll-demo.html'
 })
 export class MultiSelectVirtualScrollDemo {
-
     virtualCountries: Country[];
 
     selectedCountries: Country[];

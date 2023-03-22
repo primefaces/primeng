@@ -103,7 +103,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-combo-demo.html'
 })
 export class ChartComboDemo implements OnInit {
-
     data: any;
 
     options: any;

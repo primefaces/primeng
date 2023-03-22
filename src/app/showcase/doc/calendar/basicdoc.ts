@@ -36,7 +36,6 @@ import { Component } from '@angular/core';
     selector: 'calendar-basic-demo',
     templateUrl: './calendar-basic-demo.html'
 })
-
 export class CalendarBasicDemo {
     date: Date;
 }`

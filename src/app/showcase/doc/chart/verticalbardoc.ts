@@ -97,7 +97,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-vertical-bar-demo.html'
 })
 export class ChartVerticalBarDemo implements OnInit {
-
     data: any;
 
     options: any;

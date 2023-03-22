@@ -44,7 +44,6 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-animation-demo.html'
 })
 export class MessagesAnimationDemo implements OnInit {
-
     messages: Message[];
 
     ngOnInit(){

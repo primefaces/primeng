@@ -101,7 +101,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-position-demo.html'
 })
 export class DialogPositionDemo {
-
     visible: boolean;
 
     position: string;

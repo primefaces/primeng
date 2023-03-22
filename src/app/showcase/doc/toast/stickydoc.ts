@@ -46,7 +46,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastStickyDemo {
-
     constructor(private messageService: MessageService) {}
 
     showSticky() {

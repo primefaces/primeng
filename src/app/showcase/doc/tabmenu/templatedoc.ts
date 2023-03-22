@@ -63,7 +63,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-template-demo.html'
 })
 export class TabMenuTemplateDemo implements OnInit {
-
     items: MenuItem[];
 
     activeItem: MenuItem;

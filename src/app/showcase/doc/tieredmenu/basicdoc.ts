@@ -168,7 +168,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tiered-menu-basic-demo.html'
 })
 export class TieredMenuBasicDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

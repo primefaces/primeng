@@ -36,7 +36,6 @@ import { Component } from '@angular/core';
     selector: 'checkbox-basic-demo',
     templateUrl: './checkbox-basic-demo.html'
 })
-
 export class CheckboxBasicDemo {
     checked: boolean;
 }`

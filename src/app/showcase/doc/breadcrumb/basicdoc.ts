@@ -47,7 +47,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './breadcrumb-basic-demo.html'
 })
 export class BreadcrumbBasicDemo implements OnInit {
-
     items: MenuItem[];
 
     home: MenuItem;

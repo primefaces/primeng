@@ -60,7 +60,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './steps-basic-demo.html'
 })
 export class StepsBasicDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

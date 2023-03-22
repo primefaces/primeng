@@ -87,7 +87,6 @@ import { Subscription } from 'rxjs';
     providers: [MessageService]
 })
 export class StepsRoutingDemo implements OnInit {
-
     items: MenuItem[];
 
     subscription: Subscription;

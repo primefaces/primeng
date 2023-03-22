@@ -59,7 +59,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-basic-demo.html'
 })
 export class DialogBasicDemo {
-
     visible: boolean;
 
     showDialog() {

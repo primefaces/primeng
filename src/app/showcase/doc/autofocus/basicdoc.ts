@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     selector: 'auto-focus-basic-demo',
     templateUrl: './auto-focus-basic-demo.html'
 })
-
 export class AutoFocusBasicDemo {}`
     };
 }

@@ -156,7 +156,6 @@ import { ProductService } from '../../service/productservice';
     providers: [ MessageService ]
 })
 export class OverlayPanelDataTableDemo implements OnInit {
-
     products: Product[];
 
     selectedProduct: Product;

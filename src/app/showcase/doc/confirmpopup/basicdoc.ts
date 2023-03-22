@@ -61,7 +61,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPopupBasicDemo {
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
     
     confirm(event: Event) {

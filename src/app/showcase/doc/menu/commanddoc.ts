@@ -72,7 +72,6 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {}

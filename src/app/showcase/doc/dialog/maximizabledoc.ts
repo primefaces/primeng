@@ -59,7 +59,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-maximizable-demo.html'
 })
 export class DialogMaximizableDemo {
-
     visible: boolean;
 
     showDialog() {

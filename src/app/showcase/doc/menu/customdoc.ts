@@ -76,7 +76,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-custom-content-demo.html'
 })
 export class MenuCustomContentDemo implements OnInit {
-
     items: MenuItem[];
     
     ngOnInit() {

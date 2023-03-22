@@ -143,8 +143,7 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `
-<label for="ac1">Username</label>
+        basic: `<label for="ac1">Username</label>
 <p-autoComplete inputId="ac1"></p-autoComplete>
 
 <span id="ac2">Email</span>

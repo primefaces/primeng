@@ -59,7 +59,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-modal-demo.html'
 })
 export class DialogModalDemo {
-
     visible: boolean;
 
     showDialog() {

@@ -112,7 +112,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-multi-axis-demo.html'
 })
 export class ChartMultiAxisDemo implements OnInit {
-
     data: any;
 
     options: any;

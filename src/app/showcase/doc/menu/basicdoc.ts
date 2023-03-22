@@ -52,7 +52,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-basic-demo.html'
 })
 export class MenuBasicDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

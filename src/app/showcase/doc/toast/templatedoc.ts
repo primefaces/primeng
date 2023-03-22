@@ -109,7 +109,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastTemplateDemo {
-
     constructor(private messageService: MessageService) {}
 
     showSticky() {

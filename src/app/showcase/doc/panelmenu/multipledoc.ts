@@ -158,7 +158,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './panel-menu-multiple-demo.html'
 })
 export class PanelMenuMultipleDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

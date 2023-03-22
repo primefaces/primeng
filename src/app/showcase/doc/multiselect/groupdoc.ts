@@ -107,7 +107,6 @@ interface City {
     templateUrl: './muilti-select-group-demo.html'
 })
 export class MultiSelectGroupDemo {
-
     groupedCities: SelectItemGroup[];
 
     selectedCities: City[];

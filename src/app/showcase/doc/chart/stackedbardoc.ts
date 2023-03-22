@@ -106,7 +106,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-stacked-bar-demo.html'
 })
 export class ChartStackedBarDemo implements OnInit {
-
     data: any;
 
     options: any;

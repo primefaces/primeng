@@ -98,7 +98,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './chart-horizontal-bar-demo.html'
 })
 export class ChartHorizontalBarDemo implements OnInit {
-
     data: any;
 
     options: any;

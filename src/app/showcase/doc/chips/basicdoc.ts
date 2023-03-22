@@ -36,7 +36,6 @@ import { Component } from '@angular/core';
     selector: 'chips-basic-demo',
     templateUrl: './chips-basic-demo.html'
 })
-
 export class ChipsBasicDemo {
     values: string[];
 }`

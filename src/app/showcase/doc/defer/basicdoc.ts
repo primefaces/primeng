@@ -61,7 +61,6 @@ import { MessageService } from 'src/app/components/api/messageservice';
     providers: [MessageService]
 })
 export class DeferBasicDemo {
-
     constructor(private messageService: MessageService) {}
 
     onLoad() {

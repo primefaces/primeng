@@ -35,7 +35,6 @@ import { Component } from '@angular/core';
     selector: 'avatar-shape-demo',
     templateUrl: './avatar-shape-demo.html'
 })
-
 export class AvatarShapeDemo {}`
     };
 }

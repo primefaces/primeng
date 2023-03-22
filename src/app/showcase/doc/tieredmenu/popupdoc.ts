@@ -171,7 +171,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tiered-menu-popup-demo.html'
 })
 export class TieredMenuPopupDemo implements OnInit {
-    
     items: MenuItem[];
     
     ngOnInit() {

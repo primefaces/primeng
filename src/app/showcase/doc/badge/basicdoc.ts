@@ -32,7 +32,6 @@ import { Component } from '@angular/core';
     selector: 'badge-basic-demo',
     templateUrl: './badge-basic-demo.html'
 })
-
 export class BadgeBasicDemo {}`
     };
 }

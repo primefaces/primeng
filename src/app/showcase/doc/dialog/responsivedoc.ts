@@ -62,7 +62,6 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-responsive-demo.html'
 })
 export class DialogResponsiveDemo {
-
     visible: boolean;
 
     showDialog() {

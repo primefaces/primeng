@@ -73,7 +73,6 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class StepsInteractiveDemo implements OnInit {
-
     items: MenuItem[];
 
     activeIndex: number = 0;

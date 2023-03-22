@@ -39,7 +39,6 @@ import { Component } from '@angular/core';
     selector: 'checkbox-label-demo',
     templateUrl: './checkbox-label-demo.html'
 })
-
 export class CheckboxLabelDemo {
     selectedValues: string[] = [];
 }`

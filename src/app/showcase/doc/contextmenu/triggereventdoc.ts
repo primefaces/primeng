@@ -171,7 +171,6 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './context-menu-trigger-event-demo.html'
 })
 export class ContextMenuTriggerEventDemo implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

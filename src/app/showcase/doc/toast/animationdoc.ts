@@ -46,7 +46,6 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class ToastAnimationDemo {
-
     constructor(private messageService: MessageService) {}
 
     show() {
