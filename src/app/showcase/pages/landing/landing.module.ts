@@ -20,6 +20,7 @@ import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TreeModule } from 'primeng/tree';
+import { AppNewsModule } from '../../layout/news/app.news.module';
 import { LandingComponent } from './landing.component';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { LandingComponent } from './landing.component';
         DropdownModule,
         ListboxModule,
         RouterModule,
-        CheckboxModule
+        CheckboxModule,
+        AppNewsModule
     ],
     exports: [LandingComponent],
     declarations: [LandingComponent]

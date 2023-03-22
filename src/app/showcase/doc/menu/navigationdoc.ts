@@ -29,7 +29,7 @@ export class NavigationDoc implements OnInit {
             {
                 label: 'File',
                 items: [
-                    { label: 'New', icon: 'pi pi-plus', url: 'http://www.primefaces.org/primeng' },
+                    { label: 'New', icon: 'pi pi-plus', url: 'https://primeng.org' },
                     { label: 'Open', icon: 'pi pi-download', routerLink: ['/menu'] },
                     { label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: { recent: 'true' } }
                 ]
@@ -63,7 +63,7 @@ export class MenuNavigationDemo implements OnInit {
         this.items = [{
             label: 'File',
             items: [
-                {label: 'New', icon: 'pi pi-plus', url: 'http://www.primefaces.org/primeng'},
+                {label: 'New', icon: 'pi pi-plus', url: 'https://primeng.org'},
                 {label: 'Open', icon: 'pi pi-download', routerLink: ['/menu']},
                 {label: 'Recent Files', icon: 'pi pi-download', routerLink: ['/pagename'], queryParams: {'recent': 'true'}}
             ]

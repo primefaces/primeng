@@ -180,8 +180,8 @@ export class GalleriaIndicatorPositionedDemo implements OnInit {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primereact.org/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primereact.org/images/galleria/galleria1s.jpg',
+    itemImageSrc: 'https://primeng.org/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: 'https://primeng.org/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
