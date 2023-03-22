@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
+            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template pTemplate="toolbar">
                     <div class="py-3">Drag and drop files</div>
                 </ng-template>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-fileUpload>
         </div>
-        <app-code [code]="code" selector="file-upload-advanced-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -42,7 +42,7 @@ export class AdvancedDoc {
 
     code: Code = {
         basic: `
-<p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
     <ng-template pTemplate="content">
         <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
@@ -52,7 +52,7 @@ export class AdvancedDoc {
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+    <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
@@ -83,13 +83,4 @@ export class FileUploadAdvancedDemo {
     }
 }`
     };
-
-    extFiles = [
-        {
-            path: 'src/upload.php',
-            content: `
-<?php header('Access-Control-Allow-Origin: *'); ?>
-<?php echo '{"success": true}'; ?> `
-        }
-    ];
 }

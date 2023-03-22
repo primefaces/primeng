@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-toast></p-toast>
             <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>
         </div>
-        <app-code [code]="code" selector="file-upload-custom-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="file-upload-custom-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -73,13 +73,4 @@ export class CustomDoc {
     }
 }`
     };
-
-    extFiles = [
-        {
-            path: 'src/upload.php',
-            content: `
-<?php header('Access-Control-Allow-Origin: *'); ?>
-<?php echo '{"success": true}'; ?> `
-        }
-    ];
 }

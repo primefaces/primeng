@@ -38,11 +38,7 @@
               "aot": true,
               "assets": [
                 "src/favicon.png",
-                "src/assets",
-                "src/showcase",
-                "src/upload.php",
-                "src/versions.json",
-                "src/.htaccess"
+                "src/assets"
               ],
               "styles": [
                 "src/styles.scss"
@@ -134,8 +130,7 @@
               "karmaConfig": "karma.conf.js",
               "assets": [
                 "src/favicon.png",
-                "src/assets",
-                "src/upload.php"
+                "src/assets"
               ],
               "styles": [
                 "src/styles.scss",

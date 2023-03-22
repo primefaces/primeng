@@ -10,9 +10,9 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+            <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
         </div>
-        <app-code [code]="code" selector="file-upload-auto-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="file-upload-auto-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -29,11 +29,11 @@ export class AutoDoc {
 
     code: Code = {
         basic: `
-<p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>`,
+<p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
+    <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
 </div>`,
 
         typescript: `
@@ -53,13 +53,4 @@ export class FileUploadAutoDemo {
     }
 }`
     };
-
-    extFiles = [
-        {
-            path: 'src/upload.php',
-            content: `
-<?php header('Access-Control-Allow-Origin: *'); ?>
-<?php echo '{"success": true}'; ?> `
-        }
-    ];
 }

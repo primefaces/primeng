@@ -10,9 +10,9 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+            <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
         </div>
-        <app-code [code]="code" selector="file-upload-basic-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="file-upload-basic-demo"></app-code>
     </section>`,
     providers: [MessageService]
 })
@@ -29,11 +29,11 @@ export class BasicDoc {
 
     code: Code = {
         basic: `
-<p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>`,
+<p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
+    <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
@@ -52,13 +52,4 @@ export class FileUploadBasicDemo {
     }
 }`
     };
-
-    extFiles = [
-        {
-            path: 'src/upload.php',
-            content: `
-<?php header('Access-Control-Allow-Origin: *'); ?>
-<?php echo '{"success": true}'; ?> `
-        }
-    ];
 }

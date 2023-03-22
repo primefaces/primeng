@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             </p></app-docsectiontext
         >
         <div class="card flex justify-content-center">
-            <p-fileUpload name="myfile[]" url="./upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
+            <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
                 <ng-template pTemplate="toolbar">
                     <div class="py-3">Upload 3 Files</div>
                 </ng-template>
@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-fileUpload>
         </div>
-        <app-code [code]="code" selector="file-upload-template-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="file-upload-template-demo"></app-code>
     </section>`
 })
 export class TemplateDoc {
@@ -34,7 +34,7 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `
-<p-fileUpload name="myfile[]" url="./upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
+<p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
     <ng-template pTemplate="toolbar">
         <div class="py-3">Upload 3 Files</div>
     </ng-template>
@@ -47,7 +47,7 @@ export class TemplateDoc {
 </p-fileUpload>`,
         html: `
 <div class="card flex justify-content-center">
-    <p-fileUpload name="myfile[]" url="./upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
+    <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000">
         <ng-template pTemplate="toolbar">
             <div class="py-3">Upload 3 Files</div>
         </ng-template>
@@ -69,13 +69,4 @@ import { Component, Input } from '@angular/core';
 })
 export class FileUploadTemplateDemo {}`
     };
-
-    extFiles = [
-        {
-            path: 'src/upload.php',
-            content: `
-<?php header('Access-Control-Allow-Origin: *'); ?>
-<?php echo '{"success": true}'; ?> `
-        }
-    ];
 }

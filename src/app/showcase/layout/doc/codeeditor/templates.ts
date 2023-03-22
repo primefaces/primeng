@@ -1,6 +1,6 @@
 import pkg from 'package.json';
-import { services } from './services';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
+import { services } from './services';
 
 export interface Props {
     code?: Code;
@@ -344,8 +344,7 @@ const angular_json = `
               "inlineStyleLanguage": "scss",
               "assets": [
                 "src/assets",
-                "src/favicon.png",
-                "src/upload.php"
+                "src/favicon.png"
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
