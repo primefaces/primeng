@@ -5802,7 +5802,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #D97706;
 }
 .p-inline-message.p-inline-message-error {
-  background: #FEF3C7;
+  background: #FEF2F2;
   border: none;
   border-width: 0px;
   color: #DC2626;
@@ -5880,7 +5880,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #D97706;
 }
 .p-message.p-message-error {
-  background: #FEF3C7;
+  background: #FEF2F2;
   border: none;
   border-width: 0 0 0 6px;
   color: #DC2626;
@@ -5976,7 +5976,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #D97706;
 }
 .p-toast .p-toast-message.p-toast-message-error {
-  background: #FEF3C7;
+  background: #FEF2F2;
   border: none;
   border-width: 0 0 0 6px;
   color: #DC2626;
