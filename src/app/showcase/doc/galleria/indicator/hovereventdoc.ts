@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
 import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'hover-event-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id" [level]="3">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>
         </app-docsectiontext>
         <div class="card">
@@ -22,6 +23,8 @@ export class HoverEventDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     images: any[];
 

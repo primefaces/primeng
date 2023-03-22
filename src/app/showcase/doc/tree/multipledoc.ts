@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
 @Component({
     selector: 'multiple-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
                 disabling the <i>metaKeySelection</i> property. Note that in touch enabled devices, Tree always ignores metaKey.
@@ -27,6 +28,8 @@ export class MultipleDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     metaKeySelection: boolean = false;
 

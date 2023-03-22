@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'responsive-stack-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id" [level]="3">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px' as max-width. This feature is enabled by setting <i>responsiveLayout</i> to <i>stack</i> and adding an element with
                 <i>p-column-title</i> style class to the body cells.
@@ -44,6 +45,8 @@ export class ResponsiveStackDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     products: Product[];
 

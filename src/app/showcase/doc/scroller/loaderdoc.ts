@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
 @Component({
     selector: 'loader-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id" [level]="3">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
@@ -36,6 +37,8 @@ export class LoaderDoc {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     items: string[];
 

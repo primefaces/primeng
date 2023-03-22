@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'single-selection-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id" [level]="3">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Single row selection is enabled by defining <i>selectionMode</i> as <i>single</i> along with a value binding using <i>selection</i> property. When available, it is suggested to provide a unique identifier of a row with
                 <i>dataKey</i> to optimize performance.
@@ -44,6 +45,8 @@ export class SingleSelectionDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     products: Product[];
 

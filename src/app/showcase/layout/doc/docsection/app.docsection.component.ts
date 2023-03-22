@@ -13,7 +13,7 @@ interface Props {
     selector: 'app-docsection',
     templateUrl: './app.docsection.component.html'
 })
-export class AppDocSectionsComponent implements OnInit {
+export class AppDocSectionsComponent {
     @Input() docs!: Doc[];
 
     currentDocIndex = -1;
@@ -22,14 +22,14 @@ export class AppDocSectionsComponent implements OnInit {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    ngAfterViewInit() {
         for (let index = 0; index < this.docs.length; index++) {
             this.loadComponent();
         }
+        this.cd.detectChanges();
     }
 
     loadComponent() {
-        this.cd.detectChanges();
         this.currentDocIndex = (this.currentDocIndex + 1) % this.docs.length;
         const newComponent: any = this.docs[this.currentDocIndex];
 
@@ -39,18 +39,18 @@ export class AppDocSectionsComponent implements OnInit {
             component = viewContainerRef.createComponent<Props>(newComponent.component);
             component.instance.id = newComponent.id;
             component.instance.title = newComponent.label;
-        } else {
-            component = viewContainerRef.createComponent(AppDocSectionTextComponent);
-            component.instance.id = newComponent.id;
-            component.instance.title = newComponent.label;
-            component.instance.level = 2;
-        }
-        if (newComponent.children) {
+        } 
+        if (!newComponent.component && newComponent.children) {
             for (let i = 0; i < newComponent.children.length; i++) {
                 const children = newComponent.children[i];
                 component = viewContainerRef.createComponent<Props>(children.component);
                 component.instance.id = children.id;
                 component.instance.title = children.label;
+
+                if (component.instance.docsectiontext && i === 0) {
+                    component.instance.docsectiontext.parentTitle = newComponent.label;
+                    component.instance.docsectiontext.parentId = newComponent.id;
+                }
             }
         }
     }

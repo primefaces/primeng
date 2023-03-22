@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
         <div class="card">
@@ -37,6 +38,8 @@ export class BasicDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     files: TreeNode[];
 

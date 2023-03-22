@@ -12,20 +12,17 @@ import { BasicDoc } from './basicdoc';
 import { CaptionDoc } from './captiondoc';
 import { ControlledDoc } from './controlleddoc';
 import { FullScreenTemplateDoc } from './fullscreen/customcontentdoc';
-import { FullScreenDoc } from './fullscreen/fullscreendoc';
 import { WithoutThumbnailsDoc } from './fullscreen/withoutthumbnailsdoc';
 import { WithThumbnailsDoc } from './fullscreen/withthumbnailsdoc';
 import { ImportDoc } from './importdoc';
 import { ClickEventDoc } from './indicator/clickeventdoc';
 import { HoverEventDoc } from './indicator/hovereventdoc';
-import { IndicatorDoc } from './indicator/indicatordoc';
 import { PositionedDoc } from './indicator/positioneddoc';
 import { TemplateDoc } from './indicator/templatedoc';
 import { HoverDoc } from './navigator/hoverdoc';
 import { IndicatorsDoc } from './navigator/indicatorsdoc';
 import { ItemThumbnailsDoc } from './navigator/itemthumbnailsdoc';
 import { ItemWithoutThumbnailsDoc } from './navigator/itemwithoutthumbnailsdoc';
-import { NavigatorDoc } from './navigator/navigatordoc';
 import { PropsDoc } from './propsdoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
@@ -43,20 +40,17 @@ import { AccessibilityDoc } from './accessibilitydoc';
         CaptionDoc,
         ControlledDoc,
         FullScreenTemplateDoc,
-        FullScreenDoc,
         WithoutThumbnailsDoc,
         WithThumbnailsDoc,
         ImportDoc,
         ClickEventDoc,
         HoverEventDoc,
-        IndicatorDoc,
         PositionedDoc,
         TemplateDoc,
         HoverDoc,
         IndicatorsDoc,
         ItemThumbnailsDoc,
         ItemWithoutThumbnailsDoc,
-        NavigatorDoc,
         PropsDoc,
         ResponsiveDoc,
         StyleDoc,

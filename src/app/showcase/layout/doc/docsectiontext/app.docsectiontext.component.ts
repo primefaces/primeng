@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,8 +12,12 @@ export class AppDocSectionTextComponent {
     @Input() id!: string;
 
     @Input() level: number = 2;
+    
+    public parentTitle: string;
 
-    constructor(public location: Location, private router: Router) {}
+    public parentId: string;
+
+    constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     navigate(event) {
         const hash = window.location.hash.substring(1);
@@ -26,4 +30,5 @@ export class AppDocSectionTextComponent {
 
         hash === this.id && event.preventDefault();
     }
+
 }

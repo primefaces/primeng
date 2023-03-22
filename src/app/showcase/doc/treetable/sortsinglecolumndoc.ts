@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'sort-single-column-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -36,6 +37,8 @@ export class SortSingleColumnDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
+    
+    @ViewChild('docsectiontext', {static: true}) docsectiontext: AppDocSectionTextComponent;
 
     files: TreeNode[];
 
