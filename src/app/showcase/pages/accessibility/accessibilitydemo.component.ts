@@ -4,7 +4,7 @@ import { FormControlsDoc } from '../../doc/accessibility/formcontrolsdoc';
 import { IntroductionDoc } from '../../doc/accessibility/introductiondoc';
 import { SemanticHTMLDoc } from '../../doc/accessibility/semantichtmldoc';
 import { WAIARIADoc } from '../../doc/accessibility/wai-ariadoc';
-import { WCAGDoc } from '../../doc/accessibility/WCAGdoc';
+//import { WCAGDoc } from '../../doc/accessibility/wcagdoc';
 
 @Component({
     selector: 'accessibility',
