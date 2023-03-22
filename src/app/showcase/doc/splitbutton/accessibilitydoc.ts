@@ -137,6 +137,9 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `<p-splitButton buttonProps="{'aria-label': 'Default Action'}" menuButtonProps="{'aria-label': 'More Options'}"></p-splitButton>`
+        basic: `<p-splitButton 
+    buttonProps="{'aria-label': 'Default Action'}" 
+    menuButtonProps="{'aria-label': 'More Options'}"
+></p-splitButton>`
     };
 }
