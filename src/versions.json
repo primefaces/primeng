@@ -1,9 +1,9 @@
 {
     "versions": [
         {
-            "version": "v15.2.0",
+            "version": "v15.2.1",
             "name": "v15",
-            "url": "https://www.primeng.org"
+            "url": "https://primeng.org"
         },
         {
             "version": "v14.2.2",
