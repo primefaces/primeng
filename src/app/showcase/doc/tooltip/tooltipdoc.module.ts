@@ -16,10 +16,12 @@ import { AutoHideDoc } from './autohidedoc';
 import { DelayDoc } from './delaydoc';
 import { OptionsDoc } from './optionsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc, AccessibilityDoc],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
+    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc, TemplateDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TooltipDocModule {}

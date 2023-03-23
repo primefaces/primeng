@@ -9,6 +9,7 @@ import { AutoHideDoc } from '../../doc/tooltip/autohidedoc';
 import { DelayDoc } from '../../doc/tooltip/delaydoc';
 import { OptionsDoc } from '../../doc/tooltip/optionsdoc';
 import { AccessibilityDoc } from '../../doc/tooltip/accessibilitydoc';
+import { TemplateDoc } from '../../doc/tooltip/templatedoc';
 
 @Component({
     templateUrl: './tooltipdemo.html'
@@ -24,6 +25,11 @@ export class TooltipDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'template',
+            label: 'Tooltip Template',
+            component: TemplateDoc
         },
         {
             id: 'position',
