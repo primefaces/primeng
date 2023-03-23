@@ -17,7 +17,7 @@ import { Component, Input } from '@angular/core';
                 <tbody>
                     <tr>
                         <td>pTooltip</td>
-                        <td>string</td>
+                        <td>string | TemplateRef</td>
                         <td>null</td>
                         <td>Text of the tooltip.</td>
                     </tr>
