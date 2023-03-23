@@ -1,5 +1,22 @@
 # Changelog
 
+## [15.2.1](https://github.com/primefaces/primeng/tree/15.2.1) (2023-03-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.2.0...15.2.1)
+
+**New Features:**
+- Tooltips: Option to close tooltips with escape [\#12603](https://github.com/primefaces/primeng/issues/12603)
+
+**Enhancements:**
+- Various Eslint errors [\#12580](https://github.com/primefaces/primeng/issues/12580)
+
+**Fixed bugs:**
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- OverlayPanel target arrow points to the wrong position when target is on the right edge of the screen [\#10484](https://github.com/primefaces/primeng/issues/10484)
+- p-image inside p-scrollPanel - Scrollbar shows through image [\#12554](https://github.com/primefaces/primeng/issues/12554)
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+- Overlay | modal does not destroy on hide (w/responsiveOptions) [\#12747](https://github.com/primefaces/primeng/issues/12747)
+
 ## [15.2.0](https://github.com/primefaces/primeng/tree/15.2.0) (2023-01-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.1.1...15.2.0)

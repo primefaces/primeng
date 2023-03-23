@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
@@ -1044,8 +1044,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Scroller],
+    imports: [CommonModule, SharedModule],
+    exports: [Scroller, SharedModule],
     declarations: [Scroller]
 })
 export class ScrollerModule {}

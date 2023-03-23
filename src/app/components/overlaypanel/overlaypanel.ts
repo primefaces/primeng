@@ -202,6 +202,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     show(event, target?) {
+        target && event.stopPropagation();
         if (this.isOverlayAnimationInProgress) {
             return;
         }
@@ -251,10 +252,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
+        const borderRadius = getComputedStyle(this.container).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left;
+            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius) * 2;
         }
         this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 

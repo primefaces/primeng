@@ -42,6 +42,16 @@ export class ProductService {
 
     constructor(private http: HttpClient) {}
 
+    getProductsMini() {
+        return this.http
+            .get<any>('assets/showcase/data/products-small.json')
+            .toPromise()
+            .then((res) => <Product[]>res.data.slice(0, 5))
+            .then((data) => {
+                return data;
+            });
+    }
+
     getProductsSmall() {
         return this.http
             .get<any>('assets/showcase/data/products-small.json')

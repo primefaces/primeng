@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
@@ -362,8 +362,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [Sidebar],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [Sidebar, SharedModule],
     declarations: [Sidebar]
 })
 export class SidebarModule {}
