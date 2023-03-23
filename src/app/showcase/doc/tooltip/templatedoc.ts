@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { TooltipOptions } from 'primeng/tooltip';
 import { Code } from '../../domain/code';
 
 @Component({

@@ -114,7 +114,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) { }
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -381,12 +381,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     updateText() {
         const content = this.getOption('tooltipLabel');
         if (content instanceof TemplateRef) {
-            const embeddedViewRef = this.viewContainer.createEmbeddedView( content );
+            const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
-            embeddedViewRef.rootNodes.forEach(node => this.tooltipText.appendChild( node ) );
+            embeddedViewRef.rootNodes.forEach(node => this.tooltipText.appendChild(node));
         } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode( content ));
+            this.tooltipText.appendChild(document.createTextNode(content));
         } else {
             this.tooltipText.innerHTML = content;
         }
@@ -641,4 +641,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     exports: [Tooltip],
     declarations: [Tooltip]
 })
-export class TooltipModule {}
+export class TooltipModule { }
