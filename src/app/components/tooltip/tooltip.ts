@@ -1,8 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ChangeDetectorRef, Component, ComponentRef, Directive, ElementRef, HostListener, Injector, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
+
+@Component({
+	selector: 'p-tooltip-window',
+	standalone: true,
+	template: `<ng-content></ng-content>`,
+})
+export class TooltipWindow {}
+
+export class ContentRef {
+	constructor(public nodes: Node[][], public viewRef?: ViewRef, public componentRef?: ComponentRef<any>) {}
+}
 
 export interface TooltipOptions {
     tooltipLabel?: string;
@@ -42,8 +53,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() tooltipZIndex: string;
 
-    @Input() escape: boolean = true;
-
     @Input() showDelay: number;
 
     @Input() hideDelay: number;
@@ -60,7 +69,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() hideOnEscape: boolean = true;
 
-    @Input('pTooltip') text: string;
+    @Input('pTooltip') content: string | TemplateRef<HTMLElement>;
 
     @Input('tooltipDisabled') get disabled(): boolean {
         return this._disabled;
@@ -83,6 +92,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         autoHide: true,
         hideOnEscape: false
     };
+
+    /* @deprecated */
+    @Input() escape: boolean = true;
 
     _disabled: boolean;
 
@@ -114,7 +126,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef, private viewContainer: ViewContainerRef,
+        private injector: Injector,
+        private applicationRef: ApplicationRef) {}
 
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
@@ -189,11 +203,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ disabled: simpleChange.disabled.currentValue });
         }
 
-        if (simpleChange.text) {
-            this.setOption({ tooltipLabel: simpleChange.text.currentValue });
+        if (simpleChange.content) {
+            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
 
             if (this.active) {
-                if (simpleChange.text.currentValue) {
+                if (simpleChange.content.currentValue) {
                     if (this.container && this.container.offsetParent) {
                         this.updateText();
                         this.align();
@@ -379,12 +393,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     updateText() {
-        if (this.getOption('escape')) {
-            this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
-        } else {
-            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
-        }
+        const contentRef = this.getContentRef( this.getOption('tooltipLabel') );
+        const windowRef = this.viewContainer.createComponent(TooltipWindow, {
+            injector: this.injector,
+            projectableNodes: contentRef.nodes,
+        });
+        this.tooltipText.appendChild((windowRef as any).location.nativeElement);
     }
 
     align() {
@@ -450,6 +464,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 break;
         }
     }
+
+    private getContentRef(content?: string | TemplateRef<any>, templateContext?: any): ContentRef {
+		if (!content) {
+			return new ContentRef([]);
+		} else if (content instanceof TemplateRef) {
+			const viewRef = content.createEmbeddedView(templateContext);
+			this.applicationRef.attachView(viewRef);
+			return new ContentRef([viewRef.rootNodes], viewRef);
+        } else {
+			return new ContentRef([[this.renderer.createText(content)]]);
+		}
+	}
 
     getHostOffset() {
         if (this.getOption('appendTo') === 'body' || this.getOption('appendTo') === 'target') {
