@@ -353,8 +353,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     @Input() maxSelectedLabels: number = 3;
 
-    @Input() selectionLimit: number;
-
     @Input() selectedItemsLabel: string = 'ellipsis';
 
     @Input() showToggleAll: boolean = true;
@@ -529,6 +527,17 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     set filterValue(val: string) {
         this._filterValue = val;
         this.activateFilter();
+    }
+
+    _selectionLimit: number;
+
+    @Input() set selectionLimit(val: number) {
+        this._selectionLimit = val;
+        this.checkSelectionLimit();
+    }
+
+    get selectionLimit(): number {
+        return this._selectionLimit;
     }
 
     /* @deprecated */
