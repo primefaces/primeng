@@ -17,6 +17,7 @@ interface City {
     templateUrl: './landing.component.html'
 })
 export class LandingComponent implements OnInit, OnDestroy {
+
     @ViewChild('containerElement') containerElement: ElementRef;
 
     @ViewChild('dt') table: Table;
@@ -86,6 +87,12 @@ export class LandingComponent implements OnInit, OnDestroy {
     selectedOptions: string[] = ['1'];
 
     theme: string = 'lara-light-blue';
+
+    isNpmCopied: boolean = false;
+
+    usersData = ['fox', 'airbus', 'mercedes', 'ebay', 'ford', 'vw', 'intel', 'unicredit', 'lufthansa', 'nvidia', 'verizon', 'amex'];
+    
+    usersImages: any;
 
     constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {}
 
@@ -201,6 +208,16 @@ export class LandingComponent implements OnInit, OnDestroy {
 
         this.bindScrollListener();
     }
+
+    copyNpm() {
+        navigator.clipboard.writeText('npm i primeng');
+        this.isNpmCopied = true;
+        setTimeout(() => {
+            this.isNpmCopied = false;
+        }, 2000);
+    }
+
+   
 
     ngAfterViewInit() {
         this.setAnimation = true;

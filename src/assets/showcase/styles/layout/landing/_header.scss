@@ -7,9 +7,13 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+    .landing-header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     .landing-header-logo {
         height: 2.5rem;
@@ -19,13 +23,13 @@
         background-color: var(--home-header-bg);
         backdrop-filter: blur(12px);
     }
-    
+
     ol {
         a {
             display: block;
-            padding: .5rem 1.5rem;
+            padding: 0.5rem 1.5rem;
             text-align: center;
-            transition: background-color .3s;
+            transition: background-color 0.3s;
             border-radius: 10px;
             color: var(--home-menu-link-text-color);
             white-space: nowrap;
@@ -96,5 +100,13 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (min-width: 1960px) {
+    .landing-header-container {
+        width: 1650px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
