@@ -93,10 +93,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     set visible(value: boolean) {
         this._visible = value;
-    }
 
-    get modalVisible(): boolean {
-        return !this.visible && this.modal ? false : true;
+        if (this._visible && !this.modalVisible) {
+            this.modalVisible = true;
+        }
     }
 
     @Input() get mode(): OverlayModeType | string {
@@ -254,7 +254,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _options: OverlayOptions | undefined;
 
-    _modalVisible: boolean = false;
+    modalVisible: boolean = false;
 
     isOverlayClicked: boolean = false;
 
@@ -419,6 +419,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
                 DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 ZIndexUtils.clear(container);
+                this.modalVisible = false;
 
                 break;
         }
