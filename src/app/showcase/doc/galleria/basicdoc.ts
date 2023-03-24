@@ -9,7 +9,7 @@ import { PhotoService } from '../../service/photoservice';
             <p>Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and <i>thumbnail</i> template to display as a thumbnail.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%;" />
                 </ng-template>
@@ -54,7 +54,7 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}" [numVisible]="5">
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%;" />
     </ng-template>
@@ -66,7 +66,7 @@ export class BasicDoc implements OnInit {
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}" [numVisible]="5">
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%;" />
         </ng-template>

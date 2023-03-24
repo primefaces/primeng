@@ -21,7 +21,7 @@ import { PhotoService } from '../../service/photoservice';
                 [circular]="true"
                 [autoPlay]="true"
                 [transitionInterval]="3000"
-                [containerStyle]="{ width: '100%' }"
+                [containerStyle]="{ maxWidth: '640px' }"
                 [containerClass]="galleriaClass()"
             >
                 <ng-template pTemplate="item" let-item>
@@ -174,7 +174,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     [circular]="true"
     [autoPlay]="true"
     [transitionInterval]="3000"
-    [containerStyle]="{ width: '100%' }"
+    [containerStyle]="{ maxWidth: '640px' }"
     [containerClass]="galleriaClass()"
 >
     <ng-template pTemplate="item" let-item>
@@ -199,7 +199,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ maxWidth: '640px' }" [containerClass]="galleriaClass()"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>

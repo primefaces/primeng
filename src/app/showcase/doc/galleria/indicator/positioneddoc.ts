@@ -26,7 +26,7 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
                 [showIndicatorsOnItem]="showIndicatorsOnItem"
                 [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+                [containerStyle]="{ maxWidth: '640px', 'margin-top': '2em' }"
             >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -45,7 +45,7 @@ export class PositionedDoc implements OnInit {
 
     images: any[];
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 
@@ -100,7 +100,7 @@ export class PositionedDoc implements OnInit {
     [showThumbnails]="false"
     [showIndicatorsOnItem]="showIndicatorsOnItem"
     [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+    [containerStyle]="{ maxWidth: '640px', 'margin-top': '2em' }"
 >
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
@@ -114,7 +114,7 @@ export class PositionedDoc implements OnInit {
     <div class="flex align-items-center">
         <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-3"></p-checkbox>
     </div>
-    <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%','margin-top': '2em'}">
+    <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px','margin-top': '2em'}">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -131,7 +131,7 @@ import { PhotoService } from '../../service/photoservice';
 export class GalleriaIndicatorPositionedDemo implements OnInit {
     images: any[];
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 
