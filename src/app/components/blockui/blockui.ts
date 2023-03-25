@@ -1,5 +1,5 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef, Inject, Renderer2 } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
@@ -38,7 +38,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
 
     @Input() get blocked(): boolean {
         return this._blocked;
@@ -80,7 +80,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
             this.target.getBlockableElement().appendChild(this.mask.nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
         } else {
-            document.body.appendChild(this.mask.nativeElement);
+            this.renderer.appendChild(this.document.body, this.mask.nativeElement);
         }
 
         if (this.autoZIndex) {
