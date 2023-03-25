@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MegaMenuItem, MenuItem, PrimeTemplate } from 'primeng/api';
+import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -137,15 +137,15 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </li>
                 </ng-template>
-                <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
-                    <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
-                </div>
-                <ng-template #legacy>
-                    <div class="p-megamenu-end">
-                        <ng-content></ng-content>
-                    </div>
-                </ng-template>
             </ul>
+            <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            </div>
+            <ng-template #legacy>
+                <div class="p-megamenu-end">
+                    <ng-content></ng-content>
+                </div>
+            </ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -163,10 +163,6 @@ export class MegaMenu implements AfterContentInit {
     @Input() styleClass: string;
 
     @Input() orientation: string = 'horizontal';
-
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -304,8 +300,8 @@ export class MegaMenu implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [MegaMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu]
 })
 export class MegaMenuModule {}

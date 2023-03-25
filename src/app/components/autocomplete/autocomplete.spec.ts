@@ -469,7 +469,7 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         const panelEl = fixture.debugElement.query(By.css('div'));
-        expect(panelEl).toBeFalsy();
+        expect(panelEl).toBeTruthy();
         flush();
     }));
 

@@ -907,6 +907,9 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     handleOnInput(event, currentValue, newValue) {
         if (this.isValueChanged(currentValue, newValue)) {
+            this.input.nativeElement.value = this.formatValue(newValue);
+            this.input.nativeElement.setAttribute('aria-valuenow', newValue);
+            this.updateModel(event, newValue);
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }

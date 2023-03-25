@@ -8,7 +8,7 @@ import { Component, EventEmitter } from '@angular/core';
     template: `<p-pickList [source]="sourceCars" [target]="targetCars">
         <ng-template let-car pTemplate="item">
             <div class="p-clearfix">
-                <img src="assets/showcase/images/demo/car/{{ car.brand }}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48" />
+                <img src="https://primefaces.org/cdn/primeng/images/demo/car/{{ car.brand }}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48" />
                 <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{ car.brand }} - {{ car.year }} - {{ car.color }}</div>
             </div>
         </ng-template>

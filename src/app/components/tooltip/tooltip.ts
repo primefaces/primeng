@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -20,6 +20,7 @@ export interface TooltipOptions {
     positionLeft?: number;
     life?: number;
     autoHide?: boolean;
+    hideOnEscape?: boolean;
 }
 
 @Directive({
@@ -57,6 +58,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() fitContent: boolean = true;
 
+    @Input() hideOnEscape: boolean = true;
+
     @Input('pTooltip') text: string;
 
     @Input('tooltipDisabled') get disabled(): boolean {
@@ -77,7 +80,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         escape: true,
         positionTop: 0,
         positionLeft: 0,
-        autoHide: true
+        autoHide: true,
+        hideOnEscape: false
     };
 
     _disabled: boolean;
@@ -254,6 +258,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onInputClick(e: Event) {
         this.deactivate();
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    onPressEscape() {
+        if (this.hideOnEscape) {
+            this.deactivate();
+        }
     }
 
     activate() {

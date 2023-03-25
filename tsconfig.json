@@ -1,18 +1,22 @@
 {
     "compileOnSave": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
-        "module": "es2020",
+        "module": "es2022",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "target": "ES2020",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2022",
         "typeRoots": ["node_modules/@types"],
-        "lib": ["es2020", "dom"],
+        "lib": ["es2022", "dom"],
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
         },
