@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -8,6 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    Inject,
     Input,
     NgModule,
     NgZone,
@@ -753,7 +754,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         console.warn('Locale property has no effect, use new i18n API instead.');
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.attributeSelector = UniqueComponentId();
@@ -2468,7 +2469,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.overlay);
             else DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
@@ -2500,7 +2501,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     enableModality(element) {
         if (!this.mask && !this.touchUI) {
-            this.mask = document.createElement('div');
+            this.mask = this.document.createElement('div');
             this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
@@ -2508,8 +2509,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
-            document.body.appendChild(this.mask);
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            this.document.body.appendChild(this.mask);
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
@@ -2526,8 +2527,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             return;
         }
 
-        document.body.removeChild(this.mask);
-        let bodyChildren = document.body.children;
+        this.document.body.removeChild(this.mask);
+        let bodyChildren = this.document.body.children;
         let hasBlockerMasks: boolean;
         for (let i = 0; i < bodyChildren.length; i++) {
             let bodyChild = bodyChildren[i];
@@ -2538,7 +2539,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.unbindAnimationEndListener();
@@ -2941,9 +2942,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     createResponsiveStyle() {
         if (this.numberOfMonths > 1 && this.responsiveOptions) {
             if (!this.responsiveStyleElement) {
-                this.responsiveStyleElement = document.createElement('style');
+                this.responsiveStyleElement = this.document.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                document.body.appendChild(this.responsiveStyleElement);
+                this.document.body.appendChild(this.responsiveStyleElement);
             }
 
             let innerHTML = '';
@@ -2988,7 +2989,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
-                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
@@ -3014,13 +3015,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     bindDocumentResizeListener() {
         if (!this.documentResizeListener && !this.touchUI) {
             this.documentResizeListener = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.documentResizeListener);
+            this.document.defaultView.addEventListener('resize', this.documentResizeListener);
         }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
