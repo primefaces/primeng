@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    Inject,
     Input,
     IterableDiffers,
     NgModule,
