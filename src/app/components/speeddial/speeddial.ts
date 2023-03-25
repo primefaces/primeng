@@ -14,10 +14,10 @@ import {
     ChangeDetectorRef,
     ViewChild,
     OnDestroy,
-    OnInit,
-    AfterViewInit
+    AfterViewInit,
+    Inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -161,7 +161,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         if (this.type !== 'linear') {
@@ -322,13 +322,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
                 this.isItemClicked = false;
             };
-            document.addEventListener('click', this.documentClickListener);
+            this.document.addEventListener('click', this.documentClickListener);
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.document.removeEventListener('click', this.documentClickListener);
             this.documentClickListener = null;
         }
     }
