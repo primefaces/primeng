@@ -251,7 +251,7 @@ export class Image implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, SharedModule],
     exports: [Image, SharedModule],
     declarations: [Image]
 })

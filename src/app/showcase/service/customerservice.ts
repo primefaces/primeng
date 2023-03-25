@@ -7,6 +7,16 @@ import { Customer } from '../domain/customer';
 export class CustomerService {
     constructor(private http: HttpClient) {}
 
+    getCustomersMini() {
+        return this.http
+            .get<any>('assets/showcase/data/customers-small.json')
+            .toPromise()
+            .then((res) => <Customer[]>res.data.slice(0, 5))
+            .then((data) => {
+                return data;
+            });
+    }
+
     getCustomersSmall() {
         return this.http
             .get<any>('assets/showcase/data/customers-small.json')

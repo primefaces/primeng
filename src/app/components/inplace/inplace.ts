@@ -1,7 +1,7 @@
 import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -120,8 +120,8 @@ export class Inplace implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule],
-    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule],
+    imports: [CommonModule, ButtonModule, SharedModule],
+    exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
 export class InplaceModule {}

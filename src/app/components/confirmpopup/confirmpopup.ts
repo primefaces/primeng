@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
@@ -116,7 +116,15 @@ export class ConfirmPopup implements OnDestroy {
         this.cd.markForCheck();
     }
 
-    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        public el: ElementRef,
+        private confirmationService: ConfirmationService,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        @Inject(DOCUMENT) private document: Document
+    ) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
@@ -143,7 +151,7 @@ export class ConfirmPopup implements OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            document.body.appendChild(this.container);
+            this.document.body.appendChild(this.container);
             this.align();
             this.bindListeners();
 
@@ -325,7 +333,7 @@ export class ConfirmPopup implements OnDestroy {
 
     restoreAppend() {
         if (this.container) {
-            document.body.removeChild(this.container);
+            this.document.body.removeChild(this.container);
         }
 
         this.onContainerDestroy();

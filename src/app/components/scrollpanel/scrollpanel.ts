@@ -1,5 +1,5 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
 
@@ -29,7 +29,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
 
     @ViewChild('container') containerViewChild: ElementRef;
 
@@ -159,10 +159,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.lastPageY = e.pageY;
         DomHandler.addClass(this.yBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
 
-        DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
+        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
 
-        document.addEventListener('mousemove', this.onDocumentMouseMove);
-        document.addEventListener('mouseup', this.onDocumentMouseUp);
+        this.document.addEventListener('mousemove', this.onDocumentMouseMove);
+        this.document.addEventListener('mouseup', this.onDocumentMouseUp);
         e.preventDefault();
     }
 
@@ -171,10 +171,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.lastPageX = e.pageX;
         DomHandler.addClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
 
-        DomHandler.addClass(document.body, 'p-scrollpanel-grabbed');
+        DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
 
-        document.addEventListener('mousemove', this.onDocumentMouseMove);
-        document.addEventListener('mouseup', this.onDocumentMouseUp);
+        this.document.addEventListener('mousemove', this.onDocumentMouseMove);
+        this.document.addEventListener('mouseup', this.onDocumentMouseUp);
         e.preventDefault();
     }
 
@@ -216,10 +216,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     onDocumentMouseUp(e: Event) {
         DomHandler.removeClass(this.yBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
         DomHandler.removeClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
-        DomHandler.removeClass(document.body, 'p-scrollpanel-grabbed');
+        DomHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
 
-        document.removeEventListener('mousemove', this.onDocumentMouseMove);
-        document.removeEventListener('mouseup', this.onDocumentMouseUp);
+        this.document.removeEventListener('mousemove', this.onDocumentMouseMove);
+        this.document.removeEventListener('mouseup', this.onDocumentMouseUp);
         this.isXBarClicked = false;
         this.isYBarClicked = false;
     }

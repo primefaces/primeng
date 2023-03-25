@@ -97,3 +97,8 @@
 .p-megamenu-col-12 {
     width: 100%;
 }
+
+.p-megamenu-horizontal .p-megamenu-end {
+    margin-left: auto;
+    align-self: center;
+}

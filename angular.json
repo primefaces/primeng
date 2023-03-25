@@ -38,19 +38,16 @@
               "aot": true,
               "assets": [
                 "src/favicon.png",
-                "src/assets",
-                "src/showcase",
-                "src/upload.php",
-                "src/versions.json",
-                "src/.htaccess"
+                "src/assets"
               ],
               "styles": [
-                "src/assets/showcase/styles/app/app.scss",
                 "src/styles.scss"
               ],
               "scripts": [
                 "./node_modules/prismjs/prism.js",
-                "./node_modules/prismjs/components/prism-typescript.js"
+                "./node_modules/prismjs/components/prism-typescript.js",
+                "./node_modules/prismjs/components/prism-scss.js",
+                "./node_modules/prismjs/components/prism-bash.js"
               ],
               "allowedCommonJsDependencies": [
                 "@fullcalendar/timegrid",
@@ -61,7 +58,10 @@
                 "jspdf-autotable",
                 "file-saver",
                 "jspdf",
-                "quill"
+                "quill",
+                "core-js",
+                "raf",
+                "rgbcolor"
               ]
             },
             "configurations": {
@@ -132,8 +132,7 @@
               "karmaConfig": "karma.conf.js",
               "assets": [
                 "src/favicon.png",
-                "src/assets",
-                "src/upload.php"
+                "src/assets"
               ],
               "styles": [
                 "src/styles.scss",

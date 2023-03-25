@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, Inject } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
@@ -81,7 +81,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -118,13 +118,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     createLabel() {
         if (this.label) {
-            let labelElement = document.createElement('span');
+            let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
             }
 
             labelElement.className = 'p-button-label';
-            labelElement.appendChild(document.createTextNode(this.label));
+            labelElement.appendChild(this.document.createTextNode(this.label));
 
             this.htmlElement.appendChild(labelElement);
         }
@@ -132,7 +132,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     createIcon() {
         if (this.icon || this.loading) {
-            let iconElement = document.createElement('span');
+            let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
             iconElement.setAttribute('aria-hidden', 'true');
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
