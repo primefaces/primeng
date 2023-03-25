@@ -671,13 +671,13 @@ export class Carousel implements AfterContentInit {
                 this.calculatePosition();
             };
 
-            window.addEventListener('resize', this.documentResizeListener);
+            this.document.defaultView.addEventListener('resize', this.documentResizeListener);
         }
     }
 
     unbindDocumentListeners() {
         if (this.documentResizeListener && typeof window !== 'undefined') {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }
