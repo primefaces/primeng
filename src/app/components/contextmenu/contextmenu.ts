@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ContextMenuService, MenuItem, PrimeNGConfig } from 'primeng/api';
@@ -262,7 +262,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     preventDocumentDefault: boolean = false;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         if (this.global) {
@@ -279,7 +279,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.containerViewChild.nativeElement);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.containerViewChild.nativeElement);
             else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
@@ -332,23 +332,23 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - document.scrollingElement.scrollLeft > viewport.width) {
+            if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - document.scrollingElement.scrollTop > viewport.height) {
+            if (top + height - this.document.scrollingElement.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < document.scrollingElement.scrollLeft) {
-                left = document.scrollingElement.scrollLeft;
+            if (left < this.document.scrollingElement.scrollLeft) {
+                left = this.document.scrollingElement.scrollLeft;
             }
 
             //fit
-            if (top < document.scrollingElement.scrollTop) {
-                top = document.scrollingElement.scrollTop;
+            if (top < this.document.scrollingElement.scrollTop) {
+                top = this.document.scrollingElement.scrollTop;
             }
 
             this.containerViewChild.nativeElement.style.left = left + 'px';
@@ -462,7 +462,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
                 this.windowResizeListener = this.onWindowResize.bind(this);
-                window.addEventListener('resize', this.windowResizeListener);
+                this.document.defaultView.addEventListener('resize', this.windowResizeListener);
             }
         });
 
@@ -616,7 +616,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.windowResizeListener) {
-            window.removeEventListener('resize', this.windowResizeListener);
+            this.document.defaultView.removeEventListener('resize', this.windowResizeListener);
             this.windowResizeListener = null;
         }
 
