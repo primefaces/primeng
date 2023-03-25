@@ -17,7 +17,6 @@ interface City {
     templateUrl: './landing.component.html'
 })
 export class LandingComponent implements OnInit, OnDestroy {
-
     @ViewChild('containerElement') containerElement: ElementRef;
 
     @ViewChild('dt') table: Table;
@@ -216,8 +215,6 @@ export class LandingComponent implements OnInit, OnDestroy {
             this.isNpmCopied = false;
         }, 2000);
     }
-
-
 
     ngAfterViewInit() {
         this.setAnimation = true;
