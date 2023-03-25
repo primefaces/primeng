@@ -616,13 +616,13 @@ export class Carousel implements AfterContentInit {
         if (this.interval) {
             clearInterval(this.interval);
             this.interval = undefined;
-            if(changeAllow){
+            if (changeAllow) {
                 this.allowAutoplay = false;
             }
         }
     }
 
-    isPlaying(): boolean{
+    isPlaying(): boolean {
         return !!this.interval;
     }
 
