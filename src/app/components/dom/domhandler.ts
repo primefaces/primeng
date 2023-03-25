@@ -684,4 +684,8 @@ export class DomHandler {
                 return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
         }
     }
+
+    public static isClient() {
+        return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+    }
 }
