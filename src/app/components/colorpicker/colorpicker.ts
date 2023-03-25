@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
@@ -139,7 +139,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
@@ -189,7 +189,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     pickHue(event, position?) {
         let pageY = position ? position.pageY : event.pageY;
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
+        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (this.document.defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
             s: this.value.s,
@@ -238,8 +238,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         let pageX = position ? position.pageX : event.pageX;
         let pageY = position ? position.pageY : event.pageY;
         let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
-        let left = rect.left + document.body.scrollLeft;
+        let top = rect.top + (this.document.defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
+        let left = rect.left + this.document.body.scrollLeft;
         let saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
         let brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
         this.value = this.validateHSB({
@@ -377,7 +377,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.overlay);
             else DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
@@ -514,12 +514,12 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentResizeListener() {
         this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        this.document.defaultView.addEventListener('resize', this.documentResizeListener);
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener = null;
         }
     }
