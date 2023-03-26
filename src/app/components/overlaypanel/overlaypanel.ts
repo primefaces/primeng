@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     NgZone,
@@ -119,25 +120,25 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     selfClick: boolean = false;
 
-    documentClickListener: any;
+    documentClickListener: () => void | null;
 
     target: any;
 
     willHide: boolean;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentResizeListener: any;
+    documentResizeListener: () => void | null;
 
     contentTemplate: TemplateRef<any>;
 
     destroyCallback: Function;
 
-    overlayEventListener;
+    overlayEventListener: (event?) => void | null;
 
     overlaySubscription: Subscription;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -156,22 +157,24 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener && this.dismissable) {
-            this.zone.runOutsideAngular(() => {
-                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-                this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
-                        this.zone.run(() => {
-                            this.hide();
-                        });
-                    }
-
-                    this.selfClick = false;
-                    this.cd.markForCheck();
-                });
-            });
+        if(DomHandler.isClient()){
+            if(!this.documentClickListener && this.dismissable) {
+                this.zone.runOutsideAngular(() =>{
+                    let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                    const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
+    
+                    this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                        if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
+                            this.zone.run(() => {
+                                this.hide();
+                            });
+                        }
+    
+                        this.selfClick = false;
+                        this.cd.markForCheck();
+                    });
+                })
+            }
         }
     }
 
@@ -232,14 +235,14 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
             else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
     restoreAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
 
@@ -252,19 +255,19 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = getComputedStyle(this.container).getPropertyValue('border-radius');
+        const borderRadius = this.document.defaultView.getComputedStyle(this.container).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius) * 2;
         }
-        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        this.renderer.setStyle(this.container, '--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
 
             if (this.showCloseIcon) {
-                this.container.style.marginTop = '30px';
+                this.renderer.setStyle(this.container, 'margin-top', '-30px');
             }
         }
     }
@@ -352,27 +355,33 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if(DomHandler.isClient()){
+            if(!this.documentResizeListener) {
+                const window = this.document.defaultView as Window;
+                this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
+            }
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
+        if(DomHandler.isClient()){
+            if (!this.scrollHandler) {
+                this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+                    if (this.overlayVisible) {
+                        this.hide();
+                    }
+                });
+            }
+    
+            this.scrollHandler.bindScrollListener();
         }
-
-        this.scrollHandler.bindScrollListener();
     }
 
     unbindScrollListener() {
