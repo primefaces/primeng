@@ -1,5 +1,6 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pDefer]',
@@ -16,7 +17,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     view: EmbeddedViewRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         if (this.shouldLoad()) {
@@ -24,7 +25,8 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
         }
 
         if (!this.isLoaded()) {
-            this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
+            const window = this.document.defaultView || 'window';
+            this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
                 if (this.shouldLoad()) {
                     this.load();
                     this.documentScrollListener();
@@ -39,7 +41,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
             return false;
         } else {
             let rect = this.el.nativeElement.getBoundingClientRect();
-            let docElement = document.documentElement;
+            let docElement = this.document.documentElement;
             let winHeight = docElement.clientHeight;
 
             return winHeight >= rect.top;
@@ -53,7 +55,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
     }
 
     isLoaded() {
-        return this.view != null;
+        return this.view != null && DomHandler.isClient();
     }
 
     ngOnDestroy() {
