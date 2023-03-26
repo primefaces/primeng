@@ -1,5 +1,5 @@
-import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { SafeUrl } from '@angular/platform-browser';
@@ -127,7 +127,7 @@ export class Image implements AfterContentInit {
         min: 0.5
     };
 
-    constructor(private config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -219,7 +219,7 @@ export class Image implements AfterContentInit {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
