@@ -15,7 +15,8 @@ import {
     ViewChild,
     OnDestroy,
     AfterViewInit,
-    Inject
+    Inject,
+    Renderer2
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
@@ -161,7 +162,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
+    constructor(private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
         if (this.type !== 'linear') {
@@ -314,21 +315,22 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener && this.hideOnClickOutside) {
-            this.documentClickListener = (event) => {
-                if (this.visible && this.isOutsideClicked(event)) {
-                    this.hide();
-                }
+        if(DomHandler.isClient()){
+            if (!this.documentClickListener && this.hideOnClickOutside) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.visible && this.isOutsideClicked(event)) {
+                        this.hide();
+                    }
 
-                this.isItemClicked = false;
-            };
-            this.document.addEventListener('click', this.documentClickListener);
+                    this.isItemClicked = false;
+                })
+            }    
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            this.document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
