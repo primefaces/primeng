@@ -261,7 +261,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius) * 2;
         }
-        this.renderer.setStyle(this.container, '--overlayArrowLeft', `${arrowLeft}px`);
+        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
