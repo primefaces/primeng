@@ -1,5 +1,5 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, AfterContentInit, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, AfterViewChecked, AfterContentInit, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Renderer2 } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -168,7 +168,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[];
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     get selection(): any[] {
         return this._selection;
@@ -483,43 +483,46 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if (!this.styleElement) {
-            this.el.nativeElement.children[0].setAttribute(this.id, '');
-            this.styleElement = document.createElement('style');
-            this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
-
-            let innerHTML = `
-                @media screen and (max-width: ${this.breakpoint}) {
-                    .p-orderlist[${this.id}] {
-                        flex-direction: column;
+        if(DomHandler.isClient()){
+            if (!this.styleElement) {
+                this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
+                this.styleElement = this.renderer.createElement('style');
+                this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
+                this.renderer.appendChild(this.document.head, this.styleElement);      
+    
+                let innerHTML = `
+                    @media screen and (max-width: ${this.breakpoint}) {
+                        .p-orderlist[${this.id}] {
+                            flex-direction: column;
+                        }
+    
+                        .p-orderlist[${this.id}] .p-orderlist-controls {
+                            padding: var(--content-padding);
+                            flex-direction: row;
+                        }
+    
+                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
+                            margin-right: var(--inline-spacing);
+                            margin-bottom: 0;
+                        }
+    
+                        .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
+                            margin-right: 0;
+                        }
                     }
-
-                    .p-orderlist[${this.id}] .p-orderlist-controls {
-                        padding: var(--content-padding);
-                        flex-direction: row;
-                    }
-
-                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
-                        margin-right: var(--inline-spacing);
-                        margin-bottom: 0;
-                    }
-
-                    .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
-                        margin-right: 0;
-                    }
-                }
-            `;
-
-            this.styleElement.innerHTML = innerHTML;
+                `;
+                this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+            }
         }
     }
 
     destroyStyle() {
-        if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
-            this.styleElement = null;
-            ``;
+        if(DomHandler.isClient()){
+            if (this.styleElement) {
+                this.renderer.removeChild(this.document, this.styleElement);
+                this.styleElement = null;
+                ``;
+            }
         }
     }
 
