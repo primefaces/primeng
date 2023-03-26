@@ -1,5 +1,5 @@
-import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Renderer2, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -359,7 +359,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.responsive) {
@@ -910,51 +910,53 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if (!this.styleElement) {
-            this.el.nativeElement.children[0].setAttribute(this.id, '');
-            this.styleElement = document.createElement('style');
-            this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
-
-            let innerHTML = `
-            @media screen and (max-width: ${this.breakpoint}) {
-                .p-picklist[${this.id}] {
-                    flex-direction: column;
+        if(DomHandler.isClient()){
+            if (!this.styleElement) {
+                this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
+                this.styleElement = this.renderer.createElement('style');
+                this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
+                this.renderer.appendChild(this.document.head, this.styleElement);
+    
+                let innerHTML = `
+                @media screen and (max-width: ${this.breakpoint}) {
+                    .p-picklist[${this.id}] {
+                        flex-direction: column;
+                    }
+    
+                    .p-picklist[${this.id}] .p-picklist-buttons {
+                        padding: var(--content-padding);
+                        flex-direction: row;
+                    }
+    
+                    .p-picklist[${this.id}] .p-picklist-buttons .p-button {
+                        margin-right: var(--inline-spacing);
+                        margin-bottom: 0;
+                    }
+    
+                    .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
+                        margin-right: 0;
+                    }
+    
+                    .p-picklist[${this.id}] .pi-angle-right:before {
+                        content: "\\e930"
+                    }
+    
+                    .p-picklist[${this.id}] .pi-angle-double-right:before {
+                        content: "\\e92c"
+                    }
+    
+                    .p-picklist[${this.id}] .pi-angle-left:before {
+                        content: "\\e933"
+                    }
+    
+                    .p-picklist[${this.id}] .pi-angle-double-left:before {
+                        content: "\\e92f"
+                    }
                 }
+                `;
 
-                .p-picklist[${this.id}] .p-picklist-buttons {
-                    padding: var(--content-padding);
-                    flex-direction: row;
-                }
-
-                .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                    margin-right: var(--inline-spacing);
-                    margin-bottom: 0;
-                }
-
-                .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                    margin-right: 0;
-                }
-
-                .p-picklist[${this.id}] .pi-angle-right:before {
-                    content: "\\e930"
-                }
-
-                .p-picklist[${this.id}] .pi-angle-double-right:before {
-                    content: "\\e92c"
-                }
-
-                .p-picklist[${this.id}] .pi-angle-left:before {
-                    content: "\\e933"
-                }
-
-                .p-picklist[${this.id}] .pi-angle-double-left:before {
-                    content: "\\e92f"
-                }
+                this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
             }
-            `;
-
-            this.styleElement.innerHTML = innerHTML;
         }
     }
 
@@ -988,7 +990,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     destroyStyle() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.renderer.removeChild(this.document.head, this.styleElement);
             this.styleElement = null;
             ``;
         }
