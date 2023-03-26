@@ -723,8 +723,8 @@ export class Password implements AfterContentInit, OnInit {
 
     restoreAppend() {
         if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') document.body.removeChild(this.overlay);
-            else document.getElementById(this.appendTo).removeChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else this.document.getElementById(this.appendTo).removeChild(this.overlay);
         }
     }
 
