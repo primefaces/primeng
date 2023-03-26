@@ -18,10 +18,11 @@ import {
     AfterContentInit,
     TemplateRef,
     ContentChild,
-    OnInit
+    OnInit,
+    Inject
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { FocusTrapModule } from 'primeng/focustrap';
@@ -289,7 +290,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     styleElement: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -394,7 +395,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
@@ -405,7 +406,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             if (this.modal) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -418,8 +419,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.maximized = !this.maximized;
 
         if (!this.modal && !this.blockScroll) {
-            if (this.maximized) DomHandler.addClass(document.body, 'p-overflow-hidden');
-            else DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            if (this.maximized) DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            else DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.onMaximize.emit({ maximized: this.maximized });
@@ -441,9 +442,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     createStyle() {
         if (!this.styleElement) {
-            this.styleElement = document.createElement('style');
+            this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
+            this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
                 innerHTML += `
@@ -470,7 +471,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.lastPageY = event.pageY;
 
             this.container.style.margin = '0';
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            DomHandler.addClass(this.document.body, 'p-unselectable-text');
         }
     }
 
@@ -537,7 +538,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     endDrag(event: MouseEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -560,7 +561,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            DomHandler.addClass(this.document.body, 'p-unselectable-text');
             this.onResizeInit.emit(event);
         }
     }
@@ -607,7 +608,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     resizeEnd(event) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.onResizeEnd.emit(event);
         }
     }
@@ -637,13 +638,13 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     bindDocumentDragListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragListener = this.onDrag.bind(this);
-            window.document.addEventListener('mousemove', this.documentDragListener);
+            this.document.defaultView.addEventListener('mousemove', this.documentDragListener);
         });
     }
 
     unbindDocumentDragListener() {
         if (this.documentDragListener) {
-            window.document.removeEventListener('mousemove', this.documentDragListener);
+            this.document.defaultView.removeEventListener('mousemove', this.documentDragListener);
             this.documentDragListener = null;
         }
     }
@@ -651,13 +652,13 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     bindDocumentDragEndListener() {
         this.zone.runOutsideAngular(() => {
             this.documentDragEndListener = this.endDrag.bind(this);
-            window.document.addEventListener('mouseup', this.documentDragEndListener);
+            this.document.defaultView.addEventListener('mouseup', this.documentDragEndListener);
         });
     }
 
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
-            window.document.removeEventListener('mouseup', this.documentDragEndListener);
+            this.document.defaultView.removeEventListener('mouseup', this.documentDragEndListener);
             this.documentDragEndListener = null;
         }
     }
@@ -666,15 +667,15 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.documentResizeListener = this.onResize.bind(this);
             this.documentResizeEndListener = this.resizeEnd.bind(this);
-            window.document.addEventListener('mousemove', this.documentResizeListener);
-            window.document.addEventListener('mouseup', this.documentResizeEndListener);
+            this.document.defaultView.addEventListener('mousemove', this.documentResizeListener);
+            this.document.defaultView.addEventListener('mouseup', this.documentResizeEndListener);
         });
     }
 
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
-            window.document.removeEventListener('mousemove', this.documentResizeListener);
-            window.document.removeEventListener('mouseup', this.documentResizeEndListener);
+            this.document.defaultView.removeEventListener('mousemove', this.documentResizeListener);
+            this.document.defaultView.removeEventListener('mouseup', this.documentResizeEndListener);
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
         }
@@ -699,7 +700,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
@@ -725,7 +726,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 }
 
                 if (!this.modal && this.blockScroll) {
-                    DomHandler.addClass(document.body, 'p-overflow-hidden');
+                    DomHandler.addClass(this.document.body, 'p-overflow-hidden');
                 }
 
                 if (this.focusOnShow) {
@@ -761,7 +762,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.maximized) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
             this.maximized = false;
         }
 
@@ -770,7 +771,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.container && this.autoZIndex) {
@@ -785,7 +786,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     destroyStyle() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.document.head.removeChild(this.styleElement);
             this.styleElement = null;
         }
     }
