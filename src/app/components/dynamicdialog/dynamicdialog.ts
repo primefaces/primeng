@@ -1,6 +1,6 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, NgModule, NgZone, OnDestroy, Renderer2, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Inject, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -108,21 +108,21 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     wrapper: HTMLElement;
 
-    documentKeydownListener: any;
+    documentKeydownListener: () => void | null;
 
-    documentEscapeListener: Function;
+    documentEscapeListener: () => void | null;
 
-    maskClickListener: Function;
+    maskClickListener: () => void | null;
 
     transformOptions: string = 'scale(0.7)';
 
-    documentResizeListener: null;
+    documentResizeListener: () => void | null;
 
-    documentResizeEndListener: null;
+    documentResizeEndListener: () => void | null;
 
-    documentDragListener: null;
+    documentDragListener: () => void | null;
 
-    documentDragEndListener: null;
+    documentDragEndListener: () => void | null;
 
     get minX(): number {
         return this.config.minX ? this.config.minX : 0;
@@ -164,13 +164,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get parent() {
-        const domElements = Array.from(document.getElementsByClassName('p-dialog'));
+        const domElements = Array.from(this.document.getElementsByClassName('p-dialog'));
         if (domElements.length > 1) {
             return domElements.pop();
         }
     }
 
     constructor(
+        @Inject(DOCUMENT) private document: Document,
         private componentFactoryResolver: ComponentFactoryResolver,
         private cd: ChangeDetectorRef,
         public renderer: Renderer2,
@@ -267,7 +268,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
 
         if (this.config.modal !== false) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
@@ -278,7 +279,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             }
 
             if (this.config.modal !== false) {
-                DomHandler.removeClass(document.body, 'p-overflow-hidden');
+                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -328,9 +329,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.maximized = !this.maximized;
 
         if (this.maximized) {
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         } else {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.dialogRef.maximize({ maximized: this.maximized });
@@ -341,7 +342,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            DomHandler.addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeInit(event);
         }
     }
@@ -388,7 +389,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.resizeEnd(event);
         }
     }
@@ -404,7 +405,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.lastPageY = event.pageY;
 
             this.container.style.margin = '0';
-            DomHandler.addClass(document.body, 'p-unselectable-text');
+            DomHandler.addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragStart(event);
         }
     }
@@ -446,7 +447,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     endDrag(event: MouseEvent) {
         if (this.dragging) {
             this.dragging = false;
-            DomHandler.removeClass(document.body, 'p-unselectable-text');
+            DomHandler.removeClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragEnd(event);
             this.cd.detectChanges();
         }
@@ -460,46 +461,48 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentDragListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentDragListener = this.onDrag.bind(this);
-            window.document.addEventListener('mousemove', this.documentDragListener);
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                this.documentDragListener = this.renderer.listen(this.document, 'mousemove', this.onDrag.bind(this))
+            })
+        }
     }
 
     bindDocumentDragEndListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentDragEndListener = this.endDrag.bind(this);
-            window.document.addEventListener('mouseup', this.documentDragEndListener);
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                this.documentDragEndListener = this.renderer.listen(this.document, 'mouseup', this.endDrag.bind(this))
+            })
+        }
     }
 
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
-            window.document.removeEventListener('mouseup', this.documentDragEndListener);
-            this.documentDragEndListener = null;
+            this.documentDragEndListener();
+            this.documentDragListener = null;
         }
     }
 
     unbindDocumentDragListener() {
         if (this.documentDragListener) {
-            window.document.removeEventListener('mousemove', this.documentDragListener);
+            this.documentDragListener();
             this.documentDragListener = null;
         }
     }
 
     bindDocumentResizeListeners() {
-        this.zone.runOutsideAngular(() => {
-            this.documentResizeListener = this.onResize.bind(this);
-            this.documentResizeEndListener = this.resizeEnd.bind(this);
-            window.document.addEventListener('mousemove', this.documentResizeListener);
-            window.document.addEventListener('mouseup', this.documentResizeEndListener);
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                this.documentResizeListener = this.renderer.listen(this.document, 'mousemove', this.onResize.bind(this))
+                this.documentResizeEndListener = this.renderer.listen(this.document, 'mouseup', this.resizeEnd.bind(this))
+            })
+        }
     }
 
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
-            window.document.removeEventListener('mousemove', this.documentResizeListener);
-            window.document.removeEventListener('mouseup', this.documentResizeEndListener);
+            this.documentResizeListener();
+            this.documentResizeEndListener();
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
         }
@@ -531,15 +534,16 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentKeydownListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentKeydownListener = this.onKeydown.bind(this);
-            window.document.addEventListener('keydown', this.documentKeydownListener);
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this))
+            })
+        }
     }
 
     unbindDocumentKeydownListener() {
         if (this.documentKeydownListener) {
-            window.document.removeEventListener('keydown', this.documentKeydownListener);
+            this.documentKeydownListener();
             this.documentKeydownListener = null;
         }
     }
