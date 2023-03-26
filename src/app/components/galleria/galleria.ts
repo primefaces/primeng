@@ -19,9 +19,11 @@ import {
     ChangeDetectorRef,
     AfterViewInit,
     KeyValueDiffers,
-    DoCheck
+    DoCheck,
+    Inject,
+    Renderer2
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
@@ -156,7 +158,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
-    constructor(public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -216,7 +218,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.addClass(document.body, 'p-overflow-hidden');
+        DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -225,7 +227,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         this.maskVisible = false;
         this.cd.markForCheck();
 
@@ -236,7 +238,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         if (this.fullScreen) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.mask) {
@@ -717,7 +719,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     page: number = 0;
 
-    documentResizeListener: any;
+    documentResizeListener: () => void | null;
 
     _numVisible: number = 0;
 
@@ -729,7 +731,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.createStyle();
@@ -777,9 +779,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     createStyle() {
         if (!this.thumbnailsStyle) {
-            this.thumbnailsStyle = document.createElement('style');
+            this.thumbnailsStyle = this.document.createElement('style');
             this.thumbnailsStyle.type = 'text/css';
-            document.body.appendChild(this.thumbnailsStyle);
+            this.document.body.appendChild(this.thumbnailsStyle);
         }
 
         let innerHTML = `
@@ -1008,18 +1010,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     bindDocumentListeners() {
-        if (!this.documentResizeListener) {
-            this.documentResizeListener = () => {
+        if(DomHandler.isClient()) {
+            const window = this.document.defaultView || 'window';
+            this.documentResizeListener = this.renderer.listen(window, 'resize', () => {
                 this.calculatePosition();
-            };
-
-            window.addEventListener('resize', this.documentResizeListener);
+            })
         }
     }
 
     unbindDocumentListeners() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
