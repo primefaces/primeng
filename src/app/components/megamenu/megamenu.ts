@@ -1,9 +1,10 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { DomHandler } from '../dom/domhandler';
 
 @Component({
     selector: 'p-megaMenu',
@@ -168,13 +169,13 @@ export class MegaMenu implements AfterContentInit {
 
     activeItem: any;
 
-    documentClickListener: any;
+    documentClickListener: () => void | null;
 
     startTemplate: TemplateRef<any>;
 
     endTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -278,22 +279,22 @@ export class MegaMenu implements AfterContentInit {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+        if(DomHandler.isClient()){
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.el && !this.el.nativeElement.contains(event.target)) {
+                        this.activeItem = null;
+                        this.unbindDocumentClickListener();
+                        this.cd.markForCheck();
+                    }
+                })
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
