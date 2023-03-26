@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
 import { RouterModule } from '@angular/router';
@@ -105,9 +105,9 @@ export class SlideMenuSub implements OnDestroy {
 
     slideMenu: SlideMenu;
 
-    transitionEndListener: any;
+    transitionEndListener: VoidFunction | null;
 
-    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu) {
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
         this.slideMenu = slideMenu as SlideMenu;
     }
     activeItem: any;
@@ -162,8 +162,7 @@ export class SlideMenuSub implements OnDestroy {
             case 'Enter':
                 if (listItem && !DomHandler.hasClass(listItem, 'p-disabled')) {
                     listItem.children[0].click();
-                    this.transitionEndListener = this.focusNextList.bind(this, listItem);
-                    this.sublistViewChild.nativeElement.addEventListener('transitionend', this.transitionEndListener);
+                    this.transitionEndListener = this.renderer.listen(this.sublistViewChild.nativeElement, 'transitionend', this.focusNextList.bind(this, listItem));
                 }
 
                 event.preventDefault();
@@ -176,7 +175,7 @@ export class SlideMenuSub implements OnDestroy {
 
     unbindTransitionEndListener() {
         if (this.transitionEndListener && this.sublistViewChild) {
-            this.sublistViewChild.nativeElement.removeEventListener('transitionend', this.transitionEndListener);
+            this.transitionEndListener();
             this.transitionEndListener = null;
         }
     }
@@ -263,13 +262,13 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     slideMenuContentViewChild: ElementRef;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     preventDocumentDefault: boolean;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
     left: number = 0;
 
@@ -281,7 +280,11 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     viewportUpdated: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterViewChecked() {
         if (!this.viewportUpdated && !this.popup && this.containerViewChild) {
@@ -303,7 +306,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     updateViewPort() {
-        this.slideMenuContentViewChild.nativeElement.style.height = this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px';
+        this.renderer.setStyle(this.slideMenuContentViewChild.nativeElement, 'height', this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px');
     }
 
     toggle(event) {
@@ -363,14 +366,14 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.containerViewChild.nativeElement);
+            if (this.appendTo === 'body')  this.renderer.appendChild(this.document.body,this.containerViewChild.nativeElement);
             else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild.nativeElement);
         }
     }
 
@@ -412,17 +415,19 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
-                if (!this.preventDocumentDefault) {
-                    this.hide();
-                    this.cd.detectChanges();
-                }
-
-                this.preventDocumentDefault = false;
-            });
+        if(DomHandler.isClient()){
+            if (!this.documentClickListener) {
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
+    
+                this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
+                    if (!this.preventDocumentDefault) {
+                        this.hide();
+                        this.cd.detectChanges();
+                    }
+    
+                    this.preventDocumentDefault = false;
+                });
+            }
         }
     }
 
@@ -434,27 +439,32 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if(DomHandler.isClient()){
+            if (!this.documentResizeListener) {
+                this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+            }
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
-                if (this.visible) {
-                    this.hide();
-                }
-            });
+        if(DomHandler.isClient()){
+            if (!this.scrollHandler) {
+                this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+                    if (this.visible) {
+                        this.hide();
+                    }
+                });
+            }
+    
+            this.scrollHandler.bindScrollListener();
         }
-
-        this.scrollHandler.bindScrollListener();
     }
 
     unbindScrollListener() {
