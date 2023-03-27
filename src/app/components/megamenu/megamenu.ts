@@ -4,7 +4,7 @@ import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-megaMenu',
