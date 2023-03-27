@@ -520,7 +520,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     mask: HTMLDivElement;
 
-    maskClickListener: Function;
+    maskClickListener: VoidFunction | null;
 
     overlay: HTMLDivElement;
 
@@ -536,9 +536,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     timePickerTimer: any;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    animationEndListener: any;
+    animationEndListener: VoidFunction | null;
 
     ticksTo1970: number;
 
@@ -582,9 +582,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     focusElement: any;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     navigationState: any = null;
 
@@ -754,7 +754,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         console.warn('Locale property has no effect, use new i18n API instead.');
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.attributeSelector = UniqueComponentId();
@@ -2500,16 +2504,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     enableModality(element) {
-        if (!this.mask && !this.touchUI) {
-            this.mask = this.document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
+        if (!this.mask && this.touchUI) {
+            this.mask = this.renderer.createElement('div');
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1))
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
-            this.document.body.appendChild(this.mask);
+            this.renderer.appendChild(this.document.body, this.mask)
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
@@ -2517,8 +2521,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     disableModality() {
         if (this.mask) {
             DomHandler.addClass(this.mask, 'p-component-overlay-leave');
-            this.animationEndListener = this.destroyMask.bind(this);
-            this.mask.addEventListener('animationend', this.animationEndListener);
+            if (!this.animationEndListener) {
+                this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyMask.bind(this));
+            }
         }
     }
 
@@ -2526,8 +2531,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.mask) {
             return;
         }
-
-        this.document.body.removeChild(this.mask);
+        this.renderer.removeChild(this.document.body, this.mask);
         let bodyChildren = this.document.body.children;
         let hasBlockerMasks: boolean;
         for (let i = 0; i < bodyChildren.length; i++) {
@@ -2556,7 +2560,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     unbindAnimationEndListener() {
         if (this.animationEndListener && this.mask) {
-            this.mask.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener();
             this.animationEndListener = null;
         }
     }
@@ -2942,9 +2946,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     createResponsiveStyle() {
         if (this.numberOfMonths > 1 && this.responsiveOptions) {
             if (!this.responsiveStyleElement) {
-                this.responsiveStyleElement = this.document.createElement('style');
+                this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                this.document.body.appendChild(this.responsiveStyleElement);
+                this.renderer.appendChild(this.document.body, this.responsiveStyleElement)
             }
 
             let innerHTML = '';
@@ -3014,14 +3018,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener && !this.touchUI) {
-            this.documentResizeListener = this.onWindowResize.bind(this);
-            this.document.defaultView.addEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
         }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
             this.documentResizeListener();
             this.documentResizeListener = null;
         }
