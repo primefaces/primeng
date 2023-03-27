@@ -119,7 +119,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     bindParentScrollListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.parentScrollListener = this.renderer.listen(this.el.nativeElement.parentElement, 'scroll', () => {
                 this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
             });
@@ -127,10 +127,10 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     bindDocumentScrollListener() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
                 this.checkVisibility(DomHandler.getWindowScrollTop());
-            })
+            });
         }
     }
 

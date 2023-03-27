@@ -187,7 +187,7 @@ export class KeyFilter implements Validator {
 
     @HostListener('paste', ['$event'])
     onPaste(e) {
-        const clipboardData = e.clipboardData || (<any> this.document.defaultView).clipboardData.getData('text');
+        const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
         if (clipboardData) {
             const pastedText = clipboardData.getData('text');
             for (let char of pastedText.toString()) {

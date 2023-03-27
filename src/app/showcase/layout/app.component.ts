@@ -53,15 +53,15 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     replaceLink(linkElement, theme) {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             const id = linkElement.getAttribute('id');
             const cloneLinkElement = linkElement.cloneNode(true);
-    
+
             cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.config.theme, theme));
             cloneLinkElement.setAttribute('id', id + '-clone');
-    
+
             linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-    
+
             cloneLinkElement.addEventListener('load', () => {
                 linkElement.remove();
                 cloneLinkElement.setAttribute('id', id);

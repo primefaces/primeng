@@ -605,7 +605,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        public zone: NgZone,
+        public tableService: TableService,
+        public cd: ChangeDetectorRef,
+        public filterService: FilterService,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -1868,7 +1877,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
 
                 this.selfClick = false;
-            })
+            });
         }
     }
 
@@ -2190,19 +2199,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     getStorage() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             switch (this.stateStorage) {
                 case 'local':
                     return window.localStorage;
-    
+
                 case 'session':
                     return window.sessionStorage;
-    
+
                 default:
                     throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
             }
-        }
-        else {
+        } else {
             throw new Error('Browser storage is not available in the server side.');
         }
     }
@@ -2422,12 +2430,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createResponsiveStyle() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
-    
+
                 let innerHTML = `
     @media screen and (max-width: ${this.breakpoint}) {
         #${this.id}-table > .p-datatable-thead > tr > th,
@@ -3232,13 +3240,13 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (this.isEnabled()) {
                 DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
                 this.resizer = this.renderer.createElement('span');
                 this.renderer.addClass(this.resizer, 'p-column-resizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
-    
+
                 this.zone.runOutsideAngular(() => {
                     this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
                 });
@@ -3323,37 +3331,37 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
                 this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
-        
+
                 this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
-        
+
                 this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
-        
+
                 this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
-        
+
                 this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
             });
         }
     }
-    
+
     unbindEvents() {
         if (this.mouseDownListener) {
             this.mouseDownListener();
             this.mouseDownListener = null;
         }
-    
+
         if (this.dragStartListener) {
             this.dragStartListener();
             this.dragStartListener = null;
         }
-    
+
         if (this.dragOverListener) {
             this.dragOverListener();
             this.dragOverListener = null;
         }
-    
+
         if (this.dragEnterListener) {
             this.dragEnterListener();
             this.dragEnterListener = null;

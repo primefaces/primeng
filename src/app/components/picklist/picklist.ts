@@ -1,4 +1,22 @@
-import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Renderer2, Inject } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    AfterContentInit,
+    AfterViewChecked,
+    Input,
+    Output,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    EventEmitter,
+    ViewChild,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    Renderer2,
+    Inject
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
@@ -910,13 +928,13 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.styleElement) {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
                 this.renderer.appendChild(this.document.head, this.styleElement);
-    
+
                 let innerHTML = `
                 @media screen and (max-width: ${this.breakpoint}) {
                     .p-picklist[${this.id}] {

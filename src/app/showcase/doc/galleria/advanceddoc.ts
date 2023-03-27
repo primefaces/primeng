@@ -136,7 +136,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     bindDocumentListeners() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.onFullScreenListener = this.onFullScreenChange.bind(this);
             document.addEventListener('fullscreenchange', this.onFullScreenListener);
             document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
@@ -146,7 +146,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     unbindDocumentListeners() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             document.removeEventListener('fullscreenchange', this.onFullScreenListener);
             document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
             document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);

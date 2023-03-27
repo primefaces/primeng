@@ -84,22 +84,22 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     createPanel() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.panel = this.renderer.createElement('div');
             this.renderer.addClass(this.panel, 'p-password-panel');
             this.renderer.addClass(this.panel, 'p-component');
             this.renderer.addClass(this.panel, 'p-password-panel-overlay');
             this.renderer.addClass(this.panel, 'p-connected-overlay');
-        
+
             this.meter = this.renderer.createElement('div');
             this.renderer.addClass(this.meter, 'p-password-meter');
             this.renderer.appendChild(this.panel, this.meter);
-        
+
             this.info = this.renderer.createElement('div');
             this.renderer.addClass(this.info, 'p-password-info');
             this.renderer.setProperty(this.info, 'textContent', this.promptLabel);
             this.renderer.appendChild(this.panel, this.info);
-        
+
             this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
             this.renderer.appendChild(document.body, this.panel);
         }
@@ -234,8 +234,8 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     bindDocumentResizeListener() {
-        if(DomHandler.isClient()){
-            if(!this.documentResizeListener) {
+        if (DomHandler.isClient()) {
+            if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
             }
@@ -646,7 +646,7 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     bindScrollListener() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
                     if (this.overlayVisible) {
@@ -654,20 +654,20 @@ export class Password implements AfterContentInit, OnInit {
                     }
                 });
             }
-    
+
             this.scrollHandler.bindScrollListener();
         }
     }
 
     bindResizeListener() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             if (!this.resizeListener) {
                 const window = this.document.defaultView as Window;
-                this.resizeListener = this.renderer.listen(window, 'resize', ()=> {
+                this.resizeListener = this.renderer.listen(window, 'resize', () => {
                     if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                         this.overlayVisible = false;
                     }
-                })
+                });
             }
         }
     }

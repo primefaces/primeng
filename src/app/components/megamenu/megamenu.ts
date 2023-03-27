@@ -279,7 +279,7 @@ export class MegaMenu implements AfterContentInit {
     }
 
     bindDocumentClickListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.documentClickListener) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.el && !this.el.nativeElement.contains(event.target)) {
@@ -287,7 +287,7 @@ export class MegaMenu implements AfterContentInit {
                         this.unbindDocumentClickListener();
                         this.cd.markForCheck();
                     }
-                })
+                });
             }
         }
     }

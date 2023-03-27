@@ -443,7 +443,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue: string = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public differs: IterableDiffers,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        private zone: NgZone
+    ) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }

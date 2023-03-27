@@ -117,7 +117,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
                 if (this.getOption('tooltipEvent') === 'hover') {
                     this.mouseEnterListener = this.onMouseEnter.bind(this);
@@ -129,7 +129,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 } else if (this.getOption('tooltipEvent') === 'focus') {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
-    
+
                     let target = this.getTarget(this.el.nativeElement);
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);

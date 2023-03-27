@@ -81,7 +81,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
                 if (this.active && this.isOutsideClicked(event)) {
                     this.active = false;
                 }
-            })
+            });
         }
     }
 
@@ -107,7 +107,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     applyScale() {
-        this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px')
+        this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px');
     }
 
     ngOnDestroy() {

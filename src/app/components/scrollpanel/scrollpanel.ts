@@ -1,4 +1,22 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, Renderer2 } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    Input,
+    AfterViewInit,
+    OnDestroy,
+    ElementRef,
+    NgZone,
+    ViewChild,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    AfterContentInit,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    Inject,
+    Renderer2
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
@@ -74,7 +92,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        if (DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
                 this.moveBar();
                 this.moveBar = this.moveBar.bind(this);
@@ -87,9 +105,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
                 this.contentScrollListener = this.renderer.listen(this.contentViewChild.nativeElement, 'scroll', this.moveBar);
                 this.mouseEnterListener = this.renderer.listen(this.contentViewChild.nativeElement, 'mouseenter', this.moveBar);
                 this.xBarMouseDownListener = this.renderer.listen(this.xBarViewChild.nativeElement, 'mousedown', this.onXBarMouseDown);
-                this.yBarMouseDownListener = this.renderer.listen(this.yBarViewChild.nativeElement, 'mousedown', this.onYBarMouseDown);  
+                this.yBarMouseDownListener = this.renderer.listen(this.yBarViewChild.nativeElement, 'mousedown', this.onYBarMouseDown);
                 this.calculateContainerHeight();
-          
+
                 this.initialized = true;
             });
         }

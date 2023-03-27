@@ -303,10 +303,10 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     bindDragListeners() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.ngZone.runOutsideAngular(() => {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
-    
+
                 if (!this.dragListener) {
                     this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
                         if (this.dragging) {
@@ -316,7 +316,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                         }
                     });
                 }
-    
+
                 if (!this.mouseupListener) {
                     this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
                         if (this.dragging) {
@@ -324,7 +324,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                             this.ngZone.run(() => {
                                 if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values });
                                 else this.onSlideEnd.emit({ originalEvent: event, value: this.value });
-    
+
                                 if (this.animate) {
                                     DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
                                 }

@@ -543,12 +543,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
-    
+
                 this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
                 this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
@@ -953,7 +953,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     bindResizeListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.windowResizeListener) {
                 this.zone.runOutsideAngular(() => {
                     const window = this.document.defaultView as Window;

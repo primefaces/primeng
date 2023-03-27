@@ -1,4 +1,22 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, AfterContentInit, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Inject, Renderer2 } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    AfterViewChecked,
+    AfterContentInit,
+    Input,
+    Output,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    EventEmitter,
+    ViewChild,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    Inject,
+    Renderer2
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
@@ -483,13 +501,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.styleElement) {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
-                this.renderer.appendChild(this.document.head, this.styleElement);      
-    
+                this.renderer.appendChild(this.document.head, this.styleElement);
+
                 let innerHTML = `
                     @media screen and (max-width: ${this.breakpoint}) {
                         .p-orderlist[${this.id}] {
@@ -517,7 +535,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     destroyStyle() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (this.styleElement) {
                 this.renderer.removeChild(this.document, this.styleElement);
                 this.styleElement = null;

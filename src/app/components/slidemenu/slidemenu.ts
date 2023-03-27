@@ -366,7 +366,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body')  this.renderer.appendChild(this.document.body,this.containerViewChild.nativeElement);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
             else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
@@ -415,16 +415,16 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.documentClickListener) {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
-    
+
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
                     if (!this.preventDocumentDefault) {
                         this.hide();
                         this.cd.detectChanges();
                     }
-    
+
                     this.preventDocumentDefault = false;
                 });
             }
@@ -439,7 +439,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.documentResizeListener) {
                 this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
             }
@@ -454,7 +454,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindScrollListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                     if (this.visible) {
@@ -462,7 +462,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                     }
                 });
             }
-    
+
             this.scrollHandler.bindScrollListener();
         }
     }

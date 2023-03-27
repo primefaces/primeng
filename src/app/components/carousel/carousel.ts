@@ -670,21 +670,21 @@ export class Carousel implements AfterContentInit {
     }
 
     bindDocumentListeners() {
-        if(DomHandler.isClient()){
-            if(!this.documentResizeListener) {
+        if (DomHandler.isClient()) {
+            if (!this.documentResizeListener) {
                 this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
                     this.calculatePosition();
-                })
+                });
             }
         }
     }
 
     unbindDocumentListeners() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             if (this.documentResizeListener) {
                 this.documentResizeListener();
                 this.documentResizeListener = null;
-            }    
+            }
         }
     }
 

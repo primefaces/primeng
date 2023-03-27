@@ -1889,21 +1889,20 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
                 if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                     this.headerScrollListener = this.renderer.listen(this.scrollHeaderBoxViewChild.nativeElement, 'scroll', this.onHeaderScroll.bind(this));
                 }
-    
+
                 if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
                     this.footerScrollListener = this.renderer.listen(this.scrollFooterViewChild.nativeElement, 'scroll', this.onFooterScroll.bind(this));
                 }
-    
+
                 if (!this.frozen) {
                     if (this.tt.virtualScroll) {
-                        this.bodyScrollListener = this.renderer.listen(this.scroller.getElementRef().nativeElement, 'scroll', this.onBodyScroll.bind(this)); 
-                    } 
-                    else {
+                        this.bodyScrollListener = this.renderer.listen(this.scroller.getElementRef().nativeElement, 'scroll', this.onBodyScroll.bind(this));
+                    } else {
                         this.bodyScrollListener = this.renderer.listen(this.scrollBodyViewChild.nativeElement, 'scroll', this.onBodyScroll.bind(this));
                     }
                 }

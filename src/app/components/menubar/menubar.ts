@@ -235,14 +235,14 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     bindDocumentClickListener() {
         if (DomHandler.isClient()) {
-            if (!this.documentClickListener){
+            if (!this.documentClickListener) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.el && !this.el.nativeElement.contains(event.target)) {
                         this.activeItem = null;
                         this.cd.markForCheck();
                         this.unbindDocumentClickListener();
                     }
-                })
+                });
             }
         }
     }
@@ -358,8 +358,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     bindOutsideClickListener() {
-        if(DomHandler.isClient()){
-            if(!this.outsideClickListener) {
+        if (DomHandler.isClient()) {
+            if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (
                         this.mobileActive &&
@@ -370,7 +370,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
                     ) {
                         this.hide();
                     }
-                })
+                });
             }
         }
     }

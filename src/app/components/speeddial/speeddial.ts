@@ -315,7 +315,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.documentClickListener && this.hideOnClickOutside) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.visible && this.isOutsideClicked(event)) {
@@ -323,8 +323,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
                     }
 
                     this.isItemClicked = false;
-                })
-            }    
+                });
+            }
         }
     }
 

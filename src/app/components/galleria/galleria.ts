@@ -1010,11 +1010,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     bindDocumentListeners() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             const window = this.document.defaultView || 'window';
             this.documentResizeListener = this.renderer.listen(window, 'resize', () => {
                 this.calculatePosition();
-            })
+            });
         }
     }
 

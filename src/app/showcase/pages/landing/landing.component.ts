@@ -97,7 +97,17 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private nodeService: NodeService,
+        private customerService: CustomerService,
+        private configService: AppConfigService,
+        private cd: ChangeDetectorRef,
+        public app: AppComponent,
+        private metaService: Meta,
+        private titleService: Title
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -232,7 +242,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.scrollListener) {
                 this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
                     if (window.scrollY > 0) {
@@ -240,7 +250,7 @@ export class LandingComponent implements OnInit, OnDestroy {
                     } else {
                         this.containerElement.nativeElement.classList.remove('landing-header-sticky');
                     }
-                })
+                });
             }
         }
     }
@@ -284,7 +294,7 @@ export class LandingComponent implements OnInit, OnDestroy {
             this.renderer.listen(cloneLinkElement, 'load', () => {
                 linkElement.remove();
                 cloneLinkElement.setAttribute('id', id);
-            })
+            });
         }
     }
 

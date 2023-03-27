@@ -1,6 +1,24 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Inject, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, Type, ViewChild, ViewEncapsulation, ViewRef } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ComponentFactoryResolver,
+    ComponentRef,
+    ElementRef,
+    Inject,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    PLATFORM_ID,
+    Renderer2,
+    Type,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -461,18 +479,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentDragListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
-                this.documentDragListener = this.renderer.listen(this.document, 'mousemove', this.onDrag.bind(this))
-            })
+                this.documentDragListener = this.renderer.listen(this.document, 'mousemove', this.onDrag.bind(this));
+            });
         }
     }
 
     bindDocumentDragEndListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
-                this.documentDragEndListener = this.renderer.listen(this.document, 'mouseup', this.endDrag.bind(this))
-            })
+                this.documentDragEndListener = this.renderer.listen(this.document, 'mouseup', this.endDrag.bind(this));
+            });
         }
     }
 
@@ -491,11 +509,11 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentResizeListeners() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
-                this.documentResizeListener = this.renderer.listen(this.document, 'mousemove', this.onResize.bind(this))
-                this.documentResizeEndListener = this.renderer.listen(this.document, 'mouseup', this.resizeEnd.bind(this))
-            })
+                this.documentResizeListener = this.renderer.listen(this.document, 'mousemove', this.onResize.bind(this));
+                this.documentResizeEndListener = this.renderer.listen(this.document, 'mouseup', this.resizeEnd.bind(this));
+            });
         }
     }
 
@@ -534,10 +552,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentKeydownListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.zone.runOutsideAngular(() => {
-                this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this))
-            })
+                this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
+            });
         }
     }
 

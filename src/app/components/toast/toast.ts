@@ -231,7 +231,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     template: TemplateRef<any>;
 
-    constructor(@Inject(DOCUMENT) private document: Document,private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     styleElement: any;
 
@@ -330,7 +330,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
-            this.renderer.setAttribute(this.containerViewChild.nativeElement, this.id, '')
+            this.renderer.setAttribute(this.containerViewChild.nativeElement, this.id, '');
             if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
                 ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
@@ -347,7 +347,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     createStyle() {
         if (!this.styleElement) {
-            this.styleElement = this.renderer.createElement('style')
+            this.styleElement = this.renderer.createElement('style');
             this.styleElement.type = 'text/css';
             this.renderer.appendChild(this.document.head, this.styleElement);
             let innerHTML = '';

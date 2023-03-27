@@ -302,7 +302,7 @@ export class TieredMenuSub implements OnDestroy {
                     this.cd.markForCheck();
                     this.unbindDocumentClickListener();
                 }
-            })
+            });
         }
     }
 
@@ -516,7 +516,7 @@ export class TieredMenu implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if(!this.documentResizeListener){
+        if (!this.documentResizeListener) {
             this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
         }
     }

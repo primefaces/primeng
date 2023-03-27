@@ -517,7 +517,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
         }
     }

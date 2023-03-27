@@ -185,7 +185,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             let ua = DomHandler.getUserAgent();
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
@@ -432,7 +432,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
             begin,
             end;
         let iPhone;
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             iPhone = /iphone/i.test(DomHandler.getUserAgent());
         }
         this.oldVal = this.inputViewChild.nativeElement.value;

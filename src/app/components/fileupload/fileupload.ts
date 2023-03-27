@@ -255,7 +255,16 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     dragOverListener: () => void | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private el: ElementRef,
+        public sanitizer: DomSanitizer,
+        public zone: NgZone,
+        private http: HttpClient,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -286,13 +295,13 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     ngAfterViewInit() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             if (this.mode === 'advanced') {
                 this.zone.runOutsideAngular(() => {
                     if (this.content) {
-                        this.dragOverListener = this.renderer.listen(this.content.nativeElement,'dragover', this.onDragOver.bind(this))
+                        this.dragOverListener = this.renderer.listen(this.content.nativeElement, 'dragover', this.onDragOver.bind(this));
                     }
-                })
+                });
             }
         }
     }
@@ -355,7 +364,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     isIE11() {
-        if(DomHandler.isClient()) {
+        if (DomHandler.isClient()) {
             return !!this.document.defaultView['MSInputMethodContext'] && !!this.document['documentMode'];
         }
     }

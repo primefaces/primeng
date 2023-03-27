@@ -54,7 +54,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
             }
         });
 
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             this.bindScrollListener();
         }
         // this.initDocSearch();
@@ -77,7 +77,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
                 } else {
                     this.containerElement.nativeElement.classList.remove('layout-topbar-sticky');
                 }
-            })
+            });
         }
     }
 
@@ -103,7 +103,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
                 if (this.isOutsideTopbarMenuClicked(event)) {
                     this.activeMenuIndex = null;
                 }
-            })
+            });
         }
     }
 

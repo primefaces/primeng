@@ -231,7 +231,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     enableModality() {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(this.container.style.zIndex) - 1))
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(this.container.style.zIndex) - 1));
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {
@@ -242,7 +242,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 });
             }
 
-            this.renderer.appendChild(this.document.body, this.mask)
+            this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
                 DomHandler.addClass(document.body, 'p-overflow-hidden');
             }

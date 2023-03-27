@@ -2506,14 +2506,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     enableModality(element) {
         if (!this.mask && this.touchUI) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1))
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
-            this.renderer.appendChild(this.document.body, this.mask)
+            this.renderer.appendChild(this.document.body, this.mask);
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
@@ -2948,7 +2948,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                this.renderer.appendChild(this.document.body, this.responsiveStyleElement)
+                this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
             let innerHTML = '';

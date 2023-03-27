@@ -236,7 +236,7 @@ export class Splitter {
             this.mouseUpListener = this.renderer.listen(this.document, 'mouseup', (event) => {
                 this.resizeEnd(event);
                 this.unbindMouseListeners();
-            })
+            });
         }
     }
 
@@ -244,14 +244,14 @@ export class Splitter {
         if (!this.touchMoveListener) {
             this.touchMoveListener = this.renderer.listen(this.document, 'touchmove', (event) => {
                 this.onResize(event.changedTouches[0]);
-            })
+            });
         }
 
         if (!this.touchEndListener) {
             this.touchEndListener = this.renderer.listen(this.document, 'touchend', (event) => {
                 this.resizeEnd(event);
                 this.unbindTouchListeners();
-            })
+            });
         }
     }
 
@@ -309,19 +309,18 @@ export class Splitter {
     }
 
     getStorage() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             switch (this.stateStorage) {
                 case 'local':
                     return this.window.localStorage;
-    
+
                 case 'session':
                     return this.window.sessionStorage;
-    
+
                 default:
                     throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
             }
-        }
-        else {
+        } else {
             throw new Error('Storage is not a available by default on the server.');
         }
     }

@@ -19,7 +19,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
     timeout: any;
 
     ngAfterViewInit() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (this.config && this.config.ripple) {
                 this.zone.runOutsideAngular(() => {
                     this.create();

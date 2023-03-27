@@ -157,23 +157,23 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if(DomHandler.isClient()){
-            if(!this.documentClickListener && this.dismissable) {
-                this.zone.runOutsideAngular(() =>{
+        if (DomHandler.isClient()) {
+            if (!this.documentClickListener && this.dismissable) {
+                this.zone.runOutsideAngular(() => {
                     let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
                     const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
-    
+
                     this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                         if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                             this.zone.run(() => {
                                 this.hide();
                             });
                         }
-    
+
                         this.selfClick = false;
                         this.cd.markForCheck();
                     });
-                })
+                });
             }
         }
     }
@@ -355,8 +355,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if(DomHandler.isClient()){
-            if(!this.documentResizeListener) {
+        if (DomHandler.isClient()) {
+            if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
             }
@@ -371,7 +371,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                     if (this.overlayVisible) {
@@ -379,7 +379,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     }
                 });
             }
-    
+
             this.scrollHandler.bindScrollListener();
         }
     }

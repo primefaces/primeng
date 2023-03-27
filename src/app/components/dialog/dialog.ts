@@ -289,7 +289,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     transformOptions: any = 'scale(0.7)';
 
     styleElement: any;
-    
+
     private window: Window;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
@@ -445,7 +445,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     createStyle() {
-        if(DomHandler.isClient()){
+        if (DomHandler.isClient()) {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
@@ -460,7 +460,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                         }
                     `;
                 }
-    
+
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
             }
         }
@@ -642,7 +642,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     bindDocumentDragListener() {
-        if(!this.documentDragListener) {
+        if (!this.documentDragListener) {
             this.zone.runOutsideAngular(() => {
                 this.documentDragListener = this.renderer.listen(this.window, 'mousemove', this.onDrag.bind(this));
             });
@@ -657,7 +657,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     bindDocumentDragEndListener() {
-        if(!this.documentDragEndListener) {
+        if (!this.documentDragEndListener) {
             this.zone.runOutsideAngular(() => {
                 this.documentDragEndListener = this.renderer.listen(this.window, 'mouseup', this.endDrag.bind(this));
             });
