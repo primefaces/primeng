@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
+    Inject,
     Injectable,
     Input,
     NgModule,
@@ -19,6 +20,7 @@ import {
     OnInit,
     Output,
     QueryList,
+    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -417,7 +419,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     editingCellClick: boolean;
 
-    documentEditListener: any;
+    documentEditListener: VoidFunction | null;
 
     initialized: boolean;
 
@@ -496,7 +498,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         });
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -1655,7 +1657,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
-            this.documentEditListener = (event) => {
+            this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
@@ -1666,15 +1668,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
 
                 this.editingCellClick = false;
-            };
-
-            document.addEventListener('click', this.documentEditListener);
+            });
         }
     }
 
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
-            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener();
             this.documentEditListener = null;
         }
     }
@@ -2123,46 +2123,44 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     resizer: HTMLSpanElement;
 
-    resizerMouseDownListener: any;
+    resizerMouseDownListener: VoidFunction | null;
 
-    documentMouseMoveListener: any;
+    documentMouseMoveListener: VoidFunction | null;
 
-    documentMouseUpListener: any;
+    documentMouseUpListener: VoidFunction | null;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
-            this.resizer = document.createElement('span');
-            this.resizer.className = 'p-column-resizer';
-            this.el.nativeElement.appendChild(this.resizer);
+        if (DomHandler.isClient()) {
+            if (this.isEnabled()) {
+                DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
+                this.resizer = this.renderer.createElement('span');
+                this.renderer.addClass(this.resizer, 'p-column-resizer');
+                this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
-            this.zone.runOutsideAngular(() => {
-                this.resizerMouseDownListener = this.onMouseDown.bind(this);
-                this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
-            });
+                this.zone.runOutsideAngular(() => {
+                    this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                });
+            }
         }
     }
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
-            this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
-            document.addEventListener('mousemove', this.documentMouseMoveListener);
-
-            this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
-            document.addEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
+            this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
         });
     }
 
     unbindDocumentEvents() {
         if (this.documentMouseMoveListener) {
-            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener();
             this.documentMouseMoveListener = null;
         }
 
         if (this.documentMouseUpListener) {
-            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener();
             this.documentMouseUpListener = null;
         }
     }
@@ -2187,7 +2185,8 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         if (this.resizerMouseDownListener) {
-            this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
+            this.resizerMouseDownListener();
+            this.resizerMouseDownListener = null;
         }
 
         this.unbindDocumentEvents();
@@ -2203,17 +2202,17 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     @Input() ttReorderableColumnDisabled: boolean;
 
-    dragStartListener: any;
+    dragStartListener: VoidFunction | null;
 
-    dragOverListener: any;
+    dragOverListener: VoidFunction | null;
 
-    dragEnterListener: any;
+    dragEnterListener: VoidFunction | null;
 
-    dragLeaveListener: any;
+    dragLeaveListener: VoidFunction | null;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidFunction | null;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2222,48 +2221,43 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
-
-            this.dragOverListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
-
-            this.dragEnterListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragenter', this.dragEnterListener);
-
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
-        });
+        if (DomHandler.isClient()) {
+            this.zone.runOutsideAngular(() => {
+                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+                this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
+                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragEnter.bind(this));
+                this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
+                this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
+            });
+        }
     }
 
     unbindEvents() {
-        if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
-            this.mouseDownListener = null;
-        }
+        if (DomHandler.isClient()) {
+            if (this.mouseDownListener) {
+                this.mouseDownListener();
+                this.mouseDownListener = null;
+            }
 
-        if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
-            this.dragOverListener = null;
-        }
+            if (this.dragOverListener) {
+                this.dragOverListener();
+                this.dragOverListener = null;
+            }
 
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
+            if (this.dragEnterListener) {
+                this.dragEnterListener();
+                this.dragEnterListener = null;
+            }
 
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
+            if (this.dragEnterListener) {
+                this.dragEnterListener();
+                this.dragEnterListener = null;
+            }
 
-        if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
-            this.dragLeaveListener = null;
+            if (this.dragLeaveListener) {
+                this.dragLeaveListener();
+                this.dragLeaveListener = null;
+            }
         }
     }
 
