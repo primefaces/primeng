@@ -34,7 +34,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     _blocked: boolean;
 
-    animationEndListener: any;
+    animationEndListener: VoidFunction | null;
 
     contentTemplate: TemplateRef<any>;
 
@@ -89,9 +89,8 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     }
 
     unblock() {
-        this.animationEndListener = this.destroyModal.bind(this);
         if (this.mask) {
-            this.mask.nativeElement.addEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
     }
@@ -101,7 +100,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         if (this.mask) {
             DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             ZIndexUtils.clear(this.mask.nativeElement);
-            this.el.nativeElement.appendChild(this.mask.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.mask.nativeElement);
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
@@ -109,7 +108,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     unbindAnimationEndListener() {
         if (this.animationEndListener && this.mask) {
-            this.mask.nativeElement.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener();
             this.animationEndListener = null;
         }
     }
