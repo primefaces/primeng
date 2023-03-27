@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 import { Table } from 'primeng/table';
 import { AppConfig } from '../../domain/appconfig';
 import { Customer, Representative } from '../../domain/customer';
@@ -93,7 +95,11 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     usersImages: any;
 
-    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
@@ -226,22 +232,22 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if (!this.scrollListener) {
-            this.scrollListener = () => {
-                if (window.scrollY > 0) {
-                    this.containerElement.nativeElement.classList.add('landing-header-sticky');
-                } else {
-                    this.containerElement.nativeElement.classList.remove('landing-header-sticky');
-                }
-            };
+        if(DomHandler.isClient()){
+            if (!this.scrollListener) {
+                this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                    if (window.scrollY > 0) {
+                        this.containerElement.nativeElement.classList.add('landing-header-sticky');
+                    } else {
+                        this.containerElement.nativeElement.classList.remove('landing-header-sticky');
+                    }
+                })
+            }
         }
-
-        window.addEventListener('scroll', this.scrollListener);
     }
 
     unbindScrollListener() {
         if (this.scrollListener) {
-            window.removeEventListener('scroll', this.scrollListener);
+            this.scrollListener();
             this.scrollListener = null;
         }
     }
@@ -275,11 +281,10 @@ export class LandingComponent implements OnInit, OnDestroy {
             cloneLinkElement.setAttribute('id', id + '-clone');
 
             linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-            cloneLinkElement.addEventListener('load', () => {
+            this.renderer.listen(cloneLinkElement, 'load', () => {
                 linkElement.remove();
                 cloneLinkElement.setAttribute('id', id);
-            });
+            })
         }
     }
 

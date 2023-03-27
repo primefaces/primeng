@@ -246,19 +246,19 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean;
 
-    documentDragListener: any;
+    documentDragListener: VoidFunction | null;
 
-    documentDragEndListener: any;
+    documentDragEndListener: VoidFunction | null;
 
     resizing: boolean;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
-    documentResizeEndListener: any;
+    documentResizeEndListener: VoidFunction | null;
 
-    documentEscapeListener: Function;
+    documentEscapeListener: VoidFunction | null;
 
-    maskClickListener: Function;
+    maskClickListener: VoidFunction | null;
 
     lastPageX: number;
 
@@ -289,8 +289,12 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     transformOptions: any = 'scale(0.7)';
 
     styleElement: any;
+    
+    private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -441,22 +445,24 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     createStyle() {
-        if (!this.styleElement) {
-            this.styleElement = this.document.createElement('style');
-            this.styleElement.type = 'text/css';
-            this.document.head.appendChild(this.styleElement);
-            let innerHTML = '';
-            for (let breakpoint in this.breakpoints) {
-                innerHTML += `
-                    @media screen and (max-width: ${breakpoint}) {
-                        .p-dialog[${this.id}] {
-                            width: ${this.breakpoints[breakpoint]} !important;
+        if(DomHandler.isClient()){
+            if (!this.styleElement) {
+                this.styleElement = this.renderer.createElement('style');
+                this.styleElement.type = 'text/css';
+                this.renderer.appendChild(this.document.head, this.styleElement);
+                let innerHTML = '';
+                for (let breakpoint in this.breakpoints) {
+                    innerHTML += `
+                        @media screen and (max-width: ${breakpoint}) {
+                            .p-dialog[${this.id}] {
+                                width: ${this.breakpoints[breakpoint]} !important;
+                            }
                         }
-                    }
-                `;
+                    `;
+                }
+    
+                this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
             }
-
-            this.styleElement.innerHTML = innerHTML;
         }
     }
 
@@ -636,46 +642,48 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     bindDocumentDragListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentDragListener = this.onDrag.bind(this);
-            this.document.defaultView.addEventListener('mousemove', this.documentDragListener);
-        });
+        if(!this.documentDragListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentDragListener = this.renderer.listen(this.window, 'mousemove', this.onDrag.bind(this));
+            });
+        }
     }
 
     unbindDocumentDragListener() {
         if (this.documentDragListener) {
-            this.document.defaultView.removeEventListener('mousemove', this.documentDragListener);
+            this.documentDragListener();
             this.documentDragListener = null;
         }
     }
 
     bindDocumentDragEndListener() {
-        this.zone.runOutsideAngular(() => {
-            this.documentDragEndListener = this.endDrag.bind(this);
-            this.document.defaultView.addEventListener('mouseup', this.documentDragEndListener);
-        });
+        if(!this.documentDragEndListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentDragEndListener = this.renderer.listen(this.window, 'mouseup', this.endDrag.bind(this));
+            });
+        }
     }
 
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
-            this.document.defaultView.removeEventListener('mouseup', this.documentDragEndListener);
+            this.documentDragEndListener();
             this.documentDragEndListener = null;
         }
     }
 
     bindDocumentResizeListeners() {
-        this.zone.runOutsideAngular(() => {
-            this.documentResizeListener = this.onResize.bind(this);
-            this.documentResizeEndListener = this.resizeEnd.bind(this);
-            this.document.defaultView.addEventListener('mousemove', this.documentResizeListener);
-            this.document.defaultView.addEventListener('mouseup', this.documentResizeEndListener);
-        });
+        if (!this.documentResizeListener && !this.documentResizeEndListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentResizeListener = this.renderer.listen(this.window, 'mousemove', this.onResize.bind(this));
+                this.documentResizeEndListener = this.renderer.listen(this.window, 'mouseup', this.resizeEnd.bind(this));
+            });
+        }
     }
 
     unbindDocumentResizeListeners() {
         if (this.documentResizeListener && this.documentResizeEndListener) {
-            this.document.defaultView.removeEventListener('mousemove', this.documentResizeListener);
-            this.document.defaultView.removeEventListener('mouseup', this.documentResizeEndListener);
+            this.documentResizeListener();
+            this.documentResizeEndListener();
             this.documentResizeListener = null;
             this.documentResizeEndListener = null;
         }
@@ -700,14 +708,14 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
 
     restoreAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.wrapper);
+            this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }
 
@@ -786,7 +794,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     destroyStyle() {
         if (this.styleElement) {
-            this.document.head.removeChild(this.styleElement);
+            this.renderer.removeChild(this.document.head, this.styleElement);
             this.styleElement = null;
         }
     }

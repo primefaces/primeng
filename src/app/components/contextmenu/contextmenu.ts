@@ -248,21 +248,25 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentTriggerListener: any;
+    documentTriggerListener: VoidFunction | null;
 
-    documentKeydownListener: any;
+    documentKeydownListener: VoidFunction | null;
 
-    windowResizeListener: any;
+    windowResizeListener: VoidFunction | null;
 
-    triggerEventListener: any;
+    triggerEventListener: VoidFunction | null;
 
     ngDestroy$ = new Subject();
 
     preventDocumentDefault: boolean = false;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterViewInit() {
         if (this.global) {
@@ -279,7 +283,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.containerViewChild.nativeElement);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
             else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
@@ -461,8 +465,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
-                this.windowResizeListener = this.onWindowResize.bind(this);
-                this.document.defaultView.addEventListener('resize', this.windowResizeListener);
+                this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
             }
         });
 
@@ -616,7 +619,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.windowResizeListener) {
-            this.document.defaultView.removeEventListener('resize', this.windowResizeListener);
+            this.windowResizeListener();
             this.windowResizeListener = null;
         }
 
@@ -641,6 +644,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (this.triggerEventListener) {
             this.triggerEventListener();
+            this.triggerEventListener = null;
         }
 
         if (this.containerViewChild && this.autoZIndex) {
@@ -648,7 +652,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild.nativeElement);
         }
 
         this.ngDestroy$.next(true);

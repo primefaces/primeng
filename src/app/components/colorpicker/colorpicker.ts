@@ -139,7 +139,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
@@ -377,14 +381,14 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
             else DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
 
     restoreOverlayAppend() {
         if (this.overlay && this.appendTo) {
-            this.el.nativeElement.appendChild(this.overlay);
+            this.renderer.appendChild(this.el.nativeElement, this.overlay);
         }
     }
 
@@ -513,13 +517,14 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        this.document.defaultView.addEventListener('resize', this.documentResizeListener);
+        if(DomHandler.isClient()){
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }

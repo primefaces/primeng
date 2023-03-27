@@ -1835,11 +1835,11 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 
     @ViewChild('scroller') scroller: Scroller;
 
-    headerScrollListener;
+    headerScrollListener: VoidFunction | null;
 
-    bodyScrollListener;
+    bodyScrollListener: VoidFunction | null;
 
-    footerScrollListener;
+    footerScrollListener: VoidFunction | null;
 
     frozenSiblingBody: Element;
 
@@ -1859,7 +1859,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -1889,41 +1889,47 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
-            }
-
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.footerScrollListener = this.onFooterScroll.bind(this);
-                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
-            }
-
-            if (!this.frozen) {
-                this.bodyScrollListener = this.onBodyScroll.bind(this);
-
-                if (this.tt.virtualScroll) this.scroller.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
-                else this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
-            }
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                    this.headerScrollListener = this.renderer.listen(this.scrollHeaderBoxViewChild.nativeElement, 'scroll', this.onHeaderScroll.bind(this));
+                }
+    
+                if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                    this.footerScrollListener = this.renderer.listen(this.scrollFooterViewChild.nativeElement, 'scroll', this.onFooterScroll.bind(this));
+                }
+    
+                if (!this.frozen) {
+                    if (this.tt.virtualScroll) {
+                        this.bodyScrollListener = this.renderer.listen(this.scroller.getElementRef().nativeElement, 'scroll', this.onBodyScroll.bind(this)); 
+                    } 
+                    else {
+                        this.bodyScrollListener = this.renderer.listen(this.scrollBodyViewChild.nativeElement, 'scroll', this.onBodyScroll.bind(this));
+                    }
+                }
+            });
+        }
     }
 
     unbindEvents() {
         if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
+            this.headerScrollListener();
+            this.headerScrollListener = null;
         }
 
         if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
+            this.footerScrollListener();
+            this.footerScrollListener = null;
         }
 
         if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+            this.bodyScrollListener();
+            this.bodyScrollListener = null;
         }
 
         if (this.scroller && this.scroller.getElementRef()) {
-            this.scroller.getElementRef().nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+            this.bodyScrollListener();
+            this.bodyScrollListener = null;
         }
     }
 

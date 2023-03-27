@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DomHandler } from 'primeng/dom';
 import { Galleria } from 'primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
@@ -135,19 +136,23 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     bindDocumentListeners() {
-        this.onFullScreenListener = this.onFullScreenChange.bind(this);
-        document.addEventListener('fullscreenchange', this.onFullScreenListener);
-        document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
-        document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
-        document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        if(DomHandler.isClient()){
+            this.onFullScreenListener = this.onFullScreenChange.bind(this);
+            document.addEventListener('fullscreenchange', this.onFullScreenListener);
+            document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        }
     }
 
     unbindDocumentListeners() {
-        document.removeEventListener('fullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
-        document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
-        this.onFullScreenListener = null;
+        if(DomHandler.isClient()){
+            document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+            this.onFullScreenListener = null;
+        }
     }
 
     ngOnDestroy() {

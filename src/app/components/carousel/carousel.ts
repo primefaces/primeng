@@ -23,6 +23,7 @@ import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-carousel',
@@ -230,8 +231,11 @@ export class Carousel implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
+    window: Window;
+
     constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
+        this.window = this.document.defaultView as Window;
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -666,19 +670,21 @@ export class Carousel implements AfterContentInit {
     }
 
     bindDocumentListeners() {
-        if (!this.documentResizeListener && typeof window !== 'undefined') {
-            this.documentResizeListener = (e) => {
-                this.calculatePosition();
-            };
-
-            this.document.defaultView.addEventListener('resize', this.documentResizeListener);
+        if(DomHandler.isClient()){
+            if(!this.documentResizeListener) {
+                this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+                    this.calculatePosition();
+                })
+            }
         }
     }
 
     unbindDocumentListeners() {
-        if (this.documentResizeListener && typeof window !== 'undefined') {
-            this.document.defaultView.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
+        if(DomHandler.isClient()) {
+            if (this.documentResizeListener) {
+                this.documentResizeListener();
+                this.documentResizeListener = null;
+            }    
         }
     }
 

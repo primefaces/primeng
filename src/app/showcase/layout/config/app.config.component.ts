@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     scales: number[] = [12, 13, 14, 15, 16];
 
-    outsideClickListener: any;
+    outsideClickListener: VoidFunction | null;
 
     config: AppConfig;
 
@@ -24,7 +25,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
-    constructor(private el: ElementRef, private router: Router, private configService: AppConfigService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
         this.config = this.configService.config;
@@ -76,18 +77,17 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
+            this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.active && this.isOutsideClicked(event)) {
                     this.active = false;
                 }
-            };
-            document.addEventListener('click', this.outsideClickListener);
+            })
         }
     }
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            this.outsideClickListener();
             this.outsideClickListener = null;
         }
     }
@@ -107,7 +107,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     applyScale() {
-        document.documentElement.style.fontSize = this.scale + 'px';
+        this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px')
     }
 
     ngOnDestroy() {

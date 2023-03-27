@@ -1,7 +1,9 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import docsearch from '@docsearch/js';
+import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
 import { AppConfig } from '../../domain/appconfig';
@@ -26,7 +28,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     activeMenuIndex: number;
 
-    outsideClickListener: any;
+    outsideClickListener: VoidFunction | null;
 
     config: AppConfig;
 
@@ -34,9 +36,13 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     versions: any[] = Versions;
 
-    scrollListener: any;
+    scrollListener: VoidFunction | null;
 
-    constructor(private router: Router, private configService: AppConfigService) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.config = this.configService.config;
@@ -48,31 +54,31 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
             }
         });
 
-        this.bindScrollListener();
+        if(DomHandler.isClient()){
+            this.bindScrollListener();
+        }
         // this.initDocSearch();
     }
 
-    initDocSearch() {
-        docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
-            indexName: 'primeng',
-            container: '#docsearch'
-        });
-    }
+    // initDocSearch() {
+    //     docsearch({
+    //         appId: 'XG1L2MUWT9',
+    //         apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
+    //         indexName: 'primeng',
+    //         container: '#docsearch'
+    //     });
+    // }
 
     bindScrollListener() {
         if (!this.scrollListener) {
-            this.scrollListener = () => {
-                if (window.scrollY > 0) {
+            this.scrollListener = this.renderer.listen(this.window, 'scroll', (event) => {
+                if (this.window.scrollY > 0) {
                     this.containerElement.nativeElement.classList.add('layout-topbar-sticky');
                 } else {
                     this.containerElement.nativeElement.classList.remove('layout-topbar-sticky');
                 }
-            };
+            })
         }
-
-        window.addEventListener('scroll', this.scrollListener);
     }
 
     onMenuButtonClick(event: Event) {
@@ -93,26 +99,24 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     bindOutsideClickListener() {
         if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
+            this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.isOutsideTopbarMenuClicked(event)) {
                     this.activeMenuIndex = null;
                 }
-            };
-
-            document.addEventListener('click', this.outsideClickListener);
+            })
         }
     }
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            this.outsideClickListener();
             this.outsideClickListener = null;
         }
     }
 
     unbindScrollListener() {
         if (this.scrollListener) {
-            window.removeEventListener('scroll', this.scrollListener);
+            this.scrollListener();
             this.scrollListener = null;
         }
     }

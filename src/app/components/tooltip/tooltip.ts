@@ -117,23 +117,25 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            if (this.getOption('tooltipEvent') === 'hover') {
-                this.mouseEnterListener = this.onMouseEnter.bind(this);
-                this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onInputClick.bind(this);
-                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('click', this.clickListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-            } else if (this.getOption('tooltipEvent') === 'focus') {
-                this.focusListener = this.onFocus.bind(this);
-                this.blurListener = this.onBlur.bind(this);
-
-                let target = this.getTarget(this.el.nativeElement);
-                target.addEventListener('focus', this.focusListener);
-                target.addEventListener('blur', this.blurListener);
-            }
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                if (this.getOption('tooltipEvent') === 'hover') {
+                    this.mouseEnterListener = this.onMouseEnter.bind(this);
+                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                    this.clickListener = this.onInputClick.bind(this);
+                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                    this.el.nativeElement.addEventListener('click', this.clickListener);
+                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+                } else if (this.getOption('tooltipEvent') === 'focus') {
+                    this.focusListener = this.onFocus.bind(this);
+                    this.blurListener = this.onBlur.bind(this);
+    
+                    let target = this.getTarget(this.el.nativeElement);
+                    target.addEventListener('focus', this.focusListener);
+                    target.addEventListener('blur', this.blurListener);
+                }
+            });
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
