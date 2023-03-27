@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the <a href="/locale">locale</a> API via <i>star</i> and <i>stars</i> of the <i>aria</i>
+                    Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the <a href="/configuration/#locale">locale</a> API via <i>star</i> and <i>stars</i> of the
+                    <i>aria</i>
                     property.
                 </p>
             </app-docsectiontext>
