@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -11,6 +11,7 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
+    Inject,
     Injectable,
     Input,
     NgModule,
@@ -602,7 +603,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     responsiveStyleElement: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, public tableService: TableService, public cd: ChangeDetectorRef, public filterService: FilterService, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -1788,18 +1793,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             type: 'text/csv;charset=utf-8;'
         });
 
-        let link = document.createElement('a');
+        let link = this.renderer.createElement('a');
         link.style.display = 'none';
-        document.body.appendChild(link);
+        this.renderer.appendChild(this.document.body, link);
         if (link.download !== undefined) {
             link.setAttribute('href', URL.createObjectURL(blob));
             link.setAttribute('download', this.exportFilename + '.csv');
             link.click();
         } else {
             csv = 'data:text/csv;charset=utf-8,' + csv;
-            window.open(encodeURI(csv));
+            this.window.open(encodeURI(csv));
         }
-        document.body.removeChild(link);
+        this.renderer.removeChild(this.document.body, link);
     }
 
     onLazyItemLoad(event) {
@@ -1846,7 +1851,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
-            this.documentEditListener = (event) => {
+            this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
@@ -1863,15 +1868,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
 
                 this.selfClick = false;
-            };
-
-            document.addEventListener('click', this.documentEditListener);
+            })
         }
     }
 
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
-            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener();
             this.documentEditListener = null;
         }
     }
@@ -2019,7 +2022,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             `;
         });
 
-        this.styleElement.innerHTML = innerHTML;
+        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
     onColumnDragStart(event, columnElement) {
@@ -2187,15 +2190,20 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     getStorage() {
-        switch (this.stateStorage) {
-            case 'local':
-                return window.localStorage;
-
-            case 'session':
-                return window.sessionStorage;
-
-            default:
-                throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+        if(DomHandler.isClient()){
+            switch (this.stateStorage) {
+                case 'local':
+                    return window.localStorage;
+    
+                case 'session':
+                    return window.sessionStorage;
+    
+                default:
+                    throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+            }
+        }
+        else {
+            throw new Error('Browser storage is not available in the server side.');
         }
     }
 
@@ -2404,9 +2412,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createStyleElement() {
-        this.styleElement = document.createElement('style');
+        this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
-        document.head.appendChild(this.styleElement);
+        this.renderer.appendChild(this.document.head, this.styleElement);
     }
 
     getGroupRowsMeta() {
@@ -2414,55 +2422,56 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createResponsiveStyle() {
-        if (!this.responsiveStyleElement) {
-            this.responsiveStyleElement = document.createElement('style');
-            this.responsiveStyleElement.type = 'text/css';
-            document.head.appendChild(this.responsiveStyleElement);
-
-            let innerHTML = `
-@media screen and (max-width: ${this.breakpoint}) {
-    #${this.id}-table > .p-datatable-thead > tr > th,
-    #${this.id}-table > .p-datatable-tfoot > tr > td {
-        display: none !important;
+        if(DomHandler.isClient()){
+            if (!this.responsiveStyleElement) {
+                this.responsiveStyleElement = this.renderer.createElement('style');
+                this.responsiveStyleElement.type = 'text/css';
+                this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
+    
+                let innerHTML = `
+    @media screen and (max-width: ${this.breakpoint}) {
+        #${this.id}-table > .p-datatable-thead > tr > th,
+        #${this.id}-table > .p-datatable-tfoot > tr > td {
+            display: none !important;
+        }
+    
+        #${this.id}-table > .p-datatable-tbody > tr > td {
+            display: flex;
+            width: 100% !important;
+            align-items: center;
+            justify-content: space-between;
+        }
+    
+        #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
+            border: 0 none;
+        }
+    
+        #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
+            border-top: 0;
+            border-right: 0;
+            border-left: 0;
+        }
+    
+        #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
+            display: block;
+        }
     }
-
-    #${this.id}-table > .p-datatable-tbody > tr > td {
-        display: flex;
-        width: 100% !important;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
-        border: 0 none;
-    }
-
-    #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
-        border-top: 0;
-        border-right: 0;
-        border-left: 0;
-    }
-
-    #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
-        display: block;
-    }
-}
-`;
-
-            this.responsiveStyleElement.innerHTML = innerHTML;
+    `;
+                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+            }
         }
     }
 
     destroyResponsiveStyle() {
         if (this.responsiveStyleElement) {
-            document.head.removeChild(this.responsiveStyleElement);
+            this.renderer.removeChild(this.document.head, this.responsiveStyleElement);
             this.responsiveStyleElement = null;
         }
     }
 
     destroyStyleElement() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.renderer.removeChild(this.document.head, this.styleElement);
             this.styleElement = null;
         }
     }
@@ -3214,46 +3223,44 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     resizer: HTMLSpanElement;
 
-    resizerMouseDownListener: any;
+    resizerMouseDownListener: VoidFunction | null;
 
-    documentMouseMoveListener: any;
+    documentMouseMoveListener: VoidFunction | null;
 
-    documentMouseUpListener: any;
+    documentMouseUpListener: VoidFunction | null;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
-            this.resizer = document.createElement('span');
-            this.resizer.className = 'p-column-resizer';
-            this.el.nativeElement.appendChild(this.resizer);
-
-            this.zone.runOutsideAngular(() => {
-                this.resizerMouseDownListener = this.onMouseDown.bind(this);
-                this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
-            });
+        if(DomHandler.isClient()){
+            if (this.isEnabled()) {
+                DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
+                this.resizer = this.renderer.createElement('span');
+                this.renderer.addClass(this.resizer, 'p-column-resizer');
+                this.renderer.appendChild(this.el.nativeElement, this.resizer);
+    
+                this.zone.runOutsideAngular(() => {
+                    this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                });
+            }
         }
     }
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
-            this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
-            document.addEventListener('mousemove', this.documentMouseMoveListener);
-
-            this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
-            document.addEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
+            this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
         });
     }
 
     unbindDocumentEvents() {
         if (this.documentMouseMoveListener) {
-            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener();
             this.documentMouseMoveListener = null;
         }
 
         if (this.documentMouseUpListener) {
-            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener();
             this.documentMouseUpListener = null;
         }
     }
@@ -3280,7 +3287,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         if (this.resizerMouseDownListener) {
-            this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
+            this.resizerMouseDownListener();
+            this.resizerMouseDownListener = null;
         }
 
         this.unbindDocumentEvents();
@@ -3296,17 +3304,17 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
     @Input() pReorderableColumnDisabled: boolean;
 
-    dragStartListener: any;
+    dragStartListener: VoidFunction | null;
 
-    dragOverListener: any;
+    dragOverListener: VoidFunction | null;
 
-    dragEnterListener: any;
+    dragEnterListener: VoidFunction | null;
 
-    dragLeaveListener: any;
+    dragLeaveListener: VoidFunction | null;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidFunction | null;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3315,47 +3323,44 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
-
-            this.dragOverListener = this.onDragOver.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
-
-            this.dragEnterListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragenter', this.dragEnterListener);
-
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
-        });
+        if(DomHandler.isClient()){
+            this.zone.runOutsideAngular(() => {
+                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+        
+                this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
+        
+                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
+        
+                this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
+        
+                this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
+            });
+        }
     }
-
+    
     unbindEvents() {
         if (this.mouseDownListener) {
-            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
+            this.mouseDownListener();
             this.mouseDownListener = null;
         }
-
-        if (this.dragOverListener) {
-            this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
-            this.dragOverListener = null;
-        }
-
+    
         if (this.dragStartListener) {
-            this.el.nativeElement.removeEventListener('dragstart', this.dragStartListener);
+            this.dragStartListener();
             this.dragStartListener = null;
         }
-
+    
+        if (this.dragOverListener) {
+            this.dragOverListener();
+            this.dragOverListener = null;
+        }
+    
         if (this.dragEnterListener) {
-            this.el.nativeElement.removeEventListener('dragenter', this.dragEnterListener);
+            this.dragEnterListener();
             this.dragEnterListener = null;
         }
 
         if (this.dragLeaveListener) {
-            this.el.nativeElement.removeEventListener('dragleave', this.dragLeaveListener);
+            this.dragLeaveListener();
             this.dragLeaveListener = null;
         }
     }
@@ -4108,19 +4113,19 @@ export class ReorderableRow implements AfterViewInit {
 
     @Input() pReorderableRowDisabled: boolean;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidFunction | null;
 
-    dragStartListener: any;
+    dragStartListener: VoidFunction | null;
 
-    dragEndListener: any;
+    dragEndListener: VoidFunction | null;
 
-    dragOverListener: any;
+    dragOverListener: VoidFunction | null;
 
-    dragLeaveListener: any;
+    dragLeaveListener: VoidFunction | null;
 
-    dropListener: any;
+    dropListener: VoidFunction | null;
 
-    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -4131,46 +4136,41 @@ export class ReorderableRow implements AfterViewInit {
 
     bindEvents() {
         this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
+            this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
 
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
+            this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
 
-            this.dragEndListener = this.onDragEnd.bind(this);
-            this.el.nativeElement.addEventListener('dragend', this.dragEndListener);
+            this.dragEndListener = this.renderer.listen(this.el.nativeElement, 'dragend', this.onDragEnd.bind(this));
 
-            this.dragOverListener = this.onDragOver.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
+            this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragOver.bind(this));
 
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
+            this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
         });
     }
 
     unbindEvents() {
         if (this.mouseDownListener) {
-            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
+            this.mouseDownListener();
             this.mouseDownListener = null;
         }
 
         if (this.dragStartListener) {
-            this.el.nativeElement.removeEventListener('dragstart', this.dragStartListener);
+            this.dragStartListener();
             this.dragStartListener = null;
         }
 
         if (this.dragEndListener) {
-            this.el.nativeElement.removeEventListener('dragend', this.dragEndListener);
+            this.dragEndListener();
             this.dragEndListener = null;
         }
 
         if (this.dragOverListener) {
-            this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
+            this.dragOverListener();
             this.dragOverListener = null;
         }
 
         if (this.dragLeaveListener) {
-            this.el.nativeElement.removeEventListener('dragleave', this.dragLeaveListener);
+            this.dragLeaveListener();
             this.dragLeaveListener = null;
         }
     }
@@ -4396,8 +4396,6 @@ export class ColumnFilter implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    constructor(public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService) {}
-
     overlaySubscription: Subscription;
 
     headerTemplate: TemplateRef<any>;
@@ -4412,11 +4410,11 @@ export class ColumnFilter implements AfterContentInit {
 
     overlay: HTMLElement;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     matchModes: SelectItem[];
 
@@ -4427,6 +4425,12 @@ export class ColumnFilter implements AfterContentInit {
     selfClick: boolean;
 
     overlayEventListener;
+
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         if (!this.dt.filters[this.field]) {
@@ -4612,7 +4616,7 @@ export class ColumnFilter implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
-                document.body.appendChild(this.overlay);
+                this.renderer.appendChild(this.document.body, this.overlay);
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
                 DomHandler.absolutePosition(this.overlay, this.icon.nativeElement);
                 this.bindDocumentClickListener();
@@ -4751,17 +4755,18 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = () => {
-            if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-                this.hide();
-            }
-        };
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener) {
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                    this.hide();
+                }
+            });
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -4808,7 +4813,7 @@ export class ColumnFilter implements AfterContentInit {
 
     ngOnDestroy() {
         if (this.overlay) {
-            this.el.nativeElement.appendChild(this.overlay);
+            this.renderer.appendChild(this.el.nativeElement, this.overlay);
             ZIndexUtils.clear(this.overlay);
             this.onOverlayHide();
         }
