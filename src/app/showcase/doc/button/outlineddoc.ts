@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex flex-wrap gap-3 justify-content-center">
             <p-button label="Primary" styleClass="p-button-outlined"></p-button>
             <p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
             <p-button label="Success" styleClass="p-button-outlined p-button-success"></p-button>
@@ -35,7 +35,7 @@ export class OutlinedDoc {
 <p-button label="Danger" styleClass="p-button-outlined p-button-danger"></p-button>`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-button label="Primary" styleClass="p-button-outlined"></p-button>
     <p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
     <p-button label="Success" styleClass="p-button-outlined p-button-success"></p-button>
