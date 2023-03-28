@@ -23,13 +23,15 @@ describe('ObjectUtils Suite', () => {
                     name: 'Italy'
                 },
                 city: 'Corleone'
-            }
+            },
+            'key.with.dot': 'value'
         };
 
         expect(ObjectUtils.resolveFieldData(obj, 'firstname')).toBe('Silvio');
         expect(ObjectUtils.resolveFieldData(obj, 'lastname')).toBe('Andolini');
         expect(ObjectUtils.resolveFieldData(obj, 'address.city')).toBe('Corleone');
         expect(ObjectUtils.resolveFieldData(obj, 'address.country.name')).toBe('Italy');
+        expect(ObjectUtils.resolveFieldData(obj, 'key.with.dot')).toBe('value');
         expect(ObjectUtils.resolveFieldData(obj, 'age')).toBeUndefined();
     });
 

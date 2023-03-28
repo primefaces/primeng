@@ -55,7 +55,7 @@ export class ObjectUtils {
         if (data && field) {
             if (this.isFunction(field)) {
                 return field(data);
-            } else if (field.indexOf('.') == -1) {
+            } else if (field in data || field.indexOf('.') === -1) {
                 return data[field];
             } else {
                 let fields: string[] = field.split('.');
