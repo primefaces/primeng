@@ -15,9 +15,10 @@ import {
     ViewEncapsulation,
     ChangeDetectorRef,
     Renderer2,
-    Inject
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -377,7 +378,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.responsive) {
@@ -928,7 +929,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');

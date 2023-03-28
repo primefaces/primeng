@@ -1,5 +1,5 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef, Inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 
 @Directive({
@@ -17,7 +17,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     view: EmbeddedViewRef<any>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         if (this.shouldLoad()) {
@@ -55,7 +55,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
     }
 
     isLoaded() {
-        return this.view != null && DomHandler.isClient();
+        return this.view != null && isPlatformBrowser(this.platformId);
     }
 
     ngOnDestroy() {

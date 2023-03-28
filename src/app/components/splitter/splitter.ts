@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, Renderer2, Inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
@@ -106,7 +106,7 @@ export class Splitter {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -130,7 +130,7 @@ export class Splitter {
     ngAfterViewInit() {
         if (this.panels && this.panels.length) {
             let initialized = false;
-            if (this.isStateful() && DomHandler.isClient()) {
+            if (this.isStateful() && isPlatformBrowser(this.platformId)) {
                 initialized = this.restoreState();
             }
 
@@ -309,7 +309,7 @@ export class Splitter {
     }
 
     getStorage() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             switch (this.stateStorage) {
                 case 'local':
                     return this.window.localStorage;

@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'context-menu-document-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
+            <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the (typeof document !== undefined) && document.</p>
         </app-docsectiontext>
         <div class="card text-center">
             <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>

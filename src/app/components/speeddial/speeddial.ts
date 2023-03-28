@@ -16,9 +16,10 @@ import {
     OnDestroy,
     AfterViewInit,
     Inject,
-    Renderer2
+    Renderer2,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -162,7 +163,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
         if (this.type !== 'linear') {
@@ -315,7 +316,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.hideOnClickOutside) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.visible && this.isOutsideClicked(event)) {

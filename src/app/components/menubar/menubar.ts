@@ -13,20 +13,20 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ZIndexUtils } from 'primeng/utils';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { debounce, filter, interval, Subject, Subscription } from 'rxjs';
-import { DomHandler } from '../dom/domhandler';
 
 @Injectable()
 export class MenubarService {
@@ -157,7 +157,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -234,7 +234,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.el && !this.el.nativeElement.contains(event.target)) {
@@ -322,7 +322,15 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private menubarService: MenubarService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        private menubarService: MenubarService
+    ) {}
 
     ngOnInit(): void {
         this.menubarService.autoHide = this.autoHide;
@@ -358,7 +366,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     bindOutsideClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (

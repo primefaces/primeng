@@ -1,5 +1,5 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
@@ -175,7 +175,7 @@ export class MegaMenu implements AfterContentInit {
 
     endTemplate: TemplateRef<any>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -279,7 +279,7 @@ export class MegaMenu implements AfterContentInit {
     }
 
     bindDocumentClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener) {
                 this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     if (this.el && !this.el.nativeElement.contains(event.target)) {

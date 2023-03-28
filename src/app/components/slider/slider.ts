@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 
@@ -168,7 +168,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: number;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
 
     onMouseDown(event, index?: number) {
         if (this.disabled) {
@@ -303,7 +303,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     bindDragListeners() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.ngZone.runOutsideAngular(() => {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 

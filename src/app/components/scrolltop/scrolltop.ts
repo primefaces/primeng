@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -74,7 +74,7 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView;
     }
 
@@ -119,7 +119,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     bindParentScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.parentScrollListener = this.renderer.listen(this.el.nativeElement.parentElement, 'scroll', () => {
                 this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
             });
@@ -127,7 +127,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     bindDocumentScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
                 this.checkVisibility(DomHandler.getWindowScrollTop());
             });

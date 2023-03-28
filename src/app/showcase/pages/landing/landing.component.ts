@@ -1,8 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
 import { Table } from 'primeng/table';
 import { AppConfig } from '../../domain/appconfig';
 import { Customer, Representative } from '../../domain/customer';
@@ -99,6 +98,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
         private nodeService: NodeService,
         private customerService: CustomerService,
@@ -242,7 +242,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollListener) {
                 this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
                     if (window.scrollY > 0) {
@@ -276,25 +276,29 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     changeTableTheme(newTheme) {
-        let linkElement = document.getElementById('home-table-link');
-        this.replaceLink(linkElement, newTheme);
-        this.theme = newTheme;
+       if(isPlatformBrowser(this.platformId)){
+           let linkElement = document.getElementById('theme-link');
+           this.replaceLink(linkElement, newTheme);
+           this.theme = newTheme;
+       } 
     }
 
     replaceLink(linkElement, theme) {
-        const id = linkElement.getAttribute('id');
-        const tableThemeTokens = linkElement.getAttribute('href').split('/');
-        const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
-        if (currentTableTheme !== theme) {
-            const cloneLinkElement = linkElement.cloneNode(true);
-            cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
-            cloneLinkElement.setAttribute('id', id + '-clone');
-
-            linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-            this.renderer.listen(cloneLinkElement, 'load', () => {
-                linkElement.remove();
-                cloneLinkElement.setAttribute('id', id);
-            });
+        if(isPlatformBrowser(this.platformId)){
+            const id = linkElement.getAttribute('id');
+            const tableThemeTokens = linkElement.getAttribute('href').split('/');
+            const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
+            if (currentTableTheme !== theme) {
+                const cloneLinkElement = linkElement.cloneNode(true);
+                cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
+                cloneLinkElement.setAttribute('id', id + '-clone');
+    
+                linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+                this.renderer.listen(cloneLinkElement, 'load', () => {
+                    linkElement.remove();
+                    cloneLinkElement.setAttribute('id', id);
+                });
+            }
         }
     }
 

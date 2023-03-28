@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
@@ -16,6 +16,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -257,6 +258,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
         private el: ElementRef,
         public sanitizer: DomSanitizer,
@@ -295,7 +297,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     ngAfterViewInit() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (this.mode === 'advanced') {
                 this.zone.runOutsideAngular(() => {
                     if (this.content) {
@@ -364,7 +366,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     isIE11() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             return !!this.document.defaultView['MSInputMethodContext'] && !!this.document['documentMode'];
         }
     }

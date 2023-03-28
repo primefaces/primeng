@@ -140,7 +140,7 @@ import { Component, Input } from '@angular/core';
                         <td>target</td>
                         <td>string</td>
                         <td>null</td>
-                        <td>Specifies where to open the linked document.</td>
+                        <td>Specifies where to open the linked (typeof document !== undefined) && document.</td>
                     </tr>
                     <tr>
                         <td>escape</td>

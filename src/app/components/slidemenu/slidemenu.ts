@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
 import { RouterModule } from '@angular/router';
@@ -107,7 +107,7 @@ export class SlideMenuSub implements OnDestroy {
 
     transitionEndListener: VoidFunction | null;
 
-    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2) {
         this.slideMenu = slideMenu as SlideMenu;
     }
     activeItem: any;
@@ -282,7 +282,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -415,7 +423,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener) {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
@@ -439,7 +447,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentResizeListener) {
                 this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
             }
@@ -454,7 +462,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     bindScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                     if (this.visible) {

@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -15,6 +15,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -444,7 +445,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._step ? this.page !== this.getPageByFirst() : true;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -543,7 +544,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
@@ -953,7 +954,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     bindResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.windowResizeListener) {
                 this.zone.runOutsideAngular(() => {
                     const window = this.document.defaultView as Window;

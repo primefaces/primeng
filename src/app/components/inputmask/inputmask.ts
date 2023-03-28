@@ -25,8 +25,8 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
@@ -178,15 +178,15 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     caretTimeoutId: any;
 
-    androidChrome: boolean;
+    androidChrome: boolean = true;
 
     focused: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        if (DomHandler.isClient()) {
-            let ua = DomHandler.getUserAgent();
+        if (isPlatformBrowser(this.platformId)) {
+            let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
 
@@ -432,7 +432,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
             begin,
             end;
         let iPhone;
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             iPhone = /iphone/i.test(DomHandler.getUserAgent());
         }
         this.oldVal = this.inputViewChild.nativeElement.value;

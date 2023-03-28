@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
@@ -141,7 +141,15 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -517,7 +525,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
         }
     }

@@ -19,10 +19,11 @@ import {
     TemplateRef,
     ContentChild,
     OnInit,
-    Inject
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { FocusTrapModule } from 'primeng/focustrap';
@@ -292,7 +293,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -445,7 +446,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     createStyle() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';

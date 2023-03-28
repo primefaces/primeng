@@ -12,7 +12,7 @@ import { PhotoService } from '../../service/photoservice';
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5">
+            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
                 </ng-template>
@@ -77,7 +77,7 @@ export class ThumbnailDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5">
+<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
     </ng-template>
@@ -92,7 +92,7 @@ export class ThumbnailDoc implements OnInit {
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>
-    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }"  [numVisible]="5"> 
+    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
         </ng-template>

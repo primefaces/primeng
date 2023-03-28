@@ -33,7 +33,7 @@
               "outputPath": "dist/primeng",
               "index": "src/index.html",
               "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
+              "polyfills": "zone.js",
               "tsConfig": "tsconfig.app.json",
               "aot": true,
               "assets": [
@@ -127,7 +127,7 @@
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "main": "src/test.ts",
-              "polyfills": "src/polyfills.ts",
+              "polyfills": "zone.js",
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "assets": [
@@ -141,6 +141,60 @@
               "scripts": []
             }
           },
+          "server": {
+            "builder": "@angular-devkit/build-angular:server",
+            "options": {
+              "outputPath": "dist/primeng/server",
+              "main": "server.ts",
+              "tsConfig": "tsconfig.server.json",
+              "inlineStyleLanguage": "scss"
+            },
+            "configurations": {
+              "production": {
+                "outputHashing": "media"
+              },
+              "development": {
+                "optimization": false,
+                "sourceMap": true,
+                "extractLicenses": false,
+                "vendorChunk": true
+              }
+            },
+            "defaultConfiguration": "production"
+          },
+          "serve-ssr": {
+            "builder": "@nguniversal/builders:ssr-dev-server",
+            "configurations": {
+              "development": {
+                "browserTarget": "primeng:build:development",
+                "serverTarget": "primeng:server:development"
+              },
+              "production": {
+                "browserTarget": "primeng:build:production",
+                "serverTarget": "primeng:server:production"
+              }
+            },
+            "defaultConfiguration": "development"
+          },
+          "prerender": {
+            "builder": "@nguniversal/builders:prerender",
+            "options": {
+              "routes": [
+                "/"
+              ]
+            },
+            "configurations": {
+              "production": {
+                "browserTarget": "primeng:build:production",
+                "serverTarget": "primeng:server:production"
+              },
+              "development": {
+                "browserTarget": "primeng:build:development",
+                "serverTarget": "primeng:server:development"
+              }
+            },
+            "defaultConfiguration": "production"
+          },
           "lint": {
             "builder": "@angular-eslint/builder:lint",
             "options": {
@@ -153,7 +207,6 @@
         }
       }
     },
-    "defaultProject": "primeng",
     "cli": {
       "analytics": false,
       "schematicCollections": [

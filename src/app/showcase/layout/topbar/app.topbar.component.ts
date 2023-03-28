@@ -1,8 +1,7 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import docsearch from '@docsearch/js';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
@@ -40,7 +39,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
+    constructor(@Inject(DOCUMENT) private document: Document,@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -54,7 +53,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
             }
         });
 
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.bindScrollListener();
         }
         // this.initDocSearch();

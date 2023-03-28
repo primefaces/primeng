@@ -1,5 +1,5 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
 
@@ -61,8 +61,8 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef) {
-        if (DomHandler.isClient()) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
+        if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = DomHandler.isAndroid();
         } else {
             this.isAndroid = false;

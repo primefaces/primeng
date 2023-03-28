@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef } from '@angular/core';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
 import { ZIndexUtils } from 'primeng/utils';
@@ -237,7 +237,15 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {}
 
     toggle(event) {
         if (this.visible) this.hide();
@@ -356,7 +364,7 @@ export class Menu implements OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener && DomHandler.isClient()) {
+        if (!this.documentClickListener && isPlatformBrowser(this.platformId)) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
@@ -377,7 +385,7 @@ export class Menu implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if (!this.documentResizeListener && DomHandler.isClient()) {
+        if (!this.documentResizeListener && isPlatformBrowser(this.platformId)) {
             const window = this.document.defaultView;
             this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
         }
@@ -391,7 +399,7 @@ export class Menu implements OnDestroy {
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler && DomHandler.isClient()) {
+        if (!this.scrollHandler && isPlatformBrowser(this.platformId)) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                 if (this.visible) {
                     this.hide();

@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -19,6 +19,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -1859,7 +1860,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -1889,7 +1890,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
                     this.headerScrollListener = this.renderer.listen(this.scrollHeaderBoxViewChild.nativeElement, 'scroll', this.onHeaderScroll.bind(this));
@@ -2134,10 +2135,10 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: VoidFunction | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
                 DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
                 this.resizer = this.renderer.createElement('span');
@@ -2217,7 +2218,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: VoidFunction | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2226,7 +2227,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
                 this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
@@ -2238,7 +2239,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     unbindEvents() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (this.mouseDownListener) {
                 this.mouseDownListener();
                 this.mouseDownListener = null;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'src/app/components/api/messageservice';
+import { MessageService } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';

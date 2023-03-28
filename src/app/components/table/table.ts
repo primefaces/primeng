@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -21,6 +21,7 @@ import {
     OnInit,
     Optional,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -607,6 +608,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
         private renderer: Renderer2,
         public el: ElementRef,
         public zone: NgZone,
@@ -2199,7 +2201,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     getStorage() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             switch (this.stateStorage) {
                 case 'local':
                     return window.localStorage;
@@ -2430,7 +2432,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     createResponsiveStyle() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
@@ -3237,10 +3239,10 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: VoidFunction | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
                 DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
                 this.resizer = this.renderer.createElement('span');
@@ -3322,7 +3324,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: VoidFunction | null;
 
-    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3331,7 +3333,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
 

@@ -190,6 +190,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
         private componentFactoryResolver: ComponentFactoryResolver,
         private cd: ChangeDetectorRef,
         public renderer: Renderer2,
@@ -479,7 +480,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentDragListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.documentDragListener = this.renderer.listen(this.document, 'mousemove', this.onDrag.bind(this));
             });
@@ -487,7 +488,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentDragEndListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.documentDragEndListener = this.renderer.listen(this.document, 'mouseup', this.endDrag.bind(this));
             });
@@ -509,7 +510,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentResizeListeners() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.documentResizeListener = this.renderer.listen(this.document, 'mousemove', this.onResize.bind(this));
                 this.documentResizeEndListener = this.renderer.listen(this.document, 'mouseup', this.resizeEnd.bind(this));
@@ -552,7 +553,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindDocumentKeydownListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
             });

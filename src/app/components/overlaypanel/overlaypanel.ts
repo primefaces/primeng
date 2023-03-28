@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -14,6 +14,7 @@ import {
     NgZone,
     OnDestroy,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -138,7 +139,16 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     overlaySubscription: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        private zone: NgZone,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -157,7 +167,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.dismissable) {
                 this.zone.runOutsideAngular(() => {
                     let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
@@ -355,7 +365,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
@@ -371,7 +381,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                     if (this.overlayVisible) {

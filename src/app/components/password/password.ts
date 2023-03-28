@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -21,6 +21,7 @@ import {
     Output,
     Pipe,
     PipeTransform,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -68,7 +69,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     documentResizeListener: () => void | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
 
     ngDoCheck() {
         this.updateFilledState();
@@ -84,7 +85,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     createPanel() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.panel = this.renderer.createElement('div');
             this.renderer.addClass(this.panel, 'p-password-panel');
             this.renderer.addClass(this.panel, 'p-component');
@@ -234,7 +235,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     bindDocumentResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
@@ -446,7 +447,15 @@ export class Password implements AfterContentInit, OnInit {
 
     translationSubscription: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private config: PrimeNGConfig,
+        public el: ElementRef,
+        public overlayService: OverlayService
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -646,7 +655,7 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     bindScrollListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.scrollHandler) {
                 this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
                     if (this.overlayVisible) {
@@ -660,7 +669,7 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     bindResizeListener() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.resizeListener) {
                 const window = this.document.defaultView as Window;
                 this.resizeListener = this.renderer.listen(window, 'resize', () => {

@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
 import { Galleria } from 'primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
@@ -22,7 +21,7 @@ import { PhotoService } from '../../service/photoservice';
                 [circular]="true"
                 [autoPlay]="true"
                 [transitionInterval]="3000"
-                [containerStyle]="{ maxWidth: '640px' }"
+                [containerStyle]="{ width: '100%' }"
                 [containerClass]="galleriaClass()"
             >
                 <ng-template pTemplate="item" let-item>
@@ -124,8 +123,8 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     closePreviewFullScreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
+        if ((typeof document !== undefined) && document.exitFullscreen) {
+            (typeof document !== undefined) && document.exitFullscreen();
         } else if (document['mozCancelFullScreen']) {
             document['mozCancelFullScreen']();
         } else if (document['webkitExitFullscreen']) {
@@ -136,23 +135,19 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     bindDocumentListeners() {
-        if (DomHandler.isClient()) {
-            this.onFullScreenListener = this.onFullScreenChange.bind(this);
-            document.addEventListener('fullscreenchange', this.onFullScreenListener);
-            document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
-            document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
-            document.addEventListener('msfullscreenchange', this.onFullScreenListener);
-        }
+        this.onFullScreenListener = this.onFullScreenChange.bind(this);
+        (typeof document !== undefined) && document.addEventListener('fullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.addEventListener('msfullscreenchange', this.onFullScreenListener);
     }
 
     unbindDocumentListeners() {
-        if (DomHandler.isClient()) {
-            document.removeEventListener('fullscreenchange', this.onFullScreenListener);
-            document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
-            document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
-            document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
-            this.onFullScreenListener = null;
-        }
+        (typeof document !== undefined) && document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+        (typeof document !== undefined) && document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+        this.onFullScreenListener = null;
     }
 
     ngOnDestroy() {
@@ -179,7 +174,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     [circular]="true"
     [autoPlay]="true"
     [transitionInterval]="3000"
-    [containerStyle]="{ maxWidth: '640px' }"
+    [containerStyle]="{ width: '100%' }"
     [containerClass]="galleriaClass()"
 >
     <ng-template pTemplate="item" let-item>
@@ -204,7 +199,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{ maxWidth: '640px' }" [containerClass]="galleriaClass()"> 
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>

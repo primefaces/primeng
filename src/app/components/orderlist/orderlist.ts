@@ -15,9 +15,10 @@ import {
     ViewEncapsulation,
     ChangeDetectorRef,
     Inject,
-    Renderer2
+    Renderer2,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -186,7 +187,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[];
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     get selection(): any[] {
         return this._selection;
@@ -501,7 +502,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     createStyle() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
@@ -535,7 +536,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     destroyStyle() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             if (this.styleElement) {
                 this.renderer.removeChild(this.document, this.styleElement);
                 this.styleElement = null;

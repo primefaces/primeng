@@ -15,9 +15,10 @@ import {
     QueryList,
     TemplateRef,
     Inject,
-    Renderer2
+    Renderer2,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
 
@@ -89,10 +90,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentMouseUpListener: VoidFunction | null;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.moveBar();
                 this.moveBar = this.moveBar.bind(this);

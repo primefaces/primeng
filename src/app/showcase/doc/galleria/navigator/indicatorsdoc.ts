@@ -10,15 +10,7 @@ import { PhotoService } from '../../../service/photoservice';
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria
-                [(value)]="images"
-                [showItemNavigators]="true"
-                [showThumbnails]="false"
-                [showIndicators]="true"
-                [showIndicatorsOnItem]="true"
-                [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ maxWidth: '640px', 'margin-top': '2em' }"
-            >
+            <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%', 'margin-top': '2em' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -67,7 +59,7 @@ export class IndicatorsDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px', 'margin-top': '2em' }">
+<p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%', 'margin-top': '2em' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
     </ng-template>
@@ -79,7 +71,7 @@ export class IndicatorsDoc implements OnInit {
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px', 'margin-top':'2em'}"> 
+    <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%', 'margin-top':'2em'}"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>

@@ -10,7 +10,7 @@ import { PhotoService } from '../../../service/photoservice';
             <p>Simple example with indicators only.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+            <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -54,14 +54,14 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+<p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+    <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>

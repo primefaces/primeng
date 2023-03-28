@@ -16,7 +16,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        scss: `
-@import "primeicons/primeicons.css";`
+        typescript: `@import "primeicons/primeicons.css";`
     };
 }

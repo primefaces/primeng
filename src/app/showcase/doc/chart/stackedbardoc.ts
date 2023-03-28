@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -21,74 +22,78 @@ export class StackedBarDoc implements OnInit {
     data: any;
 
     options: any;
+    
+    constructor(@Inject(PLATFORM_ID) private platformId: any){}
 
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    type: 'bar',
-                    label: 'Dataset 1',
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [50, 25, 12, 48, 90, 76, 42]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 2',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [21, 84, 24, 75, 37, 65, 34]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 3',
-                    backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-                    data: [41, 52, 24, 74, 23, 21, 32]
-                }
-            ]
-        };
-
-        this.options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.8,
-            plugins: {
-                tooltips: {
-                    mode: 'index',
-                    intersect: false
-                },
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
+        if(isPlatformBrowser(this.platformId)){
+            const documentStyle = getComputedStyle((typeof document !== undefined) && document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    
+            this.data = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Dataset 1',
+                        backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+                        data: [50, 25, 12, 48, 90, 76, 42]
                     },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
+                    {
+                        type: 'bar',
+                        label: 'Dataset 2',
+                        backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                        data: [21, 84, 24, 75, 37, 65, 34]
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Dataset 3',
+                        backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
+                ]
+            };
+    
+            this.options = {
+                maintainAspectRatio: false,
+                aspectRatio: 0.8,
+                plugins: {
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
                     }
                 },
-                y: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
                     },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
+                    y: {
+                        stacked: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
     }
 
     code: Code = {
@@ -111,7 +116,7 @@ export class ChartStackedBarDemo implements OnInit {
     options: any;
 
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
+        const documentStyle = getComputedStyle((typeof document !== undefined) && document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');

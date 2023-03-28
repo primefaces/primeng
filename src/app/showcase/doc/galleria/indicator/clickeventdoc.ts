@@ -10,7 +10,7 @@ import { PhotoService } from '../../../service/photoservice';
             <p>Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by default.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -53,14 +53,14 @@ export class ClickEventDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `
 <div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
+    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
         </ng-template>

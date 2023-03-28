@@ -431,7 +431,9 @@ export class DomHandler {
     }
 
     public static getUserAgent(): string {
-        return navigator.userAgent;
+        if (navigator && this.isClient()) {
+            return navigator.userAgent;
+        }
     }
 
     public static isIE() {

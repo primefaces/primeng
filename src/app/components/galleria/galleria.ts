@@ -21,9 +21,10 @@ import {
     KeyValueDiffers,
     DoCheck,
     Inject,
-    Renderer2
+    Renderer2,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
@@ -731,7 +732,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.createStyle();
@@ -1010,7 +1011,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     bindDocumentListeners() {
-        if (DomHandler.isClient()) {
+        if (isPlatformBrowser(this.platformId)) {
             const window = this.document.defaultView || 'window';
             this.documentResizeListener = this.renderer.listen(window, 'resize', () => {
                 this.calculatePosition();
