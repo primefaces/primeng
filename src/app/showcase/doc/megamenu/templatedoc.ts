@@ -19,7 +19,14 @@ import { Code } from '../../domain/code';
             </p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-template-demo"></app-code>
-    </section>`
+    </section>`,
+    styles: [
+        `
+            :host ::ng-deep .p-megamenu-panel {
+                z-index: 1001;
+            }
+        `
+    ]
 })
 export class TemplateDoc implements OnInit {
     @Input() id: string;
