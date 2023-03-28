@@ -12,14 +12,7 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
-    </section>`,
-    styles: [
-        `
-            :host ::ng-deep .p-megamenu-panel {
-                z-index: 1001;
-            }
-        `
-    ]
+    </section>`
 })
 export class VerticalDoc implements OnInit {
     @Input() id: string;

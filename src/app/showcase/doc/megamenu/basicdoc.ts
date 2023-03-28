@@ -12,14 +12,7 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items" baseZIndex="2000"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-    </section>`,
-    styles: [
-        `
-            :host ::ng-deep .p-megamenu-panel {
-                z-index: 1001;
-            }
-        `
-    ]
+    </section>`
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;
