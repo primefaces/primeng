@@ -469,7 +469,17 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         const panelEl = fixture.debugElement.query(By.css('div'));
-        expect(panelEl).toBeTruthy();
+        expect(panelEl).toBeFalsy();
+
+        inputEl.nativeElement.value = 'va';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const updatedPanelEl = fixture.debugElement.query(By.css('div'));
+        expect(updatedPanelEl).toBeFalsy();
         flush();
     }));
 
