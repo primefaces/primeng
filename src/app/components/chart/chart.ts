@@ -6,7 +6,7 @@ import Chart from 'chart.js/auto';
     selector: 'p-chart',
     template: `
         <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas *ngIf="isBrowser" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+            <canvas [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,10 +58,6 @@ export class UIChart implements AfterViewInit, OnDestroy {
         this.reinit();
     }
 
-    ngOnInit() {
-        isPlatformBrowser(this.platformId) ? (this.isBrowser = true) : (this.isBrowser = false);
-    }
-
     ngAfterViewInit() {
         this.initChart();
         this.initialized = true;
@@ -79,7 +75,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     initChart() {
-        if (this.isBrowser) {
+        if (isPlatformBrowser(this.platformId)) {
             let opts = this.options || {};
             opts.responsive = this.responsive;
 
