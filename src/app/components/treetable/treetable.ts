@@ -1912,28 +1912,28 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     unbindEvents() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                if(this.headerScrollListener) {
+                if (this.headerScrollListener) {
                     this.headerScrollListener();
                     this.headerScrollListener = null;
                 }
             }
-    
+
             if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                if(this.footerScrollListener) {
+                if (this.footerScrollListener) {
                     this.footerScrollListener();
                     this.footerScrollListener = null;
                 }
             }
-    
+
             if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-                if(this.bodyScrollListener) {
+                if (this.bodyScrollListener) {
                     this.bodyScrollListener();
                     this.bodyScrollListener = null;
                 }
             }
-    
+
             if (this.scroller && this.scroller.getElementRef()) {
                 if (this.bodyScrollListener) {
                     this.bodyScrollListener();

@@ -59,7 +59,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        isPlatformBrowser(this.platformId) ? this.isBrowser = true : this.isBrowser = false;
+        isPlatformBrowser(this.platformId) ? (this.isBrowser = true) : (this.isBrowser = false);
     }
 
     ngAfterViewInit() {
@@ -79,15 +79,15 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     initChart() {
-        if (this.isBrowser){
+        if (this.isBrowser) {
             let opts = this.options || {};
             opts.responsive = this.responsive;
-    
+
             // allows chart to resize in responsive mode
             if (opts.responsive && (this.height || this.width)) {
                 opts.maintainAspectRatio = false;
             }
-    
+
             this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
                 type: this.type,
                 data: this.data,

@@ -24,11 +24,11 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             if (this.shouldLoad()) {
                 this.load();
             }
-    
+
             if (!this.isLoaded()) {
                 this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
                     if (this.shouldLoad()) {

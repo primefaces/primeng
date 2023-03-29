@@ -60,7 +60,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     changeTheme(event: Event, theme: string, dark: boolean) {
         const linkElement = document.getElementById('theme-link');
         this.replaceLink(linkElement, theme, () => {
-            this.configService.updateConfig({...this.config, theme: theme, dark: dark});
+            this.configService.updateConfig({ ...this.config, theme: theme, dark: dark });
         });
     }
 

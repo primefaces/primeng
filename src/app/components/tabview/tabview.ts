@@ -283,7 +283,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     ngAfterViewChecked() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             if (this.tabChanged) {
                 this.updateInkBar();
                 this.tabChanged = false;
