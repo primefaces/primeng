@@ -12,8 +12,8 @@ import { Component, Input } from '@angular/core';
                     even overriding the default role.
                 </p>
                 <p>
-                    Closable inplace components displays a button with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a routerLink="/locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the
-                    element and override the default <i>aria-label</i>.
+                    Closable inplace components displays a button with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to
+                    customize the element and override the default <i>aria-label</i>.
                 </p>
                 <h3>View Mode Keyboard Support</h3>
                 <div class="doc-tablewrapper">

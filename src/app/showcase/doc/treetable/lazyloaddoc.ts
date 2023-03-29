@@ -18,7 +18,19 @@ import { NodeService } from '../../service/nodeservice';
             <p>In addition, only the root elements should be loaded, children can be loaded on demand using <i>onNodeExpand</i> callback.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)">
+            <p-treeTable
+                [value]="files"
+                [columns]="cols"
+                [paginator]="true"
+                [rows]="10"
+                [lazy]="true"
+                (onLazyLoad)="loadNodes($event)"
+                [totalRecords]="1000"
+                [loading]="loading"
+                (onNodeExpand)="onNodeExpand($event)"
+                [scrollable]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+            >
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -118,7 +130,7 @@ export class LazyLoadDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)">
+<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -138,7 +150,7 @@ export class LazyLoadDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)">
+    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">

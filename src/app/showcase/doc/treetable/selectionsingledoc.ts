@@ -19,7 +19,7 @@ import { NodeService } from '../../service/nodeservice';
                 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
                 <span>Metakey</span>
             </div>
-            <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+            <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -71,7 +71,7 @@ export class SelectionSingleDoc implements OnInit {
         basic: `
 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
 
-<p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+<p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -95,7 +95,7 @@ export class SelectionSingleDoc implements OnInit {
         <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
         <span>Metakey</span>
     </div>
-    <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+    <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
