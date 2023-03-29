@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'block-ui-document-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Enabling <i>fullScreen</i> property controls the (typeof document !== undefined) && document.</p>
+            <p>Enabling <i>fullScreen</i> property controls the document.</p>
         </app-docsectiontext>
         <div class="card">
             <p-blockUI [blocked]="blockedDocument"></p-blockUI>

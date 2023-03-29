@@ -60,7 +60,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>bounds</td>
                         <td>Element</td>
-                        <td>(typeof document !== undefined) && document.body</td>
+                        <td>document.body</td>
                         <td>DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries..</td>
                     </tr>
                     <tr>

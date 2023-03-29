@@ -27,7 +27,7 @@ export class VerticalBarDoc implements OnInit {
 
     ngOnInit() {
         if(isPlatformBrowser(this.platformId)){
-            const documentStyle = getComputedStyle((typeof document !== undefined) && document.documentElement);
+            const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
             const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
