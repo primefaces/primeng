@@ -1,4 +1,4 @@
-import { NgModule, Directive, OnDestroy, AfterViewInit, ElementRef, HostListener, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { NgModule, Directive, OnDestroy, AfterViewInit, ElementRef, HostListener, Input, Output, EventEmitter, NgZone, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 
@@ -23,15 +23,15 @@ export class Draggable implements AfterViewInit, OnDestroy {
 
     handle: any;
 
-    dragListener: any;
+    dragListener: VoidFunction | null;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidFunction | null;
 
-    mouseUpListener: any;
+    mouseUpListener: VoidFunction | null;
 
     _pDraggableDisabled: boolean;
 
-    constructor(public el: ElementRef, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone, private renderer: Renderer2) {}
 
     @Input() get pDraggableDisabled(): boolean {
         return this._pDraggableDisabled;
@@ -57,8 +57,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     bindDragListener() {
         if (!this.dragListener) {
             this.zone.runOutsideAngular(() => {
-                this.dragListener = this.drag.bind(this);
-                this.el.nativeElement.addEventListener('drag', this.dragListener);
+                this.dragListener = this.renderer.listen(this.el.nativeElement, 'drag', this.drag.bind(this));
             });
         }
     }
@@ -66,7 +65,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     unbindDragListener() {
         if (this.dragListener) {
             this.zone.runOutsideAngular(() => {
-                this.el.nativeElement.removeEventListener('drag', this.dragListener);
+                this.dragListener();
                 this.dragListener = null;
             });
         }
@@ -75,10 +74,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
     bindMouseListeners() {
         if (!this.mouseDownListener && !this.mouseUpListener) {
             this.zone.runOutsideAngular(() => {
-                this.mouseDownListener = this.mousedown.bind(this);
-                this.mouseUpListener = this.mouseup.bind(this);
-                this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-                this.el.nativeElement.addEventListener('mouseup', this.mouseUpListener);
+                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.mousedown.bind(this));
+                this.mouseUpListener = this.renderer.listen(this.el.nativeElement, 'mouseup', this.mouseup.bind(this));
             });
         }
     }
@@ -86,8 +83,8 @@ export class Draggable implements AfterViewInit, OnDestroy {
     unbindMouseListeners() {
         if (this.mouseDownListener && this.mouseUpListener) {
             this.zone.runOutsideAngular(() => {
-                this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
-                this.el.nativeElement.removeEventListener('mouseup', this.mouseUpListener);
+                this.mouseDownListener();
+                this.mouseUpListener();
                 this.mouseDownListener = null;
                 this.mouseUpListener = null;
             });
@@ -158,9 +155,9 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
     @Output() onDrop: EventEmitter<any> = new EventEmitter();
 
-    constructor(public el: ElementRef, public zone: NgZone) {}
+    constructor(public el: ElementRef, public zone: NgZone, private renderer: Renderer2) {}
 
-    dragOverListener: any;
+    dragOverListener: VoidFunction | null;
 
     ngAfterViewInit() {
         if (!this.pDroppableDisabled) {
@@ -171,8 +168,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     bindDragOverListener() {
         if (!this.dragOverListener) {
             this.zone.runOutsideAngular(() => {
-                this.dragOverListener = this.dragOver.bind(this);
-                this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
+                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.dragOver.bind(this));
             });
         }
     }
@@ -180,7 +176,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     unbindDragOverListener() {
         if (this.dragOverListener) {
             this.zone.runOutsideAngular(() => {
-                this.el.nativeElement.removeEventListener('dragover', this.dragOverListener);
+                this.dragOverListener();
                 this.dragOverListener = null;
             });
         }

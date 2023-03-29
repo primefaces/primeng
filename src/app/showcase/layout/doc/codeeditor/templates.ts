@@ -359,9 +359,6 @@ const angular_json = `
               ],
               "scripts": [],
               "allowedCommonJsDependencies": [
-                "@fullcalendar/timegrid",
-                "@fullcalendar/interaction",
-                "@fullcalendar/daygrid",
                 "chart.js",
                 "xlsx",
                 "jspdf-autotable",

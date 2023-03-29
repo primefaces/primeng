@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    Inject,
     Input,
     IterableDiffers,
     NgModule,
@@ -26,7 +27,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
@@ -408,8 +409,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     overlayVisible: boolean = false;
 
-    documentClickListener: any;
-
     suggestionsUpdated: boolean;
 
     highlightOption: any;
@@ -432,9 +431,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     loading: boolean;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     forceSelectionUpdateModelTimeout: any;
 
@@ -444,7 +443,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue: string = null;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public differs: IterableDiffers, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public differs: IterableDiffers,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        private zone: NgZone
+    ) {
         this.differ = differs.find([]).create(null);
         this.listId = UniqueComponentId() + '_list';
     }
@@ -614,9 +622,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onInputClick(event: MouseEvent) {
-        if (this.documentClickListener) {
-            this.inputClick = true;
-        }
+        this.inputClick = true;
     }
 
     search(event: any, query: string) {

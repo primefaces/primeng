@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
+import { PlatformService } from '../../service/platformservice';
 
 @Component({
     selector: 'dropdown-doc',
@@ -28,12 +29,14 @@ export class DropdownDoc implements OnInit {
 
     filteredCountries: any[];
 
-    constructor(private countryService: CountryService) {}
+    constructor(private countryService: CountryService, private PlatformService: PlatformService) {}
 
     ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
+        if (this.PlatformService.isBrowser()) {
+            this.countryService.getCountries().then((countries) => {
+                this.countries = countries;
+            });
+        }
     }
 
     filterCountry(event) {

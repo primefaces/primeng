@@ -1,5 +1,24 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import {
+    NgModule,
+    Component,
+    Input,
+    AfterViewInit,
+    OnDestroy,
+    ElementRef,
+    NgZone,
+    ViewChild,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    AfterContentInit,
+    ContentChildren,
+    QueryList,
+    TemplateRef,
+    Inject,
+    Renderer2,
+    PLATFORM_ID
+} from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate } from 'primeng/api';
 
@@ -29,8 +48,6 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
-
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('content') contentViewChild: ElementRef;
@@ -59,25 +76,42 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
+    windowResizeListener: VoidFunction | null;
+
+    contentScrollListener: VoidFunction | null;
+
+    mouseEnterListener: VoidFunction | null;
+
+    xBarMouseDownListener: VoidFunction | null;
+
+    yBarMouseDownListener: VoidFunction | null;
+
+    documentMouseMoveListener: VoidFunction | null;
+
+    documentMouseUpListener: VoidFunction | null;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
+
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            this.moveBar();
-            this.moveBar = this.moveBar.bind(this);
-            this.onXBarMouseDown = this.onXBarMouseDown.bind(this);
-            this.onYBarMouseDown = this.onYBarMouseDown.bind(this);
-            this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
-            this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this);
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                this.moveBar();
+                this.moveBar = this.moveBar.bind(this);
+                this.onXBarMouseDown = this.onXBarMouseDown.bind(this);
+                this.onYBarMouseDown = this.onYBarMouseDown.bind(this);
+                this.onDocumentMouseMove = this.onDocumentMouseMove.bind(this);
+                this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this);
 
-            window.addEventListener('resize', this.moveBar);
-            this.contentViewChild.nativeElement.addEventListener('scroll', this.moveBar);
-            this.contentViewChild.nativeElement.addEventListener('mouseenter', this.moveBar);
-            this.xBarViewChild.nativeElement.addEventListener('mousedown', this.onXBarMouseDown);
-            this.yBarViewChild.nativeElement.addEventListener('mousedown', this.onYBarMouseDown);
+                this.windowResizeListener = this.renderer.listen(window, 'resize', this.moveBar);
+                this.contentScrollListener = this.renderer.listen(this.contentViewChild.nativeElement, 'scroll', this.moveBar);
+                this.mouseEnterListener = this.renderer.listen(this.contentViewChild.nativeElement, 'mouseenter', this.moveBar);
+                this.xBarMouseDownListener = this.renderer.listen(this.xBarViewChild.nativeElement, 'mousedown', this.onXBarMouseDown);
+                this.yBarMouseDownListener = this.renderer.listen(this.yBarViewChild.nativeElement, 'mousedown', this.onYBarMouseDown);
+                this.calculateContainerHeight();
 
-            this.calculateContainerHeight();
-
-            this.initialized = true;
-        });
+                this.initialized = true;
+            });
+        }
     }
 
     ngAfterContentInit() {
@@ -98,9 +132,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         let container = this.containerViewChild.nativeElement;
         let content = this.contentViewChild.nativeElement;
         let xBar = this.xBarViewChild.nativeElement;
+        const window = this.document.defaultView as Window;
 
-        let containerStyles = getComputedStyle(container),
-            xBarStyles = getComputedStyle(xBar),
+        let containerStyles = window.getComputedStyle(container),
+            xBarStyles = window.getComputedStyle(xBar),
             pureContainerHeight = DomHandler.getHeight(container) - parseInt(xBarStyles['height'], 10);
 
         if (containerStyles['max-height'] != 'none' && pureContainerHeight == 0) {
@@ -160,10 +195,25 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         DomHandler.addClass(this.yBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
 
         DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
-
-        this.document.addEventListener('mousemove', this.onDocumentMouseMove);
-        this.document.addEventListener('mouseup', this.onDocumentMouseUp);
+        this.bindDocumentMouseListeners();
         e.preventDefault();
+    }
+
+    bindDocumentMouseListeners(): void {
+        this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
+        this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
+    }
+
+    unbindDocumentMouseListeners(): void {
+        if (this.documentMouseMoveListener) {
+            this.documentMouseMoveListener();
+            this.documentMouseMoveListener = null;
+        }
+
+        if (this.documentMouseUpListener) {
+            this.documentMouseUpListener();
+            this.documentMouseUpListener = null;
+        }
     }
 
     onXBarMouseDown(e: MouseEvent) {
@@ -173,8 +223,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
         DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
 
-        this.document.addEventListener('mousemove', this.onDocumentMouseMove);
-        this.document.addEventListener('mouseup', this.onDocumentMouseUp);
+        this.bindDocumentMouseListeners();
         e.preventDefault();
     }
 
@@ -218,8 +267,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         DomHandler.removeClass(this.xBarViewChild.nativeElement, 'p-scrollpanel-grabbed');
         DomHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
 
-        this.document.removeEventListener('mousemove', this.onDocumentMouseMove);
-        this.document.removeEventListener('mouseup', this.onDocumentMouseUp);
+        this.unbindDocumentMouseListeners();
         this.isXBarClicked = false;
         this.isYBarClicked = false;
     }
@@ -229,13 +277,36 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         frame(f);
     }
 
+    unbindListeners() {
+        if (this.windowResizeListener) {
+            this.windowResizeListener();
+            this.windowResizeListener = null;
+        }
+
+        if (this.contentScrollListener) {
+            this.contentScrollListener();
+            this.contentScrollListener = null;
+        }
+
+        if (this.mouseEnterListener) {
+            this.mouseEnterListener();
+            this.mouseEnterListener = null;
+        }
+
+        if (this.xBarMouseDownListener) {
+            this.xBarMouseDownListener();
+            this.xBarMouseDownListener = null;
+        }
+
+        if (this.yBarMouseDownListener) {
+            this.yBarMouseDownListener();
+            this.yBarMouseDownListener = null;
+        }
+    }
+
     ngOnDestroy() {
         if (this.initialized) {
-            window.removeEventListener('resize', this.moveBar);
-            this.contentViewChild.nativeElement.removeEventListener('scroll', this.moveBar);
-            this.contentViewChild.nativeElement.removeEventListener('mouseenter', this.moveBar);
-            this.xBarViewChild.nativeElement.removeEventListener('mousedown', this.onXBarMouseDown);
-            this.yBarViewChild.nativeElement.removeEventListener('mousedown', this.onYBarMouseDown);
+            this.unbindListeners();
         }
     }
 

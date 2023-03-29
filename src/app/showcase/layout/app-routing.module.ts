@@ -1,12 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { LandingComponent } from '../pages/landing/landing.component';
 import { AppMainComponent } from './app.main.component';
-
-const routerOptions: ExtraOptions = {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'enabled'
-};
+import { LandingComponent } from '../pages/landing/landing.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent, pathMatch: 'full' },
@@ -126,6 +121,12 @@ const routes: Routes = [
     { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then((m) => m.NotFoundModule) },
     { path: '**', redirectTo: '/notfound' }
 ];
+
+const routerOptions: ExtraOptions = {
+    anchorScrolling: 'enabled',
+    scrollPositionRestoration: 'enabled',
+    initialNavigation: 'enabledBlocking'
+};
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, routerOptions)],

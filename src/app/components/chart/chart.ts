@@ -1,5 +1,5 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -28,6 +28,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
+    isBrowser: boolean = false;
+
     initialized: boolean;
 
     _data: any;
@@ -36,7 +38,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(public el: ElementRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {}
 
     @Input() get data(): any {
         return this._data;
@@ -73,20 +75,22 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     initChart() {
-        let opts = this.options || {};
-        opts.responsive = this.responsive;
+        if (isPlatformBrowser(this.platformId)) {
+            let opts = this.options || {};
+            opts.responsive = this.responsive;
 
-        // allows chart to resize in responsive mode
-        if (opts.responsive && (this.height || this.width)) {
-            opts.maintainAspectRatio = false;
+            // allows chart to resize in responsive mode
+            if (opts.responsive && (this.height || this.width)) {
+                opts.maintainAspectRatio = false;
+            }
+
+            this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                type: this.type,
+                data: this.data,
+                options: this.options,
+                plugins: this.plugins
+            });
         }
-
-        this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-            type: this.type,
-            data: this.data,
-            options: this.options,
-            plugins: this.plugins
-        });
     }
 
     getCanvas() {
