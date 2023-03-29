@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true">
+            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns" ttResizableColumn>
@@ -56,7 +56,7 @@ export class ResizeFitDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true">
+<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -76,7 +76,7 @@ export class ResizeFitDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true">
+    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>

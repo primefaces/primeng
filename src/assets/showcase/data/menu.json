@@ -254,6 +254,10 @@
                             "routerLink": "/dialog"
                         },
                         {
+                            "name": "DynamicDialog",
+                            "routerLink": "/dynamicdialog"
+                        },
+                        {
                             "name": "OverlayPanel",
                             "routerLink": "/overlaypanel"
                         },

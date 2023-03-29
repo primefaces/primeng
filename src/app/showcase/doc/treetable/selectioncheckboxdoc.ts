@@ -12,7 +12,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that has checked and partialChecked properties to represent the checked state of a node.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes">
+            <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption">
                     <div class="flex">
                         <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
@@ -67,7 +67,7 @@ export class SelectionCheckboxDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes">
+<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div class="flex">
             <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
@@ -94,7 +94,7 @@ export class SelectionCheckboxDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes">
+    <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div class="flex">
                 <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
