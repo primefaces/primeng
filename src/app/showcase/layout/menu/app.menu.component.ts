@@ -50,9 +50,9 @@ export class AppMenuComponent {
     }
 
     isInViewport(element) {
-        if (typeof window !== undefined){
+        if (isPlatformBrowser(this.platformId)){
             const rect = element.getBoundingClientRect();
-            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (typeof document !== undefined) && document.documentElement.clientHeight) && rect.right <= (window.innerWidth || (typeof document !== undefined) && document.documentElement.clientWidth);
+            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth));
         }
     }
 

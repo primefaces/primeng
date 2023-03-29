@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                PrimeNG utilizes rem units to make sure the components blend in with the rest of your UI perfectly. This also enables scaling, for example changing the size of the components is easy as configuring the font size of your (typeof document !== undefined) && document. Code
+                PrimeNG utilizes rem units to make sure the components blend in with the rest of your UI perfectly. This also enables scaling, for example changing the size of the components is easy as configuring the font size of your document. Code
                 below sets the scale of the components based on 16px. If you reqire bigger or smaller components, just change this variable and components will scale accordingly.
             </p>
         </app-docsectiontext>

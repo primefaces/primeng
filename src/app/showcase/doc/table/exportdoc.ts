@@ -95,7 +95,7 @@ export class ExportDoc implements OnInit {
     }
 
     saveAsExcelFile(buffer: any, fileName: string): void {
-        let EXCEL_TYPE = 'application/vnd.openxmlformats-office(typeof document !== undefined) && document.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         let EXCEL_EXTENSION = '.xlsx';
         const data: Blob = new Blob([buffer], {
             type: EXCEL_TYPE
@@ -212,7 +212,7 @@ export class TableExportDemo implements OnInit{
     }
 
     saveAsExcelFile(buffer: any, fileName: string): void {
-        let EXCEL_TYPE = 'application/vnd.openxmlformats-office(typeof document !== undefined) && document.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
         let EXCEL_EXTENSION = '.xlsx';
         const data: Blob = new Blob([buffer], {
             type: EXCEL_TYPE

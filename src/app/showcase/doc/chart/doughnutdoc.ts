@@ -27,7 +27,7 @@ export class DoughnutDoc implements OnInit {
 
     ngOnInit() {
         if(isPlatformBrowser(this.platformId)){
-            const documentStyle = getComputedStyle((typeof document !== undefined) && document.documentElement);
+            const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
     
             this.data = {
@@ -74,7 +74,7 @@ export class ChartDoughnutDemo implements OnInit {
     options: any;
 
     ngOnInit() {
-        const documentStyle = getComputedStyle((typeof document !== undefined) && document.documentElement);
+        const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
         this.data = {
