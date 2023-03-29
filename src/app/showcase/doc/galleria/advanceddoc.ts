@@ -22,11 +22,11 @@ import { PhotoService } from '../../service/photoservice';
                 [circular]="true"
                 [autoPlay]="true"
                 [transitionInterval]="3000"
-                [containerStyle]="{ width: '100%' }"
+                [containerStyle]="{ 'max-width': '640px' }"
                 [containerClass]="galleriaClass()"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+                    <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -183,11 +183,11 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     [circular]="true"
     [autoPlay]="true"
     [transitionInterval]="3000"
-    [containerStyle]="{ width: '100%' }"
+    [containerStyle]="{ 'max-width': '640px' }"
     [containerClass]="galleriaClass()"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -210,7 +210,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 <div class="card">
     <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
