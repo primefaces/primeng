@@ -100,4 +100,4 @@ export class PhotoService {
     getImages() {
         return Promise.resolve(this.getData());
     }
-};
+}

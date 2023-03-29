@@ -35,7 +35,7 @@ export class AppMenuComponent {
     }
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             setTimeout(() => {
                 this.scrollToActiveItem();
             }, 1);
@@ -50,9 +50,9 @@ export class AppMenuComponent {
     }
 
     isInViewport(element) {
-        if (isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const rect = element.getBoundingClientRect();
-            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth));
+            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
         }
     }
 

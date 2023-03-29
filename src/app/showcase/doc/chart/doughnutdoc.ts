@@ -23,13 +23,13 @@ export class DoughnutDoc implements OnInit {
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any){}
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
-    
+
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -40,7 +40,7 @@ export class DoughnutDoc implements OnInit {
                     }
                 ]
             };
-    
+
             this.options = {
                 cutout: '60%',
                 plugins: {
@@ -50,7 +50,7 @@ export class DoughnutDoc implements OnInit {
                         }
                     }
                 }
-            };    
+            };
         }
     }
 

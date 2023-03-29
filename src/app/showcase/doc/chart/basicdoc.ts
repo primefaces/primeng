@@ -26,10 +26,10 @@ export class BasicDoc implements OnInit {
 
     basicOptions: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any){}
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -47,7 +47,7 @@ export class BasicDoc implements OnInit {
                     }
                 ]
             };
-    
+
             this.basicOptions = {
                 plugins: {
                     legend: {
@@ -79,7 +79,6 @@ export class BasicDoc implements OnInit {
                 }
             };
         }
-
     }
 
     code: Code = {

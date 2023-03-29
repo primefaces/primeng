@@ -30,17 +30,17 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
 
     ngOnInit(): void {
-        if (typeof window !== undefined){
+        if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const hasHash = ObjectUtils.isNotEmpty(hash);
             const id = hasHash ? hash : (this.docs[0] || {}).id;
-    
+
             this.activeId = id;
             hasHash &&
                 setTimeout(() => {
                     this.scrollToLabelById(id);
                 }, 1);
-    
+
             this.zone.runOutsideAngular(() => {
                 this.scrollListener = this.renderer.listen(this.document, 'scroll', (event: any) => {
                     this.onScroll();
@@ -50,16 +50,16 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
-        if (typeof window !== undefined){
+        if (typeof window !== undefined) {
             if (!this.isScrollBlocked) {
                 if (typeof document !== undefined) {
                     const labels = document.querySelectorAll(':is(h1,h2,h3).doc-section-label');
                     const windowScrollTop = DomHandler.getWindowScrollTop();
-        
+
                     labels.forEach((label) => {
                         const { top } = DomHandler.getOffset(label);
                         const threshold = this.getThreshold(label);
-        
+
                         if (top - threshold <= windowScrollTop) {
                             const link = DomHandler.findSingle(label, 'a');
                             this.activeId = link.id;
@@ -67,13 +67,13 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
                     });
                 }
             }
-    
+
             clearTimeout(this.scrollEndTimer);
             this.scrollEndTimer = setTimeout(() => {
                 this.isScrollBlocked = false;
-    
+
                 const activeItem = DomHandler.findSingle(this.nav.nativeElement, '.active-navbar-item');
-    
+
                 activeItem && activeItem.scrollIntoView({ block: 'nearest', inline: 'start' });
             }, 50);
         }
@@ -91,7 +91,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         if (typeof document !== undefined) {
             if (!this.topbarHeight) {
                 const topbar = DomHandler.findSingle(document.body, '.layout-topbar');
-    
+
                 this.topbarHeight = topbar ? DomHandler.getHeight(topbar) : 0;
             }
         }

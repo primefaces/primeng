@@ -19,7 +19,7 @@ export class AppMainComponent implements OnInit {
     config: AppConfig;
 
     news_key = 'primenews';
-    
+
     public subscription: Subscription;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}

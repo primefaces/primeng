@@ -75,6 +75,7 @@
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.0.0",
         "karma-jasmine-html-reporter": "^1.7.0",
+        "@types/express": "^4.17.0",
         "ng-packagr": "~15.0.0",
         "prettier": "2.7.1",
         "primeflex": "^3.3.0",

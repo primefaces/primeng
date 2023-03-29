@@ -252,4 +252,4 @@ export class CountryService {
     getCountries() {
         return Promise.resolve(this.getData());
     }
-};
+}

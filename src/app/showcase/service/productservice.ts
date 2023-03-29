@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { Product } from '../domain/product';
 
-
-
 @Injectable()
 export class ProductService {
     getProductsData() {
@@ -1251,7 +1249,7 @@ export class ProductService {
         //     .then((data) => {
         //         return data;
         //     });
-        return Promise.resolve(this.getProductsData().slice(0,5));
+        return Promise.resolve(this.getProductsData().slice(0, 5));
     }
 
     getProductsSmall() {
@@ -1262,7 +1260,7 @@ export class ProductService {
         //     .then((data) => {
         //         return data;
         //     });
-        return Promise.resolve(this.getProductsData().slice(0,10));
+        return Promise.resolve(this.getProductsData().slice(0, 10));
     }
 
     getProducts() {
@@ -1285,7 +1283,7 @@ export class ProductService {
         //     .then((data) => {
         //         return data;
         //     });
-        return Promise.resolve(this.getProductsData().slice(0,10));
+        return Promise.resolve(this.getProductsData().slice(0, 10));
     }
 
     generatePrduct(): Product {

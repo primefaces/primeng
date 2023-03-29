@@ -22,16 +22,16 @@ export class MultiAxisDoc implements OnInit {
     data: any;
 
     options: any;
-    
-    constructor(@Inject(PLATFORM_ID) private platformId: any){}
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
             const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
             const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    
+
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
@@ -53,7 +53,7 @@ export class MultiAxisDoc implements OnInit {
                     }
                 ]
             };
-    
+
             this.options = {
                 stacked: false,
                 maintainAspectRatio: false,

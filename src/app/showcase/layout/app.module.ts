@@ -27,15 +27,22 @@ import { AppTopbarModule } from '../layout/topbar/app.topbar.module';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    AppComponent, AppFooterComponent, AppMainComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'primeng' }),
-    AppRoutingModule,
-    FormsModule, ReactiveFormsModule, AppRoutingModule, AppNewsModule, HttpClientModule, BrowserAnimationsModule, LandingModule, AppConfigModule, AppTopbarModule, AppMenuModule
-  ],
-  providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy },CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, AppFooterComponent, AppMainComponent],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'primeng' }),
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        AppNewsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        LandingModule,
+        AppConfigModule,
+        AppTopbarModule,
+        AppMenuModule
+    ],
+    providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

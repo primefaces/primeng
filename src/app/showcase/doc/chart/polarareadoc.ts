@@ -23,14 +23,14 @@ export class PolarAreaDoc implements OnInit {
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any){}
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
             const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    
+
             this.data = {
                 datasets: [
                     {
@@ -47,7 +47,7 @@ export class PolarAreaDoc implements OnInit {
                 ],
                 labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
             };
-    
+
             this.options = {
                 plugins: {
                     legend: {

@@ -82,7 +82,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             numVisible: 1
         }
     ];
-    
+
     ngOnInit() {
         this.photoService.getImages().then((images) => (this.images = images));
         this.bindDocumentListeners();
@@ -125,7 +125,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     closePreviewFullScreen() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document['mozCancelFullScreen']) {
@@ -139,7 +139,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     bindDocumentListeners() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             this.onFullScreenListener = this.onFullScreenChange.bind(this);
             document.addEventListener('fullscreenchange', this.onFullScreenListener);
             document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
@@ -149,7 +149,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     unbindDocumentListeners() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             document.removeEventListener('fullscreenchange', this.onFullScreenListener);
             document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
             document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-    
+
 @Injectable()
 export class EventService {
     getData() {
@@ -22,4 +22,4 @@ export class EventService {
     getEvents() {
         return Promise.resolve(this.getData());
     }
-};
+}

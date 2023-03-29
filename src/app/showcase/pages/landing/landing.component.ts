@@ -276,15 +276,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     changeTableTheme(newTheme) {
-       if(isPlatformBrowser(this.platformId)){
-           let linkElement = document.getElementById('theme-link');
-           this.replaceLink(linkElement, newTheme);
-           this.theme = newTheme;
-       } 
+        if (isPlatformBrowser(this.platformId)) {
+            let linkElement = document.getElementById('theme-link');
+            this.replaceLink(linkElement, newTheme);
+            this.theme = newTheme;
+        }
     }
 
     replaceLink(linkElement, theme) {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             const id = linkElement.getAttribute('id');
             const tableThemeTokens = linkElement.getAttribute('href').split('/');
             const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
@@ -292,7 +292,7 @@ export class LandingComponent implements OnInit, OnDestroy {
                 const cloneLinkElement = linkElement.cloneNode(true);
                 cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
                 cloneLinkElement.setAttribute('id', id + '-clone');
-    
+
                 linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
                 this.renderer.listen(cloneLinkElement, 'load', () => {
                     linkElement.remove();
