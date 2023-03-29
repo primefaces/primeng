@@ -55,9 +55,6 @@
                   "./node_modules/prismjs/components/prism-typescript.js"
               ],
               "allowedCommonJsDependencies": [
-                "@fullcalendar/timegrid",
-                "@fullcalendar/interaction",
-                "@fullcalendar/daygrid",
                 "chart.js",
                 "xlsx",
                 "jspdf-autotable",
