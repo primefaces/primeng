@@ -5,7 +5,6 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build",
         "test": "ng test",
         "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
         "e2e": "ng e2e",
@@ -18,8 +17,9 @@
         "security:check": "npm audit --production --audit-level high",
         "dev:ssr": "ng run primeng:serve-ssr",
         "serve:ssr": "node dist/primeng/server/main.js",
-        "build:ssr": "ng build && ng run primeng:server",
-        "prerender": "ng run primeng:prerender"
+        "build:ssr": "ng build --configuration=production && ng run primeng:server",
+        "prerender": "ng run primeng:prerender",
+        "vercel-build": "npm run build:ssr"
     },
     "repository": {
         "type": "git",
@@ -45,11 +45,6 @@
         "@nguniversal/common": "^15.2.0",
         "@nguniversal/express-engine": "^15.2.0",
         "@nguniversal/builders": "^15.2.0",
-        "@fullcalendar/angular": "^6.0.3",
-        "@fullcalendar/core": "^6.0.3",
-        "@fullcalendar/daygrid": "^6.0.3",
-        "@fullcalendar/interaction": "^6.0.3",
-        "@fullcalendar/timegrid": "^6.0.3",
         "@stackblitz/sdk": "1.8.1",
         "@types/jasmine": "~3.10.0",
         "@types/node": "^12.11.1",
