@@ -77,6 +77,11 @@
                         "maximumError": "5mb"
                       }
                     ],
+                    "optimization": {
+                      "styles": {
+                        "inlineCritical": false
+                      }
+                    },
                 "outputHashing": "all"
               },
               "development": {

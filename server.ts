@@ -44,7 +44,8 @@ export function app(): express.Express {
     server.engine(
         'html',
         ngExpressEngine({
-            bootstrap: AppServerModule
+            bootstrap: AppServerModule,
+            inlineCriticalCss: fals
         })
     );
 
