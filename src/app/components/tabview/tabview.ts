@@ -18,9 +18,10 @@ import {
     ViewChild,
     AfterViewChecked,
     forwardRef,
-    Inject
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
@@ -271,7 +272,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     private tabChangesSubscription!: Subscription;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
@@ -282,9 +283,11 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     ngAfterViewChecked() {
-        if (this.tabChanged) {
-            this.updateInkBar();
-            this.tabChanged = false;
+        if(isPlatformBrowser(this.platformId)){
+            if (this.tabChanged) {
+                this.updateInkBar();
+                this.tabChanged = false;
+            }
         }
     }
 

@@ -166,15 +166,17 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     constructor(@Inject(PLATFORM_ID) private platformId: any, private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        if (this.type !== 'linear') {
-            const button = DomHandler.findSingle(this.container.nativeElement, '.p-speeddial-button');
-            const firstItem = DomHandler.findSingle(this.list.nativeElement, '.p-speeddial-item');
-
-            if (button && firstItem) {
-                const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
-                const hDiff = Math.abs(button.offsetHeight - firstItem.offsetHeight);
-                this.list.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
-                this.list.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
+        if(isPlatformBrowser(this.platformId)) {
+            if (this.type !== 'linear') {
+                const button = DomHandler.findSingle(this.container.nativeElement, '.p-speeddial-button');
+                const firstItem = DomHandler.findSingle(this.list.nativeElement, '.p-speeddial-item');
+    
+                if (button && firstItem) {
+                    const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
+                    const hDiff = Math.abs(button.offsetHeight - firstItem.offsetHeight);
+                    this.list.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
+                    this.list.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
+                }
             }
         }
     }

@@ -138,10 +138,15 @@ export class Knob {
 
     onMouseUp(event) {
         if (!this.disabled && !this.readonly) {
-            this.windowMouseMoveListener();
-            this.windowMouseUpListener();
-            this.windowMouseUpListener = null;
-            this.windowMouseMoveListener = null;
+            if(this.windowMouseMoveListener) {
+                this.windowMouseMoveListener();
+                this.windowMouseUpListener = null;
+            }
+
+            if(this.windowMouseUpListener) {
+                this.windowMouseUpListener();
+                this.windowMouseMoveListener = null;
+            }
             event.preventDefault();
         }
     }

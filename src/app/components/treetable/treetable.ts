@@ -1912,24 +1912,34 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     unbindEvents() {
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.headerScrollListener();
-            this.headerScrollListener = null;
-        }
-
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.footerScrollListener();
-            this.footerScrollListener = null;
-        }
-
-        if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            this.bodyScrollListener();
-            this.bodyScrollListener = null;
-        }
-
-        if (this.scroller && this.scroller.getElementRef()) {
-            this.bodyScrollListener();
-            this.bodyScrollListener = null;
+        if(isPlatformBrowser(this.platformId)){
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                if(this.headerScrollListener) {
+                    this.headerScrollListener();
+                    this.headerScrollListener = null;
+                }
+            }
+    
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                if(this.footerScrollListener) {
+                    this.footerScrollListener();
+                    this.footerScrollListener = null;
+                }
+            }
+    
+            if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+                if(this.bodyScrollListener) {
+                    this.bodyScrollListener();
+                    this.bodyScrollListener = null;
+                }
+            }
+    
+            if (this.scroller && this.scroller.getElementRef()) {
+                if (this.bodyScrollListener) {
+                    this.bodyScrollListener();
+                    this.bodyScrollListener = null;
+                }
+            }
         }
     }
 

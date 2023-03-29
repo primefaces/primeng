@@ -13,7 +13,7 @@ const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
 // index from browser build!
-const template = fs.readFileSync(path.join('.', 'dist/primeng-ssr/browser', 'index.html')).toString();
+const template = fs.readFileSync(path.join('.', 'dist/primeng/browser', 'index.html')).toString();
 // for mock global window by domino
 const win = domino.createWindow(template);
 // mock
@@ -37,7 +37,7 @@ global['Prism'] = null;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
     const server = express();
-    const distFolder = join(process.cwd(), 'dist/primeng-ssr/browser');
+    const distFolder = join(process.cwd(), 'dist/primeng/browser');
     const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)

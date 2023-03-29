@@ -17,22 +17,27 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     view: EmbeddedViewRef<any>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterViewInit() {
-        if (this.shouldLoad()) {
-            this.load();
-        }
-
-        if (!this.isLoaded()) {
-            const window = this.document.defaultView || 'window';
-            this.documentScrollListener = this.renderer.listen(window, 'scroll', () => {
-                if (this.shouldLoad()) {
-                    this.load();
-                    this.documentScrollListener();
-                    this.documentScrollListener = null;
-                }
-            });
+        if(isPlatformBrowser(this.platformId)){
+            if (this.shouldLoad()) {
+                this.load();
+            }
+    
+            if (!this.isLoaded()) {
+                this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                    if (this.shouldLoad()) {
+                        this.load();
+                        this.documentScrollListener();
+                        this.documentScrollListener = null;
+                    }
+                });
+            }
         }
     }
 
