@@ -2,7 +2,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
+import docsearch from '@docsearch/js';
 import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
 import { AppConfig } from '../../domain/appconfig';
@@ -55,18 +55,18 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
         if (isPlatformBrowser(this.platformId)) {
             this.bindScrollListener();
+            this.initDocSearch();
         }
-        // this.initDocSearch();
     }
 
-    // initDocSearch() {
-    //     docsearch({
-    //         appId: 'XG1L2MUWT9',
-    //         apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
-    //         indexName: 'primeng',
-    //         container: '#docsearch'
-    //     });
-    // }
+    initDocSearch() {
+        docsearch({
+            appId: 'XG1L2MUWT9',
+            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
+            indexName: 'primeng',
+            container: '#docsearch'
+        });
+    }
 
     bindScrollListener() {
         if (!this.scrollListener) {

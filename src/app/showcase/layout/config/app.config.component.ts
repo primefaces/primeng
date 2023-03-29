@@ -59,11 +59,12 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     changeTheme(event: Event, theme: string, dark: boolean) {
         const linkElement = document.getElementById('theme-link');
-        this.replaceLink(linkElement, theme);
-        // this.config = config;
+        this.replaceLink(linkElement, theme, () => {
+            this.configService.updateConfig({...this.config, theme: theme, dark: dark});
+        });
     }
 
-    replaceLink(linkElement, theme) {
+    replaceLink(linkElement, theme: string, onComplete: Function) {
         const id = linkElement.getAttribute('id');
         const cloneLinkElement = linkElement.cloneNode(true);
 
@@ -75,6 +76,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         cloneLinkElement.addEventListener('load', () => {
             linkElement.remove();
             cloneLinkElement.setAttribute('id', id);
+            onComplete();
         });
     }
 
