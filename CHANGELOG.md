@@ -1,5 +1,8 @@
 # Changelog
 ## [15.3.0](https://github.com/primefaces/primeng/tree/15.3.0) (2023-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.2.1...15.3.0)
+
 **Enhancements:**
 - Algolia Search 🙂
 - Angular Universal Support [\#12810](https://github.com/primefaces/primeng/issues/12810)
