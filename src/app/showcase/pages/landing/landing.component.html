@@ -540,13 +540,13 @@
                             </td>
                             <td style="width: 14%; min-width: 14rem">
                                 <span class="p-column-title">Country</span>
-                                <img ngSrc="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code mr-2" width="30" height="20" alt="country flag">
-                                <span class="image-text">{{ customer.country.name }}</span>
+                                <img ngSrc="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag">
+                                <span class="ml-2 image-text">{{ customer.country.name }}</span>
                             </td>
                             <td style="width: 14%; min-width: 14rem">
                                 <span class="p-column-title">Representative</span>
-                                <img [alt]="customer.representative.name" ngSrc="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" height="32" style="vertical-align: middle" class="mr-2" alt="representative"/>
-                                <span class="image-text">{{ customer.representative.name }}</span>
+                                <img [alt]="customer.representative.name" ngSrc="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" height="32" style="vertical-align: middle" alt="representative"/>
+                                <span class="ml-2 image-text">{{ customer.representative.name }}</span>
                             </td>
                             <td style="width: 14%; min-width: 8rem">
                                 <span class="p-column-title">Date</span>
