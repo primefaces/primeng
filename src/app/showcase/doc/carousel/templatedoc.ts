@@ -15,20 +15,17 @@ import { ProductService } from '../../service/productservice';
                     <p>Header content</p>
                 </ng-template>
                 <ng-template let-product pTemplate="item">
-                    <div class="product-item">
-                        <div class="product-item-content">
-                            <div class="mb-3">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                            </div>
-                            <div>
-                                <h4 class="mb-1">{{ product.name }}</h4>
-                                <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                                <div class="car-buttons mt-5">
-                                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                                    <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                                    <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
-                                </div>
+                    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                        <div class="mb-3">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-6 shadow-2" />
+                        </div>
+                        <div>
+                            <h4 class="mb-1">{{ product.name }}</h4>
+                            <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                            <div class="car-buttons mt-5">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                             </div>
                         </div>
                     </div>
@@ -59,17 +56,17 @@ export class TemplateDoc implements OnInit {
 
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 3,
-                numScroll: 3
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
             },
             {
-                breakpoint: '768px',
+                breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 2
+                numScroll: 1
             },
             {
-                breakpoint: '560px',
+                breakpoint: '767px',
                 numVisible: 1,
                 numScroll: 1
             }
@@ -170,17 +167,17 @@ export class CarouselTemplateDemo implements OnInit{
 
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 3,
-                numScroll: 3
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
             },
             {
-                breakpoint: '768px',
+                breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 2
+                numScroll: 1
             },
             {
-                breakpoint: '560px',
+                breakpoint: '767px',
                 numVisible: 1,
                 numScroll: 1
             }
