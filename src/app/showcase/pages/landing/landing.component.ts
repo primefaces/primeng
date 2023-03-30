@@ -90,8 +90,19 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     isNpmCopied: boolean = false;
 
-    usersData = ['fox', 'airbus', 'mercedes', 'ebay', 'ford', 'vw', 'intel', 'unicredit', 'lufthansa', 'nvidia', 'verizon', 'amex'];
-
+    usersData=[
+        {name:'fox',width:'51',height:'22'},
+        {name:'airbus',width:'87',height:'16'},
+        {name:'mercedes',width:'34',height:'34'},
+        {name:'ford',width:'64',height:'26'},
+        {name:'vw',width:'35',height:'34'},
+        {name:'intel',width:'53',height:'34'},
+        {name:'unicredit',width:'79',height:'18'},
+        {name:'lufthansa',width:'97',height:'18'},
+        {name:'nvidia',width:'86',height:'16'},
+        {name:'verizon',width:'102',height:'18'},
+        {name:'amex',width:'81',height:'30'},
+    ]
     usersImages: any;
 
     private window: Window;
