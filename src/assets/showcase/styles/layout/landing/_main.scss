@@ -180,6 +180,9 @@
                     justify-content: center;
                     align-items: center;
                     height: 8rem;
+                    img{
+                        max-height: 2.2rem;
+                    }
                 }
 
                 &.marquee-reverse {
