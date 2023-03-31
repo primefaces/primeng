@@ -32,7 +32,7 @@ export class AppCodeComponent {
 
     lang!: string;
 
-    ngAfterViewChecked() {
+    ngAfterViewInit() {
         if (typeof window !== undefined && window['Prism'] && this.codeElement) {
             window['Prism'].highlightElement(this.codeElement.nativeElement);
         }
