@@ -3484,10 +3484,12 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     closeEditingCell(completed, event) {
+        const eventData = { field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex };
+
         if (completed) {
-            this.dt.onEditComplete.emit({ field: this.dt.editingCellField, data: this.data, originalEvent: event, index: this.dt.editingCellRowIndex });
+            this.dt.onEditComplete.emit(eventData);
         } else {
-            this.dt.onEditCancel.emit({ field: this.dt.editingCellField, data: this.dt.editingCellData, originalEvent: event, index: this.dt.editingCellRowIndex });
+            this.dt.onEditCancel.emit(eventData);
 
             this.dt.value.forEach((element) => {
                 if (element[this.dt.editingCellField] === this.data) {
