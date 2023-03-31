@@ -13,9 +13,9 @@ import { PhotoService } from '../../service/photoservice';
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
                 <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
             </div>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -81,9 +81,9 @@ export class ControlledDoc implements OnInit {
     <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
     <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
 </div>
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%;" />
+        <img [src]="item.itemImageSrc" style="width: 100%;" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -97,9 +97,9 @@ export class ControlledDoc implements OnInit {
         <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
         <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
     </div>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex"> 
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex"> 
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%;" />
+            <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">

@@ -13,7 +13,7 @@ import { PhotoService } from '../../../service/photoservice';
             <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
             <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -70,7 +70,7 @@ export class WithoutThumbnailsDoc implements OnInit {
     [showThumbnails]="false"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `
@@ -88,7 +88,7 @@ export class WithoutThumbnailsDoc implements OnInit {
         [showThumbnails]="false"
     >
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,

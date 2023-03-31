@@ -14,8 +14,8 @@ import { Code } from '../../domain/code';
                 <p>It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding <i>tabIndex</i> would be necessary.</p>
                 <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
                 <p>
-                    Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/locale/">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the element and override
-                    the default <i>aria-label</i>.
+                    Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the
+                    element and override the default <i>aria-label</i>.
                 </p>
 
                 <app-code [code]="code" [hideToggleCode]="true"></app-code>

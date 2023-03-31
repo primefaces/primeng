@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -271,7 +271,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         if (this.timer) this.clearTimer();
     }
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -680,7 +680,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     onPaste(event) {
         if (!this.disabled && !this.readonly) {
             event.preventDefault();
-            let data = (event.clipboardData || window['clipboardData']).getData('Text');
+            let data = (event.clipboardData || this.document.defaultView['clipboardData']).getData('Text');
             if (data) {
                 let filteredData = this.parseValue(data);
                 if (filteredData != null) {

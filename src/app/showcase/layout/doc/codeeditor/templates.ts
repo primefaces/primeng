@@ -15,9 +15,9 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '15.2.0',
+    version: '15.3.0',
     description:
-        'PrimeNG is an open source UI library for Vue featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
 
 const getAppDependencies = () => {
@@ -359,9 +359,6 @@ const angular_json = `
               ],
               "scripts": [],
               "allowedCommonJsDependencies": [
-                "@fullcalendar/timegrid",
-                "@fullcalendar/interaction",
-                "@fullcalendar/daygrid",
                 "chart.js",
                 "xlsx",
                 "jspdf-autotable",

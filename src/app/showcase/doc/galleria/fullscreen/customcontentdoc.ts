@@ -9,8 +9,8 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <div *ngIf="images" class="grid" style="max-width: 400px;">
+        <div class="card">
+            <div *ngIf="images" class="grid" style="max-width: 800px;">
                 <div *ngFor="let image of images; let index = index" class="col-3" key="index">
                     <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
                 </div>
@@ -28,7 +28,7 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -93,13 +93,13 @@ export class FullScreenTemplateDoc implements OnInit {
     [showThumbnails]="false"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>
         `,
         html: `
-<div class="card flex justify-content-center">
-    <div *ngIf="images" class="grid" style="max-width: 400px;">
+<div class="card">
+    <div *ngIf="images" class="grid" style="max-width: 800px;">
         <div *ngFor="let image of images; let index = index" class="col-3" key="index">
             <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
         </div>
@@ -117,7 +117,7 @@ export class FullScreenTemplateDoc implements OnInit {
         [showThumbnails]="false"
     >
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,

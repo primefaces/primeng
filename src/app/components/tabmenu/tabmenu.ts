@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -9,10 +9,12 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
+    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild,
@@ -148,9 +150,9 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     forwardIsDisabled: boolean = false;
 
-    private timerIdForInitialAutoScroll: number | null = null;
+    private timerIdForInitialAutoScroll: any = null;
 
-    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -167,9 +169,11 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     ngAfterViewInit(): void {
-        this.updateInkBar();
-        this.initAutoScrollForActiveItem();
-        this.initButtonState();
+        if (isPlatformBrowser(this.platformId)) {
+            this.updateInkBar();
+            this.initAutoScrollForActiveItem();
+            this.initButtonState();
+        }
     }
 
     ngAfterViewChecked() {

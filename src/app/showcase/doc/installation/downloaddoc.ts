@@ -16,8 +16,7 @@ export class DownloadDoc {
     @Input() title: string;
 
     code: Code = {
-        command: `
-# with npm
+        command: `# with npm
 npm install primeng primeicons
 
 # with yarn

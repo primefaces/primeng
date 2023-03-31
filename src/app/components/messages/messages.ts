@@ -164,23 +164,18 @@ export class Messages implements AfterContentInit, OnDestroy {
             switch (severity) {
                 case 'success':
                     return 'pi-check';
-                    break;
 
                 case 'info':
                     return 'pi-info-circle';
-                    break;
 
                 case 'error':
                     return 'pi-times';
-                    break;
 
                 case 'warn':
                     return 'pi-exclamation-triangle';
-                    break;
 
                 default:
                     return 'pi-info-circle';
-                    break;
             }
         }
 
