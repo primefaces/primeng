@@ -820,7 +820,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
         }
 
-        //this.thumbnailsStyle.innerHTML = innerHTML;
+        this.thumbnailsStyle.textContent = innerHTML;
     }
 
     calculatePosition() {

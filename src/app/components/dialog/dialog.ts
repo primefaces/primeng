@@ -462,7 +462,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                     `;
                 }
 
-                //this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                this.styleElement.textContent = innerHTML;
             }
         }
     }
