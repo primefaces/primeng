@@ -77,12 +77,12 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
                 url.protocol = this.window.location.protocol;
                 url.hostname = this.window.location.hostname;
-                url.port = this.window.location.port
-                result.url = url.toString()
+                url.port = this.window.location.port;
+                result.url = url.toString();
             }
 
             return result;
-        })
+        });
     }
 
     bindScrollListener() {
