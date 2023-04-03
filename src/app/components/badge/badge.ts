@@ -103,8 +103,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
                     DomHandler.addClass(badge, 'p-badge-dot');
                 }
 
-                badge.innerHTML = '';
-                this.renderer.appendChild(badge, document.createTextNode(this._value));
+                badge.textContent = this._value;
             }
         }
     }
