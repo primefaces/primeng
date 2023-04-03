@@ -490,7 +490,6 @@ import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -588,7 +587,6 @@ ${serviceImports}
     CheckboxModule,
     ChipsModule,
     ChipModule,
-    CodeHighlighterModule,
     ColorPickerModule,
     ConfirmDialogModule,
     ContextMenuModule,
