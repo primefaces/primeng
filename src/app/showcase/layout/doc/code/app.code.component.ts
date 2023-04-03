@@ -33,14 +33,8 @@ export class AppCodeComponent {
     lang!: string;
 
     ngAfterViewChecked() {
-        if (
-            typeof window !== undefined && 
-            window['Prism'] && 
-            this.codeElement && 
-            !this.codeElement.nativeElement.classList.contains('prism')
-        ) {
+        if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
             window['Prism'].highlightElement(this.codeElement.nativeElement);
-            // Add prism class so that change events do not trigger re-highlight (#12846)
             this.codeElement.nativeElement.classList.add('prism');
         }
     }
