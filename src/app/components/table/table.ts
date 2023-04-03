@@ -2033,7 +2033,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             `;
         });
 
-        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+        //this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
     onColumnDragStart(event, columnElement) {
@@ -2373,7 +2373,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     `;
                 });
 
-                this.styleElement.innerHTML = innerHTML;
+                //this.styleElement.innerHTML = innerHTML;
             }
         }
     }
@@ -2467,7 +2467,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
     `;
-                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+                //this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
             }
         }
     }

@@ -432,7 +432,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 `;
             }
 
-            this.styleElement.innerHTML = innerHTML;
+            //this.styleElement.innerHTML = innerHTML;
         }
     }
 

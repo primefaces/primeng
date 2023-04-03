@@ -418,7 +418,7 @@ export class Carousel implements AfterContentInit {
             }
         }
 
-        this.carouselStyle.innerHTML = innerHTML;
+        //this.carouselStyle.innerHTML = innerHTML;
     }
 
     calculatePosition() {

@@ -365,7 +365,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
                 `;
             }
 
-            this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+            //this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
         }
     }
 
