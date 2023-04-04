@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseIcon } from '../../baseicon/baseicon';
-
 @Component({
     selector: 'PlusIcon',
     standalone: true,

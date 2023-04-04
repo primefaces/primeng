@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { ChevronRightIcon } from '../icon/chevronright/chevronright';
+import { ChevronDownIcon } from '../icon/chevrondown/chevrondown';
 
 let idx: number = 0;
 
@@ -23,7 +25,17 @@ let idx: number = 0;
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
                 >
-                    <span [class]="iconClass" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+                   
+                <ng-container *ngIf="!headerIconTemplate">
+                            <ChevronRightIcon [ngClass]="iconClass" *ngIf="selected"></ChevronRightIcon>
+                            <ChevronDownIcon [ngClass]="iconClass" *ngIf="!selected"></ChevronDownIcon>
+                        </ng-container>
+                
+                        <ng-template  *ngTemplateOutlet="headerIconTemplate; context: { $implicit: selected }"></ng-template>
+
+                
+                
+                
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
@@ -86,6 +98,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     @Input() headerStyleClass: string;
 
+    headerIconTemplate: TemplateRef<any>;
+
     @Input() contentStyleClass: string;
 
     @Input() disabled: boolean;
@@ -96,7 +110,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @Input() iconPos: string = 'start';
+    @Input() iconPos: string = 'end';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
@@ -151,6 +165,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'headerIcon':
+                    this.headerIconTemplate = item.template;
                     break;
 
                 default:
@@ -259,7 +277,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     public tabs: AccordionTab[] = [];
 
-    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.initTabs();
@@ -333,8 +351,8 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })
-export class AccordionModule {}
+export class AccordionModule { }
