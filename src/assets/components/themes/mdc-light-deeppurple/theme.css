@@ -52,24 +52,21 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  src: local("Roboto"), local("Roboto-Regular"), url("./fonts/roboto-v20-latin-ext_latin-regular.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-regular.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Roboto"), local("Roboto-Regular"), url("./fonts/roboto-v20-latin-ext_latin-regular.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* roboto-500 - latin-ext_latin */
 @font-face {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
-  src: local("Roboto Medium"), local("Roboto-Medium"), url("./fonts/roboto-v20-latin-ext_latin-500.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-500.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Roboto Medium"), local("Roboto-Medium"), url("./fonts/roboto-v20-latin-ext_latin-500.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-500.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* roboto-700 - latin-ext_latin */
 @font-face {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
-  src: local("Roboto Bold"), local("Roboto-Bold"), url("./fonts/roboto-v20-latin-ext_latin-700.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-700.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Roboto Bold"), local("Roboto-Bold"), url("./fonts/roboto-v20-latin-ext_latin-700.woff2") format("woff2"), url("./fonts/roboto-v20-latin-ext_latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 * {
   box-sizing: border-box;
@@ -458,7 +455,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker table td.p-datepicker-today > span {
   background: #ffffff;
   color: rgba(0, 0, 0, 0.87);
-  border-color: black;
+  border-color: rgb(0, 0, 0);
 }
 .p-datepicker table td.p-datepicker-today > span.p-highlight {
   color: #673AB7;
@@ -1366,14 +1363,12 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(0, 0, 0, 0.6);
 }
-.p-multiselect.p-multiselect-chip .p-multiselect-label {
-  gap: 0.5rem;
-}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
   background: rgba(103, 58, 183, 0.12);
   color: #673AB7;
   border-radius: 4px;
+  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;
