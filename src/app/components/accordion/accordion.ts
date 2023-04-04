@@ -25,17 +25,13 @@ let idx: number = 0;
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
                 >
-                   
-                <ng-container *ngIf="!headerIconTemplate">
-                            <ChevronRightIcon [ngClass]="iconClass" *ngIf="selected"></ChevronRightIcon>
-                            <ChevronDownIcon [ngClass]="iconClass" *ngIf="!selected"></ChevronDownIcon>
-                        </ng-container>
-                
-                        <ng-template  *ngTemplateOutlet="headerIconTemplate; context: { $implicit: selected }"></ng-template>
+                    <ng-container *ngIf="!headerIconTemplate">
+                        <ChevronRightIcon [ngClass]="iconClass" *ngIf="selected"></ChevronRightIcon>
+                        <ChevronDownIcon [ngClass]="iconClass" *ngIf="!selected"></ChevronDownIcon>
+                    </ng-container>
 
-                
-                
-                
+                    <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: selected }"></ng-template>
+
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
@@ -98,8 +94,6 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     @Input() headerStyleClass: string;
 
-    headerIconTemplate: TemplateRef<any>;
-
     @Input() contentStyleClass: string;
 
     @Input() disabled: boolean;
@@ -149,6 +143,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     id: string = `p-accordiontab-${idx++}`;
 
     loaded: boolean;
+
+    headerIconTemplate: TemplateRef<any>;
 
     accordion: Accordion;
 
@@ -277,7 +273,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     public tabs: AccordionTab[] = [];
 
-    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
@@ -355,4 +351,4 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })
-export class AccordionModule { }
+export class AccordionModule {}
