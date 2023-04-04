@@ -13,5 +13,4 @@ import { BaseIcon } from '../../baseicon/baseicon';
         />
     </svg>`
 })
-export class MinusIcon extends BaseIcon {
-}
+export class MinusIcon extends BaseIcon {}
