@@ -6,9 +6,10 @@ import { ObjectUtils } from 'primeng/utils';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./baseicon.css'],
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[class.p-icon]': 'true',
+        '[class.p-icon-spin]': 'spin'
     }
 })
 export class BaseIcon {
@@ -16,19 +17,20 @@ export class BaseIcon {
 
     @Input() spin: boolean = false;
 
-    pti() {
-        const isLabelEmpty = ObjectUtils.isEmpty(this.label);
+    role: string;
 
-        return {
-            class: [
-                'p-icon',
-                {
-                    'p-icon-spin': this.spin
-                }
-            ],
-            role: !isLabelEmpty ? 'img' : undefined,
-            'aria-label': !isLabelEmpty ? this.label : undefined,
-            'aria-hidden': isLabelEmpty
-        };
+    ariaLabel: string;
+
+    ariaHidden: boolean;
+
+    ngOnInit() {
+        this.getAttributes();
+    }
+
+    getAttributes() {
+        const isLabelEmpty = ObjectUtils.isEmpty(this.label);
+        this.role = !isLabelEmpty ? 'img' : undefined;
+        this.ariaLabel = !isLabelEmpty ? this.label : undefined;
+        this.ariaHidden = isLabelEmpty;
     }
 }

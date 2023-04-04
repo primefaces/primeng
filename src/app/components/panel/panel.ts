@@ -4,6 +4,8 @@ import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MinusIcon } from 'primeng/icon/minus';
+import { PlusIcon } from 'primeng/icon/plus';
 
 type PanelIconPosition = 'start' | 'end' | 'center';
 
@@ -32,7 +34,12 @@ let idx: number = 0;
                         role="tab"
                         [attr.aria-expanded]="!collapsed"
                     >
-                        <span [class]="collapsed ? expandIcon : collapseIcon"></span>
+                        <ng-container *ngIf="!headerIconTemplate">
+                            <MinusIcon *ngIf="collapsed"></MinusIcon>
+                            <PlusIcon *ngIf="!collapsed"></PlusIcon>
+                        </ng-container>
+
+                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
                     </button>
                 </div>
             </div>
@@ -107,9 +114,9 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     @Input() iconPos: PanelIconPosition = 'end';
 
-    @Input() expandIcon: string = 'pi pi-plus';
+    @Input() expandIcon: any;
 
-    @Input() collapseIcon: string = 'pi pi-minus';
+    @Input() collapseIcon: any;
 
     @Input() showHeader: boolean = true;
 
@@ -137,6 +144,8 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     footerTemplate: TemplateRef<any>;
 
+    headerIconTemplate: TemplateRef<any>;
+
     id: string = `p-panel-${idx++}`;
 
     constructor(private el: ElementRef) {}
@@ -158,6 +167,10 @@ export class Panel implements AfterContentInit, BlockableUI {
 
                 case 'icons':
                     this.iconTemplate = item.template;
+                    break;
+
+                case 'headerIcon':
+                    this.headerIconTemplate = item.template;
                     break;
 
                 default:
@@ -216,7 +229,7 @@ export class Panel implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
     exports: [Panel, SharedModule],
     declarations: [Panel]
 })
