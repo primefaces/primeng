@@ -382,7 +382,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     updateText() {
         if (this.getOption('escape')) {
-            this.tooltipText.textValue = this.getOption('tooltipLabel');
+            this.tooltipText.textContent = this.getOption('tooltipLabel');
         } else {
             this.tooltipText.innerHTML = this.getOption('tooltipLabel');
         }
