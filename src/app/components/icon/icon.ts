@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ComponentFactoryResolver, AfterContentInit, TemplateRef, QueryList, ContentChildren, ViewChild, ViewContainerRef } from '@angular/core';
+import { NgModule, Component, Input, ChangeDetectorRef, TemplateRef, QueryList, ContentChildren, ViewChild, ViewContainerRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
@@ -9,24 +9,23 @@ interface BaseIcon {
 
 @Component({
     selector: 'p-icon',
-    template: `
-        <span class="p-icon">
-            <i *ngIf="!iconTemplate" [ngClass]="icon" [class]="size"></i>
-            <ng-template #iconContainer></ng-template>
-            <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
-        </span>`,
+    template: ` <span class="p-icon">
+        <i *ngIf="!iconTemplate" [ngClass]="icon" [class]="size"></i>
+        <ng-template #iconContainer></ng-template>
+        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+    </span>`,
     host: {
         class: 'p-element'
     }
 })
 export class Icon {
     @ViewChild('iconContainer', { read: ViewContainerRef }) iconContainer: ViewContainerRef;
-    
+
     @Input() icon: string;
-    
-    @Input() set size(value){
-        this._size = `text-${value}`
+
+    @Input() set size(value) {
+        this._size = `text-${value}`;
     }
 
     @Input() get iconTemplate(): TemplateRef<any> {
@@ -37,24 +36,27 @@ export class Icon {
         this._iconTemplate = value;
     }
 
-    get size () {
+    get size() {
         return this._size;
     }
-    
+
     _svgIcon: any;
-    
+
     @Input() get svgIcon() {
         return this._svgIcon;
     }
 
     set svgIcon(value) {
         this._svgIcon = value;
-        this.loadSvg();
+
+        if (this._svgIcon) {
+            this.loadSvg();
+        }
     }
 
     @Input() spin: boolean = false;
-    
-    _iconTemplate
+
+    _iconTemplate;
 
     _size: string;
 
@@ -63,29 +65,27 @@ export class Icon {
     constructor(private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        if(!this.iconTemplate) {
+        if (!this.iconTemplate) {
             this.templates.forEach((item) => {
-                switch(item.getType()){
+                switch (item.getType()) {
                     case 'icon':
                         this.iconTemplate = item.template;
-                        break
+                        break;
                     default:
                         this.iconTemplate = item.template;
                         break;
                 }
-            })
+            });
         }
     }
 
     loadSvg() {
-        this.cd.detectChanges();
-        if (this.svgIcon && this.iconContainer){
+        if (this.svgIcon && this.iconContainer) {
             this.iconContainer.clear();
             const icon = this.iconContainer.createComponent<BaseIcon>(this.svgIcon);
             icon.instance.spin = true;
             this.cd.detectChanges();
         }
-        
     }
 }
 

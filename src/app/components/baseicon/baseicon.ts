@@ -1,13 +1,8 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef, Inject, Renderer2 } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { ObjectUtils } from 'primeng/utils';
 
 @Component({
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -36,5 +31,4 @@ export class BaseIcon {
             'aria-hidden': isLabelEmpty
         };
     }
-
 }
