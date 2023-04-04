@@ -26,13 +26,20 @@ let idx: number = 0;
                     [attr.aria-expanded]="selected"
                 >
                     <ng-container *ngIf="!iconTemplate">
-                        <span *ngIf="accordion.collapseIcon || accordion.expandIcon" [class]="iconClass" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
-                        <ChevronRightIcon [ngClass]="iconClass" *ngIf="!selected && !accordion.collapseIcon"></ChevronRightIcon>
-                        <ChevronDownIcon [ngClass]="iconClass" *ngIf="selected && !accordion.expandIcon"></ChevronDownIcon>
+                        <ng-container *ngIf="selected">
+                            <span *ngIf="accordion.collapseIcon; else chevrondown" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
+                            <ng-template #chevrondown>
+                                <ChevronDownIcon [ngClass]="iconClass"></ChevronDownIcon>
+                            </ng-template>
+                        </ng-container>
+                        <ng-container *ngIf="!selected">
+                            <span *ngIf="accordion.expandIcon; else chevronright" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
+                            <ng-template #chevronright>
+                                <ChevronRightIcon [class]="iconClass"></ChevronRightIcon>
+                            </ng-template>
+                        </ng-container>
                     </ng-container>
-
                     <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
-
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
