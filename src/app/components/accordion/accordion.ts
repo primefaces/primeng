@@ -25,12 +25,13 @@ let idx: number = 0;
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
                 >
-                    <ng-container *ngIf="!headerIconTemplate">
-                        <ChevronRightIcon [ngClass]="iconClass" *ngIf="selected"></ChevronRightIcon>
-                        <ChevronDownIcon [ngClass]="iconClass" *ngIf="!selected"></ChevronDownIcon>
+                    <ng-container *ngIf="!iconTemplate">
+                        <span *ngIf="accordion.collapseIcon || accordion.expandIcon" [class]="iconClass" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+                        <ChevronRightIcon [ngClass]="iconClass" *ngIf="!selected && !accordion.collapseIcon"></ChevronRightIcon>
+                        <ChevronDownIcon [ngClass]="iconClass" *ngIf="selected && !accordion.expandIcon"></ChevronDownIcon>
                     </ng-container>
 
-                    <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: selected }"></ng-template>
+                    <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
 
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
@@ -104,7 +105,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @Input() iconPos: string = 'end';
+    @Input() iconPos: string = 'start';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
@@ -144,7 +145,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     loaded: boolean;
 
-    headerIconTemplate: TemplateRef<any>;
+    iconTemplate: TemplateRef<any>;
 
     accordion: Accordion;
 
@@ -163,8 +164,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
                     this.headerTemplate = item.template;
                     break;
 
-                case 'headerIcon':
-                    this.headerIconTemplate = item.template;
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 default:
@@ -257,9 +258,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
+    @Input() expandIcon: string;
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
+    @Input() collapseIcon: string;
 
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 

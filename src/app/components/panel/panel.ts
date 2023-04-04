@@ -35,8 +35,9 @@ let idx: number = 0;
                         [attr.aria-expanded]="!collapsed"
                     >
                         <ng-container *ngIf="!headerIconTemplate">
-                            <MinusIcon *ngIf="collapsed"></MinusIcon>
-                            <PlusIcon *ngIf="!collapsed"></PlusIcon>
+                            <span *ngIf="expandIcon && collapseIcon" [class]="collapsed ? expandIcon : collapseIcon"></span>
+                            <MinusIcon [class]="iconClass" *ngIf="collapsed && !collapseIcon"></MinusIcon>
+                            <PlusIcon [class]="iconClass" *ngIf="!collapsed && !expandIcon"></PlusIcon>
                         </ng-container>
 
                         <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
@@ -114,9 +115,9 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     @Input() iconPos: PanelIconPosition = 'end';
 
-    @Input() expandIcon: any;
+    @Input() expandIcon: string;
 
-    @Input() collapseIcon: any;
+    @Input() collapseIcon: string;
 
     @Input() showHeader: boolean = true;
 
@@ -169,7 +170,7 @@ export class Panel implements AfterContentInit, BlockableUI {
                     this.iconTemplate = item.template;
                     break;
 
-                case 'headerIcon':
+                case 'headerIcons':
                     this.headerIconTemplate = item.template;
                     break;
 
