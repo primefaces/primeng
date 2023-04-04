@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
@@ -35,9 +35,15 @@ let idx: number = 0;
                         [attr.aria-expanded]="!collapsed"
                     >
                         <ng-container *ngIf="!headerIconTemplate">
-                            <span *ngIf="expandIcon && collapseIcon" [class]="collapsed ? expandIcon : collapseIcon"></span>
-                            <MinusIcon [class]="iconClass" *ngIf="collapsed && !collapseIcon"></MinusIcon>
-                            <PlusIcon [class]="iconClass" *ngIf="!collapsed && !expandIcon"></PlusIcon>
+                            <ng-container *ngIf="collapsed">
+                                <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
+                                <MinusIcon *ngIf="!collapseIcon" [class]="iconClass"></MinusIcon>
+                            </ng-container>
+
+                            <ng-container *ngIf="!collapsed">
+                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
+                                <PlusIcon *ngIf="!expandIcon" [class]="iconClass"></PlusIcon>
+                            </ng-container>
                         </ng-container>
 
                         <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
