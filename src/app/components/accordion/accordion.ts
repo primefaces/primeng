@@ -27,16 +27,12 @@ let idx: number = 0;
                 >
                     <ng-container *ngIf="!iconTemplate">
                         <ng-container *ngIf="selected">
-                            <span *ngIf="accordion.collapseIcon; else chevrondown" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
-                            <ng-template #chevrondown>
-                                <ChevronDownIcon [ngClass]="iconClass"></ChevronDownIcon>
-                            </ng-template>
+                            <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
+                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass"></ChevronDownIcon>
                         </ng-container>
                         <ng-container *ngIf="!selected">
-                            <span *ngIf="accordion.expandIcon; else chevronright" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
-                            <ng-template #chevronright>
-                                <ChevronRightIcon [class]="iconClass"></ChevronRightIcon>
-                            </ng-template>
+                            <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [class]="iconClass"></ChevronRightIcon>
                         </ng-container>
                     </ng-container>
                     <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
