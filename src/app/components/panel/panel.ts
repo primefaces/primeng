@@ -37,12 +37,12 @@ let idx: number = 0;
                         <ng-container *ngIf="!headerIconTemplate">
                             <ng-container *ngIf="collapsed">
                                 <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!collapseIcon" [class]="iconClass"></MinusIcon>
+                                <MinusIcon *ngIf="!collapseIcon" [class]="iconClass"/>
                             </ng-container>
 
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <PlusIcon *ngIf="!expandIcon" [class]="iconClass"></PlusIcon>
+                                <PlusIcon *ngIf="!expandIcon" [class]="iconClass"/>
                             </ng-container>
                         </ng-container>
 
