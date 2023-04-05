@@ -23,6 +23,7 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
+import { TimesIcon } from 'primeng/icon/times';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -54,7 +55,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <div class="p-sidebar-header">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" *ngIf="showCloseIcon" pRipple>
-                    <span class="p-sidebar-close-icon pi pi-times"></span>
+                    <TimesIcon *ngIf="!closeIconTemplate" [ngClass]="'p-sidebar-close-icon'"/>
+                    <ng-template *ngTemplateOutlet="closeIconTemplate; context: { styleClass: 'p-sidebar-close-icon' }"></ng-template>
                 </button>
             </div>
             <div class="p-sidebar-content">
@@ -133,6 +135,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     footerTemplate: TemplateRef<any>;
 
+    closeIconTemplate: TemplateRef<any>;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
@@ -151,6 +155,10 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 case 'footer':
                     this.footerTemplate = item.template;
                     break;
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
+                    break;
+
                 default:
                     this.contentTemplate = item.template;
                     break;
@@ -362,7 +370,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule, TimesIcon],
     exports: [Sidebar, SharedModule],
     declarations: [Sidebar]
 })
