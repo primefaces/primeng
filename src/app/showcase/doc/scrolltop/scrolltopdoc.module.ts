@@ -13,8 +13,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollTopModule, TemplatesDoc],
-    declarations: [BasicDoc, ElementDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollTopModule],
+    declarations: [BasicDoc, ElementDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class ScrollTopDocModule {}
