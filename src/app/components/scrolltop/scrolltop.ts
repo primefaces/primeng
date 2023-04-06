@@ -66,9 +66,9 @@ export class ScrollTop implements OnInit, OnDestroy {
     @Input() showTransitionOptions: string = '.15s';
 
     @Input() hideTransitionOptions: string = '.15s';
-    
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     iconTemplate: TemplateRef<any>;
 
     documentScrollListener: VoidFunction | null;

@@ -231,26 +231,25 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 })
 export class Button implements AfterContentInit {
-
     iconClass() {
-       return ({
-        'p-button-icon': true,
-        'p-button-icon-left': this.iconPos === 'left' && this.label,
-        'p-button-icon-right': this.iconPos === 'right' && this.label,
-        'p-button-icon-top': this.iconPos === 'top' && this.label,
-        'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        })
+        return {
+            'p-button-icon': true,
+            'p-button-icon-left': this.iconPos === 'left' && this.label,
+            'p-button-icon-right': this.iconPos === 'right' && this.label,
+            'p-button-icon-top': this.iconPos === 'top' && this.label,
+            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
+        };
     }
 
     buttonClass() {
-        return ({
+        return {
             'p-button p-component': true,
             'p-button-icon-only': this.icon && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label
-        })
+        };
     }
 
     @Input() type: string = 'button';
@@ -301,7 +300,7 @@ export class Button implements AfterContentInit {
                 case 'icon':
                     this.iconTemplate = item.template;
                     break;
-    
+
                 case 'loadingicon':
                     this.loadingIconTemplate = item.template;
                     break;
