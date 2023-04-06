@@ -205,7 +205,6 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
@@ -214,12 +213,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
                 <ng-template *ngTemplateOutlet="loadingIconTemplate; context: { $implicit: 'p-button-loading-icon' }"></ng-template>
             </ng-container>
-
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
                 <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { $implicit: iconClass() }"></ng-template>
             </ng-container>
-
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
         </button>
