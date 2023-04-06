@@ -1,9 +1,10 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, Inject } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
+import { SpinnerIcon } from 'primeng/icon/spinner';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -196,14 +197,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             [class]="styleClass"
             [ngStyle]="style"
             [disabled]="disabled || loading"
-            [ngClass]="{
-                'p-button p-component': true,
-                'p-button-icon-only': icon && !label,
-                'p-button-vertical': (iconPos === 'top' || iconPos === 'bottom') && label,
-                'p-disabled': this.disabled || this.loading,
-                'p-button-loading': this.loading,
-                'p-button-loading-label-only': this.loading && !this.icon && this.label
-            }"
+            [ngClass]="buttonClass()"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
@@ -211,18 +205,21 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            <span
-                [ngClass]="{
-                    'p-button-icon': true,
-                    'p-button-icon-left': iconPos === 'left' && label,
-                    'p-button-icon-right': iconPos === 'right' && label,
-                    'p-button-icon-top': iconPos === 'top' && label,
-                    'p-button-icon-bottom': iconPos === 'bottom' && label
-                }"
-                [class]="loading ? 'p-button-loading-icon ' + loadingIcon : icon"
-                *ngIf="!contentTemplate && (icon || loading)"
-                [attr.aria-hidden]="true"
-            ></span>
+
+            <ng-container *ngIf="loading">
+                <ng-container *ngIf="!loadingIconTemplate">
+                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
+                    <SpinnerIcon *ngIf="!loadingIcon" [class]="'p-button-loading-icon'" [ngClass]="iconClass()" [spin]="true" />
+                </ng-container>
+
+                <ng-template *ngTemplateOutlet="loadingIconTemplate; context: { $implicit: 'p-button-loading-icon' }"></ng-template>
+            </ng-container>
+
+            <ng-container *ngIf="!loading">
+                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
+                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { $implicit: iconClass() }"></ng-template>
+            </ng-container>
+
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
         </button>
@@ -234,6 +231,28 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 })
 export class Button implements AfterContentInit {
+
+    iconClass() {
+       return ({
+        'p-button-icon': true,
+        'p-button-icon-left': this.iconPos === 'left' && this.label,
+        'p-button-icon-right': this.iconPos === 'right' && this.label,
+        'p-button-icon-top': this.iconPos === 'top' && this.label,
+        'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
+        })
+    }
+
+    buttonClass() {
+        return ({
+            'p-button p-component': true,
+            'p-button-icon-only': this.icon && !this.label,
+            'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
+            'p-disabled': this.disabled || this.loading,
+            'p-button-loading': this.loading,
+            'p-button-loading-label-only': this.loading && !this.icon && this.label
+        })
+    }
+
     @Input() type: string = 'button';
 
     @Input() iconPos: ButtonIconPosition = 'left';
@@ -248,7 +267,7 @@ export class Button implements AfterContentInit {
 
     @Input() loading: boolean = false;
 
-    @Input() loadingIcon: string = 'pi pi-spinner pi-spin';
+    @Input() loadingIcon: string;
 
     @Input() style: any;
 
@@ -259,6 +278,10 @@ export class Button implements AfterContentInit {
     @Input() ariaLabel: string;
 
     contentTemplate: TemplateRef<any>;
+
+    loadingIconTemplate: TemplateRef<any>;
+
+    iconTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -273,6 +296,14 @@ export class Button implements AfterContentInit {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+    
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
                     break;
 
                 default:
@@ -291,8 +322,8 @@ export class Button implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [ButtonDirective, Button],
+    imports: [CommonModule, RippleModule, SharedModule, SpinnerIcon],
+    exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })
 export class ButtonModule {}
