@@ -96,7 +96,7 @@ export interface ScrollerOptions {
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [ngClass]="'p-scroller-loading-icon'" [spin]="true"/>
+                            <SpinnerIcon [ngClass]="'p-scroller-loading-icon'"/>
                         </ng-template>
                     </ng-template>
                 </div>

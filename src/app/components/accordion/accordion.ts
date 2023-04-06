@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { ChevronRightIcon } from '../icon/chevronright/chevronright';
-import { ChevronDownIcon } from '../icon/chevrondown/chevrondown';
+import { ChevronRightIcon } from 'primeng/icon/chevronright';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
 
 let idx: number = 0;
 
