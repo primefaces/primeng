@@ -11,8 +11,11 @@
     line-height: 1.5;
 }
 
-.pi-chip-remove-icon {
+.pi-chip-remove-icon.pi {
     line-height: 1.5;
+}
+
+.pi-chip-remove-icon {
     cursor: pointer;
 }
 
