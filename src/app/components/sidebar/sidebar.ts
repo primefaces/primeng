@@ -56,7 +56,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" *ngIf="showCloseIcon" pRipple>
                     <TimesIcon *ngIf="!closeIconTemplate" [ngClass]="'p-sidebar-close-icon'"/>
-                    <ng-template *ngTemplateOutlet="closeIconTemplate; context: { styleClass: 'p-sidebar-close-icon' }"></ng-template>
+                    <ng-template *ngTemplateOutlet="closeIconTemplate; context: { $implicit: 'p-sidebar-close-icon' }"></ng-template>
                 </button>
             </div>
             <div class="p-sidebar-content">
