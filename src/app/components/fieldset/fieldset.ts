@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
+import { PlusIcon } from 'primeng/icon/plus';
+import { MinusIcon } from 'primeng/icon/minus';
 
 let idx: number = 0;
 
@@ -14,7 +16,14 @@ let idx: number = 0;
             <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
-                        <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{ 'pi-minus': !collapsed, 'pi-plus': collapsed }"></span>
+                        <ng-container *ngIf="collapsed">
+                            <PlusIcon [ngClass]="'p-fieldset-toggler'" *ngIf="!expandIconTemplate" />
+                            <ng-container *ngTemplateOutlet="expandIconTemplate; context: { $implicit: 'p-fieldset-toggler' }"></ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!collapsed">
+                            <MinusIcon [ngClass]="'p-fieldset-toggler'" *ngIf="!collapseIconTemplate" />
+                            <ng-container *ngTemplateOutlet="collapseIconTemplate; context: { $implicit: 'p-fieldset-toggler' }"></ng-container>
+                        </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
                 </ng-container>
@@ -92,6 +101,10 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
     contentTemplate: TemplateRef<any>;
 
+    collapseIconTemplate: TemplateRef<any>;
+
+    expandIconTemplate: TemplateRef<any>;
+
     constructor(private el: ElementRef) {}
 
     id: string = `p-fieldset-${idx++}`;
@@ -101,6 +114,14 @@ export class Fieldset implements AfterContentInit, BlockableUI {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'expandicon':
+                    this.expandIconTemplate = item.template;
+                    break;
+
+                case 'collapseicon':
+                    this.collapseIconTemplate = item.template;
                     break;
 
                 case 'content':
@@ -145,7 +166,7 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
+    imports: [CommonModule, RippleModule, MinusIcon, PlusIcon],
     exports: [Fieldset, SharedModule],
     declarations: [Fieldset]
 })

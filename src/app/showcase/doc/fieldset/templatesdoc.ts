@@ -21,6 +21,14 @@ import { Component, Input } from '@angular/core';
                         <td>content</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>expandicon</td>
+                        <td>$implicit: style class of the expand icon</td>
+                    </tr>
+                    <tr>
+                        <td>closeicon</td>
+                        <td>$implicit: style class of the close icon</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
