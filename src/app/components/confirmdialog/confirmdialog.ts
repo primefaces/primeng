@@ -30,6 +30,8 @@ import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
+import { TimesIcon } from 'primeng/icon/times';
+import { CheckIcon } from 'primeng/icon/check';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -55,7 +57,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <span class="p-dialog-title" *ngIf="option('header')">{{ option('header') }}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="closable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
-                            <span class="pi pi-times"></span>
+                            <TimesIcon />
                         </button>
                     </div>
                 </div>
@@ -72,14 +74,19 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         type="button"
                         pRipple
                         pButton
-                        [icon]="option('rejectIcon')"
                         [label]="rejectButtonLabel"
                         (click)="reject()"
                         [ngClass]="'p-confirm-dialog-reject'"
                         [class]="option('rejectButtonStyleClass')"
                         *ngIf="option('rejectVisible')"
                         [attr.aria-label]="rejectAriaLabel"
-                    ></button>
+                    >
+                        <ng-container *ngIf="!rejectIconTemplate; else rejecticon">
+                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                            <TimesIcon *ngIf="!option('rejectIcon')" [ngClass]="'p-button-icon-left'"/>
+                        </ng-container>
+                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                    </button>
                     <button
                         type="button"
                         pRipple
@@ -91,7 +98,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [class]="option('acceptButtonStyleClass')"
                         *ngIf="option('acceptVisible')"
                         [attr.aria-label]="acceptAriaLabel"
-                    ></button>
+                    >
+                        <ng-container *ngIf="!acceptIconTemplate; else accepticon">
+                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                            <CheckIcon *ngIf="!option('acceptIcon')" [ngClass]="'p-button-icon-left'"/>
+                        </ng-container>
+                        <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                    </button>
                 </div>
             </div>
         </div>
@@ -117,7 +130,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() maskStyleClass: string;
 
-    @Input() acceptIcon: string = 'pi pi-check';
+    @Input() acceptIcon: string;
 
     @Input() acceptLabel: string;
 
@@ -125,7 +138,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() acceptVisible: boolean = true;
 
-    @Input() rejectIcon: string = 'pi pi-times';
+    @Input() rejectIcon: string;
 
     @Input() rejectLabel: string;
 
@@ -223,6 +236,15 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 case 'footer':
                     this.footerTemplate = item.template;
                     break;
+
+                case 'rejecticon':
+                    console.log(item.template);
+                    this.rejectIconTemplate = item.template;
+                    break;
+
+                case 'accepticon':
+                    this.acceptIconTemplate = item.template;
+                    break;
             }
         });
     }
@@ -230,6 +252,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     headerTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
+
+    rejectIconTemplate: TemplateRef<any>;
+
+    acceptIconTemplate: TemplateRef<any>;
 
     confirmation: Confirmation;
 
@@ -577,7 +603,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule],
+    imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon],
     exports: [ConfirmDialog, ButtonModule, SharedModule],
     declarations: [ConfirmDialog]
 })

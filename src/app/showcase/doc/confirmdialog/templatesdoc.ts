@@ -23,6 +23,14 @@ import { Component, Input } from '@angular/core';
                         <td>footer</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>accepticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>rejecticon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
