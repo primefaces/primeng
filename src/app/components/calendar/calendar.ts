@@ -112,7 +112,14 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                     <div class="p-datepicker-group-container">
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
+                                <button
+                                    (keydown)="onContainerButtonKeydown($event)"
+                                    class="p-datepicker-prev p-link"
+                                    (click)="onPrevButtonClick($event)"
+                                    *ngIf="i === 0"
+                                    type="button"
+                                    pRipple
+                                >
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
                                 <div class="p-datepicker-title">
