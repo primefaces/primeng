@@ -119,6 +119,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     *ngIf="i === 0"
                                     type="button"
                                     pRipple
+                                    [disabled]="isNavigationDisabled('prev', month)"
+                                    [ngClass]="{
+                                        'p-disabled': isNavigationDisabled('prev', month)
+                                    }"
                                 >
                                     <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
                                 </button>
@@ -141,6 +145,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     [style.display]="numberOfMonths === 1 ? 'inline-flex' : i === numberOfMonths - 1 ? 'inline-flex' : 'none'"
                                     type="button"
                                     pRipple
+                                    [disabled]="isNavigationDisabled('next', month)"
+                                    [ngClass]="{
+                                        'p-disabled': isNavigationDisabled('next', month)
+                                    }"
                                 >
                                     <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
                                 </button>
@@ -191,7 +199,14 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" class="p-yearpicker-year" [ngClass]="{ 'p-highlight': isYearSelected(y) }" pRipple>
+                        <span
+                        *ngFor="let y of yearPickerValues()"
+                        (click)="onYearSelect($event, y)"
+                        (keydown)="onYearCellKeydown($event, y)"
+                        class="p-yearpicker-year"
+                        [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
+                        pRipple
+                    >
                             {{ y }}
                         </span>
                     </div>
@@ -1369,6 +1384,74 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
         return true;
+    }
+
+    isYearDisabled(year): boolean {
+        let validMin = true;
+        let validMax = true;
+
+        if (this.minDate) {
+            if (this.minDate.getFullYear() > year) {
+                validMin = false;
+            }
+        }
+        if (this.maxDate) {
+            if (this.maxDate.getFullYear() < year) {
+                validMax = false;
+            }
+        }
+        return !validMin || !validMax;
+    }
+
+    isNavigationDisabled(type: string, month): boolean {
+        if(this.currentView === 'date') {
+            if (this.minDate && type === 'prev') {
+                if (this.minDate.getFullYear() > this.months[0].year) {
+                    return true;
+                } else if(this.minDate.getFullYear() === this.months[0].year){
+                    if (this.minDate.getMonth() >= this.months[0].month) {
+                        return true;
+                    }
+                }
+            }
+            if (this.maxDate && type === 'next') {
+                if (this.maxDate.getFullYear() < this.months[0].year) {
+                    return true;
+                } else if(this.maxDate.getFullYear() === this.months[0].year){
+                    if (this.maxDate.getMonth() <= this.months[0].month) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } else if(this.currentView === 'year') {
+            let yearpicker: any[] = this.yearPickerValues();
+            if (this.minDate && type === 'prev') {
+                if(yearpicker[0] > this.minDate.getFullYear()) {
+                    return false;
+                }
+            }
+            if (this.maxDate && type === 'next') {
+                if(yearpicker[yearpicker.length - 1] < this.maxDate.getFullYear()) {
+                    return false;
+                }
+            }
+            return true;
+        } else if(this.currentView === 'month') {
+            let year = this.getYear(month);
+            if (this.minDate && type === 'prev') {
+                if(year > this.minDate.getFullYear()) {
+                    return false;
+                }
+            }
+            if (this.maxDate && type === 'next') {
+                if(year < this.maxDate.getFullYear()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     isYearSelected(year) {
