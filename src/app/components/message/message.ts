@@ -1,5 +1,9 @@
 import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CheckIcon } from 'primeng/icon/check';
+import { InfoCircleIcon } from 'primeng/icon/infocircle';
+import { TimesCircleIcon } from 'primeng/icon/timescricle';
+import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
 
 @Component({
     selector: 'p-message',
@@ -18,7 +22,10 @@ import { CommonModule } from '@angular/common';
                 'p-inline-message-icon-only': this.text == null
             }"
         >
-            <span class="p-inline-message-icon" [ngClass]="icon"></span>
+            <CheckIcon *ngIf="severity === 'success'" [ngClass]="'p-inline-message-icon'"/>
+            <InfoCircleIcon *ngIf="severity === 'info'" [ngClass]="'p-inline-message-icon'"/>
+            <TimesCircleIcon *ngIf="severity === 'error'" [ngClass]="'p-inline-message-icon'"/>
+            <ExclamationTriangleIcon *ngIf="severity === 'warn'" [ngClass]="'p-inline-message-icon'"/>
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
             </div>
@@ -44,40 +51,10 @@ export class UIMessage {
     @Input() style: any;
 
     @Input() styleClass: string;
-
-    get icon(): string {
-        let icon: string = null;
-
-        if (this.severity) {
-            switch (this.severity) {
-                case 'success':
-                    icon = 'pi pi-check';
-                    break;
-
-                case 'info':
-                    icon = 'pi pi-info-circle';
-                    break;
-
-                case 'error':
-                    icon = 'pi pi-times-circle';
-                    break;
-
-                case 'warn':
-                    icon = 'pi pi-exclamation-triangle';
-                    break;
-
-                default:
-                    icon = 'pi pi-info-circle';
-                    break;
-            }
-        }
-
-        return icon;
-    }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon],
     exports: [UIMessage],
     declarations: [UIMessage]
 })
