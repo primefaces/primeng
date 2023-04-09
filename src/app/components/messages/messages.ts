@@ -24,7 +24,7 @@ import { TimesIcon } from 'primeng/icon/times';
                     <div class="p-message-wrapper">
                         <span
                             *ngIf="msg.icon"
-                            [class]="'p-message-icon ' + (msg.icon ? 'pi ' + msg.icon : '')"
+                            [class]="'p-message-icon pi ' + msg.icon"
                         >
                         </span>
                         <span class="p-message-icon" *ngIf="!msg.icon">
