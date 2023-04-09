@@ -22,7 +22,9 @@ import {
     DoCheck,
     Inject,
     Renderer2,
-    PLATFORM_ID
+    PLATFORM_ID,
+    AfterContentInit,
+    forwardRef
 } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
@@ -30,6 +32,11 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import { ChevronRightIcon } from 'primeng/icon/chevronright';
+import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
+import { TimesIcon } from 'primeng/icon/times';
+import { WindowMaximizeIcon } from 'primeng/icon/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icon/windowminimize';
 
 @Component({
     selector: 'p-galleria',
@@ -157,6 +164,16 @@ export class Galleria implements OnChanges, OnDestroy {
 
     captionFacet: any;
 
+    closeIconTemplate: TemplateRef<any>;
+    
+    thumbnailPrevIconTemplate: TemplateRef<any>;
+
+    thumbnailNextIconTemplate: TemplateRef<any>;
+
+    prevIconTemplate: TemplateRef<any>;
+
+    nextIconTemplate: TemplateRef<any>;
+
     maskVisible: boolean = false;
 
     constructor(@Inject(DOCUMENT) private document: Document, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
@@ -167,12 +184,35 @@ export class Galleria implements OnChanges, OnDestroy {
                 case 'header':
                     this.headerFacet = item.template;
                     break;
+
                 case 'footer':
                     this.footerFacet = item.template;
                     break;
+
                 case 'indicator':
                     this.indicatorFacet = item.template;
                     break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+
+                case 'previcon':
+                    this.prevIconTemplate = item.template;
+                    break;
+
+                case 'thumbnailprevicon':
+                    this.thumbnailPrevIconTemplate = item.template;
+                    break;
+
+                case 'thumbnailnexticon':
+                    this.thumbnailNextIconTemplate = item.template;
+                    break;
+
                 case 'caption':
                     this.captionFacet = item.template;
                     break;
@@ -264,7 +304,8 @@ export class Galleria implements OnChanges, OnDestroy {
             [class]="galleriaClass()"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple>
-                <span class="p-galleria-close-icon pi pi-times"></span>
+                <TimesIcon *ngIf="!galleria.closeIconTemplate" [ngClass]="'p-galleria-close-icon'" [ngStyle]="{'font-size':'0', 'scale': '2'}"/>
+                <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
             <div *ngIf="galleria.templates && galleria.headerFacet" class="p-galleria-header">
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
@@ -452,10 +493,12 @@ export class GalleriaItemSlot {
                         this.context = { $implicit: this.item };
                         this.contentTemplate = item.template;
                         break;
+                    
                     case 'indicator':
                         this.context = { $implicit: this.index };
                         this.contentTemplate = item.template;
                         break;
+
                     default:
                         this.context = {};
                         this.contentTemplate = item.template;
@@ -479,7 +522,8 @@ export class GalleriaItemSlot {
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
                 >
-                    <span class="p-galleria-item-prev-icon pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!galleria.prevIconTemplate" [ngClass]="'p-galleria-item-prev-icon'" [ngStyle]="{'font-size': '0', 'scale': '2'}"/>
+                    <ng-template *ngTemplateOutlet="galleria.prevIconTemplate"></ng-template>
                 </button>
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
                 <button
@@ -490,7 +534,8 @@ export class GalleriaItemSlot {
                     [disabled]="isNavForwardDisabled()"
                     pRipple
                 >
-                    <span class="p-galleria-item-next-icon pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!galleria.nextIconTemplate" [ngClass]="'p-galleria-item-next-icon'" [ngStyle]="{'font-size': '0', 'scale': '2'}"/>
+                    <ng-template *ngTemplateOutlet="galleria.nextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
                     <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
@@ -553,6 +598,8 @@ export class GalleriaItem implements OnChanges {
     }
 
     _activeIndex: number = 0;
+
+    constructor(public galleria: Galleria) {}
 
     ngOnChanges({ autoPlay }: SimpleChanges): void {
         if (autoPlay?.currentValue) {
@@ -636,7 +683,11 @@ export class GalleriaItem implements OnChanges {
         <div class="p-galleria-thumbnail-wrapper">
             <div class="p-galleria-thumbnail-container">
                 <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-prev p-link': true, 'p-disabled': this.isNavBackwardDisabled() }" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()" pRipple>
-                    <span [ngClass]="{ 'p-galleria-thumbnail-prev-icon pi': true, 'pi-chevron-left': !this.isVertical, 'pi-chevron-up': this.isVertical }"></span>
+                    <ng-container *ngIf="!galleria.thumbnailPrevIconTemplate">
+                        <ChevronLeftIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-prev-icon'"/>
+                        <ChevronUpIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-prev-icon'"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="galleria.thumbnailPrevIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnail-items-container" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
                     <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
@@ -657,7 +708,11 @@ export class GalleriaItem implements OnChanges {
                     </div>
                 </div>
                 <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-next p-link': true, 'p-disabled': this.isNavForwardDisabled() }" (click)="navForward($event)" [disabled]="isNavForwardDisabled()" pRipple>
-                    <span [ngClass]="{ 'p-galleria-thumbnail-next-icon pi': true, 'pi-chevron-right': !this.isVertical, 'pi-chevron-down': this.isVertical }"></span>
+                    <ng-container *ngIf="!galleria.thumbnailNextIconTemplate">
+                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'"/>
+                        <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="galleria.thumbnailNextIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -732,11 +787,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.createStyle();
-
+        
         if (this.responsiveOptions) {
             this.bindDocumentListeners();
         }
@@ -1038,7 +1093,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })
