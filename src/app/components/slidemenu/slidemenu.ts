@@ -1,11 +1,14 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
+import { CaretRightIcon } from 'primeng/icon/caretright';
+import { CaretLeftIcon } from 'primeng/icon/caretleft';
+import { AngleRightIcon } from 'primeng/icon/angleright';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -46,7 +49,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-fw pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [ngClass]="'p-submenu-icon pi-fw'"/>
+                            <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -74,7 +80,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <CaretRightIcon *ngIf="!slideMenu.submenuIconTemplate" [ngClass]="'p-submenu-icon pi-fw'"/>
+                            <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-slideMenuSub class="p-submenu" [item]="child" [index]="index + 1" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
                 </li>
@@ -210,7 +219,9 @@ export class SlideMenuSub implements OnDestroy {
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <a #backward (keydown.enter)="onBackwardKeydown($event)" (keydown.space)="onBackwardKeydown($event)" class="p-slidemenu-backward p-menuitem-link" tabindex="0" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
-                    <span class="p-slidemenu-backward-icon pi pi-fw pi-caret-left"></span><span>{{ backLabel }}</span>
+                    <CaretLeftIcon *ngIf="!backIconTemplate" [ngClass]="'p-slidemenu-backward-icon pi-fw'"/>
+                    <ng-template *ngTemplateOutlet="backIconTemplate"></ng-template>
+                    <span>{{ backLabel }}</span>
                 </a>
             </div>
         </div>
@@ -256,6 +267,8 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     containerViewChild: ElementRef;
 
     backwardViewChild: ElementRef;
@@ -282,6 +295,10 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     window: Window;
 
+    submenuIconTemplate: TemplateRef<any>;
+    
+    backIconTemplate: TemplateRef<any>;
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -299,6 +316,20 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
             this.updateViewPort();
             this.viewportUpdated = true;
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'backicon':
+                    this.backIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     @ViewChild('container') set container(element: ElementRef) {
@@ -507,8 +538,8 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
-    exports: [SlideMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, CaretLeftIcon, CaretRightIcon, AngleRightIcon],
+    exports: [SlideMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [SlideMenu, SlideMenuSub]
 })
 export class SlideMenuModule {}

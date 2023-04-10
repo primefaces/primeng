@@ -7,6 +7,7 @@ import { MethodsDoc } from '../../doc/slidemenu/methodsdoc';
 import { PropsDoc } from '../../doc/slidemenu/propsdoc';
 import { StyleDoc } from '../../doc/slidemenu/styledoc';
 import { AccessibilityDoc } from '../../doc/slidemenu/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/slidemenu/templatesdoc';
 
 @Component({
     templateUrl: './slidemenudemo.html'
@@ -50,6 +51,11 @@ export class SlideMenuDemo {
             id: 'methods',
             label: 'Methods',
             component: MethodsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'menuitem',
