@@ -42,19 +42,19 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>nexticon</td>
+                        <td>itemnexticon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>previcon</td>
+                        <td>itemprevicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>thumbnailprevicon</td>
+                        <td>prevthumbnailicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>thumbnailnexticon</td>
+                        <td>nextthumbnailicon</td>
                         <td>-</td>
                     </tr>
                 </tbody>
