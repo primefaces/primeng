@@ -1,8 +1,10 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChevronRightIcon } from 'primeng/icon/chevronright';
+import { HomeIcon } from 'primeng/icon/home';
 
 @Component({
     selector: 'p-breadcrumb',
@@ -21,7 +23,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         [attr.id]="home.id"
                         [attr.tabindex]="home.disabled ? null : '0'"
                     >
-                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon || 'pi pi-home'" [ngStyle]="home.iconStyle"></span>
+                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
+                        <HomeIcon *ngIf="!home.icon" [ngClass]="'p-menuitem-icon'"/>
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-menuitem-text">{{ home.label }}</span>
                             <ng-template #htmlHomeLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
@@ -47,14 +50,18 @@ import { TooltipModule } from 'primeng/tooltip';
                         [replaceUrl]="home.replaceUrl"
                         [state]="home.state"
                     >
-                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon || 'pi pi-home'" [ngStyle]="home.iconStyle"></span>
+                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
+                        <HomeIcon *ngIf="!home.icon" [ngClass]="'p-menuitem-icon'"/>
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-menuitem-text">{{ home.label }}</span>
                             <ng-template #htmlHomeRouteLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
                         </ng-container>
                     </a>
                 </li>
-                <li class="p-breadcrumb-chevron pi pi-chevron-right" *ngIf="model && home"></li>
+                <li *ngIf="model && home" class="p-breadcrumb-chevron">
+                    <ChevronRightIcon *ngIf="!separatorTemplate" />
+                    <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
+                </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
                     <li [class]="item.styleClass" [ngStyle]="item.style" [ngClass]="{ 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions">
                         <a
@@ -99,7 +106,10 @@ import { TooltipModule } from 'primeng/tooltip';
                             </ng-container>
                         </a>
                     </li>
-                    <li class="p-breadcrumb-chevron pi pi-chevron-right" *ngIf="!end"></li>
+                    <li *ngIf="!end" class="p-breadcrumb-chevron">
+                        <ChevronRightIcon *ngIf="!separatorTemplate" />
+                        <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
+                    </li>
                 </ng-template>
             </ul>
         </div>
@@ -152,11 +162,25 @@ export class Breadcrumb {
             this.itemClick(event, this.home);
         }
     }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    separatorTemplate: TemplateRef<any>
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'separator':
+                    this.separatorTemplate = item.template;
+                    break;
+            }
+        });
+    }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
-    exports: [Breadcrumb, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
+    exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
     declarations: [Breadcrumb]
 })
 export class BreadcrumbModule {}
