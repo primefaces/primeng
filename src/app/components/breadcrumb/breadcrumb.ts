@@ -1,4 +1,4 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
@@ -121,7 +121,7 @@ import { HomeIcon } from 'primeng/icon/home';
         class: 'p-element'
     }
 })
-export class Breadcrumb {
+export class Breadcrumb implements AfterContentInit {
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -133,6 +133,10 @@ export class Breadcrumb {
     @Input() homeAriaLabel: string;
 
     @Output() onItemClick: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    separatorTemplate: TemplateRef<any>
 
     itemClick(event, item: MenuItem) {
         if (item.disabled) {
@@ -162,10 +166,6 @@ export class Breadcrumb {
             this.itemClick(event, this.home);
         }
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    separatorTemplate: TemplateRef<any>
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
