@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -234,7 +234,7 @@ export class SlideMenuSub implements OnDestroy {
         class: 'p-element'
     }
 })
-export class SlideMenu implements AfterViewChecked, OnDestroy {
+export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy {
     @Input() model: MenuItem[];
 
     @Input() popup: boolean;
