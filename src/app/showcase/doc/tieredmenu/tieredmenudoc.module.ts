@@ -14,10 +14,11 @@ import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, EventsDoc, ImportDoc, MenuItemDoc, PopupDoc, PropsDoc, StyleDoc, MethodsDoc, AccessibilityDoc],
+    declarations: [BasicDoc, EventsDoc, ImportDoc, MenuItemDoc, PopupDoc, PropsDoc, StyleDoc, MethodsDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class TieredMenuDocModule {}
