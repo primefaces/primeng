@@ -22,7 +22,7 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>menuicon</td>
+                        <td>submenuicon</td>
                         <td>-</td>
                     </tr>
                 </tbody>
