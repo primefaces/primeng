@@ -41,11 +41,11 @@ import { AngleRightIcon } from 'primeng/icon/angleright';
                             <span class="p-menuitem-text" *ngIf="category.escape !== false; else categoryHtmlLabel">{{ category.label }}</span>
                             <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
-                            <ng-container *ngIf="!menuIconTemplate">
+                            <ng-container *ngIf="!submenuIconTemplate">
                                 <AngleDownIcon [ngClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'"/>
                                 <AngleRightIcon [ngClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'"/>
                             </ng-container>
-                            <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                         </a>
                         <a
                             *ngIf="category.routerLink"
@@ -180,7 +180,7 @@ export class MegaMenu implements AfterContentInit {
 
     endTemplate: TemplateRef<any>;
 
-    menuIconTemplate: TemplateRef<any>;
+    submenuIconTemplate: TemplateRef<any>;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
@@ -191,8 +191,8 @@ export class MegaMenu implements AfterContentInit {
                     this.startTemplate = item.template;
                     break;
 
-                case 'menuicon':
-                    this.menuIconTemplate = item.template;
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
                     break;
 
                 case 'end':
