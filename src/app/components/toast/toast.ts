@@ -32,7 +32,7 @@ import { trigger, state, style, transition, animate, query, animateChild, Animat
 import { ZIndexUtils } from 'primeng/utils';
 import { CheckIcon } from 'primeng/icon/check';
 import { InfoCircleIcon } from 'primeng/icon/infocircle';
-import { TimesCircleIcon } from 'primeng/icon/timescricle';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
 import { TimesIcon } from 'primeng/icon/times';
 

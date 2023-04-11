@@ -6,7 +6,7 @@ import { Subscription, timer } from 'rxjs';
 import { RippleModule } from 'primeng/ripple';
 import { CheckIcon } from 'primeng/icon/check';
 import { InfoCircleIcon } from 'primeng/icon/infocircle';
-import { TimesCircleIcon } from 'primeng/icon/timescricle';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
 import { TimesIcon } from 'primeng/icon/times';
 

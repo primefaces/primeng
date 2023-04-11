@@ -2,7 +2,7 @@ import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation 
 import { CommonModule } from '@angular/common';
 import { CheckIcon } from 'primeng/icon/check';
 import { InfoCircleIcon } from 'primeng/icon/infocircle';
-import { TimesCircleIcon } from 'primeng/icon/timescricle';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
 
 @Component({

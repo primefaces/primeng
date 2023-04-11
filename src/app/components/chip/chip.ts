@@ -1,6 +1,6 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, EventEmitter, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TimesCircleIcon } from 'primeng/icon/timescricle';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
