@@ -69,7 +69,11 @@ import { TimesIcon } from 'primeng/icon/times';
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
-                    <TimesIcon [ngClass]="'p-toast-icon-close-icon'"/>
+                    <span
+                        *ngIf="message.closeIcon"
+                        [class]="'p-toast-message-icon pi ' + message.closeIcon"
+                    ></span>
+                    <TimesIcon *ngIf="!message.closeIcon" [ngClass]="'p-toast-icon-close-icon'"/>
                 </button>
             </div>
         </div>
