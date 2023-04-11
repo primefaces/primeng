@@ -11,7 +11,7 @@ import {
     Inject,
     NgModule,
     NgZone,
-    OnDestroy,
+    OnDestroy, OnInit,
     PLATFORM_ID,
     Renderer2,
     Type,
@@ -91,7 +91,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         class: 'p-element'
     }
 })
-export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
+export class DynamicDialogComponent implements AfterViewInit, OnDestroy, OnInit {
     visible: boolean = true;
 
     componentRef: ComponentRef<any>;
@@ -171,7 +171,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get position(): string {
-        return this.config.position;
+        return this.config.position ?? 'center';
     }
 
     set style(value: any) {
@@ -200,9 +200,37 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public primeNGConfig: PrimeNGConfig
     ) {}
 
+    ngOnInit() {
+        this.setPosition(this.config.position);
+    }
+
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType);
         this.cd.detectChanges();
+    }
+
+    setPosition(value: string) {
+        switch (value) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
+            case 'bottom':
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
+            case 'top':
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
+            default:
+                this.transformOptions = 'scale(0.7)';
+                break;
+        }
     }
 
     loadChildComponent(componentType: Type<any>) {
