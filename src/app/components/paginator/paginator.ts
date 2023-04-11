@@ -1,11 +1,15 @@
-import { NgModule, Component, OnInit, Input, Output, ChangeDetectorRef, EventEmitter, TemplateRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, ChangeDetectorRef, EventEmitter, TemplateRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { SelectItem } from 'primeng/api';
+import { PrimeTemplate, SelectItem } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { AngleDoubleLeftIcon } from 'primeng/icon/angledoubleleft';
+import { AngleDoubleRightIcon } from 'primeng/icon/angledoubleright';
+import { AngleLeftIcon } from 'primeng/icon/angleleft';
+import { AngleRightIcon } from 'primeng/icon/angleright';
 
 @Component({
     selector: 'p-paginator',
@@ -16,10 +20,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)" pRipple class="p-paginator-first p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <span class="p-paginator-icon pi pi-angle-double-left"></span>
+                <AngleDoubleLeftIcon *ngIf="!firstIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="firstIconTemplate">
+                    <ng-template *ngTemplateOutlet="firstIconTemplate"></ng-template>
+                </span>
             </button>
             <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <span class="p-paginator-icon pi pi-angle-left"></span>
+                <AngleLeftIcon *ngIf="!prevIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="prevIconTemplate">
+                    <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                </span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }" (click)="onPageLinkClick($event, pageLink - 1)" pRipple>
@@ -39,10 +49,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple class="p-paginator-next p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <span class="p-paginator-icon pi pi-angle-right"></span>
+                <AngleRightIcon *ngIf="!nextIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="nextIconTemplate">
+                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                </span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple class="p-paginator-last p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <span class="p-paginator-icon pi pi-angle-double-right"></span>
+                <AngleDoubleRightIcon *ngIf="!lastIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="lastIconTemplate">
+                    <ng-template *ngTemplateOutlet="lastIconTemplate"></ng-template>
+                </span>
             </button>
             <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
             <p-dropdown
@@ -73,7 +89,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
         class: 'p-element'
     }
 })
-export class Paginator implements OnInit, OnChanges {
+export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Input() pageLinkSize: number = 5;
 
     @Output() onPageChange: EventEmitter<any> = new EventEmitter();
@@ -112,6 +128,16 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() dropdownItemTemplate: TemplateRef<any>;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    firstIconTemplate: TemplateRef<any>;
+    
+    prevIconTemplate: TemplateRef<any>;
+    
+    lastIconTemplate: TemplateRef<any>;
+    
+    nextIconTemplate: TemplateRef<any>;
+
     pageLinks: number[];
 
     pageItems: SelectItem[];
@@ -128,6 +154,28 @@ export class Paginator implements OnInit, OnChanges {
 
     ngOnInit() {
         this.updatePaginatorState();
+    }
+
+    ngAfterContentInit(): void {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'firsticon':
+                    this.firstIconTemplate = item.template;
+                    break;
+
+                case 'previcon':
+                    this.prevIconTemplate = item.template;
+                    break;
+
+                case 'lasticon':
+                    this.lastIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -317,7 +365,7 @@ export class Paginator implements OnInit, OnChanges {
 }
 
 @NgModule({
-    imports: [CommonModule, DropdownModule, InputNumberModule, FormsModule, SharedModule, RippleModule],
+    imports: [CommonModule, DropdownModule, InputNumberModule, FormsModule, SharedModule, RippleModule, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon],
     exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
     declarations: [Paginator]
 })
