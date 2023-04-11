@@ -262,7 +262,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         if (simpleChange.tooltipOptions) {
-            this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
+            this._tooltipOptions = { ...this._tooltipOptions, ...this.config.tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
             this.deactivate();
 
             if (this.active) {

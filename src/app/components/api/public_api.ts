@@ -22,6 +22,7 @@ export * from './shared';
 export * from './sortevent';
 export * from './sortmeta';
 export * from './tablestate';
+export * from './tooltipoptions';
 export * from './translation';
 export * from './translationkeys';
 export * from './treedragdropservice';

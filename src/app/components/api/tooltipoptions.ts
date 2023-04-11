@@ -63,4 +63,12 @@ export interface TooltipOptions {
      * Time to wait in milliseconds to hide the tooltip even it is active.
      */
     life?: number;
+    /**
+     * Whether to hide tooltip when hovering over tooltip content.
+     */
+    autoHide?: boolean;
+    /**
+     * Whether to hide tooltip on escape key press.
+     */
+    hideOnEscape?: boolean;
 }

@@ -1,3 +1,4 @@
+import { TooltipOptions } from './tooltipoptions';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
@@ -9,6 +10,8 @@ export class PrimeNGConfig {
     ripple: boolean = false;
 
     overlayOptions: OverlayOptions = {};
+
+    tooltipOptions: TooltipOptions = {};
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],

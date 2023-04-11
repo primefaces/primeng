@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TooltipOptions } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -18,7 +19,7 @@ export class OptionsDoc {
 
     @Input() title: string;
 
-    tooltipOptions = {
+    tooltipOptions: TooltipOptions = {
         showDelay: 150,
         autoHide: false,
         tooltipEvent: 'hover',
