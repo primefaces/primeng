@@ -16,9 +16,11 @@ import {
     ChangeDetectionStrategy,
     NgZone,
     ChangeDetectorRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    Renderer2,
+    Inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Message, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -229,7 +231,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     template: TemplateRef<any>;
 
-    constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     styleElement: any;
 
@@ -328,7 +330,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
-            this.containerViewChild.nativeElement.setAttribute(this.id, '');
+            this.renderer.setAttribute(this.containerViewChild.nativeElement, this.id, '');
             if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
                 ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
@@ -345,9 +347,9 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     createStyle() {
         if (!this.styleElement) {
-            this.styleElement = document.createElement('style');
+            this.styleElement = this.renderer.createElement('style');
             this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
+            this.renderer.appendChild(this.document.head, this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
                 let breakpointStyle = '';
@@ -363,13 +365,13 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
                 `;
             }
 
-            this.styleElement.innerHTML = innerHTML;
+            this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
         }
     }
 
     destroyStyle() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.renderer.removeChild(this.document.head, this.styleElement);
             this.styleElement = null;
         }
     }

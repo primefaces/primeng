@@ -195,7 +195,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         this.menubarItems = [
             {
                 label: 'Finder',
-                className: 'menubar-root'
+                styleClass: 'menubar-root'
             },
             {
                 label: 'File',
@@ -608,7 +608,7 @@ export class DockAdvancedDemo implements OnInit {
         this.menubarItems = [
             {
                 label: 'Finder',
-                className: 'menubar-root'
+                styleClass: 'menubar-root'
             },
             {
                 label: 'File',

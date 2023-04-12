@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -63,7 +63,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [class]="incrementButtonClass"
                     [icon]="incrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onUpButtonMouseDown($event)"
+                    (mousedown)="onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
                     (mouseleave)="onUpButtonMouseLeave()"
                     (keydown)="onUpButtonKeyDown($event)"
@@ -77,7 +77,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [class]="decrementButtonClass"
                     [icon]="decrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onDownButtonMouseDown($event)"
+                    (mousedown)="onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
                     (mouseleave)="onDownButtonMouseLeave()"
                     (keydown)="onDownButtonKeyDown($event)"
@@ -93,7 +93,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [icon]="incrementButtonIcon"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onUpButtonMouseDown($event)"
+                (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
@@ -108,7 +108,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [icon]="decrementButtonIcon"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onDownButtonMouseDown($event)"
+                (mousedown)="onDownButtonMouseDown($event)"
                 (mouseup)="onDownButtonMouseUp()"
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
@@ -271,7 +271,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         if (this.timer) this.clearTimer();
     }
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -456,6 +456,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onUpButtonMouseDown(event) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
         this.input.nativeElement.focus();
         this.repeat(event, null, 1);
         event.preventDefault();
@@ -480,6 +485,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onDownButtonMouseDown(event) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
         this.input.nativeElement.focus();
         this.repeat(event, null, -1);
         event.preventDefault();
@@ -680,7 +690,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     onPaste(event) {
         if (!this.disabled && !this.readonly) {
             event.preventDefault();
-            let data = (event.clipboardData || window['clipboardData']).getData('Text');
+            let data = (event.clipboardData || this.document.defaultView['clipboardData']).getData('Text');
             if (data) {
                 let filteredData = this.parseValue(data);
                 if (filteredData != null) {

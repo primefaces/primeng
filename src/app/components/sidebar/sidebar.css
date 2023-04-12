@@ -8,6 +8,7 @@
 .p-sidebar-content {
     position: relative;
     overflow-y: auto;
+    flex-grow: 1;
 }
 
 .p-sidebar-header {

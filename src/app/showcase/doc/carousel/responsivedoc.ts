@@ -23,12 +23,11 @@ import { ProductService } from '../../service/productservice';
                             </div>
                             <div>
                                 <h4 class="mb-1">{{ product.name }}</h4>
-                                <h6 class="mt-0 mb-3">{{ product.price }}</h6>
+                                <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                                 <div class="car-buttons mt-5">
                                     <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                                     <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                                    <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                                 </div>
                             </div>
                         </div>
@@ -57,17 +56,17 @@ export class ResponsiveDoc implements OnInit {
 
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
+                breakpoint: '1400px',
                 numVisible: 3,
                 numScroll: 3
             },
             {
-                breakpoint: '768px',
+                breakpoint: '1220px',
                 numVisible: 2,
                 numScroll: 2
             },
             {
-                breakpoint: '560px',
+                breakpoint: '1100px',
                 numVisible: 1,
                 numScroll: 1
             }
@@ -96,12 +95,11 @@ export class ResponsiveDoc implements OnInit {
                 </div>
                 <div>
                     <h4 class="mb-1">{{ product.name }}</h4>
-                    <h6 class="mt-0 mb-3">{{ product.price }}</h6>
+                    <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                     <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                     <div class="car-buttons mt-5">
                         <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                         <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                        <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                     </div>
                 </div>
             </div>
@@ -119,12 +117,11 @@ export class ResponsiveDoc implements OnInit {
                     </div>
                     <div>
                         <h4 class="mb-1">{{ product.name }}</h4>
-                        <h6 class="mt-0 mb-3">{{ product.price }}</h6>
+                        <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                         <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
                         <div class="car-buttons mt-5">
                             <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
                             <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                            <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
                         </div>
                     </div>
                 </div>
@@ -156,17 +153,17 @@ export class CarouselResponsiveDemo {
 
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
+                breakpoint: '1400px',
                 numVisible: 3,
                 numScroll: 3
             },
             {
-                breakpoint: '768px',
+                breakpoint: '1220px',
                 numVisible: 2,
                 numScroll: 2
             },
             {
-                breakpoint: '560px',
+                breakpoint: '1100px',
                 numVisible: 1,
                 numScroll: 1
             }

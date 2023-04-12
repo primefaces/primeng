@@ -67,4 +67,14 @@
 {{code.data}}
 
 </code></pre>
+
+<pre *ngIf="lang === 'scss'" class="language-scss"><code #codeElement>
+{{code.scss}}
+
+</code></pre>
+
+<pre *ngIf="lang === 'command'" class="language-shell"><code #codeElement>
+{{code.command}}
+
+</code></pre>
 </div>

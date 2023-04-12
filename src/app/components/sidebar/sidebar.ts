@@ -1,5 +1,5 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -9,6 +9,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnDestroy,
@@ -120,11 +121,11 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     mask: HTMLDivElement;
 
-    maskClickListener: Function;
+    maskClickListener: VoidFunction | null;
 
-    documentEscapeListener: Function;
+    documentEscapeListener: VoidFunction | null;
 
-    animationEndListener: any;
+    animationEndListener: VoidFunction | null;
 
     contentTemplate: TemplateRef<any>;
 
@@ -132,7 +133,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     footerTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -229,8 +230,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     enableModality() {
         if (!this.mask) {
-            this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(this.container.style.zIndex) - 1);
+            this.mask = this.renderer.createElement('div');
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(this.container.style.zIndex) - 1));
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {
@@ -241,7 +242,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 });
             }
 
-            document.body.appendChild(this.mask);
+            this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
                 DomHandler.addClass(document.body, 'p-overflow-hidden');
             }
@@ -251,8 +252,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     disableModality() {
         if (this.mask) {
             DomHandler.addClass(this.mask, 'p-component-overlay-leave');
-            this.animationEndListener = this.destroyModal.bind(this);
-            this.mask.addEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }
 
@@ -260,7 +260,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         this.unbindMaskClickListener();
 
         if (this.mask) {
-            document.body.removeChild(this.mask);
+            this.renderer.removeChild(this.document.body, this.mask);
         }
 
         if (this.blockScroll) {
@@ -297,13 +297,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
             else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
     bindDocumentEscapeListener() {
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
@@ -335,7 +335,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     unbindAnimationEndListener() {
         if (this.animationEndListener && this.mask) {
-            this.mask.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener();
             this.animationEndListener = null;
         }
     }
@@ -348,7 +348,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         if (this.appendTo && this.container) {
-            this.el.nativeElement.appendChild(this.container);
+            this.renderer.appendChild(this.el.nativeElement, this.container);
         }
 
         if (this.container && this.autoZIndex) {

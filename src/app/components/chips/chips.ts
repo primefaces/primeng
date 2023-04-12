@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
@@ -118,7 +118,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     filled: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -147,7 +147,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     onPaste(event) {
         if (!this.disabled) {
             if (this.separator) {
-                let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
+                let pastedData = (event.clipboardData || this.document.defaultView['clipboardData']).getData('Text');
                 pastedData.split(this.separator).forEach((val) => {
                     this.addItem(event, val, true);
                 });

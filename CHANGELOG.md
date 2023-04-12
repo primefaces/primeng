@@ -1,4 +1,14 @@
 # Changelog
+## [15.3.0](https://github.com/primefaces/primeng/tree/15.3.0) (2023-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.2.1...15.3.0)
+
+**Enhancements:**
+- Algolia Search 🙂
+- Angular Universal Support [\#12810](https://github.com/primefaces/primeng/issues/12810)
+- Angular SSR Support - Multiple Components [\#12734](https://github.com/primefaces/primeng/issues/12734)
+- Sidebar | Add flex-grow to p-sidebar-content [\#12833](https://github.com/primefaces/primeng/issues/12833)
+- Docs: Installation code blocks missing Prism [\#12783](https://github.com/primefaces/primeng/issues/12783)
 
 ## [15.2.1](https://github.com/primefaces/primeng/tree/15.2.1) (2023-03-22)
 

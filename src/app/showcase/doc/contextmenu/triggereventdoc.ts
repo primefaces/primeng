@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Trigger event of context menu can be replaced by a different event with <i>triggerEvent</i> property. Default value of <i>triggerEvent</i> is <i>contextmenu</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" />
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full" />
             <p-contextMenu [target]="img" [model]="items" triggerEvent="click"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-trigger-event-demo"></app-code>
@@ -153,12 +153,12 @@ export class TriggerEventDoc implements OnInit {
 
     code: Code = {
         basic: `
-<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true">
+<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
 <p-contextMenu [target]="img" [model]="items" [triggerEvent]="click"></p-contextMenu>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true">
+    <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
     <p-contextMenu [target]="img" [model]="items" triggerEvent="click"></p-contextMenu>
 </div>`,
 

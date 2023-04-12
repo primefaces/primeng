@@ -14,10 +14,12 @@ import {
     ChangeDetectorRef,
     ViewChild,
     OnDestroy,
-    OnInit,
-    AfterViewInit
+    AfterViewInit,
+    Inject,
+    Renderer2,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
@@ -161,18 +163,20 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
-    constructor(private el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        if (this.type !== 'linear') {
-            const button = DomHandler.findSingle(this.container.nativeElement, '.p-speeddial-button');
-            const firstItem = DomHandler.findSingle(this.list.nativeElement, '.p-speeddial-item');
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.type !== 'linear') {
+                const button = DomHandler.findSingle(this.container.nativeElement, '.p-speeddial-button');
+                const firstItem = DomHandler.findSingle(this.list.nativeElement, '.p-speeddial-item');
 
-            if (button && firstItem) {
-                const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
-                const hDiff = Math.abs(button.offsetHeight - firstItem.offsetHeight);
-                this.list.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
-                this.list.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
+                if (button && firstItem) {
+                    const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
+                    const hDiff = Math.abs(button.offsetHeight - firstItem.offsetHeight);
+                    this.list.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
+                    this.list.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
+                }
             }
         }
     }
@@ -314,21 +318,22 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener && this.hideOnClickOutside) {
-            this.documentClickListener = (event) => {
-                if (this.visible && this.isOutsideClicked(event)) {
-                    this.hide();
-                }
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentClickListener && this.hideOnClickOutside) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.visible && this.isOutsideClicked(event)) {
+                        this.hide();
+                    }
 
-                this.isItemClicked = false;
-            };
-            document.addEventListener('click', this.documentClickListener);
+                    this.isItemClicked = false;
+                });
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }

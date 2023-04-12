@@ -26,10 +26,10 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
                 [showIndicatorsOnItem]="showIndicatorsOnItem"
                 [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+                [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -100,10 +100,10 @@ export class PositionedDoc implements OnInit {
     [showThumbnails]="false"
     [showIndicatorsOnItem]="showIndicatorsOnItem"
     [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+    [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `
@@ -116,7 +116,7 @@ export class PositionedDoc implements OnInit {
     </div>
     <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%','margin-top': '2em'}">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,

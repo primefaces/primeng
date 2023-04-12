@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter, Renderer2, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const KNOB_VALUE_ACCESSOR: any = {
@@ -83,19 +83,19 @@ export class Knob {
 
     value: number = null;
 
-    windowMouseMoveListener: any;
+    windowMouseMoveListener: () => void | null;
 
-    windowMouseUpListener: any;
+    windowMouseUpListener: () => void | null;
 
-    windowTouchMoveListener: any;
+    windowTouchMoveListener: () => void | null;
 
-    windowTouchEndListener: any;
+    windowTouchEndListener: () => void | null;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef, private el: ElementRef) {}
 
     mapRange(x, inMin, inMax, outMin, outMax) {
         return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -129,38 +129,41 @@ export class Knob {
 
     onMouseDown(event) {
         if (!this.disabled && !this.readonly) {
-            this.windowMouseMoveListener = this.onMouseMove.bind(this);
-            this.windowMouseUpListener = this.onMouseUp.bind(this);
-            window.addEventListener('mousemove', this.windowMouseMoveListener);
-            window.addEventListener('mouseup', this.windowMouseUpListener);
+            const window = this.document.defaultView || 'window';
+            this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
+            this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
             event.preventDefault();
         }
     }
 
     onMouseUp(event) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('mousemove', this.windowMouseMoveListener);
-            window.removeEventListener('mouseup', this.windowMouseUpListener);
-            this.windowMouseUpListener = null;
-            this.windowMouseMoveListener = null;
+            if (this.windowMouseMoveListener) {
+                this.windowMouseMoveListener();
+                this.windowMouseUpListener = null;
+            }
+
+            if (this.windowMouseUpListener) {
+                this.windowMouseUpListener();
+                this.windowMouseMoveListener = null;
+            }
             event.preventDefault();
         }
     }
 
     onTouchStart(event) {
         if (!this.disabled && !this.readonly) {
-            this.windowTouchMoveListener = this.onTouchMove.bind(this);
-            this.windowTouchEndListener = this.onTouchEnd.bind(this);
-            window.addEventListener('touchmove', this.windowTouchMoveListener);
-            window.addEventListener('touchend', this.windowTouchEndListener);
+            const window = this.document.defaultView || 'window';
+            this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
+            this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
             event.preventDefault();
         }
     }
 
     onTouchEnd(event) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('touchmove', this.windowTouchMoveListener);
-            window.removeEventListener('touchend', this.windowTouchEndListener);
+            this.windowTouchMoveListener();
+            this.windowTouchEndListener();
             this.windowTouchMoveListener = null;
             this.windowTouchEndListener = null;
             event.preventDefault();
