@@ -63,7 +63,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [class]="incrementButtonClass"
                     [icon]="incrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onUpButtonMouseDown($event)"
+                    (mousedown)="onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
                     (mouseleave)="onUpButtonMouseLeave()"
                     (keydown)="onUpButtonKeyDown($event)"
@@ -77,7 +77,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [class]="decrementButtonClass"
                     [icon]="decrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onDownButtonMouseDown($event)"
+                    (mousedown)="onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
                     (mouseleave)="onDownButtonMouseLeave()"
                     (keydown)="onDownButtonKeyDown($event)"
@@ -93,7 +93,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [icon]="incrementButtonIcon"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onUpButtonMouseDown($event)"
+                (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
@@ -108,7 +108,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [icon]="decrementButtonIcon"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onDownButtonMouseDown($event)"
+                (mousedown)="onDownButtonMouseDown($event)"
                 (mouseup)="onDownButtonMouseUp()"
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
@@ -456,6 +456,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onUpButtonMouseDown(event) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
         this.input.nativeElement.focus();
         this.repeat(event, null, 1);
         event.preventDefault();
@@ -480,6 +485,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onDownButtonMouseDown(event) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
         this.input.nativeElement.focus();
         this.repeat(event, null, -1);
         event.preventDefault();
