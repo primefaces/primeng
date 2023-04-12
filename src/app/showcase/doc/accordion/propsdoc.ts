@@ -88,12 +88,6 @@ import { Component, Input } from '@angular/core';
                         <td>pi pi-fw pi-chevron-down</td>
                         <td>Icon of an expanded tab.</td>
                     </tr>
-                    <tr>
-                        <td>iconPos</td>
-                        <td>string</td>
-                        <td>start</td>
-                        <td>Position of the icon, valid values are "end", "start".</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -139,6 +133,12 @@ import { Component, Input } from '@angular/core';
                         <td>boolean</td>
                         <td>true</td>
                         <td>Whether a lazy loaded panel should avoid getting loaded again on reselection.</td>
+                    </tr>
+                    <tr>
+                        <td>iconPos</td>
+                        <td>string</td>
+                        <td>start</td>
+                        <td>Position of the icon, valid values are "end", "start".</td>
                     </tr>
                 </tbody>
             </table>
