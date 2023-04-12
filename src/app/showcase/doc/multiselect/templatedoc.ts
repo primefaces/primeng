@@ -29,7 +29,7 @@ interface Country {
                 </ng-template>
             </p-multiSelect>
         </div>
-        <app-code [code]="code" selector="muilti-select-template-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-template-demo"></app-code>
     </section>`
 })
 export class TemplateDoc implements OnInit {
@@ -102,8 +102,8 @@ interface Country {
 }
 
 @Component({
-    selector: 'muilti-select-template-demo',
-    templateUrl: './muilti-select-template-demo.html'
+    selector: 'multi-select-template-demo',
+    templateUrl: './multi-select-template-demo.html'
 })
 export class MultiSelectTemplateDemo implements OnInit {
     countries: Country[];
