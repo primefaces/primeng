@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             </p>
             <p>
                 Controls buttons are <i>button</i> elements with an <i>aria-label</i> that refers to the <i>aria.moveTop</i>, <i>aria.moveUp</i>, <i>aria.moveDown</i>, <i>aria.moveBottom</i>,<i>aria.moveTo</i>, <i>aria.moveAllTo</i>,
-                <i>aria.moveFrom</i> and <i>aria.moveAllFrom</i> properties of the <a routerLink="/locale">locale</a> API by default, alternatively you may use<i>moveTopButtonProps</i>, <i>moveUpButtonProps</i>, <i>moveDownButtonProps</i>,
+                <i>aria.moveFrom</i> and <i>aria.moveAllFrom</i> properties of the <a href="/configuration/#locale">locale</a> API by default, alternatively you may use<i>moveTopButtonProps</i>, <i>moveUpButtonProps</i>, <i>moveDownButtonProps</i>,
                 <i>moveToButtonProps</i>, <i>moveAllToButtonProps</i>, <i>moveFromButtonProps</i>, <i>moveFromButtonProps</i> and <i>moveAllFromButtonProps</i> to customize the buttons like overriding the default <i>aria-label</i> attributes.
             </p>
 

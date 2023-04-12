@@ -366,7 +366,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-datepicker-header .p-datepicker-next {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -454,7 +454,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 .p-datepicker .p-timepicker button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -1346,14 +1346,12 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #9b9b9b;
 }
-.p-multiselect.p-multiselect-chip .p-multiselect-label {
-  gap: 0.5rem;
-}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.2145rem 0.429rem;
   background: #F48FB1;
   color: #212529;
   border-radius: 3px;
+  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;
@@ -1400,7 +1398,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
   margin-left: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -1831,7 +1829,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-treeselect-panel .p-treeselect-header .p-treeselect-close {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2664,7 +2662,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-carousel .p-carousel-content .p-carousel-next {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -2803,7 +2801,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3010,7 +3008,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-menu-button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3038,7 +3036,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-column-filter-clear-button {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3270,7 +3268,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3736,7 +3734,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   margin-right: 0.5rem;
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -3933,7 +3931,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4218,7 +4216,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-panel .p-panel-header .p-panel-header-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4430,7 +4428,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-dialog .p-dialog-header .p-dialog-header-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;
@@ -4534,7 +4532,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-sidebar .p-sidebar-header .p-sidebar-icon {
   width: 2rem;
   height: 2rem;
-  color: #8888;
+  color: rgba(136, 136, 136, 0.5333333333);
   border: 0 none;
   background: transparent;
   border-radius: 50%;

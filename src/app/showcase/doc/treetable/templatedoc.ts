@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Custom content at <i>caption</i>, <i>header</i>, <i>body</i> and <i>summary</i> sections are supported via templating.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols">
+            <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption"> FileViewer </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -69,7 +69,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols">
+<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption"> FileViewer </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -102,7 +102,7 @@ export class TemplateDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols">
+    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption"> FileViewer </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>

@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns" ttResizableColumn>
@@ -56,7 +56,7 @@ export class ResizeExpandDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -76,7 +76,7 @@ export class ResizeExpandDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>

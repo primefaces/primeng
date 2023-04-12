@@ -1,5 +1,6 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DomHandler } from 'primeng/dom';
 
 @Directive({
     selector: '[pDefer]',
@@ -16,21 +17,27 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     view: EmbeddedViewRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterViewInit() {
-        if (this.shouldLoad()) {
-            this.load();
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.shouldLoad()) {
+                this.load();
+            }
 
-        if (!this.isLoaded()) {
-            this.documentScrollListener = this.renderer.listen('window', 'scroll', () => {
-                if (this.shouldLoad()) {
-                    this.load();
-                    this.documentScrollListener();
-                    this.documentScrollListener = null;
-                }
-            });
+            if (!this.isLoaded()) {
+                this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                    if (this.shouldLoad()) {
+                        this.load();
+                        this.documentScrollListener();
+                        this.documentScrollListener = null;
+                    }
+                });
+            }
         }
     }
 
@@ -39,7 +46,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
             return false;
         } else {
             let rect = this.el.nativeElement.getBoundingClientRect();
-            let docElement = document.documentElement;
+            let docElement = this.document.documentElement;
             let winHeight = docElement.clientHeight;
 
             return winHeight >= rect.top;
@@ -53,7 +60,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
     }
 
     isLoaded() {
-        return this.view != null;
+        return this.view != null && isPlatformBrowser(this.platformId);
     }
 
     ngOnDestroy() {

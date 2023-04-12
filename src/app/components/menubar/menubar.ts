@@ -6,19 +6,21 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Injectable,
     Input,
     NgModule,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ZIndexUtils } from 'primeng/utils';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
@@ -147,7 +149,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     _parentActive: boolean;
 
-    documentClickListener: any;
+    documentClickListener: (event?: Event) => void | null;
 
     menuHoverActive: boolean = false;
 
@@ -155,7 +157,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -232,22 +234,22 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.cd.markForCheck();
-                    this.unbindDocumentClickListener();
-                }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.el && !this.el.nativeElement.contains(event.target)) {
+                        this.activeItem = null;
+                        this.cd.markForCheck();
+                        this.unbindDocumentClickListener();
+                    }
+                });
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
@@ -316,11 +318,19 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     mobileActive: boolean;
 
-    outsideClickListener: any;
+    outsideClickListener: (event?: Event) => void | null;
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private menubarService: MenubarService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        private menubarService: MenubarService
+    ) {}
 
     ngOnInit(): void {
         this.menubarService.autoHide = this.autoHide;
@@ -356,19 +366,20 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
-                if (
-                    this.mobileActive &&
-                    this.rootmenu.el.nativeElement !== event.target &&
-                    !this.rootmenu.el.nativeElement.contains(event.target) &&
-                    this.menubutton.nativeElement !== event.target &&
-                    !this.menubutton.nativeElement.contains(event.target)
-                ) {
-                    this.hide();
-                }
-            };
-            document.addEventListener('click', this.outsideClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.outsideClickListener) {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (
+                        this.mobileActive &&
+                        this.rootmenu.el.nativeElement !== event.target &&
+                        !this.rootmenu.el.nativeElement.contains(event.target) &&
+                        this.menubutton.nativeElement !== event.target &&
+                        !this.menubutton.nativeElement.contains(event.target)
+                    ) {
+                        this.hide();
+                    }
+                });
+            }
         }
     }
 
@@ -385,7 +396,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            this.outsideClickListener();
             this.outsideClickListener = null;
         }
     }

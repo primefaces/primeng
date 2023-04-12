@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px">
+            <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
                         <col *ngFor="let col of columns" style="width:500px" />
@@ -61,7 +61,7 @@ export class ScrollHorizontalDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px">
+<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
             <col *ngFor="let col of columns" style="width:500px" />
@@ -86,7 +86,7 @@ export class ScrollHorizontalDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px">
+    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:500px" />

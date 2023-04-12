@@ -53,6 +53,7 @@ export class CircleDoc implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -110,6 +111,7 @@ export class SpeedDialCircleDemo implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];

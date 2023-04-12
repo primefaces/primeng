@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -8,13 +8,16 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     NgZone,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
+    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -394,7 +397,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     initialized: boolean = false;
 
-    windowResizeListener: any;
+    windowResizeListener: VoidFunction | null;
 
     defaultWidth: number;
 
@@ -442,7 +445,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._step ? this.page !== this.getPageByFirst() : true;
     }
 
-    constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -541,16 +544,18 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
-            this.setInitialState();
-            this.setContentEl(this.contentEl);
-            this.init();
+        if (isPlatformBrowser(this.platformId)) {
+            if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
+                this.setInitialState();
+                this.setContentEl(this.contentEl);
+                this.init();
 
-            this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
-            this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
-            this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
-            this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
-            this.initialized = true;
+                this.defaultWidth = DomHandler.getWidth(this.elementViewChild.nativeElement);
+                this.defaultHeight = DomHandler.getHeight(this.elementViewChild.nativeElement);
+                this.defaultContentWidth = DomHandler.getWidth(this.contentEl);
+                this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
+                this.initialized = true;
+            }
         }
     }
 
@@ -949,20 +954,20 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     bindResizeListener() {
-        if (!this.windowResizeListener) {
-            this.zone.runOutsideAngular(() => {
-                this.windowResizeListener = this.onWindowResize.bind(this);
-
-                window.addEventListener('resize', this.windowResizeListener);
-                window.addEventListener('orientationchange', this.windowResizeListener);
-            });
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.windowResizeListener) {
+                this.zone.runOutsideAngular(() => {
+                    const window = this.document.defaultView as Window;
+                    const event = DomHandler.isTouchDevice() ? 'orientationchange' : 'resize';
+                    this.windowResizeListener = this.renderer.listen(window, event, this.onWindowResize.bind(this));
+                });
+            }
         }
     }
 
     unbindResizeListener() {
         if (this.windowResizeListener) {
-            window.removeEventListener('resize', this.windowResizeListener);
-            window.removeEventListener('orientationchange', this.windowResizeListener);
+            this.windowResizeListener();
             this.windowResizeListener = null;
         }
     }

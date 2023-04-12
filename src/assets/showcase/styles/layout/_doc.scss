@@ -211,6 +211,8 @@
 }
 
 .doc-section-code {
+    z-index: 0;
+    
     div {
         &::-webkit-scrollbar {
             width: 5px;

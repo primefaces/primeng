@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
@@ -102,11 +102,11 @@ export class ConfirmPopup implements OnDestroy {
 
     _visible: boolean;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
     @Input() get visible(): any {
         return this._visible;
@@ -116,7 +116,18 @@ export class ConfirmPopup implements OnDestroy {
         this.cd.markForCheck();
     }
 
-    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    private window: Window;
+
+    constructor(
+        public el: ElementRef,
+        private confirmationService: ConfirmationService,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        @Inject(DOCUMENT) private document: Document
+    ) {
+        this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
@@ -143,7 +154,7 @@ export class ConfirmPopup implements OnDestroy {
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            document.body.appendChild(this.container);
+            this.renderer.appendChild(this.document.body, this.container);
             this.align();
             this.bindListeners();
 
@@ -245,7 +256,7 @@ export class ConfirmPopup implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 let targetElement = <HTMLElement>this.confirmation.target;
@@ -270,13 +281,14 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener) {
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -325,7 +337,7 @@ export class ConfirmPopup implements OnDestroy {
 
     restoreAppend() {
         if (this.container) {
-            document.body.removeChild(this.container);
+            this.renderer.removeChild(this.document.body, this.container);
         }
 
         this.onContainerDestroy();

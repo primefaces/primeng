@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -22,44 +23,48 @@ export class PolarAreaDoc implements OnInit {
 
     options: any;
 
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
     ngOnInit() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColor = documentStyle.getPropertyValue('--text-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.data = {
-            datasets: [
-                {
-                    data: [11, 16, 7, 3, 14],
-                    backgroundColor: [
-                        documentStyle.getPropertyValue('--red-500'),
-                        documentStyle.getPropertyValue('--green-500'),
-                        documentStyle.getPropertyValue('--yellow-500'),
-                        documentStyle.getPropertyValue('--bluegray-500'),
-                        documentStyle.getPropertyValue('--blue-500')
-                    ],
-                    label: 'My dataset'
-                }
-            ],
-            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
-        };
+            this.data = {
+                datasets: [
+                    {
+                        data: [11, 16, 7, 3, 14],
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--red-500'),
+                            documentStyle.getPropertyValue('--green-500'),
+                            documentStyle.getPropertyValue('--yellow-500'),
+                            documentStyle.getPropertyValue('--bluegray-500'),
+                            documentStyle.getPropertyValue('--blue-500')
+                        ],
+                        label: 'My dataset'
+                    }
+                ],
+                labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+            };
 
-        this.options = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
+            this.options = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColor
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        grid: {
+                            color: surfaceBorder
+                        }
                     }
                 }
-            },
-            scales: {
-                r: {
-                    grid: {
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+            };
+        }
     }
 
     code: Code = {

@@ -17,12 +17,14 @@ import {
     ChangeDetectorRef,
     SimpleChanges,
     Renderer2,
-    Inject
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
 import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-carousel',
@@ -230,8 +232,11 @@ export class Carousel implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+    window: Window;
+
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
+        this.window = this.document.defaultView as Window;
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -666,19 +671,21 @@ export class Carousel implements AfterContentInit {
     }
 
     bindDocumentListeners() {
-        if (!this.documentResizeListener && typeof window !== 'undefined') {
-            this.documentResizeListener = (e) => {
-                this.calculatePosition();
-            };
-
-            window.addEventListener('resize', this.documentResizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentResizeListener) {
+                this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+                    this.calculatePosition();
+                });
+            }
         }
     }
 
     unbindDocumentListeners() {
-        if (this.documentResizeListener && typeof window !== 'undefined') {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.documentResizeListener) {
+                this.documentResizeListener();
+                this.documentResizeListener = null;
+            }
         }
     }
 

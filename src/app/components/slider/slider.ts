@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 
@@ -146,9 +146,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public dragging: boolean;
 
-    public dragListener: any;
+    public dragListener: VoidFunction | null;
 
-    public mouseupListener: any;
+    public mouseupListener: VoidFunction | null;
 
     public initX: number;
 
@@ -168,7 +168,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: number;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
 
     onMouseDown(event, index?: number) {
         if (this.disabled) {
@@ -303,44 +303,48 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     bindDragListeners() {
-        this.ngZone.runOutsideAngular(() => {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+        if (isPlatformBrowser(this.platformId)) {
+            this.ngZone.runOutsideAngular(() => {
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
-            if (!this.dragListener) {
-                this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
-                    if (this.dragging) {
-                        this.ngZone.run(() => {
-                            this.handleChange(event);
-                        });
-                    }
-                });
-            }
+                if (!this.dragListener) {
+                    this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
+                        if (this.dragging) {
+                            this.ngZone.run(() => {
+                                this.handleChange(event);
+                            });
+                        }
+                    });
+                }
 
-            if (!this.mouseupListener) {
-                this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
-                    if (this.dragging) {
-                        this.dragging = false;
-                        this.ngZone.run(() => {
-                            if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values });
-                            else this.onSlideEnd.emit({ originalEvent: event, value: this.value });
+                if (!this.mouseupListener) {
+                    this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
+                        if (this.dragging) {
+                            this.dragging = false;
+                            this.ngZone.run(() => {
+                                if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values });
+                                else this.onSlideEnd.emit({ originalEvent: event, value: this.value });
 
-                            if (this.animate) {
-                                DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
-                            }
-                        });
-                    }
-                });
-            }
-        });
+                                if (this.animate) {
+                                    DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     }
 
     unbindDragListeners() {
         if (this.dragListener) {
             this.dragListener();
+            this.dragListener = null;
         }
 
         if (this.mouseupListener) {
             this.mouseupListener();
+            this.mouseupListener = null;
         }
     }
 

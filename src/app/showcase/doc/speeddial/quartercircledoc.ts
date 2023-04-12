@@ -56,6 +56,7 @@ export class QuarterCircleDoc implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -120,6 +121,7 @@ export class SpeedDialQuarterCircleDemo implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];

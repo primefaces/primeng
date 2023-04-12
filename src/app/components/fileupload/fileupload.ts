@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { CommonModule, CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { HttpClient, HttpClientModule, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -9,13 +9,16 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     NgZone,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
+    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -251,7 +254,19 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     translationSubscription: Subscription;
 
-    constructor(private el: ElementRef, public sanitizer: DomSanitizer, public zone: NgZone, private http: HttpClient, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    dragOverListener: () => void | null;
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private el: ElementRef,
+        public sanitizer: DomSanitizer,
+        public zone: NgZone,
+        private http: HttpClient,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -282,10 +297,14 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     ngAfterViewInit() {
-        if (this.mode === 'advanced') {
-            this.zone.runOutsideAngular(() => {
-                if (this.content) this.content.nativeElement.addEventListener('dragover', this.onDragOver.bind(this));
-            });
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.mode === 'advanced') {
+                this.zone.runOutsideAngular(() => {
+                    if (this.content) {
+                        this.dragOverListener = this.renderer.listen(this.content.nativeElement, 'dragover', this.onDragOver.bind(this));
+                    }
+                });
+            }
         }
     }
 
@@ -347,7 +366,9 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     isIE11() {
-        return !!window['MSInputMethodContext'] && !!document['documentMode'];
+        if (isPlatformBrowser(this.platformId)) {
+            return !!this.document.defaultView['MSInputMethodContext'] && !!this.document['documentMode'];
+        }
     }
 
     validate(file: File): boolean {
@@ -635,7 +656,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
-            this.content.nativeElement.removeEventListener('dragover', this.onDragOver);
+            this.dragOverListener();
+            this.dragOverListener = null;
         }
 
         if (this.translationSubscription) {
@@ -645,7 +667,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule],
+    imports: [CommonModule, SharedModule, ButtonModule, HttpClientModule, ProgressBarModule, MessagesModule, RippleModule],
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })

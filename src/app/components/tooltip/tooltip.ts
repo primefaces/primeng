@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Directive, AfterViewInit, OnDestroy, Input, TemplateRef, NgZone, Renderer2, ViewContainerRef, ElementRef, SimpleChanges, HostListener, NgModule } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -114,26 +114,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) { }
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef, private viewContainer: ViewContainerRef) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            if (this.getOption('tooltipEvent') === 'hover') {
-                this.mouseEnterListener = this.onMouseEnter.bind(this);
-                this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onInputClick.bind(this);
-                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('click', this.clickListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-            } else if (this.getOption('tooltipEvent') === 'focus') {
-                this.focusListener = this.onFocus.bind(this);
-                this.blurListener = this.onBlur.bind(this);
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                if (this.getOption('tooltipEvent') === 'hover') {
+                    this.mouseEnterListener = this.onMouseEnter.bind(this);
+                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                    this.clickListener = this.onInputClick.bind(this);
+                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                    this.el.nativeElement.addEventListener('click', this.clickListener);
+                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+                } else if (this.getOption('tooltipEvent') === 'focus') {
+                    this.focusListener = this.onFocus.bind(this);
+                    this.blurListener = this.onBlur.bind(this);
 
-                let target = this.getTarget(this.el.nativeElement);
-                target.addEventListener('focus', this.focusListener);
-                target.addEventListener('blur', this.blurListener);
-            }
-        });
+                    let target = this.getTarget(this.el.nativeElement);
+                    target.addEventListener('focus', this.focusListener);
+                    target.addEventListener('blur', this.blurListener);
+                }
+            });
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {

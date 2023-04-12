@@ -25,8 +25,8 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
     OTHER DEALINGS IN THE SOFTWARE.
 */
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
@@ -178,15 +178,17 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     caretTimeoutId: any;
 
-    androidChrome: boolean;
+    androidChrome: boolean = true;
 
     focused: boolean;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        let ua = DomHandler.getUserAgent();
-        this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        if (isPlatformBrowser(this.platformId)) {
+            let ua = navigator.userAgent;
+            this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
+        }
 
         this.initMask();
     }
@@ -293,8 +295,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 begin = this.inputViewChild.nativeElement.selectionStart;
                 end = this.inputViewChild.nativeElement.selectionEnd;
-            } else if (document['selection'] && document['selection'].createRange) {
-                range = document['selection'].createRange();
+            } else if (this.document['selection'] && this.document['selection'].createRange) {
+                range = this.document['selection'].createRange();
                 begin = 0 - range.duplicate().moveStart('character', -100000);
                 end = begin + range.text.length;
             }
@@ -414,7 +416,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
         if (this.inputViewChild.nativeElement.value != this.focusText || this.inputViewChild.nativeElement.value != this.value) {
             this.updateModel(e);
-            let event = document.createEvent('HTMLEvents');
+            let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
             this.inputViewChild.nativeElement.dispatchEvent(event);
         }
@@ -429,7 +431,10 @@ export class InputMask implements OnInit, ControlValueAccessor {
             pos,
             begin,
             end;
-        let iPhone = /iphone/i.test(DomHandler.getUserAgent());
+        let iPhone;
+        if (isPlatformBrowser(this.platformId)) {
+            iPhone = /iphone/i.test(DomHandler.getUserAgent());
+        }
         this.oldVal = this.inputViewChild.nativeElement.value;
 
         this.onKeydown.emit(e);
@@ -500,8 +505,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
                     this.writeBuffer();
                     next = this.seekNext(p);
 
-                    if (/android/i.test(DomHandler.getUserAgent())) {
-                        //Path for CSP Violation on FireFox OS 1.1
+                    if (DomHandler.isClient && /android/i.test(DomHandler.getUserAgent())) {
                         let proxy = () => {
                             this.caret(next);
                         };

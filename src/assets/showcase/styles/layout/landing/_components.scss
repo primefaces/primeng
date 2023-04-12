@@ -18,12 +18,22 @@
         box-shadow: var(--home-card-shadow);
     }
 
-    .p-datepicker, .p-datepicker-header {
+    .p-datepicker,
+    .p-datepicker-header {
         background: transparent;
         border-color: transparent;
     }
-    
-    .p-datepicker-month, .p-datepicker-year{
+
+    .p-datepicker-month,
+    .p-datepicker-year {
         color: var(--home-primary-text-color);
+    }
+}
+
+@media screen and (min-width: 1660px) {
+    .components-main-container {
+        width: 1504px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }

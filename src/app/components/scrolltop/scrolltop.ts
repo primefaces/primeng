@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -64,13 +64,19 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     @Input() hideTransitionOptions: string = '.15s';
 
-    scrollListener: any;
+    documentScrollListener: VoidFunction | null;
+
+    parentScrollListener: VoidFunction | null;
 
     visible: boolean = false;
 
     overlay: any;
 
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+        this.window = this.document.defaultView;
+    }
 
     ngOnInit() {
         if (this.target === 'window') this.bindDocumentScrollListener();
@@ -78,7 +84,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     onClick() {
-        let scrollElement = this.target === 'window' ? window : this.el.nativeElement.parentElement;
+        let scrollElement = this.target === 'window' ? this.window : this.el.nativeElement.parentElement;
         scrollElement.scroll({
             top: 0,
             behavior: this.behavior
@@ -113,32 +119,32 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     bindParentScrollListener() {
-        this.scrollListener = () => {
-            this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
-        };
-
-        this.el.nativeElement.parentElement.addEventListener('scroll', this.scrollListener);
+        if (isPlatformBrowser(this.platformId)) {
+            this.parentScrollListener = this.renderer.listen(this.el.nativeElement.parentElement, 'scroll', () => {
+                this.checkVisibility(this.el.nativeElement.parentElement.scrollTop);
+            });
+        }
     }
 
     bindDocumentScrollListener() {
-        this.scrollListener = () => {
-            this.checkVisibility(DomHandler.getWindowScrollTop());
-        };
-
-        window.addEventListener('scroll', this.scrollListener);
+        if (isPlatformBrowser(this.platformId)) {
+            this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                this.checkVisibility(DomHandler.getWindowScrollTop());
+            });
+        }
     }
 
     unbindParentScrollListener() {
-        if (this.scrollListener) {
-            this.el.nativeElement.parentElement.removeEventListener('scroll', this.scrollListener);
-            this.scrollListener = null;
+        if (this.parentScrollListener) {
+            this.parentScrollListener();
+            this.parentScrollListener = null;
         }
     }
 
     unbindDocumentScrollListener() {
-        if (this.scrollListener) {
-            window.removeEventListener('scroll', this.scrollListener);
-            this.scrollListener = null;
+        if (this.documentScrollListener) {
+            this.documentScrollListener();
+            this.documentScrollListener = null;
         }
     }
 

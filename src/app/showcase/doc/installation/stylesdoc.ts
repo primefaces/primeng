@@ -23,7 +23,7 @@ export class StylesDoc {
     @Input() title: string;
 
     code1: Code = {
-        basic: `...
+        typescript: `...
 "styles": [
     "node_modules/primeicons/primeicons.css",
     "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -33,7 +33,7 @@ export class StylesDoc {
     };
 
     code2: Code = {
-        basic: `@import "primeng/resources/themes/lara-light-blue/theme.css";
+        scss: `@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";`
     };

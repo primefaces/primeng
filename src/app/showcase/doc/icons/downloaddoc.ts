@@ -16,6 +16,6 @@ export class DownloadDoc {
     @Input() title: string;
 
     code: Code = {
-        basic: `npm install primeicons`
+        command: `npm install primeicons`
     };
 }

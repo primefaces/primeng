@@ -1,9 +1,10 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-megaMenu',
@@ -92,6 +93,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                                             [attr.id]="item.id"
                                                             [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             pRipple
                                                         >
@@ -113,6 +116,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                                             [attr.title]="item.title"
                                                             [attr.id]="item.id"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             [fragment]="item.fragment"
                                                             [queryParamsHandling]="item.queryParamsHandling"
@@ -168,13 +173,13 @@ export class MegaMenu implements AfterContentInit {
 
     activeItem: any;
 
-    documentClickListener: any;
+    documentClickListener: () => void | null;
 
     startTemplate: TemplateRef<any>;
 
     endTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -278,22 +283,22 @@ export class MegaMenu implements AfterContentInit {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.el && !this.el.nativeElement.contains(event.target)) {
+                        this.activeItem = null;
+                        this.unbindDocumentClickListener();
+                        this.cd.markForCheck();
+                    }
+                });
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
