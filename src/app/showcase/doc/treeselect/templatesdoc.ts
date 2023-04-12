@@ -35,6 +35,22 @@ import { Component, Input } from '@angular/core';
                         <td>empty</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>clearicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>triggericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>filtericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>closeicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

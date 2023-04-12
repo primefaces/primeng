@@ -8,6 +8,9 @@ import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule } from 'primeng/tree';
 import { ObjectUtils } from 'primeng/utils';
+import { SearchIcon } from 'primeng/icon/search';
+import { TimesIcon } from 'primeng/icon/times';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -53,10 +56,18 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         </ng-template>
                     </ng-template>
                 </div>
-                <i *ngIf="checkValue() && !disabled && showClear" class="p-treeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+                <ng-container *ngIf="checkValue() && !disabled && showClear">
+                    <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-treeselect-clear-icon'" (click)="clear($event)"/>
+                    <span *ngIf="clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate;"></ng-template>
+                    </span>
+                </ng-container>
             </div>
             <div class="p-treeselect-trigger">
-                <span class="p-treeselect-trigger-icon pi pi-chevron-down"></span>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [ngClass]="'p-treeselect-trigger-icon'"/>
+                <span *ngIf="triggerIconTemplate" class="p-treeselect-trigger-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                </span>
             </div>
             <p-overlay
                 #overlay
@@ -85,10 +96,16 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                     (input)="onFilterInput($event)"
                                     [value]="filterValue"
                                 />
-                                <span class="p-treeselect-filter-icon pi pi-search"></span>
+                                <SearchIcon *ngIf="!filterIconTemplate" [ngClass]="'p-treeselect-filter-icon'"/>
+                                <span *ngIf="filterIconTemplate" class="p-treeselect-filter-icon">
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                </span>
                             </div>
                             <button class="p-treeselect-close p-link" (click)="hide()">
-                                <span class="p-treeselect-filter-icon pi pi-times"></span>
+                                <TimesIcon *ngIf="!closeIconTemplate" [ngClass]="'p-treeselect-filter-icon'"/>
+                                <span *ngIf="closeIconTemplate" class="p-treeselect-filter-icon">
+                                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                                </span>
                             </button>
                         </div>
                         <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
@@ -270,6 +287,14 @@ export class TreeSelect implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
+    clearIconTemplate: TemplateRef<any>;
+    
+    triggerIconTemplate: TemplateRef<any>;
+    
+    filterIconTemplate: TemplateRef<any>;
+    
+    closeIconTemplate: TemplateRef<any>;
+
     focused: boolean;
 
     overlayVisible: boolean;
@@ -315,6 +340,22 @@ export class TreeSelect implements AfterContentInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 default: //TODO: @deprecated Used "value" template instead
@@ -634,7 +675,7 @@ export class TreeSelect implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule],
+    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule, SearchIcon, TimesIcon, ChevronDownIcon],
     exports: [TreeSelect, OverlayModule, SharedModule, TreeModule],
     declarations: [TreeSelect]
 })
