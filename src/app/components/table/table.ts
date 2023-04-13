@@ -110,7 +110,7 @@ export class TableService {
             [attr.id]="id"
         >
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
-                <i *ngIf="loadingIcon" [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
+                <i *ngIf="loadingIcon" [class]="'p-datatable-loading-icon ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-datatable-loading-icon'"/>
                     <span *ngIf="loadingIconTemplate" class="p-datatable-loading-icon">
