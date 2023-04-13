@@ -238,7 +238,6 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                     break;
 
                 case 'rejecticon':
-                    console.log(item.template);
                     this.rejectIconTemplate = item.template;
                     break;
 
