@@ -107,14 +107,14 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon')).children[0];
         const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
         const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-check');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('checkicon');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Success Message');
         expect(detailEl.nativeElement.innerHTML).toContain('Order submitted');
     });
@@ -127,14 +127,14 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon')).children[0];
         const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
         const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-info-circle');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('infocircleicon');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Info Message');
         expect(detailEl.nativeElement.innerHTML).toContain('PrimeNG rocks');
     });
@@ -147,14 +147,14 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon')).children[0];
         const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
         const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-exclamation-triangle');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('exclamationtriangleicon');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Warn Message');
         expect(detailEl.nativeElement.innerHTML).toContain('There are unsaved changes');
     });
@@ -167,14 +167,14 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon')).children[0];
         const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
         const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-times');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('timescircleicon');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Error Message');
         expect(detailEl.nativeElement.innerHTML).toContain('Validation failed');
     });
@@ -187,14 +187,14 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
-        const iconEl = fixture.debugElement.query(By.css('.p-message-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-message-icon')).children[0];
         const summaryEl = fixture.debugElement.query(By.css('.p-message-summary'));
         const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
         expect(messageEl).toBeTruthy();
         expect(iconEl).toBeTruthy();
         expect(summaryEl).toBeTruthy();
         expect(detailEl).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi-check');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('checkicon');
         expect(summaryEl.nativeElement.innerHTML).toEqual('Service Message');
         expect(detailEl.nativeElement.innerHTML).toContain('Via MessageService');
     });
