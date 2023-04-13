@@ -11,7 +11,6 @@ import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
         <div
             aria-live="polite"
             class="p-inline-message p-component p-inline-message"
-            *ngIf="severity"
             [ngStyle]="style"
             [class]="styleClass"
             [ngClass]="{
@@ -22,10 +21,10 @@ import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
                 'p-inline-message-icon-only': this.text == null
             }"
         >
-            <CheckIcon *ngIf="severity === 'success'" [ngClass]="'p-inline-message-icon'"/>
-            <InfoCircleIcon *ngIf="severity === 'info'" [ngClass]="'p-inline-message-icon'"/>
-            <TimesCircleIcon *ngIf="severity === 'error'" [ngClass]="'p-inline-message-icon'"/>
-            <ExclamationTriangleIcon *ngIf="severity === 'warn'" [ngClass]="'p-inline-message-icon'"/>
+            <CheckIcon *ngIf="icon === 'success'" [ngClass]="'p-inline-message-icon'"/>
+            <InfoCircleIcon *ngIf="icon === 'info'" [ngClass]="'p-inline-message-icon'"/>
+            <TimesCircleIcon *ngIf="icon === 'error'" [ngClass]="'p-inline-message-icon'"/>
+            <ExclamationTriangleIcon *ngIf="icon === 'warn'" [ngClass]="'p-inline-message-icon'"/>
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
             </div>
@@ -51,6 +50,15 @@ export class UIMessage {
     @Input() style: any;
 
     @Input() styleClass: string;
+
+    get icon() {
+        if(this.severity && this.severity.trim()) {
+            return this.severity;
+        }
+        else {
+            return 'info';
+        }
+    }
 }
 
 @NgModule({
