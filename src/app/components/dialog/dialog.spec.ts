@@ -127,7 +127,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
         flush();
 
-        const minIconEl = fixture.debugElement.query(By.css('.pi-window-minimize'));
+        const minIconEl = fixture.debugElement.query(By.css('windowminimizeicon'));
         expect(maximizeSpy).toHaveBeenCalled();
         expect(dialog.maximized).toEqual(true);
         expect(minIconEl).toBeTruthy();
