@@ -520,6 +520,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OrderListModule } from 'primeng/orderlist';
@@ -618,6 +619,7 @@ ${serviceImports}
     MegaMenuModule,
     MenuModule,
     MenubarModule,
+    MessageModule,
     MessagesModule,
     MultiSelectModule,
     OrganizationChartModule,
