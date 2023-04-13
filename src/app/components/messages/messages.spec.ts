@@ -7,6 +7,10 @@ import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/api';
+import { CheckIcon } from 'primeng/icon/check';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
+import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
+import { InfoCircleIcon } from 'primeng/icon/infocircle';
 
 @Component({
     template: `
@@ -79,7 +83,7 @@ describe('Messages', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule],
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon],
             declarations: [Messages, Button, TestMessagesComponent],
             providers: [MessageService]
         });
