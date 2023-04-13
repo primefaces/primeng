@@ -117,7 +117,7 @@ export class Messages implements AfterContentInit, OnDestroy {
                 case 'content':
                     this.contentTemplate = item.template;
                     break;
-                    
+
                 default:
                     this.contentTemplate = item.template;
                     break;

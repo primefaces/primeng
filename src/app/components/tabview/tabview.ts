@@ -91,7 +91,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     leftIconTemplate: TemplateRef<any>;
 
     rightIconTemplate: TemplateRef<any>;
-    
+
     closeIconTemplate: TemplateRef<any>;
 
     tabView: TabView;

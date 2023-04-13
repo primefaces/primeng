@@ -416,17 +416,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     frozenColGroupTemplate: TemplateRef<any>;
 
     loadingIconTemplate: TemplateRef<any>;
-    
+
     reorderIndicatorUpIconTemplate: TemplateRef<any>;
-    
+
     reorderIndicatorDownIconTemplate: TemplateRef<any>;
-    
+
     sortIconTemplate: TemplateRef<any>;
-    
+
     checkboxIconTemplate: TemplateRef<any>;
-    
+
     headerCheckboxIconTemplate: TemplateRef<any>;
-    
+
     togglerIconTemplate: TemplateRef<any>;
 
     lastResizerHelperX: number;

@@ -165,7 +165,7 @@ export class Galleria implements OnChanges, OnDestroy {
     captionFacet: any;
 
     closeIconTemplate: TemplateRef<any>;
-    
+
     prevThumbnailIconTemplate: TemplateRef<any>;
 
     nextThumbnailIconTemplate: TemplateRef<any>;
@@ -493,7 +493,7 @@ export class GalleriaItemSlot {
                         this.context = { $implicit: this.item };
                         this.contentTemplate = item.template;
                         break;
-                    
+
                     case 'indicator':
                         this.context = { $implicit: this.index };
                         this.contentTemplate = item.template;
@@ -791,7 +791,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     ngOnInit() {
         this.createStyle();
-        
+
         if (this.responsiveOptions) {
             this.bindDocumentListeners();
         }

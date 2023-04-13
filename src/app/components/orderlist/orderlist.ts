@@ -188,13 +188,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     public filterTemplate: TemplateRef<any>;
 
     moveUpIconTemplate: TemplateRef<any>;
-    
+
     moveTopIconTemplate: TemplateRef<any>;
-    
+
     moveDownIconTemplate: TemplateRef<any>;
-    
+
     moveBottomIconTemplate: TemplateRef<any>;
-    
+
     filterIconTemplate: TemplateRef<any>;
 
     filterOptions: OrderListFilterOptions;
@@ -262,19 +262,19 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 case 'header':
                     this.headerTemplate = item.template;
                     break;
-                
+
                 case 'moveupicon':
                     this.moveUpIconTemplate = item.template;
                     break;
-                
+
                 case 'movetopicon':
                     this.moveTopIconTemplate = item.template;
                     break;
-                
+
                 case 'movedownicon':
                     this.moveDownIconTemplate = item.template;
                     break;
-                
+
                 case 'movebottomicon':
                     this.moveBottomIconTemplate = item.template;
                     break;

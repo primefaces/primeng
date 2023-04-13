@@ -114,11 +114,11 @@ export class Image implements AfterContentInit {
     rotateLeftIconTemplate: TemplateRef<any>;
 
     zoomOutIconTemplate: TemplateRef<any>;
-    
+
     zoomInIconTemplate: TemplateRef<any>;
 
     closeIconTemplate: TemplateRef<any>;
-    
+
     maskVisible: boolean = false;
 
     previewVisible: boolean = false;

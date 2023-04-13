@@ -131,11 +131,11 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     firstIconTemplate: TemplateRef<any>;
-    
+
     prevIconTemplate: TemplateRef<any>;
-    
+
     lastIconTemplate: TemplateRef<any>;
-    
+
     nextIconTemplate: TemplateRef<any>;
 
     pageLinks: number[];

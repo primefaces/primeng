@@ -382,19 +382,19 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     moveTopIconTemplate: TemplateRef<any>;
 
     moveUpIconTemplate: TemplateRef<any>;
-    
+
     moveDownIconTemplate: TemplateRef<any>;
-    
+
     moveBottomIconTemplate: TemplateRef<any>;
-    
+
     moveToTargetIconTemplate: TemplateRef<any>;
-    
+
     moveAllToTargetIconTemplate: TemplateRef<any>;
-    
+
     moveToSourceIconTemplate: TemplateRef<any>;
-    
+
     moveAllToSourceIconTemplate: TemplateRef<any>;
-    
+
     targetFilterIconTemplate: TemplateRef<any>;
 
     sourceFilterIconTemplate: TemplateRef<any>;
@@ -507,7 +507,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 case 'emptyfiltermessagetarget':
                     this.emptyFilterMessageTargetTemplate = item.template;
                     break;
-                    
+
                 case 'moveupicon':
                     this.moveUpIconTemplate = item.template;
                     break;

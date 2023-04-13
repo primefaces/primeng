@@ -136,7 +136,7 @@ export class Breadcrumb implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    separatorTemplate: TemplateRef<any>
+    separatorTemplate: TemplateRef<any>;
 
     itemClick(event, item: MenuItem) {
         if (item.disabled) {

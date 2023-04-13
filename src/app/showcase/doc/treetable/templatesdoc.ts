@@ -24,9 +24,9 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>body</td>
                         <td>
-                            $implicit: serializedNode<br/> 
-                            node: serializedNode.node<br/>
-                            rowData: serializedNode.node.data<br/>
+                            $implicit: serializedNode<br />
+                            node: serializedNode.node<br />
+                            rowData: serializedNode.node.data<br />
                             columns: columns
                         </td>
                     </tr>
@@ -49,7 +49,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>emptymessage</td>
                         <td>
-                            $implicit: columns<br/>
+                            $implicit: columns<br />
                             frozen: frozen
                         </td>
                     </tr>
@@ -72,9 +72,9 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>frozenbody</td>
                         <td>
-                            $implicit: serializedNode<br/> 
-                            node: serializedNode.node<br/>
-                            rowData: serializedNode.node.data<br/>
+                            $implicit: serializedNode<br />
+                            node: serializedNode.node<br />
+                            rowData: serializedNode.node.data<br />
                             columns: columns
                         </td>
                     </tr>
@@ -105,7 +105,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>checkboxicon</td>
                         <td>
-                            $implicit: checked <br/>
+                            $implicit: checked <br />
                             partialSelected: rowNode.node.partialSelected
                         </td>
                     </tr>

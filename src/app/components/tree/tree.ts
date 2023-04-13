@@ -828,11 +828,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     emptyMessageTemplate: TemplateRef<any>;
 
     togglerIconTemplate: TemplateRef<any>;
-    
+
     checkboxIconTemplate: TemplateRef<any>;
-    
+
     loadingIconTemplate: TemplateRef<any>;
-    
+
     filterIconTemplate: TemplateRef<any>;
 
     public nodeTouched: boolean;

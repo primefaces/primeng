@@ -207,9 +207,9 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     paginatorDropdownItemTemplate: TemplateRef<any>;
 
     loadingIconTemplate: TemplateRef<any>;
-    
+
     listIconTemplate: TemplateRef<any>;
-    
+
     gridIconTemplate: TemplateRef<any>;
 
     filteredValue: any[];

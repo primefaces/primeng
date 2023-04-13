@@ -288,11 +288,11 @@ export class TreeSelect implements AfterContentInit {
     footerTemplate: TemplateRef<any>;
 
     clearIconTemplate: TemplateRef<any>;
-    
+
     triggerIconTemplate: TemplateRef<any>;
-    
+
     filterIconTemplate: TemplateRef<any>;
-    
+
     closeIconTemplate: TemplateRef<any>;
 
     focused: boolean;

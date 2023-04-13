@@ -134,7 +134,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     documentResizeListener: () => void | null;
 
     contentTemplate: TemplateRef<any>;
-    
+
     closeIconTemplate: TemplateRef<any>;
 
     destroyCallback: Function;

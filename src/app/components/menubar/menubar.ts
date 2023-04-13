@@ -172,7 +172,15 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService, private menubar: Menubar) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private menubarService: MenubarService,
+        private menubar: Menubar
+    ) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -331,7 +339,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     startTemplate: TemplateRef<any>;
 
     endTemplate: TemplateRef<any>;
-    
+
     menuIconTemplate: TemplateRef<any>;
 
     submenuIconTemplate: TemplateRef<any>;

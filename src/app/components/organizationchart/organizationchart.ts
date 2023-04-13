@@ -163,7 +163,7 @@ export class OrganizationChart implements AfterContentInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     public templateMap: any;
-    
+
     togglerIconTemplate: TemplateRef<any>;
 
     private selectionSource = new Subject<any>();
@@ -188,8 +188,7 @@ export class OrganizationChart implements AfterContentInit {
         this.templates.forEach((item) => {
             if (item.getType() === 'togglericon') {
                 this.togglerIconTemplate = item.template;
-            }
-            else {
+            } else {
                 this.templateMap[item.getType()] = item.template;
             }
         });

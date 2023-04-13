@@ -1,4 +1,23 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild, Inject, ContentChildren, QueryList, AfterContentInit, TemplateRef } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    Input,
+    Renderer2,
+    OnDestroy,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Output,
+    EventEmitter,
+    ViewRef,
+    ViewChild,
+    Inject,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    TemplateRef
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -412,7 +431,6 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
             }
         });
     }
-
 
     toggle(event) {
         if (this.visible) this.hide();

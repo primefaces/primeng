@@ -149,7 +149,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     itemTemplate: TemplateRef<any>;
 
     prevIconTemplate: TemplateRef<any>;
-    
+
     nextIconTemplate: TemplateRef<any>;
 
     tabChanged: boolean;
