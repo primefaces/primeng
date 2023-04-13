@@ -27,7 +27,7 @@ describe('UIMessage', () => {
         const textEl = fixture.debugElement.query(By.css('.p-inline-message-text'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-success');
-        expect(iconEl.nativeElement.className).toContain('pi pi-check');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('checkicon');
         expect(textEl.nativeElement.textContent).toContain('Primeng Rocks!');
     });
 
@@ -39,7 +39,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-info');
-        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('infocircleicon');
     });
 
     it('should change severity to error', () => {
@@ -50,7 +50,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-error');
-        expect(iconEl.nativeElement.className).toContain('pi pi-times');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('timescircleicon');
     });
 
     it('should change severity to warning', () => {
@@ -61,7 +61,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-warn');
-        expect(iconEl.nativeElement.className).toContain('pi pi-exclamation-triangle');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('exclamationtriangleicon');
     });
     it('should change severity to default', () => {
         message.severity = ' ';
@@ -70,6 +70,6 @@ describe('UIMessage', () => {
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toEqual('infocircleicon');
     });
 });
