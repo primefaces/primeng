@@ -610,6 +610,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, SharedModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent],
-    entryComponents: [DynamicDialogComponent, SharedModule]
+    entryComponents: [DynamicDialogComponent],
+    exports: [SharedModule]
 })
 export class DynamicDialogModule {}
