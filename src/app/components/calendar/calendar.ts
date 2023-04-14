@@ -31,7 +31,9 @@ import { Subscription } from 'rxjs';
 import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
 import { ChevronRightIcon } from 'primeng/icon/chevronright';
 import { ChevronUpIcon } from 'primeng/icon/chevronup';
-import { ChevronDownIcon } from '../icon/chevrondown/chevrondown';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
+import { TimesIcon } from 'primeng/icon/times';
+import { CalendarIcon } from 'primeng/icon/calendar';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -83,8 +85,19 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                     autocomplete="off"
                     [attr.aria-labelledby]="ariaLabelledBy"
                 />
-                <i *ngIf="showClear && !disabled && value != null" class="p-calendar-clear-icon pi pi-times" (click)="clear()"></i>
-                <button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger" [disabled]="disabled" tabindex="0"></button>
+                <ng-container *ngIf="showClear && !disabled && value != null">
+                    <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-calendar-clear-icon'" (click)="clear()"/>
+                    <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+                <button type="button" [attr.aria-label]="iconAriaLabel" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger p-button-icon-only" [disabled]="disabled" tabindex="0">
+                    <span *ngIf="icon" [ngClass]="icon"></span>
+                    <ng-container *ngIf="!icon">
+                        <CalendarIcon *ngIf="!triggerIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
             </ng-template>
             <div
                 #contentWrapper
@@ -141,7 +154,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     type="button"
                                     pRipple
                                 >
-                                    <ChevronRightIcon class="p-datepicker-next-icon" *ngIf="!nextIconTemplate"/>
+                                    <ChevronRightIcon [ngClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate"/>
 
                                     <ng-template *ngTemplateOutlet="nextIconTemplate;"></ng-template>
                                 </button>
@@ -212,7 +225,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <ChevronUpIcon/>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                         <button
@@ -228,7 +242,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                           <ChevronDownIcon/>
+                           <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                           <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator">
@@ -248,7 +263,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <ChevronUpIcon/>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                         <button
@@ -264,7 +280,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                           <ChevronDownIcon/>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator" *ngIf="showSeconds">
@@ -284,7 +301,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <ChevronUpIcon/>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                         <button
@@ -300,16 +318,19 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                           <ChevronDownIcon/>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-ampm-picker" *ngIf="hourFormat == '12'">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                            <ChevronUpIcon/>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                           <ChevronDownIcon/>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                 </div>
@@ -391,7 +412,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() showIcon: boolean;
 
-    @Input() icon: string = 'pi pi-calendar';
+    @Input() icon: string;
 
     @Input() appendTo: any;
 
@@ -583,6 +604,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     prevIconTemplate: TemplateRef<any>;
 
     nextIconTemplate: TemplateRef<any>;
+
+    triggerIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
+    decrementIconTemplate: TemplateRef<any>;
+
+    incrementIconTemplate: TemplateRef<any>;
 
     _disabledDates: Array<Date>;
 
@@ -814,12 +843,28 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     this.headerTemplate = item.template;
                     break;
 
-                case 'prevIcon':
+                case 'previcon':
                     this.prevIconTemplate = item.template;
                     break;
 
-                case 'nextIcon':
+                case 'nexticon':
                     this.nextIconTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'decrementicon':
+                    this.decrementIconTemplate = item.template;
+                    break;
+
+                case 'incrementicon':
+                    this.incrementIconTemplate = item.template;
                     break;
 
                 case 'footer':
@@ -3119,7 +3164,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon],
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })
