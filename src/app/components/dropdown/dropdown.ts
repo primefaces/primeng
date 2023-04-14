@@ -154,15 +154,25 @@ export class DropdownItem {
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <TimesIcon class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="isVisibleClearIcon && !clearIconTemplate" />
-            <div class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="isVisibleClearIcon && clearIconTemplate">
-                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-            </div>
+
+            <ng-container *ngIf="isVisibleClearIcon">
+                <TimesIcon [ngClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" />
+                <span class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+           
+
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
-                <ChevronDownIcon *ngIf="!dropdownIcon && !dropdownIconTemplate" class="p-dropdown-trigger-icon" />
-                <ng-template *ngTemplateOutlet="dropdownIconTemplate; context:{$implicit:'p-dropdown-trigger-icon'}"></ng-template>
+                <ng-container *ngIf="!dropdownIconTemplate">
+                    <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                    <ChevronDownIcon *ngIf="!dropdownIcon" [ngClass]="'p-dropdown-trigger-icon'" />
+                </ng-container>
+                <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </span>
             </div>
+            
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -198,8 +208,10 @@ export class DropdownItem {
                                         [attr.aria-label]="ariaFilterLabel"
                                         [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
                                     />
-                                    <SearchIcon *ngIf="!filterIconTemplate" class="p-dropdown-filter-icon" />
-                                    <ng-template *ngTemplateOutlet="filterIconTemplate; context:{$implicit:'p-dropdown-filter-icon'}"></ng-template>
+                                    <SearchIcon *ngIf="!filterIconTemplate" [ngClass]="'p-dropdown-filter-icon'" />
+                                    <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
+                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                    </span>
                                 </div>
                             </ng-template>
                         </div>
@@ -603,15 +615,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     this.loaderTemplate = item.template;
                     break;
 
-                case 'dropdownIcon':
+                case 'dropdownicon':
                     this.dropdownIconTemplate = item.template;
                     break;
 
-                case 'clearIcon':
+                case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
 
-                case 'filterIcon':
+                case 'filtericon':
                     this.filterIconTemplate = item.template;
                     break;
 

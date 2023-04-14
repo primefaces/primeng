@@ -21,10 +21,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                     <span *ngIf="!itemTemplate" class="p-chips-token-label">{{ field ? resolveFieldData(item, field) : item }}</span>
                     <ng-container *ngIf="!disabled">
-                        <TimesCircleIcon class="p-chips-token-icon" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" />
-                        <div *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)">
+                        <TimesCircleIcon [ngClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" />
+                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)">
                             <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
-                        </div>
+                        </span>
                     </ng-container>
                 </li>
                 <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }">
@@ -46,10 +46,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
-                    <TimesIcon *ngIf="!clearIconTemplate" class="p-chips-clear-icon" (click)="clear()"/>
-                    <div *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
+                    <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-chips-clear-icon'" (click)="clear()"/>
+                    <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                    </div>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -141,11 +141,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                     this.itemTemplate = item.template;
                     break;
 
-                case 'removeTokenIcon':
+                case 'removetokenicon':
                     this.removeTokenIconTemplate = item.template;
                     break;
 
-                case 'clearIcon':
+                case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
 
