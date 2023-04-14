@@ -37,13 +37,14 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, cb, true)" [ngClass]="{ 'p-highlight': checked(), 'p-disabled': disabled, 'p-focus': focused }">
                 
-            <ng-container *ngIf="!checkboxIconTemplate && checked()"> 
-                <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
-                <CheckIcon *ngIf="!checkboxIcon" class="p-checkbox-icon"/>
-            </ng-container>
-
             <ng-container *ngIf="checked()">
-                <ng-template *ngTemplateOutlet="checkboxIconTemplate; context:{ $implicit: 'p-checkbox-icon' }"></ng-template>
+                <ng-container *ngIf="!checkboxIconTemplate"> 
+                    <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
+                    <CheckIcon *ngIf="!checkboxIcon" [ngClass]="'p-checkbox-icon'"/>
+                </ng-container>
+                <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon">
+                    <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
+                </span>
             </ng-container>
             </div>
         </div>
@@ -122,7 +123,7 @@ export class Checkbox implements ControlValueAccessor {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'checkboxIcon':
+                case 'checkboxicon':
                     this.checkboxIconTemplate = item.template;
                     break;
             }

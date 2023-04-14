@@ -50,7 +50,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         </ng-template>
                         <span class="p-cascadeselect-group-icon">
                             <AngleRightIcon *ngIf="!groupIconTemplate"/>
-                            <ng-container *ngTemplateOutlet="groupIconTemplate"></ng-container>
+                            <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
                     <p-cascadeSelectSub
@@ -307,10 +307,12 @@ export class CascadeSelectSub implements OnInit {
                     {{ label() }}
                 </ng-template>
             </span>
-            <TimesIcon *ngIf="filled && !disabled && showClear && !clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)"/>
 
-            <ng-container *ngIf="filled && !disabled && showClear && clearIconTemplate">
-                <ng-template *ngTemplateOutlet="clearIconTemplate; context:{$implicit:clear, class:'p-cascadeselect-clear-icon'}"></ng-template>
+            <ng-container *ngIf="filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)"/>
+                <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
             </ng-container>
 
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
@@ -495,16 +497,20 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 case 'value':
                     this.valueTemplate = item.template;
                     break;
+
                 case 'option':
                     this.optionTemplate = item.template;
                     break;
-                case 'triggerIcon':
+                    
+                case 'triggericon':
                     this.triggerIconTemplate = item.template;
                     break;
-                case 'clearIcon':
+                    
+                case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
-                case 'optionGroupIcon':
+                    
+                case 'optiongroupicon':
                     this.groupIconTemplate = item.template;
                     break;
             }
