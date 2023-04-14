@@ -44,7 +44,9 @@ import { ChevronUpIcon } from 'primeng/icon/chevronup';
                             <ChevronLeftIcon *ngIf="!isVertical()" [ngClass]="'carousel-prev-icon'"/>
                             <ChevronUpIcon *ngIf="isVertical()" [ngClass]="'carousel-prev-icon'"/>
                         </ng-container>
-                        <ng-template *ngTemplateOutlet="prevIconTemplate; context: { $implicit: 'p-carousel-prev-icon' }"></ng-template>
+                        <span *ngIf="prevIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                        </span>
                     </button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -83,7 +85,9 @@ import { ChevronUpIcon } from 'primeng/icon/chevronup';
                             <ChevronRightIcon *ngIf="!isVertical()" [ngClass]="'carousel-prev-icon'"/>
                             <ChevronDownIcon *ngIf="isVertical()" [ngClass]="'carousel-prev-icon'"/>
                         </ng-container>
-                        <ng-template *ngTemplateOutlet="nextIconTemplate; context: { $implicit: 'p-carousel-prev-icon' }"></ng-template>
+                        <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                        </span>
                     </button>
                 </div>
                 <ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators">

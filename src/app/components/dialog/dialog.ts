@@ -106,7 +106,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
                                 <TimesIcon *ngIf="!closeIcon" [ngClass]="'p-dialog-header-close-icon'"/>
                             </ng-container>
-                            <ng-template *ngTemplateOutlet="closeIconTemplate; context: { $implicit: 'p-dialog-header-close-icon' }"></ng-template>
+                            <span *ngIf="closeIconTemplate">
+                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            </span>
                         </button>
                     </div>
                 </div>

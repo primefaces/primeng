@@ -222,15 +222,20 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
                                         <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
-                                        <ng-template *ngTemplateOutlet="tab.leftIconTemplate; context: { $implicit: 'p-tabview-left-icon' }"></ng-template>
+                                        <span ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
+                                            <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
+                                        </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
                                         <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
-                                        <ng-template *ngTemplateOutlet="tab.rightIconTemplate; context: { $implicit: 'p-tabview-right-icon' }"></ng-template>
+                                        <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
+                                            <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
+                                        </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                     <ng-container *ngIf="tab.closable">
                                         <TimesIcon *ngIf="!tab.closeIconTemplate" [ngClass]="'p-tabview-close'" (click)="close($event, tab)"/>
-                                        <ng-template *ngTemplateOutlet="tab.closeIconTemplate; context: { $implicit: 'p-tabview-close'}"></ng-template>
+                                        <span class="tab.closeIconTemplate" *ngIf="p-tabview-close"></span>
+                                        <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
                                     </ng-container>
                                 </a>
                             </li>
