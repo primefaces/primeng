@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { BaseIcon } from '../../baseicon/baseicon';
+import { BaseIcon } from 'primeng/baseicon';
 
 @Component({
     selector: 'MinusIcon',
