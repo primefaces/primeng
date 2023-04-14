@@ -170,7 +170,7 @@ export class TriStateCheckbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, CheckIcon, TimesIcon],
+    imports: [CommonModule, SharedModule, CheckIcon, TimesIcon],
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
