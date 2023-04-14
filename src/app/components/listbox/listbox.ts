@@ -53,9 +53,11 @@ export interface ListboxFilterOptions {
                         <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [disabled]="disabled || toggleAllDisabled" />
                     </div>
                     <div #headerchkbox class="p-checkbox-box" [ngClass]="{ 'p-highlight': allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }" (click)="toggleAll($event)">
-                        <CheckIcon class="p-checkbox-icon" *ngIf="allChecked && !checkIconTemplate" />
-                        <ng-container *ngIf="allChecked && checkIconTemplate">
-                            <ng-template *ngTemplateOutlet="checkIconTemplate; context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                        <ng-container *ngIf="allChecked">
+                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                        </span>
                         </ng-container>
                     </div>
                 </div>
@@ -74,8 +76,10 @@ export interface ListboxFilterOptions {
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
                         />
-                        <SearchIcon *ngIf="!filterIconTemplate" class="p-listbox-filter-icon"/>
-                        <ng-template *ngTemplateOutlet="filterIconTemplate; context: {$implicit:'p-listbox-filter-icon'}"></ng-template>
+                        <SearchIcon *ngIf="!filterIconTemplate" [ngClass]="'p-listbox-filter-icon'"/>
+                        <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                        </span>
                     </div>
                 </ng-template>
             </div>
@@ -109,10 +113,12 @@ export interface ListboxFilterOptions {
                         >
                             <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{ 'p-checkbox-disabled': disabled || isOptionDisabled(option) }">
                                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(option) }">
-                                    <CheckIcon class="p-checkbox-icon" *ngIf="isSelected(option) && !checkIconTemplate" />
-                                        <ng-container *ngIf="isSelected(option)  && checkIconTemplate">
-                                            <ng-template *ngTemplateOutlet="checkIconTemplate; context:{$implicit:'p-checkbox-icon'}"></ng-template>
-                                        </ng-container>
+                                    <ng-container *ngIf="isSelected(option)">
+                                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                                        </span>
+                                    </ng-container>
                                 </div>
                             </div>
                             <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
@@ -321,11 +327,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                     this.emptyFilterTemplate = item.template;
                     break;
 
-                case 'filterIcon':
+                case 'filtericon':
                     this.filterIconTemplate = item.template;
                     break;
 
-                case 'checkIcon':
+                case 'checkicon':
                     this.checkIconTemplate = item.template;
                     break;
 

@@ -48,12 +48,12 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>filterIcon</td>
-                        <td>$implicit: style class of the filter icon</td>
+                        <td>filtericon</td>
+                        <td>-</td>
                     </tr>
                     <tr>
-                        <td>checkIcon</td>
-                        <td>$implicit: style class of the check icon</td>
+                        <td>checkicon</td>
+                        <td>-</td>
                     </tr>
                 </tbody>
             </table>
