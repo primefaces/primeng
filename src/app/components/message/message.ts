@@ -52,10 +52,9 @@ export class UIMessage {
     @Input() styleClass: string;
 
     get icon() {
-        if(this.severity && this.severity.trim()) {
+        if (this.severity && this.severity.trim()) {
             return this.severity;
-        }
-        else {
+        } else {
             return 'info';
         }
     }

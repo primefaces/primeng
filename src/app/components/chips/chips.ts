@@ -352,4 +352,4 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })
-export class ChipsModule { }
+export class ChipsModule {}

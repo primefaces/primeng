@@ -244,9 +244,9 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     public value: any;
 
-    public onModelChange: Function = () => { };
+    public onModelChange: Function = () => {};
 
-    public onModelTouched: Function = () => { };
+    public onModelTouched: Function = () => {};
 
     public optionTouched: boolean;
 
@@ -256,7 +256,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     translationSubscription: Subscription;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     @Input() get options(): any[] {
         return this._options;
@@ -784,4 +784,4 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     exports: [Listbox, SharedModule],
     declarations: [Listbox]
 })
-export class ListboxModule { }
+export class ListboxModule {}

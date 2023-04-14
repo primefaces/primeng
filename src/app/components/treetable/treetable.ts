@@ -34,7 +34,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
-import { SortAmountDownIcon } from '../icon/sortamountdown/sortamountdown';
+import { SortAmountDownIcon } from 'primeng/icon/sortamountdown';
 import { ChevronRightIcon } from 'primeng/icon/chevronright';
 import { ArrowDownIcon } from 'primeng/icon/arrowdown';
 import { ArrowUpIcon } from 'primeng/icon/arrowup';

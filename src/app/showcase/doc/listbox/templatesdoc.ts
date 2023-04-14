@@ -55,8 +55,6 @@ import { Component, Input } from '@angular/core';
                         <td>checkIcon</td>
                         <td>$implicit: style class of the check icon</td>
                     </tr>
-                    
-                    
                 </tbody>
             </table>
         </div>

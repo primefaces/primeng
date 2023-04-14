@@ -123,7 +123,7 @@ export class Checkbox implements ControlValueAccessor {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'checkboxIcon':
-                    this.checkboxIconTemplate = item.template
+                    this.checkboxIconTemplate = item.template;
                     break;
             }
         });

@@ -708,4 +708,4 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })
-export class CascadeSelectModule { }
+export class CascadeSelectModule {}

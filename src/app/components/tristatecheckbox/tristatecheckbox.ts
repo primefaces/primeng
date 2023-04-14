@@ -54,7 +54,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(private cd: ChangeDetectorRef) { }
+    constructor(private cd: ChangeDetectorRef) {}
 
     @Input() disabled: boolean;
 
@@ -90,9 +90,9 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     value: any;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
@@ -174,4 +174,4 @@ export class TriStateCheckbox implements ControlValueAccessor {
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
-export class TriStateCheckboxModule { }
+export class TriStateCheckboxModule {}
