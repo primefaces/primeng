@@ -1,7 +1,7 @@
 <div class="doc-component">
     <ul class="doc-tabmenu" *ngIf="docs && apiDocs">
         <li [ngClass]="{'doc-tabmenu-active': activeTab === 0}">
-            <button type="button" (click)="activateTab(0)">COMPONENT</button>
+            <button type="button" (click)="activateTab(0)">FEATURES</button>
         </li>
         <li *ngIf="apiDocs" [ngClass]="{'doc-tabmenu-active': activeTab === 1}" >
             <button type="button" (click)="activateTab(1)">API</button>
