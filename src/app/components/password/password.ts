@@ -495,7 +495,7 @@ export class Password implements AfterContentInit, OnInit {
                 case 'footer':
                     this.footerTemplate = item.template;
                     break;
-                
+
                 case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
@@ -503,10 +503,10 @@ export class Password implements AfterContentInit, OnInit {
                 case 'hideicon':
                     this.hideIconTemplate = item.template;
                     break;
-                
+
                 case 'showicon':
                     this.showIconTemplate = item.template;
-                    break
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
@@ -805,7 +805,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, TimesIcon,EyeSlashIcon,EyeIcon],
+    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })

@@ -18,11 +18,15 @@ let idx: number = 0;
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
                         <ng-container *ngIf="collapsed">
                             <PlusIcon [ngClass]="'p-fieldset-toggler'" *ngIf="!expandIconTemplate" />
-                            <ng-container *ngTemplateOutlet="expandIconTemplate; context: { $implicit: 'p-fieldset-toggler' }"></ng-container>
+                            <span *ngIf="expandIconTemplate" class="p-fieldset-toggler">
+                                <ng-container *ngTemplateOutlet="expandIconTemplate"></ng-container>
+                            </span>
                         </ng-container>
                         <ng-container *ngIf="!collapsed">
                             <MinusIcon [ngClass]="'p-fieldset-toggler'" *ngIf="!collapseIconTemplate" />
-                            <ng-container *ngTemplateOutlet="collapseIconTemplate; context: { $implicit: 'p-fieldset-toggler' }"></ng-container>
+                            <span *ngIf="collapseIconTemplate" class="p-fieldset-toggler">
+                                <ng-container *ngTemplateOutlet="collapseIconTemplate"></ng-container>
+                            </span>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>

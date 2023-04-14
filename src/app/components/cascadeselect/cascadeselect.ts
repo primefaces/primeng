@@ -501,15 +501,15 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 case 'option':
                     this.optionTemplate = item.template;
                     break;
-                    
+
                 case 'triggericon':
                     this.triggerIconTemplate = item.template;
                     break;
-                    
+
                 case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
-                    
+
                 case 'optiongroupicon':
                     this.groupIconTemplate = item.template;
                     break;

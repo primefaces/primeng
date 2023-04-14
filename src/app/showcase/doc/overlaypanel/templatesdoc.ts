@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>closeicon</td>
-                        <td>$implicit: style class of the icon</td>
+                        <td>-</td>
                     </tr>
                 </tbody>
             </table>

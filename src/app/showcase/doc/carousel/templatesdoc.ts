@@ -27,11 +27,11 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>previcon</td>
-                        <td>$implicit: style class of the element</td>
+                        <td>-</td>
                     </tr>
                     <tr>
                         <td>nexticon</td>
-                        <td>$implicit: style class of the element</td>
+                        <td>-</td>
                     </tr>
                 </tbody>
             </table>
