@@ -47,6 +47,16 @@ import { Component, Input } from '@angular/core';
                         <td>footer</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>filterIcon</td>
+                        <td>$implicit: style class of the filter icon</td>
+                    </tr>
+                    <tr>
+                        <td>checkIcon</td>
+                        <td>$implicit: style class of the check icon</td>
+                    </tr>
+                    
+                    
                 </tbody>
             </table>
         </div>

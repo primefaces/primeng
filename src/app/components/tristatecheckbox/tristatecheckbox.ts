@@ -1,6 +1,9 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { CheckIcon } from 'primeng/icon/check';
+import { TimesIcon } from 'primeng/icon/times';
+import { PrimeTemplate, SharedModule } from '../api/shared';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -31,7 +34,15 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, input)" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
                 <span class="p-checkbox-icon" [ngClass]="value === true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
-            </div>
+                <ng-container *ngIf="value" >
+                    <CheckIcon class="p-checkbox-icon" *ngIf="!checkboxTrueIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="checkboxTrueIconTemplate;context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                </ng-container>
+                <ng-container *ngIf="value === false">
+                    <TimesIcon class="p-checkbox-icon" *ngIf="!checkboxFalseIconTemplate" />
+                    <ng-template *ngTemplateOutlet="checkboxFalseIconTemplate;context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                </ng-container>
+        </div>
         </div>
         <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
@@ -43,7 +54,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef) { }
 
     @Input() disabled: boolean;
 
@@ -63,19 +74,25 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     @Input() readonly: boolean;
 
-    @Input() checkboxTrueIcon: string = 'pi pi-check';
+    @Input() checkboxTrueIcon: string;
 
-    @Input() checkboxFalseIcon: string = 'pi pi-times';
+    @Input() checkboxFalseIcon: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    checkboxTrueIconTemplate: TemplateRef<any>;
+
+    checkboxFalseIconTemplate: TemplateRef<any>;
 
     focused: boolean;
 
     value: any;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
@@ -110,6 +127,20 @@ export class TriStateCheckbox implements ControlValueAccessor {
         });
     }
 
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'checkboxTrueIcon':
+                    this.checkboxTrueIconTemplate = item.template;
+                    break;
+
+                case 'checkboxFalseIcon':
+                    this.checkboxFalseIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     onFocus() {
         this.focused = true;
     }
@@ -139,8 +170,8 @@ export class TriStateCheckbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [TriStateCheckbox],
+    imports: [CommonModule, CheckIcon, TimesIcon],
+    exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
-export class TriStateCheckboxModule {}
+export class TriStateCheckboxModule { }

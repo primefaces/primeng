@@ -33,6 +33,9 @@ import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { TimesCircleIcon } from 'primeng/icon/timescircle';
+import { SpinnerIcon } from 'primeng/icon/spinner';
+import { TimesIcon } from 'primeng/icon/times';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -79,13 +82,18 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
             />
-            <i *ngIf="!multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
+            <TimesIcon *ngIf="filled && !disabled && showClear && !clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()"/>
+            <ng-container *ngIf="filled && !disabled && showClear && clearIconTemplate">
+                <ng-template *ngTemplateOutlet="clearIconTemplate; context:{$implicit: clear, class:'p-autocomplete-clear-icon'}"></ng-template>
+            </ng-container>
             <ul *ngIf="multiple" #multiContainer class="p-autocomplete-multiple-container p-component p-inputtext" [ngClass]="{ 'p-disabled': disabled, 'p-focus': focus }" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: val }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ resolveFieldData(val) }}</span>
-                    <span class="p-autocomplete-token-icon pi pi-times-circle" (click)="removeItem(token)" *ngIf="!disabled && !readonly"></span>
+                    <span class="p-autocomplete-token-icon" (click)="removeItem(token)">
+                        <TimesCircleIcon class="p-autocomplete-token-icon" *ngIf="!removeIconTemplate" />
+                        <ng-template *ngTemplateOutlet="removeIconTemplate; class:'p-autocomplete-token-icon'"></ng-template>
+                    </span>
                 </li>
                 <li class="p-autocomplete-input-token">
                     <input
@@ -122,8 +130,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     />
                 </li>
             </ul>
-            <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i
-            ><button
+            <ng-container *ngIf="loading">
+                <SpinnerIcon class="p-autocomplete-loader pi-spin" *ngIf="!loadingIconTemplate"/>
+                <ng-template *ngTemplateOutlet="loadingIconTemplate; context: { $implicit: 'p-autocomplete-loader pi-spin' }"></ng-template>
+            </ng-container>
+            <button
                 #ddBtn
                 type="button"
                 pButton
@@ -397,6 +408,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     loaderTemplate: TemplateRef<any>;
 
+    removeIconTemplate: TemplateRef<any>;
+
+    loadingIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+    
     value: any;
 
     _suggestions: any[];
@@ -550,6 +567,18 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
                 case 'loader':
                     this.loaderTemplate = item.template;
+                    break;
+
+                case 'removeIcon':
+                    this.removeIconTemplate = item.template;
+                    break;
+
+                case 'loadingIcon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                case 'clearIcon':
+                    this.clearIconTemplate = item.template;
                     break;
 
                 default:
@@ -1005,7 +1034,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon],
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })

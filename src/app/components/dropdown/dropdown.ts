@@ -32,6 +32,9 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { TimesIcon } from 'primeng/icon/times';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
+import { SearchIcon } from 'primeng/icon/search';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -151,9 +154,14 @@ export class DropdownItem {
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
+            <TimesIcon class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="isVisibleClearIcon && !clearIconTemplate" />
+            <div class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="isVisibleClearIcon && clearIconTemplate">
+                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            </div>
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
+                <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                <ChevronDownIcon *ngIf="!dropdownIcon && !dropdownIconTemplate" class="p-dropdown-trigger-icon" />
+                <ng-template *ngTemplateOutlet="dropdownIconTemplate; context:{$implicit:'p-dropdown-trigger-icon'}"></ng-template>
             </div>
             <p-overlay
                 #overlay
@@ -190,7 +198,8 @@ export class DropdownItem {
                                         [attr.aria-label]="ariaFilterLabel"
                                         [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
                                     />
-                                    <span class="p-dropdown-filter-icon pi pi-search"></span>
+                                    <SearchIcon *ngIf="!filterIconTemplate" class="p-dropdown-filter-icon" />
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate; context:{$implicit:'p-dropdown-filter-icon'}"></ng-template>
                                 </div>
                             </ng-template>
                         </div>
@@ -320,7 +329,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @Input() resetFilterOnHide: boolean = false;
 
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+    @Input() dropdownIcon: string;
 
     @Input() optionLabel: string;
 
@@ -497,6 +506,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     emptyTemplate: TemplateRef<any>;
 
+    dropdownIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
+    filterIconTemplate: TemplateRef<any>;
+
     filterOptions: DropdownFilterOptions;
 
     selectedOption: any;
@@ -586,6 +601,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 case 'loader':
                     this.loaderTemplate = item.template;
+                    break;
+
+                case 'dropdownIcon':
+                    this.dropdownIconTemplate = item.template;
+                    break;
+
+                case 'clearIcon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'filterIcon':
+                    this.filterIconTemplate = item.template;
                     break;
 
                 default:
@@ -1286,7 +1313,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon],
     exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
     declarations: [Dropdown, DropdownItem]
 })
