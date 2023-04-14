@@ -599,7 +599,7 @@ export class UITreeNode implements OnInit {
             (dragleave)="onDragLeave($event)"
         >
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
-                <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
+                <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon p-icon-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-tree-loading-icon'"/>
                     <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
@@ -679,7 +679,7 @@ export class UITreeNode implements OnInit {
         <div [ngClass]="{ 'p-tree p-tree-horizontal p-component': true, 'p-tree-selectable': selectionMode }" [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
-                <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
+                <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon p-icon-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
                 <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-tree-loading-icon'"/>
                 <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
