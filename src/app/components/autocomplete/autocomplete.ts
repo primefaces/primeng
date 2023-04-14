@@ -82,17 +82,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
             />
-            <TimesIcon *ngIf="filled && !disabled && showClear && !clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()"/>
-            <ng-container *ngIf="filled && !disabled && showClear && clearIconTemplate">
-                <ng-template *ngTemplateOutlet="clearIconTemplate; context:{$implicit: clear, class:'p-autocomplete-clear-icon'}"></ng-template>
+            <ng-container *ngIf="filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
+                <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
             </ng-container>
             <ul *ngIf="multiple" #multiContainer class="p-autocomplete-multiple-container p-component p-inputtext" [ngClass]="{ 'p-disabled': disabled, 'p-focus': focus }" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: val }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ resolveFieldData(val) }}</span>
                     <span class="p-autocomplete-token-icon" (click)="removeItem(token)">
-                        <TimesCircleIcon class="p-autocomplete-token-icon" *ngIf="!removeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="removeIconTemplate; class:'p-autocomplete-token-icon'"></ng-template>
+                        <TimesCircleIcon [ngClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" />
+                        <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon">
+                            <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
+                        </span>
                     </span>
                 </li>
                 <li class="p-autocomplete-input-token">
@@ -131,22 +135,29 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
             <ng-container *ngIf="loading">
-                <SpinnerIcon class="p-autocomplete-loader pi-spin" *ngIf="!loadingIconTemplate"/>
-                <ng-template *ngTemplateOutlet="loadingIconTemplate; context: { $implicit: 'p-autocomplete-loader pi-spin' }"></ng-template>
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [ngClass]="'p-autocomplete-loader'" [spin]="true"/>
+                <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader p-icon-spin">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                </span>
             </ng-container>
             <button
                 #ddBtn
                 type="button"
                 pButton
-                [icon]="dropdownIcon"
                 [attr.aria-label]="dropdownAriaLabel"
-                class="p-autocomplete-dropdown"
+                class="p-autocomplete-dropdown p-button-icon-only"
                 [disabled]="disabled"
                 pRipple
                 (click)="handleDropdownClick($event)"
                 *ngIf="dropdown"
                 [attr.tabindex]="tabindex"
-            ></button>
+            >
+                <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                <ng-container *ngIf="!dropdownIcon">
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </ng-container>
+            </button>
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -300,7 +311,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() ariaLabelledBy: string;
 
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+    @Input() dropdownIcon: string;
 
     @Input() unique: boolean = true;
 
@@ -413,6 +424,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     loadingIconTemplate: TemplateRef<any>;
 
     clearIconTemplate: TemplateRef<any>;
+
+    dropdownIconTemplate: TemplateRef<any>;
 
     value: any;
 
@@ -569,16 +582,20 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                     this.loaderTemplate = item.template;
                     break;
 
-                case 'removeIcon':
+                case 'removeicon':
                     this.removeIconTemplate = item.template;
                     break;
 
-                case 'loadingIcon':
+                case 'loadingicon':
                     this.loadingIconTemplate = item.template;
                     break;
 
-                case 'clearIcon':
+                case 'clearicon':
                     this.clearIconTemplate = item.template;
+                    break;
+
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
                     break;
 
                 default:
