@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { OverlayModule } from 'primeng/overlay';
 import { AutoComplete } from './autocomplete';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -53,7 +54,7 @@ describe('AutoComplete', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule, ChevronDownIcon],
             declarations: [AutoComplete, TestAutocompleteComponent]
         }).compileComponents();
 

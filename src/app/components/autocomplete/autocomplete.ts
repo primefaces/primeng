@@ -36,6 +36,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icon/timescircle';
 import { SpinnerIcon } from 'primeng/icon/spinner';
 import { TimesIcon } from 'primeng/icon/times';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1051,7 +1052,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon],
+    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon],
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
