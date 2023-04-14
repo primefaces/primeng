@@ -149,8 +149,7 @@ describe('Checkbox', () => {
         fixture.detectChanges();
 
         const iconEl = fixture.nativeElement.querySelector('.p-checkbox-box .p-checkbox-icon');
-
-        expect(iconEl.className).toContain('pi pi-check');
+        expect(iconEl.tagName.toLowerCase()).toEqual('checkicon');
     });
 
     it('should have custom checkbox icon', () => {

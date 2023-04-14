@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayModule } from 'primeng/overlay';
+import { ChevronDownIcon } from '../icon/chevrondown/chevrondown';
+import { SearchIcon } from 'primeng/icon/search';
+import { TimesIcon } from 'primeng/icon/times';
 
 @Component({
     template: `
@@ -71,7 +74,7 @@ describe('Dropdown', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule, ChevronDownIcon, SearchIcon, TimesIcon],
             declarations: [Dropdown, DropdownItem, TestDropdownComponent]
         }).compileComponents();
 
