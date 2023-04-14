@@ -222,7 +222,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
                                         <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
-                                        <span ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
+                                        <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
                                             <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
                                         </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
