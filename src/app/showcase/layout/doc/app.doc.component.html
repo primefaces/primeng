@@ -8,7 +8,7 @@
         </li>
     </ul>
     <div class="doc-tabpanels">
-        <div *ngIf="activeTab === 0" class="doc-tabpanel">
+        <div class="doc-tabpanel" [ngClass]="{'hidden': activeTab === 1}">
             <div class="doc-main">
                 <div class="doc-intro">
                     <h1>{{header}}</h1>
@@ -18,7 +18,7 @@
             </div>
             <app-docsection-nav [docs]="docs"></app-docsection-nav>
         </div>
-        <div *ngIf="activeTab === 1">
+        <div [ngClass]="{'hidden': activeTab === 0}">
             <app-docapisection [docs]="apiDocs" [header]="header" ngClass="doc-tabpanel"></app-docapisection>
         </div>
     </div>
