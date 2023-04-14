@@ -571,9 +571,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     public _filteredOptions: any[];
 
-    public onModelChange: Function = () => { };
+    public onModelChange: Function = () => {};
 
-    public onModelTouched: Function = () => { };
+    public onModelTouched: Function = () => {};
 
     public valuesAsString: string;
 
@@ -627,7 +627,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     preventDocumentDefault: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) { }
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.updateLabel();
@@ -1274,4 +1274,4 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     exports: [MultiSelect, OverlayModule, SharedModule, ScrollerModule],
     declarations: [MultiSelect, MultiSelectItem]
 })
-export class MultiSelectModule { }
+export class MultiSelectModule {}

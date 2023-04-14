@@ -413,7 +413,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     loadingIconTemplate: TemplateRef<any>;
 
     clearIconTemplate: TemplateRef<any>;
-    
+
     value: any;
 
     _suggestions: any[];
