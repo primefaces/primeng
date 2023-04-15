@@ -23,7 +23,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }" (click)="onPageLinkClick($event, pageLink - 1)" pRipple>
-                    {{ pageLink }}
+                    {{ getLocalization(pageLink) }}
                 </button>
             </span>
             <p-dropdown
@@ -112,6 +112,8 @@ export class Paginator implements OnInit, OnChanges {
 
     @Input() dropdownItemTemplate: TemplateRef<any>;
 
+    @Input() locale: string;
+
     pageLinks: number[];
 
     pageItems: SelectItem[];
@@ -128,6 +130,17 @@ export class Paginator implements OnInit, OnChanges {
 
     ngOnInit() {
         this.updatePaginatorState();
+    }
+
+    getLocalization(digit: number) {
+        const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
+        const index = new Map(numerals.map((d, i) => [i, d]));
+        if (digit > 9) {
+            const numbers = String(digit).split('');
+            return numbers.map((number) => index.get(Number(number))).join('');
+        } else {
+            return index.get(digit);
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -168,7 +181,7 @@ export class Paginator implements OnInit, OnChanges {
                 if (typeof opt == 'object' && opt['showAll']) {
                     this.rowsPerPageItems.unshift({ label: opt['showAll'], value: this.totalRecords });
                 } else {
-                    this.rowsPerPageItems.push({ label: String(opt), value: opt });
+                    this.rowsPerPageItems.push({ label: String(this.getLocalization(opt)), value: opt });
                 }
             }
         }
