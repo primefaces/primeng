@@ -128,6 +128,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [locale]="paginatorLocale"
             ></p-paginator>
 
             <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight }">
@@ -218,6 +219,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [locale]="paginatorLocale"
             ></p-paginator>
 
             <div *ngIf="summaryTemplate" class="p-datatable-footer">
@@ -395,6 +397,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Input() responsiveLayout: string = 'scroll';
 
     @Input() breakpoint: string = '960px';
+
+    @Input() paginatorLocale: string;
 
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 
