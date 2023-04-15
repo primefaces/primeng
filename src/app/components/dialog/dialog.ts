@@ -205,6 +205,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() maximizeIcon: string = 'pi pi-window-maximize';
 
+    @Input() maximized: boolean = false;
+
     @ContentChild(Header) headerFacet: QueryList<Header>;
 
     @ContentChild(Footer) footerFacet: QueryList<Footer>;
@@ -266,8 +268,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     lastPageY: number;
 
     preventVisibleChangePropagation: boolean;
-
-    maximized: boolean;
 
     preMaximizeContentHeight: number;
 
