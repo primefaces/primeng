@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CheckIcon } from 'primeng/icon/check';
 import { TimesIcon } from 'primeng/icon/times';
-import { PrimeTemplate, SharedModule } from '../api/shared';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -33,14 +33,23 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 />
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, input)" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
-                <span class="p-checkbox-icon" [ngClass]="value === true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
-                <ng-container *ngIf="value" >
-                    <CheckIcon class="p-checkbox-icon" *ngIf="!checkboxTrueIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="checkboxTrueIconTemplate;context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                <ng-container *ngIf="value === true">
+                    <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
+                    <ng-container *ngIf="!checkboxTrueIcon">
+                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkboxTrueIconTemplate"/>
+                        <span *ngIf="checkboxTrueIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkboxTrueIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-container>
                 <ng-container *ngIf="value === false">
-                    <TimesIcon class="p-checkbox-icon" *ngIf="!checkboxFalseIconTemplate" />
-                    <ng-template *ngTemplateOutlet="checkboxFalseIconTemplate;context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                    <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon"></span>
+                    <ng-container *ngIf="!checkboxFalseIcon">
+                        <TimesIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkboxFalseIconTemplate" />
+                        <span class="p-checkbox-icon" *ngIf="checkboxFalseIconTemplate">
+                            <ng-template *ngTemplateOutlet="checkboxFalseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-container>
         </div>
         </div>
@@ -130,11 +139,11 @@ export class TriStateCheckbox implements ControlValueAccessor {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'checkboxTrueIcon':
+                case 'checkboxtrueicon':
                     this.checkboxTrueIconTemplate = item.template;
                     break;
 
-                case 'checkboxFalseIcon':
+                case 'checkboxfalseicon':
                     this.checkboxFalseIconTemplate = item.template;
                     break;
             }
