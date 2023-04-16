@@ -68,9 +68,11 @@ export interface MultiselectOnRemoveEvent {
         >
             <div class="p-checkbox p-component">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
-                    <CheckIcon class="p-checkbox-icon" *ngIf="selected" />
                     <ng-container *ngIf="selected">    
-                        <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: 'p-checkbox-icon' }"></ng-template>
+                        <CheckIcon *ngIf="!checkIconTemplate" [ngClass]="'p-checkbox-icon'"/>
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                        </span>
                     </ng-container>
                 </div>
             </div>
@@ -157,26 +159,33 @@ export class MultiSelectItem {
                         <ng-container *ngIf="display === 'chip'">
                             <div #token *ngFor="let item of value; let i = index" class="p-multiselect-token">
                                 <span class="p-multiselect-token-label">{{ findLabelByValue(item) }}</span>
-                                <TimesCircleIcon *ngIf="!disabled && !removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeChip(item,event)"/>
-                                <ng-container *ngTemplateOutlet="removeTokenIconTemplate; context: {$implicit:'p-multiselect-token-icon',click:removeChip(item,event)}"></ng-container>
+                                <ng-container *ngIf="!disabled">
+                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [ngClass]="'p-multiselect-token-icon'" (click)="removeChip(item,event)"/>
+                                    <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeChip(item,event)">
+                                        <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
+                                    </span>
+                                </ng-container>
                             </div>
                             <ng-container *ngIf="!value || value.length === 0">{{ placeholder || defaultLabel || 'empty' }}</ng-container>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: value }"></ng-container>
                 </div>
-                <TimesIcon *ngIf="value != null && filled && !disabled && showClear && !clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" />
-                <ng-container  *ngIf="value != null && filled && !disabled && showClear && clearIconTemplate">
-                    <ng-tempate *ngTemplateOutlet="clearIconTemplate; context: { $implicit: clear(), class:'p-multiselect-clear-icon' }"></ng-tempate>
+                <ng-container  *ngIf="value != null && filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-multiselect-clear-icon'" (click)="clear($event)" />
+                <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)">
+                    <ng-tempate *ngTemplateOutlet="clearIconTemplate"></ng-tempate>
+                </span>
                 </ng-container>
-                
             </div>
             <div [ngClass]="{ 'p-multiselect-trigger': true }">
                 <ng-container *ngIf="!dropdownIconTemplate"> 
                 <span *ngIf="dropdownIcon" class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon"></span>
-                <ChevronDownIcon *ngIf="!dropdownIcon" class="p-multiselect-trigger-icon" />
+                <ChevronDownIcon *ngIf="!dropdownIcon" [ngClass]="'p-multiselect-trigger-icon'" />
             </ng-container>
-                <ng-template *ngTemplateOutlet="dropdownIconTemplate; context:{ $implicit: 'p-multiselect-trigger-icon' }"></ng-template>
+            <span *ngIf="dropdownIconTemplate" class="p-multiselect-trigger-icon">
+                <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+            </span>
             </div>
             <p-overlay
                 #overlay
@@ -219,9 +228,11 @@ export class MultiSelectItem {
                                         [ngClass]="{ 'p-highlight': allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }"
                                         (click)="toggleAll($event)"
                                     >
-                                        <CheckIcon class="p-checkbox-icon" *ngIf="allChecked && !checkIconTemplate" />
-                                        <ng-container *ngIf="allChecked && checkIconTemplate">
-                                            <ng-template *ngTemplateOutlet="checkIconTemplate; context:{$implicit:'p-checkbox-icon'}"></ng-template>
+                                    <ng-container *ngIf="allChecked">
+                                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                                        </span>
                                         </ng-container>
                                     </div>
                                 </div>
@@ -238,13 +249,17 @@ export class MultiSelectItem {
                                         [attr.placeholder]="filterPlaceHolder"
                                         [attr.aria-label]="ariaFilterLabel"
                                     />
-                                    <SearchIcon class="p-multiselect-filter-icon" *ngIf="!filterIconTemplate"/>
-                                    <ng-template *ngTemplateOutlet="filterIconTemplate; context:{$implicit:'p-multiselect-filter-icon'}"></ng-template>
+                                    <SearchIcon [ngClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate"/>
+                                    <span *ngIf="filterIconTemplate" class="p-multiselect-filter-icon">
+                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                    </span>
                                 </div>
 
-                                <button class="p-multiselect-close p-link" type="button" (click)="close($event)" pRipple>
-                                    <TimesIcon class="p-multiselect-close-icon" *ngIf="!closeIconTemplate"/>
-                                    <ng-tempate *ngTemplateOutlet="closeIconTemplate; context: { $implicit: 'p-multiselect-close-icon' }"></ng-tempate>
+                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple>
+                                    <TimesIcon [ngClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate"/>
+                                    <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
+                                        <ng-tempate *ngTemplateOutlet="closeIconTemplate"></ng-tempate>
+                                    </span>
                                 </button>
                             </ng-template>
                         </div>
@@ -679,27 +694,27 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.loaderTemplate = item.template;
                     break;
 
-                case 'checkIcon':
+                case 'checkicon':
                     this.checkIconTemplate = item.template;
                     break;
 
-                case 'filterIcon':
+                case 'filtericon':
                     this.filterIconTemplate = item.template;
                     break;
 
-                case 'removeTokenIcon':
+                case 'removetokenicon':
                     this.removeTokenIconTemplate = item.template;
                     break;
 
-                case 'closeIcon':
+                case 'closeicon':
                     this.closeIconTemplate = item.template;
                     break;
 
-                case 'clearIcon':
+                case 'clearicon':
                     this.clearIconTemplate = item.tempate;
                     break;
 
-                case 'dropdownIcon':
+                case 'dropdownicon':
                     this.dropdownIconTemplate = item.template;
                     break;
 
