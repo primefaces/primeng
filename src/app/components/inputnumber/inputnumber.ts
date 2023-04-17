@@ -1,5 +1,23 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -257,9 +275,9 @@ export class InputNumber implements ControlValueAccessor {
 
     value: number;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     focused: boolean;
 
@@ -309,7 +327,7 @@ export class InputNumber implements ControlValueAccessor {
         if (this.timer) this.clearTimer();
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) { }
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -320,14 +338,13 @@ export class InputNumber implements ControlValueAccessor {
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
-
             switch (item.getType()) {
                 case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
 
                 case 'incrementbuttonicon':
-                    this.incrementButtonIconTemplate = item.template
+                    this.incrementButtonIconTemplate = item.template;
                     break;
 
                 case 'decrementbuttonicon':
@@ -1166,4 +1183,4 @@ export class InputNumber implements ControlValueAccessor {
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule { }
+export class InputNumberModule {}

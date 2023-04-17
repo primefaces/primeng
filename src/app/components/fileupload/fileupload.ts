@@ -317,7 +317,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) { }
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -341,7 +341,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
                 case 'uploadicon':
                     this.uploadIconTemplate = item.template;
                     break;
-                
+
                 case 'cancelicon':
                     this.cancelIconTemplate = item.template;
                     break;
@@ -734,4 +734,4 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
-export class FileUploadModule { }
+export class FileUploadModule {}

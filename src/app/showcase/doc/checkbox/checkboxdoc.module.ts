@@ -20,6 +20,6 @@ import { TemplatesDoc } from './templatesdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
     exports: [ImportDoc],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc, ReactiveFormsDoc,TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
 })
 export class CheckboxDocModule {}

@@ -89,13 +89,13 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
-    constructor(private cd: ChangeDetectorRef) { }
+    constructor(private cd: ChangeDetectorRef) {}
 
     value: number;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     public starsArray: number[];
 

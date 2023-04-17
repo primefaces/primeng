@@ -96,6 +96,6 @@ export class AutoCompleteDemo {
             id: 'templates',
             label: 'Templates',
             component: TemplatesDoc
-        },
+        }
     ];
 }

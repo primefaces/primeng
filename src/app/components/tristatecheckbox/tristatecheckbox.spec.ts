@@ -114,7 +114,7 @@ describe('TriStateCheckbox', () => {
         expect(tristate.value).toEqual(true);
         expect(value.value).toEqual(tristate.value);
         expect(checkBoxEl.className).toContain('p-highlight');
-        
+
         const checkBoxIconEl = checkBoxEl.children[0];
         expect(checkBoxIconEl.tagName.toLowerCase()).toEqual('checkicon');
         expect(labeEl.className).toContain('p-checkbox-label-active');
@@ -137,7 +137,7 @@ describe('TriStateCheckbox', () => {
         expect(tristate.value).toEqual(false);
         expect(value.value).toEqual(tristate.value);
         expect(checkBoxEl.className).toContain('p-highlight');
-        
+
         const checkBoxIconEl = checkBoxEl.children[0];
         expect(checkBoxIconEl.tagName.toLowerCase()).toEqual('timesicon');
         expect(labeEl.className).toContain('p-checkbox-label-active');

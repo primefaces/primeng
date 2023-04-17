@@ -60,7 +60,7 @@ describe('MultiSelect', () => {
         fixture.detectChanges();
 
         multiselect.cd.detectChanges();
-        const dropdownIconEl = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon'))
+        const dropdownIconEl = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon'));
         expect(dropdownIconEl.nativeElement.className).toContain('Primeng Rocks!');
     });
 

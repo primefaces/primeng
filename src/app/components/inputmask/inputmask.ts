@@ -154,7 +154,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
     @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     clearIconTemplate: TemplateRef<any>;
 
     value: any;
