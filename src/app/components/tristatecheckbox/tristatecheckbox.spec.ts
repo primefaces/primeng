@@ -85,7 +85,6 @@ describe('TriStateCheckbox', () => {
         tristate.onChange.subscribe((data) => (value = data));
         const onClickSpy = spyOn(tristate, 'onClick').and.callThrough();
         const checkBoxEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
-        const checkBoxIconEl = fixture.debugElement.query(By.css('span')).nativeElement;
         const labeEl = fixture.debugElement.query(By.css('label')).nativeElement;
         checkBoxEl.click();
         fixture.detectChanges();
@@ -93,7 +92,9 @@ describe('TriStateCheckbox', () => {
         expect(tristate.value).toEqual(true);
         expect(value.value).toEqual(tristate.value);
         expect(checkBoxEl.className).toContain('p-highlight');
-        expect(checkBoxIconEl.className).toContain('pi-check');
+
+        const checkBoxIconEl = checkBoxEl.children[0];
+        expect(checkBoxIconEl.tagName.toLowerCase()).toEqual('checkicon');
         expect(labeEl.className).toContain('p-checkbox-label-active');
         expect(onClickSpy).toHaveBeenCalled();
     });
@@ -106,7 +107,6 @@ describe('TriStateCheckbox', () => {
         tristate.onChange.subscribe((data) => (value = data));
         const onClickSpy = spyOn(tristate, 'onClick').and.callThrough();
         const checkBoxEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
-        const checkBoxIconEl = fixture.debugElement.query(By.css('span')).nativeElement;
         const labeEl = fixture.debugElement.query(By.css('label')).nativeElement;
         labeEl.click();
         fixture.detectChanges();
@@ -114,7 +114,9 @@ describe('TriStateCheckbox', () => {
         expect(tristate.value).toEqual(true);
         expect(value.value).toEqual(tristate.value);
         expect(checkBoxEl.className).toContain('p-highlight');
-        expect(checkBoxIconEl.className).toContain('pi-check');
+        
+        const checkBoxIconEl = checkBoxEl.children[0];
+        expect(checkBoxIconEl.tagName.toLowerCase()).toEqual('checkicon');
         expect(labeEl.className).toContain('p-checkbox-label-active');
         expect(onClickSpy).toHaveBeenCalled();
     });
@@ -127,7 +129,6 @@ describe('TriStateCheckbox', () => {
         tristate.onChange.subscribe((data) => (value = data));
         const onClickSpy = spyOn(tristate, 'onClick').and.callThrough();
         const checkBoxEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
-        const checkBoxIconEl = fixture.debugElement.query(By.css('span')).nativeElement;
         const labeEl = fixture.debugElement.query(By.css('label')).nativeElement;
         checkBoxEl.click();
         checkBoxEl.click();
@@ -136,7 +137,9 @@ describe('TriStateCheckbox', () => {
         expect(tristate.value).toEqual(false);
         expect(value.value).toEqual(tristate.value);
         expect(checkBoxEl.className).toContain('p-highlight');
-        expect(checkBoxIconEl.className).toContain('pi-times');
+        
+        const checkBoxIconEl = checkBoxEl.children[0];
+        expect(checkBoxIconEl.tagName.toLowerCase()).toEqual('timesicon');
         expect(labeEl.className).toContain('p-checkbox-label-active');
         expect(onClickSpy).toHaveBeenCalledTimes(2);
     });
@@ -149,7 +152,6 @@ describe('TriStateCheckbox', () => {
         tristate.onChange.subscribe((data) => (value = data));
         const onClickSpy = spyOn(tristate, 'onClick').and.callThrough();
         const checkBoxEl = fixture.debugElement.query(By.css('.p-checkbox-box')).nativeElement;
-        const checkBoxIconEl = fixture.debugElement.query(By.css('span')).nativeElement;
         const labeEl = fixture.debugElement.query(By.css('label')).nativeElement;
         checkBoxEl.click();
         checkBoxEl.click();
