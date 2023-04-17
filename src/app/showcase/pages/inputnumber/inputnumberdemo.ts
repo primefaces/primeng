@@ -15,6 +15,7 @@ import { EventsDoc } from '../../doc/inputnumber/eventsdoc';
 import { StyleDoc } from '../../doc/inputnumber/styledoc';
 import { AccessibilityDoc } from '../../doc/inputnumber/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/inputnumber/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/inputnumber/templatesdoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
@@ -100,6 +101,7 @@ export class InputNumberDemo {
             label: 'Events',
             component: EventsDoc
         },
-        { id: 'methods', label: 'Methods', component: MethodsDoc }
+        { id: 'methods', label: 'Methods', component: MethodsDoc },
+        { id: 'templates', label: 'Templates', component: TemplatesDoc }
     ];
 }
