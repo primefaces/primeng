@@ -176,7 +176,7 @@ export class Panel implements AfterContentInit, BlockableUI {
                     this.iconTemplate = item.template;
                     break;
 
-                case 'headerIcons':
+                case 'headericons':
                     this.headerIconTemplate = item.template;
                     break;
 

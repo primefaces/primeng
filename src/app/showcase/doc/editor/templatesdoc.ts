@@ -17,22 +17,6 @@ import { Component, Input } from '@angular/core';
                         <td>header</td>
                         <td>-</td>
                     </tr>
-                    <tr>
-                        <td>content</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>icons</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>headericons</td>
-                        <td>$implicit: collapsed</td>
-                    </tr>
-                    <tr>
-                        <td>footer</td>
-                        <td>-</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
