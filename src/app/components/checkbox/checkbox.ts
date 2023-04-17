@@ -123,7 +123,7 @@ export class Checkbox implements ControlValueAccessor {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'checkboxicon':
+                case 'icon':
                     this.checkboxIconTemplate = item.template;
                     break;
             }
