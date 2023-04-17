@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayModule } from 'primeng/overlay';
-import { ChevronDownIcon } from '../icon/chevrondown/chevrondown';
+import { ChevronDownIcon } from 'primeng/icon/chevrondown';
 import { SearchIcon } from 'primeng/icon/search';
 import { TimesIcon } from 'primeng/icon/times';
 

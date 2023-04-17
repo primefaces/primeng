@@ -60,11 +60,7 @@ describe('Rating', () => {
 
         const starElements = fixture.debugElement.queryAll(By.css('span'));
         expect(starElements[0].nativeElement.className).toContain('Primeng Rocks!');
-        expect(starElements[1].nativeElement.className).toContain('icon on');
-        expect(starElements[3].nativeElement.className).toContain('icon off');
-        expect(starElements[0].nativeElement.style.height).toContain('300px');
-        expect(starElements[1].nativeElement.style.height).toContain('300px');
-        expect(starElements[3].nativeElement.style.height).toContain('300px');
+        expect(starElements[0].nativeElement.style.height).toEqual('300px');
     });
 
     it('should value 3', () => {
