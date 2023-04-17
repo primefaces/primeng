@@ -36,18 +36,18 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="value === true">
                     <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxTrueIcon">
-                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkboxTrueIconTemplate"/>
-                        <span *ngIf="checkboxTrueIconTemplate" class="p-checkbox-icon">
-                            <ng-template *ngTemplateOutlet="checkboxTrueIconTemplate"></ng-template>
+                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate"/>
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </ng-container>
                 <ng-container *ngIf="value === false">
                     <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxFalseIcon">
-                        <TimesIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkboxFalseIconTemplate" />
-                        <span class="p-checkbox-icon" *ngIf="checkboxFalseIconTemplate">
-                            <ng-template *ngTemplateOutlet="checkboxFalseIconTemplate"></ng-template>
+                        <TimesIcon [ngClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" />
+                        <span class="p-checkbox-icon" *ngIf="uncheckIconTemplate">
+                            <ng-template *ngTemplateOutlet="uncheckIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </ng-container>
@@ -91,9 +91,9 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    checkboxTrueIconTemplate: TemplateRef<any>;
+    checkIconTemplate: TemplateRef<any>;
 
-    checkboxFalseIconTemplate: TemplateRef<any>;
+    uncheckIconTemplate: TemplateRef<any>;
 
     focused: boolean;
 
@@ -139,12 +139,12 @@ export class TriStateCheckbox implements ControlValueAccessor {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'checkboxtrueicon':
-                    this.checkboxTrueIconTemplate = item.template;
+                case 'checkicon':
+                    this.checkIconTemplate = item.template;
                     break;
 
-                case 'checkboxfalseicon':
-                    this.checkboxFalseIconTemplate = item.template;
+                case 'uncheckicon':
+                    this.uncheckIconTemplate = item.template;
                     break;
             }
         });
