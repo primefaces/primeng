@@ -583,7 +583,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                     this.loaderTemplate = item.template;
                     break;
 
-                case 'removeicon':
+                case 'removetokenicon':
                     this.removeIconTemplate = item.template;
                     break;
 
