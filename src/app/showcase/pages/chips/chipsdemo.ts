@@ -8,6 +8,7 @@ import { StyleDoc } from '../../doc/chips/styledoc';
 import { PropsDoc } from '../../doc/chips/propsdoc';
 import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/chips/templatesdoc';
 
 @Component({
     templateUrl: './chipsdemo.html'
@@ -61,6 +62,11 @@ export class ChipsDemo {
             id: 'properties',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }
