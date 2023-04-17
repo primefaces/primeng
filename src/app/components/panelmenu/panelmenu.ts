@@ -58,8 +58,8 @@ export class BasePanelMenuItem {
                     >
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon [ngClass]="'p-panelmenu-icon pi-fw'" *ngIf="child.expanded" [ngStyle]="child.iconStyle"/>
-                                <AngleRightIcon [ngClass]="'p-panelmenu-icon pi-fw'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle"/>
+                                <AngleDownIcon [ngClass]="'p-panelmenu-icon'" *ngIf="child.expanded" [ngStyle]="child.iconStyle"/>
+                                <AngleRightIcon [ngClass]="'p-panelmenu-icon'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle"/>
                             </ng-container>
                             <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
@@ -93,8 +93,8 @@ export class BasePanelMenuItem {
                     >
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon *ngIf="child.expanded" [ngClass]="'p-panelmenu-icon pi-fw'" [ngStyle]="child.iconStyle"/>
-                                <AngleRightIcon *ngIf="!child.expanded" [ngClass]="'p-panelmenu-icon pi-fw'" [ngStyle]="child.iconStyle"/>
+                                <AngleDownIcon *ngIf="child.expanded" [ngClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
+                                <AngleRightIcon *ngIf="!child.expanded" [ngClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
                             </ng-container>
                             <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                         </ng-container>

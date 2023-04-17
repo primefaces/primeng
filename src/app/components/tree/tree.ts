@@ -77,7 +77,7 @@ import { SpinnerIcon } from 'primeng/icon/spinner';
                             <ChevronRightIcon *ngIf="!node.expanded" [ngClass]="'pi-fw p-tree-toggler-icon'"/>
                             <ChevronDownIcon *ngIf="node.expanded" [ngClass]="'pi-fw p-tree-toggler-icon'"/>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon pi-fw">
+                        <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
@@ -147,10 +147,10 @@ import { SpinnerIcon } from 'primeng/icon/spinner';
                             >
                                 <span *ngIf="!isLeaf()" [ngClass]="'p-tree-toggler'" (click)="toggle($event)">
                                     <ng-container *ngIf="!tree.togglerIconTemplate">
-                                        <PlusIcon *ngIf="!node.expanded" [ngClass]="'p-tree-toggler-icon pi-fw'" [ariaLabel]="tree.togglerAriaLabel"/>
-                                        <MinusIcon *ngIf="node.expanded" [ngClass]="'p-tree-toggler-icon pi-fw'" [ariaLabel]="tree.togglerAriaLabel"/>
+                                        <PlusIcon *ngIf="!node.expanded" [ngClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel"/>
+                                        <MinusIcon *ngIf="node.expanded" [ngClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel"/>
                                     </ng-container>
-                                    <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon pi-fw">
+                                    <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                                         <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                                     </span>
                                 </span>

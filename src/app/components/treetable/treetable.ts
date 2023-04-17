@@ -2144,11 +2144,11 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     selector: 'p-treeTableSortIcon',
     template: `
         <ng-container *ngIf="!tt.sortIconTemplate">
-            <SortAltIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === 0"/>
-            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === 1"/>
-            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === -1"/>
+            <SortAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
         </ng-container>
-        <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon pi-fw">
+        <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>`,
     encapsulation: ViewEncapsulation.None,

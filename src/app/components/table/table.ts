@@ -2924,11 +2924,11 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <ng-container *ngIf="!dt.sortIconTemplate">
-            <SortAltIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === 0"/>
-            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === 1"/>
-            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon pi-fw'" *ngIf="sortOrder === -1"/>
+            <SortAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
         </ng-container>
-        <span *ngIf="dt.sortIconTemplate" class="p-sortable-column-icon pi-fw">
+        <span *ngIf="dt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
         </span>
         <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{ getBadgeValue() }}</span>
