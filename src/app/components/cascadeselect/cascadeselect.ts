@@ -316,8 +316,8 @@ export class CascadeSelectSub implements OnInit {
             </ng-container>
 
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-cascadeselect-trigger-icon">
-                    <ChevronDownIcon *ngIf="!triggerIconTemplate" />
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [ngClass]="'p-cascadeselect-trigger-icon'" />
+                <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate;"></ng-template>
                 </span>
             </div>
