@@ -304,7 +304,7 @@ export class Galleria implements OnChanges, OnDestroy {
             [class]="galleriaClass()"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple>
-                <TimesIcon *ngIf="!galleria.closeIconTemplate" [ngClass]="'p-galleria-close-icon'" [ngStyle]="{'font-size':'0', 'scale': '2'}"/>
+                <TimesIcon *ngIf="!galleria.closeIconTemplate" [ngClass]="'p-galleria-close-icon'"/>
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
             <div *ngIf="galleria.templates && galleria.headerFacet" class="p-galleria-header">
@@ -522,7 +522,7 @@ export class GalleriaItemSlot {
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
                 >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPrevIconTemplate" [ngClass]="'p-galleria-item-prev-icon'" [ngStyle]="{'font-size': '0', 'scale': '2'}"/>
+                    <ChevronLeftIcon *ngIf="!galleria.itemPrevIconTemplate" [ngClass]="'p-galleria-item-prev-icon'"/>
                     <ng-template *ngTemplateOutlet="galleria.itemPrevIconTemplate"></ng-template>
                 </button>
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
@@ -534,7 +534,7 @@ export class GalleriaItemSlot {
                     [disabled]="isNavForwardDisabled()"
                     pRipple
                 >
-                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [ngClass]="'p-galleria-item-next-icon'" [ngStyle]="{'font-size': '0', 'scale': '2'}"/>
+                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [ngClass]="'p-galleria-item-next-icon'"/>
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
