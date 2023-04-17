@@ -26,7 +26,7 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>headerIcons</td>
+                        <td>headericons</td>
                         <td>$implicit: collapsed</td>
                     </tr>
                     <tr>
