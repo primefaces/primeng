@@ -55,7 +55,7 @@ import { TimesIcon } from 'primeng/icons/times';
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <ng-container *ngIf="!chooseIcon">
                         <PlusIcon *ngIf="!chooseIconTemplate"/>
-                        <span class="p-button-icon p-button-icon-left">
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
                     </ng-container>
