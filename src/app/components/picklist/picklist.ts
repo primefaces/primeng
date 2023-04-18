@@ -34,6 +34,7 @@ import { AngleLeftIcon } from 'primeng/icons/angleleft';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { SearchIcon } from 'primeng/icons/search';
+import { HomeIcon } from 'primeng/icons/home';
 
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;
@@ -147,20 +148,32 @@ export interface PickListFilterOptions {
             </div>
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
                 <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()">
-                    <AngleRightIcon *ngIf="!moveToTargetIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="moveToTargetIconTemplate"></ng-template>
+                    <ng-container *ngIf="!moveToTargetIconTemplate">
+                        <AngleRightIcon *ngIf="!viewChanged"/>
+                        <AngleDownIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()">
-                    <AngleDoubleRightIcon *ngIf="!moveAllToTargetIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate"></ng-template>
+                    <ng-container *ngIf="!moveAllToTargetIconTemplate">
+                        <AngleDoubleRightIcon *ngIf="!viewChanged"/>
+                        <AngleDoubleDownIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()">
-                    <AngleLeftIcon *ngIf="!moveToSourceIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="moveToSourceIconTemplate"></ng-template>
+                    <ng-container *ngIf="!moveToSourceIconTemplate">
+                        <AngleLeftIcon *ngIf="!viewChanged"/>
+                        <AngleUpIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()">
-                    <AngleDoubleLeftIcon *ngIf="!moveAllToSourceIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate"></ng-template>
+                    <ng-container *ngIf="!moveAllToSourceIconTemplate">
+                        <AngleDoubleLeftIcon *ngIf="!viewChanged"/>
+                        <AngleDoubleUpIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
@@ -341,7 +354,19 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     @Input() filterMatchMode: string = 'contains';
 
-    @Input() breakpoint: string = '960px';
+    @Input() get breakpoint(): string {
+        return this._breakpoint;
+    };
+
+    set breakpoint(value: string) {
+        if (value !== this._breakpoint) {
+            this._breakpoint = value;
+            if (isPlatformBrowser(this.platformId)) {
+                this.destroyMedia();
+                this.initMedia();
+            }
+        }
+    }
 
     @Input() stripedRows: boolean;
 
@@ -376,6 +401,8 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    _breakpoint: string = '960px';
 
     public itemTemplate: TemplateRef<any>;
 
@@ -449,11 +476,22 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    window: Window;
+
+    media: MediaQueryList | null;
+    
+    viewChanged: boolean;
+
+    mediaChangeListener: VoidFunction | null;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         if (this.responsive) {
             this.createStyle();
+            this.initMedia();
         }
 
         if (this.filterBy) {
@@ -1039,6 +1077,34 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         else return null;
     }
 
+    initMedia() {
+        if (isPlatformBrowser(this.platformId)){
+            this.media = this.window.matchMedia(`(max-width: ${this.breakpoint})`);
+            this.viewChanged = this.media.matches;
+            this.bindMediaChangeListener();
+        }
+    }
+
+    destroyMedia() {
+        this.unbindMediaChangeListener();
+    }
+
+    bindMediaChangeListener() {
+        if(this.media && !this.mediaChangeListener) {
+            this.mediaChangeListener = this.renderer.listen(this.media, 'change', (event) => {
+                this.viewChanged = event.matches;
+                this.cd.markForCheck();
+            })
+        }
+    }
+
+    unbindMediaChangeListener() {
+        if(this.mediaChangeListener) {
+            this.mediaChangeListener();
+            this.mediaChangeListener = null;
+        }
+    }
+
     createStyle() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
@@ -1111,11 +1177,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     ngOnDestroy() {
         this.destroyStyle();
+        this.destroyMedia();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon, HomeIcon],
     exports: [PickList, SharedModule, DragDropModule],
     declarations: [PickList]
 })

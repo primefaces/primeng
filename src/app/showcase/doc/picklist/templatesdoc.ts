@@ -76,19 +76,19 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>movetotargeticon</td>
-                        <td>-</td>
+                        <td>$implicit: viewChanged</td>
                     </tr>
                     <tr>
                         <td>movealltotargeticon</td>
-                        <td>-</td>
+                        <td>$implicit: viewChanged</td>
                     </tr>
                     <tr>
                         <td>movetosourceicon</td>
-                        <td>-</td>
+                        <td>$implicit: viewChanged</td>
                     </tr>
                     <tr>
                         <td>movealltosourceicon</td>
-                        <td>-</td>
+                        <td>$implicit: viewChanged</td>
                     </tr>
                     <tr>
                         <td>targetfiltericon</td>
