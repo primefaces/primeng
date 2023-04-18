@@ -1,7 +1,7 @@
 {
     "name": "primeng",
     "version": "15.3.0",
-    "license": "MIT",
+    "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
