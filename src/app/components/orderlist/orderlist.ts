@@ -82,7 +82,7 @@ export interface OrderListFilterOptions {
                                 [attr.placeholder]="filterPlaceholder"
                                 [attr.aria-label]="ariaFilterLabel"
                             />
-                            <SearchIcon *ngIf="!filterIconTemplate" [ngClass]="'p-orderlist-filter-icon'"/>
+                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'"/>
                             <span class="p-orderlist-filter-icon" *ngIf="filterIconTemplate">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                             </span>

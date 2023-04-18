@@ -233,7 +233,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                     <ng-container *ngIf="tab.closable">
-                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [ngClass]="'p-tabview-close'" (click)="close($event, tab)"/>
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)"/>
                                         <span class="tab.closeIconTemplate" *ngIf="p-tabview-close"></span>
                                         <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
                                     </ng-container>

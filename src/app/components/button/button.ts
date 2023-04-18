@@ -226,7 +226,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [class]="'p-button-loading-icon'" [ngClass]="iconClass()" [spin]="true" />
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="iconClass() + ' p-button-loading-icon'" [spin]="true" />
                 </ng-container>
                 <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
@@ -234,7 +234,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
-                <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { $implicit: iconClass() }"></ng-template>
+                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()">
+                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate;"></ng-template>
+                </span>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>

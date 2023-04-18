@@ -36,7 +36,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="value === true">
                     <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxTrueIcon">
-                        <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate"/>
+                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate"/>
                         <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
                             <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
                         </span>
@@ -45,7 +45,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="value === false">
                     <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxFalseIcon">
-                        <TimesIcon [ngClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" />
+                        <TimesIcon [styleClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" />
                         <span class="p-checkbox-icon" *ngIf="uncheckIconTemplate">
                             <ng-template *ngTemplateOutlet="uncheckIconTemplate"></ng-template>
                         </span>

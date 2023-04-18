@@ -73,7 +73,7 @@ import { TimesIcon } from 'primeng/icon/times';
                         *ngIf="message.closeIcon"
                         [class]="'p-toast-message-icon pi ' + message.closeIcon"
                     ></span>
-                    <TimesIcon *ngIf="!message.closeIcon" [ngClass]="'p-toast-icon-close-icon'"/>
+                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'"/>
                 </button>
             </div>
         </div>

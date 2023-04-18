@@ -36,7 +36,7 @@ import { BarsIcon } from 'primeng/icon/bars';
                 <div class="p-dataview-loading-overlay p-component-overlay">
                     <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-dataview-loading-icon'"/>
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'"/>
                         <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                     </ng-container>
                 </div>

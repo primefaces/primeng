@@ -68,8 +68,10 @@ import { AngleRightIcon } from 'primeng/icon/angleright';
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [ngClass]="'p-submenu-icon'"/>
-                            <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
                         </ng-container>
                     </a>
                     <a
@@ -98,8 +100,10 @@ import { AngleRightIcon } from 'primeng/icon/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [ngClass]="'p-submenu-icon'"/>
-                            <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
                         </ng-container>
                     </a>
                     <p-contextMenuSub [parentItemKey]="getKey(index)" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>

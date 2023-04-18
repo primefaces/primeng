@@ -12,11 +12,13 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'"></span></ng-template>
             <div class="p-chip-text" *ngIf="label">{{ label }}</div>
             <ng-container *ngIf="removable">
-                <ng-container *ngIf="!removeIconTemplate; else elseBlock">
+                <ng-container *ngIf="!removeIconTemplate">
                     <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"></span>
-                    <TimesCircleIcon [attr.tabindex]="0" *ngIf="!removeIcon" [ngClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"/>
+                    <TimesCircleIcon [attr.tabindex]="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"/>
                 </ng-container>
-                <ng-template #elseBlock *ngTemplateOutlet="removeIconTemplate; context: { $implicit: close($event) }"></ng-template>
+                <span *ngIf="removeIconTemplate" class="pi-chip-remove-icon" (click)="close($event)" (keydown.enter)="close($event)">
+                    <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
+                </span>
             </ng-container>
         </div>
     `,

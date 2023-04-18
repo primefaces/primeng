@@ -19,7 +19,7 @@ export const RATING_VALUE_ACCESSOR: any = {
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
                 <ng-container  *ngIf="cancel">
                     <span *ngIf="iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-                    <BanIcon *ngIf="!iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" [ngClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle"/>
+                    <BanIcon *ngIf="!iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle"/>
                 </ng-container>
                 <span *ngFor="let star of starsArray; let i = index">
                 <ng-container *ngIf="!value || i>=value">

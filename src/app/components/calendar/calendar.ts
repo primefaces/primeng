@@ -86,7 +86,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                     [attr.aria-labelledby]="ariaLabelledBy"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-calendar-clear-icon'" (click)="clear()"/>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()"/>
                     <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon" (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
@@ -130,9 +130,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
-                                    <ChevronLeftIcon class="p-datepicker-prev-icon" *ngIf="!prevIconTemplate" />
-
-                                    <ng-template *ngTemplateOutlet="prevIconTemplate;"></ng-template>
+                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!prevIconTemplate" />
+                                    <span *ngIf="prevIconTemplate" class="p-datepicker-prev-icon">
+                                        <ng-template *ngTemplateOutlet="prevIconTemplate;"></ng-template>
+                                    </span>
                                 </button>
                                 <div class="p-datepicker-title">
                                     <button type="button" (click)="switchToMonthView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
@@ -154,9 +155,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     type="button"
                                     pRipple
                                 >
-                                    <ChevronRightIcon [ngClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate"/>
-
-                                    <ng-template *ngTemplateOutlet="nextIconTemplate;"></ng-template>
+                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate"/>
+                                    <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate;"></ng-template>
+                                    </span>
                                 </button>
                             </div>
                             <div class="p-datepicker-calendar-container" *ngIf="currentView === 'date'">

@@ -318,7 +318,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.maxlength]="maxLength"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-password-clear-icon'" (click)="clear()" />
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
                 <span (click)="clear()" class="p-password-clear-icon">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>    

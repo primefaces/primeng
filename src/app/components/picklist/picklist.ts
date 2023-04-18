@@ -107,7 +107,7 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="sourceFilterPlaceholder"
                                 [attr.aria-label]="ariaSourceFilterLabel"
                             />
-                            <SearchIcon *ngIf="!sourceFilterIconTemplate" [ngClass]="'p-picklist-filter-icon'"/>
+                            <SearchIcon *ngIf="!sourceFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
                             <span class="p-picklist-filter-icon" *ngIf="sourceFilterIconTemplate">
                                 <ng-template *ngTemplateOutlet="sourceFilterIconTemplate"></ng-template>
                             </span>
@@ -184,7 +184,7 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="targetFilterPlaceholder"
                                 [attr.aria-label]="ariaTargetFilterLabel"
                             />
-                            <SearchIcon *ngIf="!targetFilterIconTemplate" [ngClass]="'p-picklist-filter-icon'"/>
+                            <SearchIcon *ngIf="!targetFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
                             <span class="p-picklist-filter-icon" *ngIf="targetFilterIconTemplate">
                                 <ng-template *ngTemplateOutlet="targetFilterIconTemplate"></ng-template>
                             </span>

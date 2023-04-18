@@ -112,7 +112,7 @@ export class TableService {
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
                 <i *ngIf="loadingIcon" [class]="'p-datatable-loading-icon ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-datatable-loading-icon'"/>
+                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-datatable-loading-icon'"/>
                     <span *ngIf="loadingIconTemplate" class="p-datatable-loading-icon">
                         <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                     </span>
@@ -2924,9 +2924,9 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <ng-container *ngIf="!dt.sortIconTemplate">
-            <SortAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
-            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
-            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
+            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
         </ng-container>
         <span *ngIf="dt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="dt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -3996,7 +3996,7 @@ export class TableRadioButton {
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!dt.checkboxIconTemplate">
-                    <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="checked"/>
+                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked"/>
                 </ng-container>
                 <span *ngIf="dt.checkboxIconTemplate">
                     <ng-template *ngTemplateOutlet="dt.checkboxIconTemplate; context: { $implicit: checked }"></ng-template>
@@ -4079,7 +4079,7 @@ export class TableCheckbox {
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!dt.headerCheckboxIconTemplate">
-                    <CheckIcon *ngIf="checked" [ngClass]="'p-checkbox-icon'"/>
+                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'"/>
                 </ng-container>
                 <span class="p-checkbox-icon" *ngIf="dt.headerCheckboxIconTemplate">
                     <ng-template *ngTemplateOutlet="dt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
@@ -4333,7 +4333,7 @@ export class ReorderableRow implements AfterViewInit {
                 (click)="toggleMenu()"
                 (keydown)="onToggleButtonKeyDown($event)"
             >
-                <FilterIcon [ngClass]="'pi-filter-icon'" *ngIf="!filterIconTemplate"/>
+                <FilterIcon [styleClass]="'pi-filter-icon'" *ngIf="!filterIconTemplate"/>
                 <span class="pi-filter-icon" *ngIf="filterIconTemplate">
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>

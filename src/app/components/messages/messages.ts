@@ -44,7 +44,7 @@ import { TimesIcon } from 'primeng/icon/times';
                             <span *ngIf="msg.detail" class="p-message-detail">{{ msg.detail }}</span>
                         </ng-template>
                         <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
-                            <TimesIcon [ngClass]="'p-message-close-icon'"/>
+                            <TimesIcon [styleClass]="'p-message-close-icon'"/>
                         </button>
                     </div>
                 </div>

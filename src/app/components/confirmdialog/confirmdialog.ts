@@ -83,9 +83,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     >
                         <ng-container *ngIf="!rejectIconTemplate; else rejecticon">
                             <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                            <TimesIcon *ngIf="!option('rejectIcon')" [ngClass]="'p-button-icon-left'"/>
+                            <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'"/>
                         </ng-container>
-                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                        <span #rejecticon class="p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                        </span>
                     </button>
                     <button
                         type="button"
@@ -101,9 +103,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     >
                         <ng-container *ngIf="!acceptIconTemplate; else accepticon">
                             <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                            <CheckIcon *ngIf="!option('acceptIcon')" [ngClass]="'p-button-icon-left'"/>
+                            <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'"/>
                         </ng-container>
-                        <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                        <span #accepticon class="p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                        </span>
                     </button>
                 </div>
             </div>

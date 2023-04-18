@@ -40,7 +40,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             <ng-container *ngIf="checked()">
                 <ng-container *ngIf="!checkboxIconTemplate"> 
                     <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
-                    <CheckIcon *ngIf="!checkboxIcon" [ngClass]="'p-checkbox-icon'"/>
+                    <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'"/>
                 </ng-container>
                 <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon">
                     <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>

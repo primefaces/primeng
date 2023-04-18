@@ -27,7 +27,7 @@ export class BasicDoc {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content', life: 40000 });
     }
 
     code: Code = {

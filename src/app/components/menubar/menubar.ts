@@ -84,8 +84,8 @@ export class MenubarService {
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                <AngleDownIcon [ngClass]="'p-submenu-icon'" *ngIf="root"/>
-                                <AngleRightIcon [ngClass]="'p-submenu-icon'" *ngIf="!root"/>
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
                             </ng-container>
                             <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
                         </ng-container>
@@ -120,8 +120,8 @@ export class MenubarService {
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                <AngleDownIcon [ngClass]="'p-submenu-icon'" *ngIf="root"/>
-                                <AngleRightIcon [ngClass]="'p-submenu-icon'" *ngIf="!root"/>
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
                             </ng-container>
                             <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
                         </ng-container>

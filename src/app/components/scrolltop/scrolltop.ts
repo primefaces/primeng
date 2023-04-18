@@ -22,7 +22,7 @@ import { ChevronUpIcon } from 'primeng/icon/chevronup';
         >
         <ng-container *ngIf="!iconTemplate">
             <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
-            <ChevronUpIcon *ngIf="!icon" [ngClass]="'p-scrolltop-icon'" [ngStyle]="{'font-size': '1rem', 'scale': '1.5'}"/>
+            <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{'font-size': '1rem', 'scale': '1.5'}"/>
         </ng-container>
         <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon'}"></ng-template>
         </button>

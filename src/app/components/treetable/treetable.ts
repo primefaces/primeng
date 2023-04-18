@@ -101,7 +101,7 @@ export class TreeTableService {
                 <div class="p-treetable-loading-overlay p-component-overlay">
                     <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-treetable-loading-icon'"/>
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'"/>
                         <span *ngIf="loadingIconTemplate" class="p-treetable-loading-icon">
                             <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                         </span>
@@ -2144,9 +2144,9 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     selector: 'p-treeTableSortIcon',
     template: `
         <ng-container *ngIf="!tt.sortIconTemplate">
-            <SortAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
-            <SortAmountUpAltIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
-            <SortAmountDownIcon [ngClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
+            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
         </ng-container>
         <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -2560,8 +2560,8 @@ export class TTContextMenuRow {
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!tt.checkboxIconTemplate">
-                    <CheckIcon [ngClass]="'p-checkbox-icon'" *ngIf="checked"/>
-                    <MinusIcon [ngClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected"/>
+                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked"/>
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected"/>
                 </ng-container>
                 <span *ngIf="tt.checkboxIconTemplate">
                     <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
@@ -2631,7 +2631,7 @@ export class TTCheckbox {
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': !tt.value || tt.value.length === 0 }" role="checkbox" [attr.aria-checked]="checked">
                     <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
-                    <CheckIcon *ngIf="checked" [ngClass]="'p-checkbox-icon'"/>
+                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'"/>
                 </ng-container>
                 <span class="p-checkbox-icon" *ngIf="tt.headerCheckboxIconTemplate">
                     <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>

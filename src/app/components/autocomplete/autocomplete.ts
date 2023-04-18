@@ -84,7 +84,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-required]="required"
             />
             <ng-container *ngIf="filled && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -94,7 +94,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: val }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ resolveFieldData(val) }}</span>
                     <span class="p-autocomplete-token-icon" (click)="removeItem(token)">
-                        <TimesCircleIcon [ngClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" />
+                        <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" />
                         <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon">
                             <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                         </span>
@@ -136,7 +136,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
             <ng-container *ngIf="loading">
-                <SpinnerIcon *ngIf="!loadingIconTemplate" [ngClass]="'p-autocomplete-loader'" [spin]="true"/>
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true"/>
                 <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin ">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>

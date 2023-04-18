@@ -65,7 +65,7 @@ import { TimesIcon } from 'primeng/icon/times';
                 <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
                     <span *ngIf="uploadIcon" [ngClass]="uploadIcon"></span>
                     <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [ngClass]="'p-button-icon p-button-icon-left'"/>
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'"/>
                         <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
                             <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                         </span>
@@ -74,7 +74,7 @@ import { TimesIcon } from 'primeng/icon/times';
                 <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
                     <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
                     <ng-container *ngIf="!cancelIcon">
-                            <TimesIcon *ngIf="!cancelIconTemplate" [ngClass]="'p-button-icon p-button-icon-left'"/>
+                            <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'"/>
                             <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
                                 <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
                             </span>
@@ -123,7 +123,7 @@ import { TimesIcon } from 'primeng/icon/times';
             <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
                 <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
                 <ng-container *ngIf="!uploadIcon">
-                <UploadIcon *ngIf="!uploadIconTemplate" [ngClass]="'p-button-icon p-button-icon-left'" />
+                <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                 <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
                     <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                 </span>
@@ -132,7 +132,7 @@ import { TimesIcon } from 'primeng/icon/times';
             <ng-template #chooseSection>
                 <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
             <ng-container *ngIf="!chooseIcon">
-                <PlusIcon [ngClass]="'p-button-icon p-button-icon-left pi'"  *ngIf="!chooseIconTemplate" />
+                <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'"  *ngIf="!chooseIconTemplate" />
                 <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi">
                     <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                 </span>

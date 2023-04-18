@@ -1,21 +1,22 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
 @Component({
     template: ` <ng-content></ng-content> `,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element',
-        '[class.p-icon]': 'true',
-        '[class.p-icon-spin]': 'spin'
-    }
+    encapsulation: ViewEncapsulation.None
 })
 export class BaseIcon {
+    @HostBinding('class') get hostClass() {
+        return this.getClassNames();
+    }
+
     @Input() label: string;
 
     @Input() spin: boolean = false;
+
+    @Input() styleClass: string;
 
     role: string;
 
@@ -32,5 +33,9 @@ export class BaseIcon {
         this.role = !isLabelEmpty ? 'img' : undefined;
         this.ariaLabel = !isLabelEmpty ? this.label : undefined;
         this.ariaHidden = isLabelEmpty;
+    }
+
+    getClassNames() {
+        return `p-icon ${this.styleClass ? this.styleClass + ' ' : ''}${this.spin ? 'p-icon-spin' : ''}`;
     }
 }

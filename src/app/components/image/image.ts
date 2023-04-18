@@ -22,7 +22,7 @@ import { TimesIcon } from 'primeng/icon/times';
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
                 <ng-template #defaultTemplate>
-                    <EyeIcon [ngClass]="'p-image-preview-icon'"/>
+                    <EyeIcon [styleClass]="'p-image-preview-icon'"/>
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">

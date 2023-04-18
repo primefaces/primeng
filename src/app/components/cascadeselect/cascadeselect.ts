@@ -309,14 +309,14 @@ export class CascadeSelectSub implements OnInit {
             </span>
 
             <ng-container *ngIf="filled && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)"/>
                 <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
 
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <ChevronDownIcon *ngIf="!triggerIconTemplate" [ngClass]="'p-cascadeselect-trigger-icon'" />
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate;"></ng-template>
                 </span>

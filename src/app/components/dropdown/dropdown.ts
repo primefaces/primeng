@@ -156,7 +156,7 @@ export class DropdownItem {
             />
 
             <ng-container *ngIf="isVisibleClearIcon">
-                <TimesIcon [ngClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" />
+                <TimesIcon [styleClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" />
                 <span class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -166,7 +166,7 @@ export class DropdownItem {
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <ng-container *ngIf="!dropdownIconTemplate">
                     <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [ngClass]="'p-dropdown-trigger-icon'" />
+                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
                 </ng-container>
                 <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
@@ -208,7 +208,7 @@ export class DropdownItem {
                                         [attr.aria-label]="ariaFilterLabel"
                                         [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
                                     />
-                                    <SearchIcon *ngIf="!filterIconTemplate" [ngClass]="'p-dropdown-filter-icon'" />
+                                    <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-dropdown-filter-icon'" />
                                     <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                     </span>

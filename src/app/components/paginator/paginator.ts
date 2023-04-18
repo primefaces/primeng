@@ -20,13 +20,13 @@ import { AngleRightIcon } from 'primeng/icon/angleright';
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)" pRipple class="p-paginator-first p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <AngleDoubleLeftIcon *ngIf="!firstIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <AngleDoubleLeftIcon *ngIf="!firstIconTemplate" [styleClass]="'p-paginator-icon'"/>
                 <span class="p-paginator-icon" *ngIf="firstIconTemplate">
                     <ng-template *ngTemplateOutlet="firstIconTemplate"></ng-template>
                 </span>
             </button>
             <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <AngleLeftIcon *ngIf="!prevIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <AngleLeftIcon *ngIf="!prevIconTemplate" [styleClass]="'p-paginator-icon'"/>
                 <span class="p-paginator-icon" *ngIf="prevIconTemplate">
                     <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
                 </span>
@@ -49,13 +49,13 @@ import { AngleRightIcon } from 'primeng/icon/angleright';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple class="p-paginator-next p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <AngleRightIcon *ngIf="!nextIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <AngleRightIcon *ngIf="!nextIconTemplate" [styleClass]="'p-paginator-icon'"/>
                 <span class="p-paginator-icon" *ngIf="nextIconTemplate">
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple class="p-paginator-last p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <AngleDoubleRightIcon *ngIf="!lastIconTemplate" [ngClass]="'p-paginator-icon'"/>
+                <AngleDoubleRightIcon *ngIf="!lastIconTemplate" [styleClass]="'p-paginator-icon'"/>
                 <span class="p-paginator-icon" *ngIf="lastIconTemplate">
                     <ng-template *ngTemplateOutlet="lastIconTemplate"></ng-template>
                 </span>
