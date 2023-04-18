@@ -131,6 +131,10 @@ button {
     overflow: hidden;
 }
 
+.p-icon-wrapper {
+    display: inline-flex;
+}
+
 .p-icon {
     display: inline-block;
 }
