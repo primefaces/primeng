@@ -34,8 +34,8 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <ChevronLeftIcon *ngIf="!prevIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
@@ -106,7 +106,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <ChevronRightIcon *ngIf="!prevIconTemplate"/>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate"/>
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -148,7 +148,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     itemTemplate: TemplateRef<any>;
 
-    prevIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any>;
 
     nextIconTemplate: TemplateRef<any>;
 
@@ -173,8 +173,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
                     this.nextIconTemplate = item.template;
                     break;
 
-                case 'previcon':
-                    this.prevIconTemplate = item.template;
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 default:

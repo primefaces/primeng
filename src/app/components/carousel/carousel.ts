@@ -40,12 +40,12 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
                 <div class="p-carousel-container">
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
-                        <ng-container *ngIf="!prevIconTemplate">
+                        <ng-container *ngIf="!previousIconTemplate">
                             <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'"/>
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'"/>
                         </ng-container>
-                        <span *ngIf="prevIconTemplate" class="p-carousel-prev-icon">
-                            <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                        <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
@@ -247,7 +247,7 @@ export class Carousel implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
-    prevIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any>;
 
     nextIconTemplate: TemplateRef<any>;
 
@@ -321,8 +321,8 @@ export class Carousel implements AfterContentInit {
                     this.footerTemplate = item.template;
                     break;
 
-                case 'previcon':
-                    this.prevIconTemplate = item.template;
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 case 'nexticon':

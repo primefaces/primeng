@@ -30,7 +30,7 @@ import { Component, Input } from '@angular/core';
                         <td>$implicit: An array containing the start and and year of a decade to display at header of the year picker.</td>
                     </tr>
                     <tr>
-                        <td>previcon</td>
+                        <td>previousicon</td>
                         <td>-</td>
                     </tr>
                     <tr>

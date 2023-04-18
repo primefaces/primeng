@@ -26,9 +26,9 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                 </span>
             </button>
             <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <AngleLeftIcon *ngIf="!prevIconTemplate" [styleClass]="'p-paginator-icon'"/>
-                <span class="p-paginator-icon" *ngIf="prevIconTemplate">
-                    <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                <AngleLeftIcon *ngIf="!previousIconTemplate" [styleClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="previousIconTemplate">
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
@@ -132,7 +132,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     firstIconTemplate: TemplateRef<any>;
 
-    prevIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any>;
 
     lastIconTemplate: TemplateRef<any>;
 
@@ -163,8 +163,8 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
                     this.firstIconTemplate = item.template;
                     break;
 
-                case 'previcon':
-                    this.prevIconTemplate = item.template;
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 case 'lasticon':

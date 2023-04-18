@@ -46,11 +46,11 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>itemprevicon</td>
+                        <td>itempreviousicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>prevthumbnailicon</td>
+                        <td>previousthumbnailicon</td>
                         <td>-</td>
                     </tr>
                     <tr>

@@ -130,9 +130,9 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
-                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!prevIconTemplate" />
-                                    <span *ngIf="prevIconTemplate" class="p-datepicker-prev-icon">
-                                        <ng-template *ngTemplateOutlet="prevIconTemplate;"></ng-template>
+                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
+                                    <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
+                                        <ng-template *ngTemplateOutlet="previousIconTemplate;"></ng-template>
                                     </span>
                                 </button>
                                 <div class="p-datepicker-title">
@@ -603,7 +603,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     decadeTemplate: TemplateRef<any>;
 
-    prevIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any>;
 
     nextIconTemplate: TemplateRef<any>;
 
@@ -845,8 +845,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     this.headerTemplate = item.template;
                     break;
 
-                case 'previcon':
-                    this.prevIconTemplate = item.template;
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 case 'nexticon':

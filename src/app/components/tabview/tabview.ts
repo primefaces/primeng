@@ -197,8 +197,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabview-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <ChevronLeftIcon *ngIf="!prevIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="prevIconTemplate"></ng-template>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabview-nav" role="tablist">
@@ -309,7 +309,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     nextIconTemplate: TemplateRef<any>;
 
-    prevIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any>;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
@@ -322,8 +322,8 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'previcon':
-                    this.prevIconTemplate = item.template;
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 case 'nexticon':

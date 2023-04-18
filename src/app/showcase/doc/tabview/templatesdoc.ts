@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
                             <td>-</td>
                         </tr>
                         <tr>
-                            <td>previcon</td>
+                            <td>previousicon</td>
                             <td>-</td>
                         </tr>
                     </tbody>

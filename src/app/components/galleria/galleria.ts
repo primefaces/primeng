@@ -166,11 +166,11 @@ export class Galleria implements OnChanges, OnDestroy {
 
     closeIconTemplate: TemplateRef<any>;
 
-    prevThumbnailIconTemplate: TemplateRef<any>;
+    previousThumbnailIconTemplate: TemplateRef<any>;
 
     nextThumbnailIconTemplate: TemplateRef<any>;
 
-    itemPrevIconTemplate: TemplateRef<any>;
+    itemPreviousIconTemplate: TemplateRef<any>;
 
     itemNextIconTemplate: TemplateRef<any>;
 
@@ -201,12 +201,12 @@ export class Galleria implements OnChanges, OnDestroy {
                     this.itemNextIconTemplate = item.template;
                     break;
 
-                case 'itemprevicon':
-                    this.itemPrevIconTemplate = item.template;
+                case 'itempreviousicon':
+                    this.itemPreviousIconTemplate = item.template;
                     break;
 
-                case 'prevthumbnailicon':
-                    this.prevThumbnailIconTemplate = item.template;
+                case 'previousthumbnailicon':
+                    this.previousThumbnailIconTemplate = item.template;
                     break;
 
                 case 'nextthumbnailicon':
@@ -522,8 +522,8 @@ export class GalleriaItemSlot {
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
                 >
-                    <ChevronLeftIcon *ngIf="!galleria.itemPrevIconTemplate" [styleClass]="'p-galleria-item-prev-icon'"/>
-                    <ng-template *ngTemplateOutlet="galleria.itemPrevIconTemplate"></ng-template>
+                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'"/>
+                    <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
                 <button
@@ -683,11 +683,11 @@ export class GalleriaItem implements OnChanges {
         <div class="p-galleria-thumbnail-wrapper">
             <div class="p-galleria-thumbnail-container">
                 <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-prev p-link': true, 'p-disabled': this.isNavBackwardDisabled() }" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()" pRipple>
-                    <ng-container *ngIf="!galleria.prevThumbnailIconTemplate">
+                    <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
                         <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'"/>
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'"/>
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="galleria.prevThumbnailIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnail-items-container" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
                     <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
