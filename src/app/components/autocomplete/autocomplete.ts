@@ -137,7 +137,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </ul>
             <ng-container *ngIf="loading">
                 <SpinnerIcon *ngIf="!loadingIconTemplate" [ngClass]="'p-autocomplete-loader'" [spin]="true"/>
-                <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader p-icon-spin">
+                <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin ">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>

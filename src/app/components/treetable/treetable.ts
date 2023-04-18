@@ -99,7 +99,7 @@ export class TreeTableService {
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
-                    <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon p-icon-spin ' + loadingIcon"></i>
+                    <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
                         <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [ngClass]="'p-treetable-loading-icon'"/>
                         <span *ngIf="loadingIconTemplate" class="p-treetable-loading-icon">
