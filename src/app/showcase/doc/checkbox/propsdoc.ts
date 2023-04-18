@@ -92,7 +92,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>checkboxIcon</td>
                         <td>string</td>
-                        <td>pi pi-check</td>
+                        <td>null</td>
                         <td>Icon class of the checkbox icon.</td>
                     </tr>
                     <tr>

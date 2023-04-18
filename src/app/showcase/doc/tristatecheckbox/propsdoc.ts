@@ -72,13 +72,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>checkboxTrueIcon</td>
                         <td>string</td>
-                        <td>pi pi-check</td>
+                        <td>null</td>
                         <td>Specifies the icon for checkbox true value.</td>
                     </tr>
                     <tr>
                         <td>checkboxFalseIcon</td>
                         <td>string</td>
-                        <td>pi pi-times</td>
+                        <td>null</td>
                         <td>Specifies the icon for checkbox false value.</td>
                     </tr>
                 </tbody>
