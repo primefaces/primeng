@@ -48,13 +48,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>expandIcon</td>
                         <td>string</td>
-                        <td>pi pi-plus</td>
+                        <td>null</td>
                         <td>Expand icon of the toggle button.</td>
                     </tr>
                     <tr>
                         <td>collapseIcon</td>
                         <td>string</td>
-                        <td>pi pi-minus</td>
+                        <td>null</td>
                         <td>Collapsed icon of the toggle button.</td>
                     </tr>
                     <tr>
