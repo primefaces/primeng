@@ -1202,6 +1202,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   color: #a80000;
 }
 
+.p-input-icon-left > .p-icon:first-of-type,
 .p-input-icon-left > i:first-of-type {
   left: 0.429rem;
   color: #848484;
@@ -1215,6 +1216,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   left: 1.858rem;
 }
 
+.p-input-icon-right > .p-icon:last-of-type,
 .p-input-icon-right > i:last-of-type {
   right: 0.429rem;
   color: #848484;

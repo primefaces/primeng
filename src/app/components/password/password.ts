@@ -324,16 +324,21 @@ export const Password_VALUE_ACCESSOR: any = {
                 </span>    
             </ng-container>
 
-            <span *ngIf="toggleMask" (click)="onMaskToggle()">
+            <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()"/>
+                    <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                    </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()"/>
+                    <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    </span>
                 </ng-container>
-            </span>            
+            </ng-container>
+
             <div
                 #overlay
                 *ngIf="overlayVisible"
