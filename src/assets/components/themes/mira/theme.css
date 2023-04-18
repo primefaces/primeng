@@ -668,6 +668,10 @@ p-calendar.p-calendar-clearable.p-calendar-w-btn .p-calendar-clear-icon {
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-group-icon {
   font-size: 0.875rem;
 }
+.p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 
 p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   border-color: #BF616A;
@@ -717,6 +721,10 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   transition-duration: 0.2s;
   color: #ffffff;
   font-size: 14px;
+}
+.p-checkbox .p-checkbox-box .p-icon {
+  width: 14px;
+  height: 14px;
 }
 .p-checkbox .p-checkbox-box.p-highlight {
   border-color: #5E81AC;
@@ -1620,6 +1628,10 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   font-size: 1.143rem;
 }
+.p-rating .p-rating-icon.p-icon {
+  width: 1.143rem;
+  height: 1.143rem;
+}
 .p-rating .p-rating-icon.p-rating-cancel {
   color: #BF616A;
 }
@@ -2376,6 +2388,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-speeddial-button.p-button.p-button-icon-only .p-button-icon {
   font-size: 2rem;
+}
+.p-speeddial-button.p-button.p-button-icon-only .p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 
 .p-speeddial-action {
@@ -3830,6 +3846,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-tree .p-tree-loading-icon {
   font-size: 2rem;
 }
+.p-tree .p-tree-loading-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-tree .p-treenode-droppoint.p-treenode-droppoint-active {
   background-color: #9fadc9;
 }
@@ -3976,6 +3996,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #C0D0E0;
 }
+.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler.p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox {
   margin-right: 0.5rem;
 }
@@ -4012,6 +4036,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-treetable .p-treetable-loading-icon {
   font-size: 2rem;
+}
+.p-treetable .p-treetable-loading-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-treetable.p-treetable-gridlines .p-datatable-header {
   border-width: 1px 1px 0 1px;
@@ -4456,6 +4484,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-confirm-popup .p-confirm-popup-icon {
   font-size: 1.5rem;
 }
+.p-confirm-popup .p-confirm-popup-icon.p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .p-confirm-popup .p-confirm-popup-message {
   margin-left: 1rem;
 }
@@ -4524,6 +4556,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
   font-size: 2rem;
+}
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
   margin-left: 1rem;
@@ -4781,6 +4817,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-contextmenu .p-submenu-icon {
   font-size: 0.875rem;
+}
+.p-contextmenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
 }
 .p-contextmenu .p-menuitem-badge {
   background: #5E81AC;
@@ -5196,6 +5236,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-menubar .p-submenu-list .p-submenu-icon {
   font-size: 0.875rem;
 }
+.p-menubar .p-submenu-list .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .p-menubar .p-submenu-list .p-menuitem {
   margin: 0;
 }
@@ -5549,6 +5593,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-icon {
   font-size: 0.875rem;
 }
+.p-slidemenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.75rem 1rem;
   color: #4C566A;
@@ -5757,6 +5805,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-tieredmenu .p-submenu-icon {
   font-size: 0.875rem;
+}
+.p-tieredmenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
 }
 .p-tieredmenu .p-menuitem-badge {
   background: #5E81AC;
@@ -6297,6 +6349,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1.5rem;
   color: #ECEFF4;
 }
+.p-scrolltop .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 
 .p-skeleton {
   background-color: #E5E9F0;
@@ -6333,6 +6389,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-tag .p-tag-icon {
   margin-right: 0.25rem;
   font-size: 0.75rem;
+}
+.p-tag .p-icon {
+  width: 0.75rem;
+  height: 0.75rem;
 }
 
 .p-terminal {
