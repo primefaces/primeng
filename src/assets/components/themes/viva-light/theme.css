@@ -110,6 +110,11 @@
   font-size: 1rem;
 }
 
+.p-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
 .p-link {
   font-size: 1rem;
   font-family: Poppins, sans-serif;
@@ -1608,6 +1613,9 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   margin-left: 0.5rem;
 }
 
+.p-rating {
+  gap: 0.5rem;
+}
 .p-rating .p-rating-icon {
   color: #6c6c6c;
   margin-left: 0.5rem;
@@ -5811,6 +5819,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1rem;
   margin-right: 0.5rem;
 }
+.p-inline-message .p-icon {
+  width: 1rem;
+  height: 1rem;
+}
 .p-inline-message .p-inline-message-text {
   font-size: 1rem;
 }
@@ -5896,6 +5908,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
+.p-message .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .p-message .p-message-summary {
   font-weight: 700;
 }
@@ -5920,6 +5936,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
   font-size: 2rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
+  width: 2rem;
+  height: 2rem;
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
   font-weight: 600;
@@ -5995,6 +6015,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-close .p-galleria-close-icon {
   font-size: 2rem;
 }
+.p-galleria .p-galleria-close .p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-galleria .p-galleria-close:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #f5f5f5;
@@ -6011,6 +6035,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-item-nav .p-galleria-item-prev-icon,
 .p-galleria .p-galleria-item-nav .p-galleria-item-next-icon {
   font-size: 2rem;
+}
+.p-galleria .p-galleria-item-nav .p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-galleria .p-galleria-item-nav:not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.1);
@@ -6076,11 +6104,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: rgba(255, 255, 255, 0.1);
   color: #f5f5f5;
 }
-.p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-item-content:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: 0 0 0 0.1rem #bbc7ee;
-}
 
 .p-galleria-mask {
   --maskbg: rgba(0, 0, 0, 0.9);
@@ -6122,6 +6145,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-image-action.p-link i {
   font-size: 1.5rem;
+}
+.p-image-action.p-link .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .p-avatar {
