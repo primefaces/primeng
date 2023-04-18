@@ -32,7 +32,7 @@ import { PlusIcon } from 'primeng/icon/plus';
     selector: 'p-speedDial',
     template: `
         <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
-            <button pRipple pButton [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+            <button pRipple pButton class="p-button-icon-only" [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
                 <PlusIcon *ngIf="!showIcon && !buttonTemplate"/>
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
