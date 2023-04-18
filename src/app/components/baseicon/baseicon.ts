@@ -5,13 +5,12 @@ import { ObjectUtils } from 'primeng/utils';
     template: ` <ng-content></ng-content> `,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'p-element p-icon-wrapper'
+    }
 })
 export class BaseIcon {
-    @HostBinding('class') get hostClass() {
-        return this.getClassNames();
-    }
-
     @Input() label: string;
 
     @Input() spin: boolean = false;
