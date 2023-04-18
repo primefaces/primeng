@@ -95,7 +95,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {
+        this._tooltipOptions = { ...this._tooltipOptions, ...this.config.tooltipOptions };
+    }
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -194,7 +196,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         if (simpleChange.tooltipOptions) {
-            this._tooltipOptions = { ...this._tooltipOptions, ...this.config.tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
+            this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
             this.deactivate();
 
             if (this.active) {
