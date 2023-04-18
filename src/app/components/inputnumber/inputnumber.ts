@@ -89,6 +89,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     pButton
                     [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
                     class="p-button-icon-only"
+                    [class]="incrementButtonClass"
                     [disabled]="disabled"
                     (mousedown)="this.onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
@@ -97,9 +98,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (keyup)="onUpButtonKeyUp()"
                     tabindex="-1"
                 >
-                <span *ngIf="incrementButtonIcon" [class]="incrementButtonClass" [ngClass]="incrementButtonIcon"></span>
+                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon [ngClass]="incrementButtonClass" *ngIf="!incrementButtonIconTemplate"/>
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate"/>
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                 </ng-container>
                 </button>
@@ -108,6 +109,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     pButton
                     [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
                     class="p-button-icon-only"
+                    [class]="decrementButtonClass"
                     [disabled]="disabled"
                     (mousedown)="this.onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
@@ -116,9 +118,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (keyup)="onDownButtonKeyUp()"
                     tabindex="-1"
                 >
-                <span *ngIf="decrementButtonIcon" [class]="decrementButtonClass" [ngClass]="decrementButtonIcon"></span>
+                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <AngleDownIcon [ngClass]="decrementButtonClass" *ngIf="!decrementButtonIconTemplate"/>
+                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate"/>
                     <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -127,6 +129,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 type="button"
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+                [class]="incrementButtonClass"
                 class="p-button-icon-only"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
@@ -137,9 +140,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keyup)="onUpButtonKeyUp()"
                 tabindex="-1"
             >
-                <span *ngIf="incrementButtonIcon" [class]="incrementButtonClass" [ngClass]="incrementButtonIcon"></span>
+                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon [ngClass]="incrementButtonClass" *ngIf="!incrementButtonIconTemplate"/>
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate"/>
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -148,6 +151,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
                 class="p-button-icon-only"
+                [class]="decrementButtonClass"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
                 (mousedown)="this.onDownButtonMouseDown($event)"
@@ -157,9 +161,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keyup)="onDownButtonKeyUp()"
                 tabindex="-1"
             >
-            <span *ngIf="decrementButtonIcon" [class]="decrementButtonClass" [ngClass]="decrementButtonIcon"></span>
+            <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <AngleDownIcon [ngClass]="decrementButtonClass" *ngIf="!decrementButtonIconTemplate"/>
+                <AngleDownIcon *ngIf="!decrementButtonIconTemplate"/>
                 <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
