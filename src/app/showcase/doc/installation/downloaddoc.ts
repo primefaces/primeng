@@ -17,9 +17,9 @@ export class DownloadDoc {
 
     code: Code = {
         command: `# with npm
-npm install primeng primeicons
+npm install primeng
 
 # with yarn
-yarn add primeng primeicons`
+yarn add primeng`
     };
 }
