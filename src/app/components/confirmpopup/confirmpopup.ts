@@ -107,7 +107,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     confirmation: Confirmation;
 
     acceptIconTemplate: TemplateRef<any>;
-    
+
     rejectIconTemplate: TemplateRef<any>;
 
     _visible: boolean;
