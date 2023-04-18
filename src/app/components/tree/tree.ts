@@ -74,8 +74,8 @@ import { SpinnerIcon } from 'primeng/icon/spinner';
                 >
                     <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
-                            <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'pi-fw p-tree-toggler-icon'"/>
-                            <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'pi-fw p-tree-toggler-icon'"/>
+                            <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'"/>
+                            <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'"/>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
