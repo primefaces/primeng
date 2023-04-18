@@ -48,7 +48,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         <ng-template #defaultOptionTemplate>
                             <span class="p-cascadeselect-item-text">{{ getOptionLabelToRender(option) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon">
+                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(option)">
                             <AngleRightIcon *ngIf="!groupIconTemplate"/>
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
