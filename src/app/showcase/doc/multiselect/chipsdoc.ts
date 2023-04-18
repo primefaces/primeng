@@ -13,11 +13,7 @@ interface City {
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name" display="chip">
-                <ng-template pTemplate="removeTokenIcon" let-class let-click="click">
-                    <SearchIcon [class]="class" (click)="click()" />
-                </ng-template>
-            </p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" defaultLabel="Select a City" optionLabel="name" display="chip"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="muilti-select-chips-demo"></app-code>
     </section>`
