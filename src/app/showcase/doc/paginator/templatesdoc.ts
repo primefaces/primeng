@@ -14,19 +14,19 @@ import { Component, Input } from '@angular/core';
                 </thead>
                 <tbody>
                     <tr>
-                        <td>firsticon</td>
+                        <td>firstpagelinkicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>lasticon</td>
+                        <td>previouspagelinkicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>nexticon</td>
+                        <td>lastpagelinkicon</td>
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>previousicon</td>
+                        <td>nextpagelinkicon</td>
                         <td>-</td>
                     </tr>
                 </tbody>

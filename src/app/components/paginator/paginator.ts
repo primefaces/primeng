@@ -20,15 +20,15 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
             </div>
             <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)" pRipple class="p-paginator-first p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <AngleDoubleLeftIcon *ngIf="!firstIconTemplate" [styleClass]="'p-paginator-icon'"/>
-                <span class="p-paginator-icon" *ngIf="firstIconTemplate">
-                    <ng-template *ngTemplateOutlet="firstIconTemplate"></ng-template>
+                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
             <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev p-paginator-element p-link" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }">
-                <AngleLeftIcon *ngIf="!previousIconTemplate" [styleClass]="'p-paginator-icon'"/>
-                <span class="p-paginator-icon" *ngIf="previousIconTemplate">
-                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
@@ -49,15 +49,15 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
             </p-dropdown>
             <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple class="p-paginator-next p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <AngleRightIcon *ngIf="!nextIconTemplate" [styleClass]="'p-paginator-icon'"/>
-                <span class="p-paginator-icon" *ngIf="nextIconTemplate">
-                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
             <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple class="p-paginator-last p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }">
-                <AngleDoubleRightIcon *ngIf="!lastIconTemplate" [styleClass]="'p-paginator-icon'"/>
-                <span class="p-paginator-icon" *ngIf="lastIconTemplate">
-                    <ng-template *ngTemplateOutlet="lastIconTemplate"></ng-template>
+                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'"/>
+                <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
             <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
@@ -130,13 +130,13 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    firstIconTemplate: TemplateRef<any>;
+    firstPageLinkIconTemplate: TemplateRef<any>;
 
-    previousIconTemplate: TemplateRef<any>;
+    previousPageLinkIconTemplate: TemplateRef<any>;
 
-    lastIconTemplate: TemplateRef<any>;
+    lastPageLinkIconTemplate: TemplateRef<any>;
 
-    nextIconTemplate: TemplateRef<any>;
+    nextPageLinkIconTemplate: TemplateRef<any>;
 
     pageLinks: number[];
 
@@ -159,20 +159,20 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     ngAfterContentInit(): void {
         this.templates.forEach((item) => {
             switch (item.getType()) {
-                case 'firsticon':
-                    this.firstIconTemplate = item.template;
+                case 'firstpagelinkicon':
+                    this.firstPageLinkIconTemplate = item.template;
                     break;
 
-                case 'previousicon':
-                    this.previousIconTemplate = item.template;
+                case 'previouspagelinkicon':
+                    this.previousPageLinkIconTemplate = item.template;
                     break;
 
-                case 'lasticon':
-                    this.lastIconTemplate = item.template;
+                case 'lastpagelinkicon':
+                    this.lastPageLinkIconTemplate = item.template;
                     break;
 
-                case 'nexticon':
-                    this.nextIconTemplate = item.template;
+                case 'nextpagelinkicon':
+                    this.nextPageLinkIconTemplate = item.template;
                     break;
             }
         });
