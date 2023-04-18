@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Theme, core and icons are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
+                Theme and Core styles are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
                 <i>angular.json</i> or <i>src/styles.css</i> file.
             </p>
             <h3>angular.json</h3>
@@ -25,7 +25,6 @@ export class StylesDoc {
     code1: Code = {
         typescript: `...
 "styles": [
-    "node_modules/primeicons/primeicons.css",
     "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
     "node_modules/primeng/resources/primeng.min.css",
     ...
@@ -34,7 +33,6 @@ export class StylesDoc {
 
     code2: Code = {
         scss: `@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";`
+@import "primeng/resources/primeng.css";`
     };
 }

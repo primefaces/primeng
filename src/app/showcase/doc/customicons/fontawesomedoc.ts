@@ -2,20 +2,24 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'download-doc',
+    selector: 'fontawesome-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>PrimeNG is available for download at <a href="https://www.npmjs.com/package/primeng">npm</a>.</p>
+            <p><a href="https://fontawesome.com/i">Font Awesome</a> is a popular icon library with a wide range of icons.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
-export class DownloadDoc {
+export class FontAwesomeDoc {
     @Input() id: string;
 
     @Input() title: string;
 
     code: Code = {
-        command: `npm install primeng`
+        basic: `<p-dropdown>
+    <ng-template pTemplate="dropdownicon">
+        <i class="fa-light fa-chevron-down"></i>
+    </ng-template>
+</p-dropdown`
     };
 }

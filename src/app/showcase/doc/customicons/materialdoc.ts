@@ -2,20 +2,24 @@ import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'download-doc',
+    selector: 'material-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>PrimeNG is available for download at <a href="https://www.npmjs.com/package/primeng">npm</a>.</p>
+            <p><a href="https://fonts.google.com/icons">Material icons</a> is the official icon library based on Google Material Design.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
-export class DownloadDoc {
+export class MaterialDoc {
     @Input() id: string;
 
     @Input() title: string;
 
     code: Code = {
-        command: `npm install primeng`
+        basic: `<p-dropdown>
+    <ng-template pTemplate="dropdownicon">
+        <span class="material-icons">arrow_drop_down</span>
+    </ng-template>
+</p-dropdown`
     };
 }

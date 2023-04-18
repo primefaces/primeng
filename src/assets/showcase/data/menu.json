@@ -499,9 +499,18 @@
             "routerLink": "/uikit"
         },
         {
-            "name": "PrimeIcons",
+            "name": "Icons",
             "icon": "pi pi-eye",
-            "routerLink": "/icons"
+            "children": [
+                {
+                    "name": "Prime Icons",
+                    "routerLink": "/icons"
+                },
+                {
+                    "name": "Custom Icons",
+                    "href": "/customicons"
+                }
+            ]
         },
         {
             "name": "Templates",
