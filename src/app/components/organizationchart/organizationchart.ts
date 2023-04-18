@@ -5,8 +5,8 @@ import { SharedModule } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
 import { PrimeTemplate } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { ChevronUpIcon } from 'primeng/icon/chevronup';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 
 @Component({
     selector: '[pOrganizationChartNode]',

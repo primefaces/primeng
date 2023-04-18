@@ -4,8 +4,8 @@ import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MinusIcon } from 'primeng/icon/minus';
-import { PlusIcon } from 'primeng/icon/plus';
+import { MinusIcon } from 'primeng/icons/minus';
+import { PlusIcon } from 'primeng/icons/plus';
 
 type PanelIconPosition = 'start' | 'end' | 'center';
 

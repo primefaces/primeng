@@ -28,9 +28,9 @@ import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } 
 import { RouterModule } from '@angular/router';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
-import { CaretRightIcon } from 'primeng/icon/caretright';
-import { CaretLeftIcon } from 'primeng/icon/caretleft';
-import { AngleRightIcon } from 'primeng/icon/angleright';
+import { CaretRightIcon } from 'primeng/icons/caretright';
+import { CaretLeftIcon } from 'primeng/icons/caretleft';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-slideMenuSub',

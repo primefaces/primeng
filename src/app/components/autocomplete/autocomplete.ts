@@ -33,10 +33,10 @@ import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icon/timescircle';
-import { SpinnerIcon } from 'primeng/icon/spinner';
-import { TimesIcon } from 'primeng/icon/times';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 type SplitButtonIconPosition = 'left' | 'right';
 

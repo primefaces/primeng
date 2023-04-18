@@ -2,7 +2,7 @@ import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrate
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { TimesIcon } from 'primeng/icon/times';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-inplaceDisplay',

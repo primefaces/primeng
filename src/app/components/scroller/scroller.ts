@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icon/spinner';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 

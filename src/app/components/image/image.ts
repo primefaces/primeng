@@ -5,12 +5,12 @@ import { trigger, style, transition, animate, AnimationEvent } from '@angular/an
 import { SafeUrl } from '@angular/platform-browser';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-import { RefreshIcon } from 'primeng/icon/refresh';
-import { EyeIcon } from 'primeng/icon/eye';
-import { UndoIcon } from 'primeng/icon/undo';
-import { SearchMinusIcon } from 'primeng/icon/searchminus';
-import { SearchPlusIcon } from 'primeng/icon/searchplus';
-import { TimesIcon } from 'primeng/icon/times';
+import { RefreshIcon } from 'primeng/icons/refresh';
+import { EyeIcon } from 'primeng/icons/eye';
+import { UndoIcon } from 'primeng/icons/undo';
+import { SearchMinusIcon } from 'primeng/icons/searchminus';
+import { SearchPlusIcon } from 'primeng/icons/searchplus';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-image',

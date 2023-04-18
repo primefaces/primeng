@@ -28,12 +28,12 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { ChevronUpIcon } from 'primeng/icon/chevronup';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { TimesIcon } from 'primeng/icon/times';
-import { CalendarIcon } from 'primeng/icon/calendar';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { TimesIcon } from 'primeng/icons/times';
+import { CalendarIcon } from 'primeng/icons/calendar';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

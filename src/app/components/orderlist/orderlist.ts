@@ -25,11 +25,11 @@ import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AngleDoubleDownIcon } from 'primeng/icon/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icon/angledoubleup';
-import { AngleUpIcon } from 'primeng/icon/angleup';
-import { AngleDownIcon } from 'primeng/icon/angledown';
-import { SearchIcon } from 'primeng/icon/search';
+import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { SearchIcon } from 'primeng/icons/search';
 
 export interface OrderListFilterOptions {
     filter?: (value?: any) => void;

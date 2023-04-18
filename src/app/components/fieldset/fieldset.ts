@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { PlusIcon } from 'primeng/icon/plus';
-import { MinusIcon } from 'primeng/icon/minus';
+import { PlusIcon } from 'primeng/icons/plus';
+import { MinusIcon } from 'primeng/icons/minus';
 
 let idx: number = 0;
 

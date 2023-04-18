@@ -25,8 +25,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
-import { SearchIcon } from 'primeng/icon/search';
-import { CheckIcon } from 'primeng/icon/check';
+import { SearchIcon } from 'primeng/icons/search';
+import { CheckIcon } from 'primeng/icons/check';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

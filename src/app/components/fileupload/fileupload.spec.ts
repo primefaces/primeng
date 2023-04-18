@@ -7,8 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { PrimeTemplate } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { HttpClientModule } from '@angular/common/http';
-import { PlusIcon } from 'primeng/icon/plus';
-import { TimesIcon } from 'primeng/icon/times';
+import { PlusIcon } from 'primeng/icons/plus';
+import { TimesIcon } from 'primeng/icons/times';
 
 describe('FileUpload', () => {
     let fileupload: FileUpload;

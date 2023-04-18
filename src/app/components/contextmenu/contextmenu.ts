@@ -29,7 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AngleRightIcon } from 'primeng/icon/angleright';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-contextMenuSub',

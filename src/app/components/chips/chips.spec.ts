@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Chips } from './chips';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TimesCircleIcon } from 'primeng/icon/timescircle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 describe('Chips', () => {
     let chips: Chips;

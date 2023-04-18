@@ -25,8 +25,8 @@ import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 
 @Component({
     selector: 'p-tabMenu',

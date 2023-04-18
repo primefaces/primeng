@@ -4,7 +4,7 @@ import { animate, state, style, transition, trigger, AnimationEvent } from '@ang
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ChevronUpIcon } from 'primeng/icon/chevronup';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 
 @Component({
     selector: 'p-scrollTop',

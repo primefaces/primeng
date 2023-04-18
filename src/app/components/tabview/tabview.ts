@@ -27,9 +27,9 @@ import { RippleModule } from 'primeng/ripple';
 import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
-import { TimesIcon } from 'primeng/icon/times';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 
 let idx: number = 0;
 

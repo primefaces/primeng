@@ -31,9 +31,9 @@ import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
-import { PlusIcon } from 'primeng/icon/plus';
-import { UploadIcon } from 'primeng/icon/upload';
-import { TimesIcon } from 'primeng/icon/times';
+import { PlusIcon } from 'primeng/icons/plus';
+import { UploadIcon } from 'primeng/icons/upload';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-fileUpload',

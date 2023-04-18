@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { StarFillIcon } from 'primeng/icon/starfill';
-import { StarIcon } from 'primeng/icon/star';
-import { BanIcon } from 'primeng/icon/ban';
+import { StarFillIcon } from 'primeng/icons/starfill';
+import { StarIcon } from 'primeng/icons/star';
+import { BanIcon } from 'primeng/icons/ban';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -34,16 +34,16 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
-import { SortAmountDownIcon } from 'primeng/icon/sortamountdown';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { ArrowDownIcon } from 'primeng/icon/arrowdown';
-import { ArrowUpIcon } from 'primeng/icon/arrowup';
-import { CheckIcon } from 'primeng/icon/check';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { MinusIcon } from 'primeng/icon/minus';
-import { SortAltIcon } from 'primeng/icon/sortalt';
-import { SortAmountUpAltIcon } from 'primeng/icon/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icon/spinner';
+import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ArrowDownIcon } from 'primeng/icons/arrowdown';
+import { ArrowUpIcon } from 'primeng/icons/arrowup';
+import { CheckIcon } from 'primeng/icons/check';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { MinusIcon } from 'primeng/icons/minus';
+import { SortAltIcon } from 'primeng/icons/sortalt';
+import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 @Injectable()
 export class TreeTableService {

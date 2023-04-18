@@ -24,10 +24,10 @@ import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { ChevronUpIcon } from 'primeng/icon/chevronup';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 
 @Component({
     selector: 'p-carousel',

@@ -4,7 +4,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { SpinnerIcon } from 'primeng/icon/spinner';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 

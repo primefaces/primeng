@@ -7,10 +7,10 @@ import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/api';
-import { CheckIcon } from 'primeng/icon/check';
-import { TimesCircleIcon } from 'primeng/icon/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icon/infocircle';
+import { CheckIcon } from 'primeng/icons/check';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
 
 @Component({
     template: `

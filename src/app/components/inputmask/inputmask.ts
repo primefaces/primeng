@@ -31,7 +31,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
-import { TimesIcon } from 'primeng/icon/times';
+import { TimesIcon } from 'primeng/icons/times';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {

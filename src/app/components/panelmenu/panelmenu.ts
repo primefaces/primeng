@@ -5,10 +5,10 @@ import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icon/angledown';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { AngleRightIcon } from 'primeng/icon/angleright';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 
 export class BasePanelMenuItem {
     constructor(private ref: ChangeDetectorRef) {}

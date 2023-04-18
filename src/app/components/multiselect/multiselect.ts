@@ -31,11 +31,11 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icon/check';
-import { SearchIcon } from 'primeng/icon/search';
-import { TimesCircleIcon } from 'primeng/icon/timescircle';
-import { TimesIcon } from 'primeng/icon/times';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
+import { CheckIcon } from 'primeng/icons/check';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

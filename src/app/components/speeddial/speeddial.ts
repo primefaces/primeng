@@ -26,7 +26,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
 import { RouterModule } from '@angular/router';
-import { PlusIcon } from 'primeng/icon/plus';
+import { PlusIcon } from 'primeng/icons/plus';
 
 @Component({
     selector: 'p-speedDial',

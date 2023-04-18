@@ -25,9 +25,9 @@ import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { AngleRightIcon } from 'primeng/icon/angleright';
-import { TimesIcon } from 'primeng/icon/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { TimesIcon } from 'primeng/icons/times';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

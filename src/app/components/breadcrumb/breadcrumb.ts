@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { HomeIcon } from 'primeng/icon/home';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { HomeIcon } from 'primeng/icons/home';
 
 @Component({
     selector: 'p-breadcrumb',

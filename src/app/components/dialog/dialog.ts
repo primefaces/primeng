@@ -29,9 +29,9 @@ import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'prim
 import { FocusTrapModule } from 'primeng/focustrap';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { TimesIcon } from 'primeng/icon/times';
-import { WindowMaximizeIcon } from 'primeng/icon/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icon/windowminimize';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 

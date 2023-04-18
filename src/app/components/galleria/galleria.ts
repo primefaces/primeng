@@ -32,11 +32,11 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { ChevronLeftIcon } from 'primeng/icon/chevronleft';
-import { TimesIcon } from 'primeng/icon/times';
-import { WindowMaximizeIcon } from 'primeng/icon/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icon/windowminimize';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 @Component({
     selector: 'p-galleria',

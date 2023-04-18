@@ -4,8 +4,8 @@ import { Toast, ToastItem } from './toast';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
-import { CheckIcon } from 'primeng/icon/check';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { CheckIcon } from 'primeng/icons/check';
 
 @Component({
     template: ` <p-toast></p-toast> `,

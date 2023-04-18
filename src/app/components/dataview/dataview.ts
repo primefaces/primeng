@@ -24,9 +24,9 @@ import { Header, Footer, PrimeTemplate, SharedModule, FilterService, Translation
 import { PaginatorModule } from 'primeng/paginator';
 import { BlockableUI } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { SpinnerIcon } from 'primeng/icon/spinner';
-import { ThLargeIcon } from 'primeng/icon/thlarge';
-import { BarsIcon } from 'primeng/icon/bars';
+import { SpinnerIcon } from 'primeng/icons/spinner';
+import { ThLargeIcon } from 'primeng/icons/thlarge';
+import { BarsIcon } from 'primeng/icons/bars';
 
 @Component({
     selector: 'p-dataView',

@@ -30,11 +30,11 @@ import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { trigger, state, style, transition, animate, query, animateChild, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icon/check';
-import { InfoCircleIcon } from 'primeng/icon/infocircle';
-import { TimesCircleIcon } from 'primeng/icon/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icon/exclamationtriangle';
-import { TimesIcon } from 'primeng/icon/times';
+import { CheckIcon } from 'primeng/icons/check';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-toastItem',

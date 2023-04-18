@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
-import { MinusIcon } from 'primeng/icon/minus';
+import { MinusIcon } from 'primeng/icons/minus';
 
 @Component({
     template: `

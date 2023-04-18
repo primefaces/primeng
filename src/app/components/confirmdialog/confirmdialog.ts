@@ -30,8 +30,8 @@ import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
-import { TimesIcon } from 'primeng/icon/times';
-import { CheckIcon } from 'primeng/icon/check';
+import { TimesIcon } from 'primeng/icons/times';
+import { CheckIcon } from 'primeng/icons/check';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 

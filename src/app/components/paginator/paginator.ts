@@ -6,10 +6,10 @@ import { PrimeTemplate, SelectItem } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule } from 'primeng/api';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { AngleDoubleLeftIcon } from 'primeng/icon/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icon/angledoubleright';
-import { AngleLeftIcon } from 'primeng/icon/angleleft';
-import { AngleRightIcon } from 'primeng/icon/angleright';
+import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
+import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
+import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-paginator',

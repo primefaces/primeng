@@ -23,9 +23,9 @@ import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { TimesIcon } from 'primeng/icon/times';
-import { AngleUpIcon } from 'primeng/icon/angleup';
-import { AngleDownIcon } from 'primeng/icon/angledown';
+import { TimesIcon } from 'primeng/icons/times';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -25,15 +25,15 @@ import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { AngleDoubleDownIcon } from 'primeng/icon/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icon/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icon/angledoubleright';
-import { AngleDoubleUpIcon } from 'primeng/icon/angledoubleup';
-import { AngleDownIcon } from 'primeng/icon/angledown';
-import { AngleLeftIcon } from 'primeng/icon/angleleft';
-import { AngleRightIcon } from 'primeng/icon/angleright';
-import { AngleUpIcon } from 'primeng/icon/angleup';
-import { SearchIcon } from 'primeng/icon/search';
+import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
+import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
+import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
+import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { SearchIcon } from 'primeng/icons/search';
 
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;

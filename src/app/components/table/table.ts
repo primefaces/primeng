@@ -43,14 +43,14 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
-import { ArrowDownIcon } from 'primeng/icon/arrowdown';
-import { ArrowUpIcon } from 'primeng/icon/arrowup';
-import { CheckIcon } from 'primeng/icon/check';
-import { FilterIcon } from 'primeng/icon/filter';
-import { SortAltIcon } from 'primeng/icon/sortalt';
-import { SortAmountDownIcon } from 'primeng/icon/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icon/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icon/spinner';
+import { ArrowDownIcon } from 'primeng/icons/arrowdown';
+import { ArrowUpIcon } from 'primeng/icons/arrowup';
+import { CheckIcon } from 'primeng/icons/check';
+import { FilterIcon } from 'primeng/icons/filter';
+import { SortAltIcon } from 'primeng/icons/sortalt';
+import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
+import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 @Injectable()
 export class TableService {

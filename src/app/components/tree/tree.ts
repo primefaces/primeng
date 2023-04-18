@@ -28,12 +28,12 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { CheckIcon } from 'primeng/icon/check';
-import { ChevronDownIcon } from 'primeng/icon/chevrondown';
-import { ChevronRightIcon } from 'primeng/icon/chevronright';
-import { MinusIcon } from 'primeng/icon/minus';
-import { SearchIcon } from 'primeng/icon/search';
-import { SpinnerIcon } from 'primeng/icon/spinner';
+import { CheckIcon } from 'primeng/icons/check';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { MinusIcon } from 'primeng/icons/minus';
+import { SearchIcon } from 'primeng/icons/search';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 @Component({
     selector: 'p-treeNode',

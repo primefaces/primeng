@@ -34,9 +34,9 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { TimesIcon } from 'primeng/icon/times';
-import { EyeSlashIcon } from 'primeng/icon/eyeslash';
-import { EyeIcon } from 'primeng/icon/eye';
+import { TimesIcon } from 'primeng/icons/times';
+import { EyeSlashIcon } from 'primeng/icons/eyeslash';
+import { EyeIcon } from 'primeng/icons/eye';
 
 @Directive({
     selector: '[pPassword]',

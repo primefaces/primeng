@@ -26,7 +26,7 @@ import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
-import { AngleRightIcon } from 'primeng/icon/angleright';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-tieredMenuSub',
