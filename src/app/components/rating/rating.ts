@@ -25,7 +25,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                     <ng-container *ngIf="!value || i>=value">
                         <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
                         <StarIcon *ngIf="!iconOffClass" (click)="rate($event, i)"
-                        [ngStyle]="iconOffStyle" (keydown.enter)="rate($event, i)" [ngClass]="'p-rating-icon'"  [attr.tabindex]="disabled || readonly ? null : '0'" />
+                        [ngStyle]="iconOffStyle" (keydown.enter)="rate($event, i)" [styleClass]="'p-rating-icon'"  [attr.tabindex]="disabled || readonly ? null : '0'" />
                     </ng-container>
                     <ng-container *ngIf="value && i < value">
                         <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
