@@ -35,12 +35,6 @@ export class ConstantsDoc {
     }
 
     code: Code = {
-        basic: `
-<p-menu [model]="items"></p-menu>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
-</div>`,
         typescript: `
 import { Component } from '@angular/core';
 import { PrimeIcons, MenuItem } from 'primeng/api';
@@ -64,6 +58,12 @@ export class PrimeIconsConstantsDemo {
             }
         ];
     }
-}`
+}`,
+        basic: `
+<p-menu [model]="items"></p-menu>`,
+        html: `
+<div class="card flex justify-content-center">
+    <p-menu [model]="items"></p-menu>
+</div>`
     };
 }
