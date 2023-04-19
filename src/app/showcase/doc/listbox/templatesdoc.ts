@@ -47,6 +47,14 @@ import { Component, Input } from '@angular/core';
                         <td>footer</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>filtericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>checkicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

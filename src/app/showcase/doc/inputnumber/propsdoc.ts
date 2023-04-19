@@ -54,13 +54,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>incrementButtonIcon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-up</td>
+                        <td>null</td>
                         <td>Style class of the increment button.</td>
                     </tr>
                     <tr>
                         <td>decrementButtonIcon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-down</td>
+                        <td>null</td>
                         <td>Style class of the decrement button.</td>
                     </tr>
                     <tr>

@@ -16,10 +16,11 @@ import { InputDoc } from './inputdoc';
 import { MethodsDoc } from './methodsdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule],
-    declarations: [BasicDoc, DataDoc, EventsDoc, ImageDoc, ImportDoc, InputDoc, MethodsDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, DataDoc, EventsDoc, ImageDoc, ImportDoc, InputDoc, MethodsDoc, PropsDoc, StyleDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class InplaceDocModule {}

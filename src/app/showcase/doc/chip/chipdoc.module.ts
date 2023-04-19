@@ -13,10 +13,11 @@ import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ChipModule],
-    declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, PropsDoc, StyleDoc, TemplateDoc, EventsDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, IconDoc, ImageDoc, PropsDoc, StyleDoc, TemplateDoc, EventsDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class ChipDocModule {}

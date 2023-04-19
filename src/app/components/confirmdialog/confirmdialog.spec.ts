@@ -105,7 +105,7 @@ describe('ConfirmDialog', () => {
         fixture.detectChanges();
 
         expect(fixture.debugElement.query(By.css('.p-confirm-dialog-icon')).nativeElement.className).toContain('Primeng ROCKS!');
-        expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].nativeElement.icon).toContain('Primeng ROCKS!');
+        expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[0].query(By.css('i')).nativeElement.className).toContain('Primeng ROCKS!');
         expect(fixture.debugElement.query(By.css('.p-dialog-footer')).children[1].nativeElement.icon).toContain('Primeng ROCKS!');
     });
 

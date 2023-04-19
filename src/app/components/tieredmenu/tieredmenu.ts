@@ -1,12 +1,32 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild, Inject } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    Input,
+    Renderer2,
+    OnDestroy,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Output,
+    EventEmitter,
+    ViewRef,
+    ViewChild,
+    Inject,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    TemplateRef
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -43,7 +63,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -73,7 +96,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-tieredMenuSub
                         (keydownItem)="onChildItemKeyDown($event)"
@@ -135,7 +161,7 @@ export class TieredMenuSub implements OnDestroy {
 
     activeItem: any;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -343,7 +369,7 @@ export class TieredMenuSub implements OnDestroy {
         class: 'p-element'
     }
 })
-export class TieredMenu implements OnDestroy {
+export class TieredMenu implements AfterContentInit, OnDestroy {
     @Input() model: MenuItem[];
 
     @Input() popup: boolean;
@@ -368,6 +394,10 @@ export class TieredMenu implements OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
     parentActive: boolean;
 
     container: HTMLDivElement;
@@ -390,6 +420,16 @@ export class TieredMenu implements OnDestroy {
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
         this.window = this.document.defaultView as Window;
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     toggle(event) {
@@ -575,8 +615,8 @@ export class TieredMenu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [TieredMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })
 export class TieredMenuModule {}

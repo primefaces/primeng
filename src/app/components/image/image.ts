@@ -5,6 +5,12 @@ import { trigger, style, transition, animate, AnimationEvent } from '@angular/an
 import { SafeUrl } from '@angular/platform-browser';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
+import { RefreshIcon } from 'primeng/icons/refresh';
+import { EyeIcon } from 'primeng/icons/eye';
+import { UndoIcon } from 'primeng/icons/undo';
+import { SearchMinusIcon } from 'primeng/icons/searchminus';
+import { SearchPlusIcon } from 'primeng/icons/searchplus';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-image',
@@ -16,25 +22,30 @@ import { ZIndexUtils } from 'primeng/utils';
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
                 <ng-template #defaultTemplate>
-                    <i class="p-image-preview-icon pi pi-eye"></i>
+                    <EyeIcon [styleClass]="'p-image-preview-icon'"/>
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-link" (click)="rotateRight()" type="button">
-                        <i class="pi pi-refresh"></i>
+                        <RefreshIcon *ngIf="!rotateRightIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="rotateRightIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="rotateLeft()" type="button">
-                        <i class="pi pi-undo"></i>
+                        <UndoIcon *ngIf="!rotateLeftIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="rotateLeftIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled">
-                        <i class="pi pi-search-minus"></i>
+                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="zoomOutIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled">
-                        <i class="pi pi-search-plus"></i>
+                        <SearchPlusIcon *ngIf="!zoomInIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="zoomInIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" type="button" (click)="closePreview()">
-                        <i class="pi pi-times"></i>
+                        <TimesIcon *ngIf="!closeIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
                 </div>
                 <div
@@ -98,6 +109,16 @@ export class Image implements AfterContentInit {
 
     indicatorTemplate: TemplateRef<any>;
 
+    rotateRightIconTemplate: TemplateRef<any>;
+
+    rotateLeftIconTemplate: TemplateRef<any>;
+
+    zoomOutIconTemplate: TemplateRef<any>;
+
+    zoomInIconTemplate: TemplateRef<any>;
+
+    closeIconTemplate: TemplateRef<any>;
+
     maskVisible: boolean = false;
 
     previewVisible: boolean = false;
@@ -134,6 +155,26 @@ export class Image implements AfterContentInit {
             switch (item.getType()) {
                 case 'indicator':
                     this.indicatorTemplate = item.template;
+                    break;
+
+                case 'rotaterighticon':
+                    this.rotateRightIconTemplate = item.template;
+                    break;
+
+                case 'rotatelefticon':
+                    this.rotateLeftIconTemplate = item.template;
+                    break;
+
+                case 'zoomouticon':
+                    this.zoomOutIconTemplate = item.template;
+                    break;
+
+                case 'zoominicon':
+                    this.zoomInIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 default:
@@ -251,7 +292,7 @@ export class Image implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon],
     exports: [Image, SharedModule],
     declarations: [Image]
 })

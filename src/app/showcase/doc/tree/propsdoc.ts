@@ -111,7 +111,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>loadingIcon</td>
                         <td>string</td>
-                        <td>pi pi-spinner</td>
+                        <td>null</td>
                         <td>The icon to show while indicating data load is in progress.</td>
                     </tr>
                     <tr>
@@ -129,7 +129,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>ariaLabelledBy</td>
                         <td>string</td>
-                        <td>pi pi-spinner</td>
+                        <td>null</td>
                         <td>Establishes relationships between the component and label(s) where its value should be one or more element IDs.</td>
                     </tr>
                     <tr>

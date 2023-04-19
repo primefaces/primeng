@@ -34,6 +34,16 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
+import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ArrowDownIcon } from 'primeng/icons/arrowdown';
+import { ArrowUpIcon } from 'primeng/icons/arrowup';
+import { CheckIcon } from 'primeng/icons/check';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { MinusIcon } from 'primeng/icons/minus';
+import { SortAltIcon } from 'primeng/icons/sortalt';
+import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 @Injectable()
 export class TreeTableService {
@@ -89,7 +99,13 @@ export class TreeTableService {
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
-                    <i [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
+                    <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
+                    <ng-container *ngIf="!loadingIcon">
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'"/>
+                        <span *ngIf="loadingIconTemplate" class="p-treetable-loading-icon">
+                            <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </div>
             </div>
             <div *ngIf="captionTemplate" class="p-treetable-header">
@@ -114,7 +130,23 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="previouspagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="lastpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="nextpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+        </ng-template>
+            </p-paginator>
 
             <div class="p-treetable-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -161,15 +193,36 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+            </p-paginator>
             <div *ngIf="summaryTemplate" class="p-treetable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-treetable-reorder-indicator-up" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-treetable-reorder-indicator-down" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
+                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate"/>
+                <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
+            </span>
+            <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
+                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate"/>
+                <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
+            </span>
         </div>
     `,
     providers: [TreeTableService],
@@ -250,7 +303,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon: string;
 
     @Input() showLoader: boolean = true;
 
@@ -394,6 +447,28 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     frozenColGroupTemplate: TemplateRef<any>;
 
+    loadingIconTemplate: TemplateRef<any>;
+
+    reorderIndicatorUpIconTemplate: TemplateRef<any>;
+
+    reorderIndicatorDownIconTemplate: TemplateRef<any>;
+
+    sortIconTemplate: TemplateRef<any>;
+
+    checkboxIconTemplate: TemplateRef<any>;
+
+    headerCheckboxIconTemplate: TemplateRef<any>;
+
+    togglerIconTemplate: TemplateRef<any>;
+
+    paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorLastPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorNextPageLinkIconTemplate: TemplateRef<any>;
+
     lastResizerHelperX: number;
 
     reorderIconWidth: number;
@@ -494,6 +569,50 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                case 'reorderindicatorupicon':
+                    this.reorderIndicatorUpIconTemplate = item.template;
+                    break;
+
+                case 'reorderindicatordownicon':
+                    this.reorderIndicatorDownIconTemplate = item.template;
+                    break;
+
+                case 'sorticon':
+                    this.sortIconTemplate = item.template;
+                    break;
+
+                case 'checkboxicon':
+                    this.checkboxIconTemplate = item.template;
+                    break;
+
+                case 'headercheckboxicon':
+                    this.headerCheckboxIconTemplate = item.template;
+                    break;
+
+                case 'togglericon':
+                    this.togglerIconTemplate = item.template;
+                    break;
+
+                case 'paginatorfirstpagelinkicon':
+                    this.paginatorFirstPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorlastpagelinkicon':
+                    this.paginatorLastPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorpreviouspagelinkicon':
+                    this.paginatorPreviousPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatornextpagelinkicon':
+                    this.paginatorNextPageLinkIconTemplate = item.template;
                     break;
             }
         });
@@ -2079,7 +2198,15 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-treeTableSortIcon',
-    template: ` <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{ 'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0 }"></i> `,
+    template: `
+        <ng-container *ngIf="!tt.sortIconTemplate">
+            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
+        </ng-container>
+        <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon">
+            <ng-template *ngTemplateOutlet="tt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
+        </span>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -2488,7 +2615,13 @@ export class TTContextMenuRow {
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
-                <span class="p-checkbox-icon pi" [ngClass]="{ 'pi-check': checked, 'pi-minus': rowNode.node.partialSelected }"></span>
+                <ng-container *ngIf="!tt.checkboxIconTemplate">
+                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked"/>
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected"/>
+                </ng-container>
+                <span *ngIf="tt.checkboxIconTemplate">
+                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
+                </span>
             </div>
         </div>
     `,
@@ -2553,7 +2686,12 @@ export class TTCheckbox {
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value || tt.value.length === 0" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': !tt.value || tt.value.length === 0 }" role="checkbox" [attr.aria-checked]="checked">
-                <span class="p-checkbox-icon" [ngClass]="{ 'pi pi-check': checked }"></span>
+                    <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
+                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'"/>
+                </ng-container>
+                <span class="p-checkbox-icon" *ngIf="tt.headerCheckboxIconTemplate">
+                    <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
+                </span>
             </div>
         </div>
     `,
@@ -2945,7 +3083,11 @@ export class TTRow {
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'"
             [style.marginLeft]="rowNode.level * 16 + 'px'"
         >
-            <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
+            <ng-container *ngIf="!tt.togglerIconTemplate">
+                <ChevronDownIcon *ngIf="rowNode.node.expanded"/>
+                <ChevronRightIcon *ngIf="!rowNode.node.expanded"/>
+            </ng-container>
+            <ng-template *ngTemplateOutlet="tt.togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -2981,7 +3123,7 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule],
+    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronRightIcon],
     exports: [
         TreeTable,
         SharedModule,

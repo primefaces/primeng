@@ -52,6 +52,30 @@ import { Component, Input } from '@angular/core';
                         <td>loader</td>
                         <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
                     </tr>
+                    <tr>
+                        <td>checkicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>filtericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>removetokenicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>closeicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>clearicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>dropdownicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

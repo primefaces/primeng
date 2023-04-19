@@ -24,13 +24,15 @@ export class AppDocApiSection {
     }
 
     generateDocs() {
-        for (let i = 0; i < this.docs.length; i++) {
-            const doc = this.docs[i];
-            const _doc = {
-                ...doc,
-                id: `api.${doc.id}`
-            };
-            this._docs.push(_doc);
+        if (this.docs) {
+            for (let i = 0; i < this.docs.length; i++) {
+                const doc = this.docs[i];
+                const _doc = {
+                    ...doc,
+                    id: `api.${doc.id}`
+                };
+                this._docs.push(_doc);
+            }
         }
     }
 

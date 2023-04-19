@@ -25,6 +25,11 @@ import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { SearchIcon } from 'primeng/icons/search';
 
 export interface OrderListFilterOptions {
     filter?: (value?: any) => void;
@@ -39,10 +44,22 @@ export interface OrderListFilterOptions {
             [class]="styleClass"
         >
             <div class="p-orderlist-controls">
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()">
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()">
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()">
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>    
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()">
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>    
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                </button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header || headerTemplate">
@@ -65,7 +82,10 @@ export interface OrderListFilterOptions {
                                 [attr.placeholder]="filterPlaceholder"
                                 [attr.aria-label]="ariaFilterLabel"
                             />
-                            <span class="p-orderlist-filter-icon pi pi-search"></span>
+                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'"/>
+                            <span class="p-orderlist-filter-icon" *ngIf="filterIconTemplate">
+                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                            </span>
                         </div>
                     </ng-template>
                 </div>
@@ -167,6 +187,16 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public filterTemplate: TemplateRef<any>;
 
+    moveUpIconTemplate: TemplateRef<any>;
+
+    moveTopIconTemplate: TemplateRef<any>;
+
+    moveDownIconTemplate: TemplateRef<any>;
+
+    moveBottomIconTemplate: TemplateRef<any>;
+
+    filterIconTemplate: TemplateRef<any>;
+
     filterOptions: OrderListFilterOptions;
 
     _selection: any[] = [];
@@ -231,6 +261,26 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'moveupicon':
+                    this.moveUpIconTemplate = item.template;
+                    break;
+
+                case 'movetopicon':
+                    this.moveTopIconTemplate = item.template;
+                    break;
+
+                case 'movedownicon':
+                    this.moveDownIconTemplate = item.template;
+                    break;
+
+                case 'movebottomicon':
+                    this.moveBottomIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
                     break;
 
                 default:
@@ -551,7 +601,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon],
     exports: [OrderList, SharedModule, DragDropModule],
     declarations: [OrderList]
 })

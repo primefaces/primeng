@@ -54,7 +54,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>removeIcon</td>
                         <td>string</td>
-                        <td>pi pi-times-circle</td>
+                        <td>null</td>
                         <td>Icon of the remove element.</td>
                     </tr>
                 </tbody>

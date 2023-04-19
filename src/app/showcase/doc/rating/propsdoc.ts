@@ -42,19 +42,19 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>iconOnClass</td>
                         <td>string</td>
-                        <td>pi pi-star-fill</td>
+                        <td>null</td>
                         <td>Style class of the on icon.</td>
                     </tr>
                     <tr>
                         <td>iconOffClass</td>
                         <td>string</td>
-                        <td>pi pi-star-fill</td>
+                        <td>null</td>
                         <td>Style class of the off icon.</td>
                     </tr>
                     <tr>
                         <td>iconCancelClass</td>
                         <td>string</td>
-                        <td>pi pi-ban</td>
+                        <td>null</td>
                         <td>Style class of the cancel icon.</td>
                     </tr>
                     <tr>

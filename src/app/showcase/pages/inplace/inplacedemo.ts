@@ -9,6 +9,7 @@ import { ImportDoc } from '../../doc/inplace/importdoc';
 import { InputDoc } from '../../doc/inplace/inputdoc';
 import { MethodsDoc } from '../../doc/inplace/methodsdoc';
 import { AccessibilityDoc } from '../../doc/inplace/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/inplace/templatesdoc';
 
 @Component({
     templateUrl: './inplacedemo.html'
@@ -57,6 +58,11 @@ export class InplaceDemo {
             id: 'props',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'events',

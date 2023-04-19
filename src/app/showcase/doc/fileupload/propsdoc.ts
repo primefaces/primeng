@@ -168,19 +168,19 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>chooseIcon</td>
                         <td>string</td>
-                        <td>pi pi-plus</td>
+                        <td>null</td>
                         <td>Icon of the choose button.</td>
                     </tr>
                     <tr>
                         <td>uploadIcon</td>
                         <td>string</td>
-                        <td>pi pi-upload</td>
+                        <td>null</td>
                         <td>Icon of the upload button.</td>
                     </tr>
                     <tr>
                         <td>cancelIcon</td>
                         <td>string</td>
-                        <td>pi pi-times</td>
+                        <td>null</td>
                         <td>Icon of the cancel button.</td>
                     </tr>
                     <tr>

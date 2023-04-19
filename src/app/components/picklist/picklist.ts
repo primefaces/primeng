@@ -25,6 +25,16 @@ import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
+import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
+import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
+import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleLeftIcon } from 'primeng/icons/angleleft';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { SearchIcon } from 'primeng/icons/search';
+import { HomeIcon } from 'primeng/icons/home';
 
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;
@@ -36,34 +46,46 @@ export interface PickListFilterOptions {
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true, 'p-picklist-striped': stripedRows }" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
-                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="sourceMoveDisabled()" (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="sourceMoveDisabled()" (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)">
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="topButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-double-up"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                ></button>
+                >
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="downButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-down"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                ></button>
+                >
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="bottomButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-double-down"
+                    class="p-button-icon-only"
                     [disabled]="sourceMoveDisabled()"
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                ></button>
+                >
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper">
                 <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate">
@@ -86,7 +108,10 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="sourceFilterPlaceholder"
                                 [attr.aria-label]="ariaSourceFilterLabel"
                             />
-                            <span class="p-picklist-filter-icon pi pi-search"></span>
+                            <SearchIcon *ngIf="!sourceFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
+                            <span class="p-picklist-filter-icon" *ngIf="sourceFilterIconTemplate">
+                                <ng-template *ngTemplateOutlet="sourceFilterIconTemplate"></ng-template>
+                            </span>
                         </div>
                     </ng-template>
                 </div>
@@ -122,10 +147,34 @@ export interface PickListFilterOptions {
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
-                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple icon="pi pi-angle-right" [disabled]="moveRightDisabled()" (click)="moveRight()"></button>
-                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-right" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()"></button>
-                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple icon="pi pi-angle-left" [disabled]="moveLeftDisabled()" (click)="moveLeft()"></button>
-                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple icon="pi pi-angle-double-left" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()"></button>
+                <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()">
+                    <ng-container *ngIf="!moveToTargetIconTemplate">
+                        <AngleRightIcon *ngIf="!viewChanged"/>
+                        <AngleDownIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                </button>
+                <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()">
+                    <ng-container *ngIf="!moveAllToTargetIconTemplate">
+                        <AngleDoubleRightIcon *ngIf="!viewChanged"/>
+                        <AngleDoubleDownIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                </button>
+                <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()">
+                    <ng-container *ngIf="!moveToSourceIconTemplate">
+                        <AngleLeftIcon *ngIf="!viewChanged"/>
+                        <AngleUpIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                </button>
+                <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()">
+                    <ng-container *ngIf="!moveAllToSourceIconTemplate">
+                        <AngleDoubleLeftIcon *ngIf="!viewChanged"/>
+                        <AngleDoubleUpIcon *ngIf="viewChanged"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
+                </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper">
                 <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate">
@@ -148,7 +197,10 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="targetFilterPlaceholder"
                                 [attr.aria-label]="ariaTargetFilterLabel"
                             />
-                            <span class="p-picklist-filter-icon pi pi-search"></span>
+                            <SearchIcon *ngIf="!targetFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
+                            <span class="p-picklist-filter-icon" *ngIf="targetFilterIconTemplate">
+                                <ng-template *ngTemplateOutlet="targetFilterIconTemplate"></ng-template>
+                            </span>
                         </div>
                     </ng-template>
                 </div>
@@ -183,34 +235,46 @@ export interface PickListFilterOptions {
                 </ul>
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
-                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple icon="pi pi-angle-up" [disabled]="targetMoveDisabled()" (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"></button>
+                <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="targetMoveDisabled()" (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)">
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="topButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-double-up"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                ></button>
+                >
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="downButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-down"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                ></button>
+                >
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     [attr.aria-label]="bottomButtonAriaLabel"
                     pButton
                     pRipple
-                    icon="pi pi-angle-double-down"
+                    class="p-button-icon-only"
                     [disabled]="targetMoveDisabled()"
                     (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                ></button>
+                >
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                </button>
             </div>
         </div>
     `,
@@ -290,7 +354,19 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     @Input() filterMatchMode: string = 'contains';
 
-    @Input() breakpoint: string = '960px';
+    @Input() get breakpoint(): string {
+        return this._breakpoint;
+    }
+
+    set breakpoint(value: string) {
+        if (value !== this._breakpoint) {
+            this._breakpoint = value;
+            if (isPlatformBrowser(this.platformId)) {
+                this.destroyMedia();
+                this.initMedia();
+            }
+        }
+    }
 
     @Input() stripedRows: boolean;
 
@@ -326,7 +402,29 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    _breakpoint: string = '960px';
+
     public itemTemplate: TemplateRef<any>;
+
+    moveTopIconTemplate: TemplateRef<any>;
+
+    moveUpIconTemplate: TemplateRef<any>;
+
+    moveDownIconTemplate: TemplateRef<any>;
+
+    moveBottomIconTemplate: TemplateRef<any>;
+
+    moveToTargetIconTemplate: TemplateRef<any>;
+
+    moveAllToTargetIconTemplate: TemplateRef<any>;
+
+    moveToSourceIconTemplate: TemplateRef<any>;
+
+    moveAllToSourceIconTemplate: TemplateRef<any>;
+
+    targetFilterIconTemplate: TemplateRef<any>;
+
+    sourceFilterIconTemplate: TemplateRef<any>;
 
     public visibleOptionsSource: any[];
 
@@ -378,11 +476,22 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     readonly TARGET_LIST = 1;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    window: Window;
+
+    media: MediaQueryList | null;
+
+    viewChanged: boolean;
+
+    mediaChangeListener: VoidFunction | null;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         if (this.responsive) {
             this.createStyle();
+            this.initMedia();
         }
 
         if (this.filterBy) {
@@ -435,6 +544,46 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
                 case 'emptyfiltermessagetarget':
                     this.emptyFilterMessageTargetTemplate = item.template;
+                    break;
+
+                case 'moveupicon':
+                    this.moveUpIconTemplate = item.template;
+                    break;
+
+                case 'movetopicon':
+                    this.moveTopIconTemplate = item.template;
+                    break;
+
+                case 'movedownicon':
+                    this.moveDownIconTemplate = item.template;
+                    break;
+
+                case 'movebottomicon':
+                    this.moveBottomIconTemplate = item.template;
+                    break;
+
+                case 'movetotargeticon':
+                    this.moveToTargetIconTemplate = item.template;
+                    break;
+
+                case 'movealltotargeticon':
+                    this.moveAllToTargetIconTemplate = item.template;
+                    break;
+
+                case 'movetosourceicon':
+                    this.moveToSourceIconTemplate = item.template;
+                    break;
+
+                case 'movealltosourceicon':
+                    this.moveAllToSourceIconTemplate = item.template;
+                    break;
+
+                case 'targetfiltericon':
+                    this.targetFilterIconTemplate = item.template;
+                    break;
+
+                case 'sourcefiltericon':
+                    this.sourceFilterIconTemplate = item.template;
                     break;
 
                 default:
@@ -928,6 +1077,34 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         else return null;
     }
 
+    initMedia() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.media = this.window.matchMedia(`(max-width: ${this.breakpoint})`);
+            this.viewChanged = this.media.matches;
+            this.bindMediaChangeListener();
+        }
+    }
+
+    destroyMedia() {
+        this.unbindMediaChangeListener();
+    }
+
+    bindMediaChangeListener() {
+        if (this.media && !this.mediaChangeListener) {
+            this.mediaChangeListener = this.renderer.listen(this.media, 'change', (event) => {
+                this.viewChanged = event.matches;
+                this.cd.markForCheck();
+            });
+        }
+    }
+
+    unbindMediaChangeListener() {
+        if (this.mediaChangeListener) {
+            this.mediaChangeListener();
+            this.mediaChangeListener = null;
+        }
+    }
+
     createStyle() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.styleElement) {
@@ -955,24 +1132,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
                         margin-right: 0;
                     }
-    
-                    .p-picklist[${this.id}] .pi-angle-right:before {
-                        content: "\\e930"
-                    }
-    
-                    .p-picklist[${this.id}] .pi-angle-double-right:before {
-                        content: "\\e92c"
-                    }
-    
-                    .p-picklist[${this.id}] .pi-angle-left:before {
-                        content: "\\e933"
-                    }
-    
-                    .p-picklist[${this.id}] .pi-angle-double-left:before {
-                        content: "\\e92f"
-                    }
-                }
-                `;
+                }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
             }
@@ -1017,11 +1177,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     ngOnDestroy() {
         this.destroyStyle();
+        this.destroyMedia();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon, HomeIcon],
     exports: [PickList, SharedModule, DragDropModule],
     declarations: [PickList]
 })

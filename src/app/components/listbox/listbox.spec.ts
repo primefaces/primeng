@@ -2,6 +2,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Listbox } from './listbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckIcon } from 'primeng/icons/check';
+import { SearchIcon } from 'primeng/icons/search';
 
 describe('Listbox', () => {
     let listbox: Listbox;
@@ -9,7 +11,7 @@ describe('Listbox', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, CheckIcon, SearchIcon],
             declarations: [Listbox]
         });
 
@@ -49,9 +51,7 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         const filterInputEl = fixture.debugElement.query(By.css('.p-listbox-filter-container')).query(By.css('input')).nativeElement;
-        const checkboxEl = fixture.debugElement.queryAll(By.css('li'))[1].query(By.css('.p-checkbox-icon')).nativeElement;
         expect(filterInputEl.disabled).toEqual(true);
-        expect(checkboxEl.className).not.toContain('pi pi-check');
         expect(clickSingleSpy).not.toHaveBeenCalled();
     });
 

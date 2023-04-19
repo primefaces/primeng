@@ -29,6 +29,9 @@ import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'prim
 import { FocusTrapModule } from 'primeng/focustrap';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -77,7 +80,17 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
-                            <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                            <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                            <ng-container *ngIf="!maximizeIcon">
+                                <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'"/>
+                                <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'"/>
+                            </ng-container>
+                        <ng-container *ngIf="!maximized">
+                            <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                        </ng-container>
+                        <ng-container *ngIf="maximized">
+                            <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                        </ng-container>
                         </button>
                         <button
                             *ngIf="closable"
@@ -89,7 +102,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             [attr.tabindex]="closeTabindex"
                             pRipple
                         >
-                            <span class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
+                            <ng-container *ngIf="!closeIconTemplate">
+                                <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
+                                <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'"/>
+                            </ng-container>
+                            <span *ngIf="closeIconTemplate">
+                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -195,15 +214,15 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
-    @Input() closeIcon: string = 'pi pi-times';
+    @Input() closeIcon: string;
 
     @Input() closeAriaLabel: string;
 
     @Input() closeTabindex: string = '-1';
 
-    @Input() minimizeIcon: string = 'pi pi-window-minimize';
+    @Input() minimizeIcon: string;
 
-    @Input() maximizeIcon: string = 'pi pi-window-maximize';
+    @Input() maximizeIcon: string;
 
     @ContentChild(Header) headerFacet: QueryList<Header>;
 
@@ -236,6 +255,12 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     contentTemplate: TemplateRef<any>;
 
     footerTemplate: TemplateRef<any>;
+
+    maximizeIconTemplate: TemplateRef<any>;
+
+    closeIconTemplate: TemplateRef<any>;
+
+    minimizeIconTemplate: TemplateRef<any>;
 
     _visible: boolean;
 
@@ -310,6 +335,18 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
+                    break;
+
+                case 'maximizeicon':
+                    this.maximizeIconTemplate = item.template;
+                    break;
+
+                case 'minimizeicon':
+                    this.minimizeIconTemplate = item.template;
                     break;
 
                 default:
@@ -811,7 +848,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, FocusTrapModule, RippleModule],
+    imports: [CommonModule, FocusTrapModule, RippleModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
     exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })

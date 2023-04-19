@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayModule } from 'primeng/overlay';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: `
@@ -71,7 +74,7 @@ describe('Dropdown', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule, ChevronDownIcon, SearchIcon, TimesIcon],
             declarations: [Dropdown, DropdownItem, TestDropdownComponent]
         }).compileComponents();
 
@@ -215,7 +218,7 @@ describe('Dropdown', () => {
         items.children[2].children[0].nativeElement.click();
         fixture.detectChanges();
         const itemCloseIcon = fixture.debugElement.query(By.css('.p-dropdown-clear-icon'));
-        itemCloseIcon.nativeElement.click();
+        itemCloseIcon.nativeElement.parentElement.click();
         fixture.detectChanges();
 
         expect(dropdown.selectedOption).toEqual({ label: 'Select City', value: null });
