@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { Tooltip } from 'primeng/tooltip';
 import { PrimeTemplate } from 'primeng/api';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: `<p-tabView>
@@ -38,7 +39,7 @@ describe('TabView', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, TimesIcon],
             declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent, PrimeTemplate]
         }).compileComponents();
 
@@ -88,8 +89,8 @@ describe('TabView', () => {
         fixture.detectChanges();
 
         tabview.cd.detectChanges();
-        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('.p-tabview-close')).nativeElement;
-        expect(firstTabViewNavEl.className).toContain('p-tabview-close');
+        const firstTabViewNavEl = fixture.debugElement.children[0].children[0].children[0].children[0].query(By.css('timesicon')).nativeElement;
+        expect(firstTabViewNavEl).toBeTruthy();
         firstTabViewNavEl.click();
         fixture.detectChanges();
 

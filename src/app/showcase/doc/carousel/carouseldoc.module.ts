@@ -17,10 +17,11 @@ import { ResponsiveDoc } from './responsivedoc';
 import { TemplateDoc } from './templatedoc';
 import { VerticalDoc } from './verticaldoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, CarouselModule, ButtonModule, TagModule],
-    declarations: [ImportDoc, BasicDoc, CircularDoc, EventsDoc, NumScrollDoc, PropsDoc, StyleDoc, ResponsiveDoc, TemplateDoc, VerticalDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, CircularDoc, EventsDoc, NumScrollDoc, PropsDoc, StyleDoc, ResponsiveDoc, TemplateDoc, VerticalDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class CarouselDocModule {}

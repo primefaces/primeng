@@ -19,12 +19,15 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -68,9 +71,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <div class="p-dialog-header-icons">
                         <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                            <WindowMaximizeIcon *ngIf="!maximized && !maximizeIcon" [styleClass]="'p-dialog-header-maximize-icon'"/>
+                            <WindowMinimizeIcon *ngIf="maximized && !minimizeIcon" [styleClass]="'p-dialog-header-maximize-icon'"/>
                         </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-times"></span>
+                            <TimesIcon [styleClass]="'p-dialog-header-close-icon'"/>
                         </button>
                     </div>
                 </div>
@@ -159,11 +164,11 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get maximizeIcon(): string {
-        return this.config.maximizeIcon ? this.config.maximizeIcon : 'pi pi-window-maximize';
+        return this.config.maximizeIcon;
     }
 
     get minimizeIcon(): string {
-        return this.config.minimizeIcon ? this.config.minimizeIcon : 'pi pi-window-minimize';
+        return this.config.minimizeIcon;
     }
 
     get style(): any {
@@ -603,8 +608,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, SharedModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent],
-    entryComponents: [DynamicDialogComponent]
+    entryComponents: [DynamicDialogComponent],
+    exports: [SharedModule]
 })
 export class DynamicDialogModule {}

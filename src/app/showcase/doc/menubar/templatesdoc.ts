@@ -21,6 +21,14 @@ import { Component, Input } from '@angular/core';
                         <td>end</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>menuicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>submenuicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

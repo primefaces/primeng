@@ -10,6 +10,7 @@ import { QuillDoc } from '../../doc/editor/quilldoc';
 import { ReactiveFormsDoc } from '../../doc/editor/reactiveformsdoc';
 import { ReadOnlyDoc } from '../../doc/editor/readonlydoc';
 import { StyleDoc } from '../../doc/editor/styledoc';
+import { TemplatesDoc } from '../../doc/editor/templatesdoc';
 
 @Component({
     templateUrl: './editordemo.html'
@@ -73,6 +74,11 @@ export class EditorDemo {
             id: 'methods',
             label: 'Methods',
             component: MethodsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

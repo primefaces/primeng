@@ -120,13 +120,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>minimizeIcon</td>
                         <td>string</td>
-                        <td>pi pi-window-minimize</td>
+                        <td>null</td>
                         <td>Name of the minimize icon.</td>
                     </tr>
                     <tr>
                         <td>maximizeIcon</td>
                         <td>string</td>
-                        <td>pi pi-window-maximize</td>
+                        <td>null</td>
                         <td>Name of the maximize icon.</td>
                     </tr>
                     <tr>

@@ -23,6 +23,7 @@ import {
 } from '@angular/core';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -45,7 +46,10 @@ import { Subscription } from 'rxjs';
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
             <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
-                <span class="p-overlaypanel-close-icon pi pi-times"></span>
+                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-overlaypanel-close-icon'"/>
+                <span class="p-overlaypanel-close-icon" *ngIf="closeIconTemplate">
+                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                </span>
             </button>
         </div>
     `,
@@ -133,6 +137,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any>;
 
+    closeIconTemplate: TemplateRef<any>;
+
     destroyCallback: Function;
 
     overlayEventListener: (event?) => void | null;
@@ -155,6 +161,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 default:
@@ -437,7 +447,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule, TimesIcon],
     exports: [OverlayPanel, SharedModule],
     declarations: [OverlayPanel]
 })

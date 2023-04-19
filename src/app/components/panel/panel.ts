@@ -1,9 +1,11 @@
-import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MinusIcon } from 'primeng/icons/minus';
+import { PlusIcon } from 'primeng/icons/plus';
 
 type PanelIconPosition = 'start' | 'end' | 'center';
 
@@ -32,7 +34,19 @@ let idx: number = 0;
                         role="tab"
                         [attr.aria-expanded]="!collapsed"
                     >
-                        <span [class]="collapsed ? expandIcon : collapseIcon"></span>
+                        <ng-container *ngIf="!headerIconTemplate">
+                            <ng-container *ngIf="collapsed">
+                                <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
+                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass"/>
+                            </ng-container>
+
+                            <ng-container *ngIf="!collapsed">
+                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
+                                <PlusIcon *ngIf="!expandIcon" [styleClass]="iconClass"/>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
                     </button>
                 </div>
             </div>
@@ -107,9 +121,9 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     @Input() iconPos: PanelIconPosition = 'end';
 
-    @Input() expandIcon: string = 'pi pi-plus';
+    @Input() expandIcon: string;
 
-    @Input() collapseIcon: string = 'pi pi-minus';
+    @Input() collapseIcon: string;
 
     @Input() showHeader: boolean = true;
 
@@ -137,6 +151,8 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     footerTemplate: TemplateRef<any>;
 
+    headerIconTemplate: TemplateRef<any>;
+
     id: string = `p-panel-${idx++}`;
 
     constructor(private el: ElementRef) {}
@@ -158,6 +174,10 @@ export class Panel implements AfterContentInit, BlockableUI {
 
                 case 'icons':
                     this.iconTemplate = item.template;
+                    break;
+
+                case 'headericons':
+                    this.headerIconTemplate = item.template;
                     break;
 
                 default:
@@ -216,7 +236,7 @@ export class Panel implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
     exports: [Panel, SharedModule],
     declarations: [Panel]
 })

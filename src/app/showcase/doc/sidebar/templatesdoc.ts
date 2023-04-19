@@ -25,6 +25,10 @@ import { Component, Input } from '@angular/core';
                         <td>footer</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>closeicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

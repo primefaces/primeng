@@ -17,6 +17,14 @@ import { Component, Input } from '@angular/core';
                         <td>content</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>$implicit: style class of the icon.</td>
+                    </tr>
+                    <tr>
+                        <td>loadingicon</td>
+                        <td>$implicit: style class of the loading icon.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

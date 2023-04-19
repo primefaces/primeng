@@ -3,6 +3,8 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { TimesIcon } from 'primeng/icons/times';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -18,7 +20,12 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let item of value; let i = index" class="p-chips-token" (click)="onItemClick($event, item)">
                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                     <span *ngIf="!itemTemplate" class="p-chips-token-label">{{ field ? resolveFieldData(item, field) : item }}</span>
-                    <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event, i)"></span>
+                    <ng-container *ngIf="!disabled">
+                        <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" />
+                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)">
+                            <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </li>
                 <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }">
                     <input
@@ -39,7 +46,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
-                    <i class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()"/>
+                    <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -106,6 +116,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     public itemTemplate: TemplateRef<any>;
 
+    removeTokenIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
     value: any;
 
     onModelChange: Function = () => {};
@@ -125,6 +139,14 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                    break;
+
+                case 'removetokenicon':
+                    this.removeTokenIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
                     break;
 
                 default:
@@ -326,7 +348,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, SharedModule],
+    imports: [CommonModule, InputTextModule, SharedModule, TimesCircleIcon, TimesIcon],
     exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })

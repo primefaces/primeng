@@ -9,6 +9,7 @@ import { ResponsiveDoc } from '../../doc/carousel/responsivedoc';
 import { VerticalDoc } from '../../doc/carousel/verticaldoc';
 import { TemplateDoc } from '../../doc/carousel/templatedoc';
 import { AccessibilityDoc } from '../../doc/carousel/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/carousel/templatesdoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
@@ -68,6 +69,11 @@ export class CarouselDemo {
             id: 'props',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

@@ -21,10 +21,11 @@ import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, InputNumberModule, RouterModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, PropsDoc, MethodsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, NumeralsDoc, LocaleDoc, CurrencyDoc, PrefixSuffixDoc, ButtonsDoc, VerticalDoc, FloatlabelDoc, InvalidDoc, DisabledDoc, PropsDoc, MethodsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
 })
 export class InputNumberDocModule {}

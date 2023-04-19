@@ -15,10 +15,11 @@ import { StyleDoc } from './styledoc';
 import { PropsDoc } from './propsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, AppCodeModule, AppDocModule, CheckboxModule, ReactiveFormsModule],
     exports: [ImportDoc],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, LabelDoc, DynamicDoc, DisabledDoc, StyleDoc, PropsDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
 })
 export class CheckboxDocModule {}

@@ -1,12 +1,19 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PrimeTemplate } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-tag',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            <ng-container *ngIf="!iconTemplate">
+                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            </ng-container>
+            <span class="p-tag-icon" *ngIf="iconTemplate">
+                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+            </span>
             <span class="p-tag-value">{{ value }}</span>
         </span>
     `,
@@ -30,6 +37,20 @@ export class Tag {
 
     @Input() rounded: boolean;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    iconTemplate: TemplateRef<any>;
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     containerClass() {
         return {
             'p-tag p-component': true,
@@ -43,8 +64,8 @@ export class Tag {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Tag],
+    imports: [CommonModule, SharedModule],
+    exports: [Tag, SharedModule],
     declarations: [Tag]
 })
 export class TagModule {}

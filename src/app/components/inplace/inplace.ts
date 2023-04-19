@@ -2,6 +2,7 @@ import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrate
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -32,7 +33,14 @@ export class InplaceContent {}
             <div class="p-inplace-content" *ngIf="active">
                 <ng-content select="[pInplaceContent]"></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                <button type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" *ngIf="closable"></button>
+
+                <ng-container *ngIf="closable">
+                    <button *ngIf="icon" type="button" [icon]="icon" pButton (click)="onDeactivateClick($event)"></button>
+                    <button *ngIf="!icon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
+                        <TimesIcon *ngIf="!closeIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                    </button>
+                </ng-container>
             </div>
         </div>
     `,
@@ -56,7 +64,7 @@ export class Inplace implements AfterContentInit {
 
     @Input() styleClass: string;
 
-    @Input() closeIcon: string = 'pi pi-times';
+    @Input() closeIcon: string;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -70,6 +78,8 @@ export class Inplace implements AfterContentInit {
 
     contentTemplate: TemplateRef<any>;
 
+    closeIconTemplate: TemplateRef<any>;
+
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
@@ -77,6 +87,10 @@ export class Inplace implements AfterContentInit {
             switch (item.getType()) {
                 case 'display':
                     this.displayTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 case 'content':
@@ -120,7 +134,7 @@ export class Inplace implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule],
+    imports: [CommonModule, ButtonModule, SharedModule, TimesIcon],
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent]
 })

@@ -7,6 +7,7 @@ import { ImportDoc } from '../../doc/paginator/importdoc';
 import { PropsDoc } from '../../doc/paginator/propsdoc';
 import { StyleDoc } from '../../doc/paginator/styledoc';
 import { TemplateDoc } from '../../doc/paginator/templatedoc';
+import { TemplatesDoc } from '../../doc/paginator/templatesdoc';
 
 @Component({
     templateUrl: './paginatordemo.html',
@@ -51,6 +52,11 @@ export class PaginatorDemo {
             id: 'properties',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'events',

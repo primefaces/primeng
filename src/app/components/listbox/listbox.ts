@@ -25,6 +25,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
+import { SearchIcon } from 'primeng/icons/search';
+import { CheckIcon } from 'primeng/icons/check';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -51,7 +53,12 @@ export interface ListboxFilterOptions {
                         <input type="checkbox" readonly="readonly" [checked]="allChecked" (focus)="onHeaderCheckboxFocus()" (blur)="onHeaderCheckboxBlur()" (keydown.space)="toggleAll($event)" [disabled]="disabled || toggleAllDisabled" />
                     </div>
                     <div #headerchkbox class="p-checkbox-box" [ngClass]="{ 'p-highlight': allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }" (click)="toggleAll($event)">
-                        <span class="p-checkbox-icon" [ngClass]="{ 'pi pi-check': allChecked }"></span>
+                        <ng-container *ngIf="allChecked">
+                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                        </span>
+                        </ng-container>
                     </div>
                 </div>
                 <ng-container *ngIf="filterTemplate; else builtInFilterElement">
@@ -69,7 +76,10 @@ export interface ListboxFilterOptions {
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
                         />
-                        <span class="p-listbox-filter-icon pi pi-search"></span>
+                        <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'"/>
+                        <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon">
+                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                        </span>
                     </div>
                 </ng-template>
             </div>
@@ -103,7 +113,12 @@ export interface ListboxFilterOptions {
                         >
                             <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{ 'p-checkbox-disabled': disabled || isOptionDisabled(option) }">
                                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(option) }">
-                                    <span class="p-checkbox-icon" [ngClass]="{ 'pi pi-check': isSelected(option) }"></span>
+                                    <ng-container *ngIf="isSelected(option)">
+                                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                                        </span>
+                                    </ng-container>
                                 </div>
                             </div>
                             <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
@@ -221,6 +236,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     public emptyTemplate: TemplateRef<any>;
 
+    filterIconTemplate: TemplateRef<any>;
+
+    checkIconTemplate: TemplateRef<any>;
+
     public _filterValue: string;
 
     public _filteredOptions: any[];
@@ -306,6 +325,14 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
                 case 'emptyfilter':
                     this.emptyFilterTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
+                    break;
+
+                case 'checkicon':
+                    this.checkIconTemplate = item.template;
                     break;
 
                 default:
@@ -759,7 +786,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, SearchIcon, CheckIcon],
     exports: [Listbox, SharedModule],
     declarations: [Listbox]
 })

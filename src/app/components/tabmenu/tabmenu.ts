@@ -25,6 +25,8 @@ import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 
 @Component({
     selector: 'p-tabMenu',
@@ -32,7 +34,8 @@ import { TooltipModule } from 'primeng/tooltip';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <span class="pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
@@ -103,7 +106,8 @@ import { TooltipModule } from 'primeng/tooltip';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <span class="pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -144,6 +148,10 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     itemTemplate: TemplateRef<any>;
 
+    previousIconTemplate: TemplateRef<any>;
+
+    nextIconTemplate: TemplateRef<any>;
+
     tabChanged: boolean;
 
     backwardIsDisabled: boolean = true;
@@ -159,6 +167,14 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 default:
@@ -307,7 +323,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon],
     exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu]
 })

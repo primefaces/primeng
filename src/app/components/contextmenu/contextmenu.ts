@@ -1,13 +1,35 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ContextMenuService, MenuItem, PrimeNGConfig } from 'primeng/api';
+import { ContextMenuService, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -45,7 +67,12 @@ import { takeUntil } from 'rxjs/operators';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -72,7 +99,12 @@ import { takeUntil } from 'rxjs/operators';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
                     </a>
                     <p-contextMenuSub [parentItemKey]="getKey(index)" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
                 </li>
@@ -263,6 +295,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     preventDocumentDefault: boolean = false;
 
     private window: Window;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;
@@ -661,8 +697,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [ContextMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleRightIcon],
+    exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [ContextMenu, ContextMenuSub],
     providers: [ContextMenuService]
 })

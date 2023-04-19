@@ -26,11 +26,13 @@
     OTHER DEALINGS IN THE SOFTWARE.
 */
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
+import { TimesIcon } from 'primeng/icons/times';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -70,7 +72,14 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
         />
-        <i *ngIf="value != null && filled && showClear && !disabled" class="p-inputmask-clear-icon pi pi-times" (click)="clear()"></i>
+        <ng-container  *ngIf="value != null && filled && showClear && !disabled">
+            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()"/>
+            <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()">
+                <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+            </span>
+            
+        </ng-container>
+
     `,
     host: {
         class: 'p-element',
@@ -144,6 +153,10 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     @Output() onClear: EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
     value: any;
 
     _mask: string;
@@ -191,6 +204,16 @@ export class InputMask implements OnInit, ControlValueAccessor {
         }
 
         this.initMask();
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     @Input() get mask(): string {
@@ -691,8 +714,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, AutoFocusModule],
-    exports: [InputMask],
+    imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon],
+    exports: [InputMask, SharedModule],
     declarations: [InputMask]
 })
 export class InputMaskModule {}

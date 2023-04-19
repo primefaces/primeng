@@ -79,13 +79,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>expandIcon</td>
                         <td>string</td>
-                        <td>pi pi-fw pi-chevron-right</td>
+                        <td>null</td>
                         <td>Icon of a collapsed tab.</td>
                     </tr>
                     <tr>
                         <td>collapseIcon</td>
                         <td>string</td>
-                        <td>pi pi-fw pi-chevron-down</td>
+                        <td>null</td>
                         <td>Icon of an expanded tab.</td>
                     </tr>
                 </tbody>

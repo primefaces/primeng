@@ -29,6 +29,25 @@ import { Component, Input } from '@angular/core';
                         <td>loader</td>
                         <td>options: Options of the scroller on loading. *This template can be used with virtualScroll.</td>
                     </tr>
+                    <tr>
+                        <td>togglericon</td>
+                        <td>$implicit: Expanded state of tree node.</td>
+                    </tr>
+                    <tr>
+                        <td>checkboxicon</td>
+                        <td>
+                            $implicit: Selected state. <br />
+                            partialSelected: Whether the node is partial selected or not.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>loadingicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>filtericon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

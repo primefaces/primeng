@@ -4,7 +4,8 @@ import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { DomHandler } from 'primeng/dom';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-megaMenu',
@@ -40,7 +41,11 @@ import { DomHandler } from 'primeng/dom';
                             <span class="p-menuitem-text" *ngIf="category.escape !== false; else categoryHtmlLabel">{{ category.label }}</span>
                             <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
-                            <span *ngIf="category.items" class="p-submenu-icon pi" [ngClass]="{ 'pi-angle-down': orientation == 'horizontal', 'pi-angle-right': orientation == 'vertical' }"></span>
+                            <ng-container *ngIf="!submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                         </a>
                         <a
                             *ngIf="category.routerLink"
@@ -179,6 +184,8 @@ export class MegaMenu implements AfterContentInit {
 
     endTemplate: TemplateRef<any>;
 
+    submenuIconTemplate: TemplateRef<any>;
+
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
@@ -186,6 +193,10 @@ export class MegaMenu implements AfterContentInit {
             switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
                     break;
 
                 case 'end':
@@ -305,7 +316,7 @@ export class MegaMenu implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu]
 })

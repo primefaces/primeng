@@ -17,6 +17,10 @@ import { Component, Input } from '@angular/core';
                         <td>content</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>dropdownicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

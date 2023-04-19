@@ -26,6 +26,10 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
+                        <td>headericons</td>
+                        <td>$implicit: collapsed</td>
+                    </tr>
+                    <tr>
                         <td>footer</td>
                         <td>-</td>
                     </tr>

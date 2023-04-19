@@ -13,6 +13,7 @@ import { PropsDoc } from '../../doc/inputmask/propsdoc';
 import { ReactiveFormsDoc } from '../../doc/inputmask/reactiveformsdoc';
 import { SlotCharDoc } from '../../doc/inputmask/slotchardoc';
 import { StyleDoc } from '../../doc/inputmask/styledoc';
+import { TemplatesDoc } from '../../doc/inputmask/templatesdoc';
 
 @Component({
     templateUrl: './inputmaskdemo.html'
@@ -91,6 +92,11 @@ export class InputMaskDemo {
             id: 'methods',
             label: 'Methods',
             component: MethodsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }
