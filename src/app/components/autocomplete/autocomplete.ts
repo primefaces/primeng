@@ -402,8 +402,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
 
-    overlay: HTMLDivElement;
-
     itemsWrapper: HTMLDivElement;
 
     itemTemplate: TemplateRef<any>;
@@ -513,7 +511,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         if (this.highlightOptionChanged) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    if (this.overlay && this.itemsWrapper) {
+                    if (this.overlayViewChild && this.itemsWrapper) {
                         let listItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
 
                         if (listItem) {
