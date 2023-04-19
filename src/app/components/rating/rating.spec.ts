@@ -2,6 +2,9 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Rating } from './rating';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StarFillIcon } from 'primeng/icons/starfill';
+import { StarIcon } from 'primeng/icons/star';
+import { BanIcon } from 'primeng/icons/ban';
 
 describe('Rating', () => {
     let rating: Rating;
@@ -9,7 +12,7 @@ describe('Rating', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, StarIcon, StarFillIcon, BanIcon],
             declarations: [Rating]
         });
 
@@ -67,7 +70,7 @@ describe('Rating', () => {
         fixture.detectChanges();
 
         const thirdStarEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[3].nativeElement;
-        thirdStarEl.click();
+        thirdStarEl.parentElement.click();
         fixture.detectChanges();
 
         expect(rating.value).toEqual(3);
@@ -82,8 +85,8 @@ describe('Rating', () => {
         const cancelEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[0].nativeElement;
         rating.onRate.subscribe((value) => (onRateValue = value));
         rating.onCancel.subscribe((value) => (onCancelRate = value));
-        thirdStarEl.click();
-        cancelEl.click();
+        thirdStarEl.parentElement.click();
+        cancelEl.parentElement.click();
         fixture.detectChanges();
 
         expect(onRateValue.value).toEqual(3);
@@ -95,8 +98,8 @@ describe('Rating', () => {
 
         const thirdStarEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[3].nativeElement;
         const cancelEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[0].nativeElement;
-        thirdStarEl.click();
-        cancelEl.click();
+        thirdStarEl.parentElement.click();
+        cancelEl.parentElement.click();
         fixture.detectChanges();
 
         expect(rating.value).toEqual(null);
