@@ -21,7 +21,7 @@ import {
     Inject,
     AfterViewInit,
     NgZone,
-    Self
+    Self,
     PLATFORM_ID
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
