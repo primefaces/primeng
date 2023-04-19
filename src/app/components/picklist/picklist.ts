@@ -356,7 +356,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     @Input() get breakpoint(): string {
         return this._breakpoint;
-    };
+    }
 
     set breakpoint(value: string) {
         if (value !== this._breakpoint) {
@@ -479,7 +479,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     window: Window;
 
     media: MediaQueryList | null;
-    
+
     viewChanged: boolean;
 
     mediaChangeListener: VoidFunction | null;
@@ -1078,7 +1078,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     initMedia() {
-        if (isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             this.media = this.window.matchMedia(`(max-width: ${this.breakpoint})`);
             this.viewChanged = this.media.matches;
             this.bindMediaChangeListener();
@@ -1090,16 +1090,16 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     bindMediaChangeListener() {
-        if(this.media && !this.mediaChangeListener) {
+        if (this.media && !this.mediaChangeListener) {
             this.mediaChangeListener = this.renderer.listen(this.media, 'change', (event) => {
                 this.viewChanged = event.matches;
                 this.cd.markForCheck();
-            })
+            });
         }
     }
 
     unbindMediaChangeListener() {
-        if(this.mediaChangeListener) {
+        if (this.mediaChangeListener) {
             this.mediaChangeListener();
             this.mediaChangeListener = null;
         }
