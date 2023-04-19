@@ -8,7 +8,6 @@
 
 **Implemented New Features and Enhancements:**
 - Improve icon implementation in core [\#12839](https://github.com/primefaces/primeng/issues/12839)
-- TabView: Next-button occurs also if nothing is to scroll [\#11684](https://github.com/primefaces/primeng/issues/11684)
 - All: Add zone.js 0.13.0 support [\#12851](https://github.com/primefaces/primeng/issues/12851)
 - Table / EditableColumn: onEditComplete emitted event data is wrong [\#12822](https://github.com/primefaces/primeng/issues/12822)
 - Textarea does not create new line when used in Datatable celleditor, instead completes edit mode [\#10458](https://github.com/primefaces/primeng/issues/10458)
