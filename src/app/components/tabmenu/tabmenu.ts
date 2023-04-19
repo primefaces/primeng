@@ -1,10 +1,32 @@
-import { NgModule, Component, Input, ContentChildren, QueryList, AfterContentInit, AfterViewInit, AfterViewChecked, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
-import { PrimeTemplate, SharedModule, MenuItem } from 'primeng/api';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 
 @Component({
     selector: 'p-tabMenu',
@@ -12,7 +34,8 @@ import { TooltipModule } from 'primeng/tooltip';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <span class="pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabmenu-nav p-reset" role="tablist">
@@ -44,6 +67,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
@@ -73,6 +97,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
                                 </ng-container>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
@@ -81,7 +106,8 @@ import { TooltipModule } from 'primeng/tooltip';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <span class="pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -97,6 +123,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     @Input() model: MenuItem[];
 
     @Input() activeItem: MenuItem;
+
+    @Output() activeItemChange = new EventEmitter<MenuItem>();
 
     @Input() scrollable: boolean;
 
@@ -120,21 +148,33 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     itemTemplate: TemplateRef<any>;
 
+    previousIconTemplate: TemplateRef<any>;
+
+    nextIconTemplate: TemplateRef<any>;
+
     tabChanged: boolean;
 
     backwardIsDisabled: boolean = true;
 
     forwardIsDisabled: boolean = false;
 
-    private timerIdForInitialAutoScroll: number | null = null;
+    private timerIdForInitialAutoScroll: any = null;
 
-    constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
                     break;
 
                 default:
@@ -145,9 +185,11 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     ngAfterViewInit(): void {
-        this.updateInkBar();
-        this.initAutoScrollForActiveItem();
-        this.initButtonState();
+        if (isPlatformBrowser(this.platformId)) {
+            this.updateInkBar();
+            this.initAutoScrollForActiveItem();
+            this.initButtonState();
+        }
     }
 
     ngAfterViewChecked() {
@@ -165,7 +207,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         if (item.routerLink) {
             const routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
-            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), false);
+            return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), item.routerLinkActiveOptions?.exact ?? item.routerLinkActiveOptions ?? false);
         }
 
         return item === this.activeItem;
@@ -189,6 +231,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         }
 
         this.activeItem = item;
+        this.activeItemChange.emit(item);
         this.tabChanged = true;
     }
 
@@ -280,7 +323,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule],
+    imports: [CommonModule, RouterModule, SharedModule, RippleModule, TooltipModule, ChevronLeftIcon, ChevronRightIcon],
     exports: [TabMenu, RouterModule, SharedModule, TooltipModule],
     declarations: [TabMenu]
 })

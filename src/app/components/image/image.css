@@ -22,8 +22,12 @@
     transition: opacity .3s;
 }
 
-.p-image-preview-icon {
+.p-image-preview-icon.pi {
     font-size: 1.5rem;
+}
+
+.p-image-preview-icon.p-icon {
+    scale: 1.5;
 }
 
 .p-image-preview-container:hover > .p-image-preview-indicator {

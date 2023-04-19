@@ -1,6 +1,6 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject, TemplateRef, AfterContentInit, QueryList, ContentChildren } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ZIndexUtils } from 'primeng/utils';
@@ -28,25 +28,29 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.rejectIcon"
                     [label]="rejectButtonLabel"
                     (click)="reject()"
                     [ngClass]="'p-confirm-popup-reject p-button-sm'"
                     [class]="confirmation.rejectButtonStyleClass || 'p-button-text'"
                     *ngIf="confirmation.rejectVisible !== false"
                     [attr.aria-label]="rejectButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.rejectIcon" *ngIf="confirmation.rejectIcon; else rejecticon"></i>
+                    <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.acceptIcon"
                     [label]="acceptButtonLabel"
                     (click)="accept()"
                     [ngClass]="'p-confirm-popup-accept p-button-sm'"
                     [class]="confirmation.acceptButtonStyleClass"
                     *ngIf="confirmation.acceptVisible !== false"
                     [attr.aria-label]="acceptButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.acceptIcon" *ngIf="confirmation.acceptIcon; else accepticon"></i>
+                    <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                </button>
             </div>
         </div>
     `,
@@ -77,7 +81,7 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
         class: 'p-element'
     }
 })
-export class ConfirmPopup implements OnDestroy {
+export class ConfirmPopup implements AfterContentInit, OnDestroy {
     @Input() key: string;
 
     @Input() defaultFocus: string = 'accept';
@@ -94,19 +98,25 @@ export class ConfirmPopup implements OnDestroy {
 
     @Input() styleClass: string;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     container: HTMLDivElement;
 
     subscription: Subscription;
 
     confirmation: Confirmation;
 
+    acceptIconTemplate: TemplateRef<any>;
+
+    rejectIconTemplate: TemplateRef<any>;
+
     _visible: boolean;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
     @Input() get visible(): any {
         return this._visible;
@@ -116,7 +126,18 @@ export class ConfirmPopup implements OnDestroy {
         this.cd.markForCheck();
     }
 
-    constructor(public el: ElementRef, private confirmationService: ConfirmationService, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    private window: Window;
+
+    constructor(
+        public el: ElementRef,
+        private confirmationService: ConfirmationService,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        @Inject(DOCUMENT) private document: Document
+    ) {
+        this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
@@ -140,10 +161,24 @@ export class ConfirmPopup implements OnDestroy {
         });
     }
 
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'rejecticon':
+                    this.rejectIconTemplate = item.template;
+                    break;
+
+                case 'accepticon':
+                    this.acceptIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            document.body.appendChild(this.container);
+            this.renderer.appendChild(this.document.body, this.container);
             this.align();
             this.bindListeners();
 
@@ -245,7 +280,7 @@ export class ConfirmPopup implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : document;
+            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 let targetElement = <HTMLElement>this.confirmation.target;
@@ -270,13 +305,14 @@ export class ConfirmPopup implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener) {
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -325,7 +361,7 @@ export class ConfirmPopup implements OnDestroy {
 
     restoreAppend() {
         if (this.container) {
-            document.body.removeChild(this.container);
+            this.renderer.removeChild(this.document.body, this.container);
         }
 
         this.onContainerDestroy();
@@ -349,8 +385,8 @@ export class ConfirmPopup implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule],
-    exports: [ConfirmPopup],
+    imports: [CommonModule, ButtonModule, SharedModule],
+    exports: [ConfirmPopup, SharedModule],
     declarations: [ConfirmPopup]
 })
 export class ConfirmPopupModule {}

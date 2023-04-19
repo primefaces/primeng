@@ -32,6 +32,9 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -57,7 +60,7 @@ export interface DropdownFilterOptions {
             [id]="selected ? 'p-highlighted-option' : ''"
             [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled }"
         >
-            <span *ngIf="!template">{{ label || 'empty' }}</span>
+            <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -69,6 +72,7 @@ export class DropdownItem {
     @Input() option: SelectItem;
 
     @Input() selected: boolean;
+    _label: string;
 
     @Input() label: string;
 
@@ -150,10 +154,25 @@ export class DropdownItem {
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
+
+            <ng-container *ngIf="isVisibleClearIcon">
+                <TimesIcon [styleClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" />
+                <span class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+           
+
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
+                <ng-container *ngIf="!dropdownIconTemplate">
+                    <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                </ng-container>
+                <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </span>
             </div>
+            
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -189,7 +208,10 @@ export class DropdownItem {
                                         [attr.aria-label]="ariaFilterLabel"
                                         [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
                                     />
-                                    <span class="p-dropdown-filter-icon pi pi-search"></span>
+                                    <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-dropdown-filter-icon'" />
+                                    <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
+                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                    </span>
                                 </div>
                             </ng-template>
                         </div>
@@ -319,7 +341,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @Input() resetFilterOnHide: boolean = false;
 
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+    @Input() dropdownIcon: string;
 
     @Input() optionLabel: string;
 
@@ -496,6 +518,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     emptyTemplate: TemplateRef<any>;
 
+    dropdownIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
+    filterIconTemplate: TemplateRef<any>;
+
     filterOptions: DropdownFilterOptions;
 
     selectedOption: any;
@@ -587,6 +615,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     this.loaderTemplate = item.template;
                     break;
 
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
@@ -646,6 +686,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get label(): string {
+        if (typeof this.selectedOption === 'number') {
+            this.selectedOption = this.selectedOption.toString();
+        }
+
         return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null;
     }
 
@@ -734,9 +778,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -838,7 +882,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
             this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1281,7 +1325,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon],
     exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
     declarations: [Dropdown, DropdownItem]
 })

@@ -1,6 +1,9 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { CheckIcon } from 'primeng/icons/check';
+import { TimesIcon } from 'primeng/icons/times';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -30,8 +33,25 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 />
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, input)" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
-                <span class="p-checkbox-icon" [ngClass]="value === true ? checkboxTrueIcon : value === false ? checkboxFalseIcon : ''"></span>
-            </div>
+                <ng-container *ngIf="value === true">
+                    <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
+                    <ng-container *ngIf="!checkboxTrueIcon">
+                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate"/>
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="value === false">
+                    <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon"></span>
+                    <ng-container *ngIf="!checkboxFalseIcon">
+                        <TimesIcon [styleClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" />
+                        <span class="p-checkbox-icon" *ngIf="uncheckIconTemplate">
+                            <ng-template *ngTemplateOutlet="uncheckIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-container>
+        </div>
         </div>
         <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
@@ -63,11 +83,17 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     @Input() readonly: boolean;
 
-    @Input() checkboxTrueIcon: string = 'pi pi-check';
+    @Input() checkboxTrueIcon: string;
 
-    @Input() checkboxFalseIcon: string = 'pi pi-times';
+    @Input() checkboxFalseIcon: string;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    checkIconTemplate: TemplateRef<any>;
+
+    uncheckIconTemplate: TemplateRef<any>;
 
     focused: boolean;
 
@@ -110,6 +136,20 @@ export class TriStateCheckbox implements ControlValueAccessor {
         });
     }
 
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'checkicon':
+                    this.checkIconTemplate = item.template;
+                    break;
+
+                case 'uncheckicon':
+                    this.uncheckIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     onFocus() {
         this.focused = true;
     }
@@ -139,8 +179,8 @@ export class TriStateCheckbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [TriStateCheckbox],
+    imports: [CommonModule, SharedModule, CheckIcon, TimesIcon],
+    exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
 export class TriStateCheckboxModule {}

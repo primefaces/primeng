@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Menubar, MenubarModule, MenubarSub } from './menubar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Menubar, MenubarModule, MenubarService, MenubarSub } from './menubar';
 
 describe('Menubar', () => {
     let menubar: Menubar;
@@ -10,7 +10,8 @@ describe('Menubar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: Menubar }]), MenubarModule]
+            imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: Menubar }]), MenubarModule],
+            providers: [MenubarService]
         });
 
         fixture = TestBed.createComponent(Menubar);
@@ -123,46 +124,9 @@ describe('Menubar', () => {
         firstParentEl.nativeElement.dispatchEvent(new Event('click'));
         fixture.detectChanges();
 
-        expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
-        expect(secondParentEl.parent.nativeElement.className).not.toContain('p-menuitem-active');
+        expect(firstParentEl.parent.nativeElement.classList.contains('p-menuitem-active')).toBe(true);
+        expect(secondParentEl.parent.nativeElement.classList.contains('p-menuitem-active')).toBe(false);
     });
-
-    it('should call onItemMouseLeave and not close firstParentMenu', fakeAsync(() => {
-        menubar.model = [
-            {
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus'
-                    },
-                    { label: 'Open' },
-                    { separator: true },
-                    { label: 'Quit' }
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-                    { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-                ]
-            }
-        ];
-        fixture.detectChanges();
-
-        const parentEl = fixture.debugElement.query(By.css('.p-menubar-root-list'));
-        const firstParentEl = parentEl.query(By.css('.p-menuitem-link'));
-        firstParentEl.nativeElement.dispatchEvent(new Event('click'));
-        fixture.detectChanges();
-
-        firstParentEl.nativeElement.dispatchEvent(new Event('mouseleave'));
-        fixture.detectChanges();
-
-        expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
-    }));
 
     it('should call itemClick', () => {
         menubar.model = [
@@ -240,7 +204,7 @@ describe('Menubar', () => {
 
         expect(firstParentEl.componentInstance.activeItem).toBeFalsy();
         expect(onItemMouseEnterSpy).toHaveBeenCalled();
-        expect(firstParentEl.parent.nativeElement.className).not.toContain('p-menuitem-active');
+        expect(firstParentEl.parent.nativeElement.classList).not.toContain('p-menuitem-active');
     });
 
     it('should call onItemMouseLeave and not close firstParentMenu', fakeAsync(() => {
@@ -277,8 +241,8 @@ describe('Menubar', () => {
         firstParentEl.nativeElement.dispatchEvent(new Event('mouseleave'));
         tick(300);
         fixture.detectChanges();
-
-        expect(firstParentEl.parent.nativeElement.className).toContain('p-menuitem-active');
+        expect(firstParentEl.parent.nativeElement.classList.contains('p-menuitem-active')).toBe(true);
+        flush();
     }));
 
     it('should call itemClick and bindEventListener', () => {

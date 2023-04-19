@@ -11,7 +11,11 @@ import { DomHandler } from 'primeng/dom';
 export class Animate implements AfterViewInit {
     @Input() enterClass: string;
 
+    @Input() leaveClass: string;
+
     observer: IntersectionObserver;
+
+    timeout: any;
 
     constructor(private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
 
@@ -42,7 +46,15 @@ export class Animate implements AfterViewInit {
 
     leave() {
         DomHandler.removeClass(this.host.nativeElement, this.enterClass);
-        this.host.nativeElement.style.visibility = 'hidden';
+        if (this.leaveClass) {
+            DomHandler.addClass(this.host.nativeElement, this.leaveClass);
+        }
+
+        const animationDuration = this.host.nativeElement.style.animationDuration || 500;
+
+        this.timeout = setTimeout(() => {
+            this.host.nativeElement.style.visibility = 'hidden';
+        }, animationDuration);
     }
 
     unbindIntersectionObserver() {
@@ -53,6 +65,7 @@ export class Animate implements AfterViewInit {
 
     ngOnDestroy() {
         this.unbindIntersectionObserver();
+        clearTimeout(this.timeout);
     }
 }
 

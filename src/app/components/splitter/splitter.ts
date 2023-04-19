@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 
@@ -78,13 +78,13 @@ export class Splitter {
 
     dragging = false;
 
-    mouseMoveListener = null;
+    mouseMoveListener: VoidFunction | null;
 
-    mouseUpListener = null;
+    mouseUpListener: VoidFunction | null;
 
-    touchMoveListener = null;
+    touchMoveListener: VoidFunction | null;
 
-    touchEndListener = null;
+    touchEndListener: VoidFunction | null;
 
     size = null;
 
@@ -104,7 +104,11 @@ export class Splitter {
 
     prevPanelIndex = null;
 
-    constructor(public cd: ChangeDetectorRef, private el: ElementRef) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.nested = this.isNested();
@@ -126,7 +130,7 @@ export class Splitter {
     ngAfterViewInit() {
         if (this.panels && this.panels.length) {
             let initialized = false;
-            if (this.isStateful()) {
+            if (this.isStateful() && isPlatformBrowser(this.platformId)) {
                 initialized = this.restoreState();
             }
 
@@ -223,54 +227,54 @@ export class Splitter {
 
     bindMouseListeners() {
         if (!this.mouseMoveListener) {
-            this.mouseMoveListener = (event) => this.onResize(event);
-            document.addEventListener('mousemove', this.mouseMoveListener);
+            this.mouseMoveListener = this.renderer.listen(this.document, 'mousemove', (event) => {
+                this.onResize(event);
+            });
         }
 
         if (!this.mouseUpListener) {
-            this.mouseUpListener = (event) => {
+            this.mouseUpListener = this.renderer.listen(this.document, 'mouseup', (event) => {
                 this.resizeEnd(event);
                 this.unbindMouseListeners();
-            };
-            document.addEventListener('mouseup', this.mouseUpListener);
+            });
         }
     }
 
     bindTouchListeners() {
         if (!this.touchMoveListener) {
-            this.touchMoveListener = (event) => this.onResize(event.changedTouches[0]);
-            document.addEventListener('touchmove', this.touchMoveListener);
+            this.touchMoveListener = this.renderer.listen(this.document, 'touchmove', (event) => {
+                this.onResize(event.changedTouches[0]);
+            });
         }
 
         if (!this.touchEndListener) {
-            this.touchEndListener = (event) => {
+            this.touchEndListener = this.renderer.listen(this.document, 'touchend', (event) => {
                 this.resizeEnd(event);
                 this.unbindTouchListeners();
-            };
-            document.addEventListener('touchend', this.touchEndListener);
+            });
         }
     }
 
     unbindMouseListeners() {
         if (this.mouseMoveListener) {
-            document.removeEventListener('mousemove', this.mouseMoveListener);
+            this.mouseMoveListener();
             this.mouseMoveListener = null;
         }
 
         if (this.mouseUpListener) {
-            document.removeEventListener('mouseup', this.mouseUpListener);
+            this.mouseUpListener();
             this.mouseUpListener = null;
         }
     }
 
     unbindTouchListeners() {
         if (this.touchMoveListener) {
-            document.removeEventListener('touchmove', this.touchMoveListener);
+            this.touchMoveListener();
             this.touchMoveListener = null;
         }
 
         if (this.touchEndListener) {
-            document.removeEventListener('touchend', this.touchEndListener);
+            this.touchEndListener();
             this.touchEndListener = null;
         }
     }
@@ -305,15 +309,19 @@ export class Splitter {
     }
 
     getStorage() {
-        switch (this.stateStorage) {
-            case 'local':
-                return window.localStorage;
+        if (isPlatformBrowser(this.platformId)) {
+            switch (this.stateStorage) {
+                case 'local':
+                    return this.window.localStorage;
 
-            case 'session':
-                return window.sessionStorage;
+                case 'session':
+                    return this.window.sessionStorage;
 
-            default:
-                throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+                default:
+                    throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
+            }
+        } else {
+            throw new Error('Storage is not a available by default on the server.');
         }
     }
 

@@ -1,0 +1,11 @@
+{
+    "id": 50,
+    "content": "🚀 Introducing PrimeNG Long Term Support",
+    "linkText": "Learn More",
+    "linkHref": "https://primeng.org/lts",
+    "backgroundStyle": "background-color:#3B82F6",
+    "textStyle": "color:#ffffff;font-weight:500",
+    "linkStyle": "color:#ffffff;font-weight:700",
+    "linkHoverStyle": "text-decoration: underline"
+}
+

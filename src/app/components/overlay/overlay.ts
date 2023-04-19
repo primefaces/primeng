@@ -1,9 +1,8 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -12,8 +11,10 @@ import {
     Inject,
     Input,
     NgModule,
+    NgZone,
     OnDestroy,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -266,6 +267,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     documentResizeListener: any;
 
+    private documentKeyboardListener: VoidFunction | null;
+
     private window: Window | null;
 
     protected transformOptions: any = {
@@ -286,18 +289,20 @@ export class Overlay implements AfterContentInit, OnDestroy {
     };
 
     get modal() {
-        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+        if (isPlatformBrowser(this.platformId)) {
+            return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+        }
     }
 
     get overlayMode() {
         return this.mode || (this.modal ? 'modal' : 'overlay');
     }
 
-    get overlayOptions() {
+    get overlayOptions(): OverlayOptions {
         return { ...this.config?.overlayOptions, ...this.options }; // TODO: Improve performance
     }
 
-    get overlayResponsiveOptions() {
+    get overlayResponsiveOptions(): ResponsiveOverlayOptions {
         return { ...this.overlayOptions?.responsive, ...this.responsive }; // TODO: Improve performance
     }
 
@@ -317,7 +322,15 @@ export class Overlay implements AfterContentInit, OnDestroy {
         return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        private zone: NgZone
+    ) {
         this.window = this.document.defaultView;
     }
 
@@ -344,11 +357,14 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
-        this.onVisibleChange(false);
-        this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-
-        isFocus && DomHandler.focus(this.targetEl);
-        this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+        if (!this.visible) {
+            return;
+        } else {
+            this.onVisibleChange(false);
+            this.handleEvents('onHide', { overlay: overlay || this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+            isFocus && DomHandler.focus(this.targetEl);
+            this.modal && DomHandler.removeClass(this.document?.body, 'p-overflow-hidden');
+        }
     }
 
     alignOverlay() {
@@ -360,7 +376,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.visibleChange.emit(visible);
     }
 
-    onOverlayClick() {
+    onOverlayClick(event) {
         this.isOverlayClicked = true;
     }
 
@@ -432,12 +448,14 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.bindScrollListener();
         this.bindDocumentClickListener();
         this.bindDocumentResizeListener();
+        this.bindDocumentKeyboardListener();
     }
 
     unbindListeners() {
         this.unbindScrollListener();
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
+        this.unbindDocumentKeyboardListener();
     }
 
     bindScrollListener() {
@@ -480,7 +498,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
-            this.documentResizeListener = this.renderer.listen('window', 'resize', (event) => {
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
                 const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
@@ -492,6 +510,35 @@ export class Overlay implements AfterContentInit, OnDestroy {
         if (this.documentResizeListener) {
             this.documentResizeListener();
             this.documentResizeListener = null;
+        }
+    }
+
+    bindDocumentKeyboardListener(): void {
+        if (this.documentKeyboardListener) {
+            return;
+        }
+
+        this.zone.runOutsideAngular(() => {
+            this.documentKeyboardListener = this.renderer.listen(this.window, 'keydown', (event) => {
+                if (!this.overlayOptions.hideOnEscape || event.keyCode !== 27) {
+                    return;
+                }
+
+                const valid = this.listener ? this.listener(event, { type: 'keydown', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
+
+                if (valid) {
+                    this.zone.run(() => {
+                        this.hide(event, true);
+                    });
+                }
+            });
+        });
+    }
+
+    unbindDocumentKeyboardListener(): void {
+        if (this.documentKeyboardListener) {
+            this.documentKeyboardListener();
+            this.documentKeyboardListener = null;
         }
     }
 

@@ -25,6 +25,9 @@ import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { TimesIcon } from 'primeng/icons/times';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -45,7 +48,10 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         <ng-template #defaultOptionTemplate>
                             <span class="p-cascadeselect-item-text">{{ getOptionLabelToRender(option) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon pi pi-angle-right" *ngIf="isOptionGroup(option)"></span>
+                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(option)">
+                            <AngleRightIcon *ngIf="!groupIconTemplate"/>
+                            <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
+                        </span>
                     </div>
                     <p-cascadeSelectSub
                         *ngIf="isOptionGroup(option) && isOptionActive(option)"
@@ -79,6 +85,8 @@ export class CascadeSelectSub implements OnInit {
     @Input() optionGroupChildren: any[];
 
     @Input() optionTemplate: TemplateRef<any>;
+
+    @Input() groupIconTemplate: TemplateRef<any>;
 
     @Input() level: number = 0;
 
@@ -299,9 +307,19 @@ export class CascadeSelectSub implements OnInit {
                     {{ label() }}
                 </ng-template>
             </span>
-            <i *ngIf="filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+
+            <ng-container *ngIf="filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)"/>
+                <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
+                <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate;"></ng-template>
+                </span>
             </div>
             <p-overlay
                 #overlay
@@ -328,6 +346,7 @@ export class CascadeSelectSub implements OnInit {
                                 [optionValue]="optionValue"
                                 [level]="0"
                                 [optionTemplate]="optionTemplate"
+                                [groupIconTemplate]="groupIconTemplate"
                                 [optionGroupLabel]="optionGroupLabel"
                                 [optionGroupChildren]="optionGroupChildren"
                                 (onSelect)="onOptionSelect($event)"
@@ -456,6 +475,12 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     optionTemplate: TemplateRef<any>;
 
+    triggerIconTemplate: TemplateRef<any>;
+
+    groupIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
@@ -472,8 +497,21 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 case 'value':
                     this.valueTemplate = item.template;
                     break;
+
                 case 'option':
                     this.optionTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'optiongroupicon':
+                    this.groupIconTemplate = item.template;
                     break;
             }
         });
@@ -672,7 +710,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

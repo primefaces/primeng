@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Inplace } from './inplace';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from '../button/button';
+import { TimesIcon } from 'primeng/icons/times';
 
 describe('Inplace', () => {
     let inplace: Inplace;
@@ -10,7 +11,7 @@ describe('Inplace', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ButtonModule],
+            imports: [NoopAnimationsModule, ButtonModule, TimesIcon],
             declarations: [Inplace]
         });
 

@@ -1,11 +1,49 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Injectable,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ZIndexUtils } from 'primeng/utils';
 import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { debounce, filter, interval, Subject, Subscription } from 'rxjs';
+import { BarsIcon } from 'primeng/icons/bars';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+
+@Injectable()
+export class MenubarService {
+    autoHide: boolean;
+
+    autoHideDelay: number;
+
+    readonly mouseLeaves = new Subject<boolean>();
+
+    readonly mouseLeft$ = this.mouseLeaves.pipe(
+        debounce(() => interval(this.autoHideDelay)),
+        filter((mouseLeft) => this.autoHide && mouseLeft)
+    );
+}
 
 @Component({
     selector: 'p-menubarSub',
@@ -33,6 +71,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         role="menuitem"
                         (click)="onItemClick($event, child)"
                         (mouseenter)="onItemMouseEnter($event, child)"
+                        (mouseleave)="onItemMouseLeave($event, child)"
                         [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
                         [attr.tabindex]="child.disabled ? null : '0'"
                         [attr.aria-haspopup]="item.items != null"
@@ -43,7 +82,13 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -59,6 +104,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         role="menuitem"
                         (click)="onItemClick($event, child)"
                         (mouseenter)="onItemMouseEnter($event, child)"
+                        (mouseleave)="onItemMouseLeave($event, child)"
                         [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
                         [fragment]="child.fragment"
                         [queryParamsHandling]="child.queryParamsHandling"
@@ -72,7 +118,13 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-menubarSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()"></p-menubarSub>
                 </li>
@@ -84,7 +136,7 @@ import { TooltipModule } from 'primeng/tooltip';
         class: 'p-element'
     }
 })
-export class MenubarSub implements OnDestroy {
+export class MenubarSub implements OnInit, OnDestroy {
     @Input() item: MenuItem;
 
     @Input() root: boolean;
@@ -112,13 +164,31 @@ export class MenubarSub implements OnDestroy {
 
     _parentActive: boolean;
 
-    documentClickListener: any;
+    documentClickListener: (event?: Event) => void | null;
 
     menuHoverActive: boolean = false;
 
     activeItem: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    mouseLeaveSubscriber: Subscription;
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private menubarService: MenubarService,
+        private menubar: Menubar
+    ) {}
+
+    ngOnInit() {
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
+            this.activeItem = null;
+            this.cd.markForCheck();
+            this.unbindDocumentClickListener();
+        });
+    }
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -154,7 +224,13 @@ export class MenubarSub implements OnDestroy {
         }
     }
 
+    onItemMouseLeave(event, item) {
+        this.menubarService.mouseLeaves.next(true);
+    }
+
     onItemMouseEnter(event, item) {
+        this.menubarService.mouseLeaves.next(false);
+
         if (item.disabled || this.mobileActive) {
             event.preventDefault();
             return;
@@ -181,27 +257,28 @@ export class MenubarSub implements OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.cd.markForCheck();
-                    this.unbindDocumentClickListener();
-                }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.el && !this.el.nativeElement.contains(event.target)) {
+                        this.activeItem = null;
+                        this.cd.markForCheck();
+                        this.unbindDocumentClickListener();
+                    }
+                });
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
 
     ngOnDestroy() {
+        this.mouseLeaveSubscriber.unsubscribe();
         this.unbindDocumentClickListener();
     }
 }
@@ -214,7 +291,8 @@ export class MenubarSub implements OnDestroy {
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
             <a #menubutton tabindex="0" *ngIf="model && model.length > 0" class="p-menubar-button" (click)="toggle($event)">
-                <i class="pi pi-bars"></i>
+                <BarsIcon *ngIf="!menuIconTemplate"/>
+                <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
             </a>
             <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
             <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
@@ -232,9 +310,10 @@ export class MenubarSub implements OnDestroy {
     styleUrls: ['./menubar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [MenubarService]
 })
-export class Menubar implements AfterContentInit, OnDestroy {
+export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -247,6 +326,10 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     @Input() autoDisplay: boolean;
 
+    @Input() autoHide: boolean;
+
+    @Input() autoHideDelay: number = 100;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     @ViewChild('menubutton') menubutton: ElementRef;
@@ -257,11 +340,31 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     endTemplate: TemplateRef<any>;
 
+    menuIconTemplate: TemplateRef<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
     mobileActive: boolean;
 
-    outsideClickListener: any;
+    outsideClickListener: (event?: Event) => void | null;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    mouseLeaveSubscriber: Subscription;
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        private menubarService: MenubarService
+    ) {}
+
+    ngOnInit(): void {
+        this.menubarService.autoHide = this.autoHide;
+        this.menubarService.autoHideDelay = this.autoHideDelay;
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -272,6 +375,14 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
                 case 'end':
                     this.endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this.menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
                     break;
             }
         });
@@ -291,19 +402,20 @@ export class Menubar implements AfterContentInit, OnDestroy {
     }
 
     bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
-                if (
-                    this.mobileActive &&
-                    this.rootmenu.el.nativeElement !== event.target &&
-                    !this.rootmenu.el.nativeElement.contains(event.target) &&
-                    this.menubutton.nativeElement !== event.target &&
-                    !this.menubutton.nativeElement.contains(event.target)
-                ) {
-                    this.hide();
-                }
-            };
-            document.addEventListener('click', this.outsideClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.outsideClickListener) {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (
+                        this.mobileActive &&
+                        this.rootmenu.el.nativeElement !== event.target &&
+                        !this.rootmenu.el.nativeElement.contains(event.target) &&
+                        this.menubutton.nativeElement !== event.target &&
+                        !this.menubutton.nativeElement.contains(event.target)
+                    ) {
+                        this.hide();
+                    }
+                });
+            }
         }
     }
 
@@ -320,18 +432,19 @@ export class Menubar implements AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
+            this.outsideClickListener();
             this.outsideClickListener = null;
         }
     }
 
     ngOnDestroy() {
+        this.mouseLeaveSubscriber.unsubscribe();
         this.unbindOutsideClickListener();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon],
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })

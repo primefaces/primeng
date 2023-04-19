@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 
 type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
+type BadgeSize = 'large' | 'xlarge';
 
 @Directive({
     selector: '[pBadge]',
@@ -22,15 +23,28 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         this._disabled = val;
     }
 
+    @Input() public get size(): BadgeSize {
+        return this._size;
+    }
+    set size(val: BadgeSize) {
+        this._size = val;
+
+        if (this.initialized) {
+            this.setSizeClasses();
+        }
+    }
+
     public _value: string;
 
     public initialized: boolean;
 
     private id: string;
 
-    _disabled: boolean = false;
+    private _disabled: boolean = false;
 
-    constructor(public el: ElementRef) {}
+    private _size: BadgeSize;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
@@ -40,7 +54,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             return null;
         }
 
-        let badge = document.createElement('span');
+        let badge = this.document.createElement('span');
         badge.id = this.id;
         badge.className = 'p-badge p-component';
 
@@ -48,8 +62,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             DomHandler.addClass(badge, 'p-badge-' + this.severity);
         }
 
+        this.setSizeClasses(badge);
+
         if (this.value != null) {
-            badge.appendChild(document.createTextNode(this.value));
+            this.renderer.appendChild(badge, this.document.createTextNode(this.value));
 
             if (String(this.value).length === 1) {
                 DomHandler.addClass(badge, 'p-badge-no-gutter');
@@ -59,7 +75,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         }
 
         DomHandler.addClass(el, 'p-overlay-badge');
-        el.appendChild(badge);
+        this.renderer.appendChild(el, badge);
 
         this.initialized = true;
     }
@@ -88,12 +104,35 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
                 }
 
                 badge.innerHTML = '';
-                badge.appendChild(document.createTextNode(this._value));
+                this.renderer.appendChild(badge, document.createTextNode(this._value));
             }
         }
     }
 
     @Input() severity: string;
+
+    private setSizeClasses(element?: HTMLElement): void {
+        const badge = element ?? this.document.getElementById(this.id);
+
+        if (!badge) {
+            return;
+        }
+
+        if (this._size) {
+            if (this._size === 'large') {
+                DomHandler.addClass(badge, 'p-badge-lg');
+                DomHandler.removeClass(badge, 'p-badge-xl');
+            }
+
+            if (this._size === 'xlarge') {
+                DomHandler.addClass(badge, 'p-badge-xl');
+                DomHandler.removeClass(badge, 'p-badge-lg');
+            }
+        } else {
+            DomHandler.removeClass(badge, 'p-badge-lg');
+            DomHandler.removeClass(badge, 'p-badge-xl');
+        }
+    }
 
     ngOnDestroy() {
         this.initialized = false;
@@ -115,7 +154,7 @@ export class Badge {
 
     @Input() style: any;
 
-    @Input() size: string;
+    @Input() size: BadgeSize;
 
     @Input() severity: string;
 

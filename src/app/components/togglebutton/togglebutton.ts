@@ -1,7 +1,7 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, NgModule, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -26,7 +26,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             pRipple
         >
             <span *ngIf="onIcon || offIcon" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"></span>
-            <span class="p-button-label">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+            <span class="p-button-label" *ngIf="onLabel || offLabel">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],

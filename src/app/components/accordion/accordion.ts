@@ -1,36 +1,41 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    AfterContentInit,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    ChangeDetectorRef,
-    Inject,
-    forwardRef,
-    TemplateRef,
-    ViewRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation
-} from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, PrimeTemplate, BlockableUI } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 let idx: number = 0;
 
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="p-accordion-tab" [ngClass]="{ 'p-accordion-tab-active': selected }">
-            <div class="p-accordion-header" [ngClass]="{ 'p-highlight': selected, 'p-disabled': disabled }">
-                <a role="tab" class="p-accordion-header-link" (click)="toggle($event)" (keydown)="onKeydown($event)" [attr.tabindex]="disabled ? null : 0" [attr.id]="id" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="selected">
-                    <span class="p-accordion-toggle-icon" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+        <div class="p-accordion-tab" [class.p-accordion-tab-active]="selected" [ngClass]="tabStyleClass" [ngStyle]="tabStyle">
+            <div class="p-accordion-header" [class.p-highlight]="selected" [class.p-disabled]="disabled">
+                <a
+                    [ngClass]="headerStyleClass"
+                    [style]="headerStyle"
+                    role="tab"
+                    class="p-accordion-header-link"
+                    (click)="toggle($event)"
+                    (keydown)="onKeydown($event)"
+                    [attr.tabindex]="disabled ? null : 0"
+                    [attr.id]="id"
+                    [attr.aria-controls]="id + '-content'"
+                    [attr.aria-expanded]="selected"
+                >
+                    <ng-container *ngIf="!iconTemplate">
+                        <ng-container *ngIf="selected">
+                            <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
+                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [styleClass]="iconClass"/>
+                        </ng-container>
+                        <ng-container *ngIf="!selected">
+                            <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [styleClass]="iconClass"/>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
@@ -46,7 +51,7 @@ let idx: number = 0;
                 [attr.aria-hidden]="!selected"
                 [attr.aria-labelledby]="id"
             >
-                <div class="p-accordion-content">
+                <div class="p-accordion-content" [ngClass]="contentStyleClass" [ngStyle]="contentStyle">
                     <ng-content></ng-content>
                     <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
                         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -83,6 +88,18 @@ let idx: number = 0;
 export class AccordionTab implements AfterContentInit, OnDestroy {
     @Input() header: string;
 
+    @Input() headerStyle: any;
+
+    @Input() tabStyle: any;
+
+    @Input() contentStyle: any;
+
+    @Input() tabStyleClass: string;
+
+    @Input() headerStyleClass: string;
+
+    @Input() contentStyleClass: string;
+
     @Input() disabled: boolean;
 
     @Input() cache: boolean = true;
@@ -90,6 +107,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    @Input() iconPos: string = 'start';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
@@ -113,6 +132,14 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         }
     }
 
+    get iconClass() {
+        if (this.iconPos === 'end') {
+            return 'p-accordion-toggle-icon-end';
+        } else {
+            return 'p-accordion-toggle-icon';
+        }
+    }
+
     contentTemplate: TemplateRef<any>;
 
     headerTemplate: TemplateRef<any>;
@@ -120,6 +147,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     id: string = `p-accordiontab-${idx++}`;
 
     loaded: boolean;
+
+    iconTemplate: TemplateRef<any>;
 
     accordion: Accordion;
 
@@ -136,6 +165,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 default:
@@ -228,9 +261,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
+    @Input() expandIcon: string;
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
+    @Input() collapseIcon: string;
 
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
@@ -318,7 +351,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })

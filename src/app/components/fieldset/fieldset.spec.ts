@@ -1,7 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Fieldset } from './fieldset';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Fieldset } from './fieldset';
+import { MinusIcon } from 'primeng/icons/minus';
 
 describe('Fieldset', () => {
     let fieldset: Fieldset;
@@ -9,7 +10,7 @@ describe('Fieldset', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, MinusIcon],
             declarations: [Fieldset]
         });
 
@@ -49,5 +50,6 @@ describe('Fieldset', () => {
 
         togglerEl.click();
         expect(fieldset.collapsed).toEqual(false);
+        flush();
     }));
 });

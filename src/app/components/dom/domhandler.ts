@@ -100,7 +100,9 @@ export class DomHandler {
 
     public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
         if (overlay && target) {
-            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+            if (calculateMinWidth) {
+                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+            }
 
             if (appendTo === 'self') {
                 this.relativePosition(overlay, target);
@@ -431,7 +433,9 @@ export class DomHandler {
     }
 
     public static getUserAgent(): string {
-        return navigator.userAgent;
+        if (navigator && this.isClient()) {
+            return navigator.userAgent;
+        }
     }
 
     public static isIE() {
@@ -607,7 +611,7 @@ export class DomHandler {
         let focusableElements = DomHandler.find(
             element,
             `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                [href]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
@@ -615,9 +619,29 @@ export class DomHandler {
 
         let visibleFocusableElements = [];
         for (let focusableElement of focusableElements) {
-            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
         }
         return visibleFocusableElements;
+    }
+
+    public static getNextFocusableElement(element: HTMLElement, reverse = false) {
+        const focusableElements = DomHandler.getFocusableElements(element);
+        let index = 0;
+        if (focusableElements && focusableElements.length > 0) {
+            const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+            if (reverse) {
+                if (focusedIndex == -1 || focusedIndex === 0) {
+                    index = focusableElements.length - 1;
+                } else {
+                    index = focusedIndex - 1;
+                }
+            } else if (focusedIndex != -1 && focusedIndex !== focusableElements.length - 1) {
+                index = focusedIndex + 1;
+            }
+        }
+
+        return focusableElements[index];
     }
 
     static generateZIndex() {
@@ -663,5 +687,9 @@ export class DomHandler {
 
                 return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
         }
+    }
+
+    public static isClient() {
+        return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
     }
 }
