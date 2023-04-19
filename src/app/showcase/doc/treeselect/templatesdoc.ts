@@ -52,18 +52,18 @@ import { Component, Input } from '@angular/core';
                         <td>-</td>
                     </tr>
                     <tr>
-                        <td>treetogglericon</td>
+                        <td>itemtogglericon</td>
                         <td>$implicit: Expanded state of tree node.</td>
                     </tr>
                     <tr>
-                        <td>treecheckboxicon</td>
+                        <td>itemcheckboxicon</td>
                         <td>
                             $implicit: Selected state. <br />
                             partialSelected: Whether the node is partial selected or not.
                         </td>
                     </tr>
                     <tr>
-                        <td>treeloadingicon</td>
+                        <td>itemloadingicon</td>
                         <td>-</td>
                     </tr>
                 </tbody>

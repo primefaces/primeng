@@ -136,13 +136,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                     </ng-template>
                                 </ng-container>
                                 <ng-template pTemplate="togglericon" let-expanded>
-                                    <ng-container *ngTemplateOutlet="treeTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
+                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
                                 <ng-template pTemplate="checkboxicon" let-selected let-partialSelected="partialSelected">
-                                    <ng-container *ngTemplateOutlet="treeCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
                                 </ng-template>
                                 <ng-template pTemplate="loadingicon">
-                                    <ng-container *ngTemplateOutlet="treeLoadingIconTemplate"></ng-container>
+                                    <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
                                 </ng-template>
                             </p-tree>
                         </div>
@@ -304,11 +304,11 @@ export class TreeSelect implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any>;
 
-    treeTogglerIconTemplate: TemplateRef<any>;
+    itemTogglerIconTemplate: TemplateRef<any>;
 
-    treeCheckboxIconTemplate: TemplateRef<any>;
+    itemCheckboxIconTemplate: TemplateRef<any>;
 
-    treeLoadingIconTemplate: TemplateRef<any>;
+    itemLoadingIconTemplate: TemplateRef<any>;
 
     focused: boolean;
 
@@ -373,16 +373,16 @@ export class TreeSelect implements AfterContentInit {
                     this.closeIconTemplate = item.template;
                     break;
 
-                case 'treetogglericon':
-                    this.treeTogglerIconTemplate = item.template;
+                case 'itemtogglericon':
+                    this.itemTogglerIconTemplate = item.template;
                     break;
 
-                case 'treecheckboxicon':
-                    this.treeCheckboxIconTemplate = item.template;
+                case 'itemcheckboxicon':
+                    this.itemCheckboxIconTemplate = item.template;
                     break;
 
-                case 'treeloadingicon':
-                    this.treeLoadingIconTemplate = item.template;
+                case 'itemloadingicon':
+                    this.itemLoadingIconTemplate = item.template;
                     break;
 
                 default: //TODO: @deprecated Used "value" template instead
