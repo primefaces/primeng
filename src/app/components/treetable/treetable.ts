@@ -130,7 +130,23 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="previouspagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="lastpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="nextpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+        </ng-template>
+            </p-paginator>
 
             <div class="p-treetable-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -177,7 +193,23 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+            </p-paginator>
             <div *ngIf="summaryTemplate" class="p-treetable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
@@ -429,6 +461,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     togglerIconTemplate: TemplateRef<any>;
 
+    paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorLastPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorNextPageLinkIconTemplate: TemplateRef<any>;
+
     lastResizerHelperX: number;
 
     reorderIconWidth: number;
@@ -557,6 +597,22 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 case 'togglericon':
                     this.togglerIconTemplate = item.template;
+                    break;
+
+                case 'paginatorfirstpagelinkicon':
+                    this.paginatorFirstPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorlastpagelinkicon':
+                    this.paginatorLastPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorpreviouspagelinkicon':
+                    this.paginatorPreviousPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatornextpagelinkicon':
+                    this.paginatorNextPageLinkIconTemplate = item.template;
                     break;
             }
         });
