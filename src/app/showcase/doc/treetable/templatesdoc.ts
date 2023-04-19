@@ -117,6 +117,22 @@ import { Component, Input } from '@angular/core';
                         <td>togglericon</td>
                         <td>$implicit: rowNode.node.expanded</td>
                     </tr>
+                    <tr>
+                        <td>paginatorfirstpagelinkicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>paginatorlastpagelinkicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>paginatorpreviouspagelinkicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>paginatornextpagelinkicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
