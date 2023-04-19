@@ -1,4 +1,25 @@
 # Changelog
+## [15.4.0](https://github.com/primefaces/primeng/tree/15.4.0) (2023-04-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.3.0...15.4.0)
+
+**Implemented New Features and Enhancements:**
+- Improve icon implementation in core [\#12839](https://github.com/primefaces/primeng/issues/12839)
+- TabView: Next-button occurs also if nothing is to scroll [\#11684](https://github.com/primefaces/primeng/issues/11684)
+- All: Add zone.js 0.13.0 support [\#12851](https://github.com/primefaces/primeng/issues/12851)
+- Table / EditableColumn: onEditComplete emitted event data is wrong [\#12822](https://github.com/primefaces/primeng/issues/12822)
+- Textarea does not create new line when used in Datatable celleditor, instead completes edit mode [\#10458](https://github.com/primefaces/primeng/issues/10458)
+- Deprecate Components [\#12781](https://github.com/primefaces/primeng/issues/12781)
+
+**Fixed bugs:**
+- AutoComplete component is not scrolling on arrow down [\#12883](https://github.com/primefaces/primeng/issues/12883)
+- p-overlay: Overlay component does not resize correctly [\#12769](https://github.com/primefaces/primeng/issues/12769)
+- MegaMenu: at items array item - style or styleClass NOT working [\#12771](https://github.com/primefaces/primeng/issues/12771)
+- InputNumber: Input Number spinner buttons right click indefinitely increments/decrements value [\#12813](https://github.com/primefaces/primeng/issues/12813)
+- TabMenu - field visible [\#12823](https://github.com/primefaces/primeng/issues/12823)
+- PrimeNG Website - Keyboard Copy Command Broken on MacOS [\#12846](https://github.com/primefaces/primeng/issues/12846)
+- MultiSelect | Add gap and text ellipsis to multiselect-chip [\#12842](https://github.com/primefaces/primeng/issues/12842)
+
 ## [15.3.0](https://github.com/primefaces/primeng/tree/15.3.0) (2023-03-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.2.1...15.3.0)
