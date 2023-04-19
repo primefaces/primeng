@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'fontawesome-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p><a href="https://fontawesome.com/i">Font Awesome</a> is a popular icon library with a wide range of icons.</p>
+            <p><a href="https://fontawesome.com/">Font Awesome</a> is a popular icon library with a wide range of icons.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
