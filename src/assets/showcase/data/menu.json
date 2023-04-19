@@ -508,7 +508,7 @@
                 },
                 {
                     "name": "Custom Icons",
-                    "href": "/customicons"
+                    "routerLink": "/customicons"
                 }
             ]
         },
