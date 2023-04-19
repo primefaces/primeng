@@ -30,6 +30,7 @@ import { ThumbnailDoc } from './thumbnaildoc';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, GalleriaModule, FormsModule, ButtonModule, RadioButtonModule, CheckboxModule],
@@ -55,7 +56,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ResponsiveDoc,
         StyleDoc,
         ThumbnailDoc,
-        AccessibilityDoc
+        AccessibilityDoc,
+        TemplatesDoc
     ],
     exports: [AppDocModule]
 })

@@ -1,9 +1,10 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 
 @Component({
     selector: 'p-scrollTop',
@@ -19,7 +20,11 @@ import { PrimeNGConfig } from 'primeng/api';
             [ngStyle]="style"
             type="button"
         >
-            <span [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
+        <ng-container *ngIf="!iconTemplate">
+            <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
+            <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{'font-size': '1rem', 'scale': '1.5'}"/>
+        </ng-container>
+        <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon'}"></ng-template>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,13 +61,17 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     @Input() threshold: number = 400;
 
-    @Input() icon: string = 'pi pi-chevron-up';
+    @Input() icon: string;
 
     @Input() behavior: string = 'smooth';
 
     @Input() showTransitionOptions: string = '.15s';
 
     @Input() hideTransitionOptions: string = '.15s';
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    iconTemplate: TemplateRef<any>;
 
     documentScrollListener: VoidFunction | null;
 
@@ -81,6 +90,16 @@ export class ScrollTop implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.target === 'window') this.bindDocumentScrollListener();
         else if (this.target === 'parent') this.bindParentScrollListener();
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onClick() {
@@ -167,8 +186,8 @@ export class ScrollTop implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ScrollTop],
+    imports: [CommonModule, ChevronUpIcon, SharedModule],
+    exports: [ScrollTop, SharedModule],
     declarations: [ScrollTop]
 })
 export class ScrollTopModule {}

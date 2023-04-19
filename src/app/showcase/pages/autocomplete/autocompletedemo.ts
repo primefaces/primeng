@@ -13,6 +13,7 @@ import { DropdownDoc } from '../../doc/autocomplete/dropdowndoc';
 import { ForceSelectionDoc } from '../../doc/autocomplete/forceselectiondoc';
 import { ObjectsDoc } from '../../doc/autocomplete/objectsdoc';
 import { ReactiveFormsDoc } from '../../doc/autocomplete/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/autocomplete/templatesdoc';
 @Component({
     templateUrl: './autocompletedemo.html'
 })
@@ -90,6 +91,11 @@ export class AutoCompleteDemo {
             id: 'events',
             label: 'Events',
             component: EventsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

@@ -10,10 +10,11 @@ import { ImportDoc } from './importdoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollTopModule],
-    declarations: [BasicDoc, ElementDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ElementDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class ScrollTopDocModule {}

@@ -21,6 +21,10 @@ import { Component, Input } from '@angular/core';
                         <td>content</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>icon</td>
+                        <td>$implicit: selected</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -11,10 +11,11 @@ import { MenuItemDoc } from './menuitemdoc';
 import { MultipleDoc } from './multipledoc';
 import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, MultipleDoc, MenuItemDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc, MenuItemDoc, PropsDoc, StyleDoc, AccessibilityDoc, TemplatesDoc],
     exports: [AppDocModule]
 })
 export class PanelMenuDocModule {}

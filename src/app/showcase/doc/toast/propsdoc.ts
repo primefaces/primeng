@@ -22,6 +22,18 @@ import { Component, Input } from '@angular/core';
                         <td>Key to match the key of a message to display.</td>
                     </tr>
                     <tr>
+                        <td>icon</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Icon of the message.</td>
+                    </tr>
+                    <tr>
+                        <td>closeIcon</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>Icon of the close button.</td>
+                    </tr>
+                    <tr>
                         <td>style</td>
                         <td>string</td>
                         <td>null</td>

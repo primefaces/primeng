@@ -11,4 +11,5 @@ export interface Message {
     icon?: string;
     contentStyleClass?: string;
     styleClass?: string;
+    closeIcon?: string;
 }

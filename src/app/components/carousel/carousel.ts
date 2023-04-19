@@ -24,7 +24,10 @@ import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 
 @Component({
     selector: 'p-carousel',
@@ -37,7 +40,13 @@ import { DomHandler } from 'primeng/dom';
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
                 <div class="p-carousel-container">
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical() }"></span>
+                        <ng-container *ngIf="!previousIconTemplate">
+                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                        </ng-container>
+                        <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                        </span>
                     </button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -72,7 +81,13 @@ import { DomHandler } from 'primeng/dom';
                         </div>
                     </div>
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical() }"></span>
+                        <ng-container *ngIf="!nextIconTemplate">
+                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                        </ng-container>
+                        <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                        </span>
                     </button>
                 </div>
                 <ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators">
@@ -232,6 +247,10 @@ export class Carousel implements AfterContentInit {
 
     footerTemplate: TemplateRef<any>;
 
+    previousIconTemplate: TemplateRef<any>;
+
+    nextIconTemplate: TemplateRef<any>;
+
     window: Window;
 
     constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any) {
@@ -300,6 +319,14 @@ export class Carousel implements AfterContentInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
                     break;
 
                 default:
@@ -700,7 +727,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

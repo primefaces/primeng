@@ -6,6 +6,7 @@ import { ImportDoc } from '../../doc/breadcrumb/importdoc';
 import { MenuItemDoc } from '../../doc/breadcrumb/menuitemdoc';
 import { PropsDoc } from '../../doc/breadcrumb/propsdoc';
 import { AccessibilityDoc } from '../../doc/breadcrumb/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/breadcrumb/templatesdoc';
 
 @Component({
     templateUrl: './breadcrumbdemo.html'
@@ -39,6 +40,11 @@ export class BreadcrumbDemo {
             id: 'props',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'events',

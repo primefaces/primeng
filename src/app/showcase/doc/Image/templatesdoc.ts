@@ -17,6 +17,26 @@ import { Component, Input } from '@angular/core';
                         <td>indicator</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>rotaterighticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>rotatelefticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>zoomouticon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>zoominicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>closeicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

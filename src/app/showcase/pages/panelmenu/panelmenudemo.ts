@@ -6,6 +6,7 @@ import { PropsDoc } from '../../doc/panelmenu/propsdoc';
 import { StyleDoc } from '../../doc/panelmenu/styledoc';
 import { MultipleDoc } from '../../doc/panelmenu/multipledoc';
 import { AccessibilityDoc } from '../../doc/panelmenu/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/panelmenu/templatesdoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'
@@ -44,6 +45,11 @@ export class PanelMenuDemo {
             id: 'props',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'menuitem',

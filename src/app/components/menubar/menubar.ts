@@ -27,6 +27,9 @@ import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { debounce, filter, interval, Subject, Subscription } from 'rxjs';
+import { BarsIcon } from 'primeng/icons/bars';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Injectable()
 export class MenubarService {
@@ -79,7 +82,13 @@ export class MenubarService {
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -109,7 +118,13 @@ export class MenubarService {
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi" *ngIf="child.items" [ngClass]="{ 'pi-angle-down': root, 'pi-angle-right': !root }"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-menubarSub [parentActive]="child === activeItem" [item]="child" *ngIf="child.items" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay" (leafClick)="onLeafClick()"></p-menubarSub>
                 </li>
@@ -157,7 +172,15 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private menubarService: MenubarService,
+        private menubar: Menubar
+    ) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -268,7 +291,8 @@ export class MenubarSub implements OnInit, OnDestroy {
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
             <a #menubutton tabindex="0" *ngIf="model && model.length > 0" class="p-menubar-button" (click)="toggle($event)">
-                <i class="pi pi-bars"></i>
+                <BarsIcon *ngIf="!menuIconTemplate"/>
+                <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
             </a>
             <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
             <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
@@ -316,6 +340,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     endTemplate: TemplateRef<any>;
 
+    menuIconTemplate: TemplateRef<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
     mobileActive: boolean;
 
     outsideClickListener: (event?: Event) => void | null;
@@ -347,6 +375,14 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
                 case 'end':
                     this.endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this.menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
                     break;
             }
         });
@@ -408,7 +444,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, BarsIcon, AngleDownIcon, AngleRightIcon],
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })

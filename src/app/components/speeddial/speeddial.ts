@@ -26,12 +26,14 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
 import { RouterModule } from '@angular/router';
+import { PlusIcon } from 'primeng/icons/plus';
 
 @Component({
     selector: 'p-speedDial',
     template: `
         <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
-            <button pRipple pButton [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+            <button pRipple pButton class="p-button-icon-only" [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+                <PlusIcon *ngIf="!showIcon && !buttonTemplate"/>
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
@@ -133,7 +135,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     @Input() maskClassName: string;
 
-    @Input() showIcon: string = 'pi pi-plus';
+    @Input() showIcon: string;
 
     @Input() hideIcon: string;
 
@@ -344,7 +346,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule],
+    imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule, PlusIcon],
     exports: [SpeedDial, SharedModule, ButtonModule, TooltipModule, RouterModule],
     declarations: [SpeedDial]
 })

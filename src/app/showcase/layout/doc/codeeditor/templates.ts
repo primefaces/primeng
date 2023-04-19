@@ -490,7 +490,6 @@ import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -520,6 +519,7 @@ import { ListboxModule } from 'primeng/listbox';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OrderListModule } from 'primeng/orderlist';
@@ -588,7 +588,6 @@ ${serviceImports}
     CheckboxModule,
     ChipsModule,
     ChipModule,
-    CodeHighlighterModule,
     ColorPickerModule,
     ConfirmDialogModule,
     ContextMenuModule,
@@ -618,6 +617,7 @@ ${serviceImports}
     MegaMenuModule,
     MenuModule,
     MenubarModule,
+    MessageModule,
     MessagesModule,
     MultiSelectModule,
     OrganizationChartModule,

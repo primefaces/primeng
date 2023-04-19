@@ -43,7 +43,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>loadingIcon</td>
                         <td>string</td>
-                        <td>pi pi-spinner pi-spin</td>
+                        <td>null</td>
                         <td>Icon to display in loading state.</td>
                     </tr>
                 </tbody>
@@ -107,7 +107,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>loadingIcon</td>
                         <td>string</td>
-                        <td>pi pi-spinner pi-spin</td>
+                        <td>null</td>
                         <td>Icon to display in loading state.</td>
                     </tr>
                     <tr>

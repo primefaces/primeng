@@ -25,6 +25,7 @@ import {
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 
@@ -95,7 +96,7 @@ export interface ScrollerOptions {
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <i class="p-scroller-loading-icon pi pi-spinner pi-spin"></i>
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'"/>
                         </ng-template>
                     </ng-template>
                 </div>
@@ -1049,7 +1050,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, SpinnerIcon],
     exports: [Scroller, SharedModule],
     declarations: [Scroller]
 })

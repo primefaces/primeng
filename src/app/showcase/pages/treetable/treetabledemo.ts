@@ -29,6 +29,7 @@ import { PropsDoc } from '../../doc/treetable/propsdoc';
 import { EventsDoc } from '../../doc/treetable/eventsdoc';
 import { MethodsDoc } from '../../doc/treetable/methodsdoc';
 import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
+import { TemplatesDoc } from '../../doc/treetable/templatesdoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -207,6 +208,11 @@ export class TreeTableDemo {
             id: 'properties',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         },
         {
             id: 'events',

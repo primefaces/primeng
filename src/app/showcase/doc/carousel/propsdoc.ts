@@ -48,7 +48,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>showIndicators</td>
                         <td>boolean</td>
-                        <td>false</td>
+                        <td>true</td>
                         <td>Whether to display indicator container.</td>
                     </tr>
                     <tr>

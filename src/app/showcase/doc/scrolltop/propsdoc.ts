@@ -30,7 +30,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>icon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-up</td>
+                        <td>null</td>
                         <td>Icon to display.</td>
                     </tr>
                     <tr>

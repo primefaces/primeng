@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { CheckIcon } from 'primeng/icons/check';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -34,7 +36,16 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 />
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, cb, true)" [ngClass]="{ 'p-highlight': checked(), 'p-disabled': disabled, 'p-focus': focused }">
-                <span class="p-checkbox-icon" [ngClass]="checked() ? checkboxIcon : null"></span>
+                
+            <ng-container *ngIf="checked()">
+                <ng-container *ngIf="!checkboxIconTemplate"> 
+                    <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
+                    <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'"/>
+                </ng-container>
+                <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon">
+                    <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
+                </span>
+            </ng-container>
             </div>
         </div>
         <label
@@ -81,7 +92,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @Input() formControl: FormControl;
 
-    @Input() checkboxIcon: string = 'pi pi-check';
+    @Input() checkboxIcon: string;
 
     @Input() readonly: boolean;
 
@@ -95,6 +106,10 @@ export class Checkbox implements ControlValueAccessor {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    checkboxIconTemplate: TemplateRef<any>;
+
     model: any;
 
     onModelChange: Function = () => {};
@@ -104,6 +119,16 @@ export class Checkbox implements ControlValueAccessor {
     focused: boolean = false;
 
     constructor(public cd: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.checkboxIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     onClick(event, checkbox, focus: boolean) {
         event.preventDefault();
@@ -184,8 +209,8 @@ export class Checkbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Checkbox],
+    imports: [CommonModule, CheckIcon],
+    exports: [Checkbox, SharedModule],
     declarations: [Checkbox]
 })
 export class CheckboxModule {}

@@ -13,10 +13,11 @@ import { StyleDoc } from './styledoc';
 import { RouterModule } from '@angular/router';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TriStateCheckboxModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
 })
 export class TristatecheckboxDocModule {}

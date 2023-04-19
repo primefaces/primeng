@@ -11,7 +11,17 @@ import { PhotoService } from '../../../service/photoservice';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
-            <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '850px' }" [numVisible]="7" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
+            <p-galleria
+                [(value)]="images"
+                [(visible)]="displayBasic"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '850px' }"
+                [numVisible]="7"
+                [circular]="true"
+                [fullScreen]="true"
+                [showThumbnails]="false"
+                [showItemNavigators]="true"
+            >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -138,6 +148,7 @@ export class GalleriaFullScreenWithoutThumbnailsDemo implements OnInit {
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
-...`
+...`,
+        service: ['PhotoService']
     };
 }

@@ -36,6 +36,26 @@ import { Component, Input } from '@angular/core';
                             options.reset: Resets the filter.
                         </td>
                     </tr>
+                    <tr>
+                        <td>moveupicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movetopicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movedownicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movebottomicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>filtericon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

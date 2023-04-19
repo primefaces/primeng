@@ -33,6 +33,10 @@ import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -79,13 +83,22 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
             />
-            <i *ngIf="!multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="multiple && filled && !disabled && showClear" class="p-autocomplete-clear-icon pi pi-times" (click)="clear()"></i>
+            <ng-container *ngIf="filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
+                <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
             <ul *ngIf="multiple" #multiContainer class="p-autocomplete-multiple-container p-component p-inputtext" [ngClass]="{ 'p-disabled': disabled, 'p-focus': focus }" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: val }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ resolveFieldData(val) }}</span>
-                    <span class="p-autocomplete-token-icon pi pi-times-circle" (click)="removeItem(token)" *ngIf="!disabled && !readonly"></span>
+                    <span class="p-autocomplete-token-icon" (click)="removeItem(token)">
+                        <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" />
+                        <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon">
+                            <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
+                        </span>
+                    </span>
                 </li>
                 <li class="p-autocomplete-input-token">
                     <input
@@ -122,20 +135,30 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     />
                 </li>
             </ul>
-            <i *ngIf="loading" class="p-autocomplete-loader pi pi-spinner pi-spin"></i
-            ><button
+            <ng-container *ngIf="loading">
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true"/>
+                <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin ">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+            <button
                 #ddBtn
                 type="button"
                 pButton
-                [icon]="dropdownIcon"
                 [attr.aria-label]="dropdownAriaLabel"
-                class="p-autocomplete-dropdown"
+                class="p-autocomplete-dropdown p-button-icon-only"
                 [disabled]="disabled"
                 pRipple
                 (click)="handleDropdownClick($event)"
                 *ngIf="dropdown"
                 [attr.tabindex]="tabindex"
-            ></button>
+            >
+                <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                <ng-container *ngIf="!dropdownIcon">
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </ng-container>
+            </button>
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -289,7 +312,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() ariaLabelledBy: string;
 
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+    @Input() dropdownIcon: string;
 
     @Input() unique: boolean = true;
 
@@ -396,6 +419,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     groupTemplate: TemplateRef<any>;
 
     loaderTemplate: TemplateRef<any>;
+
+    removeIconTemplate: TemplateRef<any>;
+
+    loadingIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
+    dropdownIconTemplate: TemplateRef<any>;
 
     value: any;
 
@@ -550,6 +581,22 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
                 case 'loader':
                     this.loaderTemplate = item.template;
+                    break;
+
+                case 'removetokenicon':
+                    this.removeIconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
                     break;
 
                 default:
@@ -1005,7 +1052,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon],
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
