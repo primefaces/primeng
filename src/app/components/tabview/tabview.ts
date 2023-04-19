@@ -313,7 +313,7 @@ export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecke
     forwardIsDisabled: boolean = false;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, private zone: NgZone, @Self() private destroy$: OnDestroyService) {}
-    
+
     private tabChangesSubscription!: Subscription;
 
     nextIconTemplate: TemplateRef<any>;
