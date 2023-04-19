@@ -6,6 +6,9 @@ import { Footer } from 'primeng/api';
 import { ButtonModule } from '../button/button';
 import { FocusTrapModule } from '../focustrap/focustrap';
 import { Dialog } from './dialog';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 @Component({
     template: `
@@ -33,7 +36,7 @@ describe('Dialog', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule],
+            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
             declarations: [Dialog, Footer, TestDialogComponent]
         });
 

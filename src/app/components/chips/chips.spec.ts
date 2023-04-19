@@ -265,7 +265,7 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         const tokenIconEl = fixture.debugElement.query(By.css('.p-chips-token-icon'));
-        tokenIconEl.nativeElement.click();
+        tokenIconEl.nativeElement.parentElement.click();
         fixture.detectChanges();
 
         expect(data).toBeTruthy();

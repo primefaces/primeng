@@ -53,7 +53,7 @@ describe('MultiSelect', () => {
         fixture.detectChanges();
 
         const dropdownIcon = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon')).nativeElement;
-        expect(dropdownIcon.tagName.toLowerCase()).toEqual('chevrondownicon');
+        expect(dropdownIcon.tagName.toLowerCase()).toEqual('svg');
         fixture.detectChanges();
 
         multiselect.dropdownIcon = 'Primeng Rocks!';

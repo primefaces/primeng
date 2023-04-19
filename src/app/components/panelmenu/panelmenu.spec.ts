@@ -246,7 +246,7 @@ describe('PanelMenu', () => {
         expect(handleClickSpy).toHaveBeenCalled();
         expect(panelmenu.animating).toEqual(true);
         expect(panelmenu.model[0].expanded).toEqual(true);
-        expect(iconEl.nativeElement.tagName.toLowerCase()).toContain('chevrondownicon');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toContain('svg');
         expect(firstSubMenuComponent.expanded).toEqual(true);
     });
 

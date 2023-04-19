@@ -9,6 +9,7 @@ import { MessagesModule } from 'primeng/messages';
 import { HttpClientModule } from '@angular/common/http';
 import { PlusIcon } from 'primeng/icons/plus';
 import { TimesIcon } from 'primeng/icons/times';
+import { UploadIcon } from 'primeng/icons/upload';
 
 describe('FileUpload', () => {
     let fileupload: FileUpload;
@@ -16,7 +17,7 @@ describe('FileUpload', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon],
+            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon],
             declarations: [FileUpload, PrimeTemplate]
         });
 

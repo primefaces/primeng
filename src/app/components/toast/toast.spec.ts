@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { CheckIcon } from 'primeng/icons/check';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: ` <p-toast></p-toast> `,
@@ -45,7 +46,7 @@ describe('Toast', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ExclamationTriangleIcon, CheckIcon],
+            imports: [NoopAnimationsModule, ExclamationTriangleIcon, CheckIcon, TimesIcon],
             declarations: [Toast, ToastItem, TestToastComponent]
         });
 

@@ -218,7 +218,7 @@ describe('Dropdown', () => {
         items.children[2].children[0].nativeElement.click();
         fixture.detectChanges();
         const itemCloseIcon = fixture.debugElement.query(By.css('.p-dropdown-clear-icon'));
-        itemCloseIcon.nativeElement.click();
+        itemCloseIcon.nativeElement.parentElement.click();
         fixture.detectChanges();
 
         expect(dropdown.selectedOption).toEqual({ label: 'Select City', value: null });

@@ -11,6 +11,7 @@ import { CheckIcon } from 'primeng/icons/check';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: `
@@ -83,7 +84,7 @@ describe('Messages', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon],
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon],
             declarations: [Messages, Button, TestMessagesComponent],
             providers: [MessageService]
         });
