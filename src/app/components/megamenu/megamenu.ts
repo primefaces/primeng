@@ -98,6 +98,8 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                                                             [attr.id]="item.id"
                                                             [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             pRipple
                                                         >
@@ -119,6 +121,8 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                                                             [attr.title]="item.title"
                                                             [attr.id]="item.id"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             [fragment]="item.fragment"
                                                             [queryParamsHandling]="item.queryParamsHandling"

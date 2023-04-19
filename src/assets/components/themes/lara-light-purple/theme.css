@@ -1357,14 +1357,12 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #6c757d;
 }
-.p-multiselect.p-multiselect-chip .p-multiselect-label {
-  gap: 0.5rem;
-}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
   background: #F5F3FF;
   color: #6D28D9;
   border-radius: 6px;
+  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;
@@ -6359,25 +6357,25 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 .p-button:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #c5aefb, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #c5aefb, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-secondary:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #b0b9c6, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #b0b9c6, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-success:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #88eaac, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #88eaac, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-info:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #9dc1fb, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #9dc1fb, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-warning:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #facf85, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #facf85, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-help:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #d4aafb, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #d4aafb, 0 1px 2px 0 rgb(0, 0, 0);
 }
 .p-button.p-button-danger:enabled:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #f7a2a2, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #f7a2a2, 0 1px 2px 0 rgb(0, 0, 0);
 }
 
 .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {

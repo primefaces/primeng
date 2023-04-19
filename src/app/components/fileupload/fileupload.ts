@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
     AfterViewInit,

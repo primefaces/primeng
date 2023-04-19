@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Theme and core are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
+                Theme and Core styles are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
                 <i>angular.json</i> or <i>src/styles.css</i> file.
             </p>
             <h3>angular.json</h3>
