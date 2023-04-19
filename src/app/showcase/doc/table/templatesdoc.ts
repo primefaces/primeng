@@ -229,6 +229,26 @@ import { Component, Input } from '@angular/core';
                             <td>-</td>
                             <td>Template selector of the add filter constraint button.</td>
                         </tr>
+                        <tr>
+                            <td>paginatorfirstpagelinkicon</td>
+                            <td>-</td>
+                            <td>Template selector of the first page icon of paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorlastpagelinkicon</td>
+                            <td>-</td>
+                            <td>Template selector of the last page icon of paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatorpreviouspagelinkicon</td>
+                            <td>-</td>
+                            <td>Template selector of the previous page icon of paginator.</td>
+                        </tr>
+                        <tr>
+                            <td>paginatornextpagelinkicon</td>
+                            <td>-</td>
+                            <td>Template selector of the next page icon of paginator.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
