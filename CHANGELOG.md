@@ -176,6 +176,22 @@
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.4-LTS](https://www.npmjs.com/package/primeng/v/14.2.4-lts) (2023-04-19)
+
+**Fixed bugs:**
+- InputNumber | Unnecessary focus on up/down buttons [\#12369](https://github.com/primefaces/primeng/issues/12369)
+- Sidebar: onHide ist emitted twice [\#12564](https://github.com/primefaces/primeng/issues/12564)
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- Button: Directive class on label change [\#12083](https://github.com/primefaces/primeng/issues/12083)
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+
+## [14.2.3](https://github.com/primefaces/primeng/tree/14.2.3) (2022-12-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.2.2...14.2.3)
+
+**Fixed bugs:**
+- Table | On col reorder the col destination position indicators are not shown properly [\#12379](https://github.com/primefaces/primeng/issues/12379)
+
 ## [14.2.2](https://github.com/primefaces/primeng/tree/14.2.2) (2022-11-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/v14.2.1...14.2.2)
@@ -405,6 +421,17 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.2-LTS](https://www.npmjs.com/package/primeng/v/13.4.2-lts) (2023-04-19)
+
+**Fixed bugs:**
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+- Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- Button: Directive class on label change [\#12083](https://github.com/primefaces/primeng/issues/12083)
+  
+**Implemented New Features and Enhancements:**
+- FileUploader | StyleClass support for buttons [\#11884](https://github.com/primefaces/primeng/issues/11884)
 
 ## [13.4.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-23)
 
