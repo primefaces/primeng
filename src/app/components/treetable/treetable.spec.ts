@@ -1031,19 +1031,19 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toContain('minusicon');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toContain('svg');
         checkboxEls[3].nativeElement.click();
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('checkicon');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('svg');
         expect(testcomponent.selectedNode.length).toEqual(7);
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('minusicon');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('svg');
         expect(testcomponent.selectedNode.length).toEqual(5);
     });
 
