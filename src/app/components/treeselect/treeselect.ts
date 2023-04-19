@@ -4,13 +4,13 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule } from 'primeng/tree';
 import { ObjectUtils } from 'primeng/utils';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -135,6 +135,15 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                         <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                                     </ng-template>
                                 </ng-container>
+                                <ng-template pTemplate="togglericon" let-expanded>
+                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
+                                </ng-template>
+                                <ng-template pTemplate="checkboxicon" let-selected let-partialSelected="partialSelected">
+                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                </ng-template>
+                                <ng-template pTemplate="loadingicon">
+                                    <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
+                                </ng-template>
                             </p-tree>
                         </div>
                         <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
@@ -295,6 +304,12 @@ export class TreeSelect implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any>;
 
+    itemTogglerIconTemplate: TemplateRef<any>;
+
+    itemCheckboxIconTemplate: TemplateRef<any>;
+
+    itemLoadingIconTemplate: TemplateRef<any>;
+
     focused: boolean;
 
     overlayVisible: boolean;
@@ -356,6 +371,18 @@ export class TreeSelect implements AfterContentInit {
 
                 case 'closeicon':
                     this.closeIconTemplate = item.template;
+                    break;
+
+                case 'itemtogglericon':
+                    this.itemTogglerIconTemplate = item.template;
+                    break;
+
+                case 'itemcheckboxicon':
+                    this.itemCheckboxIconTemplate = item.template;
+                    break;
+
+                case 'itemloadingicon':
+                    this.itemLoadingIconTemplate = item.template;
                     break;
 
                 default: //TODO: @deprecated Used "value" template instead

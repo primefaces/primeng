@@ -35,7 +35,10 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>checkboxicon</td>
-                        <td>-</td>
+                        <td>
+                            $implicit: Selected state. <br />
+                            partialSelected: Whether the node is partial selected or not.
+                        </td>
                     </tr>
                     <tr>
                         <td>loadingicon</td>
