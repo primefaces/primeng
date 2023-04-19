@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-menu [model]="items"></p-menu>
         </div>
-        <app-code [code]="code" selector="prime-icons-constants-demo"></app-code>
+        <app-code [code]="code" selector="prime-icons-constants-demo" [hideToggleCode]="true"></app-code>
     </section>`
 })
 export class ConstantsDoc {
@@ -58,12 +58,6 @@ export class PrimeIconsConstantsDemo {
             }
         ];
     }
-}`,
-        basic: `
-<p-menu [model]="items"></p-menu>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
-</div>`
+}`
     };
 }
