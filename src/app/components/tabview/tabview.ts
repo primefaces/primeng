@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -22,7 +22,9 @@ import {
     ViewContainerRef,
     ViewEncapsulation,
     forwardRef,
-    signal
+    AfterViewInit,
+    NgZone,
+    Self
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -31,7 +33,10 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Subscription } from 'rxjs';
+import { filter, fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { OnDestroyService } from '../utils/on-destroy.service';
+import { outsideZone } from '../utils/outside-zone-operator';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 import { UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
@@ -328,9 +333,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     styleUrls: ['./tabview.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [OnDestroyService]
 })
-export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
+export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy, BlockableUI {
     /**
      * Inline style of the component.
      * @group Props
@@ -432,8 +438,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     forwardIsDisabled: boolean = false;
 
-    private tabChangesSubscription!: Subscription;
-
     nextIconTemplate: TemplateRef<any> | undefined;
 
     previousIconTemplate: TemplateRef<any> | undefined;
@@ -444,12 +448,20 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     @ViewChild('elementToObserve') elementToObserve: ElementRef;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, private renderer: Renderer2) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        private renderer: Renderer2,
+        @Self() private destroy$: OnDestroyService,
+        @Inject(DOCUMENT) private documentRef: Document,
+        private zone: NgZone
+    ) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
+        (this.tabPanels as QueryList<TabPanel>).changes.pipe(takeUntil(this.destroy$)).subscribe((_) => {
             this.initTabs();
         });
 
@@ -466,10 +478,13 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.bindResizeObserver();
         }
+
+        this.initButtonState();
+        this.listenWindowResize();
     }
 
     bindResizeObserver() {
@@ -502,10 +517,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     ngOnDestroy(): void {
-        if (this.tabChangesSubscription) {
-            this.tabChangesSubscription.unsubscribe();
-        }
-
         if (this.resizeObserver) {
             this.unbindResizeObserver();
         }
@@ -783,6 +794,39 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const lastPos = content.scrollWidth - width;
 
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
+    }
+
+    private initButtonState(): void {
+        if (this.scrollable) {
+            // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+            // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+            Promise.resolve().then(() => {
+                this.updateButtonState();
+                this.cd.markForCheck();
+            });
+        }
+    }
+
+    private listenWindowResize(): void {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
+        fromEvent(this.documentRef.defaultView, 'resize', { passive: true })
+            .pipe(
+                outsideZone(this.zone),
+                filter(() => this.scrollable),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                const prevBackwardIsDisabled = this.backwardIsDisabled;
+                const prevForwardIsDisabled = this.forwardIsDisabled;
+                this.updateButtonState();
+
+                if (this.forwardIsDisabled !== prevForwardIsDisabled || this.backwardIsDisabled !== prevBackwardIsDisabled) {
+                    this.cd.detectChanges();
+                }
+            });
     }
 }
 
