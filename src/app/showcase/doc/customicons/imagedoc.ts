@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'image-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Any time of image can be used as an icon.</p>
+            <p>Any type of image can be used as an icon.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
