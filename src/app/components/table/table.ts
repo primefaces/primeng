@@ -143,19 +143,19 @@ export class TableService {
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
             >
-                <ng-template pTemplate="firstpagelinkicon">
+                <ng-template *ngIf="paginatorFirstPageLinkIconTemplate" pTemplate="firstpagelinkicon">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="previouspagelinkicon">
+                <ng-template *ngIf="paginatorPreviousPageLinkIconTemplate" pTemplate="previouspagelinkicon">
                     <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="lastpagelinkicon">
+                <ng-template *ngIf="paginatorLastPageLinkIconTemplate" pTemplate="lastpagelinkicon">
                     <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="nextpagelinkicon">
+                <ng-template *ngIf="paginatorNextPageLinkIconTemplate" pTemplate="nextpagelinkicon">
                     <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
                 </ng-template>
             </p-paginator>
@@ -249,21 +249,21 @@ export class TableService {
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
             >
-            <ng-template pTemplate="firstpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template *ngIf="paginatorFirstPageLinkIconTemplate" pTemplate="firstpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="previouspagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template *ngIf="paginatorPreviousPageLinkIconTemplate" pTemplate="previouspagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="lastpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template *ngIf="paginatorLastPageLinkIconTemplate" pTemplate="lastpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="nextpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template *ngIf="paginatorNextPageLinkIconTemplate" pTemplate="nextpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+                </ng-template>
             </p-paginator>
 
             <div *ngIf="summaryTemplate" class="p-datatable-footer">
