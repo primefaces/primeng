@@ -135,13 +135,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                         <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                                     </ng-template>
                                 </ng-container>
-                                <ng-template pTemplate="togglericon" let-expanded>
+                                <ng-template pTemplate="togglericon" let-expanded *ngIf="itemTogglerIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
-                                <ng-template pTemplate="checkboxicon" let-selected let-partialSelected="partialSelected">
-                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                <ng-template pTemplate="checkboxicon" *ngIf="itemCheckboxIconTemplate">
+                                    <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate"></ng-template>
                                 </ng-template>
-                                <ng-template pTemplate="loadingicon">
+                                <ng-template pTemplate="loadingicon" *ngIf="itemLoadingIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
                                 </ng-template>
                             </p-tree>
