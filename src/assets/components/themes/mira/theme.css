@@ -51,25 +51,29 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  src: local("Inter"), local("Inter-Regular"), url("./fonts/Inter-Regular.woff2") format("woff2"), url("./fonts/Inter-Regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter"), local("Inter-Regular"), url("./fonts/Inter-Regular.woff2") format("woff2"), url("./fonts/Inter-Regular.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  src: local("Inter Medium"), local("Inter-Medium"), url("./fonts/Inter-Medium.woff2") format("woff2"), url("./fonts/Inter-Medium.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter Medium"), local("Inter-Medium"), url("./fonts/Inter-Medium.woff2") format("woff2"), url("./fonts/Inter-Medium.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  src: local("Inter SemiBold"), local("Inter-SemiBold"), url("./fonts/Inter-SemiBold.woff2") format("woff2"), url("./fonts/Inter-SemiBold.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter SemiBold"), local("Inter-SemiBold"), url("./fonts/Inter-SemiBold.woff2") format("woff2"), url("./fonts/Inter-SemiBold.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  src: local("Inter Bold"), local("Inter-Bold"), url("./fonts/Inter-Bold.woff2") format("woff2"), url("./fonts/Inter-Bold.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter Bold"), local("Inter-Bold"), url("./fonts/Inter-Bold.woff2") format("woff2"), url("./fonts/Inter-Bold.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 * {
   box-sizing: border-box;
@@ -1381,12 +1385,14 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: #4C566A;
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  gap: 0.5rem;
+}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.25rem 0.5rem;
   background: #D8DEE9;
   color: #2E3440;
   border-radius: 4px;
-  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;

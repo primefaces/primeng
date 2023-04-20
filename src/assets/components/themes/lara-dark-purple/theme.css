@@ -1357,12 +1357,14 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  gap: 0.5rem;
+}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
   background: rgba(196, 181, 253, 0.16);
   color: rgba(255, 255, 255, 0.87);
   border-radius: 6px;
-  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;
