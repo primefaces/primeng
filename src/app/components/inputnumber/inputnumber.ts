@@ -11,6 +11,8 @@ import {
     Input,
     NgModule,
     OnInit,
+    OnChanges,
+    AfterContentInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -180,7 +182,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
-export class InputNumber implements ControlValueAccessor {
+export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+    @Input() ngModelOptions: any;
+
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
@@ -319,6 +323,8 @@ export class InputNumber implements ControlValueAccessor {
 
     _disabled: boolean;
 
+    _updateOn: 'blur' | 'change' | 'submit' | null | undefined;
+
     @Input() get disabled(): boolean {
         return this._disabled;
     }
@@ -329,6 +335,13 @@ export class InputNumber implements ControlValueAccessor {
         this._disabled = disabled;
 
         if (this.timer) this.clearTimer();
+    }
+
+    get updateOn() {
+        if (this.ngModelOptions && this.ngModelOptions.updateOn) {
+            this._updateOn = this.ngModelOptions.updateOn;
+            return this._updateOn;
+        }
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
@@ -520,7 +533,6 @@ export class InputNumber implements ControlValueAccessor {
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
-
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
@@ -1136,12 +1148,10 @@ export class InputNumber implements ControlValueAccessor {
 
     onInputBlur(event) {
         this.focused = false;
-
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
         this.updateModel(event, newValue);
-
         this.onBlur.emit(event);
     }
 
@@ -1151,12 +1161,29 @@ export class InputNumber implements ControlValueAccessor {
     }
 
     updateModel(event, value) {
-        if (this.value !== value) {
-            this.value = value;
-            this.onModelChange(value);
+        if (this.shouldUpdateModel(event)) {
+            if (this.value !== value) {
+                this.value = value;
+                this.onModelChange(value);
+            }
+            this.onModelTouched();
         }
+    }
 
-        this.onModelTouched();
+    shouldUpdateModel(e) {
+        if (!this.updateOn) {
+            return true;
+        } else {
+            const eventType = e.type;
+            let event;
+            if (e.key === 'Enter') {
+                event = 'submit';
+            } else {
+                event = eventType === 'keypress' ? 'change' : eventType === 'mousedown' ? 'change' : eventType;
+            }
+
+            return event === this.updateOn;
+        }
     }
 
     writeValue(value: any): void {
