@@ -1238,7 +1238,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   color: #f78c79;
 }
 
-.p-input-icon-left > .p-icon-wrapper:first-of-type,
+.p-input-icon-left > .p-icon-wrapper.p-icon,
 .p-input-icon-left > i:first-of-type {
   left: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
@@ -1252,7 +1252,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   left: 2.5rem;
 }
 
-.p-input-icon-right > .p-icon-wrapper:last-of-type,
+.p-input-icon-right > .p-icon-wrapper,
 .p-input-icon-right > i:last-of-type {
   right: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
@@ -6069,7 +6069,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-close .p-galleria-close-icon {
   font-size: 2rem;
 }
-.p-galleria .p-galleria-close .p-icon {
+.p-galleria .p-galleria-close .p-icon-wrapper .p-icon {
   width: 2rem;
   height: 2rem;
 }
@@ -6090,7 +6090,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-item-nav .p-galleria-item-next-icon {
   font-size: 2rem;
 }
-.p-galleria .p-galleria-item-nav .p-icon {
+.p-galleria .p-galleria-item-nav .p-icon-wrapper .p-icon {
   width: 2rem;
   height: 2rem;
 }
