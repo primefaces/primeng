@@ -505,7 +505,6 @@ import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
-import { GMapModule } from 'primeng/gmap';
 import { InplaceModule } from 'primeng/inplace';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -514,7 +513,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
-import { LightboxModule } from 'primeng/lightbox';
 import { ListboxModule } from 'primeng/listbox';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { MenuModule } from 'primeng/menu';
@@ -603,7 +601,6 @@ ${serviceImports}
     FieldsetModule,
     FileUploadModule,
     GalleriaModule,
-    GMapModule,
     InplaceModule,
     InputMaskModule,
     InputSwitchModule,
@@ -612,7 +609,6 @@ ${serviceImports}
     InputNumberModule,
     ImageModule,
     KnobModule,
-    LightboxModule,
     ListboxModule,
     MegaMenuModule,
     MenuModule,
