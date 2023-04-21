@@ -1,4 +1,12 @@
 # Changelog
+## [15.4.1](https://github.com/primefaces/primeng/tree/15.4.1) (2023-04-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.4.0...15.4.1)
+
+**Fixed bugs:**
+- TreeSelect | Icons are not visible [\#12925](https://github.com/primefaces/primeng/issues/12925)
+- Paginator: previous and next button icons not visible  [\#12916](https://github.com/primefaces/primeng/issues/12916)
+
 ## [15.4.0](https://github.com/primefaces/primeng/tree/15.4.0) (2023-04-19)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.3.0...15.4.0)
