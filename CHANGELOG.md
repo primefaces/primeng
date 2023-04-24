@@ -1,4 +1,61 @@
 # Changelog
+## [15.4.1](https://github.com/primefaces/primeng/tree/15.4.1) (2023-04-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.4.0...15.4.1)
+
+**Fixed bugs:**
+- TreeSelect | Icons are not visible [\#12925](https://github.com/primefaces/primeng/issues/12925)
+- Paginator: previous and next button icons not visible  [\#12916](https://github.com/primefaces/primeng/issues/12916)
+
+## [15.4.0](https://github.com/primefaces/primeng/tree/15.4.0) (2023-04-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.3.0...15.4.0)
+
+**Breaking Changes:**
+- Deprecate Components [\#12781](https://github.com/primefaces/primeng/issues/12781)
+
+**Implemented New Features and Enhancements:**
+- Improve icon implementation in core [\#12839](https://github.com/primefaces/primeng/issues/12839)
+- All: Add zone.js 0.13.0 support [\#12851](https://github.com/primefaces/primeng/issues/12851)
+- Table / EditableColumn: onEditComplete emitted event data is wrong [\#12822](https://github.com/primefaces/primeng/issues/12822)
+- Textarea does not create new line when used in Datatable celleditor, instead completes edit mode [\#10458](https://github.com/primefaces/primeng/issues/10458)
+
+**Fixed bugs:**
+- AutoComplete component is not scrolling on arrow down [\#12883](https://github.com/primefaces/primeng/issues/12883)
+- p-overlay: Overlay component does not resize correctly [\#12769](https://github.com/primefaces/primeng/issues/12769)
+- MegaMenu: at items array item - style or styleClass NOT working [\#12771](https://github.com/primefaces/primeng/issues/12771)
+- InputNumber: Input Number spinner buttons right click indefinitely increments/decrements value [\#12813](https://github.com/primefaces/primeng/issues/12813)
+- TabMenu - field visible [\#12823](https://github.com/primefaces/primeng/issues/12823)
+- PrimeNG Website - Keyboard Copy Command Broken on MacOS [\#12846](https://github.com/primefaces/primeng/issues/12846)
+- MultiSelect | Add gap and text ellipsis to multiselect-chip [\#12842](https://github.com/primefaces/primeng/issues/12842)
+
+## [15.3.0](https://github.com/primefaces/primeng/tree/15.3.0) (2023-03-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.2.1...15.3.0)
+
+**Enhancements:**
+- Algolia Search 🙂
+- Angular Universal Support [\#12810](https://github.com/primefaces/primeng/issues/12810)
+- Angular SSR Support - Multiple Components [\#12734](https://github.com/primefaces/primeng/issues/12734)
+- Sidebar | Add flex-grow to p-sidebar-content [\#12833](https://github.com/primefaces/primeng/issues/12833)
+- Docs: Installation code blocks missing Prism [\#12783](https://github.com/primefaces/primeng/issues/12783)
+
+## [15.2.1](https://github.com/primefaces/primeng/tree/15.2.1) (2023-03-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.2.0...15.2.1)
+
+**New Features:**
+- Tooltips: Option to close tooltips with escape [\#12603](https://github.com/primefaces/primeng/issues/12603)
+
+**Enhancements:**
+- Various Eslint errors [\#12580](https://github.com/primefaces/primeng/issues/12580)
+
+**Fixed bugs:**
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- OverlayPanel target arrow points to the wrong position when target is on the right edge of the screen [\#10484](https://github.com/primefaces/primeng/issues/10484)
+- p-image inside p-scrollPanel - Scrollbar shows through image [\#12554](https://github.com/primefaces/primeng/issues/12554)
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+- Overlay | modal does not destroy on hide (w/responsiveOptions) [\#12747](https://github.com/primefaces/primeng/issues/12747)
 
 ## [15.2.0](https://github.com/primefaces/primeng/tree/15.2.0) (2023-01-30)
 
@@ -126,6 +183,22 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.4-LTS](https://www.npmjs.com/package/primeng/v/14.2.4-lts) (2023-04-19)
+
+**Fixed bugs:**
+- InputNumber | Unnecessary focus on up/down buttons [\#12369](https://github.com/primefaces/primeng/issues/12369)
+- Sidebar: onHide ist emitted twice [\#12564](https://github.com/primefaces/primeng/issues/12564)
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- Button: Directive class on label change [\#12083](https://github.com/primefaces/primeng/issues/12083)
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+
+## [14.2.3](https://github.com/primefaces/primeng/tree/14.2.3) (2022-12-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/14.2.2...14.2.3)
+
+**Fixed bugs:**
+- Table | On col reorder the col destination position indicators are not shown properly [\#12379](https://github.com/primefaces/primeng/issues/12379)
 
 ## [14.2.2](https://github.com/primefaces/primeng/tree/14.2.2) (2022-11-16)
 
@@ -356,6 +429,17 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.2-LTS](https://www.npmjs.com/package/primeng/v/13.4.2-lts) (2023-04-19)
+
+**Fixed bugs:**
+- InputNumber | does not update the input value onInput [\#12733](https://github.com/primefaces/primeng/issues/12733)
+- Dropdown | ng-dirty issue when options are set by a service call [\#11634](https://github.com/primefaces/primeng/issues/11634)
+- Calendar | input becomes invalid when navigating [\#12741](https://github.com/primefaces/primeng/issues/12741)
+- Button: Directive class on label change [\#12083](https://github.com/primefaces/primeng/issues/12083)
+  
+**Implemented New Features and Enhancements:**
+- FileUploader | StyleClass support for buttons [\#11884](https://github.com/primefaces/primeng/issues/11884)
 
 ## [13.4.1](https://github.com/primefaces/primeng/tree/HEAD) (2022-05-23)
 

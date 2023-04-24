@@ -1,12 +1,32 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, ViewRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    Input,
+    Renderer2,
+    OnDestroy,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Output,
+    EventEmitter,
+    ViewRef,
+    ViewChild,
+    Inject,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    TemplateRef
+} from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipModule } from 'primeng/tooltip';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -43,7 +63,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -73,7 +96,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-tieredMenuSub
                         (keydownItem)="onChildItemKeyDown($event)"
@@ -129,13 +155,13 @@ export class TieredMenuSub implements OnDestroy {
 
     _parentActive: boolean;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
     menuHoverActive: boolean = false;
 
     activeItem: any;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
 
     onItemClick(event, item) {
         if (item.disabled) {
@@ -296,21 +322,19 @@ export class TieredMenuSub implements OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
+            this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.el && !this.el.nativeElement.contains(event.target)) {
                     this.activeItem = null;
                     this.cd.markForCheck();
                     this.unbindDocumentClickListener();
                 }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+            });
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
@@ -345,7 +369,7 @@ export class TieredMenuSub implements OnDestroy {
         class: 'p-element'
     }
 })
-export class TieredMenu implements OnDestroy {
+export class TieredMenu implements AfterContentInit, OnDestroy {
     @Input() model: MenuItem[];
 
     @Input() popup: boolean;
@@ -370,17 +394,21 @@ export class TieredMenu implements OnDestroy {
 
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
     parentActive: boolean;
 
     container: HTMLDivElement;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     preventDocumentDefault: boolean;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
     target: any;
 
@@ -388,7 +416,21 @@ export class TieredMenu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     toggle(event) {
         if (this.visible) this.hide();
@@ -454,14 +496,14 @@ export class TieredMenu implements OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
             else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
 
@@ -514,13 +556,14 @@ export class TieredMenu implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener) {
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -572,8 +615,8 @@ export class TieredMenu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [TieredMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })
 export class TieredMenuModule {}

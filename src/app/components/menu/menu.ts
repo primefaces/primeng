@@ -1,6 +1,6 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef } from '@angular/core';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
 import { ZIndexUtils } from 'primeng/utils';
@@ -223,11 +223,11 @@ export class Menu implements OnDestroy {
 
     container: HTMLDivElement;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentClickListener: any;
+    documentClickListener: () => void | null;
 
-    documentResizeListener: any;
+    documentResizeListener: () => void | null;
 
     preventDocumentDefault: boolean;
 
@@ -237,7 +237,15 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {}
 
     toggle(event) {
         if (this.visible) this.hide();
@@ -293,14 +301,14 @@ export class Menu implements OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
             else DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.appendTo) {
-            this.el.nativeElement.appendChild(this.container);
+            this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }
 
@@ -356,7 +364,7 @@ export class Menu implements OnDestroy {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
+        if (!this.documentClickListener && isPlatformBrowser(this.platformId)) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
@@ -377,19 +385,21 @@ export class Menu implements OnDestroy {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (!this.documentResizeListener && isPlatformBrowser(this.platformId)) {
+            const window = this.document.defaultView;
+            this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler) {
+        if (!this.scrollHandler && isPlatformBrowser(this.platformId)) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
                 if (this.visible) {
                     this.hide();

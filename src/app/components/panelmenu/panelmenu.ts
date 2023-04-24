@@ -1,10 +1,14 @@
-import { NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 import { DomHandler } from 'primeng/dom';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 
 export class BasePanelMenuItem {
     constructor(private ref: ChangeDetectorRef) {}
@@ -52,7 +56,13 @@ export class BasePanelMenuItem {
                         [target]="child.target"
                         [attr.title]="child.title"
                     >
-                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{ 'pi-angle-right': !child.expanded, 'pi-angle-down': child.expanded }" *ngIf="child.items" [ngStyle]="child.iconStyle"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="child.expanded" [ngStyle]="child.iconStyle"/>
+                                <AngleRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                         <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
@@ -81,7 +91,13 @@ export class BasePanelMenuItem {
                         [replaceUrl]="child.replaceUrl"
                         [state]="child.state"
                     >
-                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{ 'pi-angle-right': !child.expanded, 'pi-angle-down': child.expanded }" *ngIf="child.items" [ngStyle]="child.iconStyle"></span>
+                        <ng-container *ngIf="child.items">
+                            <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
+                                <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                         <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
@@ -126,7 +142,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
 
     @Input() root: boolean;
 
-    constructor(ref: ChangeDetectorRef) {
+    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
         super(ref);
     }
 
@@ -174,7 +190,16 @@ export class PanelMenuSub extends BasePanelMenuItem {
                             [attr.id]="item.id + '_header'"
                             [attr.aria-controls]="item.id + '_content'"
                         >
-                            <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
+                            <!--
+                                <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
+                             -->
+                            <ng-container *ngIf="item.items">
+                                <ng-container *ngIf="!submenuIconTemplate">
+                                    <ChevronDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="item.expanded" />
+                                    <ChevronRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!item.expanded" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
+                            </ng-container>
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
@@ -200,7 +225,17 @@ export class PanelMenuSub extends BasePanelMenuItem {
                             [replaceUrl]="item.replaceUrl"
                             [state]="item.state"
                         >
-                            <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
+
+                            <!-- 
+                                <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
+                            -->
+                            <ng-container *ngIf="item.items">
+                                <ng-container *ngIf="!submenuIconTemplate">
+                                    <ChevronDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="item.expanded" />
+                                    <ChevronRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!item.expanded" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
+                            </ng-container>
                             <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
                             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
@@ -241,7 +276,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenu extends BasePanelMenuItem {
+export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     @Input() model: MenuItem[];
 
     @Input() style: any;
@@ -252,10 +287,24 @@ export class PanelMenu extends BasePanelMenuItem {
 
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
     public animating: boolean;
 
     constructor(ref: ChangeDetectorRef) {
         super(ref);
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     collapseAll() {
@@ -311,8 +360,8 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
-    exports: [PanelMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [PanelMenu, PanelMenuSub]
 })
 export class PanelMenuModule {}

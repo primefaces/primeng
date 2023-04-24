@@ -2,6 +2,10 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { UIMessage } from './message';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { CheckIcon } from 'primeng/icons/check';
 
 describe('UIMessage', () => {
     let message: UIMessage;
@@ -9,7 +13,7 @@ describe('UIMessage', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, InfoCircleIcon, ExclamationTriangleIcon, TimesCircleIcon, CheckIcon],
             declarations: [UIMessage]
         });
 
@@ -27,7 +31,7 @@ describe('UIMessage', () => {
         const textEl = fixture.debugElement.query(By.css('.p-inline-message-text'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-success');
-        expect(iconEl.nativeElement.className).toContain('pi pi-check');
+        expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('checkicon');
         expect(textEl.nativeElement.textContent).toContain('Primeng Rocks!');
     });
 
@@ -39,7 +43,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-info');
-        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
+        expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('infocircleicon');
     });
 
     it('should change severity to error', () => {
@@ -50,7 +54,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-error');
-        expect(iconEl.nativeElement.className).toContain('pi pi-times');
+        expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('timescircleicon');
     });
 
     it('should change severity to warning', () => {
@@ -61,7 +65,7 @@ describe('UIMessage', () => {
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
         expect(messageEl.nativeElement.className).toContain('p-inline-message-warn');
-        expect(iconEl.nativeElement.className).toContain('pi pi-exclamation-triangle');
+        expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('exclamationtriangleicon');
     });
     it('should change severity to default', () => {
         message.severity = ' ';
@@ -70,6 +74,6 @@ describe('UIMessage', () => {
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(iconEl.nativeElement.className).toContain('pi pi-info-circle');
+        expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('infocircleicon');
     });
 });

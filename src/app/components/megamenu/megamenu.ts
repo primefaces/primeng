@@ -1,9 +1,11 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MegaMenuItem, MenuItem, PrimeTemplate } from 'primeng/api';
+import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-megaMenu',
@@ -39,7 +41,11 @@ import { TooltipModule } from 'primeng/tooltip';
                             <span class="p-menuitem-text" *ngIf="category.escape !== false; else categoryHtmlLabel">{{ category.label }}</span>
                             <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
-                            <span *ngIf="category.items" class="p-submenu-icon pi" [ngClass]="{ 'pi-angle-down': orientation == 'horizontal', 'pi-angle-right': orientation == 'vertical' }"></span>
+                            <ng-container *ngIf="!submenuIconTemplate">
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'"/>
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'"/>
+                            </ng-container>
+                            <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                         </a>
                         <a
                             *ngIf="category.routerLink"
@@ -92,6 +98,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                                             [attr.id]="item.id"
                                                             [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             pRipple
                                                         >
@@ -113,6 +121,8 @@ import { TooltipModule } from 'primeng/tooltip';
                                                             [attr.title]="item.title"
                                                             [attr.id]="item.id"
                                                             [ngClass]="{ 'p-disabled': item.disabled }"
+                                                            [ngStyle]="item.style"
+                                                            [class]="item.styleClass"
                                                             (click)="itemClick($event, item)"
                                                             [fragment]="item.fragment"
                                                             [queryParamsHandling]="item.queryParamsHandling"
@@ -137,15 +147,15 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </li>
                 </ng-template>
-                <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
-                    <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
-                </div>
-                <ng-template #legacy>
-                    <div class="p-megamenu-end">
-                        <ng-content></ng-content>
-                    </div>
-                </ng-template>
             </ul>
+            <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            </div>
+            <ng-template #legacy>
+                <div class="p-megamenu-end">
+                    <ng-content></ng-content>
+                </div>
+            </ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -164,27 +174,29 @@ export class MegaMenu implements AfterContentInit {
 
     @Input() orientation: string = 'horizontal';
 
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
-
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     activeItem: any;
 
-    documentClickListener: any;
+    documentClickListener: () => void | null;
 
     startTemplate: TemplateRef<any>;
 
     endTemplate: TemplateRef<any>;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    submenuIconTemplate: TemplateRef<any>;
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
                     break;
 
                 case 'end':
@@ -282,30 +294,30 @@ export class MegaMenu implements AfterContentInit {
     }
 
     bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            };
-
-            document.addEventListener('click', this.documentClickListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentClickListener) {
+                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (this.el && !this.el.nativeElement.contains(event.target)) {
+                        this.activeItem = null;
+                        this.unbindDocumentClickListener();
+                        this.cd.markForCheck();
+                    }
+                });
+            }
         }
     }
 
     unbindDocumentClickListener() {
         if (this.documentClickListener) {
-            document.removeEventListener('click', this.documentClickListener);
+            this.documentClickListener();
             this.documentClickListener = null;
         }
     }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [MegaMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
+    exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu]
 })
 export class MegaMenuModule {}

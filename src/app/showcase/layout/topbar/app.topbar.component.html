@@ -1,0 +1,46 @@
+<div class="layout-topbar" #containerElement>
+    <div class="layout-topbar-inner">
+        <button type="button" class="p-link menu-button" (click)="onMenuButtonClick($event)" aria-haspopup aria-label="Menu">
+            <i class="pi pi-bars"></i>
+        </button>
+    
+        <div id="docsearch"></div>
+    
+        <ul class="flex list-none m-0 p-0 gap-2 align-items-center ">
+            <li>
+                <a
+                    href="http://github.com/primefaces/primeng"
+                    class="flex p-link border-1 w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary"
+                >
+                    <i class="pi pi-github text-700"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.gg/gzKFYnpmCY" class="flex p-link border-1 w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary">
+                    <i class="pi pi-discord text-700"></i>
+                </a>
+            </li>
+            <li>
+                <button type="button" class="p-button flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center transition-all transition-duration-300 min-w-0" (click)="onConfigButtonClick($event)">
+                    <i class="pi pi-cog"></i>
+                </button>
+            </li>
+            <li class="relative">
+                <button pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true" type="button" class="p-link flex align-items-center surface-card h-2rem px-3 hover:surface-hover border-1 border-solid surface-border transition-all transition-duration-300 hover:border-primary">
+                    <span class="text-900">{{ versions ? versions[0].version : 'Latest' }}</span>
+                    <span class="ml-2 pi pi-angle-down text-600"></span>
+                </button>
+                <div class="p-3 surface-overlay hidden absolute top-auto border-round shadow-2 origin-top w-12rem right-0 mt-1">
+                    <ul class="list-none m-0 p-0">
+                        <li role="none" *ngFor="let v of versions">
+                            <a [href]="v.url" class="block p-2 border-round hover:surface-hover w-full">
+                                <span class="font-bold text-900">{{v.name}}</span>
+                                <span class="ml-2 text-700">({{v.version}})</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
