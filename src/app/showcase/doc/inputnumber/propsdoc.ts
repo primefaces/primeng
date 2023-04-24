@@ -265,6 +265,12 @@ import { Component, Input } from '@angular/core';
                         <td>false</td>
                         <td>When enabled, a clear icon is displayed to clear the value.</td>
                     </tr>
+                    <tr>
+                        <td>updateOn</td>
+                        <td>string</td>
+                        <td>change</td>
+                        <td>Used to define when the model value updates. Possible values are 'change' and 'blur'.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

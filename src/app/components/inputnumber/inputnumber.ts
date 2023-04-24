@@ -11,6 +11,8 @@ import {
     Input,
     NgModule,
     OnInit,
+    OnChanges,
+    AfterContentInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -180,7 +182,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
-export class InputNumber implements ControlValueAccessor {
+export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
@@ -256,6 +258,8 @@ export class InputNumber implements ControlValueAccessor {
     @Input() inputStyleClass: string;
 
     @Input() showClear: boolean = false;
+
+    @Input() updateOn: 'blur' | 'change' | null | undefined = 'change';
 
     @ViewChild('input') input: ElementRef;
 
@@ -520,7 +524,6 @@ export class InputNumber implements ControlValueAccessor {
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
-
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
@@ -997,7 +1000,9 @@ export class InputNumber implements ControlValueAccessor {
         if (this.isValueChanged(currentValue, newValue)) {
             this.input.nativeElement.value = this.formatValue(newValue);
             this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-            this.updateModel(event, newValue);
+            if (this.updateOn !== 'blur') {
+                this.updateModel(event, newValue);
+            }
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
@@ -1136,12 +1141,12 @@ export class InputNumber implements ControlValueAccessor {
 
     onInputBlur(event) {
         this.focused = false;
-
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-        this.updateModel(event, newValue);
-
+        if (this.updateOn === 'blur') {
+            this.updateModel(event, newValue);
+        }
         this.onBlur.emit(event);
     }
 
@@ -1155,7 +1160,6 @@ export class InputNumber implements ControlValueAccessor {
             this.value = value;
             this.onModelChange(value);
         }
-
         this.onModelTouched();
     }
 
