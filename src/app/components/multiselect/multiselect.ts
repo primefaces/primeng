@@ -986,6 +986,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.value = null;
         this.updateLabel();
         this.updateFilledState();
+        this.checkSelectionLimit();
         this.onClear.emit();
         this.onModelChange(this.value);
         event.stopPropagation();
