@@ -183,8 +183,6 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     }
 })
 export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
-    @Input() ngModelOptions: any;
-
     @Input() showButtons: boolean = false;
 
     @Input() format: boolean = true;
@@ -261,6 +259,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     @Input() showClear: boolean = false;
 
+    @Input() updateOn: 'blur' | 'change' | null | undefined = 'change';
+
     @ViewChild('input') input: ElementRef;
 
     @Output() onInput: EventEmitter<any> = new EventEmitter();
@@ -323,8 +323,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     _disabled: boolean;
 
-    _updateOn: 'blur' | 'change' | 'submit' | null | undefined;
-
     @Input() get disabled(): boolean {
         return this._disabled;
     }
@@ -335,13 +333,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         this._disabled = disabled;
 
         if (this.timer) this.clearTimer();
-    }
-
-    get updateOn() {
-        if (this.ngModelOptions && this.ngModelOptions.updateOn) {
-            this._updateOn = this.ngModelOptions.updateOn;
-            return this._updateOn;
-        }
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
@@ -1009,7 +1000,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if (this.isValueChanged(currentValue, newValue)) {
             this.input.nativeElement.value = this.formatValue(newValue);
             this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-            this.updateModel(event, newValue);
+            if (this.updateOn !== 'blur') {
+                this.updateModel(event, newValue);
+            }
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
@@ -1151,7 +1144,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-        this.updateModel(event, newValue);
+        if (this.updateOn === 'blur') {
+            this.updateModel(event, newValue);
+        }
         this.onBlur.emit(event);
     }
 
@@ -1161,29 +1156,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     updateModel(event, value) {
-        if (this.shouldUpdateModel(event)) {
-            if (this.value !== value) {
-                this.value = value;
-                this.onModelChange(value);
-            }
-            this.onModelTouched();
+        if (this.value !== value) {
+            this.value = value;
+            this.onModelChange(value);
         }
-    }
-
-    shouldUpdateModel(e) {
-        if (!this.updateOn) {
-            return true;
-        } else {
-            const eventType = e.type;
-            let event;
-            if (e.key === 'Enter') {
-                event = 'submit';
-            } else {
-                event = eventType === 'keypress' ? 'change' : eventType === 'mousedown' ? 'change' : eventType;
-            }
-
-            return event === this.updateOn;
-        }
+        this.onModelTouched();
     }
 
     writeValue(value: any): void {
