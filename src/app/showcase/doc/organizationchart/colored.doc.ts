@@ -33,7 +33,7 @@ export class ColoredDoc {
             type: 'person',
             styleClass: 'bg-indigo-500 text-white',
             data: {
-                image: 'https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png',
+                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -43,7 +43,7 @@ export class ColoredDoc {
                     type: 'person',
                     styleClass: 'bg-purple-500 text-white',
                     data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/avatar/annafali.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -65,7 +65,7 @@ export class ColoredDoc {
                     type: 'person',
                     styleClass: 'bg-teal-500 text-white',
                     data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/avatar/stephenshaw.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
@@ -124,7 +124,7 @@ export class OrganizationChartColoredDemo {
             type: 'person',
             styleClass: 'bg-indigo-500 text-white',
             data: {
-                image: 'https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png',
+                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -134,7 +134,7 @@ export class OrganizationChartColoredDemo {
                     type: 'person',
                     styleClass: 'bg-purple-500 text-white',
                     data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/avatar/annafali.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -156,7 +156,7 @@ export class OrganizationChartColoredDemo {
                     type: 'person',
                     styleClass: 'bg-teal-500 text-white',
                     data: {
-                        image: 'https://primefaces.org/cdn/primeng/images/avatar/stephenshaw.png',
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
