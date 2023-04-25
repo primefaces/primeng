@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -8,6 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    Inject,
     Input,
     NgModule,
     NgZone,
@@ -27,6 +28,12 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { TimesIcon } from 'primeng/icons/times';
+import { CalendarIcon } from 'primeng/icons/calendar';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,8 +85,19 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                     autocomplete="off"
                     [attr.aria-labelledby]="ariaLabelledBy"
                 />
-                <i *ngIf="showClear && !disabled && value != null" class="p-calendar-clear-icon pi pi-times" (click)="clear()"></i>
-                <button type="button" [attr.aria-label]="iconAriaLabel" [icon]="icon" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger" [disabled]="disabled" tabindex="0"></button>
+                <ng-container *ngIf="showClear && !disabled && value != null">
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()"/>
+                    <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+                <button type="button" [attr.aria-label]="iconAriaLabel" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger p-button-icon-only" [disabled]="disabled" tabindex="0">
+                    <span *ngIf="icon" [ngClass]="icon"></span>
+                    <ng-container *ngIf="!icon">
+                        <CalendarIcon *ngIf="!triggerIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
             </ng-template>
             <div
                 #contentWrapper
@@ -112,7 +130,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
-                                    <span class="p-datepicker-prev-icon pi pi-chevron-left"></span>
+                                    <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
+                                    <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
+                                        <ng-template *ngTemplateOutlet="previousIconTemplate;"></ng-template>
+                                    </span>
                                 </button>
                                 <div class="p-datepicker-title">
                                     <button type="button" (click)="switchToMonthView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
@@ -134,7 +155,10 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     type="button"
                                     pRipple
                                 >
-                                    <span class="p-datepicker-next-icon pi pi-chevron-right"></span>
+                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate"/>
+                                    <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate;"></ng-template>
+                                    </span>
                                 </button>
                             </div>
                             <div class="p-datepicker-calendar-container" *ngIf="currentView === 'date'">
@@ -203,7 +227,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-up"></span>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                         <button
@@ -219,7 +244,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-down"></span>
+                           <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                           <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator">
@@ -239,7 +265,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-up"></span>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                         <button
@@ -255,7 +282,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-down"></span>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator" *ngIf="showSeconds">
@@ -275,7 +303,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-up"></span>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                         <button
@@ -291,16 +320,19 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <span class="pi pi-chevron-down"></span>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-ampm-picker" *ngIf="hourFormat == '12'">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                            <span class="pi pi-chevron-up"></span>
+                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                            <span class="pi pi-chevron-down"></span>
+                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
+                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                 </div>
@@ -382,7 +414,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() showIcon: boolean;
 
-    @Input() icon: string = 'pi pi-calendar';
+    @Input() icon: string;
 
     @Input() appendTo: any;
 
@@ -519,7 +551,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     mask: HTMLDivElement;
 
-    maskClickListener: Function;
+    maskClickListener: VoidFunction | null;
 
     overlay: HTMLDivElement;
 
@@ -535,9 +567,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     timePickerTimer: any;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    animationEndListener: any;
+    animationEndListener: VoidFunction | null;
 
     ticksTo1970: number;
 
@@ -571,6 +603,18 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     decadeTemplate: TemplateRef<any>;
 
+    previousIconTemplate: TemplateRef<any>;
+
+    nextIconTemplate: TemplateRef<any>;
+
+    triggerIconTemplate: TemplateRef<any>;
+
+    clearIconTemplate: TemplateRef<any>;
+
+    decrementIconTemplate: TemplateRef<any>;
+
+    incrementIconTemplate: TemplateRef<any>;
+
     _disabledDates: Array<Date>;
 
     _disabledDays: Array<number>;
@@ -581,9 +625,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     focusElement: any;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidFunction | null;
 
     navigationState: any = null;
 
@@ -753,7 +797,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         console.warn('Locale property has no effect, use new i18n API instead.');
     }
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {}
+    private window: Window;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.attributeSelector = UniqueComponentId();
@@ -795,6 +843,30 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'decrementicon':
+                    this.decrementIconTemplate = item.template;
+                    break;
+
+                case 'incrementicon':
+                    this.incrementIconTemplate = item.template;
                     break;
 
                 case 'footer':
@@ -2468,7 +2540,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.overlay);
             else DomHandler.appendChild(this.overlay, this.appendTo);
         }
     }
@@ -2499,25 +2571,26 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     enableModality(element) {
-        if (!this.mask && !this.touchUI) {
-            this.mask = document.createElement('div');
-            this.mask.style.zIndex = String(parseInt(element.style.zIndex) - 1);
+        if (!this.mask && this.touchUI) {
+            this.mask = this.renderer.createElement('div');
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-component-overlay p-datepicker-mask p-datepicker-mask-scrollblocker p-component-overlay p-component-overlay-enter';
             DomHandler.addMultipleClasses(this.mask, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
             });
-            document.body.appendChild(this.mask);
-            DomHandler.addClass(document.body, 'p-overflow-hidden');
+            this.renderer.appendChild(this.document.body, this.mask);
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
 
     disableModality() {
         if (this.mask) {
             DomHandler.addClass(this.mask, 'p-component-overlay-leave');
-            this.animationEndListener = this.destroyMask.bind(this);
-            this.mask.addEventListener('animationend', this.animationEndListener);
+            if (!this.animationEndListener) {
+                this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyMask.bind(this));
+            }
         }
     }
 
@@ -2525,9 +2598,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.mask) {
             return;
         }
-
-        document.body.removeChild(this.mask);
-        let bodyChildren = document.body.children;
+        this.renderer.removeChild(this.document.body, this.mask);
+        let bodyChildren = this.document.body.children;
         let hasBlockerMasks: boolean;
         for (let i = 0; i < bodyChildren.length; i++) {
             let bodyChild = bodyChildren[i];
@@ -2538,7 +2610,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         this.unbindAnimationEndListener();
@@ -2555,7 +2627,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     unbindAnimationEndListener() {
         if (this.animationEndListener && this.mask) {
-            this.mask.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener();
             this.animationEndListener = null;
         }
     }
@@ -2941,9 +3013,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     createResponsiveStyle() {
         if (this.numberOfMonths > 1 && this.responsiveOptions) {
             if (!this.responsiveStyleElement) {
-                this.responsiveStyleElement = document.createElement('style');
+                this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                document.body.appendChild(this.responsiveStyleElement);
+                this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
             let innerHTML = '';
@@ -2988,7 +3060,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.zone.runOutsideAngular(() => {
-                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                     if (this.isOutsideClicked(event) && this.overlayVisible) {
@@ -3013,14 +3085,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener && !this.touchUI) {
-            this.documentResizeListener = this.onWindowResize.bind(this);
-            window.addEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
         }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -3070,6 +3141,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
+        this.onModelTouched();
     }
 
     ngOnDestroy() {
@@ -3094,7 +3166,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon],
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })

@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, Input, NgModule, NgZone, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -20,6 +20,7 @@ export interface TooltipOptions {
     positionLeft?: number;
     life?: number;
     autoHide?: boolean;
+    hideOnEscape?: boolean;
 }
 
 @Directive({
@@ -57,6 +58,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     @Input() fitContent: boolean = true;
 
+    @Input() hideOnEscape: boolean = true;
+
     @Input('pTooltip') text: string;
 
     @Input('tooltipDisabled') get disabled(): boolean {
@@ -77,7 +80,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         escape: true,
         positionTop: 0,
         positionLeft: 0,
-        autoHide: true
+        autoHide: true,
+        hideOnEscape: false
     };
 
     _disabled: boolean;
@@ -110,26 +114,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            if (this.getOption('tooltipEvent') === 'hover') {
-                this.mouseEnterListener = this.onMouseEnter.bind(this);
-                this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onInputClick.bind(this);
-                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('click', this.clickListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-            } else if (this.getOption('tooltipEvent') === 'focus') {
-                this.focusListener = this.onFocus.bind(this);
-                this.blurListener = this.onBlur.bind(this);
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                if (this.getOption('tooltipEvent') === 'hover') {
+                    this.mouseEnterListener = this.onMouseEnter.bind(this);
+                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                    this.clickListener = this.onInputClick.bind(this);
+                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                    this.el.nativeElement.addEventListener('click', this.clickListener);
+                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+                } else if (this.getOption('tooltipEvent') === 'focus') {
+                    this.focusListener = this.onFocus.bind(this);
+                    this.blurListener = this.onBlur.bind(this);
 
-                let target = this.getTarget(this.el.nativeElement);
-                target.addEventListener('focus', this.focusListener);
-                target.addEventListener('blur', this.blurListener);
-            }
-        });
+                    let target = this.getTarget(this.el.nativeElement);
+                    target.addEventListener('focus', this.focusListener);
+                    target.addEventListener('blur', this.blurListener);
+                }
+            });
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -254,6 +260,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onInputClick(e: Event) {
         this.deactivate();
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    onPressEscape() {
+        if (this.hideOnEscape) {
+            this.deactivate();
+        }
     }
 
     activate() {

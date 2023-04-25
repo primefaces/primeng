@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { StarFillIcon } from 'primeng/icons/starfill';
+import { StarIcon } from 'primeng/icons/star';
+import { BanIcon } from 'primeng/icons/ban';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -14,16 +17,21 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }">
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
-                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-                <span
-                    *ngFor="let star of starsArray; let i = index"
-                    class="p-rating-icon"
-                    [attr.tabindex]="disabled || readonly ? null : '0'"
-                    (click)="rate($event, i)"
-                    (keydown.enter)="rate($event, i)"
-                    [ngClass]="!value || i >= value ? iconOffClass : iconOnClass"
-                    [ngStyle]="!value || i >= value ? iconOffStyle : iconOnStyle"
-                >
+                <ng-container  *ngIf="cancel">
+                    <span *ngIf="iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                    <BanIcon *ngIf="!iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle"/>
+                </ng-container>
+                <span *ngFor="let star of starsArray; let i = index">
+                    <ng-container *ngIf="!value || i>=value">
+                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
+                        <StarIcon *ngIf="!iconOffClass" (click)="rate($event, i)"
+                        [ngStyle]="iconOffStyle" (keydown.enter)="rate($event, i)" [styleClass]="'p-rating-icon'"  [attr.tabindex]="disabled || readonly ? null : '0'" />
+                    </ng-container>
+                    <ng-container *ngIf="value && i < value">
+                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
+                        <StarFillIcon *ngIf="!iconOnClass" (click)="rate($event, i)" [ngStyle]="iconOnStyle"
+                            (keydown.enter)="rate($event, i)" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.tabindex]="disabled || readonly ? null : '0'"/>
+                    </ng-container>
                 </span>
             </ng-container>
             <ng-template #customTemplate>
@@ -65,15 +73,15 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     @Input() cancel: boolean = true;
 
-    @Input() iconOnClass: string = 'pi pi-star-fill';
+    @Input() iconOnClass: string;
 
     @Input() iconOnStyle: any;
 
-    @Input() iconOffClass: string = 'pi pi-star';
+    @Input() iconOffClass: string;
 
     @Input() iconOffStyle: any;
 
-    @Input() iconCancelClass: string = 'pi pi-ban';
+    @Input() iconCancelClass: string;
 
     @Input() iconCancelStyle: any;
 
@@ -108,7 +116,7 @@ export class Rating implements OnInit, ControlValueAccessor {
                     this.offIconTemplate = item.template;
                     break;
 
-                case 'cancel':
+                case 'cancelicon':
                     this.cancelIconTemplate = item.template;
                     break;
             }
@@ -166,7 +174,7 @@ export class Rating implements OnInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, StarFillIcon, StarIcon, BanIcon],
     exports: [Rating, SharedModule],
     declarations: [Rating]
 })

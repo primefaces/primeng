@@ -60,10 +60,13 @@
     top: 0;
 }
 
-.p-megamenu-vertical .p-megamenu-root-list > .p-menuitem > .p-menuitem-link > .p-submenu-icon {
+.p-megamenu-vertical .p-megamenu-root-list > .p-menuitem > .p-menuitem-link > .p-submenu-icon:not(svg) {
     margin-left: auto;
 }
 
+.p-megamenu-vertical .p-megamenu-root-list > .p-menuitem > .p-menuitem-link > .p-icon-wrapper {
+    margin-left: auto;
+}
 
 .p-megamenu-grid {
     display: flex;
@@ -96,4 +99,9 @@
 
 .p-megamenu-col-12 {
     width: 100%;
+}
+
+.p-megamenu-horizontal .p-megamenu-end {
+    margin-left: auto;
+    align-self: center;
 }

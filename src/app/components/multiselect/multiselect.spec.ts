@@ -5,6 +5,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from 'primeng/overlay';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultiSelect, MultiSelectItem } from './multiselect';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesIcon } from 'primeng/icons/times';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MultiSelect', () => {
     let multiselect: MultiSelect;
@@ -12,8 +16,9 @@ describe('MultiSelect', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ScrollingModule, TooltipModule, OverlayModule],
-            declarations: [MultiSelect, MultiSelectItem]
+            imports: [NoopAnimationsModule, ScrollingModule, TooltipModule, OverlayModule, SearchIcon, ChevronDownIcon, TimesIcon],
+            declarations: [MultiSelect, MultiSelectItem],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(MultiSelect);
@@ -48,14 +53,15 @@ describe('MultiSelect', () => {
         fixture.detectChanges();
 
         const dropdownIcon = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon')).nativeElement;
-        expect(dropdownIcon.className).toContain('pi pi-chevron-down');
+        expect(dropdownIcon.tagName.toLowerCase()).toEqual('svg');
         fixture.detectChanges();
 
         multiselect.dropdownIcon = 'Primeng Rocks!';
         fixture.detectChanges();
 
         multiselect.cd.detectChanges();
-        expect(dropdownIcon.className).toContain('Primeng Rocks!');
+        const dropdownIconEl = fixture.debugElement.query(By.css('.p-multiselect-trigger-icon'));
+        expect(dropdownIconEl.nativeElement.className).toContain('Primeng Rocks!');
     });
 
     it('should change style and styleClass', () => {

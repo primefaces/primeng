@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TieredMenuModule, TieredMenu } from 'primeng/tieredmenu';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 type SplitButtonIconPosition = 'left' | 'right';
 
@@ -18,7 +19,10 @@ type SplitButtonIconPosition = 'left' | 'right';
             <ng-template #defaultButton>
                 <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             </ng-template>
-            <button type="button" pButton class="p-splitbutton-menubutton" icon="pi pi-chevron-down" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel"></button>
+            <button type="button" pButton class="p-splitbutton-menubutton p-button-icon-only" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel">
+                <ChevronDownIcon *ngIf="!dropdownIconTemplate"/>
+                <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+            </button>
             <p-tieredMenu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
         </div>
     `,
@@ -74,11 +78,17 @@ export class SplitButton {
 
     contentTemplate: TemplateRef<any>;
 
+    dropdownIconTemplate: TemplateRef<any>;
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
+                    break;
+
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
                     break;
 
                 default:
@@ -99,7 +109,7 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, TieredMenuModule],
+    imports: [CommonModule, ButtonModule, TieredMenuModule, ChevronDownIcon],
     exports: [SplitButton, ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })

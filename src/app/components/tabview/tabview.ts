@@ -18,14 +18,18 @@ import {
     ViewChild,
     AfterViewChecked,
     forwardRef,
-    Inject
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { RippleModule } from 'primeng/ripple';
 import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 
 let idx: number = 0;
 
@@ -84,6 +88,12 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     headerTemplate: TemplateRef<any>;
 
+    leftIconTemplate: TemplateRef<any>;
+
+    rightIconTemplate: TemplateRef<any>;
+
+    closeIconTemplate: TemplateRef<any>;
+
     tabView: TabView;
 
     constructor(@Inject(forwardRef(() => TabView)) tabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
@@ -99,6 +109,18 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
                 case 'content':
                     this.contentTemplate = item.template;
+                    break;
+
+                case 'righticon':
+                    this.rightIconTemplate = item.template;
+                    break;
+
+                case 'lefticon':
+                    this.leftIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 default:
@@ -175,7 +197,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabview-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <span class="pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabview-nav" role="tablist">
@@ -198,12 +221,22 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     [attr.tabindex]="tab.disabled ? null : '0'"
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
+                                        <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
+                                            <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
+                                        </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
+                                        <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
+                                            <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
+                                        </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
-                                    <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event, tab)"></span>
+                                    <ng-container *ngIf="tab.closable">
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)"/>
+                                        <span class="tab.closeIconTemplate" *ngIf="p-tabview-close"></span>
+                                        <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
+                                    </ng-container>
                                 </a>
                             </li>
                         </ng-template>
@@ -211,7 +244,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <span class="pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!nextIconTemplate"/>
+                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
             <div class="p-tabview-panels">
@@ -255,6 +289,8 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     initialized: boolean;
 
     tabs: TabPanel[];
@@ -271,7 +307,11 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     private tabChangesSubscription!: Subscription;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    nextIconTemplate: TemplateRef<any>;
+
+    previousIconTemplate: TemplateRef<any>;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
@@ -279,12 +319,26 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         this.tabChangesSubscription = this.tabPanels.changes.subscribe((_) => {
             this.initTabs();
         });
+
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     ngAfterViewChecked() {
-        if (this.tabChanged) {
-            this.updateInkBar();
-            this.tabChanged = false;
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.tabChanged) {
+                this.updateInkBar();
+                this.tabChanged = false;
+            }
         }
     }
 
@@ -352,8 +406,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 index: this.findTabIndex(tab)
             });
         }
-
-        event.stopPropagation();
     }
 
     closeTab(tab: TabPanel) {
@@ -474,7 +526,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
     exports: [TabView, TabPanel, SharedModule],
     declarations: [TabView, TabPanel]
 })

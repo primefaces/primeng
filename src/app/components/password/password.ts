@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -12,6 +12,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     Input,
     NgModule,
     NgZone,
@@ -20,7 +21,9 @@ import {
     Output,
     Pipe,
     PipeTransform,
+    PLATFORM_ID,
     QueryList,
+    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -31,6 +34,9 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { TimesIcon } from 'primeng/icons/times';
+import { EyeSlashIcon } from 'primeng/icons/eyeslash';
+import { EyeIcon } from 'primeng/icons/eye';
 
 @Directive({
     selector: '[pPassword]',
@@ -62,11 +68,11 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     filled: boolean;
 
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler;
 
-    documentResizeListener: any;
+    documentResizeListener: () => void | null;
 
-    constructor(public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
 
     ngDoCheck() {
         this.updateFilledState();
@@ -82,17 +88,25 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     createPanel() {
-        this.panel = document.createElement('div');
-        this.panel.className = 'p-password-panel p-component p-password-panel-overlay p-connected-overlay';
-        this.meter = document.createElement('div');
-        this.meter.className = 'p-password-meter';
-        this.info = document.createElement('div');
-        this.info.className = 'p-password-info';
-        this.info.textContent = this.promptLabel;
-        this.panel.appendChild(this.meter);
-        this.panel.appendChild(this.info);
-        this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
-        document.body.appendChild(this.panel);
+        if (isPlatformBrowser(this.platformId)) {
+            this.panel = this.renderer.createElement('div');
+            this.renderer.addClass(this.panel, 'p-password-panel');
+            this.renderer.addClass(this.panel, 'p-component');
+            this.renderer.addClass(this.panel, 'p-password-panel-overlay');
+            this.renderer.addClass(this.panel, 'p-connected-overlay');
+
+            this.meter = this.renderer.createElement('div');
+            this.renderer.addClass(this.meter, 'p-password-meter');
+            this.renderer.appendChild(this.panel, this.meter);
+
+            this.info = this.renderer.createElement('div');
+            this.renderer.addClass(this.info, 'p-password-info');
+            this.renderer.setProperty(this.info, 'textContent', this.promptLabel);
+            this.renderer.appendChild(this.panel, this.info);
+
+            this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
+            this.renderer.appendChild(document.body, this.panel);
+        }
     }
 
     showOverlay() {
@@ -101,8 +115,8 @@ export class PasswordDirective implements OnDestroy, DoCheck {
                 this.createPanel();
             }
 
-            this.panel.style.zIndex = String(++DomHandler.zindex);
-            this.panel.style.display = 'block';
+            this.renderer.setStyle(this.panel, 'zIndex', String(++DomHandler.zindex));
+            this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
@@ -168,7 +182,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
                 this.showOverlay();
             }
 
-            this.meter.style.backgroundPosition = meterPos;
+            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
             this.info.textContent = label;
         }
     }
@@ -224,13 +238,17 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentResizeListener) {
+                const window = this.document.defaultView as Window;
+                this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
+            }
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -250,7 +268,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
             this.unbindDocumentResizeListener();
 
-            document.body.removeChild(this.panel);
+            this.renderer.removeChild(this.document.body, this.panel);
             this.panel = null;
             this.meter = null;
             this.info = null;
@@ -299,8 +317,28 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event)"
                 [attr.maxlength]="maxLength"
             />
-            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
+            <ng-container *ngIf="showClear && value != null">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
+                <span (click)="clear()" class="p-password-clear-icon">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>    
+            </ng-container>
+
+            <ng-container *ngIf="toggleMask">
+                <ng-container *ngIf="unmasked">
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()"/>
+                    <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="!unmasked">
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()"/>
+                    <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+            </ng-container>
+
             <div
                 #overlay
                 *ngIf="overlayVisible"
@@ -402,6 +440,12 @@ export class Password implements AfterContentInit, OnInit {
 
     headerTemplate: TemplateRef<any>;
 
+    clearIconTemplate: TemplateRef<any>;
+
+    hideIconTemplate: TemplateRef<any>;
+
+    showIconTemplate: TemplateRef<any>;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     overlayVisible: boolean = false;
@@ -418,11 +462,9 @@ export class Password implements AfterContentInit, OnInit {
 
     strongCheckRegExp: any;
 
-    resizeListener: any;
+    resizeListener: VoidFunction | null;
 
-    outsideClickListener: any;
-
-    scrollHandler: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null;
 
     overlay: any;
 
@@ -434,7 +476,15 @@ export class Password implements AfterContentInit, OnInit {
 
     translationSubscription: Subscription;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private config: PrimeNGConfig,
+        public el: ElementRef,
+        public overlayService: OverlayService
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -449,6 +499,18 @@ export class Password implements AfterContentInit, OnInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'hideicon':
+                    this.hideIconTemplate = item.template;
+                    break;
+
+                case 'showicon':
+                    this.showIconTemplate = item.template;
                     break;
 
                 default:
@@ -496,8 +558,8 @@ export class Password implements AfterContentInit, OnInit {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
-            else document.getElementById(this.appendTo).appendChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
+            else this.document.getElementById(this.appendTo).appendChild(this.overlay);
         }
     }
 
@@ -634,25 +696,29 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.overlayVisible = false;
-                }
-            });
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.scrollHandler) {
+                this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
+                    if (this.overlayVisible) {
+                        this.overlayVisible = false;
+                    }
+                });
+            }
 
-        this.scrollHandler.bindScrollListener();
+            this.scrollHandler.bindScrollListener();
+        }
     }
 
     bindResizeListener() {
-        if (!this.resizeListener) {
-            this.resizeListener = () => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-                    this.overlayVisible = false;
-                }
-            };
-            window.addEventListener('resize', this.resizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                const window = this.document.defaultView as Window;
+                this.resizeListener = this.renderer.listen(window, 'resize', () => {
+                    if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                        this.overlayVisible = false;
+                    }
+                });
+            }
         }
     }
 
@@ -664,15 +730,8 @@ export class Password implements AfterContentInit, OnInit {
 
     unbindResizeListener() {
         if (this.resizeListener) {
-            window.removeEventListener('resize', this.resizeListener);
+            this.resizeListener();
             this.resizeListener = null;
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
-            this.outsideClickListener = null;
         }
     }
 
@@ -682,10 +741,6 @@ export class Password implements AfterContentInit, OnInit {
 
     inputFieldClass(disabled: boolean) {
         return { 'p-password-input': true, 'p-disabled': disabled };
-    }
-
-    toggleIconClass(unmasked: boolean) {
-        return unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
     }
 
     strengthClass(meter: any) {
@@ -714,8 +769,8 @@ export class Password implements AfterContentInit, OnInit {
 
     restoreAppend() {
         if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') document.body.removeChild(this.overlay);
-            else document.getElementById(this.appendTo).removeChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else this.document.getElementById(this.appendTo).removeChild(this.overlay);
         }
     }
 
@@ -755,7 +810,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule],
+    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })

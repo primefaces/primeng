@@ -19,14 +19,24 @@ import {
     ChangeDetectorRef,
     AfterViewInit,
     KeyValueDiffers,
-    DoCheck
+    DoCheck,
+    Inject,
+    Renderer2,
+    PLATFORM_ID,
+    AfterContentInit,
+    forwardRef
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 @Component({
     selector: 'p-galleria',
@@ -154,9 +164,19 @@ export class Galleria implements OnChanges, OnDestroy {
 
     captionFacet: any;
 
+    closeIconTemplate: TemplateRef<any>;
+
+    previousThumbnailIconTemplate: TemplateRef<any>;
+
+    nextThumbnailIconTemplate: TemplateRef<any>;
+
+    itemPreviousIconTemplate: TemplateRef<any>;
+
+    itemNextIconTemplate: TemplateRef<any>;
+
     maskVisible: boolean = false;
 
-    constructor(public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -164,12 +184,35 @@ export class Galleria implements OnChanges, OnDestroy {
                 case 'header':
                     this.headerFacet = item.template;
                     break;
+
                 case 'footer':
                     this.footerFacet = item.template;
                     break;
+
                 case 'indicator':
                     this.indicatorFacet = item.template;
                     break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
+                    break;
+
+                case 'itemnexticon':
+                    this.itemNextIconTemplate = item.template;
+                    break;
+
+                case 'itempreviousicon':
+                    this.itemPreviousIconTemplate = item.template;
+                    break;
+
+                case 'previousthumbnailicon':
+                    this.previousThumbnailIconTemplate = item.template;
+                    break;
+
+                case 'nextthumbnailicon':
+                    this.nextThumbnailIconTemplate = item.template;
+                    break;
+
                 case 'caption':
                     this.captionFacet = item.template;
                     break;
@@ -216,7 +259,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.addClass(document.body, 'p-overflow-hidden');
+        DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -225,7 +268,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.removeClass(document.body, 'p-overflow-hidden');
+        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         this.maskVisible = false;
         this.cd.markForCheck();
 
@@ -236,7 +279,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnDestroy() {
         if (this.fullScreen) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
         if (this.mask) {
@@ -261,7 +304,8 @@ export class Galleria implements OnChanges, OnDestroy {
             [class]="galleriaClass()"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple>
-                <span class="p-galleria-close-icon pi pi-times"></span>
+                <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'"/>
+                <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
             <div *ngIf="galleria.templates && galleria.headerFacet" class="p-galleria-header">
                 <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
@@ -449,10 +493,12 @@ export class GalleriaItemSlot {
                         this.context = { $implicit: this.item };
                         this.contentTemplate = item.template;
                         break;
+
                     case 'indicator':
                         this.context = { $implicit: this.index };
                         this.contentTemplate = item.template;
                         break;
+
                     default:
                         this.context = {};
                         this.contentTemplate = item.template;
@@ -476,7 +522,8 @@ export class GalleriaItemSlot {
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
                 >
-                    <span class="p-galleria-item-prev-icon pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'"/>
+                    <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
                 <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
                 <button
@@ -487,7 +534,8 @@ export class GalleriaItemSlot {
                     [disabled]="isNavForwardDisabled()"
                     pRipple
                 >
-                    <span class="p-galleria-item-next-icon pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'"/>
+                    <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-caption" *ngIf="captionFacet">
                     <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
@@ -550,6 +598,8 @@ export class GalleriaItem implements OnChanges {
     }
 
     _activeIndex: number = 0;
+
+    constructor(public galleria: Galleria) {}
 
     ngOnChanges({ autoPlay }: SimpleChanges): void {
         if (autoPlay?.currentValue) {
@@ -633,7 +683,11 @@ export class GalleriaItem implements OnChanges {
         <div class="p-galleria-thumbnail-wrapper">
             <div class="p-galleria-thumbnail-container">
                 <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-prev p-link': true, 'p-disabled': this.isNavBackwardDisabled() }" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()" pRipple>
-                    <span [ngClass]="{ 'p-galleria-thumbnail-prev-icon pi': true, 'pi-chevron-left': !this.isVertical, 'pi-chevron-up': this.isVertical }"></span>
+                    <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
+                        <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'"/>
+                        <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnail-items-container" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
                     <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
@@ -654,7 +708,11 @@ export class GalleriaItem implements OnChanges {
                     </div>
                 </div>
                 <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-next p-link': true, 'p-disabled': this.isNavForwardDisabled() }" (click)="navForward($event)" [disabled]="isNavForwardDisabled()" pRipple>
-                    <span [ngClass]="{ 'p-galleria-thumbnail-next-icon pi': true, 'pi-chevron-right': !this.isVertical, 'pi-chevron-down': this.isVertical }"></span>
+                    <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
+                        <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'"/>
+                        <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'"/>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate"></ng-template>
                 </button>
             </div>
         </div>
@@ -717,7 +775,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     page: number = 0;
 
-    documentResizeListener: any;
+    documentResizeListener: () => void | null;
 
     _numVisible: number = 0;
 
@@ -729,7 +787,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.createStyle();
@@ -777,9 +835,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     createStyle() {
         if (!this.thumbnailsStyle) {
-            this.thumbnailsStyle = document.createElement('style');
+            this.thumbnailsStyle = this.document.createElement('style');
             this.thumbnailsStyle.type = 'text/css';
-            document.body.appendChild(this.thumbnailsStyle);
+            this.document.body.appendChild(this.thumbnailsStyle);
         }
 
         let innerHTML = `
@@ -1008,18 +1066,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     bindDocumentListeners() {
-        if (!this.documentResizeListener) {
-            this.documentResizeListener = () => {
+        if (isPlatformBrowser(this.platformId)) {
+            const window = this.document.defaultView || 'window';
+            this.documentResizeListener = this.renderer.listen(window, 'resize', () => {
                 this.calculatePosition();
-            };
-
-            window.addEventListener('resize', this.documentResizeListener);
+            });
         }
     }
 
     unbindDocumentListeners() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -1036,7 +1093,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

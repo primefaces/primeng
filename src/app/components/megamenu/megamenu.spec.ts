@@ -66,9 +66,9 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
 
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
+        const iconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
         expect(megaMenuEl.className).toContain('p-megamenu-horizontal');
-        expect(spanIconEl.className).toContain('pi-angle-down');
+        expect(iconEl.tagName.toLowerCase()).toEqual('angledownicon');
     });
 
     it('should change orientation', () => {
@@ -104,10 +104,10 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
 
         const megaMenuEl = fixture.debugElement.query(By.css('div')).nativeElement;
-        const spanIconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
+        const iconEl = fixture.debugElement.query(By.css('a')).children[2].nativeElement;
         const menuItemCustomEl = fixture.debugElement.query(By.css('.p-menuitem.p-menuitem-custom'));
         expect(megaMenuEl.className).toContain('p-megamenu-vertical');
-        expect(spanIconEl.className).toContain('pi-angle-right');
+        expect(iconEl.tagName.toLowerCase()).toEqual('anglerighticon');
         expect(menuItemCustomEl).toBeFalsy();
     });
 
