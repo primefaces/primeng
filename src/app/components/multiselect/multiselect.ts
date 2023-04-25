@@ -169,7 +169,7 @@ export class MultiSelectItem {
                             <ng-container *ngIf="!value || value.length === 0">{{ placeholder || defaultLabel || 'empty' }}</ng-container>
                         </ng-container>
                     </ng-container>
-                    <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: value }"></ng-container>
+                    <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: value, removeChip: removeChip.bind(this) }"></ng-container>
                 </div>
                 <ng-container  *ngIf="value != null && filled && !disabled && showClear">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-multiselect-clear-icon'" (click)="clear($event)" />
