@@ -1,26 +1,6 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    Inject,
-    Input,
-    NgModule,
-    OnInit,
-    OnChanges,
-    AfterContentInit,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Injector, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
@@ -335,7 +315,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if (this.timer) this.clearTimer();
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef) {}
+    private ngControl: NgControl | null = null;
+
+    constructor(public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -363,6 +345,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     ngOnInit() {
+        this.ngControl = this.injector.get(NgControl, null, { optional: true });
+
         this.constructParser();
 
         this.initialized = true;
@@ -1156,8 +1140,15 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     updateModel(event, value) {
+        const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
+
         if (this.value !== value) {
             this.value = value;
+
+            if (!(isBlurUpdateOnMode && this.focused)) {
+                this.onModelChange(value);
+            }
+        } else if (isBlurUpdateOnMode) {
             this.onModelChange(value);
         }
         this.onModelTouched();
