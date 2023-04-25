@@ -2890,7 +2890,7 @@ export class FrozenColumn implements AfterViewInit {
                 this.el.nativeElement.style.left = left + 'px';
             }
 
-            let filterRow = this.el.nativeElement.parentElement.nextElementSibling;
+            const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
 
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
