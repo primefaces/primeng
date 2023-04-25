@@ -174,7 +174,7 @@ export class MultiSelectItem {
                 <ng-container  *ngIf="value != null && filled && !disabled && showClear">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-multiselect-clear-icon'" (click)="clear($event)" />
                 <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)">
-                    <ng-tempate *ngTemplateOutlet="clearIconTemplate"></ng-tempate>
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
                 </ng-container>
             </div>
@@ -258,7 +258,7 @@ export class MultiSelectItem {
                                 <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple>
                                     <TimesIcon [styleClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate"/>
                                     <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
-                                        <ng-tempate *ngTemplateOutlet="closeIconTemplate"></ng-tempate>
+                                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                                     </span>
                                 </button>
                             </ng-template>
@@ -711,7 +711,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     break;
 
                 case 'clearicon':
-                    this.clearIconTemplate = item.tempate;
+                    this.clearIconTemplate = item.template;
                     break;
 
                 case 'dropdownicon':
