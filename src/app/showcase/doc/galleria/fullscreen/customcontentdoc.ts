@@ -28,7 +28,7 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -93,7 +93,7 @@ export class FullScreenTemplateDoc implements OnInit {
     [showThumbnails]="false"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>
         `,
@@ -117,7 +117,7 @@ export class FullScreenTemplateDoc implements OnInit {
         [showThumbnails]="false"
     >
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,

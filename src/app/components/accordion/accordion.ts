@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 
 let idx: number = 0;
 
@@ -23,7 +25,17 @@ let idx: number = 0;
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
                 >
-                    <span [class]="iconClass" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+                    <ng-container *ngIf="!iconTemplate">
+                        <ng-container *ngIf="selected">
+                            <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
+                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [styleClass]="iconClass"/>
+                        </ng-container>
+                        <ng-container *ngIf="!selected">
+                            <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [styleClass]="iconClass"/>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
@@ -136,6 +148,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     loaded: boolean;
 
+    iconTemplate: TemplateRef<any>;
+
     accordion: Accordion;
 
     constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
@@ -151,6 +165,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 default:
@@ -243,9 +261,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
+    @Input() expandIcon: string;
 
-    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
+    @Input() collapseIcon: string;
 
     @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
 
@@ -333,7 +351,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })

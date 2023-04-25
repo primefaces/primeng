@@ -9,6 +9,7 @@ import { StyleDoc } from '../../doc/checkbox/styledoc';
 import { PropsDoc } from '../../doc/checkbox/propsdoc';
 import { AccessibilityDoc } from '../../doc/checkbox/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/checkbox/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/checkbox/templatesdoc';
 
 @Component({
     templateUrl: './checkboxdemo.html'
@@ -67,6 +68,11 @@ export class CheckboxDemo {
             id: 'properties',
             label: 'Properties',
             component: PropsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

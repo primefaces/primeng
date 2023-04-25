@@ -16,7 +16,7 @@ import { NodeService } from '../../service/nodeservice';
             <div class="flex justify-content-center mb-4">
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
-            <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+            <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-end align-items-center">
                         <div class="p-input-icon-left">
@@ -86,7 +86,7 @@ export class FilterDoc implements OnInit {
         basic: `
 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
 
-<p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+<p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-end align-items-center">
             <div class="p-input-icon-left">
@@ -127,7 +127,7 @@ export class FilterDoc implements OnInit {
     <div class="flex justify-content-center mb-4">
         <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
     </div>
-    <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+    <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-end align-items-center">
                 <div class="p-input-icon-left">

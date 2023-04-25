@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
+    Inject,
     Injectable,
     Input,
     NgModule,
@@ -18,7 +19,9 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
+    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -31,6 +34,16 @@ import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
+import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ArrowDownIcon } from 'primeng/icons/arrowdown';
+import { ArrowUpIcon } from 'primeng/icons/arrowup';
+import { CheckIcon } from 'primeng/icons/check';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { MinusIcon } from 'primeng/icons/minus';
+import { SortAltIcon } from 'primeng/icons/sortalt';
+import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 @Injectable()
 export class TreeTableService {
@@ -86,7 +99,13 @@ export class TreeTableService {
         >
             <div class="p-treetable-loading" *ngIf="loading && showLoader">
                 <div class="p-treetable-loading-overlay p-component-overlay">
-                    <i [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
+                    <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
+                    <ng-container *ngIf="!loadingIcon">
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'"/>
+                        <span *ngIf="loadingIconTemplate" class="p-treetable-loading-icon">
+                            <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </div>
             </div>
             <div *ngIf="captionTemplate" class="p-treetable-header">
@@ -111,7 +130,23 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="previouspagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="lastpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+        </ng-template>
+
+        <ng-template pTemplate="nextpagelinkicon">
+            <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+        </ng-template>
+            </p-paginator>
 
             <div class="p-treetable-wrapper" *ngIf="!scrollable">
                 <table #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
@@ -158,15 +193,36 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-            ></p-paginator>
+            >
+            <ng-template pTemplate="firstpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="previouspagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="lastpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+            </ng-template>
+
+            <ng-template pTemplate="nextpagelinkicon">
+                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+            </ng-template>
+            </p-paginator>
             <div *ngIf="summaryTemplate" class="p-treetable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-treetable-reorder-indicator-up" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-treetable-reorder-indicator-down" *ngIf="reorderableColumns"></span>
+            <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
+                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate"/>
+                <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
+            </span>
+            <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
+                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate"/>
+                <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
+            </span>
         </div>
     `,
     providers: [TreeTableService],
@@ -247,7 +303,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon: string;
 
     @Input() showLoader: boolean = true;
 
@@ -391,6 +447,28 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     frozenColGroupTemplate: TemplateRef<any>;
 
+    loadingIconTemplate: TemplateRef<any>;
+
+    reorderIndicatorUpIconTemplate: TemplateRef<any>;
+
+    reorderIndicatorDownIconTemplate: TemplateRef<any>;
+
+    sortIconTemplate: TemplateRef<any>;
+
+    checkboxIconTemplate: TemplateRef<any>;
+
+    headerCheckboxIconTemplate: TemplateRef<any>;
+
+    togglerIconTemplate: TemplateRef<any>;
+
+    paginatorFirstPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorLastPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorPreviousPageLinkIconTemplate: TemplateRef<any>;
+
+    paginatorNextPageLinkIconTemplate: TemplateRef<any>;
+
     lastResizerHelperX: number;
 
     reorderIconWidth: number;
@@ -417,7 +495,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     editingCellClick: boolean;
 
-    documentEditListener: any;
+    documentEditListener: VoidFunction | null;
 
     initialized: boolean;
 
@@ -492,11 +570,55 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 case 'frozencolgroup':
                     this.frozenColGroupTemplate = item.template;
                     break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                case 'reorderindicatorupicon':
+                    this.reorderIndicatorUpIconTemplate = item.template;
+                    break;
+
+                case 'reorderindicatordownicon':
+                    this.reorderIndicatorDownIconTemplate = item.template;
+                    break;
+
+                case 'sorticon':
+                    this.sortIconTemplate = item.template;
+                    break;
+
+                case 'checkboxicon':
+                    this.checkboxIconTemplate = item.template;
+                    break;
+
+                case 'headercheckboxicon':
+                    this.headerCheckboxIconTemplate = item.template;
+                    break;
+
+                case 'togglericon':
+                    this.togglerIconTemplate = item.template;
+                    break;
+
+                case 'paginatorfirstpagelinkicon':
+                    this.paginatorFirstPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorlastpagelinkicon':
+                    this.paginatorLastPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatorpreviouspagelinkicon':
+                    this.paginatorPreviousPageLinkIconTemplate = item.template;
+                    break;
+
+                case 'paginatornextpagelinkicon':
+                    this.paginatorNextPageLinkIconTemplate = item.template;
+                    break;
             }
         });
     }
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public zone: NgZone, public tableService: TreeTableService, public filterService: FilterService) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
@@ -1655,7 +1777,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
-            this.documentEditListener = (event) => {
+            this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
@@ -1666,15 +1788,13 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 }
 
                 this.editingCellClick = false;
-            };
-
-            document.addEventListener('click', this.documentEditListener);
+            });
         }
     }
 
     unbindDocumentEditListener() {
         if (this.documentEditListener) {
-            document.removeEventListener('click', this.documentEditListener);
+            this.documentEditListener();
             this.documentEditListener = null;
         }
     }
@@ -1835,11 +1955,11 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 
     @ViewChild('scroller') scroller: Scroller;
 
-    headerScrollListener;
+    headerScrollListener: VoidFunction | null;
 
-    bodyScrollListener;
+    bodyScrollListener: VoidFunction | null;
 
-    footerScrollListener;
+    footerScrollListener: VoidFunction | null;
 
     frozenSiblingBody: Element;
 
@@ -1859,7 +1979,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (!this.frozen) {
@@ -1889,41 +2009,56 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-                this.headerScrollListener = this.onHeaderScroll.bind(this);
-                this.scrollHeaderBoxViewChild.nativeElement.addEventListener('scroll', this.headerScrollListener);
-            }
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                    this.headerScrollListener = this.renderer.listen(this.scrollHeaderBoxViewChild.nativeElement, 'scroll', this.onHeaderScroll.bind(this));
+                }
 
-            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-                this.footerScrollListener = this.onFooterScroll.bind(this);
-                this.scrollFooterViewChild.nativeElement.addEventListener('scroll', this.footerScrollListener);
-            }
+                if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                    this.footerScrollListener = this.renderer.listen(this.scrollFooterViewChild.nativeElement, 'scroll', this.onFooterScroll.bind(this));
+                }
 
-            if (!this.frozen) {
-                this.bodyScrollListener = this.onBodyScroll.bind(this);
-
-                if (this.tt.virtualScroll) this.scroller.getElementRef().nativeElement.addEventListener('scroll', this.bodyScrollListener);
-                else this.scrollBodyViewChild.nativeElement.addEventListener('scroll', this.bodyScrollListener);
-            }
-        });
+                if (!this.frozen) {
+                    if (this.tt.virtualScroll) {
+                        this.bodyScrollListener = this.renderer.listen(this.scroller.getElementRef().nativeElement, 'scroll', this.onBodyScroll.bind(this));
+                    } else {
+                        this.bodyScrollListener = this.renderer.listen(this.scrollBodyViewChild.nativeElement, 'scroll', this.onBodyScroll.bind(this));
+                    }
+                }
+            });
+        }
     }
 
     unbindEvents() {
-        if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
-            this.scrollHeaderBoxViewChild.nativeElement.removeEventListener('scroll', this.headerScrollListener);
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.scrollHeaderViewChild && this.scrollHeaderViewChild.nativeElement) {
+                if (this.headerScrollListener) {
+                    this.headerScrollListener();
+                    this.headerScrollListener = null;
+                }
+            }
 
-        if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
-            this.scrollFooterViewChild.nativeElement.removeEventListener('scroll', this.footerScrollListener);
-        }
+            if (this.scrollFooterViewChild && this.scrollFooterViewChild.nativeElement) {
+                if (this.footerScrollListener) {
+                    this.footerScrollListener();
+                    this.footerScrollListener = null;
+                }
+            }
 
-        if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
-            this.scrollBodyViewChild.nativeElement.removeEventListener('scroll', this.bodyScrollListener);
-        }
+            if (this.scrollBodyViewChild && this.scrollBodyViewChild.nativeElement) {
+                if (this.bodyScrollListener) {
+                    this.bodyScrollListener();
+                    this.bodyScrollListener = null;
+                }
+            }
 
-        if (this.scroller && this.scroller.getElementRef()) {
-            this.scroller.getElementRef().nativeElement.removeEventListener('scroll', this.bodyScrollListener);
+            if (this.scroller && this.scroller.getElementRef()) {
+                if (this.bodyScrollListener) {
+                    this.bodyScrollListener();
+                    this.bodyScrollListener = null;
+                }
+            }
         }
     }
 
@@ -2063,7 +2198,15 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-treeTableSortIcon',
-    template: ` <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{ 'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0 }"></i> `,
+    template: `
+        <ng-container *ngIf="!tt.sortIconTemplate">
+            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
+        </ng-container>
+        <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon">
+            <ng-template *ngTemplateOutlet="tt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
+        </span>`,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -2123,46 +2266,44 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     resizer: HTMLSpanElement;
 
-    resizerMouseDownListener: any;
+    resizerMouseDownListener: VoidFunction | null;
 
-    documentMouseMoveListener: any;
+    documentMouseMoveListener: VoidFunction | null;
 
-    documentMouseUpListener: any;
+    documentMouseUpListener: VoidFunction | null;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
-            this.resizer = document.createElement('span');
-            this.resizer.className = 'p-column-resizer';
-            this.el.nativeElement.appendChild(this.resizer);
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.isEnabled()) {
+                DomHandler.addClass(this.el.nativeElement, 'p-resizable-column');
+                this.resizer = this.renderer.createElement('span');
+                this.renderer.addClass(this.resizer, 'p-column-resizer');
+                this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
-            this.zone.runOutsideAngular(() => {
-                this.resizerMouseDownListener = this.onMouseDown.bind(this);
-                this.resizer.addEventListener('mousedown', this.resizerMouseDownListener);
-            });
+                this.zone.runOutsideAngular(() => {
+                    this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                });
+            }
         }
     }
 
     bindDocumentEvents() {
         this.zone.runOutsideAngular(() => {
-            this.documentMouseMoveListener = this.onDocumentMouseMove.bind(this);
-            document.addEventListener('mousemove', this.documentMouseMoveListener);
-
-            this.documentMouseUpListener = this.onDocumentMouseUp.bind(this);
-            document.addEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
+            this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
         });
     }
 
     unbindDocumentEvents() {
         if (this.documentMouseMoveListener) {
-            document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener();
             this.documentMouseMoveListener = null;
         }
 
         if (this.documentMouseUpListener) {
-            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener();
             this.documentMouseUpListener = null;
         }
     }
@@ -2187,7 +2328,8 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         if (this.resizerMouseDownListener) {
-            this.resizer.removeEventListener('mousedown', this.resizerMouseDownListener);
+            this.resizerMouseDownListener();
+            this.resizerMouseDownListener = null;
         }
 
         this.unbindDocumentEvents();
@@ -2203,17 +2345,17 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     @Input() ttReorderableColumnDisabled: boolean;
 
-    dragStartListener: any;
+    dragStartListener: VoidFunction | null;
 
-    dragOverListener: any;
+    dragOverListener: VoidFunction | null;
 
-    dragEnterListener: any;
+    dragEnterListener: VoidFunction | null;
 
-    dragLeaveListener: any;
+    dragLeaveListener: VoidFunction | null;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidFunction | null;
 
-    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2222,48 +2364,43 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     }
 
     bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            this.mouseDownListener = this.onMouseDown.bind(this);
-            this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-
-            this.dragStartListener = this.onDragStart.bind(this);
-            this.el.nativeElement.addEventListener('dragstart', this.dragStartListener);
-
-            this.dragOverListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragover', this.dragOverListener);
-
-            this.dragEnterListener = this.onDragEnter.bind(this);
-            this.el.nativeElement.addEventListener('dragenter', this.dragEnterListener);
-
-            this.dragLeaveListener = this.onDragLeave.bind(this);
-            this.el.nativeElement.addEventListener('dragleave', this.dragLeaveListener);
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+                this.dragStartListener = this.renderer.listen(this.el.nativeElement, 'dragstart', this.onDragStart.bind(this));
+                this.dragOverListener = this.renderer.listen(this.el.nativeElement, 'dragover', this.onDragEnter.bind(this));
+                this.dragEnterListener = this.renderer.listen(this.el.nativeElement, 'dragenter', this.onDragEnter.bind(this));
+                this.dragLeaveListener = this.renderer.listen(this.el.nativeElement, 'dragleave', this.onDragLeave.bind(this));
+            });
+        }
     }
 
     unbindEvents() {
-        if (this.mouseDownListener) {
-            document.removeEventListener('mousedown', this.mouseDownListener);
-            this.mouseDownListener = null;
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.mouseDownListener) {
+                this.mouseDownListener();
+                this.mouseDownListener = null;
+            }
 
-        if (this.dragOverListener) {
-            document.removeEventListener('dragover', this.dragOverListener);
-            this.dragOverListener = null;
-        }
+            if (this.dragOverListener) {
+                this.dragOverListener();
+                this.dragOverListener = null;
+            }
 
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
+            if (this.dragEnterListener) {
+                this.dragEnterListener();
+                this.dragEnterListener = null;
+            }
 
-        if (this.dragEnterListener) {
-            document.removeEventListener('dragenter', this.dragEnterListener);
-            this.dragEnterListener = null;
-        }
+            if (this.dragEnterListener) {
+                this.dragEnterListener();
+                this.dragEnterListener = null;
+            }
 
-        if (this.dragLeaveListener) {
-            document.removeEventListener('dragleave', this.dragLeaveListener);
-            this.dragLeaveListener = null;
+            if (this.dragLeaveListener) {
+                this.dragLeaveListener();
+                this.dragLeaveListener = null;
+            }
         }
     }
 
@@ -2478,7 +2615,13 @@ export class TTContextMenuRow {
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
-                <span class="p-checkbox-icon pi" [ngClass]="{ 'pi-check': checked, 'pi-minus': rowNode.node.partialSelected }"></span>
+                <ng-container *ngIf="!tt.checkboxIconTemplate">
+                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked"/>
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected"/>
+                </ng-container>
+                <span *ngIf="tt.checkboxIconTemplate">
+                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
+                </span>
             </div>
         </div>
     `,
@@ -2543,7 +2686,12 @@ export class TTCheckbox {
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value || tt.value.length === 0" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': !tt.value || tt.value.length === 0 }" role="checkbox" [attr.aria-checked]="checked">
-                <span class="p-checkbox-icon" [ngClass]="{ 'pi pi-check': checked }"></span>
+                    <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
+                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'"/>
+                </ng-container>
+                <span class="p-checkbox-icon" *ngIf="tt.headerCheckboxIconTemplate">
+                    <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
+                </span>
             </div>
         </div>
     `,
@@ -2935,7 +3083,11 @@ export class TTRow {
             [style.visibility]="rowNode.node.leaf === false || (rowNode.node.children && rowNode.node.children.length) ? 'visible' : 'hidden'"
             [style.marginLeft]="rowNode.level * 16 + 'px'"
         >
-            <i [ngClass]="rowNode.node.expanded ? 'pi pi-fw pi-chevron-down' : 'pi pi-fw pi-chevron-right'"></i>
+            <ng-container *ngIf="!tt.togglerIconTemplate">
+                <ChevronDownIcon *ngIf="rowNode.node.expanded"/>
+                <ChevronRightIcon *ngIf="!rowNode.node.expanded"/>
+            </ng-container>
+            <ng-template *ngTemplateOutlet="tt.togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
     `,
     encapsulation: ViewEncapsulation.None,
@@ -2971,7 +3123,7 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule],
+    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronRightIcon],
     exports: [
         TreeTable,
         SharedModule,

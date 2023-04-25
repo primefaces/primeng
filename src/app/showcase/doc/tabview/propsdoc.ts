@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'props-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
-        <h5>Properties of TabView</h5>
+        <h3>Properties of TabView</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -50,7 +50,7 @@ import { Component, Input } from '@angular/core';
             </table>
         </div>
 
-        <h5>Properties of TabPanel</h5>
+        <h3>Properties of TabPanel</h3>
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>

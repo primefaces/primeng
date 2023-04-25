@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="sales">
+            <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
                         <th rowspan="3">Brand</th>
@@ -181,7 +181,7 @@ export class ColumnGroupDoc implements OnInit {
     }
     code: Code = {
         basic: `
-<p-treeTable [value]="sales">
+<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Brand</th>
@@ -221,7 +221,7 @@ export class ColumnGroupDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="sales">
+    <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th rowspan="3">Brand</th>

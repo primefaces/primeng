@@ -54,7 +54,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>acceptIcon</td>
                         <td>string</td>
-                        <td>pi pi-check</td>
+                        <td>null</td>
                         <td>Icon of the accept button.</td>
                     </tr>
                     <tr>
@@ -78,7 +78,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>rejectIcon</td>
                         <td>string</td>
-                        <td>pi pi-times</td>
+                        <td>null</td>
                         <td>Icon of the reject button.</td>
                     </tr>
                     <tr>

@@ -15,9 +15,7 @@ import { Code } from '../../domain/code';
                 environment do the compilation. In all cases, the generated theme file should be imported to your project. Here is a video tutorial that demonstrates all three options.
             </p>
 
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/JAapJf6q1cw" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <div class="video-container"></div>
 
             <h3>Visual Editor</h3>
             <p>

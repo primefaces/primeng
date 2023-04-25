@@ -24,6 +24,9 @@ import { Header, Footer, PrimeTemplate, SharedModule, FilterService, Translation
 import { PaginatorModule } from 'primeng/paginator';
 import { BlockableUI } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { SpinnerIcon } from 'primeng/icons/spinner';
+import { ThLargeIcon } from 'primeng/icons/thlarge';
+import { BarsIcon } from 'primeng/icons/bars';
 
 @Component({
     selector: 'p-dataView',
@@ -31,7 +34,11 @@ import { Subscription } from 'rxjs';
         <div [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }" [ngStyle]="style" [class]="styleClass">
             <div class="p-dataview-loading" *ngIf="loading">
                 <div class="p-dataview-loading-overlay p-component-overlay">
-                    <i [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
+                    <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
+                    <ng-container *ngIf="!loadingIcon">
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'"/>
+                        <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                    </ng-container>
                 </div>
             </div>
             <div class="p-dataview-header" *ngIf="header || headerTemplate">
@@ -157,7 +164,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
 
     @Input() loading: boolean;
 
-    @Input() loadingIcon: string = 'pi pi-spinner';
+    @Input() loadingIcon: string;
 
     @Input() first: number = 0;
 
@@ -198,6 +205,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     paginatorRightTemplate: TemplateRef<any>;
 
     paginatorDropdownItemTemplate: TemplateRef<any>;
+
+    loadingIconTemplate: TemplateRef<any>;
+
+    listIconTemplate: TemplateRef<any>;
+
+    gridIconTemplate: TemplateRef<any>;
 
     filteredValue: any[];
 
@@ -285,6 +298,18 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
+                case 'listicon':
+                    this.listIconTemplate = item.template;
+                    break;
+
+                case 'gridicon':
+                    this.gridIconTemplate = item.template;
                     break;
             }
         });
@@ -421,9 +446,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     template: `
         <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
             <button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'list' }" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')">
-                <i class="pi pi-bars"></i></button
+                <BarsIcon *ngIf="!dv.listIconTemplate"/>
+                <ng-template *ngTemplateOutlet="dv.listIconTemplate"></ng-template>
+            </button
             ><button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'grid' }" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
-                <i class="pi pi-th-large"></i>
+                <ThLargeIcon *ngIf="!dv.gridIconTemplate"/>
+                <ng-template *ngTemplateOutlet="dv.gridIconTemplate"></ng-template>
             </button>
         </div>
     `,
@@ -445,7 +473,7 @@ export class DataViewLayoutOptions {
     }
 }
 @NgModule({
-    imports: [CommonModule, SharedModule, PaginatorModule],
+    imports: [CommonModule, SharedModule, PaginatorModule, SpinnerIcon, BarsIcon, ThLargeIcon],
     exports: [DataView, SharedModule, DataViewLayoutOptions],
     declarations: [DataView, DataViewLayoutOptions]
 })

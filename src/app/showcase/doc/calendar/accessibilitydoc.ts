@@ -15,8 +15,8 @@ import { Code } from '../../domain/code';
                 <p>
                     The optional calendar button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
                     <i>chooseDate</i>
-                    key of the aria property from the <a routerLink="/locale">locale</a> API. This label is also used for the <i>aria-label</i> of the popup as well. When there is a value selected, it is formatted and appended to the label to be able
-                    to notify users about the current value.
+                    key of the aria property from the <a href="/configuration/#locale">locale</a> API. This label is also used for the <i>aria-label</i> of the popup as well. When there is a value selected, it is formatted and appended to the label
+                    to be able to notify users about the current value.
                 </p>
 
                 <p>

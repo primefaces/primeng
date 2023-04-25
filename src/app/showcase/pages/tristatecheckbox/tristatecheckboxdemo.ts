@@ -7,6 +7,7 @@ import { EventsDoc } from '../../doc/tristatecheckbox/eventsdoc';
 import { StyleDoc } from '../../doc/tristatecheckbox/styledoc';
 import { AccessibilityDoc } from '../../doc/tristatecheckbox/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/tristatecheckbox/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/tristatecheckbox/templatesdoc';
 
 @Component({
     templateUrl: './tristatecheckboxdemo.html'
@@ -55,6 +56,11 @@ export class TriStateCheckboxDemo {
             id: 'events',
             label: 'Events',
             component: EventsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

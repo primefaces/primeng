@@ -16,9 +16,11 @@ import {
     ChangeDetectionStrategy,
     NgZone,
     ChangeDetectorRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    Renderer2,
+    Inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Message, PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -28,6 +30,11 @@ import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { trigger, state, style, transition, animate, query, animateChild, AnimationEvent } from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
+import { CheckIcon } from 'primeng/icons/check';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-toastItem',
@@ -44,9 +51,17 @@ import { ZIndexUtils } from 'primeng/utils';
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true" [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
                     <span
-                        [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')"
-                        [ngClass]="{ 'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn', 'pi-times-circle': message.severity == 'error', 'pi-check': message.severity == 'success' }"
+                        *ngIf="message.icon"
+                        [class]="'p-toast-message-icon pi ' + message.icon"
                     ></span>
+                    <span class="p-toast-message-icon" *ngIf="!message.icon">
+                        <ng-container>
+                            <CheckIcon *ngIf="message.severity === 'success'"/>
+                            <InfoCircleIcon *ngIf="message.severity === 'info'"/>
+                            <TimesCircleIcon *ngIf="message.severity === 'error'"/>
+                            <ExclamationTriangleIcon *ngIf="message.severity === 'warn'"/>
+                        </ng-container>
+                    </span>
                     <div class="p-toast-message-text">
                         <div class="p-toast-summary">{{ message.summary }}</div>
                         <div class="p-toast-detail">{{ message.detail }}</div>
@@ -54,7 +69,11 @@ import { ZIndexUtils } from 'primeng/utils';
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
-                    <span class="p-toast-icon-close-icon pi pi-times"></span>
+                    <span
+                        *ngIf="message.closeIcon"
+                        [class]="'p-toast-message-icon pi ' + message.closeIcon"
+                    ></span>
+                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'"/>
                 </button>
             </div>
         </div>
@@ -229,7 +248,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     template: TemplateRef<any>;
 
-    constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     styleElement: any;
 
@@ -328,7 +347,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     onAnimationStart(event: AnimationEvent) {
         if (event.fromState === 'void') {
-            this.containerViewChild.nativeElement.setAttribute(this.id, '');
+            this.renderer.setAttribute(this.containerViewChild.nativeElement, this.id, '');
             if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
                 ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
             }
@@ -345,9 +364,9 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     createStyle() {
         if (!this.styleElement) {
-            this.styleElement = document.createElement('style');
+            this.styleElement = this.renderer.createElement('style');
             this.styleElement.type = 'text/css';
-            document.head.appendChild(this.styleElement);
+            this.renderer.appendChild(this.document.head, this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
                 let breakpointStyle = '';
@@ -363,13 +382,13 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
                 `;
             }
 
-            this.styleElement.innerHTML = innerHTML;
+            this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
         }
     }
 
     destroyStyle() {
         if (this.styleElement) {
-            document.head.removeChild(this.styleElement);
+            this.renderer.removeChild(this.document.head, this.styleElement);
             this.styleElement = null;
         }
     }
@@ -392,7 +411,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
     exports: [Toast, SharedModule],
     declarations: [Toast, ToastItem]
 })

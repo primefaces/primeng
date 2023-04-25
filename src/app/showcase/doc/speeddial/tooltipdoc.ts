@@ -70,6 +70,7 @@ export class TooltipDoc implements OnInit {
                     tooltipLabel: 'Angular Website'
                 },
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -118,6 +119,7 @@ export class TooltipDoc implements OnInit {
                     tooltipPosition: 'left'
                 },
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];

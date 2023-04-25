@@ -22,6 +22,14 @@ import { Component, Input } from '@angular/core';
                             index: Index of the option
                         </td>
                     </tr>
+                    <tr>
+                        <td>previousicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>nexticon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

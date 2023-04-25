@@ -25,6 +25,18 @@ import { Component, Input } from '@angular/core';
                         <td>toolbar</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>chooseicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>uploadicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>cancelicon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

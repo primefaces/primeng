@@ -3,9 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'templates-doc',
     template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
-        </app-docsectiontext>
+        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>

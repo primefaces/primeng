@@ -19,7 +19,7 @@ import { NodeService } from '../../service/nodeservice';
                 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
                 <span>Metakey</span>
             </div>
-            <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection">
+            <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -70,7 +70,7 @@ export class SelectionMultipleDoc implements OnInit {
     code: Code = {
         basic: `
 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
-<p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection">
+<p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -94,7 +94,7 @@ export class SelectionMultipleDoc implements OnInit {
         <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
         <span>Metakey</span>
     </div>
-    <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection">
+    <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">

@@ -4,6 +4,11 @@ import { trigger, style, transition, animate } from '@angular/animations';
 import { Message, PrimeTemplate, MessageService } from 'primeng/api';
 import { Subscription, timer } from 'rxjs';
 import { RippleModule } from 'primeng/ripple';
+import { CheckIcon } from 'primeng/icons/check';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-messages',
@@ -18,9 +23,18 @@ import { RippleModule } from 'primeng/ripple';
                 >
                     <div class="p-message-wrapper">
                         <span
-                            [class]="'p-message-icon pi' + (msg.icon ? ' ' + msg.icon : '')"
-                            [ngClass]="{ 'pi-info-circle': msg.severity === 'info', 'pi-check': msg.severity === 'success', 'pi-exclamation-triangle': msg.severity === 'warn', 'pi-times-circle': msg.severity === 'error' }"
-                        ></span>
+                            *ngIf="msg.icon"
+                            [class]="'p-message-icon pi ' + msg.icon"
+                        >
+                        </span>
+                        <span class="p-message-icon" *ngIf="!msg.icon">
+                            <ng-container>
+                                <CheckIcon *ngIf="msg.severity === 'success'"/>
+                                <InfoCircleIcon *ngIf="msg.severity === 'info'"/>
+                                <TimesCircleIcon *ngIf="msg.severity === 'error'"/>
+                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'"/>
+                            </ng-container>
+                        </span>
                         <ng-container *ngIf="!escape; else escapeOut">
                             <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
                             <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
@@ -30,7 +44,7 @@ import { RippleModule } from 'primeng/ripple';
                             <span *ngIf="msg.detail" class="p-message-detail">{{ msg.detail }}</span>
                         </ng-template>
                         <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
-                            <i class="p-message-close-icon pi pi-times"></i>
+                            <TimesIcon [styleClass]="'p-message-close-icon'"/>
                         </button>
                     </div>
                 </div>
@@ -164,23 +178,18 @@ export class Messages implements AfterContentInit, OnDestroy {
             switch (severity) {
                 case 'success':
                     return 'pi-check';
-                    break;
 
                 case 'info':
                     return 'pi-info-circle';
-                    break;
 
                 case 'error':
                     return 'pi-times';
-                    break;
 
                 case 'warn':
                     return 'pi-exclamation-triangle';
-                    break;
 
                 default:
                     return 'pi-info-circle';
-                    break;
             }
         }
 
@@ -215,7 +224,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
     exports: [Messages],
     declarations: [Messages]
 })

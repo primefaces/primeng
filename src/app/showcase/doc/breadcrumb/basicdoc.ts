@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+            <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-basic-demo"></app-code>
     </section>`
@@ -31,11 +31,11 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>`,
+<p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
 </div>`,
 
         typescript: `

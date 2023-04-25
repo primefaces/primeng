@@ -1,13 +1,35 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ContextMenuService, MenuItem, PrimeNGConfig } from 'primeng/api';
+import { ContextMenuService, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -45,7 +67,12 @@ import { takeUntil } from 'rxjs/operators';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -72,7 +99,12 @@ import { takeUntil } from 'rxjs/operators';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
+                                <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
                     </a>
                     <p-contextMenuSub [parentItemKey]="getKey(index)" [item]="child" *ngIf="child.items" (leafClick)="onLeafClick()"></p-contextMenuSub>
                 </li>
@@ -248,21 +280,29 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef;
 
-    documentClickListener: any;
+    documentClickListener: VoidFunction | null;
 
-    documentTriggerListener: any;
+    documentTriggerListener: VoidFunction | null;
 
-    documentKeydownListener: any;
+    documentKeydownListener: VoidFunction | null;
 
-    windowResizeListener: any;
+    windowResizeListener: VoidFunction | null;
 
-    triggerEventListener: any;
+    triggerEventListener: VoidFunction | null;
 
     ngDestroy$ = new Subject();
 
     preventDocumentDefault: boolean = false;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {}
+    private window: Window;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    submenuIconTemplate: TemplateRef<any>;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngAfterViewInit() {
         if (this.global) {
@@ -279,7 +319,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.containerViewChild.nativeElement);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
             else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
     }
@@ -332,23 +372,23 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - document.scrollingElement.scrollLeft > viewport.width) {
+            if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - document.scrollingElement.scrollTop > viewport.height) {
+            if (top + height - this.document.scrollingElement.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < document.scrollingElement.scrollLeft) {
-                left = document.scrollingElement.scrollLeft;
+            if (left < this.document.scrollingElement.scrollLeft) {
+                left = this.document.scrollingElement.scrollLeft;
             }
 
             //fit
-            if (top < document.scrollingElement.scrollTop) {
-                top = document.scrollingElement.scrollTop;
+            if (top < this.document.scrollingElement.scrollTop) {
+                top = this.document.scrollingElement.scrollTop;
             }
 
             this.containerViewChild.nativeElement.style.left = left + 'px';
@@ -461,8 +501,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         this.zone.runOutsideAngular(() => {
             if (!this.windowResizeListener) {
-                this.windowResizeListener = this.onWindowResize.bind(this);
-                window.addEventListener('resize', this.windowResizeListener);
+                this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
             }
         });
 
@@ -616,7 +655,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.windowResizeListener) {
-            window.removeEventListener('resize', this.windowResizeListener);
+            this.windowResizeListener();
             this.windowResizeListener = null;
         }
 
@@ -641,6 +680,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         if (this.triggerEventListener) {
             this.triggerEventListener();
+            this.triggerEventListener = null;
         }
 
         if (this.containerViewChild && this.autoZIndex) {
@@ -648,7 +688,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild.nativeElement);
         }
 
         this.ngDestroy$.next(true);
@@ -657,8 +697,8 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [ContextMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleRightIcon],
+    exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [ContextMenu, ContextMenuSub],
     providers: [ContextMenuService]
 })

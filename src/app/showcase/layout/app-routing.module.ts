@@ -3,11 +3,6 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from '../pages/landing/landing.component';
 import { AppMainComponent } from './app.main.component';
 
-const routerOptions: ExtraOptions = {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'enabled'
-};
-
 const routes: Routes = [
     { path: '', component: LandingComponent, pathMatch: 'full' },
     {
@@ -21,6 +16,7 @@ const routes: Routes = [
             { path: 'team', loadChildren: () => import('../pages/team/team.module').then((m) => m.TeamModule) },
             { path: 'theming', loadChildren: () => import('../pages/theming/theming.module').then((m) => m.ThemingModule) },
             { path: 'icons', loadChildren: () => import('../pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
+            { path: 'customicons', loadChildren: () => import('../pages/customicons/customiconsdemo.module').then((m) => m.CustomIconsDemoModule) },
             { path: 'accordion', loadChildren: () => import('../pages/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },
             { path: 'avatar', loadChildren: () => import('../pages/avatar/avatardemo.module').then((m) => m.AvatarDemoModule) },
             { path: 'autocomplete', loadChildren: () => import('../pages/autocomplete/autocompletedemo.module').then((m) => m.AutoCompleteDemoModule) },
@@ -126,6 +122,12 @@ const routes: Routes = [
     { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then((m) => m.NotFoundModule) },
     { path: '**', redirectTo: '/notfound' }
 ];
+
+const routerOptions: ExtraOptions = {
+    anchorScrolling: 'enabled',
+    scrollPositionRestoration: 'enabled',
+    initialNavigation: 'enabledBlocking'
+};
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, routerOptions)],

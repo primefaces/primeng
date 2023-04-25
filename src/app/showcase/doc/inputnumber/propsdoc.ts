@@ -54,13 +54,13 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>incrementButtonIcon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-up</td>
+                        <td>null</td>
                         <td>Style class of the increment button.</td>
                     </tr>
                     <tr>
                         <td>decrementButtonIcon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-down</td>
+                        <td>null</td>
                         <td>Style class of the decrement button.</td>
                     </tr>
                     <tr>
@@ -264,6 +264,12 @@ import { Component, Input } from '@angular/core';
                         <td>boolean</td>
                         <td>false</td>
                         <td>When enabled, a clear icon is displayed to clear the value.</td>
+                    </tr>
+                    <tr>
+                        <td>updateOn</td>
+                        <td>string</td>
+                        <td>change</td>
+                        <td>Used to define when the model value updates. Possible values are 'change' and 'blur'.</td>
                     </tr>
                 </tbody>
             </table>

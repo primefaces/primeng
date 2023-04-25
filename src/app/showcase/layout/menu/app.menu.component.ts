@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
@@ -27,16 +28,18 @@ export class AppMenuComponent {
 
     subscription!: Subscription;
 
-    constructor(private configService: AppConfigService, private el: ElementRef, private router: Router) {
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
     }
 
     ngOnInit() {
-        setTimeout(() => {
-            this.scrollToActiveItem();
-        }, 1);
+        if (isPlatformBrowser(this.platformId)) {
+            setTimeout(() => {
+                this.scrollToActiveItem();
+            }, 1);
+        }
     }
 
     scrollToActiveItem() {
@@ -47,8 +50,10 @@ export class AppMenuComponent {
     }
 
     isInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+        if (isPlatformBrowser(this.platformId)) {
+            const rect = element.getBoundingClientRect();
+            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
+        }
     }
 
     ngOnDestroy() {
