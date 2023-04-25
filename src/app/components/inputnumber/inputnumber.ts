@@ -201,7 +201,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     @Input() maxlength: number;
 
-    @Input() tabindex: string;
+    @Input() tabindex: number;
 
     @Input() title: string;
 
