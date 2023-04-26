@@ -719,8 +719,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
-            this.dragOverListener();
-            this.dragOverListener = null;
+            if(this.dragOverListener) {
+                this.dragOverListener();
+                this.dragOverListener = null;
+            }
         }
 
         if (this.translationSubscription) {
