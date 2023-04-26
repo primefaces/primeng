@@ -58,7 +58,7 @@ export class CheckboxDemo {
         },
         {
             id: 'accessibility',
-            label: 'Accessibilirty',
+            label: 'Accessibility',
             component: AccessibilityDoc
         }
     ];
