@@ -1,9 +1,12 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, ElementRef, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
+import { filter, fromEvent, Subscription, take } from 'rxjs';
+import { outsideZone } from '../utils/outside-zone-operator';
+import { map } from 'rxjs/operators';
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -163,7 +166,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    keyEscapePressSubscription: Subscription | null = null;
+
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public zone: NgZone,
+        public config: PrimeNGConfig,
+        private renderer: Renderer2,
+        private viewContainer: ViewContainerRef,
+        @Inject(DOCUMENT) private readonly documentRef: Document
+    ) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -317,11 +330,21 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onPressEscape() {
-        if (this.hideOnEscape) {
-            this.deactivate();
+    listenOnPressEscape(): void {
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
         }
+
+        this.keyEscapePressSubscription = fromEvent<KeyboardEvent>(this.documentRef, 'keydown')
+            .pipe(
+                filter(() => this.hideOnEscape),
+                map(({ keyCode }) => keyCode === 27),
+                take(1),
+                outsideZone(this.zone)
+            )
+            .subscribe(() => {
+                this.deactivate();
+            });
     }
 
     activate() {
@@ -425,6 +448,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.bindDocumentResizeListener();
         this.bindScrollListener();
+        this.listenOnPressEscape();
     }
 
     hide() {
@@ -653,6 +677,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.unbindContainerMouseleaveListener();
+        this.keyEscapePressSubscription?.unsubscribe();
         this.clearTimeouts();
         this.container = null;
         this.scrollHandler = null;
