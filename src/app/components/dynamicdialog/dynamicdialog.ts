@@ -569,8 +569,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 return;
             } else {
                 this.zone.runOutsideAngular(() => {
-                this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
-              });
+                    this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
+                });
             }
         }
     }
