@@ -690,7 +690,7 @@ export class GalleriaItem implements OnChanges {
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate"></ng-template>
                 </button>
                 <div class="p-galleria-thumbnail-items-container" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
-                    <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+                    <div #itemsContainer class="p-galleria-thumbnail-items" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
                         <div
                             *ngFor="let item of value; let index = index"
                             [ngClass]="{
@@ -701,7 +701,7 @@ export class GalleriaItem implements OnChanges {
                                 'p-galleria-thumbnail-item-end': lastItemActiveIndex() === index
                             }"
                         >
-                            <div class="p-galleria-thumbnail-item-content" [attr.tabindex]="getTabIndex(index)" (click)="onItemClick(index)" (keydown.enter)="onItemClick(index)">
+                            <div class="p-galleria-thumbnail-item-content" [attr.tabindex]="getTabIndex(index)" (click)="onItemClick(index)" (touchend)="onItemClick(index)" (keydown.enter)="onItemClick(index)">
                                 <p-galleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></p-galleriaItemSlot>
                             </div>
                         </div>
