@@ -25,10 +25,10 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
                         </div>
                         <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
                             <ng-container *ngIf="!chart.togglerIconTemplate">
-                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" />
-                                <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'"/>
+                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'"  [ngStyle]="{'display': 'inline'}"/>
+                                <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{'display': 'inline'}"/>
                             </ng-container>
-                            <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate">
+                            <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{'display': 'inline'}">
                                 <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                             </span>
                         </a>
