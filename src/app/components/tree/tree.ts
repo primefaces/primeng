@@ -87,7 +87,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
                                 <CheckIcon *ngIf="isSelected()" [styleClass]="'p-checkbox-icon'"/>
                                 <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'"/>
                             </ng-container>
-                            <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected, partialSelected: node.partialSelected }"></ng-template>
+                            <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected(), partialSelected: node.partialSelected }"></ng-template>
                         </div>
                     </div>
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>

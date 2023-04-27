@@ -719,8 +719,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
-            this.dragOverListener();
-            this.dragOverListener = null;
+            if(this.dragOverListener) {
+                this.dragOverListener();
+                this.dragOverListener = null;
+            }
         }
 
         if (this.translationSubscription) {
@@ -730,7 +732,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
+    imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })

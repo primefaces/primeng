@@ -60,7 +60,6 @@ export class TableService {
     private valueSource = new Subject<any>();
     private totalRecordsSource = new Subject<any>();
     private columnsSource = new Subject();
-    private resetSource = new Subject();
 
     sortSource$ = this.sortSource.asObservable();
     selectionSource$ = this.selectionSource.asObservable();
@@ -68,7 +67,6 @@ export class TableService {
     valueSource$ = this.valueSource.asObservable();
     totalRecordsSource$ = this.totalRecordsSource.asObservable();
     columnsSource$ = this.columnsSource.asObservable();
-    resetSource$ = this.resetSource.asObservable();
 
     onSort(sortMeta: SortMeta | SortMeta[]) {
         this.sortSource.next(sortMeta);
@@ -76,10 +74,6 @@ export class TableService {
 
     onSelectionChange() {
         this.selectionSource.next(null);
-    }
-
-    onResetChange() {
-        this.resetSource.next(null);
     }
 
     onContextMenu(data: any) {
@@ -1832,12 +1826,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this._multiSortMeta = null;
         this.tableService.onSort(null);
 
-        if (this.filters['global']) {
-            (<FilterMetadata>this.filters['global']).value = null;
-        }
+        this.clearFilterValues();
 
         this.filteredValue = null;
-        this.tableService.onResetChange();
 
         this.first = 0;
         this.firstChange.emit(this.first);
@@ -1846,6 +1837,18 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         } else {
             this.totalRecords = this._value ? this._value.length : 0;
+        }
+    }
+
+    clearFilterValues() {
+        for (const [, filterMetadata] of Object.entries(this.filters)) {
+            if (Array.isArray(filterMetadata)) {
+                for (let filter of filterMetadata) {
+                    filter.value = null;
+                }
+            } else if (filterMetadata) {
+                filterMetadata.value = null;
+            }
         }
     }
 
@@ -2246,7 +2249,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onRowDragOver(event, index, rowElement) {
         if (this.rowDragging && this.draggedRowIndex !== index) {
-            let rowY = DomHandler.getOffset(rowElement).top + DomHandler.getWindowScrollTop();
+            let rowY = DomHandler.getOffset(rowElement).top;
             let pageY = event.pageY;
             let rowMidY = rowY + DomHandler.getOuterHeight(rowElement) / 2;
             let prevRowElement = rowElement.previousElementSibling;
@@ -2890,7 +2893,7 @@ export class FrozenColumn implements AfterViewInit {
                 this.el.nativeElement.style.left = left + 'px';
             }
 
-            let filterRow = this.el.nativeElement.parentElement.nextElementSibling;
+            const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
 
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
@@ -4596,10 +4599,6 @@ export class ColumnFilter implements AfterContentInit {
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.generateMatchModeOptions();
             this.generateOperatorOptions();
-        });
-
-        this.resetSubscription = this.dt.tableService.resetSource$.subscribe(() => {
-            this.initFieldFilterConstraint();
         });
 
         this.generateMatchModeOptions();
