@@ -146,6 +146,11 @@ export class Galleria implements OnChanges, OnDestroy {
      */
     @Input() autoPlay: boolean = false;
     /**
+     * When enabled, autorun should stop by click.
+     * @group Props
+     */
+    @Input() shouldStopAutoplayByClick: boolean = true;
+    /**
      * Time in milliseconds to scroll items.
      * @group Props
      */
@@ -501,6 +506,10 @@ export class GalleriaContent implements DoCheck {
     }
 
     stopSlideShow() {
+        if (this.galleria.autoPlay && !this.galleria.shouldStopAutoplayByClick) {
+            return;
+        }
+
         if (this.interval) {
             clearInterval(this.interval);
         }
