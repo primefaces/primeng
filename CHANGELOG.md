@@ -184,6 +184,15 @@
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.5-LTS](https://www.npmjs.com/package/primeng/v/14.2.5-lts) (2023-04-26)
+
+**Fixed bugs:**
+- Table: Clear function does not clear all filters [\#12903](https://github.com/primefaces/primeng/issues/12903)
+- InputNumber | ngModelOptions is not taken into account [\#12915](https://github.com/primefaces/primeng/issues/12915)
+- OverlayPanel | Error: Cannot read properties of null [\#12933](https://github.com/primefaces/primeng/issues/12933)
+- MultiSelect | Pass remove remove method through selectedItems template [\#12939](https://github.com/primefaces/primeng/issues/12939)
+- Table | Unable to reorder to the last element in the table after a scroll occurs [\#12493](https://github.com/primefaces/primeng/issues/12493)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.4-LTS](https://www.npmjs.com/package/primeng/v/14.2.4-lts) (2023-04-19)
 
 **Fixed bugs:**
@@ -429,6 +438,15 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.3-LTS](https://www.npmjs.com/package/primeng/v/13.4.3-lts) (2023-04-26)
+
+**Fixed bugs:**
+- Table: Clear function does not clear all filters [\#12903](https://github.com/primefaces/primeng/issues/12903)
+- InputNumber | ngModelOptions is not taken into account [\#12915](https://github.com/primefaces/primeng/issues/12915)
+- OverlayPanel | Error: Cannot read properties of null [\#12933](https://github.com/primefaces/primeng/issues/12933)
+- MultiSelect | Pass remove remove method through selectedItems template [\#12939](https://github.com/primefaces/primeng/issues/12939)
+- Table | Unable to reorder to the last element in the table after a scroll occurs [\#12493](https://github.com/primefaces/primeng/issues/12493)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.2-LTS](https://www.npmjs.com/package/primeng/v/13.4.2-lts) (2023-04-19)
 
