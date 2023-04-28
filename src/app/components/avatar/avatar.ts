@@ -19,21 +19,42 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class Avatar {
-    @Input() label: string;
-
-    @Input() icon: string;
-
-    @Input() image: string;
-
-    @Input() size: string = 'normal';
-
-    @Input() shape: string = 'square';
-
-    @Input() style: any;
-
+    /**
+     * Defines the text to display.
+     */
+    @Input() label: string | undefined;
+    /**
+     * Defines the icon to display.
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Defines the image to display.
+     */
+    @Input() image: string | undefined;
+    /**
+     * Size of the element.
+     * @defaultValue normal
+     * @possibleValues 'normal' | 'large' | 'xlarge'
+     */
+    @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
+    /**
+     * Shape of the element.
+     * @defaultValue square
+     * @possibleValues 'square' | 'circle'
+     */
+    @Input() shape: 'square' | 'circle' | undefined = 'square';
+    /**
+     * Inline style of the element.
+     */
+    @Input() style: CSSStyleDeclaration | undefined;
+    /**
+     * Class of the element.
+     */
     @Input() styleClass: string;
-
-    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    /**
+     * This event is triggered if an error occurs while loading an image file.
+     */
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
 
     containerClass() {
         return {
