@@ -50,7 +50,7 @@ export class Avatar {
     /**
      * Class of the element.
      */
-    @Input() styleClass: string;
+    @Input() styleClass: string | undefined;
     /**
      * This event is triggered if an error occurs while loading an image file.
      */

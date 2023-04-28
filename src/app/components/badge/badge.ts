@@ -14,16 +14,28 @@ type BadgeSize = 'large' | 'xlarge';
     }
 })
 export class BadgeDirective implements AfterViewInit, OnDestroy {
+    /**
+     * Icon position of the component.
+     * @defaultValue left
+     * @possibleValues 'left' | 'right' | 'top' | 'bottom'
+     */
     @Input() iconPos: BadgeDirectiveIconPosition = 'left';
-
+    /**
+     * When specified, disables the component.
+     * @defaultValue false
+     */
     @Input('badgeDisabled') get disabled(): boolean {
         return this._disabled;
     }
     set disabled(val: boolean) {
         this._disabled = val;
     }
-
-    @Input() public get size(): BadgeSize {
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @defaultValue null
+     * @possibleValues 'large' | 'xlarge'
+     */
+    @Input() public get size(): BadgeSize | undefined {
         return this._size;
     }
     set size(val: BadgeSize) {
@@ -79,8 +91,11 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
         this.initialized = true;
     }
-
-    @Input() get value(): string {
+    /**
+     * Value to display inside the badge.
+     *
+     */
+    @Input() get value(): string | null | undefined {
         return this._value;
     }
 
@@ -108,8 +123,12 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             }
         }
     }
-
-    @Input() severity: string;
+    /**
+     * Severity type of the badge.
+     * @defaultValue null
+     * @possibleValues 'success' | 'info' | 'warning' | 'danger'
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
 
     private setSizeClasses(element?: HTMLElement): void {
         const badge = element ?? this.document.getElementById(this.id);
@@ -150,16 +169,33 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
 })
 export class Badge {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() size: BadgeSize;
-
-    @Input() severity: string;
-
-    @Input() value: string;
-
+    /**
+     * Class of the element.
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     */
+    @Input() style: CSSStyleDeclaration | undefined;
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @defaultValue null
+     */
+    @Input() size: BadgeSize | undefined;
+    /**
+     * Severity type of the badge.
+     * @defaultValue null
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    /**
+     * Value to display inside the badge.
+     *
+     */
+    @Input() value: string | null | undefined;
+    /**
+     * When specified, disables the component.
+     * @defaultValue false
+     */
     @Input() badgeDisabled: boolean = false;
 
     containerClass() {
