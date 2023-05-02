@@ -16,13 +16,10 @@ type BadgeSize = 'large' | 'xlarge';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
     /**
      * Icon position of the component.
-     * @defaultValue left
-     * @possibleValues 'left' | 'right' | 'top' | 'bottom'
      */
     @Input() iconPos: BadgeDirectiveIconPosition = 'left';
     /**
      * When specified, disables the component.
-     * @defaultValue false
      */
     @Input('badgeDisabled') get disabled(): boolean {
         return this._disabled;
@@ -32,8 +29,6 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
     /**
      * Size of the badge, valid options are "large" and "xlarge".
-     * @defaultValue null
-     * @possibleValues 'large' | 'xlarge'
      */
     @Input() public get size(): BadgeSize | undefined {
         return this._size;
@@ -125,8 +120,6 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
     /**
      * Severity type of the badge.
-     * @defaultValue null
-     * @possibleValues 'success' | 'info' | 'warning' | 'danger'
      */
     @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
 
@@ -179,14 +172,10 @@ export class Badge {
     @Input() style: CSSStyleDeclaration | undefined;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
-     * @defaultValue null
-     * @possibleValues 'large' | 'xlarge'
      */
     @Input() size: BadgeSize | undefined;
     /**
      * Severity type of the badge.
-     * @defaultValue null
-     * @possibleValues 'success' | 'info' | 'warning' | 'danger'
      */
     @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
     /**
@@ -196,7 +185,6 @@ export class Badge {
     @Input() value: string | null | undefined;
     /**
      * When specified, disables the component.
-     * @defaultValue false
      */
     @Input() badgeDisabled: boolean = false;
 
