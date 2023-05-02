@@ -1029,6 +1029,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this.filteredValue || this.value || [];
     }
 
+    private _initialColWidths: number[];
+
     dataToRender(data) {
         const _data = data || this.processedData;
 
@@ -2092,7 +2094,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeEnd() {
-        let numberOfColumn = this.tableViewChild.nativeElement.rows[0].cells.length;
         let delta = this.resizeHelperViewChild.nativeElement.offsetLeft - this.lastResizerHelperX;
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
@@ -2107,7 +2108,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
-                let tableWidth = this.tableViewChild.nativeElement.offsetWidth + (delta * numberOfColumn);
+                this._initialColWidths = this._totalTableWidth();
+                let tableWidth = this.tableViewChild.nativeElement.offsetWidth + delta;
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
@@ -2126,18 +2128,23 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.removeClass(this.containerViewChild.nativeElement, 'p-unselectable-text');
     }
 
-    resizeTableCells(newColumnWidth, nextColumnWidth) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
+    private _totalTableWidth(): number[] {
         let widths = [];
         const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
 
+        return widths;
+    }
+
+    resizeTableCells(newColumnWidth, nextColumnWidth) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+
         this.destroyStyleElement();
         this.createStyleElement();
 
         let innerHTML = '';
-        widths.forEach((width, index) => {
+        this._initialColWidths.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
@@ -2148,7 +2155,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-
         this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
