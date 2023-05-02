@@ -180,11 +180,13 @@ export class Badge {
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @defaultValue null
+     * @possibleValues 'large' | 'xlarge'
      */
     @Input() size: BadgeSize | undefined;
     /**
      * Severity type of the badge.
      * @defaultValue null
+     * @possibleValues 'success' | 'info' | 'warning' | 'danger'
      */
     @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
     /**
