@@ -2139,12 +2139,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     resizeTableCells(newColumnWidth, nextColumnWidth) {
         let colIndex = DomHandler.index(this.resizeColumnElement);
+        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
 
         this.destroyStyleElement();
         this.createStyleElement();
 
+
         let innerHTML = '';
-        this._initialColWidths.forEach((width, index) => {
+        width.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
