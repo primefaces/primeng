@@ -38,7 +38,12 @@ export interface PanelTemplates {
     /**
      * Custom icons template of the panel toggler.
      */
-    headericons: TemplateRef<any> | null;
+    headericons(scope: { 
+        /**
+         * Collapsed state as a boolean
+         */
+        collapsed: boolean 
+    } ): TemplateRef<any> | null;
     /**
      * Custom icons template of the panel header.
      */
