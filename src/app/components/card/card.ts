@@ -1,8 +1,6 @@
-import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, Footer, PrimeTemplate } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { CardTemplates } from './card.model';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-card',
@@ -51,7 +49,7 @@ export class Card implements AfterContentInit, BlockableUI {
     /**
      * Inline style of the element.
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
      */
@@ -63,15 +61,15 @@ export class Card implements AfterContentInit, BlockableUI {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    headerTemplate: TemplateRef<CardTemplates>;
+    headerTemplate: TemplateRef<any>;
 
-    titleTemplate: CardTemplates;
+    titleTemplate: TemplateRef<any>;
 
-    subtitleTemplate: CardTemplates;
+    subtitleTemplate: TemplateRef<any>;
 
-    contentTemplate: CardTemplates;
+    contentTemplate: TemplateRef<any>;
 
-    footerTemplate: CardTemplates;
+    footerTemplate: TemplateRef<any>;
 
     constructor(private el: ElementRef) {}
 

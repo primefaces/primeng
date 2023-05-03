@@ -32,13 +32,13 @@ export interface AccordionTemplates {
     /**
      * Custom template of content.
      */
-    contentTemplate: TemplateRef<any> | null;
+    content: TemplateRef<any> | null;
     /**
      * Custom template of header.
      */
-    headerTemplate: TemplateRef<any> | null;
+    header: TemplateRef<any> | null;
     /**
      * Custom template of icon.
      */
-    iconTemplate: TemplateRef<any> | null;
+    icon: TemplateRef<any> | null;
 }

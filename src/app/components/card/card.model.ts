@@ -1,40 +1,28 @@
+import { TemplateRef } from '@angular/core';
+
 /**
- *
- * Card is a flexible container component.
- *
- * [Live Demo](https://www.primeng.org/card/)
- *
- * @module card
- *
+ * Defines valid templates in Card.
+ * @group Templates
  */
-
-import { TemplateRef } from "@angular/core";
-
-export declare type CardPassThroughOptionType = CardPassThroughAttributes | null | undefined;
-
 export interface CardTemplates {
     /**
      * Custom template of header.
      */
-    headerTemplate: TemplateRef<any>
+    header: TemplateRef<any> | null;
     /**
      * Custom template of title.
      */
-    titleTemplate: TemplateRef<any>;
+    title: TemplateRef<any> | null;
     /**
      * Custom template of subtitle.
      */
-    subtitleTemplate: TemplateRef<any>;
+    subtitle: TemplateRef<any> | null;
     /**
      * Custom template of content.
      */
-    contentTemplate: TemplateRef<any>;
+    content: TemplateRef<any> | null;
     /**
      * Custom template of footer.
      */
-    footerTemplate: TemplateRef<any>;
-}
-
-export interface CardPassThroughAttributes {
-    [key: string]: any;
+    footer: TemplateRef<any> | null;
 }
