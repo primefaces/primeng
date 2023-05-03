@@ -1,46 +1,44 @@
-/**
- *
- * Accordion groups a collection of contents in tabs.
- *
- * [Live Demo](https://www.primeng.org/accordion/)
- *
- * Helper Components:
- *
- * - {@link AccordionTab}
- *
- * @module accordion
- *
- */
-
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom tab open event.
- * @category Emits
+ * @see {@link Accordion.onOpen}
+ * @event
  */
 export interface AccordionTabOpenEvent {
     /**
-     * Browser mouse event.
+     * Browser event.
      */
     originalEvent: Event;
     /**
      * Opened tab index.
      */
     index: number;
-  }  
+}
 
 /**
  * Custom tab close event.
+ * @see {@link Accordion.onClose}
  * @extends {AccordionTabOpenEvent}
- * @category Emits
+ * @event
  */
 export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
 
+/**
+ * Defines valid templates in Accordion.
+ * @group Templates
+ */
 export interface AccordionTemplates {
-  contentTemplate: TemplateRef<any>;
-
-  headerTemplate: TemplateRef<any>;
-
-  iconTemplate: TemplateRef<any>;
-
+    /**
+     * Custom template of content.
+     */
+    content: TemplateRef<any> | null;
+    /**
+     * Custom template of header.
+     */
+    header: TemplateRef<any> | null;
+    /**
+     * Custom template of icon.
+     */
+    icon: TemplateRef<any> | null;
 }

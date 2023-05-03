@@ -1,12 +1,10 @@
-
-
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.model';
 
 let idx: number = 0;
@@ -96,15 +94,15 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     /**
      * Inline style of the tab header.
      */
-    @Input() headerStyle: CSSStyleDeclaration | undefined;
+    @Input() headerStyle: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the tab.
      */
-    @Input() tabStyle: CSSStyleDeclaration | undefined;
+    @Input() tabStyle: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the tab content.
      */
-    @Input() contentStyle: CSSStyleDeclaration | undefined;
+    @Input() contentStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the tab.
      */
@@ -122,7 +120,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      */
     @Input() disabled: boolean | undefined;
     /**
-     * Whether a lazy loaded panel should avoid getting loaded again on reselection. 
+     * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      */
     @Input() cache: boolean = true;
     /**
@@ -297,7 +295,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     /**
      * Inline style of the tab header and content.
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
      */
