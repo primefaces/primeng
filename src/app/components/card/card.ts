@@ -2,7 +2,7 @@ import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionSt
 import { CommonModule } from '@angular/common';
 import { SharedModule, Header, Footer, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
-import { CardTemplates } from './card.module';
+import { CardTemplates } from './card.model';
 
 @Component({
     selector: 'p-card',

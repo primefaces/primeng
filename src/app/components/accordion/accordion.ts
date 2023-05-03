@@ -7,7 +7,7 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.module';
+import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.model';
 
 let idx: number = 0;
 
