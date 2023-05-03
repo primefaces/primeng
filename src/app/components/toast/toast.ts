@@ -50,16 +50,13 @@ import { TimesIcon } from 'primeng/icons/times';
         >
             <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true" [ngClass]="message.contentStyleClass">
                 <ng-container *ngIf="!template">
-                    <span
-                        *ngIf="message.icon"
-                        [class]="'p-toast-message-icon pi ' + message.icon"
-                    ></span>
+                    <span *ngIf="message.icon" [class]="'p-toast-message-icon pi ' + message.icon"></span>
                     <span class="p-toast-message-icon" *ngIf="!message.icon">
                         <ng-container>
-                            <CheckIcon *ngIf="message.severity === 'success'"/>
-                            <InfoCircleIcon *ngIf="message.severity === 'info'"/>
-                            <TimesCircleIcon *ngIf="message.severity === 'error'"/>
-                            <ExclamationTriangleIcon *ngIf="message.severity === 'warn'"/>
+                            <CheckIcon *ngIf="message.severity === 'success'" />
+                            <InfoCircleIcon *ngIf="message.severity === 'info'" />
+                            <TimesCircleIcon *ngIf="message.severity === 'error'" />
+                            <ExclamationTriangleIcon *ngIf="message.severity === 'warn'" />
                         </ng-container>
                     </span>
                     <div class="p-toast-message-text">
@@ -69,11 +66,8 @@ import { TimesIcon } from 'primeng/icons/times';
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                 <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
-                    <span
-                        *ngIf="message.closeIcon"
-                        [class]="'p-toast-message-icon pi ' + message.closeIcon"
-                    ></span>
-                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'"/>
+                    <span *ngIf="message.closeIcon" [class]="'p-toast-message-icon pi ' + message.closeIcon"></span>
+                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'" />
                 </button>
             </div>
         </div>

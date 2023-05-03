@@ -84,7 +84,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-required]="required"
             />
             <ng-container *ngIf="filled && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -136,26 +136,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
             <ng-container *ngIf="loading">
-                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true"/>
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true" />
                 <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin ">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <button
-                #ddBtn
-                type="button"
-                pButton
-                [attr.aria-label]="dropdownAriaLabel"
-                class="p-autocomplete-dropdown p-button-icon-only"
-                [disabled]="disabled"
-                pRipple
-                (click)="handleDropdownClick($event)"
-                *ngIf="dropdown"
-                [attr.tabindex]="tabindex"
-            >
+            <button #ddBtn type="button" pButton [attr.aria-label]="dropdownAriaLabel" class="p-autocomplete-dropdown p-button-icon-only" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
                 <ng-container *ngIf="!dropdownIcon">
-                    <ChevronDownIcon *ngIf="!dropdownIconTemplate"/>
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
             </button>

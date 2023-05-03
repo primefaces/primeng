@@ -41,8 +41,8 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
                 <div class="p-carousel-container">
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
                         <ng-container *ngIf="!previousIconTemplate">
-                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'"/>
-                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
@@ -82,8 +82,8 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
                     </div>
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
                         <ng-container *ngIf="!nextIconTemplate">
-                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'"/>
-                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'"/>
+                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
                             <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>

@@ -33,7 +33,7 @@ import { PlusIcon } from 'primeng/icons/plus';
     template: `
         <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
             <button pRipple pButton class="p-button-icon-only" [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
-                <PlusIcon *ngIf="!showIcon && !buttonTemplate"/>
+                <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
