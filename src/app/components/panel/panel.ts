@@ -1,12 +1,3 @@
-/**
- *
- * Panel is a container with the optional content toggle feature.
- *
- * [Live Demo](https://www.primeng.org/panel/)
- *
- * @module panel
- *
- */
 import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
@@ -15,13 +6,9 @@ import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
+import { PanelToggleEvent } from './panel.model';
 
 let idx: number = 0;
-
-export interface PanelToggleEvent {
-    originalEvent: Event,
-    collapsed: boolean
-}
 
 @Component({
     selector: 'p-panel',
@@ -123,36 +110,40 @@ export interface PanelToggleEvent {
 export class Panel implements AfterContentInit, BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
+     * @defaultValue false
      */
-    @Input() toggleable: boolean = false;
+    @Input() toggleable: boolean | undefined;
     /**
      * Header text of the panel.
      */
-    @Input() header: string;
+    @Input() header: string | undefined;
     /**
      * Defines the initial state of panel content, supports one or two-way binding as well.
+     * @defaultValue false
      */
-    @Input() collapsed: boolean = false;
+    @Input() collapsed: boolean | undefined;
     /**
      * Inline style of the component.
      */
-    @Input() style: object;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      */
-    @Input() styleClass: string;
+    @Input() styleClass: string | undefined;
     /**
      * Position of the icons.
      */
     @Input() iconPos: 'start' | 'end' | 'center' = 'end';
     /**
      * Expand icon of the toggle button.
+     * @deprecated since v15.4.2, use `headericons` template instead.
      */
-    @Input() expandIcon: string;
+    @Input() expandIcon: string | undefined;
     /**
      * Collapse icon of the toggle button.
+     * @deprecated since v15.4.2, use `headericons` template instead.
      */
-    @Input() collapseIcon: string;
+    @Input() collapseIcon: string | undefined;
     /**
      * Specifies if header of panel cannot be displayed.
      */
@@ -163,17 +154,20 @@ export class Panel implements AfterContentInit, BlockableUI {
     @Input() toggler: 'icon' | 'header' = 'icon';
     /**
      * Emits when the collapsed state changes.
-     * @param boolean value - New value.
+     * @param {boolean} value - New value.
+     * @group Emits
      */
     @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
-     * Emits before content toggle.
-     * @param PanelToggleEvent event
+     * Callback to invoke before panel toggle.
+     * @param {PanelToggleEvent} event - Custom panel toggle event
+     * @group Emits
      */
     @Output() onBeforeToggle: EventEmitter<PanelToggleEvent> = new EventEmitter<PanelToggleEvent>();
     /**
-     * Emits after content toggle.
-     * @param PanelToggleEvent event
+     * Callback to invoke after panel toggle.
+     * @param {PanelToggleEvent} event - Custom panel toggle event
+     * @group Emits
      */
     @Output() onAfterToggle: EventEmitter<PanelToggleEvent> = new EventEmitter<PanelToggleEvent>();
     /**
@@ -181,42 +175,20 @@ export class Panel implements AfterContentInit, BlockableUI {
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChild(Footer) footerFacet: TemplateRef<any>;
+    @ContentChild(Footer) footerFacet: TemplateRef<any> | null;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-    /**
-     * Icon template of the header.
-     * @alias icons
-     * @type {TemplateRef<any>}
-     * @group Templates
-     */
+    
     public iconTemplate: TemplateRef<any>;
 
     animating: boolean;
-    /**
-     * @alias header
-     * @type {TemplateRef<any>}
-     * @group Templates
-     */
+
     headerTemplate: TemplateRef<any>;
-    /**
-     * @alias content
-     * @type {TemplateRef<any>}
-     * @group Templates
-     */
+
     contentTemplate: TemplateRef<any>;
-    /**
-     * @alias footer
-     * @type {TemplateRef<any>}
-     * @group Templates
-     */
+
     footerTemplate: TemplateRef<any>;
-    /**
-     * Custom toggler icon template of panel.
-     * @alias headericons
-     * @type {TemplateRef<any>}
-     * @group Templates
-     */
+
     headerIconTemplate: TemplateRef<any>;
 
     id: string = `p-panel-${idx++}`;
@@ -253,19 +225,19 @@ export class Panel implements AfterContentInit, BlockableUI {
         });
     }
 
-    onHeaderClick(event: MouseEvent): void {
+    onHeaderClick(event: MouseEvent) {
         if (this.toggler === 'header') {
             this.toggle(event);
         }
     }
 
-    onIconClick(event: MouseEvent): void {
+    onIconClick(event: MouseEvent) {
         if (this.toggler === 'icon') {
             this.toggle(event);
         }
     }
 
-    toggle(event: MouseEvent): void | boolean{
+    toggle(event: MouseEvent) {
         if (this.animating) {
             return false;
         }
@@ -281,12 +253,12 @@ export class Panel implements AfterContentInit, BlockableUI {
         event.preventDefault();
     }
 
-    expand(): void {
+    expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
 
-    collapse(): void {
+    collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }
@@ -295,22 +267,12 @@ export class Panel implements AfterContentInit, BlockableUI {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone(event: Event): void {
+    onToggleDone(event: Event) {
         this.animating = false;
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 }
-/**
- * **PrimeNG - Panel**
- *
- * _Panel functionality is integrated within various PrimeReact components._
- *
- * [Live Demo](https://www.primeng.org/panel/)
- * --- ---
- * ![PrimeNG](https://primefaces.org/cdn/primeng/images/logo-100.png)
- *
- * @group Component
- */
+
 @NgModule({
     imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
     exports: [Panel, SharedModule],
