@@ -101,7 +101,7 @@ export class TreeTableService {
                 <div class="p-treetable-loading-overlay p-component-overlay">
                     <i *ngIf="loadingIcon" [class]="'p-treetable-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'"/>
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-treetable-loading-icon'" />
                         <span *ngIf="loadingIconTemplate" class="p-treetable-loading-icon">
                             <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                         </span>
@@ -131,21 +131,21 @@ export class TreeTableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
             >
-            <ng-template pTemplate="firstpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template pTemplate="firstpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="previouspagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template pTemplate="previouspagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="lastpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template pTemplate="lastpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-        <ng-template pTemplate="nextpagelinkicon">
-            <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
-        </ng-template>
+                <ng-template pTemplate="nextpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+                </ng-template>
             </p-paginator>
 
             <div class="p-treetable-wrapper" *ngIf="!scrollable">
@@ -194,21 +194,21 @@ export class TreeTableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
             >
-            <ng-template pTemplate="firstpagelinkicon">
-                <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                <ng-template pTemplate="firstpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-            <ng-template pTemplate="previouspagelinkicon">
-                <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                <ng-template pTemplate="previouspagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-            <ng-template pTemplate="lastpagelinkicon">
-                <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                <ng-template pTemplate="lastpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
+                </ng-template>
 
-            <ng-template pTemplate="nextpagelinkicon">
-                <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
-            </ng-template>
+                <ng-template pTemplate="nextpagelinkicon">
+                    <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
+                </ng-template>
             </p-paginator>
             <div *ngIf="summaryTemplate" class="p-treetable-footer">
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
@@ -216,11 +216,11 @@ export class TreeTableService {
 
             <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
             <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate"/>
+                <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
             </span>
             <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
-                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate"/>
+                <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
             </span>
         </div>
@@ -2198,11 +2198,10 @@ export class TTSortableColumn implements OnInit, OnDestroy {
 
 @Component({
     selector: 'p-treeTableSortIcon',
-    template: `
-        <ng-container *ngIf="!tt.sortIconTemplate">
-            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0"/>
-            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1"/>
-            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1"/>
+    template: ` <ng-container *ngIf="!tt.sortIconTemplate">
+            <SortAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 0" />
+            <SortAmountUpAltIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === 1" />
+            <SortAmountDownIcon [styleClass]="'p-sortable-column-icon'" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="tt.sortIconTemplate" class="p-sortable-column-icon">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
@@ -2616,8 +2615,8 @@ export class TTContextMenuRow {
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!tt.checkboxIconTemplate">
-                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked"/>
-                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected"/>
+                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected" />
                 </ng-container>
                 <span *ngIf="tt.checkboxIconTemplate">
                     <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
@@ -2686,8 +2685,8 @@ export class TTCheckbox {
                 <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value || tt.value.length === 0" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': !tt.value || tt.value.length === 0 }" role="checkbox" [attr.aria-checked]="checked">
-                    <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
-                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'"/>
+                <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
+                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'" />
                 </ng-container>
                 <span class="p-checkbox-icon" *ngIf="tt.headerCheckboxIconTemplate">
                     <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
@@ -3084,8 +3083,8 @@ export class TTRow {
             [style.marginLeft]="rowNode.level * 16 + 'px'"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate">
-                <ChevronDownIcon *ngIf="rowNode.node.expanded"/>
-                <ChevronRightIcon *ngIf="!rowNode.node.expanded"/>
+                <ChevronDownIcon *ngIf="rowNode.node.expanded" />
+                <ChevronRightIcon *ngIf="!rowNode.node.expanded" />
             </ng-container>
             <ng-template *ngTemplateOutlet="tt.togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>

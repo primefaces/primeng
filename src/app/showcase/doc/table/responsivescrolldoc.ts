@@ -26,7 +26,7 @@ import { ProductService } from '../../service/productservice';
                 <ng-template pTemplate="body" let-product let-columns="columns">
                     <tr>
                         <td>{{ product.name }}</td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>

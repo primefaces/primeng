@@ -145,11 +145,11 @@ import { CustomerService } from '../../service/customerservice';
                         </td>
                         <td>
                             <span class="p-column-title">Date</span>
-                            {{ customer.date | date: 'MM/dd/yyyy' }}
+                            {{ customer.date | date : 'MM/dd/yyyy' }}
                         </td>
                         <td>
                             <span class="p-column-title">Balance</span>
-                            {{ customer.balance | currency: 'USD':'symbol' }}
+                            {{ customer.balance | currency : 'USD' : 'symbol' }}
                         </td>
                         <td>
                             <span class="p-column-title">Status</span>

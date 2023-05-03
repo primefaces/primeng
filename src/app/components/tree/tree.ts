@@ -74,8 +74,8 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
                 >
                     <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
-                            <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'"/>
-                            <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'"/>
+                            <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                            <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
@@ -84,8 +84,8 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
                     <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
                         <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }">
                             <ng-container *ngIf="!tree.checkboxIconTemplate">
-                                <CheckIcon *ngIf="isSelected()" [styleClass]="'p-checkbox-icon'"/>
-                                <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'"/>
+                                <CheckIcon *ngIf="isSelected()" [styleClass]="'p-checkbox-icon'" />
+                                <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected(), partialSelected: node.partialSelected }"></ng-template>
                         </div>
@@ -147,8 +147,8 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
                             >
                                 <span *ngIf="!isLeaf()" [ngClass]="'p-tree-toggler'" (click)="toggle($event)">
                                     <ng-container *ngIf="!tree.togglerIconTemplate">
-                                        <PlusIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel"/>
-                                        <MinusIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel"/>
+                                        <PlusIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel" />
+                                        <MinusIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel" />
                                     </ng-container>
                                     <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                                         <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
@@ -601,7 +601,7 @@ export class UITreeNode implements OnInit {
             <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'"/>
+                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
                     <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
                         <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                     </span>
@@ -610,7 +610,7 @@ export class UITreeNode implements OnInit {
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             <div *ngIf="filter" class="p-tree-filter-container">
                 <input #filter type="text" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
-                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-tree-filter-icon'"/>
+                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-tree-filter-icon'" />
                 <span *ngIf="filterIconTemplate" class="p-tree-filter-icon">
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>
@@ -681,11 +681,11 @@ export class UITreeNode implements OnInit {
             <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
-                <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'"/>
-                <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
-                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
-                </span>
-            </ng-container>
+                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
+                    <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
+                        <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
             </div>
             <table *ngIf="value && value[0]">
                 <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>

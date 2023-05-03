@@ -22,17 +22,13 @@ import { TimesIcon } from 'primeng/icons/times';
                     [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 >
                     <div class="p-message-wrapper">
-                        <span
-                            *ngIf="msg.icon"
-                            [class]="'p-message-icon pi ' + msg.icon"
-                        >
-                        </span>
+                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon"> </span>
                         <span class="p-message-icon" *ngIf="!msg.icon">
                             <ng-container>
-                                <CheckIcon *ngIf="msg.severity === 'success'"/>
-                                <InfoCircleIcon *ngIf="msg.severity === 'info'"/>
-                                <TimesCircleIcon *ngIf="msg.severity === 'error'"/>
-                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'"/>
+                                <CheckIcon *ngIf="msg.severity === 'success'" />
+                                <InfoCircleIcon *ngIf="msg.severity === 'info'" />
+                                <TimesCircleIcon *ngIf="msg.severity === 'error'" />
+                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" />
                             </ng-container>
                         </span>
                         <ng-container *ngIf="!escape; else escapeOut">
@@ -44,7 +40,7 @@ import { TimesIcon } from 'primeng/icons/times';
                             <span *ngIf="msg.detail" class="p-message-detail">{{ msg.detail }}</span>
                         </ng-template>
                         <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
-                            <TimesIcon [styleClass]="'p-message-close-icon'"/>
+                            <TimesIcon [styleClass]="'p-message-close-icon'" />
                         </button>
                     </div>
                 </div>

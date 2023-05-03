@@ -72,14 +72,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
         />
-        <ng-container  *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()"/>
+        <ng-container *ngIf="value != null && filled && showClear && !disabled">
+            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" />
             <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()">
                 <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
             </span>
-            
         </ng-container>
-
     `,
     host: {
         class: 'p-element',

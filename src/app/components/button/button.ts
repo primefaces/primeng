@@ -235,7 +235,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
                 <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()">
-                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate;"></ng-template>
+                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate"></ng-template>
                 </span>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>

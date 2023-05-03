@@ -54,10 +54,10 @@ export interface ListboxFilterOptions {
                     </div>
                     <div #headerchkbox class="p-checkbox-box" [ngClass]="{ 'p-highlight': allChecked, 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }" (click)="toggleAll($event)">
                         <ng-container *ngIf="allChecked">
-                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
-                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
-                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
-                        </span>
+                            <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
+                            <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                                <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                            </span>
                         </ng-container>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ export interface ListboxFilterOptions {
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
                         />
-                        <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'"/>
+                        <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" />
                         <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon">
                             <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                         </span>

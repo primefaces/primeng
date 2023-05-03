@@ -49,7 +49,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                             <span class="p-cascadeselect-item-text">{{ getOptionLabelToRender(option) }}</span>
                         </ng-template>
                         <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(option)">
-                            <AngleRightIcon *ngIf="!groupIconTemplate"/>
+                            <AngleRightIcon *ngIf="!groupIconTemplate" />
                             <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
                         </span>
                     </div>
@@ -309,7 +309,7 @@ export class CascadeSelectSub implements OnInit {
             </span>
 
             <ng-container *ngIf="filled && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)" />
                 <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -318,7 +318,7 @@ export class CascadeSelectSub implements OnInit {
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
                 <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate;"></ng-template>
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
                 </span>
             </div>
             <p-overlay

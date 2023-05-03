@@ -14,7 +14,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
                     <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"></span>
-                    <TimesCircleIcon [attr.tabindex]="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"/>
+                    <TimesCircleIcon [attr.tabindex]="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)" />
                 </ng-container>
                 <span *ngIf="removeIconTemplate" class="pi-chip-remove-icon" (click)="close($event)" (keydown.enter)="close($event)">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
