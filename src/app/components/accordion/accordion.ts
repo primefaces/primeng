@@ -1,3 +1,5 @@
+
+
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
@@ -5,6 +7,7 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.module';
 
 let idx: number = 0;
 
@@ -86,28 +89,53 @@ let idx: number = 0;
     }
 })
 export class AccordionTab implements AfterContentInit, OnDestroy {
-    @Input() header: string;
-
-    @Input() headerStyle: any;
-
-    @Input() tabStyle: any;
-
-    @Input() contentStyle: any;
-
-    @Input() tabStyleClass: string;
-
-    @Input() headerStyleClass: string;
-
-    @Input() contentStyleClass: string;
-
-    @Input() disabled: boolean;
-
+    /**
+     * Used to define the header of the tab.
+     */
+    @Input() header: string | undefined;
+    /**
+     * Inline style of the tab header.
+     */
+    @Input() headerStyle: CSSStyleDeclaration | undefined;
+    /**
+     * Inline style of the tab.
+     */
+    @Input() tabStyle: CSSStyleDeclaration | undefined;
+    /**
+     * Inline style of the tab content.
+     */
+    @Input() contentStyle: CSSStyleDeclaration | undefined;
+    /**
+     * Style class of the tab.
+     */
+    @Input() tabStyleClass: string | undefined;
+    /**
+     * Style class of the tab header.
+     */
+    @Input() headerStyleClass: string | undefined;
+    /**
+     * Style class of the tab content.
+     */
+    @Input() contentStyleClass: string | undefined;
+    /**
+     * Whether the tab is disabled.
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Whether a lazy loaded panel should avoid getting loaded again on reselection. 
+     */
     @Input() cache: boolean = true;
-
-    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Event triggered by changing the choice
+     */
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
+    /**
+     * Transition options of the animation.
+     */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-
+    /**
+     * Position of the icon, valid values are "end", "start".
+     */
     @Input() iconPos: string = 'start';
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
@@ -116,11 +144,14 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     private _selected: boolean;
 
-    @Input() get selected(): any {
+    /**
+     * The value that returns the selection.
+     */
+    @Input() get selected(): boolean {
         return this._selected;
     }
 
-    set selected(val: any) {
+    set selected(val: boolean) {
         this._selected = val;
 
         if (!this.loaded) {
@@ -251,27 +282,60 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
+    /**
+     * When enabled, multiple tabs can be activated at the same time.
+     */
     @Input() multiple: boolean;
+    /**
+     * Callback to invoke when an active tab is collapsed by clicking on the header.
+     */
+    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
+    /**
+     * Callback to invoke when a tab gets expanded.
+     */
+    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+    /**
+     * Inline style of the tab header and content.
+     */
+    @Input() style: CSSStyleDeclaration | undefined;
+    /**
+     * Class of the element.
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Icon of a collapsed tab.
+     */
+    @Input() expandIcon: string | undefined;
+    /**
+     * Icon of an expanded tab.
+     */
+    @Input() collapseIcon: string | undefined;
+    /**
+     * Index of the active tab or an array of indexes in multiple mode.
+     */
+    @Input() get activeIndex(): number | number[] | null | undefined {
+        return this._activeIndex;
+    }
 
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
+    set activeIndex(val: number | number[] | null | undefined) {
+        this._activeIndex = val;
+        if (this.preventActiveIndexPropagation) {
+            this.preventActiveIndexPropagation = false;
+            return;
+        }
 
-    @Output() onOpen: EventEmitter<any> = new EventEmitter();
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() expandIcon: string;
-
-    @Input() collapseIcon: string;
-
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
+        this.updateSelectionState();
+    }
+    /**
+     * Returns the active index.
+     */
+    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter();
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
     tabListSubscription: Subscription;
 
-    private _activeIndex: any;
+    private _activeIndex: number | number[] | null | undefined;
 
     preventActiveIndexPropagation: boolean;
 
@@ -287,7 +351,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         });
     }
 
-    initTabs(): any {
+    initTabs() {
         this.tabs = this.tabList.toArray();
         this.updateSelectionState();
         this.changeDetector.markForCheck();
@@ -297,24 +361,10 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         return this.el.nativeElement.children[0];
     }
 
-    @Input() get activeIndex(): any {
-        return this._activeIndex;
-    }
-
-    set activeIndex(val: any) {
-        this._activeIndex = val;
-        if (this.preventActiveIndexPropagation) {
-            this.preventActiveIndexPropagation = false;
-            return;
-        }
-
-        this.updateSelectionState();
-    }
-
     updateSelectionState() {
         if (this.tabs && this.tabs.length && this._activeIndex != null) {
             for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                let selected = this.multiple ? (this._activeIndex as number[]).includes(i) : i === this._activeIndex;
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
@@ -327,11 +377,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     updateActiveIndex() {
-        let index: any = this.multiple ? [] : null;
+        let index: number | number[] | null = this.multiple ? [] : null;
         this.tabs.forEach((tab, i) => {
             if (tab.selected) {
                 if (this.multiple) {
-                    index.push(i);
+                    (index as number[]).push(i);
                 } else {
                     index = i;
                     return;
