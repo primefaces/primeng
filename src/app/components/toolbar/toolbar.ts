@@ -26,9 +26,14 @@ import { BlockableUI, PrimeTemplate } from 'primeng/api';
     }
 })
 export class Toolbar implements AfterContentInit, BlockableUI {
-    @Input() style: any;
-
-    @Input() styleClass: string;
+    /**
+     * Inline style of the component.
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     */
+    @Input() styleClass: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
