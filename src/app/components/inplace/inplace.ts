@@ -52,25 +52,44 @@ export class InplaceContent {}
     }
 })
 export class Inplace implements AfterContentInit {
-    @Input() active: boolean;
-
-    @Input() closable: boolean;
-
-    @Input() disabled: boolean;
-
-    @Input() preventClick: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() closeIcon: string;
+    /**
+     * Whether the content is displayed or not.
+     */
+    @Input() active: boolean | undefined = false;
+    /**
+     * Displays a button to switch back to display mode.
+     */
+    @Input() closable: boolean | undefined = false;
+    /**
+     * When present, it specifies that the element should be disabled.
+     */
+    @Input() disabled: boolean | undefined = false;
+    /**
+     * Allows to prevent clicking.
+     */
+    @Input() preventClick: boolean | undefined;
+    /**
+     * Inline style of the element.
+     */
+    @Input() style: CSSStyleDeclaration | undefined;
+    /**
+     * Class of the element.
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Icon to display in the close button.
+     */
+    @Input() closeIcon: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @Output() onActivate: EventEmitter<any> = new EventEmitter();
-
-    @Output() onDeactivate: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when inplace is opened.
+     */
+    @Output() onActivate: EventEmitter<Event> = new EventEmitter();
+   /**
+     * Callback to invoke when inplace is closed.
+     */
+    @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
 
     hover: boolean;
 
