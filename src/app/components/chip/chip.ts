@@ -30,23 +30,42 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     }
 })
 export class Chip implements AfterContentInit {
-    @Input() label: string;
-
-    @Input() icon: string;
-
-    @Input() image: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() removable: boolean;
-
-    @Input() removeIcon: string;
-
-    @Output() onRemove: EventEmitter<any> = new EventEmitter();
-
-    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    /**
+     * Defines the text to display.
+     */
+    @Input() label: string | undefined;
+    /**
+     * Defines the icon to display.
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Defines the image to display.
+     */
+    @Input() image: string | undefined;
+    /**
+     * Inline style of the element.
+     */
+    @Input() style: CSSStyleDeclaration | undefined;
+    /**
+     * Class of the element.
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether to display a remove icon.
+     */
+    @Input() removable: boolean | undefined = false;
+    /**
+     * Icon of the remove element.
+     */
+    @Input() removeIcon: string | undefined;
+    /**
+     * Callback to invoke when a chip is removed.
+     */
+    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
+    /**
+     * This event is triggered if an error occurs while loading an image file.
+     */
+    @Output() onImageError: EventEmitter<ErrorEvent> = new EventEmitter();
 
     visible: boolean = true;
 

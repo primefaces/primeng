@@ -53,20 +53,37 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
     }
 })
 export class ScrollTop implements OnInit, OnDestroy {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() target: string = 'window';
-
+    /**
+     * Class of the element.
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     */
+    @Input() style: CSSStyleDeclaration | undefined
+    /**
+     * Target of the ScrollTop, valid values are "window" and "parent".
+     */
+    @Input() target: 'window' | 'parent' | undefined = 'window';
+    /**
+     * Defines the threshold value of the vertical scroll position of the target to toggle the visibility.
+     */
     @Input() threshold: number = 400;
-
-    @Input() icon: string;
-
-    @Input() behavior: string = 'smooth';
-
+    /**
+     * Name of the icon or JSX.Element for icon.
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump.
+     */
+    @Input() behavior: 'auto' | 'smooth' | undefined = 'smooth';
+    /**
+     * A string value used to determine the display transition options.
+     */
     @Input() showTransitionOptions: string = '.15s';
-
+    /**
+     * A string value used to determine the hiding transition options.
+     */
     @Input() hideTransitionOptions: string = '.15s';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
