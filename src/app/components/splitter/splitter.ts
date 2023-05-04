@@ -2,6 +2,7 @@ import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input,
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SplitterResizeEvent } from './splitter.model';
 
 @Component({
     selector: 'p-splitter',
@@ -26,36 +27,48 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
     }
 })
 export class Splitter {
+    /**
+     * Style class of the component.
+     */
     @Input() styleClass: string;
-
+    /**
+     * Style class of the panel.
+     */
     @Input() panelStyleClass: string;
-
-    @Input() style: any;
-
-    @Input() panelStyle: any;
-
-    @Input() stateStorage: string = 'session';
-
-    @Input() stateKey: string = null;
-
-    @Input() layout: string = 'horizontal';
-
+    /**
+     * Inline style of the component.
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the panel.
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
+     */
+    @Input() stateStorage: 'local' | 'session' | undefined = 'session';
+    /**
+     * Storage identifier of a stateful Splitter.
+     */
+    @Input() stateKey: string | undefined | null = null;
+    /**
+     * Orientation of the panels.
+     */
+    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    /**
+     * Size of the divider in pixels.
+     */
     @Input() gutterSize: number = 4;
-
+    /**
+     * Minimum size of the elements relative to 100%.
+     */
     @Input() minSizes: number[] = [];
-
-    @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
-
-    @Output() onResizeStart: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
-
+    /**
+     * Size of the elements relative to 100%.
+     */
     @Input() get panelSizes(): number[] {
         return this._panelSizes;
     }
-
     set panelSizes(val: number[]) {
         this._panelSizes = val;
 
@@ -71,12 +84,28 @@ export class Splitter {
             });
         }
     }
+    /**
+     * Callback to invoke when resize ends.
+     * @param {SplitterResizeEvent} event - Custom panel resize event
+     * @group Emits
+     */
+    @Output() onResizeEnd: EventEmitter<SplitterResizeEvent> = new EventEmitter<SplitterResizeEvent>();
+    /**
+     * Callback to invoke when resize starts.
+     * @param {SplitterResizeEvent} event - Custom panel resize event
+     * @group Emits
+     */
+    @Output() onResizeStart: EventEmitter<SplitterResizeEvent> = new EventEmitter<SplitterResizeEvent>();
 
-    nested = false;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
-    panels = [];
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
-    dragging = false;
+    nested: boolean = false;
+
+    panels: any[] = [];
+
+    dragging: boolean = false;
 
     mouseMoveListener: VoidFunction | null;
 
@@ -86,23 +115,23 @@ export class Splitter {
 
     touchEndListener: VoidFunction | null;
 
-    size = null;
+    size: number = null;
 
-    gutterElement = null;
+    gutterElement: any = null;
 
-    startPos = null;
+    startPos: number = null;
 
-    prevPanelElement = null;
+    prevPanelElement: any = null;
 
-    nextPanelElement = null;
+    nextPanelElement: any = null;
 
-    nextPanelSize = null;
+    nextPanelSize: number = null;
 
-    prevPanelSize = null;
+    prevPanelSize: number = null;
 
     _panelSizes: number[] = [];
 
-    prevPanelIndex = null;
+    prevPanelIndex: number = null;
 
     private window: Window;
 
@@ -150,13 +179,13 @@ export class Splitter {
         }
     }
 
-    resizeStart(event, index) {
-        this.gutterElement = event.currentTarget;
+    resizeStart(event: TouchEvent | MouseEvent, index: number) {
+        this.gutterElement = event.currentTarget as HTMLElement;
         this.size = this.horizontal() ? DomHandler.getWidth(this.containerViewChild.nativeElement) : DomHandler.getHeight(this.containerViewChild.nativeElement);
         this.dragging = true;
-        this.startPos = this.horizontal() ? event.pageX || event.changedTouches[0].pageX : event.pageY || event.changedTouches[0].pageY;
-        this.prevPanelElement = this.gutterElement.previousElementSibling;
-        this.nextPanelElement = this.gutterElement.nextElementSibling;
+        this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : (event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY);
+        this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
+        this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
         this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
         this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
         this.prevPanelIndex = index;
@@ -165,7 +194,7 @@ export class Splitter {
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes });
     }
 
-    onResize(event) {
+    onResize(event: MouseEvent) {
         let newPos;
         if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
         else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
@@ -181,7 +210,7 @@ export class Splitter {
         }
     }
 
-    resizeEnd(event) {
+    resizeEnd(event: MouseEvent | TouchEvent) {
         if (this.isStateful()) {
             this.saveState();
         }
@@ -192,12 +221,12 @@ export class Splitter {
         this.clear();
     }
 
-    onGutterMouseDown(event, index) {
+    onGutterMouseDown(event: MouseEvent, index: number) {
         this.resizeStart(event, index);
         this.bindMouseListeners();
     }
 
-    onGutterTouchStart(event, index) {
+    onGutterTouchStart(event: TouchEvent, index: number) {
         if (event.cancelable) {
             this.resizeStart(event, index);
             this.bindTouchListeners();
@@ -206,14 +235,14 @@ export class Splitter {
         }
     }
 
-    onGutterTouchEnd(event) {
+    onGutterTouchEnd(event: TouchEvent) {
         this.resizeEnd(event);
         this.unbindTouchListeners();
 
         if (event.cancelable) event.preventDefault();
     }
 
-    validateResize(newPrevPanelSize, newNextPanelSize) {
+    validateResize(newPrevPanelSize: number, newNextPanelSize: number) {
         if (this.minSizes.length >= 1 && this.minSizes[0] && this.minSizes[0] > newPrevPanelSize) {
             return false;
         }
