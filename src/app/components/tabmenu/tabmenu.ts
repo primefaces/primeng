@@ -34,7 +34,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
@@ -106,7 +106,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate"/>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>

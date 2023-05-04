@@ -46,7 +46,7 @@ import { Subscription } from 'rxjs';
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
             <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
-                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-overlaypanel-close-icon'"/>
+                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-overlaypanel-close-icon'" />
                 <span class="p-overlaypanel-close-icon" *ngIf="closeIconTemplate">
                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                 </span>

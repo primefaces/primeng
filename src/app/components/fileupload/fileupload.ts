@@ -54,7 +54,7 @@ import { TimesIcon } from 'primeng/icons/times';
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" />
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon *ngIf="!chooseIconTemplate"/>
+                        <PlusIcon *ngIf="!chooseIconTemplate" />
                         <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
@@ -65,7 +65,7 @@ import { TimesIcon } from 'primeng/icons/times';
                 <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
                     <span *ngIf="uploadIcon" [ngClass]="uploadIcon"></span>
                     <ng-container *ngIf="!uploadIcon">
-                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'"/>
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                         <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
                             <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                         </span>
@@ -74,10 +74,10 @@ import { TimesIcon } from 'primeng/icons/times';
                 <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
                     <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
                     <ng-container *ngIf="!cancelIcon">
-                            <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'"/>
-                            <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
-                                <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
-                            </span>
+                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                        </span>
                     </ng-container>
                 </p-button>
 
@@ -120,24 +120,24 @@ import { TimesIcon } from 'primeng/icons/times';
                 tabindex="0"
                 pRipple
             >
-            <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
-                <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
-                <ng-container *ngIf="!uploadIcon">
-                <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
-                    <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
-                </span>
+                <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
+                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                    <ng-container *ngIf="!uploadIcon">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
-            <ng-template #chooseSection>
-                <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
-            <ng-container *ngIf="!chooseIcon">
-                <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'"  *ngIf="!chooseIconTemplate" />
-                <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi">
-                    <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
-                </span>
-            </ng-container>
-            </ng-template>
+                <ng-template #chooseSection>
+                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                    <ng-container *ngIf="!chooseIcon">
+                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi">
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-template>
                 <span *ngIf="basicButtonLabel" class="p-button-label">{{ basicButtonLabel }}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" />
             </span>
@@ -719,7 +719,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
-            if(this.dragOverListener) {
+            if (this.dragOverListener) {
                 this.dragOverListener();
                 this.dragOverListener = null;
             }

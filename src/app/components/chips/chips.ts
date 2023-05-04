@@ -46,7 +46,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()"/>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()" />
                     <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
