@@ -183,7 +183,7 @@ export class Splitter {
         this.gutterElement = event.currentTarget as HTMLElement;
         this.size = this.horizontal() ? DomHandler.getWidth(this.containerViewChild.nativeElement) : DomHandler.getHeight(this.containerViewChild.nativeElement);
         this.dragging = true;
-        this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : (event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY);
+        this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
         this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
         this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;

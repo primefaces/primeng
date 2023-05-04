@@ -60,7 +60,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     /**
      * Inline style of the element.
      */
-    @Input() style: CSSStyleDeclaration | undefined
+    @Input() style: CSSStyleDeclaration | undefined;
     /**
      * Target of the ScrollTop, valid values are "window" and "parent".
      */

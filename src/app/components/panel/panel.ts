@@ -36,12 +36,12 @@ let idx: number = 0;
                         <ng-container *ngIf="!headerIconTemplate">
                             <ng-container *ngIf="collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <PlusIcon *ngIf="!expandIcon" [styleClass]="iconClass"/>
+                                <PlusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
                             </ng-container>
 
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass"/>
+                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
                             </ng-container>
                         </ng-container>
 
@@ -178,7 +178,7 @@ export class Panel implements AfterContentInit, BlockableUI {
     @ContentChild(Footer) footerFacet: TemplateRef<any> | null;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-    
+
     public iconTemplate: TemplateRef<any>;
 
     animating: boolean;

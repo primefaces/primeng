@@ -1,4 +1,4 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom panel toggle event.
@@ -21,7 +21,7 @@ export interface FieldsetToggleEvent {
  * Defines valid templates in Fieldset.
  * @group Templates
  */
-export interface FieldsetTemplates { 
+export interface FieldsetTemplates {
     /**
      * Custom header template.
      */

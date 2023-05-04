@@ -1,4 +1,4 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom panel resize event.
@@ -17,12 +17,11 @@ export interface SplitterResizeEvent {
     sizes: number[];
 }
 
-
 /**
  * Defines valid templates in Panel.
  * @group Templates
  */
-export interface SplitterTemplates { 
+export interface SplitterTemplates {
     /**
      * Custom panel template.
      */

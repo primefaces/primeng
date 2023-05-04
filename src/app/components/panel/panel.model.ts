@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 
-
 /**
  * Custom panel toggle event.
  * @see {@link Panel.onBeforeToggle}
@@ -22,7 +21,7 @@ export interface PanelToggleEvent {
  * Defines valid templates in Panel.
  * @group Templates
  */
-export interface PanelTemplates { 
+export interface PanelTemplates {
     /**
      * Custom header template.
      */
@@ -38,12 +37,12 @@ export interface PanelTemplates {
     /**
      * Custom icons template of the panel toggler.
      */
-    headericons(scope: { 
+    headericons(scope: {
         /**
          * Collapsed state as a boolean
          */
-        collapsed: boolean 
-    } ): TemplateRef<any> | null;
+        collapsed: boolean;
+    }): TemplateRef<any> | null;
     /**
      * Custom icons template of the panel header.
      */

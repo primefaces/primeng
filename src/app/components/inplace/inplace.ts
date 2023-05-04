@@ -86,7 +86,7 @@ export class Inplace implements AfterContentInit {
      * Callback to invoke when inplace is opened.
      */
     @Output() onActivate: EventEmitter<Event> = new EventEmitter();
-   /**
+    /**
      * Callback to invoke when inplace is closed.
      */
     @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
