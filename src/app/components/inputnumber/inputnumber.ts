@@ -80,10 +80,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                </span>            
+                </span>
             </ng-container>
 
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
@@ -101,11 +101,11 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (keyup)="onUpButtonKeyUp()"
                     tabindex="-1"
                 >
-                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
-                <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
-                </ng-container>
+                    <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
+                    <ng-container *ngIf="!incrementButtonIcon">
+                        <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
+                        <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+                    </ng-container>
                 </button>
                 <button
                     type="button"
@@ -121,12 +121,12 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     (keyup)="onDownButtonKeyUp()"
                     tabindex="-1"
                 >
-                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
-                <ng-container *ngIf="!decrementButtonIcon">
-                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate"/>
-                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
-                </ng-container>
-            </button>
+                    <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                    <ng-container *ngIf="!decrementButtonIcon">
+                        <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                        <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
             </span>
             <button
                 type="button"
@@ -145,7 +145,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             >
                 <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate"/>
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -164,12 +164,12 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keyup)="onDownButtonKeyUp()"
                 tabindex="-1"
             >
-            <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
-            <ng-container *ngIf="!decrementButtonIcon">
-                <AngleDownIcon *ngIf="!decrementButtonIconTemplate"/>
-                <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
-            </ng-container>
-        </button>
+                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                <ng-container *ngIf="!decrementButtonIcon">
+                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                </ng-container>
+            </button>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

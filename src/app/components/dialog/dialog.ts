@@ -82,15 +82,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <button *ngIf="maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                             <ng-container *ngIf="!maximizeIcon">
-                                <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'"/>
-                                <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'"/>
+                                <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
+                                <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
                             </ng-container>
-                        <ng-container *ngIf="!maximized">
-                            <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
-                        </ng-container>
-                        <ng-container *ngIf="maximized">
-                            <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
-                        </ng-container>
+                            <ng-container *ngIf="!maximized">
+                                <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="maximized">
+                                <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                            </ng-container>
                         </button>
                         <button
                             *ngIf="closable"
@@ -104,7 +104,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         >
                             <ng-container *ngIf="!closeIconTemplate">
                                 <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
-                                <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'"/>
+                                <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'" />
                             </ng-container>
                             <span *ngIf="closeIconTemplate">
                                 <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>

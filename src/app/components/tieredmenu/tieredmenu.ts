@@ -64,7 +64,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>
@@ -97,7 +97,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>

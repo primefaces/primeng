@@ -37,7 +37,7 @@ export class InplaceContent {}
                 <ng-container *ngIf="closable">
                     <button *ngIf="icon" type="button" [icon]="icon" pButton (click)="onDeactivateClick($event)"></button>
                     <button *ngIf="!icon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
-                        <TimesIcon *ngIf="!closeIconTemplate"/>
+                        <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
                 </ng-container>

@@ -296,7 +296,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass">
             <input
                 #input
                 [attr.label]="label"
@@ -304,10 +304,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper: inputFieldClass"
+                [ngClass]="disabled | mapper : inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper: inputType"
+                [attr.type]="unmasked | mapper : inputType"
                 [attr.placeholder]="placeholder"
                 [value]="value"
                 (input)="onInput($event)"
@@ -321,18 +321,18 @@ export const Password_VALUE_ACCESSOR: any = {
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
                 <span (click)="clear()" class="p-password-clear-icon">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                </span>    
+                </span>
             </ng-container>
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()"/>
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()"/>
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -354,7 +354,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
-                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
+                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
                     <div className="p-password-info">{{ infoText }}</div>
                 </ng-template>

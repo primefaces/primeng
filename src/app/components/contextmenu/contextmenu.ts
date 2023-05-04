@@ -68,7 +68,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
                                 <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
                             </span>
@@ -100,7 +100,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <span *ngIf="contextMenu.submenuIconTemplate" class="p-submenu-icon">
                                 <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate"></ng-template>
                             </span>

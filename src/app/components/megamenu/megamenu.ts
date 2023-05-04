@@ -42,8 +42,8 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                             <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
                             <ng-container *ngIf="!submenuIconTemplate">
-                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'"/>
-                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'"/>
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'" />
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                         </a>

@@ -72,7 +72,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>
@@ -103,7 +103,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <CaretRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <CaretRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>
@@ -241,7 +241,7 @@ export class SlideMenuSub implements OnDestroy {
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <a #backward (keydown.enter)="onBackwardKeydown($event)" (keydown.space)="onBackwardKeydown($event)" class="p-slidemenu-backward p-menuitem-link" tabindex="0" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
-                    <CaretLeftIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'"/>
+                    <CaretLeftIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'" />
                     <ng-template *ngTemplateOutlet="backIconTemplate"></ng-template>
                     <span>{{ backLabel }}</span>
                 </a>

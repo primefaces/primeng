@@ -36,16 +36,15 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 />
             </div>
             <div class="p-checkbox-box" (click)="onClick($event, cb, true)" [ngClass]="{ 'p-highlight': checked(), 'p-disabled': disabled, 'p-focus': focused }">
-                
-            <ng-container *ngIf="checked()">
-                <ng-container *ngIf="!checkboxIconTemplate"> 
-                    <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
-                    <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'"/>
+                <ng-container *ngIf="checked()">
+                    <ng-container *ngIf="!checkboxIconTemplate">
+                        <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon"></span>
+                        <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'" />
+                    </ng-container>
+                    <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon">
+                        <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
+                    </span>
                 </ng-container>
-                <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon">
-                    <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
-                </span>
-            </ng-container>
             </div>
         </div>
         <label

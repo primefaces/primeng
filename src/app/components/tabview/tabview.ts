@@ -197,7 +197,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabview-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
@@ -233,8 +233,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
                                     <ng-container *ngIf="tab.closable">
-                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)"/>
-                                        <span class="tab.closeIconTemplate" *ngIf="p-tabview-close"></span>
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)" />
+                                        <span class="tab.closeIconTemplate" *ngIf="p - tabview - close"></span>
                                         <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
                                     </ng-container>
                                 </a>
@@ -244,7 +244,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <ChevronRightIcon *ngIf="!nextIconTemplate"/>
+                    <ChevronRightIcon *ngIf="!nextIconTemplate" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>

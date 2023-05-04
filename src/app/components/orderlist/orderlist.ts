@@ -45,19 +45,19 @@ export interface OrderListFilterOptions {
         >
             <div class="p-orderlist-controls">
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()">
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()">
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()">
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>    
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
                 </button>
                 <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()">
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>    
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
@@ -82,7 +82,7 @@ export interface OrderListFilterOptions {
                                 [attr.placeholder]="filterPlaceholder"
                                 [attr.aria-label]="ariaFilterLabel"
                             />
-                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'"/>
+                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'" />
                             <span class="p-orderlist-filter-icon" *ngIf="filterIconTemplate">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                             </span>
