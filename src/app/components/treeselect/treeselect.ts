@@ -57,14 +57,14 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </ng-template>
                 </div>
                 <ng-container *ngIf="checkValue() && !disabled && showClear">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-treeselect-clear-icon'" (click)="clear($event)"/>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-treeselect-clear-icon'" (click)="clear($event)" />
                     <span *ngIf="clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate;"></ng-template>
+                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
                 </ng-container>
             </div>
             <div class="p-treeselect-trigger">
-                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-trigger-icon'"/>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-treeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
                 </span>
@@ -96,13 +96,13 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                     (input)="onFilterInput($event)"
                                     [value]="filterValue"
                                 />
-                                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-treeselect-filter-icon'"/>
+                                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-treeselect-filter-icon'" />
                                 <span *ngIf="filterIconTemplate" class="p-treeselect-filter-icon">
                                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                 </span>
                             </div>
                             <button class="p-treeselect-close p-link" (click)="hide()">
-                                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-treeselect-filter-icon'"/>
+                                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-treeselect-filter-icon'" />
                                 <span *ngIf="closeIconTemplate" class="p-treeselect-filter-icon">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                                 </span>

@@ -36,7 +36,7 @@ import { BarsIcon } from 'primeng/icons/bars';
                 <div class="p-dataview-loading-overlay p-component-overlay">
                     <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
                     <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'"/>
+                        <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-dataview-loading-icon'" />
                         <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                     </ng-container>
                 </div>
@@ -68,7 +68,7 @@ import { BarsIcon } from 'primeng/icons/bars';
             ></p-paginator>
             <div class="p-dataview-content">
                 <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
-                    <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice: (lazy ? 0 : first):(lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
+                    <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
                     </ng-template>
                     <div *ngIf="isEmpty() && !loading" class="p-col col">
@@ -446,11 +446,10 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     template: `
         <div [ngClass]="'p-dataview-layout-options p-selectbutton p-buttonset'" [ngStyle]="style" [class]="styleClass">
             <button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'list' }" (click)="changeLayout($event, 'list')" (keydown.enter)="changeLayout($event, 'list')">
-                <BarsIcon *ngIf="!dv.listIconTemplate"/>
-                <ng-template *ngTemplateOutlet="dv.listIconTemplate"></ng-template>
-            </button
+                <BarsIcon *ngIf="!dv.listIconTemplate" />
+                <ng-template *ngTemplateOutlet="dv.listIconTemplate"></ng-template></button
             ><button type="button" class="p-button p-button-icon-only" [ngClass]="{ 'p-highlight': dv.layout === 'grid' }" (click)="changeLayout($event, 'grid')" (keydown.enter)="changeLayout($event, 'grid')">
-                <ThLargeIcon *ngIf="!dv.gridIconTemplate"/>
+                <ThLargeIcon *ngIf="!dv.gridIconTemplate" />
                 <ng-template *ngTemplateOutlet="dv.gridIconTemplate"></ng-template>
             </button>
         </div>

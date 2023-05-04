@@ -47,43 +47,19 @@ export interface PickListFilterOptions {
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-picklist p-component': true, 'p-picklist-striped': stripedRows }" cdkDropListGroup>
             <div class="p-picklist-buttons p-picklist-source-controls" *ngIf="showSourceControls">
                 <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="sourceMoveDisabled()" (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)">
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="topButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="sourceMoveDisabled()"
-                    (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="sourceMoveDisabled()" (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)">
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="downButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="sourceMoveDisabled()"
-                    (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="sourceMoveDisabled()" (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)">
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="bottomButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="sourceMoveDisabled()"
-                    (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
-                >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="sourceMoveDisabled()" (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)">
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
             </div>
@@ -108,7 +84,7 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="sourceFilterPlaceholder"
                                 [attr.aria-label]="ariaSourceFilterLabel"
                             />
-                            <SearchIcon *ngIf="!sourceFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
+                            <SearchIcon *ngIf="!sourceFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'" />
                             <span class="p-picklist-filter-icon" *ngIf="sourceFilterIconTemplate">
                                 <ng-template *ngTemplateOutlet="sourceFilterIconTemplate"></ng-template>
                             </span>
@@ -149,29 +125,29 @@ export interface PickListFilterOptions {
             <div class="p-picklist-buttons p-picklist-transfer-buttons">
                 <button type="button" [attr.aria-label]="rightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveRightDisabled()" (click)="moveRight()">
                     <ng-container *ngIf="!moveToTargetIconTemplate">
-                        <AngleRightIcon *ngIf="!viewChanged"/>
-                        <AngleDownIcon *ngIf="viewChanged"/>
+                        <AngleRightIcon *ngIf="!viewChanged" />
+                        <AngleDownIcon *ngIf="viewChanged" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="allRightButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllRightDisabled()" (click)="moveAllRight()">
                     <ng-container *ngIf="!moveAllToTargetIconTemplate">
-                        <AngleDoubleRightIcon *ngIf="!viewChanged"/>
-                        <AngleDoubleDownIcon *ngIf="viewChanged"/>
+                        <AngleDoubleRightIcon *ngIf="!viewChanged" />
+                        <AngleDoubleDownIcon *ngIf="viewChanged" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToTargetIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="leftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveLeftDisabled()" (click)="moveLeft()">
                     <ng-container *ngIf="!moveToSourceIconTemplate">
-                        <AngleLeftIcon *ngIf="!viewChanged"/>
-                        <AngleUpIcon *ngIf="viewChanged"/>
+                        <AngleLeftIcon *ngIf="!viewChanged" />
+                        <AngleUpIcon *ngIf="viewChanged" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
                 <button type="button" [attr.aria-label]="allLeftButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="moveAllLeftDisabled()" (click)="moveAllLeft()">
                     <ng-container *ngIf="!moveAllToSourceIconTemplate">
-                        <AngleDoubleLeftIcon *ngIf="!viewChanged"/>
-                        <AngleDoubleUpIcon *ngIf="viewChanged"/>
+                        <AngleDoubleLeftIcon *ngIf="!viewChanged" />
+                        <AngleDoubleUpIcon *ngIf="viewChanged" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
@@ -197,7 +173,7 @@ export interface PickListFilterOptions {
                                 [attr.placeholder]="targetFilterPlaceholder"
                                 [attr.aria-label]="ariaTargetFilterLabel"
                             />
-                            <SearchIcon *ngIf="!targetFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'"/>
+                            <SearchIcon *ngIf="!targetFilterIconTemplate" [styleClass]="'p-picklist-filter-icon'" />
                             <span class="p-picklist-filter-icon" *ngIf="targetFilterIconTemplate">
                                 <ng-template *ngTemplateOutlet="targetFilterIconTemplate"></ng-template>
                             </span>
@@ -236,43 +212,19 @@ export interface PickListFilterOptions {
             </div>
             <div class="p-picklist-buttons p-picklist-target-controls" *ngIf="showTargetControls">
                 <button type="button" [attr.aria-label]="upButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="targetMoveDisabled()" (click)="moveUp(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)">
-                    <AngleUpIcon *ngIf="!moveUpIconTemplate"/>
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="topButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="targetMoveDisabled()"
-                    (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                >
-                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate"/>
+                <button type="button" [attr.aria-label]="topButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="targetMoveDisabled()" (click)="moveTop(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)">
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="downButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="targetMoveDisabled()"
-                    (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                >
-                    <AngleDownIcon *ngIf="!moveDownIconTemplate"/>
+                <button type="button" [attr.aria-label]="downButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="targetMoveDisabled()" (click)="moveDown(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)">
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
                 </button>
-                <button
-                    type="button"
-                    [attr.aria-label]="bottomButtonAriaLabel"
-                    pButton
-                    pRipple
-                    class="p-button-icon-only"
-                    [disabled]="targetMoveDisabled()"
-                    (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)"
-                >
-                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate"/>
+                <button type="button" [attr.aria-label]="bottomButtonAriaLabel" pButton pRipple class="p-button-icon-only" [disabled]="targetMoveDisabled()" (click)="moveBottom(targetlist, target, selectedItemsTarget, onTargetReorder, TARGET_LIST)">
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
             </div>

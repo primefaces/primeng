@@ -21,10 +21,10 @@ import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
                 'p-inline-message-icon-only': this.text == null
             }"
         >
-            <CheckIcon *ngIf="icon === 'success'" [styleClass]="'p-inline-message-icon'"/>
-            <InfoCircleIcon *ngIf="icon === 'info'" [styleClass]="'p-inline-message-icon'"/>
-            <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'"/>
-            <ExclamationTriangleIcon *ngIf="icon === 'warn'" [styleClass]="'p-inline-message-icon'"/>
+            <CheckIcon *ngIf="icon === 'success'" [styleClass]="'p-inline-message-icon'" />
+            <InfoCircleIcon *ngIf="icon === 'info'" [styleClass]="'p-inline-message-icon'" />
+            <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'" />
+            <ExclamationTriangleIcon *ngIf="icon === 'warn'" [styleClass]="'p-inline-message-icon'" />
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
             </div>
