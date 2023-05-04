@@ -554,12 +554,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this._placeholder;
     }
 
-    @Input() get options(): any[] {
+    @Input() get options(): any[] | null {
         return this._options;
     }
 
-    set options(val: any[]) {
-        this._options = val;
+    set options(val: any[] | null) {
+        this._options = val ?? [];
         this.updateLabel();
     }
 
