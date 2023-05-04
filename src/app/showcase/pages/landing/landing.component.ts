@@ -288,7 +288,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     changeTableTheme(newTheme) {
         if (isPlatformBrowser(this.platformId)) {
-            let linkElement = document.getElementById('theme-link');
+            let linkElement = document.getElementById('home-table-link');
             this.replaceLink(linkElement, newTheme);
             this.theme = newTheme;
         }
