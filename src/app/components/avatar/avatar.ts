@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'p-avatar',
@@ -33,20 +33,16 @@ export class Avatar {
     @Input() image: string | undefined;
     /**
      * Size of the element.
-     * @defaultValue normal
-     * @possibleValues 'normal' | 'large' | 'xlarge'
      */
     @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
     /**
      * Shape of the element.
-     * @defaultValue square
-     * @possibleValues 'square' | 'circle'
      */
     @Input() shape: 'square' | 'circle' | undefined = 'square';
     /**
      * Inline style of the element.
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
      */

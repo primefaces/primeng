@@ -1,26 +1,26 @@
-import {
-    NgModule,
-    Component,
-    Input,
-    AfterViewInit,
-    OnDestroy,
-    ElementRef,
-    NgZone,
-    ViewChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    AfterContentInit,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    Inject,
-    Renderer2,
-    PLATFORM_ID
-} from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-scrollPanel',
@@ -44,9 +44,14 @@ import { PrimeTemplate } from 'primeng/api';
     }
 })
 export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
-    @Input() style: any;
-
-    @Input() styleClass: string;
+    /**
+     * Inline style of the component.
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     */
+    @Input() styleClass: string | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef;
 
