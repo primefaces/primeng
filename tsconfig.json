@@ -28,7 +28,7 @@
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
         },
-        "types": ["node"]
+        "types": ["node", "jest"]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
