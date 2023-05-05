@@ -2,7 +2,7 @@ import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input,
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { SplitterResizeEvent } from './splitter.model';
+import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
 
 @Component({
     selector: 'p-splitter',
@@ -86,16 +86,16 @@ export class Splitter {
     }
     /**
      * Callback to invoke when resize ends.
-     * @param {SplitterResizeEvent} event - Custom panel resize event
+     * @param {SplitterResizeEndEvent} event - Custom panel resize end event
      * @group Emits
      */
-    @Output() onResizeEnd: EventEmitter<SplitterResizeEvent> = new EventEmitter<SplitterResizeEvent>();
+    @Output() onResizeEnd: EventEmitter<SplitterResizeEndEvent> = new EventEmitter<SplitterResizeEndEvent>();
     /**
      * Callback to invoke when resize starts.
-     * @param {SplitterResizeEvent} event - Custom panel resize event
+     * @param {SplitterResizeStartEvent} event - Custom panel resize start event
      * @group Emits
      */
-    @Output() onResizeStart: EventEmitter<SplitterResizeEvent> = new EventEmitter<SplitterResizeEvent>();
+    @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
