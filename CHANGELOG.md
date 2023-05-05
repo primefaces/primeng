@@ -1,4 +1,32 @@
 # Changelog
+## [16.0.0-rc.1](https://github.com/primefaces/primeng/tree/16.0.0-rc.1) (2023-05-05)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.4.1...16.0.0-rc.1)
+
+**Breaking Changes:**
+- Drop support for zone.js versions <=0.12.0 [\#13002](https://github.com/primefaces/primeng/issues/13002)
+
+**Enhancements:**
+- Component: TabMenu should initiate a change detection in itemClick method [\#12744](https://github.com/primefaces/primeng/issues/12744)
+- MultiSelect | Pass remove remove method through selectedItems template [\#12939](https://github.com/primefaces/primeng/issues/12939)
+- p-inputNumber | ngModelOptions is not taken into account [\#12915](https://github.com/primefaces/primeng/issues/12915)
+- Angular 16 Support [\#12990](https://github.com/primefaces/primeng/issues/12990)
+
+**Fixed bugs:**
+- MultiSelect | maxSelectionLimit not refreshed after clear called [\#12906](https://github.com/primefaces/primeng/issues/12906)
+- Component | OverlayPanel [\#12933](https://github.com/primefaces/primeng/issues/12933)
+- Table: 'this.el.nativeElement.parentElement is null' for frozen columns which are dynamically generated [\#12748](https://github.com/primefaces/primeng/issues/12748)
+- MultiSelect | Alignment is broken if showClear is enabled [\#12932](https://github.com/primefaces/primeng/issues/12932)
+- Table | Unable to reorder to the last element in the table after a scroll occurs [\#12493](https://github.com/primefaces/primeng/issues/12493)
+- Table: Clear function does not clear all filters [\#12903](https://github.com/primefaces/primeng/issues/12903)
+- FocusTrap for nested DynamicDialogs still not working [\#9329](https://github.com/primefaces/primeng/issues/9329)
+- Autocomplete: Issue with Virtual Scroll [\#12568](https://github.com/primefaces/primeng/issues/12568)
+- InputNumber / AutoFocus: ExpressionChangedAfterItHasBeenCheckedError [\#12559](https://github.com/primefaces/primeng/issues/12559)
+- Expanding org chart node raises error [\#12946](https://github.com/primefaces/primeng/issues/12946)
+- Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
+- Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
+- ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
 ## [15.4.1](https://github.com/primefaces/primeng/tree/15.4.1) (2023-04-21)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.4.0...15.4.1)
