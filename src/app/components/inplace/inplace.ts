@@ -1,7 +1,7 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, TemplateRef, QueryList, ContentChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
@@ -71,7 +71,7 @@ export class Inplace implements AfterContentInit {
     /**
      * Inline style of the element.
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
      */

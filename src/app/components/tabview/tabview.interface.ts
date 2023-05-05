@@ -58,6 +58,7 @@ export interface TabViewTemplates {
 export interface TabPanelTemplates {
     /**
      * Custom header template.
+     *
      */
     header: TemplateRef<any> | null;
     /**

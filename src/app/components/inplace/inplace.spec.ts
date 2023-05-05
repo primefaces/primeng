@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Inplace } from './inplace';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from '../button/button';
 import { TimesIcon } from 'primeng/icons/times';
+import { ButtonModule } from '../button/button';
+import { Inplace } from './inplace';
 
 describe('Inplace', () => {
     let inplace: Inplace;

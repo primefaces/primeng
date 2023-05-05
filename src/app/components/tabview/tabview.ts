@@ -30,7 +30,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
-import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.model';
+import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
 
@@ -51,39 +51,48 @@ let idx: number = 0;
 export class TabPanel implements AfterContentInit, OnDestroy {
     /**
      * Defines if tab can be removed.
+     * @group Props
      */
     @Input() closable: boolean | undefined = false;
     /**
      * Inline style of the tab header.
+     * @group Props
      */
     @Input() headerStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the tab header.
+     * @group Props
      */
     @Input() headerStyleClass: string | undefined;
     /**
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
+     * @group Props
      */
     @Input() cache: boolean | undefined = true;
     /**
      * Advisory information to display in a tooltip on hover.
+     * @group Props
      */
     @Input() tooltip: string | undefined;
     /**
      * Position of the tooltip.
+     * @group Props
      */
     @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | undefined = 'top';
     /**
      * Type of CSS position.
+     * @group Props
      */
     @Input() tooltipPositionStyle: string | undefined = 'absolute';
     /**
      * Style class of the tooltip.
+     * @group Props
      */
     @Input() tooltipStyleClass: string | undefined;
     /**
      * Defines if tab is active.
      * @defaultValue false
+     * @group Props
      */
     @Input() get selected(): boolean {
         return !!this._selected;
@@ -100,6 +109,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     /**
      * When true, tab cannot be activated.
      * @defaultValue false
+     * @group Props
      */
     @Input() get disabled(): boolean {
         return !!this._disabled;
@@ -110,6 +120,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Title of the tabPanel.
+     * @group Props
      */
     @Input() get header(): string {
         return this._header;
@@ -127,6 +138,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     /**
      * Left icon of the tabPanel.
      * @deprecated since v15.4.2, use `lefticon` template instead.
+     * @group Props
      */
     @Input() get leftIcon(): string {
         return this._leftIcon;
@@ -138,6 +150,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     /**
      * Left icon of the tabPanel.
      * @deprecated since v15.4.2, use `righticon` template instead.
+     * @group Props
      */
     @Input() get rightIcon(): string {
         return this._rightIcon;
@@ -149,7 +162,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
-    closed: boolean;
+    closed: boolean = false;
 
     view: EmbeddedViewRef<any>;
 
@@ -161,9 +174,9 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     _leftIcon: string;
 
-    _rightIcon: string;
+    _rightIcon: string | undefined = undefined;
 
-    loaded: boolean;
+    loaded: boolean = false;
 
     id: string = `p-tabpanel-${idx++}`;
 
@@ -290,24 +303,29 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
     /**
      * Inline style of the component.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Whether tab close is controlled at onClose event or not.
      * @defaultValue false
+     * @group Props
      */
     @Input() controlClose: boolean | undefined;
     /**
      * When enabled displays buttons at each side of the tab headers to scroll the tab list.
      * @defaultValue false
+     * @group Props
      */
     @Input() scrollable: boolean | undefined;
     /**
      * Index of the active tab to change selected tab programmatically.
+     * @group Props
      */
     @Input() get activeIndex(): number {
         return this._activeIndex;
