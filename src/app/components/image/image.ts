@@ -22,29 +22,29 @@ import { TimesIcon } from 'primeng/icons/times';
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
                 <ng-template #defaultTemplate>
-                    <EyeIcon [styleClass]="'p-image-preview-icon'"/>
+                    <EyeIcon [styleClass]="'p-image-preview-icon'" />
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-link" (click)="rotateRight()" type="button">
-                        <RefreshIcon *ngIf="!rotateRightIconTemplate"/>
+                        <RefreshIcon *ngIf="!rotateRightIconTemplate" />
                         <ng-template *ngTemplateOutlet="rotateRightIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="rotateLeft()" type="button">
-                        <UndoIcon *ngIf="!rotateLeftIconTemplate"/>
+                        <UndoIcon *ngIf="!rotateLeftIconTemplate" />
                         <ng-template *ngTemplateOutlet="rotateLeftIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled">
-                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate"/>
+                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate" />
                         <ng-template *ngTemplateOutlet="zoomOutIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled">
-                        <SearchPlusIcon *ngIf="!zoomInIconTemplate"/>
+                        <SearchPlusIcon *ngIf="!zoomInIconTemplate" />
                         <ng-template *ngTemplateOutlet="zoomInIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" type="button" (click)="closePreview()">
-                        <TimesIcon *ngIf="!closeIconTemplate"/>
+                        <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
                 </div>

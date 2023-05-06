@@ -9,10 +9,12 @@ import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 import { NodeService } from '../../service/nodeservice';
+
 interface City {
     name: string;
     code: string;
 }
+
 @Component({
     selector: 'landing',
     templateUrl: './landing.component.html'
@@ -284,11 +286,17 @@ export class LandingComponent implements OnInit, OnDestroy {
 
         this.configService.updateConfig({ ...this.configService.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue', dark: this.config.dark } });
         this.changeTableTheme(theme);
+
+        if (isPlatformBrowser(this.platformId)) {
+            let linkElement = document.getElementById('theme-link');
+            this.replaceLink(linkElement, theme);
+            this.theme = theme;
+        }
     }
 
     changeTableTheme(newTheme) {
         if (isPlatformBrowser(this.platformId)) {
-            let linkElement = document.getElementById('theme-link');
+            let linkElement = document.getElementById('home-table-link');
             this.replaceLink(linkElement, newTheme);
             this.theme = newTheme;
         }

@@ -35,14 +35,14 @@ let idx: number = 0;
                         [attr.aria-expanded]="!collapsed"
                     >
                         <ng-container *ngIf="!headerIconTemplate">
-                            <ng-container *ngIf="collapsed">
-                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <PlusIcon *ngIf="!expandIcon" [styleClass]="iconClass"/>
+                            <ng-container *ngIf="!collapsed">
+                                <span *ngIf="!expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
+                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
                             </ng-container>
 
-                            <ng-container *ngIf="!collapsed">
+                            <ng-container *ngIf="collapsed">
                                 <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass"/>
+                                <PlusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
                             </ng-container>
                         </ng-container>
 

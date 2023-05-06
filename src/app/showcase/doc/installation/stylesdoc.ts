@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
 
             <h3>Font</h3>
-            <p>Each PrimeVue theme has its own font family so it is suggested to apply it to your application for a unified look.</p>
+            <p>Each PrimeNG theme has its own font family so it is suggested to apply it to your application for a unified look.</p>
             <app-code [code]="code3" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
     </section>`

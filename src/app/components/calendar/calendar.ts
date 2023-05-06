@@ -86,7 +86,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                     [attr.aria-labelledby]="ariaLabelledBy"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()"/>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()" />
                     <span *ngIf="clearIconTemplate" class="p-calendar-clear-icon" (click)="clear()">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
@@ -94,7 +94,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                 <button type="button" [attr.aria-label]="iconAriaLabel" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger p-button-icon-only" [disabled]="disabled" tabindex="0">
                     <span *ngIf="icon" [ngClass]="icon"></span>
                     <ng-container *ngIf="!icon">
-                        <CalendarIcon *ngIf="!triggerIconTemplate"/>
+                        <CalendarIcon *ngIf="!triggerIconTemplate" />
                         <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
                     </ng-container>
                 </button>
@@ -132,7 +132,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                 <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
                                     <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
-                                        <ng-template *ngTemplateOutlet="previousIconTemplate;"></ng-template>
+                                        <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
                                 </button>
                                 <div class="p-datepicker-title">
@@ -155,9 +155,9 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                                     type="button"
                                     pRipple
                                 >
-                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate"/>
+                                    <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
                                     <span *ngIf="nextIconTemplate" class="p-datepicker-next-icon">
-                                        <ng-template *ngTemplateOutlet="nextIconTemplate;"></ng-template>
+                                        <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                                     </span>
                                 </button>
                             </div>
@@ -227,7 +227,7 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                            <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
@@ -244,8 +244,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                           <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
-                           <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator">
@@ -265,8 +265,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                         <button
@@ -282,8 +282,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-separator" *ngIf="showSeconds">
@@ -303,8 +303,8 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                         <button
@@ -320,19 +320,19 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
                             (mouseleave)="onTimePickerElementMouseLeave()"
                             pRipple
                         >
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-ampm-picker" *ngIf="hourFormat == '12'">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                        <ChevronUpIcon *ngIf="!incrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
+                            <ChevronUpIcon *ngIf="!incrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
-                        <ChevronDownIcon *ngIf="!decrementIconTemplate"/>
-                        <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
+                            <ChevronDownIcon *ngIf="!decrementIconTemplate" />
+                            <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
                     </div>
                 </div>

@@ -58,8 +58,8 @@ export class BasePanelMenuItem {
                     >
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="child.expanded" [ngStyle]="child.iconStyle"/>
-                                <AngleRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle"/>
+                                <AngleDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="child.expanded" [ngStyle]="child.iconStyle" />
+                                <AngleRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
@@ -93,8 +93,8 @@ export class BasePanelMenuItem {
                     >
                         <ng-container *ngIf="child.items">
                             <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
-                                <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle"/>
+                                <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle" />
+                                <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
@@ -225,7 +225,6 @@ export class PanelMenuSub extends BasePanelMenuItem {
                             [replaceUrl]="item.replaceUrl"
                             [state]="item.state"
                         >
-
                             <!-- 
                                 <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
                             -->

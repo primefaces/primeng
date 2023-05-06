@@ -24,7 +24,7 @@ import { HomeIcon } from 'primeng/icons/home';
                         [attr.tabindex]="home.disabled ? null : '0'"
                     >
                         <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'"/>
+                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-menuitem-text">{{ home.label }}</span>
                             <ng-template #htmlHomeLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
@@ -51,7 +51,7 @@ import { HomeIcon } from 'primeng/icons/home';
                         [state]="home.state"
                     >
                         <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'"/>
+                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-menuitem-text">{{ home.label }}</span>
                             <ng-template #htmlHomeRouteLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>

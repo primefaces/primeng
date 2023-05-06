@@ -27,7 +27,8 @@
         "esModuleInterop": true,
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
-        }
+        },
+        "types": ["node", "jest"]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
