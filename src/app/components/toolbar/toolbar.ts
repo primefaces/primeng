@@ -28,10 +28,12 @@ import { BlockableUI, PrimeTemplate } from 'primeng/api';
 export class Toolbar implements AfterContentInit, BlockableUI {
     /**
      * Inline style of the component.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
 

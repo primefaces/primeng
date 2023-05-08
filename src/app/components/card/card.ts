@@ -40,18 +40,22 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
 export class Card implements AfterContentInit, BlockableUI {
     /**
      * Header of the card.
+     * @group Props
      */
     @Input() header: string | undefined;
     /**
      * Subheader of the card.
+     * @group Props
      */
     @Input() subheader: string | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
 

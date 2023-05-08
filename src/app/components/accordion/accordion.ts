@@ -5,7 +5,7 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
-import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.model';
+import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
 
 let idx: number = 0;
 
@@ -89,58 +89,70 @@ let idx: number = 0;
 export class AccordionTab implements AfterContentInit, OnDestroy {
     /**
      * Used to define the header of the tab.
+     * @group Props
      */
     @Input() header: string | undefined;
     /**
      * Inline style of the tab header.
+     * @group Props
      */
     @Input() headerStyle: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the tab.
+     * @group Props
      */
     @Input() tabStyle: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the tab content.
+     * @group Props
      */
     @Input() contentStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the tab.
+     * @group Props
      */
     @Input() tabStyleClass: string | undefined;
     /**
      * Style class of the tab header.
+     * @group Props
      */
     @Input() headerStyleClass: string | undefined;
     /**
      * Style class of the tab content.
+     * @group Props
      */
     @Input() contentStyleClass: string | undefined;
     /**
      * Whether the tab is disabled.
+     * @group Props
      */
     @Input() disabled: boolean | undefined;
     /**
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
+     * @group Props
      */
     @Input() cache: boolean = true;
     /**
-     * Event triggered by changing the choice
-     */
-    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
-    /**
      * Transition options of the animation.
+     * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
      * Position of the icon, valid values are "end", "start".
+     * @group Props
      */
     @Input() iconPos: string = 'start';
+    /**
+     * Event triggered by changing the choice
+     * @group Emits
+     */
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
 
     @ContentChildren(Header) headerFacet: QueryList<Header>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
-    private _selected: boolean;
+    private _selected: boolean = false;
 
     /**
      * The value that returns the selection.
@@ -173,15 +185,15 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     headerTemplate: TemplateRef<any>;
 
+    iconTemplate: TemplateRef<any>;
+
     id: string = `p-accordiontab-${idx++}`;
 
-    loaded: boolean;
-
-    iconTemplate: TemplateRef<any>;
+    loaded: boolean = false;
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
     }
 
@@ -207,7 +219,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    toggle(event) {
+    toggle(event: MouseEvent | KeyboardEvent) {
         if (this.disabled) {
             return false;
         }
@@ -283,7 +295,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     /**
      * When enabled, multiple tabs can be activated at the same time.
      */
-    @Input() multiple: boolean;
+    @Input() multiple: boolean = false;
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      */
@@ -331,11 +343,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
 
-    tabListSubscription: Subscription;
+    tabListSubscription: Subscription | null = null;
 
     private _activeIndex: number | number[] | null | undefined;
 
-    preventActiveIndexPropagation: boolean;
+    preventActiveIndexPropagation: boolean = false;
 
     public tabs: AccordionTab[] = [];
 
