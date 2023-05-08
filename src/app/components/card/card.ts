@@ -59,26 +59,26 @@ export class Card implements AfterContentInit, BlockableUI {
      */
     @Input() styleClass: string | undefined;
 
-    @ContentChild(Header) headerFacet;
+    @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    titleTemplate: TemplateRef<any>;
+    titleTemplate: TemplateRef<any> | undefined;
 
-    subtitleTemplate: TemplateRef<any>;
+    subtitleTemplate: TemplateRef<any> | undefined;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: TemplateRef<any> | undefined;
 
     constructor(private el: ElementRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
