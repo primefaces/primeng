@@ -44,18 +44,18 @@ export class Tag {
      * Value to display inside the tag.
      * @group Props
      */
-    @Input() value: string;
+    @Input() value: string | undefined;
     /**
      * Icon of the tag to display next to the value.
      * @deprecated since 15.4.2. Use 'icon' template.
      * @group Props
      */
-    @Input() icon: string;
+    @Input() icon: string | undefined;
     /**
      * Whether the corners of the tag are rounded.
      * @group Props
      */
-    @Input() rounded: boolean;
+    @Input() rounded: boolean | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
