@@ -156,6 +156,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     /**
      * The value that returns the selection.
+     * @group Props
      */
     @Input() get selected(): boolean {
         return this._selected;
@@ -294,34 +295,32 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     /**
      * When enabled, multiple tabs can be activated at the same time.
+     * @group Props
      */
     @Input() multiple: boolean = false;
     /**
-     * Callback to invoke when an active tab is collapsed by clicking on the header.
-     */
-    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
-    /**
-     * Callback to invoke when a tab gets expanded.
-     */
-    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
-    /**
      * Inline style of the tab header and content.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Icon of a collapsed tab.
+     * @group Props
      */
     @Input() expandIcon: string | undefined;
     /**
      * Icon of an expanded tab.
+     * @group Props
      */
     @Input() collapseIcon: string | undefined;
     /**
      * Index of the active tab or an array of indexes in multiple mode.
+     * @group Props
      */
     @Input() get activeIndex(): number | number[] | null | undefined {
         return this._activeIndex;
@@ -337,7 +336,18 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         this.updateSelectionState();
     }
     /**
+     * Callback to invoke when an active tab is collapsed by clicking on the header.
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
+    /**
+     * Callback to invoke when a tab gets expanded.
+     * @group Emits
+     */
+    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+    /**
      * Returns the active index.
+     * @group Emits
      */
     @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter();
 
