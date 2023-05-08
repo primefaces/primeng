@@ -54,10 +54,12 @@ export class InplaceContent {}
 export class Inplace implements AfterContentInit {
     /**
      * Whether the content is displayed or not.
+     * @group Props
      */
     @Input() active: boolean | undefined = false;
     /**
      * Displays a button to switch back to display mode.
+     * @group Props
      */
     @Input() closable: boolean | undefined = false;
     /**
@@ -66,28 +68,34 @@ export class Inplace implements AfterContentInit {
     @Input() disabled: boolean | undefined = false;
     /**
      * Allows to prevent clicking.
+     * @group Props
      */
     @Input() preventClick: boolean | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Icon to display in the close button.
+     * @group Props
      */
     @Input() closeIcon: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     /**
      * Callback to invoke when inplace is opened.
+     * @group Emits
      */
     @Output() onActivate: EventEmitter<Event> = new EventEmitter();
     /**
      * Callback to invoke when inplace is closed.
+     * @group Emits
      */
     @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
 
@@ -126,7 +134,11 @@ export class Inplace implements AfterContentInit {
     onDeactivateClick(event) {
         if (!this.preventClick) this.deactivate(event);
     }
-
+    /**
+     * Activates the content.
+     * @param event
+     * @group Methods
+     */
     activate(event?: Event) {
         if (!this.disabled) {
             this.active = true;
@@ -134,7 +146,11 @@ export class Inplace implements AfterContentInit {
             this.cd.markForCheck();
         }
     }
-
+    /**
+     * Deactivates the content.
+     * @param event
+     * @group Methods
+     */
     deactivate(event?: Event) {
         if (!this.disabled) {
             this.active = false;
