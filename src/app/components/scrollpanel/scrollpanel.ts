@@ -46,10 +46,12 @@ import { DomHandler } from 'primeng/dom';
 export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Inline style of the component.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
 
@@ -260,7 +262,11 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
             this.contentViewChild.nativeElement.scrollTop += deltaY / this.scrollYRatio;
         });
     }
-
+    /**
+     * Scrolls the top location to the given value.
+     * @param scrollTop
+     * @group Methods
+     */
     scrollTop(scrollTop: number) {
         let scrollableHeight = this.contentViewChild.nativeElement.scrollHeight - this.contentViewChild.nativeElement.clientHeight;
         scrollTop = scrollTop > scrollableHeight ? scrollableHeight : scrollTop > 0 ? scrollTop : 0;
@@ -314,7 +320,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
             this.unbindListeners();
         }
     }
-
+    /**
+     * Refreshes the position and size of the scrollbar.
+     * @group Methods
+     */
     refresh() {
         this.moveBar();
     }
