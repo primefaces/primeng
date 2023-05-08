@@ -6,7 +6,7 @@ import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
-import { PanelToggleEvent } from './panel.model';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 
 let idx: number = 0;
 
@@ -176,16 +176,16 @@ export class Panel implements AfterContentInit, BlockableUI {
     @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Callback to invoke before panel toggle.
-     * @param {PanelToggleEvent} event - Custom panel toggle event
+     * @param {PanelBeforeToggleEvent} event - Custom panel toggle event
      * @group Emits
      */
-    @Output() onBeforeToggle: EventEmitter<PanelToggleEvent> = new EventEmitter<PanelToggleEvent>();
+    @Output() onBeforeToggle: EventEmitter<PanelBeforeToggleEvent> = new EventEmitter<PanelBeforeToggleEvent>();
     /**
      * Callback to invoke after panel toggle.
-     * @param {PanelToggleEvent} event - Custom panel toggle event
+     * @param {PanelAfterToggleEvent} event - Custom panel toggle event
      * @group Emits
      */
-    @Output() onAfterToggle: EventEmitter<PanelToggleEvent> = new EventEmitter<PanelToggleEvent>();
+    @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
     @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 

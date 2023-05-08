@@ -1,12 +1,11 @@
 import { TemplateRef } from '@angular/core';
 
 /**
- * Custom panel toggle event.
+ * Custom panel toggle event, emits before panel toggle.
  * @see {@link Panel.onBeforeToggle}
- * @see {@link Panel.onAfterToggle}
  * @event
  */
-export interface PanelToggleEvent {
+export interface PanelBeforeToggleEvent {
     /**
      * Browser event.
      */
@@ -14,9 +13,14 @@ export interface PanelToggleEvent {
     /**
      * Collapsed state of the panel.
      */
-    collapsed: boolean;
+    collapsed: boolean | undefined;
 }
-
+/**
+ * Custom panel toggle event, emits after panel toggle.
+ * @see {@link Panel.onAfterToggle}
+ * @event
+ */
+export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
 /**
  * Defines valid templates in Panel.
  * @group Templates
