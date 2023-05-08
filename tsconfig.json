@@ -22,6 +22,7 @@
         "target": "ES2022",
         "module": "ES2022",
         "useDefineForClassFields": false,
+        "types": ["jasmine"],
         "lib": [
             "ES2022",
             "dom"
@@ -32,6 +33,7 @@
             "primeng/*": ["src/app/components/*/public_api"]
         }
     },
+    "exclude": ["node_modules", "**/node_modules/*"],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": false,
