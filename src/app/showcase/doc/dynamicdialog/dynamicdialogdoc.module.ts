@@ -24,7 +24,6 @@ import { TagModule } from 'primeng/tag';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, TagModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
     declarations: [OpenDoc, ImportDoc, PropsDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, EventsDoc],
-    exports: [AppDocModule],
-    entryComponents: [ProductListDemo]
+    exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}

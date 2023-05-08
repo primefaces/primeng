@@ -1,4 +1,53 @@
 # Changelog
+## [16.0.0-rc.1](https://github.com/primefaces/primeng/tree/16.0.0-rc.1) (2023-05-05)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/15.4.1...16.0.0-rc.1)
+
+**Breaking Changes:**
+- Drop support for zone.js versions <=0.12.0 [\#13002](https://github.com/primefaces/primeng/issues/13002)
+
+**Enhancements:**
+- Component: TabMenu should initiate a change detection in itemClick method [\#12744](https://github.com/primefaces/primeng/issues/12744)
+- MultiSelect | Pass remove remove method through selectedItems template [\#12939](https://github.com/primefaces/primeng/issues/12939)
+- p-inputNumber | ngModelOptions is not taken into account [\#12915](https://github.com/primefaces/primeng/issues/12915)
+- Angular 16 Support [\#12990](https://github.com/primefaces/primeng/issues/12990)
+
+**Fixed bugs:**
+- MultiSelect | maxSelectionLimit not refreshed after clear called [\#12906](https://github.com/primefaces/primeng/issues/12906)
+- Component | OverlayPanel [\#12933](https://github.com/primefaces/primeng/issues/12933)
+- Table: 'this.el.nativeElement.parentElement is null' for frozen columns which are dynamically generated [\#12748](https://github.com/primefaces/primeng/issues/12748)
+- MultiSelect | Alignment is broken if showClear is enabled [\#12932](https://github.com/primefaces/primeng/issues/12932)
+- Table | Unable to reorder to the last element in the table after a scroll occurs [\#12493](https://github.com/primefaces/primeng/issues/12493)
+- Table: Clear function does not clear all filters [\#12903](https://github.com/primefaces/primeng/issues/12903)
+- FocusTrap for nested DynamicDialogs still not working [\#9329](https://github.com/primefaces/primeng/issues/9329)
+- Autocomplete: Issue with Virtual Scroll [\#12568](https://github.com/primefaces/primeng/issues/12568)
+- InputNumber / AutoFocus: ExpressionChangedAfterItHasBeenCheckedError [\#12559](https://github.com/primefaces/primeng/issues/12559)
+- Expanding org chart node raises error [\#12946](https://github.com/primefaces/primeng/issues/12946)
+- Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
+- Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
+- ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.2-LTS](https://www.npmjs.com/package/primeng/v/15.4.2-lts) (2023-05-05)
+
+**Enhancements:**
+- Component: TabMenu should initiate a change detection in itemClick method [\#12744](https://github.com/primefaces/primeng/issues/12744)
+- MultiSelect | Pass remove remove method through selectedItems template [\#12939](https://github.com/primefaces/primeng/issues/12939)
+- p-inputNumber | ngModelOptions is not taken into account [\#12915](https://github.com/primefaces/primeng/issues/12915)
+
+**Fixed bugs:**
+- MultiSelect | maxSelectionLimit not refreshed after clear called [\#12906](https://github.com/primefaces/primeng/issues/12906)
+- Component | OverlayPanel [\#12933](https://github.com/primefaces/primeng/issues/12933)
+- Table: 'this.el.nativeElement.parentElement is null' for frozen columns which are dynamically generated [\#12748](https://github.com/primefaces/primeng/issues/12748)
+- MultiSelect | Alignment is broken if showClear is enabled [\#12932](https://github.com/primefaces/primeng/issues/12932)
+- Table | Unable to reorder to the last element in the table after a scroll occurs [\#12493](https://github.com/primefaces/primeng/issues/12493)
+- Table: Clear function does not clear all filters [\#12903](https://github.com/primefaces/primeng/issues/12903)
+- FocusTrap for nested DynamicDialogs still not working [\#9329](https://github.com/primefaces/primeng/issues/9329)
+- Autocomplete: Issue with Virtual Scroll [\#12568](https://github.com/primefaces/primeng/issues/12568)
+- InputNumber / AutoFocus: ExpressionChangedAfterItHasBeenCheckedError [\#12559](https://github.com/primefaces/primeng/issues/12559)
+- Expanding org chart node raises error [\#12946](https://github.com/primefaces/primeng/issues/12946)
+- Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
+- Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
+
 ## [15.4.1](https://github.com/primefaces/primeng/tree/15.4.1) (2023-04-21)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.4.0...15.4.1)
@@ -183,6 +232,16 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.6-LTS](https://www.npmjs.com/package/primeng/v/14.2.6-lts) (2023-05-05)
+
+**Enhancements:**
+- Sidebar | Add flex-grow to p-sidebar-content [\#12833](https://github.com/primefaces/primeng/issues/12833) 
+
+**Fixed bugs:**
+- DynamicDialog | FocusTrap for nested DynamicDialogs still not working [\#9329](https://github.com/primefaces/primeng/issues/9329)
+- Autocomplete| Issue with Virtual Scroll [\#12568](https://github.com/primefaces/primeng/issues/12568)
+- OrganizationChart | Expanding org chart node raises error [\#12946](https://github.com/primefaces/primeng/issues/12946)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.5-LTS](https://www.npmjs.com/package/primeng/v/14.2.5-lts) (2023-04-26)
 
@@ -438,6 +497,15 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.4-LTS](https://www.npmjs.com/package/primeng/v/13.4.4-lts) (2023-05-05)
+
+**Enhancements:**
+- Sidebar | Add flex-grow to p-sidebar-content [\#12833](https://github.com/primefaces/primeng/issues/12833) 
+
+**Fixed bugs:**
+- DynamicDialog | FocusTrap for nested DynamicDialogs still not working [\#9329](https://github.com/primefaces/primeng/issues/9329)
+- OrganizationChart | Expanding org chart node raises error [\#12946](https://github.com/primefaces/primeng/issues/12946)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.3-LTS](https://www.npmjs.com/package/primeng/v/13.4.3-lts) (2023-04-26)
 
