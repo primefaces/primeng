@@ -37,13 +37,13 @@ export class Toolbar implements AfterContentInit, BlockableUI {
      */
     @Input() styleClass: string | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    startTemplate: TemplateRef<any>;
+    startTemplate: TemplateRef<any> | undefined;
 
-    endTemplate: TemplateRef<any>;
+    endTemplate: TemplateRef<any> | undefined;
 
-    centerTemplate: TemplateRef<any>;
+    centerTemplate: TemplateRef<any> | undefined;
 
     constructor(private el: ElementRef) {}
 
@@ -52,7 +52,7 @@ export class Toolbar implements AfterContentInit, BlockableUI {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'left':
                     this.startTemplate = item.template;
