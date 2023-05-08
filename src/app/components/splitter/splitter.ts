@@ -125,19 +125,19 @@ export class Splitter {
 
     touchEndListener: VoidFunction | null | undefined;
 
-    size: number | null;
+    size: number | null = null;
 
     gutterElement: ElementRef | HTMLElement | null | undefined = null;
 
-    startPos: number | null;
+    startPos: number | null = null;
 
     prevPanelElement: ElementRef | HTMLElement | null | undefined = null;
 
     nextPanelElement: ElementRef | HTMLElement | null | undefined = null;
 
-    nextPanelSize: number | null;
+    nextPanelSize: number | null = null;
 
-    prevPanelSize: number | null;
+    prevPanelSize: number | null = null;
 
     _panelSizes: number[] = [0, 0];
 

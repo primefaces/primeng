@@ -189,11 +189,11 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates?: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     public iconTemplate: TemplateRef<any> | undefined;
 
-    animating?: boolean;
+    animating: boolean | undefined;
 
     headerTemplate: TemplateRef<any> | undefined;
 

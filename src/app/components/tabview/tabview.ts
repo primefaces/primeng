@@ -160,19 +160,19 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         this.tabView.cd.markForCheck();
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     closed: boolean = false;
 
-    view: EmbeddedViewRef<any> | null;
+    view: EmbeddedViewRef<any> | null = null;
 
-    _selected: boolean;
+    _selected: boolean | undefined;
 
-    _disabled: boolean;
+    _disabled: boolean | undefined;
 
-    _header: string;
+    _header!: string;
 
-    _leftIcon: string;
+    _leftIcon!: string;
 
     _rightIcon: string | undefined = undefined;
 
@@ -180,15 +180,15 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     id: string = `p-tabpanel-${idx++}`;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    leftIconTemplate: TemplateRef<any>;
+    leftIconTemplate: TemplateRef<any> | undefined;
 
-    rightIconTemplate: TemplateRef<any>;
+    rightIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any>;
+    closeIconTemplate: TemplateRef<any> | undefined;
 
     tabView: TabView;
 
@@ -197,7 +197,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
@@ -364,29 +364,29 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      */
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @ViewChild('content') content: ElementRef<HTMLDivElement>;
+    @ViewChild('content') content?: ElementRef<HTMLDivElement>;
 
-    @ViewChild('navbar') navbar: ElementRef<HTMLUListElement>;
+    @ViewChild('navbar') navbar?: ElementRef<HTMLUListElement>;
 
-    @ViewChild('prevBtn') prevBtn: ElementRef;
+    @ViewChild('prevBtn') prevBtn?: ElementRef;
 
-    @ViewChild('nextBtn') nextBtn: ElementRef;
+    @ViewChild('nextBtn') nextBtn?: ElementRef;
 
-    @ViewChild('inkbar') inkbar: ElementRef;
+    @ViewChild('inkbar') inkbar?: ElementRef;
 
-    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
+    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    initialized: boolean;
+    initialized: boolean | undefined;
 
-    tabs: TabPanel[];
+    tabs!: TabPanel[];
 
-    _activeIndex: number;
+    _activeIndex!: number;
 
-    preventActiveIndexPropagation: boolean;
+    preventActiveIndexPropagation!: boolean;
 
-    tabChanged: boolean;
+    tabChanged: boolean | undefined;
 
     backwardIsDisabled: boolean = true;
 
@@ -394,20 +394,20 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     private tabChangesSubscription!: Subscription;
 
-    nextIconTemplate: TemplateRef<any>;
+    nextIconTemplate: TemplateRef<any> | undefined;
 
-    previousIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabChangesSubscription = this.tabPanels.changes.subscribe((_) => {
+        this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
         });
 
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'previousicon':
                     this.previousIconTemplate = item.template;
@@ -436,7 +436,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     initTabs(): void {
-        this.tabs = this.tabPanels.toArray();
+        this.tabs = (this.tabPanels as QueryList<TabPanel>).toArray();
         let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
         if (!selectedTab && this.tabs.length) {
             if (this.activeIndex != null && this.tabs.length > this.activeIndex) this.tabs[this.activeIndex].selected = true;
@@ -546,18 +546,18 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 return;
             }
 
-            this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
     }
 
     updateScrollBar(index: number) {
-        let tabHeader = this.navbar.nativeElement.children[index];
+        let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
         tabHeader.scrollIntoView({ block: 'nearest' });
     }
 
     updateButtonState() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const { scrollLeft, scrollWidth } = content;
         const width = DomHandler.getWidth(content);
 
@@ -576,14 +576,14 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     navBackward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
