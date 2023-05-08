@@ -1,7 +1,7 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, EventEmitter, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
     selector: 'p-chip',
@@ -32,40 +32,49 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 export class Chip implements AfterContentInit {
     /**
      * Defines the text to display.
+     * @group Props
      */
     @Input() label: string | undefined;
     /**
      * Defines the icon to display.
+     * @group Props
      */
     @Input() icon: string | undefined;
     /**
      * Defines the image to display.
+     * @group Props
      */
     @Input() image: string | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: CSSStyleDeclaration | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Whether to display a remove icon.
+     * @group Props
      */
     @Input() removable: boolean | undefined = false;
     /**
      * Icon of the remove element.
+     * @group Props
      */
     @Input() removeIcon: string | undefined;
     /**
      * Callback to invoke when a chip is removed.
+     * @group Events
      */
     @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @group Events
      */
-    @Output() onImageError: EventEmitter<ErrorEvent> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
 
     visible: boolean = true;
 

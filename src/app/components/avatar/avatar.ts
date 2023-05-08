@@ -21,34 +21,42 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
 export class Avatar {
     /**
      * Defines the text to display.
+     * @group Props
      */
     @Input() label: string | undefined;
     /**
      * Defines the icon to display.
+     * @group Props
      */
     @Input() icon: string | undefined;
     /**
      * Defines the image to display.
+     * @group Props
      */
     @Input() image: string | undefined;
     /**
      * Size of the element.
+     * @group Props
      */
     @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
     /**
      * Shape of the element.
+     * @group Props
      */
     @Input() shape: 'square' | 'circle' | undefined = 'square';
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @group Emits
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter();
 
@@ -61,7 +69,11 @@ export class Avatar {
             'p-avatar-xl': this.size === 'xlarge'
         };
     }
-
+    /**
+     * This event is triggered if an error occurs while loading an image file.
+     * @param event
+     * @group Events
+     */
     imageError(event) {
         this.onImageError.emit(event);
     }

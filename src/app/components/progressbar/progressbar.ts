@@ -29,19 +29,41 @@ import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation 
     }
 })
 export class ProgressBar {
-    @Input() value: any;
-
+    /**
+     * Current value of the progress.
+     * @group Props
+     */
+    @Input() value: number | undefined;
+    /**
+     * Whether to display the progress bar value.
+     * @group Props
+     */
     @Input() showValue: boolean = true;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Unit sign appended to the value.
+     * @group Props
+     */
     @Input() unit: string = '%';
-
+    /**
+     * Defines the mode of the progress
+     * @group Props
+     */
     @Input() mode: string = 'determinate';
-
-    @Input() color: string;
+    /**
+     * Color for the background of the progress.
+     * @group Props
+     */
+    @Input() color: string | undefined;
 }
 
 @NgModule({

@@ -1,10 +1,10 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID, ContentChildren, QueryList, TemplateRef } from '@angular/core';
+import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, OnInit, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-scrollTop',
@@ -55,34 +55,42 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 export class ScrollTop implements OnInit, OnDestroy {
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: CSSStyleDeclaration | undefined;
     /**
      * Target of the ScrollTop, valid values are "window" and "parent".
+     * @group Props
      */
     @Input() target: 'window' | 'parent' | undefined = 'window';
     /**
      * Defines the threshold value of the vertical scroll position of the target to toggle the visibility.
+     * @group Props
      */
     @Input() threshold: number = 400;
     /**
      * Name of the icon or JSX.Element for icon.
+     * @group Props
      */
     @Input() icon: string | undefined;
     /**
      * Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump.
+     * @group Props
      */
     @Input() behavior: 'auto' | 'smooth' | undefined = 'smooth';
     /**
      * A string value used to determine the display transition options.
+     * @group Props
      */
     @Input() showTransitionOptions: string = '.15s';
     /**
      * A string value used to determine the hiding transition options.
+     * @group Props
      */
     @Input() hideTransitionOptions: string = '.15s';
 

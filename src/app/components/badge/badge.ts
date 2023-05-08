@@ -16,10 +16,12 @@ type BadgeSize = 'large' | 'xlarge';
 export class BadgeDirective implements AfterViewInit, OnDestroy {
     /**
      * Icon position of the component.
+     * @group Props
      */
     @Input() iconPos: BadgeDirectiveIconPosition = 'left';
     /**
      * When specified, disables the component.
+     * @group Props
      */
     @Input('badgeDisabled') get disabled(): boolean {
         return this._disabled;
@@ -29,6 +31,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
     /**
      * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
      */
     @Input() public get size(): BadgeSize | undefined {
         return this._size;
@@ -88,7 +91,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
     /**
      * Value to display inside the badge.
-     *
+     * @group Props
      */
     @Input() get value(): string | null | undefined {
         return this._value;
@@ -120,6 +123,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
     /**
      * Severity type of the badge.
+     * @group Props
      */
     @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
 
@@ -164,27 +168,32 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 export class Badge {
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: CSSStyleDeclaration | undefined;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
      */
     @Input() size: BadgeSize | undefined;
     /**
      * Severity type of the badge.
+     * @group Props
      */
     @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
     /**
      * Value to display inside the badge.
-     *
+     * @group Props
      */
     @Input() value: string | null | undefined;
     /**
      * When specified, disables the component.
+     * @group Props
      */
     @Input() badgeDisabled: boolean = false;
 
