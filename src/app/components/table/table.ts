@@ -1279,7 +1279,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let target = <HTMLElement>event.originalEvent.target;
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || DomHandler.hasClass(event.originalEvent.target, 'p-clickable')) {
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || DomHandler.hasClass(target, 'p-clickable')) {
             return;
         }
 
@@ -1316,7 +1316,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                             this._selection = null;
                             this.selectionKeys = {};
                             this.selectionChange.emit(null);
-                        } else {
+                        } else if (this.isMultipleSelectionMode()) {
                             let selectionIndex = this.findIndexInSelection(rowData);
                             this._selection = this.selection.filter((val, i) => i != selectionIndex);
                             this.selectionChange.emit(this.selection);
@@ -1327,7 +1327,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                         this.onRowUnselect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row' });
                     } else {
-                        if (this.isSingleSelectionMode()) {
+                        if (this.isSingleSelectionMode() || this.isMovableSelectorMode()) {
                             this._selection = rowData;
                             this.selectionChange.emit(rowData);
                             if (dataKeyValue) {
@@ -1384,6 +1384,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                                 this.selectionKeys[dataKeyValue] = 1;
                             }
                         }
+                    } else if (this.selectionMode === 'movable') {
+                        // Once an item is selected, it cannot be de-selected, only the selector can be moved
+                        this._selection = rowData;
+                        this.selectionChange.emit(this.selection);
+                        this.onRowSelect.emit({ originalEvent: event.originalEvent, data: rowData, type: 'row', index: rowIndex });
+                        if (dataKeyValue) {
+                            this.selectionKeys = {};
+                            this.selectionKeys[dataKeyValue] = 1;
+                        }
                     }
                 }
             }
@@ -1423,7 +1432,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         return;
                     }
 
-                    if (this.isSingleSelectionMode()) {
+                    if (this.isSingleSelectionMode() || this.isMovableSelectorMode()) {
                         this.selection = rowData;
                         this.selectionChange.emit(rowData);
 
@@ -2070,6 +2079,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     isMultipleSelectionMode() {
         return this.selectionMode === 'multiple';
+    }
+
+    isMovableSelectorMode() {
+        return this.selectionMode === 'movable';
     }
 
     onColumnResizeBegin(event) {
@@ -3055,6 +3068,153 @@ export class SortIcon implements OnInit, OnDestroy {
 
     isMultiSorted() {
         return this.dt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+}
+
+@Directive({
+    selector: '[pMovableSelector]',
+    host: {
+        class: 'p-element',
+        '[class.p-selectable-row]': 'isEnabled()',
+        '[class.p-highlight]': 'selected',
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+    }
+})
+export class MovableSelector implements OnInit, OnDestroy {
+    @Input('pMovableSelector') data: any;
+
+    @Input('pSelectableRowIndex') index: number;
+
+    @Input() pSelectableRowDisabled: boolean;
+
+    selected: boolean;
+
+    subscription: Subscription;
+
+    constructor(public dt: Table, public tableService: TableService) {
+        if (this.isEnabled()) {
+            this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
+                this.selected = this.dt.isSelected(this.data);
+            });
+        }
+    }
+
+    ngOnInit() {
+        if (this.isEnabled()) {
+            this.selected = this.dt.isSelected(this.data);
+        }
+    }
+    @HostListener('focus', ['$event'])
+    @HostListener('click', ['$event'])
+    onClick(event: Event) {
+        if (this.isEnabled() && !this.selected) {
+            this.dt.handleRowClick({
+                originalEvent: event,
+                rowData: this.data,
+                rowIndex: this.index
+            });
+        }
+    }
+
+    @HostListener('touchend', ['$event'])
+    onTouchEnd(event: Event) {
+        if (this.isEnabled()) {
+            this.dt.handleRowTouchEnd(event);
+        }
+    }
+
+    @HostListener('keydown.arrowdown', ['$event'])
+    onArrowDownKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        const row = <HTMLTableRowElement>event.currentTarget;
+        const nextRow = this.findNextSelectableRow(row);
+
+        if (nextRow) {
+            nextRow.focus();
+        }
+
+        event.preventDefault();
+    }
+
+    @HostListener('keydown.arrowup', ['$event'])
+    onArrowUpKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled()) {
+            return;
+        }
+
+        const row = <HTMLTableRowElement>event.currentTarget;
+        const prevRow = this.findPrevSelectableRow(row);
+
+        if (prevRow) {
+            prevRow.focus();
+        }
+
+        event.preventDefault();
+    }
+
+    @HostListener('keydown.enter', ['$event'])
+    @HostListener('keydown.shift.enter', ['$event'])
+    @HostListener('keydown.meta.enter', ['$event'])
+    onEnterKeyDown(event: KeyboardEvent) {
+        if (!this.isEnabled() || this.selected) {
+            return;
+        }
+
+        this.dt.handleRowClick({
+            originalEvent: event,
+            rowData: this.data,
+            rowIndex: this.index
+        });
+    }
+
+    @HostListener('keydown.pagedown')
+    @HostListener('keydown.pageup')
+    @HostListener('keydown.home')
+    @HostListener('keydown.end')
+    onPageDownKeyDown() {
+        if (this.dt.virtualScroll) {
+            this.dt.scroller.elementViewChild.nativeElement.focus();
+        }
+    }
+
+    @HostListener('keydown.space')
+    onSpaceKeydown() {
+        if (this.dt.virtualScroll && !this.dt.editingCell) {
+            this.dt.scroller.elementViewChild.nativeElement.focus();
+        }
+    }
+
+    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let nextRow = <HTMLTableRowElement>row.nextElementSibling;
+        if (nextRow) {
+            if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
+            else return this.findNextSelectableRow(nextRow);
+        } else {
+            return null;
+        }
+    }
+
+    findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement {
+        let prevRow = <HTMLTableRowElement>row.previousElementSibling;
+        if (prevRow) {
+            if (DomHandler.hasClass(prevRow, 'p-selectable-row')) return prevRow;
+            else return this.findPrevSelectableRow(prevRow);
+        } else {
+            return null;
+        }
+    }
+
+    isEnabled() {
+        return this.pSelectableRowDisabled !== true;
     }
 
     ngOnDestroy() {
@@ -5144,6 +5304,7 @@ export class ColumnFilterFormElement implements OnInit {
         FrozenColumn,
         RowGroupHeader,
         SelectableRow,
+        MovableSelector,
         RowToggler,
         ContextMenuRow,
         ResizableColumn,
@@ -5171,6 +5332,7 @@ export class ColumnFilterFormElement implements OnInit {
         FrozenColumn,
         RowGroupHeader,
         SelectableRow,
+        MovableSelector,
         RowToggler,
         ContextMenuRow,
         ResizableColumn,
