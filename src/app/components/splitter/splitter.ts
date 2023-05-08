@@ -29,42 +29,52 @@ import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.int
 export class Splitter {
     /**
      * Style class of the component.
+     * @group Props
      */
-    @Input() styleClass: string;
+    @Input() styleClass: string | undefined;
     /**
      * Style class of the panel.
+     * @group Props
      */
-    @Input() panelStyleClass: string;
+    @Input() panelStyleClass: string | undefined;
     /**
      * Inline style of the component.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the panel.
+     * @group Props
      */
     @Input() panelStyle: { [klass: string]: any } | null | undefined;
     /**
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
+     * @group Props
      */
     @Input() stateStorage: 'local' | 'session' | undefined = 'session';
     /**
      * Storage identifier of a stateful Splitter.
+     * @group Props
      */
     @Input() stateKey: string | undefined | null = null;
     /**
      * Orientation of the panels.
+     * @group Props
      */
     @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
     /**
      * Size of the divider in pixels.
+     * @group Props
      */
     @Input() gutterSize: number = 4;
     /**
      * Minimum size of the elements relative to 100%.
+     * @group Props
      */
     @Input() minSizes: number[] = [];
     /**
      * Size of the elements relative to 100%.
+     * @group Props
      */
     @Input() get panelSizes(): number[] {
         return this._panelSizes;
@@ -97,9 +107,9 @@ export class Splitter {
      */
     @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef | undefined;
 
     nested: boolean = false;
 
@@ -107,31 +117,31 @@ export class Splitter {
 
     dragging: boolean = false;
 
-    mouseMoveListener: VoidFunction | null;
+    mouseMoveListener: VoidFunction | null | undefined;
 
-    mouseUpListener: VoidFunction | null;
+    mouseUpListener: VoidFunction | null | undefined;
 
-    touchMoveListener: VoidFunction | null;
+    touchMoveListener: VoidFunction | null | undefined;
 
-    touchEndListener: VoidFunction | null;
+    touchEndListener: VoidFunction | null | undefined;
 
-    size: number = null;
+    size: number | null;
 
-    gutterElement: any = null;
+    gutterElement: ElementRef | HTMLElement | null | undefined = null;
 
-    startPos: number = null;
+    startPos: number | null;
 
-    prevPanelElement: any = null;
+    prevPanelElement: ElementRef | HTMLElement | null | undefined = null;
 
-    nextPanelElement: any = null;
+    nextPanelElement: ElementRef | HTMLElement | null | undefined = null;
 
-    nextPanelSize: number = null;
+    nextPanelSize: number | null;
 
-    prevPanelSize: number = null;
+    prevPanelSize: number | null;
 
-    _panelSizes: number[] = [];
+    _panelSizes: number[] = [0, 0];
 
-    prevPanelIndex: number = null;
+    prevPanelIndex: number | null = 0;
 
     private window: Window;
 
@@ -144,7 +154,7 @@ export class Splitter {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'panel':
                     this.panels.push(item.template);
@@ -165,7 +175,7 @@ export class Splitter {
 
             if (!initialized) {
                 let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-                let _panelSizes = [];
+                let _panelSizes = [0, 0];
 
                 this.panels.map((panel, i) => {
                     let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
@@ -181,7 +191,7 @@ export class Splitter {
 
     resizeStart(event: TouchEvent | MouseEvent, index: number) {
         this.gutterElement = event.currentTarget as HTMLElement;
-        this.size = this.horizontal() ? DomHandler.getWidth(this.containerViewChild.nativeElement) : DomHandler.getHeight(this.containerViewChild.nativeElement);
+        this.size = this.horizontal() ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
         this.dragging = true;
         this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
@@ -190,23 +200,23 @@ export class Splitter {
         this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
         this.prevPanelIndex = index;
         DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
-        DomHandler.addClass(this.containerViewChild.nativeElement, 'p-splitter-resizing');
-        this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes });
+        DomHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        this.onResizeStart.emit({ originalEvent: event, sizes: (this._panelSizes as number[]) });
     }
 
     onResize(event: MouseEvent) {
         let newPos;
-        if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
-        else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
+        if (this.horizontal()) newPos = (event.pageX * 100) / (this.size as number) - (this.startPos as number * 100) / (this.size as number);
+        else newPos = (event.pageY * 100) / (this.size as number) - (this.startPos as number * 100) / (this.size as number);
 
-        let newPrevPanelSize = this.prevPanelSize + newPos;
-        let newNextPanelSize = this.nextPanelSize - newPos;
+        let newPrevPanelSize = (this.prevPanelSize as number) + newPos;
+        let newNextPanelSize = (this.nextPanelSize as number) - newPos;
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
-            this.prevPanelElement.style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
-            this.nextPanelElement.style.flexBasis = 'calc(' + newNextPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
-            this._panelSizes[this.prevPanelIndex] = newPrevPanelSize;
-            this._panelSizes[this.prevPanelIndex + 1] = newNextPanelSize;
+            (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+            (this.nextPanelElement as HTMLElement).style.flexBasis = 'calc(' + newNextPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+            this._panelSizes[this.prevPanelIndex as number] = newPrevPanelSize;
+            this._panelSizes[(this.prevPanelIndex as number) + 1] = newNextPanelSize;
         }
     }
 
@@ -217,7 +227,7 @@ export class Splitter {
 
         this.onResizeEnd.emit({ originalEvent: event, sizes: this._panelSizes });
         DomHandler.removeClass(this.gutterElement, 'p-splitter-gutter-resizing');
-        DomHandler.removeClass(this.containerViewChild.nativeElement, 'p-splitter-resizing');
+        DomHandler.removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
         this.clear();
     }
 
@@ -355,16 +365,16 @@ export class Splitter {
     }
 
     saveState() {
-        this.getStorage().setItem(this.stateKey, JSON.stringify(this._panelSizes));
+        this.getStorage().setItem((this.stateKey as string), JSON.stringify(this._panelSizes));
     }
 
     restoreState() {
         const storage = this.getStorage();
-        const stateString = storage.getItem(this.stateKey);
+        const stateString = storage.getItem(this.stateKey as string);
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...this.containerViewChild.nativeElement.children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
