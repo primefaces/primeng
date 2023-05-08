@@ -6,7 +6,7 @@ import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { PlusIcon } from 'primeng/icons/plus';
 import { MinusIcon } from 'primeng/icons/minus';
-import { FieldsetToggleEvent } from './fieldset.model';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 
 let idx: number = 0;
 
@@ -82,17 +82,35 @@ let idx: number = 0;
 export class Fieldset implements AfterContentInit, BlockableUI {
     /**
      * Header text of the fieldset.
+     * @group Props
      */
     @Input() legend: string | undefined;
     /**
      * When specified, content can toggled by clicking the legend.
+     * @group Props
      * @defaultValue false
      */
     @Input() toggleable: boolean | undefined;
     /**
      * Defines the default visibility state of the content.
+     * * @group Props
      */
     @Input() collapsed: boolean | undefined = false;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Transition options of the panel animation.
+     * @group Props
+     */
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
@@ -104,37 +122,25 @@ export class Fieldset implements AfterContentInit, BlockableUI {
      * @param {PanelToggleEvent} event - Custom toggle event
      * @group Emits
      */
-    @Output() onBeforeToggle: EventEmitter<FieldsetToggleEvent> = new EventEmitter<FieldsetToggleEvent>();
+    @Output() onBeforeToggle: EventEmitter<FieldsetBeforeToggleEvent> = new EventEmitter<FieldsetBeforeToggleEvent>();
     /**
      * Callback to invoke after panel toggle.
      * @param {PanelToggleEvent} event - Custom toggle event
      * @group Emits
      */
-    @Output() onAfterToggle: EventEmitter<FieldsetToggleEvent> = new EventEmitter<FieldsetToggleEvent>();
-    /**
-     * Inline style of the component.
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
-     * Style class of the component.
-     */
-    @Input() styleClass: string | undefined;
-    /**
-     * Transition options of the panel animation.
-     */
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    public animating: boolean;
+    public animating!: boolean;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    collapseIconTemplate: TemplateRef<any>;
+    collapseIconTemplate: TemplateRef<any> | undefined;
 
-    expandIconTemplate: TemplateRef<any>;
+    expandIconTemplate: TemplateRef<any> | undefined;
 
     constructor(private el: ElementRef) {}
 

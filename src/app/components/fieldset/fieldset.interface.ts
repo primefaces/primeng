@@ -1,12 +1,11 @@
 import { TemplateRef } from '@angular/core';
 
 /**
- * Custom panel toggle event.
- * @see {@link Fieldset.onBeforeToggle}
+ * Custom panel toggle event, emits after toggle.
  * @see {@link Fieldset.onAfterToggle}
  * @event
  */
-export interface FieldsetToggleEvent {
+export interface FieldsetAfterToggleEvent {
     /**
      * Browser event.
      */
@@ -14,8 +13,15 @@ export interface FieldsetToggleEvent {
     /**
      * Collapsed state of the panel.
      */
-    collapsed: boolean;
+    collapsed: boolean | undefined;
 }
+
+/**
+ * Custom panel toggle event, emits before toggle.
+ * @see {@link Fieldset.onBeforeToggle}
+ * @event
+ */
+export interface FieldsetBeforeToggleEvent extends FieldsetAfterToggleEvent {}
 
 /**
  * Defines valid templates in Fieldset.
