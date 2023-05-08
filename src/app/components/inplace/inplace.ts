@@ -64,6 +64,7 @@ export class Inplace implements AfterContentInit {
     @Input() closable: boolean | undefined = false;
     /**
      * When present, it specifies that the element should be disabled.
+     * @group Props
      */
     @Input() disabled: boolean | undefined = false;
     /**
@@ -86,8 +87,6 @@ export class Inplace implements AfterContentInit {
      * @group Props
      */
     @Input() closeIcon: string | undefined;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     /**
      * Callback to invoke when inplace is opened.
      * @group Emits
@@ -99,18 +98,20 @@ export class Inplace implements AfterContentInit {
      */
     @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
 
-    hover: boolean;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    displayTemplate: TemplateRef<any>;
+    hover!: boolean;
 
-    contentTemplate: TemplateRef<any>;
+    displayTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
+
+    closeIconTemplate: TemplateRef<any> | undefined;
 
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'display':
                     this.displayTemplate = item.template;
@@ -127,11 +128,11 @@ export class Inplace implements AfterContentInit {
         });
     }
 
-    onActivateClick(event) {
+    onActivateClick(event: MouseEvent) {
         if (!this.preventClick) this.activate(event);
     }
 
-    onDeactivateClick(event) {
+    onDeactivateClick(event: MouseEvent) {
         if (!this.preventClick) this.deactivate(event);
     }
     /**
