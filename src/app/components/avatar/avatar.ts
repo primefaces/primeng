@@ -74,7 +74,7 @@ export class Avatar {
      * @param event
      * @group Events
      */
-    imageError(event) {
+    imageError(event: Event) {
         this.onImageError.emit(event);
     }
 }
