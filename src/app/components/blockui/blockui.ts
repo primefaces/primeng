@@ -1,8 +1,8 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef, Inject, Renderer2 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-blockUI',
@@ -20,26 +20,31 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class BlockUI implements AfterViewInit, OnDestroy {
+    /**
+     * Name of the local ng-template variable referring to another component.
+     * Default - document
+     * @group Props
+     */
     @Input() target: any;
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
-    @Input() styleClass: string;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @ViewChild('mask') mask: ElementRef;
-
-    _blocked: boolean;
-
-    animationEndListener: VoidFunction | null;
-
-    contentTemplate: TemplateRef<any>;
-
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Current blocked state as a boolean.
+     * @group Props
+     */
     @Input() get blocked(): boolean {
         return this._blocked;
     }
@@ -52,6 +57,18 @@ export class BlockUI implements AfterViewInit, OnDestroy {
             this._blocked = val;
         }
     }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    @ViewChild('mask') mask: ElementRef;
+
+    _blocked: boolean;
+
+    animationEndListener: VoidFunction | null;
+
+    contentTemplate: TemplateRef<any>;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
