@@ -1242,47 +1242,18 @@ export class ProductService {
     constructor(private http: HttpClient) {}
 
     getProductsMini() {
-        // return this.http
-        //     .get<any>('assets/showcase/data/products-small.json')
-        //     .toPromise()
-        //     .then((res) => <Product[]>res.data.slice(0, 5))
-        //     .then((data) => {
-        //         return data;
-        //     });
         return Promise.resolve(this.getProductsData().slice(0, 5));
     }
 
     getProductsSmall() {
-        // return this.http
-        //     .get<any>('assets/showcase/data/products-small.json')
-        //     .toPromise()
-        //     .then((res) => <Product[]>res.data)
-        //     .then((data) => {
-        //         return data;
-        //     });
         return Promise.resolve(this.getProductsData().slice(0, 10));
     }
 
     getProducts() {
-        // return this.http
-        //     .get<any>('assets/showcase/data/products.json')
-        //     .toPromise()
-        //     .then((res) => <Product[]>res.data)
-        //     .then((data) => {
-        //         return data;
-        //     });
-
         return Promise.resolve(this.getProductsData());
     }
 
     getProductsWithOrdersSmall() {
-        // return this.http
-        //     .get<any>('assets/showcase/data/products-orders-small.json')
-        //     .toPromise()
-        //     .then((res) => <Product[]>res.data)
-        //     .then((data) => {
-        //         return data;
-        //     });
         return Promise.resolve(this.getProductsData().slice(0, 10));
     }
 
@@ -1298,7 +1269,7 @@ export class ProductService {
             rating: this.generateRating()
         };
 
-        product.image = product.name.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
+        product.image = product.name?.toLocaleLowerCase().split(/[ ,]+/).join('-') + '.jpg';
         return product;
     }
 
