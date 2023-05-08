@@ -119,13 +119,13 @@ export class Fieldset implements AfterContentInit, BlockableUI {
     @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Callback to invoke before panel toggle.
-     * @param {PanelToggleEvent} event - Custom toggle event
+     * @param {PanelBeforeToggleEvent} event - Custom toggle event
      * @group Emits
      */
     @Output() onBeforeToggle: EventEmitter<FieldsetBeforeToggleEvent> = new EventEmitter<FieldsetBeforeToggleEvent>();
     /**
      * Callback to invoke after panel toggle.
-     * @param {PanelToggleEvent} event - Custom toggle event
+     * @param {PanelAfterToggleEvent} event - Custom toggle event
      * @group Emits
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
