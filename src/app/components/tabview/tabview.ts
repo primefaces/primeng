@@ -152,10 +152,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * @deprecated since v15.4.2, use `righticon` template instead.
      * @group Props
      */
-    @Input() get rightIcon(): string {
+    @Input() get rightIcon(): string | undefined {
         return this._rightIcon;
     }
-    set rightIcon(rightIcon: string) {
+    set rightIcon(rightIcon: string | undefined) {
         this._rightIcon = rightIcon;
         this.tabView.cd.markForCheck();
     }
@@ -164,7 +164,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     closed: boolean = false;
 
-    view: EmbeddedViewRef<any>;
+    view: EmbeddedViewRef<any> | null;
 
     _selected: boolean;
 
@@ -192,7 +192,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     tabView: TabView;
 
-    constructor(@Inject(forwardRef(() => TabView)) tabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => TabView)) tabView: TabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
         this.tabView = tabView as TabView;
     }
 
@@ -338,7 +338,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
-            this.findSelectedTab().selected = false;
+            (this.findSelectedTab() as TabPanel).selected = false;
             this.tabs[this._activeIndex].selected = true;
             this.tabChanged = true;
 
@@ -437,7 +437,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     initTabs(): void {
         this.tabs = this.tabPanels.toArray();
-        let selectedTab: TabPanel = this.findSelectedTab();
+        let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
         if (!selectedTab && this.tabs.length) {
             if (this.activeIndex != null && this.tabs.length > this.activeIndex) this.tabs[this.activeIndex].selected = true;
             else this.tabs[0].selected = true;
@@ -457,7 +457,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         if (!tab.selected) {
-            let selectedTab: TabPanel = this.findSelectedTab();
+            let selectedTab: TabPanel = (this.findSelectedTab() as TabPanel);
             if (selectedTab) {
                 selectedTab.selected = false;
             }
@@ -514,7 +514,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         tab.closed = true;
     }
 
-    findSelectedTab() {
+    findSelectedTab(): TabPanel | null {
         for (let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i].selected) {
                 return this.tabs[i];
