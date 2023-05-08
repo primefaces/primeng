@@ -25,24 +25,44 @@ import { SharedModule } from 'primeng/api';
     }
 })
 export class Tag {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() severity: string;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Severity type of the tag.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | string | undefined;
+    /**
+     * Value to display inside the tag.
+     * @group Props
+     */
     @Input() value: string;
-
+    /**
+     * Icon of the tag to display next to the value.
+     * @deprecated since 15.4.2. Use 'icon' template.
+     * @group Props
+     */
     @Input() icon: string;
-
+    /**
+     * Whether the corners of the tag are rounded.
+     * @group Props
+     */
     @Input() rounded: boolean;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    iconTemplate: TemplateRef<any>;
+    iconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.iconTemplate = item.template;
