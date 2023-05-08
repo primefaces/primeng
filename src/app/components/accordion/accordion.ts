@@ -148,9 +148,9 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      */
     @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
 
-    @ContentChildren(Header) headerFacet: QueryList<Header>;
+    @ContentChildren(Header) headerFacet: QueryList<Header> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     private _selected: boolean = false;
 
@@ -182,11 +182,11 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         }
     }
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    iconTemplate: TemplateRef<any>;
+    iconTemplate: TemplateRef<any> | undefined;
 
     id: string = `p-accordiontab-${idx++}`;
 
@@ -199,7 +199,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -265,7 +265,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     get hasHeaderFacet(): boolean {
-        return this.headerFacet && this.headerFacet.length > 0;
+        return (this.headerFacet as QueryList<Header>) && (this.headerFacet as QueryList<Header>).length > 0;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -349,9 +349,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      * Returns the active index.
      * @group Emits
      */
-    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number | number[] | null> = new EventEmitter();
 
-    @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
+    @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab> | undefined;
 
     tabListSubscription: Subscription | null = null;
 
@@ -366,13 +366,13 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabListSubscription = this.tabList.changes.subscribe((_) => {
+        this.tabListSubscription = (this.tabList as QueryList<AccordionTab>).changes.subscribe((_) => {
             this.initTabs();
         });
     }
 
     initTabs() {
-        this.tabs = this.tabList.toArray();
+        this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
         this.updateSelectionState();
         this.changeDetector.markForCheck();
     }
