@@ -3,6 +3,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
+import { Nullable, VoidListener } from '../ts-helpers';
 
 @Component({
     selector: 'p-splitter',
@@ -107,9 +108,9 @@ export class Splitter {
      */
     @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef | undefined;
+    @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
 
     nested: boolean = false;
 
@@ -117,31 +118,31 @@ export class Splitter {
 
     dragging: boolean = false;
 
-    mouseMoveListener: VoidFunction | null | undefined;
+    mouseMoveListener: VoidListener;
 
-    mouseUpListener: VoidFunction | null | undefined;
+    mouseUpListener: VoidListener;
 
-    touchMoveListener: VoidFunction | null | undefined;
+    touchMoveListener: VoidListener;
 
-    touchEndListener: VoidFunction | null | undefined;
+    touchEndListener: VoidListener;
 
-    size: number | null = null;
+    size: Nullable<number>;
 
-    gutterElement: ElementRef | HTMLElement | null | undefined = null;
+    gutterElement: Nullable<ElementRef | HTMLElement>;
 
-    startPos: number | null = null;
+    startPos: Nullable<number>;
 
-    prevPanelElement: ElementRef | HTMLElement | null | undefined = null;
+    prevPanelElement: Nullable<ElementRef | HTMLElement>;
 
-    nextPanelElement: ElementRef | HTMLElement | null | undefined = null;
+    nextPanelElement: Nullable<ElementRef | HTMLElement>;
 
-    nextPanelSize: number | null = null;
+    nextPanelSize: Nullable<number>;
 
-    prevPanelSize: number | null = null;
+    prevPanelSize: Nullable<number>;
 
-    _panelSizes: number[] = [0, 0];
+    _panelSizes: number[] = [];
 
-    prevPanelIndex: number | null = 0;
+    prevPanelIndex: Nullable<number>;
 
     private window: Window;
 
@@ -154,7 +155,7 @@ export class Splitter {
     }
 
     ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'panel':
                     this.panels.push(item.template);
@@ -181,7 +182,7 @@ export class Splitter {
                     let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                     let panelSize = panelInitialSize || 100 / this.panels.length;
                     _panelSizes[i] = panelSize;
-                    children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+                    children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
                 });
 
                 this._panelSizes = _panelSizes;

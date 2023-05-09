@@ -9,7 +9,7 @@ export interface SplitterResizeStartEvent {
     /**
      * Browser event.
      */
-    originalEvent: Event;
+    originalEvent: TouchEvent | MouseEvent;
     /**
      * Collapsed state of the panel.
      */

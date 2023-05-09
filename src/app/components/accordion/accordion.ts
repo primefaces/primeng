@@ -148,9 +148,9 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      */
     @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
 
-    @ContentChildren(Header) headerFacet: QueryList<Header> | undefined;
+    @ContentChildren(Header) headerFacet!: QueryList<Header>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     private _selected: boolean = false;
 
@@ -199,7 +199,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;

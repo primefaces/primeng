@@ -7,6 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { Nullable } from '../ts-helpers';
 
 let idx: number = 0;
 
@@ -187,21 +188,21 @@ export class Panel implements AfterContentInit, BlockableUI {
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
+    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    public iconTemplate: TemplateRef<any> | undefined;
+    public iconTemplate: Nullable<TemplateRef<any>>;
 
-    animating: boolean | undefined;
+    animating: Nullable<boolean>;
 
-    headerTemplate: TemplateRef<any> | undefined;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any> | undefined;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any> | undefined;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    headerIconTemplate: TemplateRef<any> | undefined;
+    headerIconTemplate: Nullable<TemplateRef<any>>;
 
     id: string = `p-panel-${idx++}`;
 
