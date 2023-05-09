@@ -14,6 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `import { GallerialModule } from 'primeng/galleria';`
+        typescript: `import { GalleriaModule } from 'primeng/galleria';`
     };
 }

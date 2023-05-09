@@ -50,10 +50,10 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
-        if (typeof window !== undefined) {
+        if (typeof window !== undefined && this.nav) {
             if (!this.isScrollBlocked) {
                 if (typeof document !== undefined) {
-                    const labels = document.querySelectorAll(':is(h1,h2,h3).doc-section-label');
+                    const labels = [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
                     const windowScrollTop = DomHandler.getWindowScrollTop();
 
                     labels.forEach((label) => {

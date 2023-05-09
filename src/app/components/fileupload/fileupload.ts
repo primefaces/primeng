@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -31,6 +31,9 @@ import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
+import { PlusIcon } from 'primeng/icons/plus';
+import { UploadIcon } from 'primeng/icons/upload';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     selector: 'p-fileUpload',
@@ -49,12 +52,34 @@ import { Subscription } from 'rxjs';
                     [class]="chooseStyleClass"
                 >
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" />
-                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
+                    <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
+                    <ng-container *ngIf="!chooseIcon">
+                        <PlusIcon *ngIf="!chooseIconTemplate" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                     <span class="p-button-label">{{ chooseButtonLabel }}</span>
                 </span>
 
-                <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" [icon]="uploadIcon" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass"></p-button>
-                <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" [icon]="cancelIcon" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass"></p-button>
+                <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
+                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon"></span>
+                    <ng-container *ngIf="!uploadIcon">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </p-button>
+                <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
+                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                    <ng-container *ngIf="!cancelIcon">
+                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </p-button>
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
@@ -70,7 +95,10 @@ import { Subscription } from 'rxjs';
                             <div class="p-fileupload-filename">{{ file.name }}</div>
                             <div>{{ formatSize(file.size) }}</div>
                             <div>
-                                <button type="button" icon="pi pi-times" pButton (click)="remove($event, i)" [disabled]="uploading" [class]="removeStyleClass"></button>
+                                <button type="button" pButton (click)="remove($event, i)" [disabled]="uploading" class="p-button-icon-only" [class]="removeStyleClass">
+                                    <TimesIcon *ngIf="!cancelIconTemplate" />
+                                    <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -92,7 +120,24 @@ import { Subscription } from 'rxjs';
                 tabindex="0"
                 pRipple
             >
-                <span class="p-button-icon p-button-icon-left pi" [ngClass]="hasFiles() && !auto ? uploadIcon : chooseIcon"></span>
+                <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
+                    <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                    <ng-container *ngIf="!uploadIcon">
+                        <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                            <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-container>
+                <ng-template #chooseSection>
+                    <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                    <ng-container *ngIf="!chooseIcon">
+                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi">
+                            <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </ng-template>
                 <span *ngIf="basicButtonLabel" class="p-button-label">{{ basicButtonLabel }}</span>
                 <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" />
             </span>
@@ -148,11 +193,11 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     @Input() cancelLabel: string;
 
-    @Input() chooseIcon: string = 'pi pi-plus';
+    @Input() chooseIcon: string;
 
-    @Input() uploadIcon: string = 'pi pi-upload';
+    @Input() uploadIcon: string;
 
-    @Input() cancelIcon: string = 'pi pi-times';
+    @Input() cancelIcon: string;
 
     @Input() showUploadButton: boolean = true;
 
@@ -244,6 +289,12 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     public toolbarTemplate: TemplateRef<any>;
 
+    chooseIconTemplate: TemplateRef<any>;
+
+    uploadIconTemplate: TemplateRef<any>;
+
+    cancelIconTemplate: TemplateRef<any>;
+
     public uploadedFileCount: number = 0;
 
     focus: boolean;
@@ -281,6 +332,18 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
                 case 'toolbar':
                     this.toolbarTemplate = item.template;
+                    break;
+
+                case 'chooseicon':
+                    this.chooseIconTemplate = item.template;
+                    break;
+
+                case 'uploadicon':
+                    this.uploadIconTemplate = item.template;
+                    break;
+
+                case 'cancelicon':
+                    this.cancelIconTemplate = item.template;
                     break;
 
                 default:
@@ -656,8 +719,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     ngOnDestroy() {
         if (this.content && this.content.nativeElement) {
-            this.dragOverListener();
-            this.dragOverListener = null;
+            if (this.dragOverListener) {
+                this.dragOverListener();
+                this.dragOverListener = null;
+            }
         }
 
         if (this.translationSubscription) {
@@ -667,7 +732,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule],
+    imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })

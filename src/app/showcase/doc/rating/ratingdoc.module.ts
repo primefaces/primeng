@@ -17,10 +17,11 @@ import { ReadOnlyDoc } from './readonlydoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { WithoutCancelDoc } from './withoutcanceldoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RatingModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
 })
 export class RatingDocModule {}

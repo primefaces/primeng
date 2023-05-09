@@ -4,7 +4,7 @@ import { Tree, UITreeNode } from './tree';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ContextMenuService, TreeDragDropService } from 'primeng/api';
 
 @Component({
@@ -128,7 +128,8 @@ describe('Tree', () => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }])],
             declarations: [Tree, UITreeNode, ContextMenu, ContextMenuSub, TestTreeComponent],
-            providers: [TreeDragDropService, ContextMenuService]
+            providers: [TreeDragDropService, ContextMenuService],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(TestTreeComponent);

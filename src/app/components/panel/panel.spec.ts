@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Panel } from './panel';
+import { PlusIcon } from 'primeng/icons/plus';
 
 describe('Panel', () => {
     let panel: Panel;
@@ -9,7 +10,7 @@ describe('Panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, PlusIcon],
             declarations: [Panel]
         });
 

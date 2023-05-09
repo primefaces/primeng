@@ -433,7 +433,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>loadingIcon</td>
                         <td>string</td>
-                        <td>pi-circle-o-notch</td>
+                        <td>null</td>
                         <td>The icon to show while indicating data load is in progress.</td>
                     </tr>
                     <tr>

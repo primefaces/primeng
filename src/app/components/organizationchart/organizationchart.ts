@@ -5,6 +5,9 @@ import { SharedModule } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
 import { PrimeTemplate } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: '[pOrganizationChartNode]',
@@ -22,7 +25,13 @@ import { Subject, Subscription } from 'rxjs';
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </div>
                         <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
-                            <i class="p-node-toggler-icon pi" [ngClass]="{ 'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded }"></i>
+                            <ng-container *ngIf="!chart.togglerIconTemplate">
+                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" />
+                                <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" />
+                            </ng-container>
+                            <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{ display: 'inline' }">
+                                <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                            </span>
                         </a>
                     </div>
                 </td>
@@ -156,6 +165,8 @@ export class OrganizationChart implements AfterContentInit {
 
     public templateMap: any;
 
+    togglerIconTemplate: TemplateRef<any>;
+
     private selectionSource = new Subject<any>();
 
     _selection: any;
@@ -176,7 +187,11 @@ export class OrganizationChart implements AfterContentInit {
         }
 
         this.templates.forEach((item) => {
-            this.templateMap[item.getType()] = item.template;
+            if (item.getType() === 'togglericon') {
+                this.togglerIconTemplate = item.template;
+            } else {
+                this.templateMap[item.getType()] = item.template;
+            }
         });
 
         this.initialized = true;
@@ -190,7 +205,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (eventTarget.className.indexOf('p-node-toggler') !== -1 || eventTarget.className.indexOf('p-node-toggler-icon') !== -1)) {
+        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-node-toggler') || DomHandler.hasClass(eventTarget, 'p-node-toggler-icon'))) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -248,7 +263,7 @@ export class OrganizationChart implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule],
     exports: [OrganizationChart, SharedModule],
     declarations: [OrganizationChart, OrganizationChartNode]
 })

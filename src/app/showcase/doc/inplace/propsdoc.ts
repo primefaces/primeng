@@ -54,7 +54,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>closeIcon</td>
                         <td>string</td>
-                        <td>pi pi-times</td>
+                        <td>null</td>
                         <td>Icon of the close icon.</td>
                     </tr>
                 </tbody>

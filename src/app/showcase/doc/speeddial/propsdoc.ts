@@ -120,7 +120,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>showIcon</td>
                         <td>string</td>
-                        <td>pi pi-plus</td>
+                        <td>null</td>
                         <td>Show icon of the button element.</td>
                     </tr>
                     <tr>

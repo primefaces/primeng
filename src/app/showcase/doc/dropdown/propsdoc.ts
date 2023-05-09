@@ -225,7 +225,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>dropdownIcon</td>
                         <td>string</td>
-                        <td>pi pi-chevron-down</td>
+                        <td>null</td>
                         <td>Icon class of the dropdown icon.</td>
                     </tr>
                     <tr>

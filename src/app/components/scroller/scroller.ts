@@ -25,6 +25,7 @@ import {
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 
@@ -95,7 +96,7 @@ export interface ScrollerOptions {
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <i class="p-scroller-loading-icon pi pi-spinner pi-spin"></i>
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -689,8 +690,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     calculateNumItems() {
         const contentPos = this.getContentPosition();
-        const contentWidth = this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0;
-        const contentHeight = this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0;
+        const contentWidth = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0) || 0;
+        const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
         const calculateNumItemsInViewport = (_contentSize, _itemSize) => Math.ceil(_contentSize / (_itemSize || _contentSize));
         const calculateNumToleratedItems = (_numItems) => Math.ceil(_numItems / 2);
         const numItemsInViewport: any = this.both
@@ -1049,7 +1050,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, SpinnerIcon],
     exports: [Scroller, SharedModule],
     declarations: [Scroller]
 })

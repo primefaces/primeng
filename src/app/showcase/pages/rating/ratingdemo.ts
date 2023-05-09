@@ -11,6 +11,7 @@ import { PropsDoc } from '../../doc/rating/propsdoc';
 import { EventsDoc } from '../../doc/rating/eventsdoc';
 import { AccessibilityDoc } from '../../doc/rating/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/rating/reactiveformsdoc';
+import { TemplatesDoc } from '../../doc/rating/templatesdoc';
 
 @Component({
     templateUrl: './ratingdemo.html'
@@ -79,6 +80,11 @@ export class RatingDemo {
             id: 'events',
             label: 'Events',
             component: EventsDoc
+        },
+        {
+            id: 'templates',
+            label: 'Templates',
+            component: TemplatesDoc
         }
     ];
 }

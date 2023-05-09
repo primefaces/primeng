@@ -34,6 +34,9 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { TimesIcon } from 'primeng/icons/times';
+import { EyeSlashIcon } from 'primeng/icons/eyeslash';
+import { EyeIcon } from 'primeng/icons/eye';
 
 @Directive({
     selector: '[pPassword]',
@@ -293,7 +296,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass">
             <input
                 #input
                 [attr.label]="label"
@@ -301,10 +304,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper: inputFieldClass"
+                [ngClass]="disabled | mapper : inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper: inputType"
+                [attr.type]="unmasked | mapper : inputType"
                 [attr.placeholder]="placeholder"
                 [value]="value"
                 (input)="onInput($event)"
@@ -314,8 +317,28 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event)"
                 [attr.maxlength]="maxLength"
             />
-            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
+            <ng-container *ngIf="showClear && value != null">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
+                <span (click)="clear()" class="p-password-clear-icon">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
+            <ng-container *ngIf="toggleMask">
+                <ng-container *ngIf="unmasked">
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" />
+                    <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="!unmasked">
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" />
+                    <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+            </ng-container>
+
             <div
                 #overlay
                 *ngIf="overlayVisible"
@@ -331,7 +354,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
-                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
+                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
                     <div className="p-password-info">{{ infoText }}</div>
                 </ng-template>
@@ -417,6 +440,12 @@ export class Password implements AfterContentInit, OnInit {
 
     headerTemplate: TemplateRef<any>;
 
+    clearIconTemplate: TemplateRef<any>;
+
+    hideIconTemplate: TemplateRef<any>;
+
+    showIconTemplate: TemplateRef<any>;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
     overlayVisible: boolean = false;
@@ -470,6 +499,18 @@ export class Password implements AfterContentInit, OnInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'hideicon':
+                    this.hideIconTemplate = item.template;
+                    break;
+
+                case 'showicon':
+                    this.showIconTemplate = item.template;
                     break;
 
                 default:
@@ -702,10 +743,6 @@ export class Password implements AfterContentInit, OnInit {
         return { 'p-password-input': true, 'p-disabled': disabled };
     }
 
-    toggleIconClass(unmasked: boolean) {
-        return unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
-    }
-
     strengthClass(meter: any) {
         return `p-password-strength ${meter ? meter.strength : ''}`;
     }
@@ -773,7 +810,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule],
+    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })

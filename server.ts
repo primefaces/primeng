@@ -2,7 +2,7 @@ import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
-import * as express from 'express';
+import express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
@@ -27,9 +27,11 @@ Object.defineProperty(win.document.body.style, 'transform', {
         };
     }
 });
-// mock documnet
+// mock document
 global['document'] = win.document;
-// othres mock
+// mock navigator
+global['navigator'] = win.navigator;
+// others mock
 global['CSS'] = null;
 // global['XMLHttpRequest'] = require('xmlhttprequest').XMLHttpRequest;
 global['Prism'] = null;

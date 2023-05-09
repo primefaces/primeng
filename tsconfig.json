@@ -24,16 +24,16 @@
             "dom"
         ],
         "resolveJsonModule": true,
+        "esModuleInterop": true,
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
-        }
+        },
+        "types": ["node", "jest"]
     },
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": false,
-    "strictInputAccessModifiers": false,
-    "strictTemplates": false,
-  }
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false,
+    }
 }

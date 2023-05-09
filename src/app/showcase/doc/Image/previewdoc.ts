@@ -29,6 +29,7 @@ export class PreviewDoc {
 
         typescript: `
 import { Component } from '@angular/core';
+import { PhotoService } from '../../service/photoservice';
         
 @Component({
     selector: 'image-preview-demo',
@@ -36,6 +37,7 @@ import { Component } from '@angular/core';
 })
 export class ImagePreviewDemo {
     constructor(private photoService: PhotoService) {}
-}`
+}`,
+        service: ['PhotoService']
     };
 }

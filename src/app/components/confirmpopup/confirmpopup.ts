@@ -1,6 +1,6 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject, TemplateRef, AfterContentInit, QueryList, ContentChildren } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ZIndexUtils } from 'primeng/utils';
@@ -28,25 +28,29 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.rejectIcon"
                     [label]="rejectButtonLabel"
                     (click)="reject()"
                     [ngClass]="'p-confirm-popup-reject p-button-sm'"
                     [class]="confirmation.rejectButtonStyleClass || 'p-button-text'"
                     *ngIf="confirmation.rejectVisible !== false"
                     [attr.aria-label]="rejectButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.rejectIcon" *ngIf="confirmation.rejectIcon; else rejecticon"></i>
+                    <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                </button>
                 <button
                     type="button"
                     pButton
-                    [icon]="confirmation.acceptIcon"
                     [label]="acceptButtonLabel"
                     (click)="accept()"
                     [ngClass]="'p-confirm-popup-accept p-button-sm'"
                     [class]="confirmation.acceptButtonStyleClass"
                     *ngIf="confirmation.acceptVisible !== false"
                     [attr.aria-label]="acceptButtonLabel"
-                ></button>
+                >
+                    <i [class]="confirmation.acceptIcon" *ngIf="confirmation.acceptIcon; else accepticon"></i>
+                    <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                </button>
             </div>
         </div>
     `,
@@ -77,7 +81,7 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
         class: 'p-element'
     }
 })
-export class ConfirmPopup implements OnDestroy {
+export class ConfirmPopup implements AfterContentInit, OnDestroy {
     @Input() key: string;
 
     @Input() defaultFocus: string = 'accept';
@@ -94,11 +98,17 @@ export class ConfirmPopup implements OnDestroy {
 
     @Input() styleClass: string;
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     container: HTMLDivElement;
 
     subscription: Subscription;
 
     confirmation: Confirmation;
+
+    acceptIconTemplate: TemplateRef<any>;
+
+    rejectIconTemplate: TemplateRef<any>;
 
     _visible: boolean;
 
@@ -147,6 +157,20 @@ export class ConfirmPopup implements OnDestroy {
                 }
 
                 this.visible = true;
+            }
+        });
+    }
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'rejecticon':
+                    this.rejectIconTemplate = item.template;
+                    break;
+
+                case 'accepticon':
+                    this.acceptIconTemplate = item.template;
+                    break;
             }
         });
     }
@@ -361,8 +385,8 @@ export class ConfirmPopup implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule],
-    exports: [ConfirmPopup],
+    imports: [CommonModule, ButtonModule, SharedModule],
+    exports: [ConfirmPopup, SharedModule],
     declarations: [ConfirmPopup]
 })
 export class ConfirmPopupModule {}

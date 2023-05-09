@@ -10,8 +10,8 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
                 <ng-template pTemplate="marker" let-event>
-                    <span class="custom-marker shadow-2" [style.backgroundColor]="event.color">
-                        <i [ngClass]="event.icon"></i>
+                    <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" [style]="{ 'background-color': event.color }">
+                        <i [class]="event.icon"></i>
                     </span>
                 </ng-template>
                 <ng-template pTemplate="content" let-event>
