@@ -67,23 +67,23 @@ export class Chip implements AfterContentInit {
     @Input() removeIcon: string | undefined;
     /**
      * Callback to invoke when a chip is removed.
-     * @group Events
+     * @group Emits
      */
     @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * This event is triggered if an error occurs while loading an image file.
-     * @group Events
+     * @group Emits
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter();
 
     visible: boolean = true;
 
-    removeIconTemplate: TemplateRef<any>;
+    removeIconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'removeicon':
                     this.removeIconTemplate = item.template;
@@ -103,12 +103,12 @@ export class Chip implements AfterContentInit {
         };
     }
 
-    close(event) {
+    close(event: MouseEvent) {
         this.visible = false;
         this.onRemove.emit(event);
     }
 
-    imageError(event) {
+    imageError(event: Event) {
         this.onImageError.emit(event);
     }
 }

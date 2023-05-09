@@ -33,7 +33,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public get size(): BadgeSize | undefined {
+    @Input() public get size(): BadgeSize {
         return this._size;
     }
     set size(val: BadgeSize) {
@@ -43,16 +43,53 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             this.setSizeClasses();
         }
     }
+    /**
+     * Value to display inside the badge.
+     * @group Props
+     */
+    @Input() get value(): string {
+        return this._value;
+    }
 
-    public _value: string;
+    set value(val: string) {
+        if (val !== this._value) {
+            this._value = val;
 
-    public initialized: boolean;
+            if (this.initialized) {
+                let badge = document.getElementById(this.id);
 
-    private id: string;
+                if (this._value) {
+                    if (DomHandler.hasClass(badge, 'p-badge-dot')) DomHandler.removeClass(badge, 'p-badge-dot');
+
+                    if (String(this._value).length === 1) {
+                        DomHandler.addClass(badge, 'p-badge-no-gutter');
+                    } else {
+                        DomHandler.removeClass(badge, 'p-badge-no-gutter');
+                    }
+                } else if (!this._value && !DomHandler.hasClass(badge, 'p-badge-dot')) {
+                    DomHandler.addClass(badge, 'p-badge-dot');
+                }
+
+                badge!.innerHTML = '';
+                this.renderer.appendChild(badge, document.createTextNode(this._value));
+            }
+        }
+    }
+    /**
+     * Severity type of the badge.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+
+    public _value!: string;
+
+    public initialized: boolean = false;
+
+    private id!: string;
 
     private _disabled: boolean = false;
 
-    private _size: BadgeSize;
+    private _size!: BadgeSize;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
 
@@ -89,43 +126,6 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
         this.initialized = true;
     }
-    /**
-     * Value to display inside the badge.
-     * @group Props
-     */
-    @Input() get value(): string | null | undefined {
-        return this._value;
-    }
-
-    set value(val: string) {
-        if (val !== this._value) {
-            this._value = val;
-
-            if (this.initialized) {
-                let badge = document.getElementById(this.id);
-
-                if (this._value) {
-                    if (DomHandler.hasClass(badge, 'p-badge-dot')) DomHandler.removeClass(badge, 'p-badge-dot');
-
-                    if (String(this._value).length === 1) {
-                        DomHandler.addClass(badge, 'p-badge-no-gutter');
-                    } else {
-                        DomHandler.removeClass(badge, 'p-badge-no-gutter');
-                    }
-                } else if (!this._value && !DomHandler.hasClass(badge, 'p-badge-dot')) {
-                    DomHandler.addClass(badge, 'p-badge-dot');
-                }
-
-                badge.innerHTML = '';
-                this.renderer.appendChild(badge, document.createTextNode(this._value));
-            }
-        }
-    }
-    /**
-     * Severity type of the badge.
-     * @group Props
-     */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
 
     private setSizeClasses(element?: HTMLElement): void {
         const badge = element ?? this.document.getElementById(this.id);

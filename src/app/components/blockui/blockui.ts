@@ -58,15 +58,15 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         }
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ViewChild('mask') mask: ElementRef;
+    @ViewChild('mask') mask: ElementRef | undefined;
 
-    _blocked: boolean;
+    _blocked: boolean = false;
 
-    animationEndListener: VoidFunction | null;
+    animationEndListener: VoidFunction | null | undefined;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
 
@@ -77,7 +77,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -94,14 +94,14 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         this._blocked = true;
 
         if (this.target) {
-            this.target.getBlockableElement().appendChild(this.mask.nativeElement);
+            this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
         } else {
-            this.renderer.appendChild(this.document.body, this.mask.nativeElement);
+            this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
         }
 
         if (this.autoZIndex) {
-            ZIndexUtils.set('modal', this.mask.nativeElement, this.baseZIndex + this.config.zIndex.modal);
+            ZIndexUtils.set('modal', (this.mask as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
         }
     }
 

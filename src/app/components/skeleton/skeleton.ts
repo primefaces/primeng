@@ -36,12 +36,12 @@ export class Skeleton {
      * Border radius of the element, defaults to value from theme.
      * @group Props
      */
-    @Input() borderRadius: string = null;
+    @Input() borderRadius: string | undefined;
     /**
      * Size of the Circle or Square.
      * @group Props
      */
-    @Input() size: string = null;
+    @Input() size: string | undefined;
     /**
      * Width of the element.
      * @group Props

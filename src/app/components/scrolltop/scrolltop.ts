@@ -94,19 +94,19 @@ export class ScrollTop implements OnInit, OnDestroy {
      */
     @Input() hideTransitionOptions: string = '.15s';
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    iconTemplate: TemplateRef<any>;
+    iconTemplate: TemplateRef<any> | undefined;
 
-    documentScrollListener: VoidFunction | null;
+    documentScrollListener: VoidFunction | null | undefined;
 
-    parentScrollListener: VoidFunction | null;
+    parentScrollListener: VoidFunction | null | undefined;
 
     visible: boolean = false;
 
     overlay: any;
 
-    private window: Window;
+    private window: Window | null;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView;
@@ -118,7 +118,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.iconTemplate = item.template;
@@ -155,7 +155,7 @@ export class ScrollTop implements OnInit, OnDestroy {
         }
     }
 
-    checkVisibility(scrollY) {
+    checkVisibility(scrollY: number) {
         if (scrollY > this.threshold) this.visible = true;
         else this.visible = false;
 
