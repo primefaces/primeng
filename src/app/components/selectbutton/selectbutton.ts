@@ -121,9 +121,11 @@ export class SelectButton implements ControlValueAccessor {
             return;
         }
 
+        const optionValue = this.getOptionValue(option);
+
         if (this.multiple) {
             if (this.isSelected(option)) this.removeOption(option);
-            else this.value = [...(this.value || []), this.getOptionValue(option)];
+            else this.value = [...(this.value || []), optionValue];
 
             this.onModelChange(this.value);
 
@@ -131,18 +133,14 @@ export class SelectButton implements ControlValueAccessor {
                 originalEvent: event,
                 value: this.value
             });
-        } else {
-            let value = this.getOptionValue(option);
+        } else if (this.value !== optionValue) {
+                this.value = optionValue;
+            this.onModelChange(this.value);
 
-            if (this.value !== value) {
-                this.value = this.getOptionValue(option);
-                this.onModelChange(this.value);
-
-                this.onChange.emit({
-                    originalEvent: event,
-                    value: this.value
-                });
-            }
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
         }
 
         this.onOptionClick.emit({
@@ -162,7 +160,7 @@ export class SelectButton implements ControlValueAccessor {
 
     isSelected(option: any) {
         let selected = false;
-        let optionValue = this.getOptionValue(option);
+        const optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
             if (this.value && Array.isArray(this.value)) {
@@ -174,7 +172,7 @@ export class SelectButton implements ControlValueAccessor {
                 }
             }
         } else {
-            selected = ObjectUtils.equals(this.getOptionValue(option), this.value, this.dataKey);
+            selected = ObjectUtils.equals(optionValue, this.value, this.dataKey);
         }
 
         return selected;
