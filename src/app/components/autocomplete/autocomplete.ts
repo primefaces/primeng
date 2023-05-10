@@ -37,6 +37,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { Nullable, VoidListener } from '../ts-helpers';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -249,45 +250,45 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() panelStyle: any;
 
-    @Input() styleClass: string;
+    @Input() styleClass: string | undefined;
 
-    @Input() panelStyleClass: string;
+    @Input() panelStyleClass: string | undefined;
 
     @Input() inputStyle: any;
 
-    @Input() inputId: string;
+    @Input() inputId: string | undefined;
 
-    @Input() inputStyleClass: string;
+    @Input() inputStyleClass: string | undefined;
 
-    @Input() placeholder: string;
+    @Input() placeholder: string | undefined;
 
-    @Input() readonly: boolean;
+    @Input() readonly: boolean | undefined;
 
-    @Input() disabled: boolean;
+    @Input() disabled: boolean | undefined;
 
     @Input() scrollHeight: string = '200px';
 
     @Input() lazy: boolean = false;
 
-    @Input() virtualScroll: boolean;
+    @Input() virtualScroll: boolean | undefined;
 
-    @Input() virtualScrollItemSize: number;
+    @Input() virtualScrollItemSize: | undefined;
 
-    @Input() virtualScrollOptions: ScrollerOptions;
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
 
-    @Input() maxlength: number;
+    @Input() maxlength: | undefined;
 
-    @Input() name: string;
+    @Input() name: string | undefined;
 
-    @Input() required: boolean;
+    @Input() required: boolean | undefined;
 
-    @Input() size: number;
+    @Input() size: | undefined;
 
-    @Input() appendTo: any;
+    @Input() appendTo: ElementRef | HTMLElement | string | undefined | null;
 
-    @Input() autoHighlight: boolean;
+    @Input() autoHighlight: boolean | undefined;
 
-    @Input() forceSelection: boolean;
+    @Input() forceSelection: boolean | undefined;
 
     @Input() type: string = 'text';
 
@@ -295,69 +296,69 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @Input() baseZIndex: number = 0;
 
-    @Input() ariaLabel: string;
+    @Input() ariaLabel: string | undefined;
 
-    @Input() dropdownAriaLabel: string;
+    @Input() dropdownAriaLabel: string | undefined;
 
-    @Input() ariaLabelledBy: string;
+    @Input() ariaLabelledBy: string | undefined;
 
-    @Input() dropdownIcon: string;
+    @Input() dropdownIcon: string | undefined;
 
     @Input() unique: boolean = true;
 
-    @Input() group: boolean;
+    @Input() group: boolean | undefined;
 
     @Input() completeOnFocus: boolean = false;
 
     @Input() showClear: boolean = false;
 
-    @Input() field: string;
+    @Input() field: string | undefined;
 
-    @Input() dropdown: boolean;
+    @Input() dropdown: boolean | undefined;
 
-    @Input() showEmptyMessage: boolean;
+    @Input() showEmptyMessage: boolean | undefined;
 
     @Input() dropdownMode: string = 'blank';
 
-    @Input() multiple: boolean;
+    @Input() multiple: boolean | undefined;
 
-    @Input() tabindex: number;
+    @Input() tabindex: | undefined;
 
-    @Input() dataKey: string;
+    @Input() dataKey: string | undefined;
 
-    @Input() emptyMessage: string;
+    @Input() emptyMessage: string | undefined;
 
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
 
     @Input() hideTransitionOptions: string = '.1s linear';
 
-    @Input() autofocus: boolean;
+    @Input() autofocus: boolean | undefined;
 
     @Input() autocomplete: string = 'off';
 
-    @Input() optionGroupChildren: string;
+    @Input() optionGroupChildren: string | undefined;
 
-    @Input() optionGroupLabel: string;
+    @Input() optionGroupLabel: string | undefined;
 
-    @Input() overlayOptions: OverlayOptions;
+    @Input() overlayOptions: OverlayOptions | undefined;
 
-    @ViewChild('container') containerEL: ElementRef;
+    @ViewChild('container') containerEL: Nullable<ElementRef>;
 
-    @ViewChild('in') inputEL: ElementRef;
+    @ViewChild('in') inputEL: Nullable<ElementRef>;
 
-    @ViewChild('multiIn') multiInputEL: ElementRef;
+    @ViewChild('multiIn') multiInputEl: Nullable<ElementRef>;
 
-    @ViewChild('multiContainer') multiContainerEL: ElementRef;
+    @ViewChild('multiContainer') multiContainerEL: Nullable<ElementRef>;
 
-    @ViewChild('ddBtn') dropdownButton: ElementRef;
+    @ViewChild('ddBtn') dropdownButton: Nullable<ElementRef>;
 
-    @ViewChild('items') itemsViewChild: ElementRef;
+    @ViewChild('items') itemsViewChild: Nullable<ElementRef>;
 
-    @ViewChild('scroller') scroller: Scroller;
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    @ViewChild('overlay') overlayViewChild: Overlay;
+    @ViewChild('overlay') overlayViewChild!: Overlay;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @Output() completeMethod: EventEmitter<any> = new EventEmitter();
 
@@ -382,84 +383,84 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     /* @deprecated */
-    _itemSize: number;
+    _itemSize: Nullable<number>;
     @Input() get itemSize(): number {
-        return this._itemSize;
+        return (this._itemSize as number);
     }
     set itemSize(val: number) {
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
 
-    itemsWrapper: HTMLDivElement;
+    itemsWrapper: Nullable<HTMLDivElement>;
 
-    itemTemplate: TemplateRef<any>;
+    itemTemplate: Nullable<TemplateRef<any>>;
 
-    emptyTemplate: TemplateRef<any>;
+    emptyTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    selectedItemTemplate: TemplateRef<any>;
+    selectedItemTemplate: Nullable<TemplateRef<any>>;
 
-    groupTemplate: TemplateRef<any>;
+    groupTemplate: Nullable<TemplateRef<any>>;
 
-    loaderTemplate: TemplateRef<any>;
+    loaderTemplate: Nullable<TemplateRef<any>>;
 
-    removeIconTemplate: TemplateRef<any>;
+    removeIconTemplate: Nullable<TemplateRef<any>>;
 
-    loadingIconTemplate: TemplateRef<any>;
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: TemplateRef<any>;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    dropdownIconTemplate: TemplateRef<any>;
+    dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
-    value: any;
+    value: Nullable<object[] | string>;
 
-    _suggestions: any[];
+    _suggestions!: object[];
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    timeout: any;
+    timeout: Nullable<any>;
 
     overlayVisible: boolean = false;
 
-    suggestionsUpdated: boolean;
+    suggestionsUpdated: Nullable<boolean>;
 
     highlightOption: any;
 
-    highlightOptionChanged: boolean;
+    highlightOptionChanged: Nullable<boolean>;
 
     focus: boolean = false;
 
-    filled: boolean;
+    filled: Nullable<boolean>;
 
-    inputClick: boolean;
+    inputClick: Nullable<boolean>;
 
-    inputKeyDown: boolean;
+    inputKeyDown: Nullable<boolean>;
 
-    noResults: boolean;
+    noResults: Nullable<boolean>;
 
     differ: any;
 
-    inputFieldValue: string = null;
+    inputFieldValue: Nullable<string> = null;
 
-    loading: boolean;
+    loading: Nullable<boolean>;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: VoidFunction | null;
+    documentResizeListener: VoidListener;
 
     forceSelectionUpdateModelTimeout: any;
 
-    listId: string;
+    listId: string | undefined;
 
-    itemClicked: boolean;
+    itemClicked: boolean | undefined;
 
-    inputValue: string = null;
+    inputValue: Nullable<string> = null;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -471,15 +472,15 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         public overlayService: OverlayService,
         private zone: NgZone
     ) {
-        this.differ = differs.find([]).create(null);
+        this.differ = differs.find([]).create(undefined);
         this.listId = UniqueComponentId() + '_list';
     }
 
-    @Input() get suggestions(): any[] {
+    @Input() get suggestions(): object[] {
         return this._suggestions;
     }
 
-    set suggestions(val: any[]) {
+    set suggestions(val: object[]) {
         this._suggestions = val;
         this.handleSuggestionsChange();
     }
@@ -501,7 +502,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     if (this.overlayViewChild && this.itemsWrapper) {
-                        let listItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
+                        let listItem = DomHandler.findSingle((this.overlayViewChild.overlayViewChild as ElementRef).nativeElement, 'li.p-highlight');
 
                         if (listItem) {
                             DomHandler.scrollInView(this.itemsWrapper, listItem);
@@ -595,7 +596,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value != '';
+        this.filled = this.value && this.value.length ? true : false;
         this.updateInputField();
         this.cd.markForCheck();
     }
@@ -680,14 +681,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         }
 
         if (this.multiple) {
-            this.multiInputEL.nativeElement.value = '';
+            (this.multiInputEl as ElementRef).nativeElement.value = '';
             this.value = this.value || [];
             if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value, option];
                 this.onModelChange(this.value);
             }
         } else {
-            this.inputEL.nativeElement.value = this.resolveFieldData(option);
+            (this.inputEL as ElementRef).nativeElement.value = this.resolveFieldData(option);
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -704,8 +705,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     show(event?: Event) {
-        if (this.multiInputEL || this.inputEL) {
-            let hasFocus = this.multiple ? this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement : this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement;
+        if (this.multiInputEl || this.inputEL) {
+            let hasFocus = this.multiple ? this.multiInputEl?.nativeElement.ownerDocument.activeElement == this.multiInputEl?.nativeElement : this.inputEL?.nativeElement.ownerDocument.activeElement == this.inputEL?.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
@@ -721,7 +722,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.value = null;
         } else {
             this.inputValue = null;
-            this.inputEL.nativeElement.value = '';
+            (this.inputEL as ElementRef).nativeElement.value = '';
         }
 
         this.updateFilledState();
@@ -731,12 +732,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
         }
     }
 
-    resolveFieldData(value) {
+    resolveFieldData(value: any) {
         let data = this.field ? ObjectUtils.resolveFieldData(value, this.field) : value;
         return data !== (null || undefined) ? data : '';
     }
@@ -748,10 +749,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.cd.markForCheck();
     }
 
-    handleDropdownClick(event) {
+    handleDropdownClick(event: MouseEvent) {
         if (!this.overlayVisible) {
             this.focusInput();
-            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+            let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
 
             if (this.dropdownMode === 'blank') this.search(event, '');
             else if (this.dropdownMode === 'current') this.search(event, queryValue);
@@ -766,8 +767,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     focusInput() {
-        if (this.multiple) this.multiInputEL.nativeElement.focus();
-        else this.inputEL.nativeElement.focus();
+        if (this.multiple) (this.multiInputEl as ElementRef).nativeElement.focus();
+        else this.inputEL?.nativeElement.focus();
     }
 
     get emptyMessageLabel(): string {
@@ -776,16 +777,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     removeItem(item: any) {
         let itemIndex = DomHandler.index(item);
-        let removedValue = this.value[itemIndex];
-        this.value = this.value.filter((val, i) => i != itemIndex);
+        let removedValue = (this.value as object[])[itemIndex];
+        this.value = (this.value as object[]).filter((val: any, i: number) => i != itemIndex);
         this.onModelChange(this.value);
         this.updateFilledState();
         this.onUnselect.emit(removedValue);
     }
 
-    onKeydown(event) {
+    onKeydown(event: Event) {
         if (this.overlayVisible) {
-            switch (event.which) {
+            switch ((<KeyboardEvent>event).which) {
                 //down
                 case 40:
                     if (this.group) {
@@ -872,25 +873,25 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                     break;
             }
         } else {
-            if (event.which === 40 && this.suggestions) {
-                this.search(event, event.target.value);
-            } else if (event.ctrlKey && event.key === 'z' && !this.multiple) {
-                this.inputEL.nativeElement.value = this.resolveFieldData(null);
+            if ((<KeyboardEvent>event).which === 40 && this.suggestions) {
+                this.search(event, (<HTMLInputElement>event.target).value);
+            } else if ((<KeyboardEvent>event).ctrlKey && (<KeyboardEvent>event).key === 'z' && !this.multiple) {
+                (this.inputEL as ElementRef).nativeElement.value = this.resolveFieldData(null);
                 this.value = '';
                 this.onModelChange(this.value);
-            } else if (event.ctrlKey && event.key === 'z' && this.multiple) {
-                this.value.pop();
+            } else if ((<KeyboardEvent>event).ctrlKey && (<KeyboardEvent>event).key === 'z' && this.multiple) {
+                (this.value as object[]).pop();
                 this.onModelChange(this.value);
                 this.updateFilledState();
             }
         }
 
         if (this.multiple) {
-            switch (event.which) {
+            switch ((<KeyboardEvent>event).which) {
                 //backspace
                 case 8:
-                    if (this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
-                        this.value = [...this.value];
+                    if (this.value && this.value.length && !this.multiInputEl?.nativeElement.value) {
+                        this.value = [...this.value] as object[];
                         const removedValue = this.value.pop();
                         this.onModelChange(this.value);
                         this.updateFilledState();
@@ -903,13 +904,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.inputKeyDown = true;
     }
 
-    onKeyup(event) {
+    onKeyup(event: Event) {
         this.onKeyUp.emit(event);
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         if (!this.itemClicked && this.completeOnFocus) {
-            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+            let queryValue = this.multiple ? this.multiInputEl?.nativeElement.value : this.inputEL?.nativeElement.value;
             this.search(event, queryValue);
         }
 
@@ -918,16 +919,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.itemClicked = false;
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focus = false;
         this.onModelTouched();
         this.onBlur.emit(event);
     }
 
-    onInputChange(event) {
+    onInputChange(event: Event) {
         if (this.forceSelection) {
             let valid = false;
-            let inputValue = event.target.value.trim();
+            const target = event.target as HTMLTextAreaElement;
+            let inputValue = target.value.trim();
 
             if (this.suggestions) {
                 for (let suggestion of this.suggestions) {
@@ -944,10 +946,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
             if (!valid) {
                 if (this.multiple) {
-                    this.multiInputEL.nativeElement.value = '';
+                    (<ElementRef>this.multiInputEl).nativeElement.value = '';
                 } else {
                     this.value = null;
-                    this.inputEL.nativeElement.value = '';
+                    (<ElementRef>this.inputEL).nativeElement.value = '';
                 }
 
                 this.onClear.emit(event);
@@ -974,7 +976,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return selected;
     }
 
-    findOptionIndex(option, suggestions): number {
+    findOptionIndex(option: any, suggestions: any): number {
         let index: number = -1;
         if (suggestions) {
             for (let i = 0; i < suggestions.length; i++) {
@@ -1010,7 +1012,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateFilledState() {
-        if (this.multiple) this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+        if (this.multiple) this.filled = (this.value && this.value.length) || (this.multiInputEl && this.multiInputEl.nativeElement && this.multiInputEl.nativeElement.value != '');
         else this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
     }
 
