@@ -1947,7 +1947,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     public scrollToVirtualIndex(index: number) {
-        this.virtualScroll && this.scroller.scrollToIndex(index);
+        this.scroller && this.scroller.scrollToIndex(index);
     }
 
     public scrollTo(options) {
@@ -2559,24 +2559,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         #${this.id}-table > .p-datatable-tfoot > tr > td {
             display: none !important;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td {
             display: flex;
             width: 100% !important;
             align-items: center;
             justify-content: space-between;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
             border: 0 none;
         }
-    
+
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
             border-top: 0;
             border-right: 0;
             border-left: 0;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
             display: block;
         }
