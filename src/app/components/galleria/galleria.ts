@@ -222,9 +222,9 @@ export class Galleria implements OnChanges, OnDestroy {
         }
     }
 
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
 
-    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
@@ -442,9 +442,9 @@ export class GalleriaContent implements DoCheck {
 
     @Input() numVisible: number | undefined;
 
-    @Output() maskHide: EventEmitter<any> = new EventEmitter();
+    @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
 
-    @Output() activeItemChange: EventEmitter<any> = new EventEmitter();
+    @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
 
     id: string = this.galleria.id || UniqueComponentId();
 
@@ -656,11 +656,11 @@ export class GalleriaItem implements OnChanges {
 
     @Input() captionFacet: any;
 
-    @Output() startSlideShow: EventEmitter<any> = new EventEmitter();
+    @Output() startSlideShow: EventEmitter<Event> = new EventEmitter();
 
-    @Output() stopSlideShow: EventEmitter<any> = new EventEmitter();
+    @Output() stopSlideShow: EventEmitter<Event> = new EventEmitter();
 
-    @Output() onActiveIndexChange: EventEmitter<any> = new EventEmitter();
+    @Output() onActiveIndexChange: EventEmitter<number> = new EventEmitter();
 
     @Input() get activeIndex(): number {
         return this._activeIndex;
@@ -815,9 +815,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() onActiveIndexChange: EventEmitter<any> = new EventEmitter();
+    @Output() onActiveIndexChange: EventEmitter<number> = new EventEmitter();
 
-    @Output() stopSlideShow: EventEmitter<any> = new EventEmitter();
+    @Output() stopSlideShow: EventEmitter<Event> = new EventEmitter();
 
     @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
