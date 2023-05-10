@@ -23,7 +23,15 @@ import {
 import { trigger, style, transition, animate, AnimationEvent, useAnimation, animation } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
-import { Footer, SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, ConfirmEventType } from 'primeng/api';
+import {
+    Footer,
+    SharedModule,
+    PrimeTemplate,
+    PrimeNGConfig,
+    TranslationKeys,
+    ConfirmEventType,
+    ConfirmationDefaultFocus
+} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Confirmation } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
@@ -175,7 +183,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     @Input() focusTrap: boolean = true;
 
-    @Input() defaultFocus: string = 'accept';
+    @Input() defaultFocus: ConfirmationDefaultFocus = 'accept';
 
     @Input() breakpoints: any;
 

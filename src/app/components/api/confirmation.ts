@@ -1,5 +1,7 @@
 import { EventEmitter } from '@angular/core';
 
+export type ConfirmationDefaultFocus = 'accept' | 'reject' | 'close' | 'none';
+
 export interface Confirmation {
     message?: string;
     key?: string;
@@ -16,7 +18,7 @@ export interface Confirmation {
     blockScroll?: boolean;
     closeOnEscape?: boolean;
     dismissableMask?: boolean;
-    defaultFocus?: string;
+    defaultFocus?: ConfirmationDefaultFocus;
     acceptButtonStyleClass?: string;
     rejectButtonStyleClass?: string;
     target?: EventTarget;
