@@ -93,7 +93,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         type="button"
                         pRipple
                         pButton
-                        [icon]="option('acceptIcon')"
                         [label]="acceptButtonLabel"
                         (click)="accept()"
                         [ngClass]="'p-confirm-dialog-accept'"
