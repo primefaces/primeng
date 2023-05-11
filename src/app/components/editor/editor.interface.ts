@@ -1,5 +1,5 @@
-//@ts-ignore
 import { TemplateRef } from '@angular/core';
+//@ts-ignore
 import Quill from 'quill';
 
 /**
