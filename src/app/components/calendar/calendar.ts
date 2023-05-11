@@ -34,27 +34,14 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
+import { Nullable, VoidListener } from '../ts-helpers';
+import { NavigationState, CalendarResponsiveOptions,CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Calendar),
     multi: true
 };
-
-export interface LocaleSettings {
-    firstDayOfWeek?: number;
-    dayNames?: string[];
-    dayNamesShort?: string[];
-    dayNamesMin?: string[];
-    monthNames?: string[];
-    monthNamesShort?: string[];
-    today?: string;
-    clear?: string;
-    dateFormat?: string;
-    weekHeader?: string;
-}
-
-export type CalendarTypeView = 'date' | 'month' | 'year';
 
 @Component({
     selector: 'p-calendar',
@@ -380,137 +367,501 @@ export type CalendarTypeView = 'date' | 'month' | 'year';
     styleUrls: ['./calendar.css']
 })
 export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() inputStyle: any;
-
-    @Input() inputId: string;
-
-    @Input() name: string;
-
-    @Input() inputStyleClass: string;
-
-    @Input() placeholder: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() iconAriaLabel: string;
-
-    @Input() disabled: any;
-
-    @Input() dateFormat: string;
-
-    @Input() multipleSeparator: string = ',';
-
-    @Input() rangeSeparator: string = '-';
-
-    @Input() inline: boolean = false;
-
-    @Input() showOtherMonths: boolean = true;
-
-    @Input() selectOtherMonths: boolean;
-
-    @Input() showIcon: boolean;
-
-    @Input() icon: string;
-
-    @Input() appendTo: any;
-
-    @Input() readonlyInput: boolean;
-
-    @Input() shortYearCutoff: any = '+10';
-
-    @Input() monthNavigator: boolean;
-
-    @Input() yearNavigator: boolean;
-
-    @Input() hourFormat: string = '24';
-
-    @Input() timeOnly: boolean;
-
-    @Input() stepHour: number = 1;
-
-    @Input() stepMinute: number = 1;
-
-    @Input() stepSecond: number = 1;
-
-    @Input() showSeconds: boolean = false;
-
-    @Input() required: boolean;
-
-    @Input() showOnFocus: boolean = true;
-
-    @Input() showWeek: boolean = false;
-
-    @Input() showClear: boolean = false;
-
-    @Input() dataType: string = 'date';
-
-    @Input() selectionMode: string = 'single';
-
-    @Input() maxDateCount: number;
-
-    @Input() showButtonBar: boolean;
-
-    @Input() todayButtonStyleClass: string = 'p-button-text';
-
-    @Input() clearButtonStyleClass: string = 'p-button-text';
-
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
-
-    @Input() panelStyleClass: string;
-
-    @Input() panelStyle: any;
-
-    @Input() keepInvalid: boolean = false;
-
-    @Input() hideOnDateTimeSelect: boolean = true;
-
-    @Input() touchUI: boolean;
-
-    @Input() timeSeparator: string = ':';
-
-    @Input() focusTrap: boolean = true;
-
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onInput: EventEmitter<any> = new EventEmitter();
-
-    @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClearClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onMonthChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onYearChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @Input() tabindex: number;
-
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
-
-    @ViewChild('inputfield', { static: false }) inputfieldViewChild: ElementRef;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined; 
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
+    @Input() inputStyle: { [klass: string]: any } | null | undefined; 
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined; 
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined; 
+    /**
+     * Style class of the input field.
+     * @group Props
+     */
+    @Input() inputStyleClass: string | undefined; 
+    /**
+     * Placeholder text for the input.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined; 
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined; 
+    /**
+     * Defines a string that labels the icon button for accessibility.
+     * @group Props
+     */
+    @Input() iconAriaLabel: string | undefined; 
+    /**
+     * When specified, disables the component.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined; 
+    /**
+     * Format of the date which can also be defined at locale settings.
+     * @group Props
+     */
+    @Input() dateFormat: string | undefined; 
+    /**
+     * Separator for multiple selection mode.
+     * @group Props
+     */
+    @Input() multipleSeparator: string = ','; 
+    /**
+     * Separator for joining start and end dates on range selection mode.
+     * @group Props
+     */
+    @Input() rangeSeparator: string = '-'; 
+    /**
+     * When enabled, displays the calendar as inline. Default is false for popup mode.
+     * @group Props
+     */
+    @Input() inline: boolean = false; 
+    /**
+     * Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option.
+     * @group Props
+     */
+    @Input() showOtherMonths: boolean = true; 
+    /**
+     * Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true.
+     * @group Props
+     */
+    @Input() selectOtherMonths: boolean | undefined; 
+    /**
+     * When enabled, displays a button with icon next to input.
+     * @group Props
+     */
+    @Input() showIcon: boolean | undefined; 
+    /**
+     * Icon of the calendar button.
+     * @group Props
+     */
+    @Input() icon: string | undefined; 
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having#mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: any; 
+    /**
+     * When specified, prevents entering the date manually with keyboard.
+     * @group Props
+     */
+    @Input() readonlyInput: boolean | undefined; 
+    /**
+     * The cutoff year for determining the century for a date.
+     * @group Props
+     */
+    @Input() shortYearCutoff: any = '+10'; 
+    /**
+     * Whether the month should be rendered as a dropdown instead of text.
+     * @deprecated Navigator is always on
+     * @group Props
+     */
+    @Input() monthNavigator: boolean | undefined; 
+    /**
+     * Whether the year should be rendered as a dropdown instead of text. 
+     * @deprecated  Navigator is always on.                 
+     * @group Props
+     */
+    @Input() yearNavigator: boolean | undefined; 
+    /**
+     * Specifies 12 or 24 hour format.
+     * @group Props
+     */
+    @Input() hourFormat: string = '24'; 
+    /**
+     * Whether to display timepicker only.
+     * @group Props
+     */
+    @Input() timeOnly: boolean | undefined; 
+    /**
+     * Hours to change per step.
+     * @group Props
+     */
+    @Input() stepHour: number = 1; 
+    /**
+     * Minutes to change per step.
+     * @group Props
+     */
+    @Input() stepMinute: number = 1; 
+    /**
+     * Seconds to change per step.
+     * @group Props
+     */
+    @Input() stepSecond: number = 1; 
+    /**
+     * Whether to show the seconds in time picker.
+     * @group Props
+     */
+    @Input() showSeconds: boolean = false; 
+    /**
+     * When present, it specifies that an input field must be filled out before submitting the form.
+     * @group Props
+     */
+    @Input() required: boolean | undefined; 
+    /**
+     * When disabled, datepicker will not be visible with input focus.
+     * @group Props
+     */
+    @Input() showOnFocus: boolean = true; 
+    /**
+     * When enabled, calendar will show week numbers.
+     * @group Props
+     */
+    @Input() showWeek: boolean = false; 
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
+    @Input() showClear: boolean = false; 
+    /**
+     * Type of the value to write back to ngModel, default is date and alternative is string.
+     * @group Props
+     */
+    @Input() dataType: string = 'date'; 
+    /**
+     * Defines the quantity of the selection, valid values are "single", "multiple" and "range".
+     * @group Props
+     */
+    @Input() selectionMode: 'single' | 'multiple' | 'range' | undefined = 'single'; 
+    /**
+     * Maximum number of selectable dates in multiple mode.
+     * @group Props
+     */
+    @Input() maxDateCount: number | undefined; 
+    /**
+     * Whether to display today and clear buttons at the footer
+     * @group Props
+     */
+    @Input() showButtonBar: boolean | undefined; 
+    /**
+     * Style class of the today button.
+     * @group Props
+     */
+    @Input() todayButtonStyleClass: string = 'p-button-text'; 
+    /**
+     * Style class of the clear button.
+     * @group Props
+     */
+    @Input() clearButtonStyleClass: string = 'p-button-text'; 
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
+    @Input() autoZIndex: boolean = true; 
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
+    @Input() baseZIndex: number = 0; 
+    /**
+     * Style class of the datetimepicker container element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined; 
+    /**
+     * Inline style of the datetimepicker container element.
+     * @group Props
+     */
+    @Input() panelStyle: any; 
+    /**
+     * Keep invalid value when input blur.
+     * @group Props
+     */
+    @Input() keepInvalid: boolean = false; 
+    /**
+     * Whether to hide the overlay on date selection.
+     * @group Props
+     */
+    @Input() hideOnDateTimeSelect: boolean = true; 
+    /**
+     * When enabled, calendar overlay is displayed as optimized for touch devices.
+     * @group Props
+     */
+    @Input() touchUI: boolean | undefined; 
+    /**
+     * Separator of time selector.
+     * @group Props
+     */
+    @Input() timeSeparator: string = ':'; 
+    /**
+     * When enabled, can only focus on elements inside the calendar.
+     * @group Props
+     */
+    @Input() focusTrap: boolean = true; 
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)'; 
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
+    @Input() hideTransitionOptions: string = '.1s linear'; 
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined; 
+    /**
+     * The minimum selectable date.
+     * @group Props
+     */
+    @Input() get minDate(): Date {
+        return this._minDate;
+    }
+    set minDate(date: Date) {
+        this._minDate = date;
+
+        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+    /**
+     * The maximum selectable date.
+     * @group Props
+     */
+    @Input() get maxDate(): Date {
+        return this._maxDate;
+    }
+    set maxDate(date: Date) {
+        this._maxDate = date;
+
+        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+    /**
+     * Array with dates that should be disabled (not selectable).
+     * @group Props
+     */
+    @Input() get disabledDates(): Date[] {
+        return this._disabledDates;
+    }
+    set disabledDates(disabledDates: Date[]) {
+        this._disabledDates = disabledDates;
+        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+    /**
+     * Array with weekday numbers that should be disabled (not selectable).
+     * @group Props
+     */
+    @Input() get disabledDays(): number[] {
+        return this._disabledDays;
+    }
+    set disabledDays(disabledDays: number[]) {
+        this._disabledDays = disabledDays;
+
+        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+    /**
+     * @deprecated Years are based on decades by default.
+     * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
+     * @group Props
+     */
+    @Input() get yearRange(): string {
+        return this._yearRange;
+    }
+    set yearRange(yearRange: string) {
+        this._yearRange = yearRange;
+
+        if (yearRange) {
+            const years = yearRange.split(':');
+            const yearStart = parseInt(years[0]);
+            const yearEnd = parseInt(years[1]);
+
+            this.populateYearOptions(yearStart, yearEnd);
+        }
+    }
+    /**
+     * Whether to display timepicker.
+     * @group Props
+     */
+    @Input() get showTime(): boolean {
+        return this._showTime;
+    }
+    set showTime(showTime: boolean) {
+        this._showTime = showTime;
+
+        if (this.currentHour === undefined) {
+            this.initTime(this.value || new Date());
+        }
+        this.updateInputfield();
+    }
+    /**
+     * An array of options for responsive design.
+     * @group Props
+     */
+    @Input() get responsiveOptions(): CalendarResponsiveOptions[] {
+        return this._responsiveOptions;
+    }
+    set responsiveOptions(responsiveOptions: CalendarResponsiveOptions[]) {
+        this._responsiveOptions = responsiveOptions;
+
+        this.destroyResponsiveStyleElement();
+        this.createResponsiveStyle();
+    }
+    /**
+     * Number of months to display.
+     * @group Props
+     */
+    @Input() get numberOfMonths(): number {
+        return this._numberOfMonths;
+    }
+    set numberOfMonths(numberOfMonths: number) {
+        this._numberOfMonths = numberOfMonths;
+
+        this.destroyResponsiveStyleElement();
+        this.createResponsiveStyle();
+    }
+    /**
+     * Defines the first of the week for various date calculations.
+     * @group Props
+     */
+    @Input() get firstDayOfWeek(): number {
+        return this._firstDayOfWeek;
+    }
+    set firstDayOfWeek(firstDayOfWeek: number) {
+        this._firstDayOfWeek = firstDayOfWeek;
+
+        this.createWeekDays();
+    }
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() set locale(newLocale: LocaleSettings) {
+        console.warn('Locale property has no effect, use new i18n API instead.');
+    } 
+    /**
+     * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
+     * @group Props
+     */
+    @Input() get view(): CalendarTypeView {
+        return this._view;
+    }
+    set view(view: CalendarTypeView) {
+        this._view = view;
+        this.currentView = this._view;
+    }
+    /**
+     * Set the date to highlight on first opening if the field is blank.
+     * @group Props
+     */
+    @Input() get defaultDate(): Date {
+        return this._defaultDate;
+    }
+    set defaultDate(defaultDate: Date) {
+        this._defaultDate = defaultDate;
+
+        if (this.initialized) {
+            const date = defaultDate || new Date();
+            this.currentMonth = date.getMonth();
+            this.currentYear = date.getFullYear();
+            this.initTime(date);
+            this.createMonths(this.currentMonth, this.currentYear);
+        }
+    }
+    /**
+     * Callback to invoke on focus of input field.
+     * @param {Event} event - Focus event
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter(); 
+    /**
+     * Callback to invoke on blur of input field.
+     * @param {Event} event - Blur event
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter(); 
+    /**
+     * Callback to invoke when date panel closed.
+     * @param {Event} event - Mouse event
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>(); 
+    /**
+     * Callback to invoke on date select.
+     * @param {Date} date - Date
+     * @group Emits
+     */
+    @Output() onSelect: EventEmitter<Date> = new EventEmitter<Date>(); 
+    /**
+     * Callback to invoke when input field cleared.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when input field is being typed.
+     * @param {Event} event - Browser event
+     * @group Emits
+     */
+    @Output() onInput: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when today button is clicked.
+     * @param {Date} date - Today as a date instance.
+     * @group Emits
+     */
+    @Output() onTodayClick: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when clear button is clicked.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onClearClick: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when a month is changed using the navigators.
+     * @param {CalendarMonthChangeEvent} event - Custom month change event.
+     * @group Emits
+     */
+    @Output() onMonthChange: EventEmitter<CalendarMonthChangeEvent> = new EventEmitter<CalendarMonthChangeEvent>(); 
+    /**
+     * Callback to invoke when a year is changed using the navigators.
+     * @param {CalendarYearChangeEvent} event - Custom year change event.
+     * @group Emits
+     */
+    @Output() onYearChange: EventEmitter<CalendarYearChangeEvent> = new EventEmitter<CalendarYearChangeEvent>(); 
+    /**
+     * Callback to invoke when clicked outside of the date panel.
+     * @group Emits
+     */
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when datepicker panel is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter(); 
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
+
+    @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
 
     @ViewChild('contentWrapper', { static: false }) set content(content: ElementRef) {
         this.contentViewChild = content;
@@ -527,277 +878,139 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    contentViewChild: ElementRef;
+    contentViewChild!: ElementRef;
 
     value: any;
 
-    dates: any[];
+    dates: Nullable<Date[]>;
 
-    months: any[];
+    months!: Month[];
 
-    weekDays: string[];
+    weekDays: Nullable<string[]>;
 
-    currentMonth: number;
+    currentMonth: Nullable<number>;
 
-    currentYear: number;
+    currentYear: Nullable<number>;
 
-    currentHour: number;
+    currentHour: Nullable<number>;
 
-    currentMinute: number;
+    currentMinute: Nullable<number>;
 
-    currentSecond: number;
+    currentSecond: Nullable<number>;
 
-    pm: boolean;
+    pm: Nullable<boolean>;
 
-    mask: HTMLDivElement;
+    mask: Nullable<HTMLDivElement>;
 
-    maskClickListener: VoidFunction | null;
+    maskClickListener: VoidListener;
 
-    overlay: HTMLDivElement;
+    overlay: Nullable<HTMLDivElement>;
 
-    responsiveStyleElement: any;
+    responsiveStyleElement!: HTMLStyleElement;
 
-    overlayVisible: boolean;
+    overlayVisible: Nullable<boolean>;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    calendarElement: any;
+    calendarElement: Nullable<HTMLElement | ElementRef>;
 
     timePickerTimer: any;
 
-    documentClickListener: VoidFunction | null;
+    documentClickListener: VoidListener
 
-    animationEndListener: VoidFunction | null;
+    animationEndListener: VoidListener
 
-    ticksTo1970: number;
+    ticksTo1970: Nullable<number>;
 
-    yearOptions: number[];
+    yearOptions: Nullable<number[]>;
 
-    focus: boolean;
+    focus: Nullable<boolean>;
 
-    isKeydown: boolean;
+    isKeydown: Nullable<boolean>;
 
-    filled: boolean;
+    filled: Nullable<boolean>;
 
-    inputFieldValue: string = null;
+    inputFieldValue: Nullable<string> = null;
 
-    _minDate: Date;
+    _minDate!: Date;
 
-    _maxDate: Date;
+    _maxDate!: Date;
 
-    _showTime: boolean;
+    _showTime!: boolean;
 
-    _yearRange: string;
+    _yearRange!: string;
 
-    preventDocumentListener: boolean;
+    preventDocumentListener: Nullable<boolean>;
 
-    dateTemplate: TemplateRef<any>;
+    dateTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    disabledDateTemplate: TemplateRef<any>;
+    disabledDateTemplate: Nullable<TemplateRef<any>>;
 
-    decadeTemplate: TemplateRef<any>;
+    decadeTemplate: Nullable<TemplateRef<any>>;
 
-    previousIconTemplate: TemplateRef<any>;
+    previousIconTemplate: Nullable<TemplateRef<any>>;
 
-    nextIconTemplate: TemplateRef<any>;
+    nextIconTemplate: Nullable<TemplateRef<any>>;
 
-    triggerIconTemplate: TemplateRef<any>;
+    triggerIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: TemplateRef<any>;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    decrementIconTemplate: TemplateRef<any>;
+    decrementIconTemplate: Nullable<TemplateRef<any>>;
 
-    incrementIconTemplate: TemplateRef<any>;
+    incrementIconTemplate: Nullable<TemplateRef<any>>;
 
-    _disabledDates: Array<Date>;
+    _disabledDates!: Array<Date>;
 
-    _disabledDays: Array<number>;
+    _disabledDays!: Array<number>;
 
-    selectElement: any;
+    selectElement: Nullable;
 
-    todayElement: any;
+    todayElement: Nullable;
 
-    focusElement: any;
+    focusElement: Nullable;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: VoidFunction | null;
+    documentResizeListener: VoidListener
 
-    navigationState: any = null;
+    navigationState: Nullable<NavigationState> = null;
 
-    isMonthNavigate: boolean;
+    isMonthNavigate: Nullable<boolean>;
 
-    initialized: boolean;
+    initialized: Nullable<boolean>;
 
-    translationSubscription: Subscription;
+    translationSubscription: Nullable<Subscription>;
 
-    _locale: LocaleSettings;
+    _locale!: LocaleSettings;
 
-    _responsiveOptions: any[];
+    _responsiveOptions!: CalendarResponsiveOptions[];
 
-    currentView: string;
+    currentView: Nullable<string>;
 
-    attributeSelector: string;
+    attributeSelector: Nullable<string>;
 
     _numberOfMonths: number = 1;
 
-    _firstDayOfWeek: number;
+    _firstDayOfWeek!: number;
 
     _view: CalendarTypeView = 'date';
 
-    preventFocus: boolean;
+    preventFocus: Nullable<boolean>;
 
-    @Input() get view(): CalendarTypeView {
-        return this._view;
-    }
+    _defaultDate!: Date;
 
-    set view(view: CalendarTypeView) {
-        this._view = view;
-        this.currentView = this._view;
-    }
-
-    @Input() get defaultDate(): Date {
-        return this._defaultDate;
-    }
-
-    set defaultDate(defaultDate: Date) {
-        this._defaultDate = defaultDate;
-
-        if (this.initialized) {
-            const date = defaultDate || new Date();
-            this.currentMonth = date.getMonth();
-            this.currentYear = date.getFullYear();
-            this.initTime(date);
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    _defaultDate: Date;
-
-    @Input() get minDate(): Date {
-        return this._minDate;
-    }
-
-    set minDate(date: Date) {
-        this._minDate = date;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get maxDate(): Date {
-        return this._maxDate;
-    }
-
-    set maxDate(date: Date) {
-        this._maxDate = date;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get disabledDates(): Date[] {
-        return this._disabledDates;
-    }
-
-    set disabledDates(disabledDates: Date[]) {
-        this._disabledDates = disabledDates;
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get disabledDays(): number[] {
-        return this._disabledDays;
-    }
-
-    set disabledDays(disabledDays: number[]) {
-        this._disabledDays = disabledDays;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
-
-    @Input() get yearRange(): string {
-        return this._yearRange;
-    }
-
-    set yearRange(yearRange: string) {
-        this._yearRange = yearRange;
-
-        if (yearRange) {
-            const years = yearRange.split(':');
-            const yearStart = parseInt(years[0]);
-            const yearEnd = parseInt(years[1]);
-
-            this.populateYearOptions(yearStart, yearEnd);
-        }
-    }
-
-    @Input() get showTime(): boolean {
-        return this._showTime;
-    }
-
-    set showTime(showTime: boolean) {
-        this._showTime = showTime;
-
-        if (this.currentHour === undefined) {
-            this.initTime(this.value || new Date());
-        }
-        this.updateInputfield();
-    }
+    private window: Window;
 
     get locale() {
         return this._locale;
     }
-
-    @Input() get responsiveOptions(): any[] {
-        return this._responsiveOptions;
-    }
-
-    set responsiveOptions(responsiveOptions: any[]) {
-        this._responsiveOptions = responsiveOptions;
-
-        this.destroyResponsiveStyleElement();
-        this.createResponsiveStyle();
-    }
-
-    @Input() get numberOfMonths(): number {
-        return this._numberOfMonths;
-    }
-
-    set numberOfMonths(numberOfMonths: number) {
-        this._numberOfMonths = numberOfMonths;
-
-        this.destroyResponsiveStyleElement();
-        this.createResponsiveStyle();
-    }
-
-    @Input() get firstDayOfWeek(): number {
-        return this._firstDayOfWeek;
-    }
-
-    set firstDayOfWeek(firstDayOfWeek: number) {
-        this._firstDayOfWeek = firstDayOfWeek;
-
-        this.createWeekDays();
-    }
-
-    @Input()
-    set locale(newLocale: LocaleSettings) {
-        console.warn('Locale property has no effect, use new i18n API instead.');
-    }
-
-    private window: Window;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
         this.window = this.document.defaultView as Window;
@@ -887,7 +1100,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (!this.disabled) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
-                    this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild.nativeElement) + 'px';
+                    this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
                 }
             }
         }
@@ -957,7 +1170,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 1;
     }
 
-    createMonth(month: number, year: number) {
+    createMonth(month: number, year: number): Month {
         let dates = [];
         let firstDay = this.getFirstDayOfMonthIndex(month, year);
         let daysLength = this.getDaysCountInMonth(month, year);
@@ -1468,7 +1681,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.selectionMode === 'multiple';
     }
 
-    isToday(today, day, month, year): boolean {
+    isToday(today: Date, day: number, month: number, year: number): boolean {
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
 
@@ -1631,7 +1844,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    onInputKeydown(event) {
+    onInputKeydown(event: any) {
         this.isKeydown = true;
         if (event.keyCode === 40 && this.contentViewChild) {
             this.trapFocus(event);

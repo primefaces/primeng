@@ -7,6 +7,7 @@ import { RippleModule } from 'primeng/ripple';
 import { PlusIcon } from 'primeng/icons/plus';
 import { MinusIcon } from 'primeng/icons/minus';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { Nullable } from '../ts-helpers';
 
 let idx: number = 0;
 
@@ -132,15 +133,15 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    public animating!: boolean;
+    public animating: Nullable<boolean>;
 
-    headerTemplate: TemplateRef<any> | undefined;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any> | undefined;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    collapseIconTemplate: TemplateRef<any> | undefined;
+    collapseIconTemplate: Nullable<TemplateRef<any>>;
 
-    expandIconTemplate: TemplateRef<any> | undefined;
+    expandIconTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private el: ElementRef) {}
 
