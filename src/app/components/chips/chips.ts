@@ -132,6 +132,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     filled: boolean;
 
+    private get isValueMaxLimited(): boolean {
+        return this.max && this.value && this.max === this.value.length;
+    }
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
@@ -264,8 +268,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     addItem(event: Event, item: string, preventDefault: boolean): void {
         this.value = this.value || [];
+
         if (item && item.trim().length) {
-            if (this.allowDuplicate || this.value.indexOf(item) === -1) {
+            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isValueMaxLimited) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -274,6 +279,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 });
             }
         }
+
         this.updateFilledState();
         this.updateMaxedOut();
         this.inputViewChild.nativeElement.value = '';
@@ -287,6 +293,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = null;
         this.updateFilledState();
         this.onModelChange(this.value);
+        this.updateMaxedOut();
         this.onClear.emit();
     }
 
@@ -331,7 +338,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     updateMaxedOut(): void {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.max && this.value && this.max === this.value.length) {
+            if (this.isValueMaxLimited) {
                 // Calling `blur` is necessary because firefox does not call `onfocus` events
                 // for disabled inputs, unlike chromium browsers.
                 this.inputViewChild.nativeElement.blur();
