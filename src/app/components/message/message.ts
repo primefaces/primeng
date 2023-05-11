@@ -1,9 +1,9 @@
-import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CheckIcon } from 'primeng/icons/check';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 
 @Component({
     selector: 'p-message',
@@ -41,15 +41,31 @@ import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
     }
 })
 export class UIMessage {
-    @Input() severity: string;
-
-    @Input() text: string;
-
+    /**
+     * Severity level of the message.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warn' | 'error' | string | undefined;
+    /**
+     * Text content.
+     * @group Props
+     */
+    @Input() text: string | undefined;
+    /**
+     * Whether displaying messages would be escaped or not.
+     * @group Props
+     */
     @Input() escape: boolean = true;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
     get icon() {
         if (this.severity && this.severity.trim()) {

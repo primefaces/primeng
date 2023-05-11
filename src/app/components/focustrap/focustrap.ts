@@ -10,13 +10,17 @@ import { Directive, ElementRef, HostListener, Input, NgModule } from '@angular/c
     }
 })
 export class FocusTrap {
-    @Input() pFocusTrapDisabled: boolean;
+    /**
+     * When set as true, focus wouldn't be managed.
+     * @group Props
+     */
+    @Input() pFocusTrapDisabled: boolean = false;
 
     constructor(public el: ElementRef) {}
 
     @HostListener('keydown.tab', ['$event'])
     @HostListener('keydown.shift.tab', ['$event'])
-    onkeydown(e) {
+    onkeydown(e: KeyboardEvent) {
         if (this.pFocusTrapDisabled !== true) {
             e.preventDefault();
             const focusableElement = DomHandler.getNextFocusableElement(this.el.nativeElement, e.shiftKey);
