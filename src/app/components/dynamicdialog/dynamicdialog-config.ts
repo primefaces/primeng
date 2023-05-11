@@ -1,6 +1,7 @@
 export class DynamicDialogConfig<T = any> {
     data?: T;
     header?: string;
+    ariaLabelledBy?: string;
     footer?: string;
     width?: string;
     height?: string;
