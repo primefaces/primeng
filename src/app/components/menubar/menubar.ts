@@ -26,7 +26,8 @@ import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/ap
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { debounce, filter, interval, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, interval } from 'rxjs';
+import { debounce, filter } from 'rxjs/operators';
 import { BarsIcon } from 'primeng/icons/bars';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
