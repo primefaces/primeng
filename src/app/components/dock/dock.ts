@@ -73,22 +73,29 @@ import { TooltipModule } from 'primeng/tooltip';
 export class Dock implements AfterContentInit {
     /**
      * Current id state as a string.
+     * @group Props
      */
     @Input() id: string | undefined;
     /**
      * Inline style of the element.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * MenuModel instance to define the action items.
+     * @group Props
      */
     @Input() model: MenuItem[] | undefined | null = null;
-
-    @Input() position: string = 'bottom';
+    /**
+     * Position of element. Valid values are 'bottom', 'top', 'left' and 'right'.
+     * @group Props
+     */
+    @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
