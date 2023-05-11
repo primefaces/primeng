@@ -174,6 +174,11 @@ export class Panel implements AfterContentInit, BlockableUI {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Emitted when the collapsed changes.
+     * @param {boolean} value - New Value.
+     * @group Emits
+     */
     @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Callback to invoke before panel toggle.

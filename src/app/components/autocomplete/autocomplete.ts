@@ -38,6 +38,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from '../ts-helpers';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -242,105 +243,332 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     styleUrls: ['./autocomplete.css']
 })
 export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
+    /**
+     * Minimum number of characters to initiate a search.
+     * @group Props
+     */
     @Input() minLength: number = 1;
-
+    /**
+     * Delay between keystrokes to wait before sending a query.
+     * @group Props
+     */
     @Input() delay: number = 300;
-
-    @Input() style: any;
-
-    @Input() panelStyle: any;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
     @Input() styleClass: string | undefined;
-
+    /**
+     * Style class of the overlay panel element.
+     * @group Props
+     */
     @Input() panelStyleClass: string | undefined;
-
-    @Input() inputStyle: any;
-
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
     @Input() inputId: string | undefined;
-
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
     @Input() inputStyleClass: string | undefined;
-
+    /**
+     * Hint text for the input field.
+     * @group Props
+     */
     @Input() placeholder: string | undefined;
-
+    /**
+     * When present, it specifies that the input cannot be typed.
+     * @group Props
+     */
     @Input() readonly: boolean | undefined;
-
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
     @Input() disabled: boolean | undefined;
-
+    /**
+     * Maximum height of the suggestions panel.
+     * @group Props
+     */
     @Input() scrollHeight: string = '200px';
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
     @Input() lazy: boolean = false;
-
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
     @Input() virtualScroll: boolean | undefined;
-
-    @Input() virtualScrollItemSize: | undefined;
-
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
-
-    @Input() maxlength: | undefined;
-
+    /**
+     * Maximum number of character allows in the input field.
+     * @group Props
+     */
+    @Input() maxlength: undefined;
+    /**
+     * Name of the input element.
+     * @group Props
+     */
     @Input() name: string | undefined;
-
+    /**
+     * When present, it specifies that an input field must be filled out before submitting the form.
+     * @group Props
+     */
     @Input() required: boolean | undefined;
-
-    @Input() size: | undefined;
-
+    /**
+     * Size of the input field.
+     * @group Props
+     */
+    @Input() size: undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).                 
+     * @group Props
+     */
     @Input() appendTo: ElementRef | HTMLElement | string | undefined | null;
-
+    /**
+     * When enabled, highlights the first item in the list by default.
+     * @group Props
+     */
     @Input() autoHighlight: boolean | undefined;
-
+    /**
+     * When present, autocomplete clears the manual input if it does not match of the suggestions to force only accepting values from the suggestions.
+     * @group Props
+     */
     @Input() forceSelection: boolean | undefined;
-
+    /**
+     * Type of the input, defaults to "text".
+     * @group Props
+     */
     @Input() type: string = 'text';
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
     @Input() ariaLabel: string | undefined;
-
+    /**
+     * Defines a string that labels the dropdown button for accessibility.
+     * @group Props
+     */
     @Input() dropdownAriaLabel: string | undefined;
-
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
     @Input() ariaLabelledBy: string | undefined;
-
+    /**
+     * Icon class of the dropdown icon.
+     * @group Props
+     */
     @Input() dropdownIcon: string | undefined;
-
+    /**
+     * Ensures uniqueness of selected items on multiple mode.
+     * @group Props
+     */
     @Input() unique: boolean = true;
-
+    /**
+     * Whether to display options as grouped when nested options are provided.
+     * @group Props
+     */
     @Input() group: boolean | undefined;
-
+    /**
+     * Whether to run a query when input receives focus.
+     * @group Props
+     */
     @Input() completeOnFocus: boolean = false;
-
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
+    /**
+     * Field of a suggested object to resolve and display.
+     * @group Props
+     */
     @Input() field: string | undefined;
-
+    /**
+     * Displays a button next to the input field when enabled.
+     * @group Props
+     */
     @Input() dropdown: boolean | undefined;
-
+    /**
+     * Whether to show the empty message or not.
+     * @group Props
+     */
     @Input() showEmptyMessage: boolean | undefined;
-
+    /**
+     * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
+     * @group Props
+     */
     @Input() dropdownMode: string = 'blank';
-
+    /**
+     * Specifies if multiple values can be selected.
+     * @group Props
+     */
     @Input() multiple: boolean | undefined;
-
-    @Input() tabindex: | undefined;
-
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
     @Input() dataKey: string | undefined;
-
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
     @Input() emptyMessage: string | undefined;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
     @Input() autofocus: boolean | undefined;
-
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
     @Input() autocomplete: string = 'off';
-
+    /**
+     * Name of the options field of an option group.
+     * @group Props
+     */
     @Input() optionGroupChildren: string | undefined;
-
+    /**
+     * Name of the label field of an option group.
+     * @group Props
+     */
     @Input() optionGroupLabel: string | undefined;
-
+    /**
+     * No description available.
+     * @group Props
+     */
     @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * An array of suggestions to display.
+     * @group Props
+     */
+    @Input() get suggestions(): object[] {
+        return this._suggestions;
+    }
+    set suggestions(value: object[]) {
+        this._suggestions = value;
+    }
+    /**
+     * Callback to invoke to search for suggestions.
+     * @param {AutoCompleteCompleteEvent} event - Custom complete event.
+     * @group Emits
+     */
+    @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
+    /**
+     * Callback to invoke when a suggestion is selected.
+     * @param {Value} value - selected value.
+     * @group Emits
+     */
+    @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when a selected value is removed.
+     * @param {Value} value - removed value.
+     * @group Emits
+     */
+    @Output() onUnselect: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when the component receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    /**
+     * Callback to invoke to when dropdown button is clicked.
+     * @param {AutoCompleteDropdownClickEvent} event - Custom dropdown click event.
+     * @group Emits
+     */
+    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
+    /**
+     * Callback to invoke when clear button is clicked.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter();
+    /**
+     * Callback to invoke on input key up.
+     * @param {KeyboardEvent} event - Browser event.
+     * @group Emits
+     */
+    @Output() onKeyUp: EventEmitter<KeyboardEvent> = new EventEmitter();
+    /**
+     * Callback to invoke on overlay is shown.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on overlay is hidden.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on lazy load data.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('container') containerEL: Nullable<ElementRef>;
 
@@ -360,32 +588,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Output() completeMethod: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
     /* @deprecated */
     _itemSize: Nullable<number>;
     @Input() get itemSize(): number {
-        return (this._itemSize as number);
+        return this._itemSize as number;
     }
     set itemSize(val: number) {
         this._itemSize = val;
@@ -436,7 +642,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focus: boolean = false;
 
-    filled: Nullable<boolean>;
+    filled!: number | boolean;
 
     inputClick: Nullable<boolean>;
 
@@ -474,15 +680,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     ) {
         this.differ = differs.find([]).create(undefined);
         this.listId = UniqueComponentId() + '_list';
-    }
-
-    @Input() get suggestions(): object[] {
-        return this._suggestions;
-    }
-
-    set suggestions(val: object[]) {
-        this._suggestions = val;
-        this.handleSuggestionsChange();
     }
 
     ngAfterViewChecked() {
@@ -904,7 +1101,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.inputKeyDown = true;
     }
 
-    onKeyup(event: Event) {
+    onKeyup(event: KeyboardEvent) {
         this.onKeyUp.emit(event);
     }
 
