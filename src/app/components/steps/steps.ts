@@ -102,6 +102,7 @@ export class Steps implements OnInit, OnDestroy {
     @Input() styleClass: string | undefined;
     /**
      * Callback to invoke when the new step is selected.
+     * @group Emits
      */
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
 
