@@ -474,13 +474,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() shortYearCutoff: any = '+10'; 
     /**
      * Whether the month should be rendered as a dropdown instead of text.
-     * Deprecated:  Navigator is always on
+     * @deprecated Navigator is always on
      * @group Props
      */
     @Input() monthNavigator: boolean | undefined; 
     /**
      * Whether the year should be rendered as a dropdown instead of text. 
-     * Deprecated:  Navigator is always on.                 
+     * @deprecated  Navigator is always on.                 
      * @group Props
      */
     @Input() yearNavigator: boolean | undefined; 
@@ -680,8 +680,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
     /**
-     * Deprecated. 
-     * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020). Years are based on decades by default.
+     * @deprecated Years are based on decades by default.
+     * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
      * @group Props
      */
     @Input() get yearRange(): string {
@@ -884,7 +884,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     dates: Nullable<Date[]>;
 
-    months: Month[];
+    months!: Month[];
 
     weekDays: Nullable<string[]>;
 
@@ -906,7 +906,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlay: Nullable<HTMLDivElement>;
 
-    responsiveStyleElement: HTMLStyleElement;
+    responsiveStyleElement!: HTMLStyleElement;
 
     overlayVisible: Nullable<boolean>;
 
@@ -990,7 +990,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     _locale!: LocaleSettings;
 
-    _responsiveOptions: CalendarResponsiveOptions[];
+    _responsiveOptions!: CalendarResponsiveOptions[];
 
     currentView: Nullable<string>;
 
@@ -1844,7 +1844,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    onInputKeydown(event) {
+    onInputKeydown(event: any) {
         this.isKeydown = true;
         if (event.keyCode === 40 && this.contentViewChild) {
             this.trapFocus(event);
