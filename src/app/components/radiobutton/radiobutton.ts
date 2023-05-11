@@ -2,6 +2,7 @@ import { NgModule, Component, Input, Output, ElementRef, EventEmitter, forwardRe
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
 import { Nullable } from '../ts-helpers';
+import { RadioButtonClickEvent } from './radiobutton.interface';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -145,20 +146,23 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      */
     @Input() labelStyleClass: string | undefined; 
     /**
-     * No description available.
+     * Callback to invoke on radio button click.
+     * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<any> = new EventEmitter(); 
+    @Output() onClick: EventEmitter<RadioButtonClickEvent> = new EventEmitter<RadioButtonClickEvent>(); 
     /**
-     * No description available.
+     * Callback to invoke when the receives focus.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<any> = new EventEmitter(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
     /**
-     * No description available.
+     * Callback to invoke when the loses focus.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<any> = new EventEmitter(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
 
     @ViewChild('rb') inputViewChild!: ElementRef;
 
