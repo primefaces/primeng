@@ -40,13 +40,14 @@ export interface PanelTemplates {
     footer: TemplateRef<any> | null;
     /**
      * Custom icons template of the panel toggler.
+     * @param {Object} context - header icon data.
      */
-    headericons(scope: {
+    headericons(context: {
         /**
          * Collapsed state as a boolean
          */
-        collapsed: boolean;
-    }): TemplateRef<any> | null;
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom icons template of the panel header.
      */
