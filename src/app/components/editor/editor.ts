@@ -168,6 +168,8 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
+    @ContentChild(Header) toolbar;
+
     value: Nullable<string>;
 
     delayedCommand: Function | null = null;
