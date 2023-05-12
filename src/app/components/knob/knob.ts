@@ -47,12 +47,7 @@ export class Knob {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any; 
-    /**
-     * No description available.
-     * @group Props
-     */
-    @Input() severity: string | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Background of the value.
      * @group Props
@@ -74,7 +69,7 @@ export class Knob {
      */
     @Input() valueTemplate: string = '{value}'; 
     /**
-     * No description available.
+     * Name of the input element.
      * @group Props
      */
     @Input() name: string | undefined; 
