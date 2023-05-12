@@ -1,3 +1,5 @@
+import { TemplateRef } from "@angular/core";
+
 /**
  * Custom click event.
  * @see {@link SelectButton.onOptionClick}
@@ -31,4 +33,14 @@ export interface SelectButtonChangeEvent {
      * Selected option.
      */
     value?: any;
+}
+/**
+ * Defines valid templates in SelectButton.
+ * @group Templates
+ */
+export interface SelectButtonTemplates {
+    /**
+     * Custom item template.
+     */
+    item: TemplateRef<any> | null;
 }
