@@ -31,6 +31,20 @@ export interface AutoCompleteDropdownClickEvent {
     query: string;
 }
 /**
+ * Custom lazy load event.
+ * @see {@link AutoComplete.onLazyLoad}
+ */
+export interface AutoCompleteLazyLoadEvent {
+    /**
+     * First element in viewport.
+     */
+    first: any;
+    /**
+     * Last element in viewport.
+     */
+    last: any;
+}
+/**
  * Defines valid templates in AutoComplete.
  * @group Templates
  */

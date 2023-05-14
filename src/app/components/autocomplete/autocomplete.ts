@@ -38,7 +38,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from '../ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent } from './autocomplete.interface';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -565,10 +565,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on lazy load data.
-     * @param {Event} event - Browser event.
+     * @param {AutoCompleteLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() onLazyLoad: EventEmitter<AutoCompleteLazyLoadEvent> = new EventEmitter<AutoCompleteLazyLoadEvent>();
 
     @ViewChild('container') containerEL: Nullable<ElementRef>;
 
