@@ -29,7 +29,7 @@ export interface DropdownFilterEvent {
      */
     originalEvent: Event;
     /**
-     * Filtered value.
+     * Filter value.
      */
     filter: any;
 }
@@ -39,13 +39,13 @@ export interface DropdownFilterEvent {
  */
 export interface DropdownLazyLoadEvent {
     /**
-     * First element in viewport.
+     * Index of the first element in viewport.
      */
-    first: any;
+    first: number;
     /**
-     * Last element in viewport.
+     * Index of the last element in viewport.
      */
-    last: any;
+    last: number;
 }
 /**
  * Defines valid templates in Dropdown.
