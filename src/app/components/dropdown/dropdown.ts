@@ -35,7 +35,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
-import { DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
+import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { Nullable } from '../ts-helpers';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
@@ -655,14 +655,16 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     /**
      * Callback to invoke when value of dropdown changes.
+     * @param {DropdownChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<any> = new EventEmitter(); 
+    @Output() onChange: EventEmitter<DropdownChangeEvent> = new EventEmitter<DropdownChangeEvent>(); 
     /**
      * Callback to invoke when data is filtered.
+     * @param {DropdownFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<any> = new EventEmitter(); 
+    @Output() onFilter: EventEmitter<DropdownFilterEvent> = new EventEmitter<DropdownFilterEvent>(); 
     /**
      * Callback to invoke when dropdown gets focus.
      * @param {Event} event - Browser event.
