@@ -35,11 +35,11 @@ export interface DataViewLazyLoadEvent {
      */
     rows: number;
     /**
-     * Sort field.
+     * Property name of data to use in sorting by default.
      */
     sortField: string;
     /**
-     * Sort order.
+     * Order to sort the data by default.
      */
     sortOrder: number;
 }

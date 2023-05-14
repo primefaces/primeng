@@ -244,12 +244,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      */
     @Input() first: number | undefined = 0; 
     /**
-     * No description available.
+     * Property name of data to use in sorting by default.
      * @group Props
      */
     @Input() sortField: string | undefined; 
     /**
-     * No description available.
+     * Order to sort the data by default.
      * @group Props
      */
     @Input() sortOrder: number | undefined; 
