@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { Nullable } from '../ts-helpers';
+import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 
 @Component({
     selector: 'p-virtualScroller',
@@ -33,46 +35,75 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
     }
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI {
-    @Input() value: any[];
+    /**
+     * An array of objects to display.
+     * @group Props
+     */
+    @Input() value: any[] | undefined; 
+    /**
+     * Height of an item in the list.
+     * @group Props
+     */
+    @Input() itemSize: number | undefined; 
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined; 
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined; 
+    /**
+     * Max height of the content area in inline mode.
+     * @group Props
+     */
+    @Input() scrollHeight: any; 
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
+    @Input() lazy: boolean | undefined; 
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() options: ScrollerOptions | undefined; 
+    /**
+     * Threshold in milliseconds to delay lazy loading during scrolling.
+     * @group Props
+     */
+    @Input() delay: number = 250; 
+    /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<VirtualScrollerLazyLoadEvent> = new EventEmitter<VirtualScrollerLazyLoadEvent>(); 
 
-    @Input() itemSize: number;
+    @ContentChild(Header) header: Header | undefined;
 
-    @Input() style: any;
+    @ContentChild(Footer) footer: Footer | undefined;
 
-    @Input() styleClass: string;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    @Input() scrollHeight: any;
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    @Input() lazy: boolean;
+    itemTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() options: ScrollerOptions;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() delay: number = 250;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChild(Header) header: Header;
-
-    @ContentChild(Footer) footer: Footer;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @ViewChild('scroller') scroller: Scroller;
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
-    itemTemplate: TemplateRef<any>;
-
-    headerTemplate: TemplateRef<any>;
-
-    footerTemplate: TemplateRef<any>;
-
-    loadingItemTemplate: TemplateRef<any>;
+    loadingItemTemplate: Nullable<TemplateRef<any>>;
 
     virtualScrollTimeout: any;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -97,7 +128,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
         });
     }
 
-    onLazyItemLoad(event) {
+    onLazyItemLoad(event: VirtualScrollerLazyLoadEvent) {
         if (this.virtualScrollTimeout) {
             clearTimeout(this.virtualScrollTimeout);
         }
@@ -105,7 +136,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
         this.virtualScrollTimeout = setTimeout(() => {
             this.onLazyLoad.emit({
                 ...event,
-                rows: event.last - event.first,
+                rows: <number>event.last - <number>event.first,
                 forceUpdate: () => this.cd.detectChanges()
             });
         }, this.delay);
