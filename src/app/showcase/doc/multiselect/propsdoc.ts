@@ -94,7 +94,13 @@ import { Component, Input } from '@angular/core';
                         <td>emptyFilterMessage</td>
                         <td>string</td>
                         <td>No results found</td>
-                        <td>Text to display when filtering does not return any results.</td>
+                        <td>Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.</td>
+                    </tr>
+                    <tr>
+                        <td>emptyMessage</td>
+                        <td>string</td>
+                        <td>No records found.</td>
+                        <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
                     </tr>
                     <tr>
                         <td>filter</td>
@@ -221,18 +227,6 @@ import { Component, Input } from '@angular/core';
                         <td>boolean</td>
                         <td>false</td>
                         <td>When present, it specifies that the component cannot be edited.</td>
-                    </tr>
-                    <tr>
-                        <td>emptyMessage</td>
-                        <td>string</td>
-                        <td>No records found.</td>
-                        <td>Text to display when there is no data. Defaults to global value in i18n translation configuration.</td>
-                    </tr>
-                    <tr>
-                        <td>emptyFilterMessage</td>
-                        <td>string</td>
-                        <td>No results found</td>
-                        <td>Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.</td>
                     </tr>
                     <tr>
                         <td>resetFilterOnHide</td>
