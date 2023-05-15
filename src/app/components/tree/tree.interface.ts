@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import  { Tree } from 'primeng/tree';
-import { ScrollerOptions } from 'primeng/scroller';
+import { Tree } from 'primeng/tree';
+import { ScrollerOptions } from '../scroller/scroller.interface';
 
 /**
  * Custom node select event.
