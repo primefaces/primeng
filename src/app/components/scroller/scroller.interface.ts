@@ -4,7 +4,9 @@ import { Scroller } from 'primeng/scroller';
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 
 export type ScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
-
+/**
+ * Options for the virtual scroller.
+ */
 export interface ScrollerOptions {
     id?: string | undefined;
     style?: any;
@@ -34,11 +36,15 @@ export interface ScrollerOptions {
     onScroll?: Function | undefined;
     onScrollIndexChange?: Function | undefined;
 }
-
+/**
+ * Loader icon options.
+ */
 export interface ScrollerLoaderIconOptions {
     [klass: string]: any;
 }
-
+/**
+ * Scroller content options.
+ */
 export interface ScrollerContentOptions {
     contentStyleClass?: string;
     items?: any[];
@@ -54,7 +60,9 @@ export interface ScrollerContentOptions {
     getItemOptions?: (index: number) => ScrollerItemOptions;
     getLoaderOptions?: (index: number, options?: any) => ScrollerLoaderOptions;
 }
-
+/**
+ * Scroller item options.
+ */
 export interface ScrollerItemOptions {
     index?: number;
     count?: number;
@@ -63,7 +71,10 @@ export interface ScrollerItemOptions {
     even?: boolean;
     odd?: boolean;
 }
-
+/**
+ * Loader settings.
+ * @extends {ScrollerItemOptions}
+ */
 export interface ScrollerLoaderOptions extends ScrollerItemOptions {
     [klass: string]: any;
 }
@@ -84,6 +95,7 @@ export interface ScrollerLazyLoadEvent {
 /**
  * Custom scroll index change event.
  * @see {@link Scroller.onScrollIndexChange}
+ * @extends {ScrollerLazyLoadEvent}
  */
 export interface ScrollerScrollIndexChangeEvent extends ScrollerLazyLoadEvent {}
 /**
@@ -96,7 +108,10 @@ export interface ScrollerScrollEvent {
      */
     originalEvent?: Event;
 }
-
+/**
+  * Defines valid templates in Scroller.
+ * @group Templates
+ */
 export interface ScrollerTemplates {
     /**
      * Custom content template.
