@@ -21,24 +21,28 @@ export interface TreeNodeSelectEvent {
 /**
  * Custom node unselect event.
  * @see {@link Tree.onNodeUnSelect}
+* @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node expand event.
  * @see {@link Tree.onNodeExpand}
+ * @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link Tree.onNodeCollapse}
+* @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
 /**
  * Custom context menu select event.
  * @see {@link Tree.onNodeContextMenuSelect}
+ * @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
@@ -136,6 +140,7 @@ export interface TreeTemplates {
     loader(context: {
         /**
          * Scroller options.
+         * @see {@link ScrollerOptions}
          */
         options: ScrollerOptions;
     }): TemplateRef<{options: ScrollerOptions}>;
