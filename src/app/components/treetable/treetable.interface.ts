@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import { FilterMetadata, LazyLoadMeta, SortMeta, TreeNode } from 'primeng/api';
 /**
  * Paginator state.
@@ -168,7 +169,6 @@ export interface TreeTableColResizeEvent {
      * Position.
      */
     delta: number;
-
 }
 /**
  * Custom node select event.
@@ -220,7 +220,7 @@ export interface TreeTableHeaderCheckboxToggleEvent {
     /**
      * Checked state.
      */
-    checked: boolean; 
+    checked: boolean;
 }
 /**
  * Custom edit event.
@@ -228,7 +228,7 @@ export interface TreeTableHeaderCheckboxToggleEvent {
  * @see {@link TreeTable.onEditCancel}
  * @see {@link TreeTable.onEditComplete}
  */
-export interface TreeTableEditEvent{
+export interface TreeTableEditEvent {
     /**
      * Field to be edited.
      */
@@ -259,4 +259,197 @@ export type TreeTableFilterOptions = {
      */
     isStrictMode: boolean;
 };
-  
+/**
+ * Defines valid templates in TreeTable.
+ * @group Templates
+ */
+export interface TreeTableTemplates {
+    /**
+     * Custom caption template.
+     */
+    caption: TemplateRef<any>;
+    /**
+     * Custom header template.
+     * @param {Object} context - header data.
+     */
+    header(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom body template.
+     * @param {Object} context - body data.
+     */
+    body(context: {
+        $implicit: TreeNode;
+        /**
+         * Serialized node.
+         */
+        node: TreeNode;
+        /**
+         * Row data.
+         */
+        rowData: any;
+        /**
+         * Columns instance.
+         */
+        columns: any[];
+    }): TemplateRef<{$implicit: TreeNode; node: TreeNode; rowData: any; columns: any[]}>;
+    /**
+     * Custom footer template.
+     * @param {Object} context - footer data.
+     */
+    footer(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom summary template.
+     */
+    summary: TemplateRef<any>;
+    /**
+     * Custom colgroup template.
+     * @param {Object} context - column group data.
+     */
+    colgroup(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom emptymessage template.
+     */
+    emptymessage(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+        /**
+         * Boolean value indicates whether column is frozen.
+         */
+        frozen: boolean;
+    }): TemplateRef<{$implicit: any[]; frozen: boolean}>;
+    /**
+     * Custom paginator left section template.
+     */
+    paginatorleft: TemplateRef<any>;
+    /**
+     * Custom paginator right section template.
+     */
+    paginatorright: TemplateRef<any>;
+    /**
+     * Custom paginator dropdown template.
+     */
+    paginatordropdownitem: TemplateRef<any>;
+    /**
+     * Custom frozenheader template.
+     * @param {Object} context - frozen header data.
+     */
+    frozenheader(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom frozenbody template.
+     */
+    frozenbody: TemplateRef<any>;
+    /**
+     * Custom frozenfooter template.
+     * @param {Object} context - frozen footer data.
+     */
+    frozenfooter(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom frozen column group template.
+     * @param {Object} context - group data.
+     */
+    frozencolgroup(context: {
+        /**
+         * Columns instance.
+         */
+        $implicit: any[];
+    }): TemplateRef<{$implicit: any[]}>;
+    /**
+     * Custom loading icon template.
+     */
+    loadingicon: TemplateRef<any>;
+    /**
+     * Custom reorder indicator up icon template.
+     */
+    reorderindicatorupicon: TemplateRef<any>;
+    /**
+     * Custom reorder indicator down icon template.
+     */
+    reorderindicatordownicon: TemplateRef<any>;
+    /**
+     * Custom sort icon template.
+     * @param {Object} context - sort data.
+     */
+    sorticon(context: {
+        /**
+         * Sort order.
+         */
+        $implicit: number;
+    }): TemplateRef<{$implicit: number}>;
+    /**
+     * Custom checkbox icon template.
+     * @param {Object} context - checkbox data.
+     */
+    checkboxicon(context: {
+        /**
+         * Checkbox state.
+         */
+        $implicit: boolean;
+        /**
+         * Partial selection state of row node.
+         */
+        partialSelected: boolean;
+    }): TemplateRef<{$implicit: boolean; partialSelected: boolean}>;
+    /**
+     * Custom header checkbox icon template.
+     * @param {Object} context - checkbox data.
+     */
+    headercheckboxicon(context: {
+        /**
+         * Checkbox state.
+         */
+        $implicit: boolean;
+    }): TemplateRef<{$implicit: boolean}>;
+    /**
+     * Custom toggler icon template.
+     * @param {Object} context - toggle icon data.
+     */
+    togglericon(context: {
+        /**
+         * Expand state of row node.
+         */
+        $implicit: boolean;
+    }): TemplateRef<{$implicit: boolean}>;
+    /**
+     * Custom paginator first page link icon template.
+     */
+    paginatorfirstpagelinkicon: TemplateRef<any>;
+    /**
+     * Custom paginatorlastpagelinkicon template.
+     */
+    paginatorlastpagelinkicon: TemplateRef<any>;
+    /**
+     * Custom paginatorpreviouspagelinkicon template.
+     */
+    paginatorpreviouspagelinkicon: TemplateRef<any>;
+    /**
+     * Custom paginatornextpagelinkicon template.
+     */
+    paginatornextpagelinkicon: TemplateRef<any>;
+}

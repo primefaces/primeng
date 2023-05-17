@@ -724,8 +724,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     bodyTemplate: Nullable<TemplateRef<any>>;
 
-    loadingBodyTemplate: Nullable<TemplateRef<any>>;
-
     footerTemplate: Nullable<TemplateRef<any>>;
 
     summaryTemplate: Nullable<TemplateRef<any>>;
@@ -820,10 +818,6 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
                 case 'body':
                     this.bodyTemplate = item.template;
-                    break;
-
-                case 'loadingbody':
-                    this.loadingBodyTemplate = item.template;
                     break;
 
                 case 'footer':
@@ -1272,12 +1266,19 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             rows: event.last - event.first
         });
     }
-
+    /**
+     * Resets scroll to top.
+     * @group Methods
+     */
     public resetScrollTop() {
         if (this.virtualScroll) this.scrollToVirtualIndex(0);
         else this.scrollTo({ top: 0 });
     }
-
+    /**
+     * Scrolls to given index when using virtual scroll.
+     * @param {number} index - index of the element.
+     * @group Methods
+     */
     public scrollToVirtualIndex(index: number) {
         if (this.scrollableViewChild) {
             (<any>this.scrollableViewChild).scrollToVirtualIndex(<number>index);
@@ -1287,7 +1288,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             (<any>this.scrollableViewChild).scrollToVirtualIndex(index);
         }
     }
-
+    /**
+     * Scrolls to given index.
+     * @param {ScrollToOptions} options - scroll options.
+     * @group Methods
+     */
     public scrollTo(options: ScrollToOptions) {
         if (this.scrollableViewChild) {
             (<any>this.scrollableViewChild).scrollTo(options);
@@ -2000,7 +2005,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
         return !empty;
     }
-
+    /**
+     * Clears the sort and paginator state.
+     * @group Methods
+     */
     public reset() {
         this._sortField = null;
         this._sortOrder = 1;
