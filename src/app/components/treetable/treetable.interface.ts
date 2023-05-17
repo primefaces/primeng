@@ -21,7 +21,6 @@ export interface TreeTablePaginatorState {
      */
     pageCount?: number;
 }
-
 /**
  * Custom lazy load event.
  * @see {@link TreeTable.onLazyLoad}

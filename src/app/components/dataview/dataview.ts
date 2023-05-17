@@ -144,10 +144,10 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      */
     @Input() rowsPerPageOptions: number[] | any[] | undefined; 
     /**
-     * Position of the paginator, options are "top","bottom" or "both".
+     * Position of the paginator.
      * @group Props
      */
-    @Input() paginatorPosition: string = 'bottom'; 
+    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom'; 
     /**
      * Whether to show it even there is only one page.
      * @group Props

@@ -307,10 +307,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      */
     @Input() alwaysShowPaginator: boolean = true;
     /**
-     * Position of the paginator, options are "top","bottom" or "both".
+     * Position of the paginator.
      * @group Props
      */
-    @Input() paginatorPosition: string = 'bottom';
+    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom'; 
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
