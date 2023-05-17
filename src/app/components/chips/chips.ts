@@ -77,112 +77,112 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Name of the property to display on a chip.
      * @group Props
      */
-    @Input() field: string | undefined; 
+    @Input() field: string | undefined;
     /**
      * Advisory information to display on input.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Maximum number of entries allowed.
      * @group Props
      */
-    @Input() max: number | undefined; 
+    @Input() max: number | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Whether to allow duplicate values or not.
      * @group Props
      */
-    @Input() allowDuplicate: boolean = true; 
+    @Input() allowDuplicate: boolean = true;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any; 
+    @Input() inputStyle: any;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: any; 
+    @Input() inputStyleClass: any;
     /**
      * Whether to add an item on tab key press.
      * @group Props
      */
-    @Input() addOnTab: boolean | undefined; 
+    @Input() addOnTab: boolean | undefined;
     /**
      * Whether to add an item when the input loses focus.
      * @group Props
      */
-    @Input() addOnBlur: boolean | undefined; 
+    @Input() addOnBlur: boolean | undefined;
     /**
      * Separator char to add an item when pressed in addition to the enter key.
      * @group Props
      */
-    @Input() separator: string | undefined; 
+    @Input() separator: string | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * Callback to invoke on chip add.
      * @param {ChipsAddEvent} event - Custom event.
      * @group Emits
      */
-    @Output() onAdd: EventEmitter<ChipsAddEvent> = new EventEmitter<ChipsAddEvent>(); 
+    @Output() onAdd: EventEmitter<ChipsAddEvent> = new EventEmitter<ChipsAddEvent>();
     /**
      * Callback to invoke on chip remove.
      * @param {ChipsRemoveEvent} event - Custom event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<ChipsRemoveEvent> = new EventEmitter<ChipsRemoveEvent>(); 
+    @Output() onRemove: EventEmitter<ChipsRemoveEvent> = new EventEmitter<ChipsRemoveEvent>();
     /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - Focus event
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on blur of input field.
      * @param {Event} event - Blur event
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on chip clicked.
      * @param {ChipsClickEvent} event - Custom event
      * @group Emits
      */
-    @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>(); 
+    @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>();
     /**
      * Callback to invoke on clear token clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter(); 
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('inputtext') inputViewChild!: ElementRef;
 

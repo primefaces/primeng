@@ -76,42 +76,42 @@ export class Checkbox implements ControlValueAccessor {
      * Name of the checkbox group.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
      */
-    @Input() binary: boolean | undefined; 
+    @Input() binary: boolean | undefined;
     /**
      * Label of the checkbox.
      * @group Props
      */
-    @Input() label: string | undefined; 
+    @Input() label: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -121,48 +121,48 @@ export class Checkbox implements ControlValueAccessor {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Style class of the label.
      * @group Props
      */
-    @Input() labelStyleClass: string | undefined; 
+    @Input() labelStyleClass: string | undefined;
     /**
      * Form control value.
      * @group Props
      */
-    @Input() formControl: FormControl | undefined; 
+    @Input() formControl: FormControl | undefined;
     /**
      * Icon class of the checkbox icon.
      * @group Props
      */
-    @Input() checkboxIcon: string | undefined; 
+    @Input() checkboxIcon: string | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * When present, it specifies that checkbox must be checked before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined; 
+    @Input() required: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props
      */
-    @Input() trueValue: any = true; 
+    @Input() trueValue: any = true;
     /**
      * Value in unchecked state.
      * @group Props
      */
-    @Input() falseValue: any = false; 
+    @Input() falseValue: any = false;
     /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Browser event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter(); 
+    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
 
     @ViewChild('cb') inputViewChild: Nullable<ElementRef>;
 

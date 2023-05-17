@@ -190,192 +190,192 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Displays spinner buttons.
      * @group Props
      */
-    @Input() showButtons: boolean = false; 
+    @Input() showButtons: boolean = false;
     /**
      * Whether to format the value.
      * @group Props
      */
-    @Input() format: boolean = true; 
+    @Input() format: boolean = true;
     /**
      * Layout of the buttons, valid values are "stacked" (default), "horizontal" and "vertical".
      * @group Props
      */
-    @Input() buttonLayout: string = 'stacked'; 
+    @Input() buttonLayout: string = 'stacked';
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Advisory information to display on input.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined; 
+    @Input() size: number | undefined;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined; 
+    @Input() maxlength: number | undefined;
     /**
      * Specifies tab order of the element.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Title text of the input text.
      * @group Props
      */
-    @Input() title: string | undefined; 
+    @Input() title: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
      */
-    @Input() ariaRequired: boolean | undefined; 
+    @Input() ariaRequired: boolean | undefined;
     /**
      * Name of the input field.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * No description available.
      * @group Props
      */
-    @Input() required: boolean | undefined; 
+    @Input() required: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() autocomplete: string | undefined; 
+    @Input() autocomplete: string | undefined;
     /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number | undefined; 
+    @Input() min: number | undefined;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number | undefined; 
+    @Input() max: number | undefined;
     /**
      * Style class of the increment button.
      * @group Props
      */
-    @Input() incrementButtonClass: string | undefined; 
+    @Input() incrementButtonClass: string | undefined;
     /**
      * Style class of the decrement button.
      * @group Props
      */
-    @Input() decrementButtonClass: string | undefined; 
+    @Input() decrementButtonClass: string | undefined;
     /**
      * Style class of the increment button.
      * @group Props
      */
-    @Input() incrementButtonIcon: string | undefined; 
+    @Input() incrementButtonIcon: string | undefined;
     /**
      * Style class of the decrement button.
      * @group Props
      */
-    @Input() decrementButtonIcon: string | undefined; 
+    @Input() decrementButtonIcon: string | undefined;
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false; 
+    @Input() readonly: boolean = false;
     /**
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number = 1; 
+    @Input() step: number = 1;
     /**
      * Determines whether the input field is empty.
      * @group Props
      */
-    @Input() allowEmpty: boolean = true; 
+    @Input() allowEmpty: boolean = true;
     /**
      * Locale to be used in formatting.
      * @group Props
      */
-    @Input() locale: string | undefined; 
+    @Input() locale: string | undefined;
     /**
      * The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details.
      * @group Props
      */
-    @Input() localeMatcher: string | undefined; 
+    @Input() localeMatcher: string | undefined;
     /**
      * Defines the behavior of the component, valid values are "decimal" and "currency".
      * @group Props
      */
-    @Input() mode: string = 'decimal'; 
+    @Input() mode: string = 'decimal';
     /**
      * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
      * @group Props
      */
-    @Input() currency: string | undefined; 
+    @Input() currency: string | undefined;
     /**
      * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
      * @group Props
      */
-    @Input() currencyDisplay: string | undefined; 
+    @Input() currencyDisplay: string | undefined;
     /**
      * Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators.
      * @group Props
      */
-    @Input() useGrouping: boolean = true; 
+    @Input() useGrouping: boolean = true;
     /**
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input() minFractionDigits: number | undefined; 
+    @Input() minFractionDigits: number | undefined;
     /**
-     * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).      
+     * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input() maxFractionDigits: number | undefined; 
+    @Input() maxFractionDigits: number | undefined;
     /**
      * Text to display before the value.
      * @group Props
      */
-    @Input() prefix: string | undefined; 
+    @Input() prefix: string | undefined;
     /**
      * Text to display after the value.
      * @group Props
      */
-    @Input() suffix: string | undefined; 
+    @Input() suffix: string | undefined;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any; 
+    @Input() inputStyle: any;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined; 
+    @Input() inputStyleClass: string | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * No description available.
      * @group Emits
@@ -399,30 +399,30 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * @param {InputNumberInputEvent} event - Custom input event.
      * @group Emits
      */
-    @Output() onInput: EventEmitter<InputNumberInputEvent> = new EventEmitter<InputNumberInputEvent>(); 
+    @Output() onInput: EventEmitter<InputNumberInputEvent> = new EventEmitter<InputNumberInputEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on input key press.
      * @param {KeyboardEvent} event - Keyboard event.
      * @group Emits
      */
-    @Output() onKeyDown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>(); 
+    @Output() onKeyDown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
     /**
      * Callback to invoke when clear token is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>(); 
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
     @ViewChild('input') input!: ElementRef;
 
@@ -551,7 +551,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     getDecimalExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
-        return new RegExp(`[${formatter.format(1.1).replace(this._currency as RegExp | string, '').trim().replace(this._numeral, '')}]`, 'g');
+        return new RegExp(
+            `[${formatter
+                .format(1.1)
+                .replace(this._currency as RegExp | string, '')
+                .trim()
+                .replace(this._numeral, '')}]`,
+            'g'
+        );
     }
 
     getGroupingExpression(): RegExp {
@@ -665,7 +672,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     spin(event: Event, dir: number) {
         let step = this.step * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
-        let newValue = this.validateValue(currentValue as number + step);
+        let newValue = this.validateValue((currentValue as number) + step);
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
@@ -832,7 +839,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                             newValueStr = inputValue.slice(0, selectionStart - 1) + insertedText + inputValue.slice(selectionStart);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + '0' + inputValue.slice(selectionStart);
-                            newValueStr = this.parseValue(newValueStr) as number > 0 ? newValueStr : '';
+                            newValueStr = (this.parseValue(newValueStr) as number) > 0 ? newValueStr : '';
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                         }
@@ -874,7 +881,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                             newValueStr = inputValue.slice(0, selectionStart) + insertedText + inputValue.slice(selectionStart + 1);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart) + '0' + inputValue.slice(selectionStart + 1);
-                            newValueStr = this.parseValue(newValueStr) as number > 0 ? newValueStr : '';
+                            newValueStr = (this.parseValue(newValueStr) as number) > 0 ? newValueStr : '';
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                         }
@@ -956,7 +963,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         let decimalCharIndex = val.search(this._decimal);
         this._decimal.lastIndex = 0;
 
-        const filteredVal = val.replace(this._prefix as RegExp, '').trim().replace(/\s/g, '').replace(this._currency as RegExp, '');
+        const filteredVal = val
+            .replace(this._prefix as RegExp, '')
+            .trim()
+            .replace(/\s/g, '')
+            .replace(this._currency as RegExp, '');
         const decimalCharIndexWithoutPrefix = filteredVal.search(this._decimal);
         this._decimal.lastIndex = 0;
 
@@ -1168,11 +1179,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             return null;
         }
 
-        if (this.min != null && value as number < this.min) {
+        if (this.min != null && (value as number) < this.min) {
             return this.min;
         }
 
-        if (this.max != null && value as number > this.max) {
+        if (this.max != null && (value as number) > this.max) {
             return this.max;
         }
 
@@ -1270,7 +1281,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             const valueSplit = value.split(this._decimal);
 
             if (valueSplit.length === 2) {
-                return valueSplit[1].replace(this._suffix as RegExp, '').trim().replace(/\s/g, '').replace(this._currency as RegExp, '').length;
+                return valueSplit[1]
+                    .replace(this._suffix as RegExp, '')
+                    .trim()
+                    .replace(/\s/g, '')
+                    .replace(this._currency as RegExp, '').length;
             }
         }
 

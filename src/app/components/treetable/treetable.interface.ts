@@ -276,7 +276,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom body template.
      * @param {Object} context - body data.
@@ -295,7 +295,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         columns: any[];
-    }): TemplateRef<{$implicit: TreeNode; node: TreeNode; rowData: any; columns: any[]}>;
+    }): TemplateRef<{ $implicit: TreeNode; node: TreeNode; rowData: any; columns: any[] }>;
     /**
      * Custom footer template.
      * @param {Object} context - footer data.
@@ -305,7 +305,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom summary template.
      */
@@ -319,7 +319,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom emptymessage template.
      */
@@ -332,7 +332,7 @@ export interface TreeTableTemplates {
          * Boolean value indicates whether column is frozen.
          */
         frozen: boolean;
-    }): TemplateRef<{$implicit: any[]; frozen: boolean}>;
+    }): TemplateRef<{ $implicit: any[]; frozen: boolean }>;
     /**
      * Custom paginator left section template.
      */
@@ -354,7 +354,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozenbody template.
      */
@@ -368,7 +368,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen column group template.
      * @param {Object} context - group data.
@@ -378,7 +378,7 @@ export interface TreeTableTemplates {
          * Columns instance.
          */
         $implicit: any[];
-    }): TemplateRef<{$implicit: any[]}>;
+    }): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom loading icon template.
      */
@@ -400,7 +400,7 @@ export interface TreeTableTemplates {
          * Sort order.
          */
         $implicit: number;
-    }): TemplateRef<{$implicit: number}>;
+    }): TemplateRef<{ $implicit: number }>;
     /**
      * Custom checkbox icon template.
      * @param {Object} context - checkbox data.
@@ -414,7 +414,7 @@ export interface TreeTableTemplates {
          * Partial selection state of row node.
          */
         partialSelected: boolean;
-    }): TemplateRef<{$implicit: boolean; partialSelected: boolean}>;
+    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
     /**
      * Custom header checkbox icon template.
      * @param {Object} context - checkbox data.
@@ -424,7 +424,7 @@ export interface TreeTableTemplates {
          * Checkbox state.
          */
         $implicit: boolean;
-    }): TemplateRef<{$implicit: boolean}>;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom toggler icon template.
      * @param {Object} context - toggle icon data.
@@ -434,7 +434,7 @@ export interface TreeTableTemplates {
          * Expand state of row node.
          */
         $implicit: boolean;
-    }): TemplateRef<{$implicit: boolean}>;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom paginator first page link icon template.
      */

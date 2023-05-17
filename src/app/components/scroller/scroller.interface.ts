@@ -109,7 +109,7 @@ export interface ScrollerScrollEvent {
     originalEvent?: Event;
 }
 /**
-  * Defines valid templates in Scroller.
+ * Defines valid templates in Scroller.
  * @group Templates
  */
 export interface ScrollerTemplates {
@@ -122,10 +122,10 @@ export interface ScrollerTemplates {
          */
         $implicit: any[] | any | null | undefined;
         /**
-         * 
+         *
          */
         options: ScrollerContentOptions;
-    }): TemplateRef<{$implicit: any[] | any | null | undefined; options: ScrollerContentOptions}>;
+    }): TemplateRef<{ $implicit: any[] | any | null | undefined; options: ScrollerContentOptions }>;
     /**
      * Custom item template.
      */
@@ -138,17 +138,13 @@ export interface ScrollerTemplates {
          * Scroller item options.
          */
         options: ScrollerItemOptions;
-    }): TemplateRef<{$implicit: any; options: ScrollerItemOptions}>;
+    }): TemplateRef<{ $implicit: any; options: ScrollerItemOptions }>;
     /**
      * Custom loader template.
      */
-    loader(context: {
-        options: ScrollerLoaderOptions;
-    }): TemplateRef<{options: ScrollerLoaderOptions}>;
+    loader(context: { options: ScrollerLoaderOptions }): TemplateRef<{ options: ScrollerLoaderOptions }>;
     /**
      * Custom loader icon template.
      */
-    loadericon(context: {
-        options: ScrollerLoaderIconOptions;
-    }): TemplateRef<{options: ScrollerLoaderIconOptions}>;
+    loadericon(context: { options: ScrollerLoaderIconOptions }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
 }

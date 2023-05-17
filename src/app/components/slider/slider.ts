@@ -100,37 +100,37 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
-    @Input() animate: boolean | undefined; 
+    @Input() animate: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number = 0; 
+    @Input() min: number = 0;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number = 100; 
+    @Input() max: number = 100;
     /**
      * Orientation of the slider.
      * @group Props
      */
-    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal'; 
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
     /**
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number | undefined; 
+    @Input() step: number | undefined;
     /**
      * When specified, allows two boundary values to be picked.
      * @group Props
      */
-    @Input() range: boolean | undefined; 
+    @Input() range: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -140,29 +140,29 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0; 
+    @Input() tabindex: number = 0;
     /**
      * Callback to invoke on value change.
-     * @param {SliderChangeEvent} event - Custom value change event. 
+     * @param {SliderChangeEvent} event - Custom value change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<SliderChangeEvent> = new EventEmitter<SliderChangeEvent>(); 
+    @Output() onChange: EventEmitter<SliderChangeEvent> = new EventEmitter<SliderChangeEvent>();
     /**
      * Callback to invoke when slide ended.
      * @param {SliderSlideEndEvent} event - Custom slide end event.
      * @group Emits
      */
-    @Output() onSlideEnd: EventEmitter<SliderSlideEndEvent> = new EventEmitter<SliderSlideEndEvent>(); 
+    @Output() onSlideEnd: EventEmitter<SliderSlideEndEvent> = new EventEmitter<SliderSlideEndEvent>();
 
     @ViewChild('sliderHandle') sliderHandle: Nullable<ElementRef>;
 
@@ -334,7 +334,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             this.updateValue((this.values as number[])[this.handleIndex] + step);
             this.updateHandleValue();
         } else {
-            this.updateValue((this.value as number)+ step);
+            this.updateValue((this.value as number) + step);
             this.updateHandleValue();
         }
 
@@ -367,7 +367,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                             this.dragging = false;
                             this.ngZone.run(() => {
                                 if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
-                                else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number});
+                                else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
                                 if (this.animate) {
                                     DomHandler.addClass(this.el.nativeElement.children[0], 'p-slider-animate');
@@ -419,7 +419,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         let diff = newValue - oldValue;
         let val = oldValue;
         let _step = this.step as number;
-        
+
         if (diff < 0) {
             val = oldValue + Math.ceil(newValue / _step - oldValue / _step) * _step;
         } else if (diff > 0) {
@@ -483,7 +483,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     calculateHandleValue(event: Event): number {
         if (this.orientation === 'horizontal') return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
-        else return (((this.initY as number)+ (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
+        else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
     }
 
     updateHandleValue(): void {
@@ -491,9 +491,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             this.handleValues[0] = (((this.values as number[])[0] < this.min ? 0 : (this.values as number[])[0] - this.min) * 100) / (this.max - this.min);
             this.handleValues[1] = (((this.values as number[])[1] > this.max ? 100 : (this.values as number[])[1] - this.min) * 100) / (this.max - this.min);
         } else {
-            if (this.value as number < this.min) this.handleValue = 0;
-            else if (this.value as number > this.max) this.handleValue = 100;
-            else this.handleValue = ((this.value as number - this.min) * 100) / (this.max - this.min);
+            if ((this.value as number) < this.min) this.handleValue = 0;
+            else if ((this.value as number) > this.max) this.handleValue = 100;
+            else this.handleValue = (((this.value as number) - this.min) * 100) / (this.max - this.min);
         }
 
         if (this.step) {

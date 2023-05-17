@@ -1,6 +1,6 @@
-import { TemplateRef } from "@angular/core";
-import { ScrollerOptions } from "primeng/scroller";
-import { Dropdown } from "primeng/dropdown";
+import { TemplateRef } from '@angular/core';
+import { ScrollerOptions } from 'primeng/scroller';
+import { Dropdown } from 'primeng/dropdown';
 
 export interface DropdownFilterOptions {
     filter?: (value?: any) => void;
@@ -72,7 +72,7 @@ export interface DropdownTemplates {
          * Selected option value.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom header template.
      */
@@ -86,7 +86,7 @@ export interface DropdownTemplates {
          * Filter options.
          */
         options: DropdownFilterOptions;
-    }): TemplateRef<{options: DropdownFilterOptions}>;
+    }): TemplateRef<{ options: DropdownFilterOptions }>;
     /**
      * Custom footer template.
      */
@@ -107,7 +107,7 @@ export interface DropdownTemplates {
          * Group option.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom loader template. This template can be used with virtualScroll.
      * @param {ScrollerOptions} options - virtual scroller options.
@@ -117,7 +117,7 @@ export interface DropdownTemplates {
          * Virtual scroller options.
          */
         options: ScrollerOptions;
-    }): TemplateRef<{options: ScrollerOptions}>;
+    }): TemplateRef<{ options: ScrollerOptions }>;
     /**
      * Custom dropdown trigger icon template.
      */

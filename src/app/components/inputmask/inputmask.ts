@@ -97,123 +97,123 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * HTML5 input type
      * @group Props
      */
-    @Input() type: string = 'text'; 
+    @Input() type: string = 'text';
     /**
      * Placeholder character in mask, default is underscore.
      * @group Props
      */
-    @Input() slotChar: string = '_'; 
+    @Input() slotChar: string = '_';
     /**
      * Clears the incomplete value on blur.
      * @group Props
      */
-    @Input() autoClear: boolean = true; 
+    @Input() autoClear: boolean = true;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Advisory information to display on input.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined; 
+    @Input() size: number | undefined;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined; 
+    @Input() maxlength: number | undefined;
     /**
      * Specifies tab order of the element.
      * @group Props
      */
-    @Input() tabindex: string | undefined; 
+    @Input() tabindex: string | undefined;
     /**
      * Title text of the input text.
      * @group Props
      */
-    @Input() title: string | undefined; 
+    @Input() title: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
      */
-    @Input() ariaRequired: boolean | undefined; 
+    @Input() ariaRequired: boolean | undefined;
     /**
      * When present, it specifies that the element value cannot be altered.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.
      * @group Props
      */
-    @Input() unmask: boolean | undefined; 
+    @Input() unmask: boolean | undefined;
     /**
      * Name of the input field.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined; 
+    @Input() required: boolean | undefined;
     /**
      * Regex pattern for alpha characters
      * @group Props
      */
-    @Input() characterPattern: string = '[A-Za-z]'; 
+    @Input() characterPattern: string = '[A-Za-z]';
     /**
      * When present, the input gets a focus automatically on load.
      * @group Props
      */
-    @Input() autoFocus: boolean | undefined; 
+    @Input() autoFocus: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() autocomplete: string | undefined; 
+    @Input() autocomplete: string | undefined;
     /**
      * When present, it specifies that whether to clean buffer value from model.
      * @group Props
      */
-    @Input() keepBuffer: boolean = false; 
+    @Input() keepBuffer: boolean = false;
     /**
      * Mask pattern.
      * @group Props
      */
     @Input() get mask(): string | undefined | null {
-        return this._mask; 
+        return this._mask;
     }
     set mask(val: string | undefined | null) {
         this._mask = val;
@@ -226,36 +226,36 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Callback to invoke when the mask is completed.
      * @group Emits
      */
-    @Output() onComplete: EventEmitter<void> = new EventEmitter<void>(); 
+    @Output() onComplete: EventEmitter<void> = new EventEmitter<void>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on input.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onInput: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onInput: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on input key press.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onKeydown: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onKeydown: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when input field is cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>(); 
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
 
@@ -424,7 +424,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     isCompleted(): boolean {
         let completed: boolean;
-        for (let i = (this.firstNonMaskPos as number); i <= (this.lastRequiredNonMaskPos as number); i++) {
+        for (let i = this.firstNonMaskPos as number; i <= (this.lastRequiredNonMaskPos as number); i++) {
             if (this.tests[i] && (this.buffer as string[])[i] === this.getPlaceholder(i)) {
                 return false;
             }
@@ -688,7 +688,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
                     }
                 }
                 if (pos > test.length) {
-                    this.clearBuffer(i + 1, (this.len as number));
+                    this.clearBuffer(i + 1, this.len as number);
                     break;
                 }
             } else {
@@ -707,7 +707,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
                 // Invalid value. Remove it and replace it with the
                 // mask, which is the default behavior.
                 if (this.inputViewChild?.nativeElement.value) this.inputViewChild.nativeElement.value = '';
-                this.clearBuffer(0, (this.len as number));
+                this.clearBuffer(0, this.len as number);
             } else {
                 // Invalid value, but we opt to show the value to the
                 // user and allow them to correct their mistake.

@@ -46,7 +46,21 @@ import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from '../ts-helpers';
-import { TreeTableColResizeEvent, TreeTableContextMenuSelectEvent, TreeTableNode, TreeTableEditEvent, TreeTableFilterEvent, TreeTableFilterOptions, TreeTableHeaderCheckboxToggleEvent, TreeTableLazyLoadEvent, TreeTableNodeCollapseEvent, TreeTableNodeUnSelectEvent, TreeTablePaginatorState, TreeTableSortEvent, TreeTableColumnReorderEvent } from './treetable.interface';
+import {
+    TreeTableColResizeEvent,
+    TreeTableContextMenuSelectEvent,
+    TreeTableNode,
+    TreeTableEditEvent,
+    TreeTableFilterEvent,
+    TreeTableFilterOptions,
+    TreeTableHeaderCheckboxToggleEvent,
+    TreeTableLazyLoadEvent,
+    TreeTableNodeCollapseEvent,
+    TreeTableNodeUnSelectEvent,
+    TreeTablePaginatorState,
+    TreeTableSortEvent,
+    TreeTableColumnReorderEvent
+} from './treetable.interface';
 
 @Injectable()
 export class TreeTableService {
@@ -310,7 +324,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Position of the paginator.
      * @group Props
      */
-    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom'; 
+    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -350,7 +364,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
      */
-    @Input() sortMode: 'single' | 'multiple'= 'single';
+    @Input() sortMode: 'single' | 'multiple' = 'single';
     /**
      * When true, resets paginator to first page after sorting.
      * @group Props
@@ -3183,7 +3197,7 @@ export class TTEditableColumn implements AfterViewInit {
         }
     }
 
-    findNextEditableColumn(cell: Element) : Element | null{
+    findNextEditableColumn(cell: Element): Element | null {
         let nextCell = cell.nextElementSibling;
 
         if (!nextCell) {

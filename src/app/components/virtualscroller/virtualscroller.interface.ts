@@ -1,6 +1,6 @@
-import { TemplateRef } from "@angular/core";
-import { VirtualScroller } from "primeng/virtualscroller";
-import { ScrollerOptions } from "../scroller/scroller.interface";
+import { TemplateRef } from '@angular/core';
+import { VirtualScroller } from 'primeng/virtualscroller';
+import { ScrollerOptions } from '../scroller/scroller.interface';
 
 /**
  * Custom lazy load event.
@@ -42,7 +42,7 @@ export interface VirtualScrollerTemplates {
          * Scroller options.
          */
         options: ScrollerOptions;
-    }): TemplateRef<{$implicit: any; options: ScrollerOptions}>;
+    }): TemplateRef<{ $implicit: any; options: ScrollerOptions }>;
     /**
      * Custom loading item template.
      * @param {Object} context - item data.
@@ -56,7 +56,7 @@ export interface VirtualScrollerTemplates {
          * Scroller options.
          */
         options: ScrollerOptions;
-    }): TemplateRef<{$implicit: any; options: ScrollerOptions}>;
+    }): TemplateRef<{ $implicit: any; options: ScrollerOptions }>;
     /**
      * Custom header template.
      */
@@ -64,5 +64,5 @@ export interface VirtualScrollerTemplates {
     /**
      * Custom header template.
      */
-    footer: TemplateRef<any>; 
+    footer: TemplateRef<any>;
 }

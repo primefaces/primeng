@@ -42,7 +42,7 @@ export class Knob {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -52,73 +52,73 @@ export class Knob {
      * Background of the value.
      * @group Props
      */
-    @Input() valueColor: string = 'var(--primary-color, Black)'; 
+    @Input() valueColor: string = 'var(--primary-color, Black)';
     /**
      * Background color of the range.
      * @group Props
      */
-    @Input() rangeColor: string = 'var(--surface-border, LightGray)'; 
+    @Input() rangeColor: string = 'var(--surface-border, LightGray)';
     /**
      * Color of the value text.
      * @group Props
      */
-    @Input() textColor: string = 'var(--text-color-secondary, Black)'; 
+    @Input() textColor: string = 'var(--text-color-secondary, Black)';
     /**
      * Template string of the value.
      * @group Props
      */
-    @Input() valueTemplate: string = '{value}'; 
+    @Input() valueTemplate: string = '{value}';
     /**
      * Name of the input element.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * Size of the component in pixels.
      * @group Props
      */
-    @Input() size: number = 100; 
+    @Input() size: number = 100;
     /**
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number = 1; 
+    @Input() step: number = 1;
     /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number = 0; 
+    @Input() min: number = 0;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number = 100; 
+    @Input() max: number = 100;
     /**
      * Width of the knob stroke.
      * @group Props
      */
-    @Input() strokeWidth: number = 14; 
+    @Input() strokeWidth: number = 14;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Whether the show the value inside the knob.
      * @group Props
      */
-    @Input() showValue: boolean = true; 
+    @Input() showValue: boolean = true;
     /**
      * When present, it specifies that the component value cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean = false; 
+    @Input() readonly: boolean = false;
     /**
      * Callback to invoke on value change.
      * @param {number} value - New value.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<number> = new EventEmitter<number>(); 
+    @Output() onChange: EventEmitter<number> = new EventEmitter<number>();
 
     radius: number = 40;
 
@@ -211,10 +211,10 @@ export class Knob {
 
     onTouchEnd(event: TouchEvent) {
         if (!this.disabled && !this.readonly) {
-            if(this.windowTouchMoveListener) {
+            if (this.windowTouchMoveListener) {
                 this.windowTouchMoveListener();
             }
-            if(this.windowTouchEndListener) {
+            if (this.windowTouchEndListener) {
                 this.windowTouchEndListener();
             }
             this.windowTouchMoveListener = null;
@@ -231,7 +231,7 @@ export class Knob {
     }
 
     onTouchMove(event: Event) {
-        if (!this.disabled && !this.readonly && (event instanceof TouchEvent) && event.touches.length === 1) {
+        if (!this.disabled && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
             if (touch) {

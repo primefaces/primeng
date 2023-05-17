@@ -95,7 +95,7 @@ export interface ListboxTemplates {
         /**
          * Filter options.
          */
-        options: ListboxFilterOptions
+        options: ListboxFilterOptions;
     }): TemplateRef<any>;
     /**
      * Custom footer template.

@@ -165,67 +165,67 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     providers: [TREESELECT_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None
 })
-export class TreeSelect implements AfterContentInit { 
+export class TreeSelect implements AfterContentInit {
     /**
      * Identifier of the underlying input element.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() scrollHeight: string = '400px'; 
+    @Input() scrollHeight: string = '400px';
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true; 
+    @Input() metaKeySelection: boolean = true;
     /**
      * Defines how the selected items are displayed.
      * @group Props
      */
-    @Input() display: 'comma' | 'chip' = 'comma'; 
+    @Input() display: 'comma' | 'chip' = 'comma';
     /**
      * Defines the selection mode.
      * @group Props
      */
-    @Input() selectionMode: 'single' | 'multiple' | 'checkbox' = 'single'; 
+    @Input() selectionMode: 'single' | 'multiple' | 'checkbox' = 'single';
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: string | undefined; 
+    @Input() tabindex: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Label to display when there are no selections.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Style class of the overlay panel.
      * @group Props
      */
-    @Input() panelClass: string | string[] | Set<string> | { [klass: string]: any } | undefined; 
+    @Input() panelClass: string | string[] | Set<string> | { [klass: string]: any } | undefined;
     /**
      * Inline style of the panel element.
      * @group Props
      */
-    @Input() panelStyle: { [klass: string]: any } | null | undefined; 
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the panel element.
      * @group Props
      */
-    @Input() panelStyleClass: string | undefined; 
+    @Input() panelStyleClass: string | undefined;
     /**
      * Inline style of the container element.
      * @group Props
@@ -235,7 +235,7 @@ export class TreeSelect implements AfterContentInit {
      * Style class of the container element.
      * @group Props
      */
-    @Input() containerStyleClass: string | undefined; 
+    @Input() containerStyleClass: string | undefined;
     /**
      * Inline style of the label element.
      * @group Props
@@ -245,78 +245,78 @@ export class TreeSelect implements AfterContentInit {
      * Style class of the label element.
      * @group Props
      */
-    @Input() labelStyleClass: string | undefined; 
+    @Input() labelStyleClass: string | undefined;
     /**
      * Specifies the options for the overlay.
      * @group Props
      */
-    @Input() overlayOptions: OverlayOptions | undefined; 
+    @Input() overlayOptions: OverlayOptions | undefined;
     /**
      * Text to display when there are no options available. Defaults to value from PrimeNG locale configuration.
      * @group Props
      */
-    @Input() emptyMessage: string = ''; 
+    @Input() emptyMessage: string = '';
     /**
      * A valid query selector or an HTMLElement to specify where the overlay gets attached. Special keywords are "body" for document body and "self" for the element itself.
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;  
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * When specified, displays an input field to filter the items.
      * @group Props
      */
-    @Input() filter: boolean = false; 
+    @Input() filter: boolean = false;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
      */
-    @Input() filterBy: string = 'label'; 
+    @Input() filterBy: string = 'label';
     /**
      * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
      * @group Props
      */
-    @Input() filterMode: string = 'lenient'; 
+    @Input() filterMode: string = 'lenient';
     /**
      * Placeholder text to show when filter input is empty.
      * @group Props
      */
-    @Input() filterPlaceholder: string | undefined; 
+    @Input() filterPlaceholder: string | undefined;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined; 
+    @Input() filterLocale: string | undefined;
     /**
      * Determines whether the filter input should be automatically focused when the component is rendered.
      * @group Props
      */
-    @Input() filterInputAutoFocus: boolean = true; 
+    @Input() filterInputAutoFocus: boolean = true;
     /**
      * Whether checkbox selections propagate to descendant nodes.
      * @group Props
      */
-    @Input() propagateSelectionDown: boolean = true; 
+    @Input() propagateSelectionDown: boolean = true;
     /**
      * Whether checkbox selections propagate to ancestor nodes.
      * @group Props
      */
-    @Input() propagateSelectionUp: boolean = true; 
+    @Input() propagateSelectionUp: boolean = true;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * Clears the filter value when hiding the dropdown.
      * @group Props
      */
-    @Input() resetFilterOnHide: boolean = true; 
+    @Input() resetFilterOnHide: boolean = true;
     /**
      * An array of treenodes.
      * @group Props
      */
     @Input() get options(): TreeNode[] | undefined {
-        return this._options; 
+        return this._options;
     }
     set options(options: TreeNode[] | undefined) {
         this._options = options;
@@ -350,47 +350,47 @@ export class TreeSelect implements AfterContentInit {
      * Callback to invoke when a node is expanded.
      * @group Emits
      */
-    @Output() onNodeExpand: EventEmitter<TreeSelectNodeExpandEvent> = new EventEmitter<TreeSelectNodeExpandEvent>(); 
+    @Output() onNodeExpand: EventEmitter<TreeSelectNodeExpandEvent> = new EventEmitter<TreeSelectNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>(); 
+    @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
     /**
      * Callback to invoke when the overlay is shown.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter(); 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when the overlay is hidden.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when input field is cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>(); 
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
     /**
      * Callback to invoke when data is filtered.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<any> = new EventEmitter(); 
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when a node is unselected.
      * @param {TreeNode} node - Node instance.
      * @group Emits
      */
-    @Output() onNodeUnselect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>(); 
+    @Output() onNodeUnselect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
     /**
      * Callback to invoke when a node is selected.
      * @param {TreeNode} node - Node instance.
      * @group Emits
      */
-    @Output() onNodeSelect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>(); 
+    @Output() onNodeSelect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
 
     _showTransitionOptions: string | undefined;
 
@@ -409,7 +409,7 @@ export class TreeSelect implements AfterContentInit {
     @ViewChild('panel') panelEl: Nullable<ElementRef>;
 
     @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
-    
+
     public filteredNodes: TreeNode[] | undefined | null;
 
     filterValue: Nullable<string> = null;
@@ -682,12 +682,12 @@ export class TreeSelect implements AfterContentInit {
         this.expandedNodes = [...expandedNodes];
     }
 
-    nodeExpand(event: {originalEvent: Event, node: TreeNode}) {
+    nodeExpand(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
     }
 
-    nodeCollapse(event: {originalEvent: Event, node: TreeNode}) {
+    nodeCollapse(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeCollapse.emit(event);
         this.expandedNodes.splice(this.expandedNodes.indexOf(event.node), 1);
     }

@@ -1,5 +1,5 @@
-import { ElementRef, TemplateRef } from "@angular/core";
-import { Overlay } from "primeng/overlay";
+import { ElementRef, TemplateRef } from '@angular/core';
+import { Overlay } from 'primeng/overlay';
 
 /**
  * Custom panel show event.

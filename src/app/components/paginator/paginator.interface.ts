@@ -1,6 +1,11 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
-export interface PaginatorState {page?: number; first?: number; rows?: number; pageCount?: number};
+export interface PaginatorState {
+    page?: number;
+    first?: number;
+    rows?: number;
+    pageCount?: number;
+}
 
 /**
  * Defines valid templates in PaginatorTemplates.

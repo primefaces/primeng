@@ -601,10 +601,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() get autoZIndex(): boolean| undefined {
+    @Input() get autoZIndex(): boolean | undefined {
         return this._autoZIndex;
     }
-    set autoZIndex(val: boolean| undefined) {
+    set autoZIndex(val: boolean | undefined) {
         this._autoZIndex = val;
         console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
@@ -613,10 +613,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() get baseZIndex(): number | undefined{
+    @Input() get baseZIndex(): number | undefined {
         return this._baseZIndex;
     }
-    set baseZIndex(val: number| undefined) {
+    set baseZIndex(val: number | undefined) {
         this._baseZIndex = val;
         console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
@@ -625,10 +625,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Transition options of the show animation.
      * @group Props
      */
-    @Input() get showTransitionOptions(): string| undefined {
+    @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
     }
-    set showTransitionOptions(val: string| undefined) {
+    set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
@@ -637,35 +637,35 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Transition options of the hide animation.
      * @group Props
      */
-    @Input() get hideTransitionOptions(): string| undefined {
+    @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
     }
-    set hideTransitionOptions(val: string| undefined) {
+    set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
 
-    @Input() set defaultLabel(val: string| undefined) {
+    @Input() set defaultLabel(val: string | undefined) {
         this._defaultLabel = val;
         this.updateLabel();
     }
 
-    get defaultLabel(): string | undefined{
+    get defaultLabel(): string | undefined {
         return this._defaultLabel;
     }
 
-    @Input() set placeholder(val: string| undefined) {
+    @Input() set placeholder(val: string | undefined) {
         this._placeholder = val;
         this.updateLabel();
     }
-    get placeholder(): string| undefined {
+    get placeholder(): string | undefined {
         return this._placeholder;
     }
 
-    @Input() get options(): any[]| undefined {
+    @Input() get options(): any[] | undefined {
         return this._options;
     }
-    set options(val: any[]| undefined) {
+    set options(val: any[] | undefined) {
         this._options = val;
         this.updateLabel();
     }
@@ -673,7 +673,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     @Input() get filterValue(): string | undefined | null {
         return this._filterValue;
     }
-    set filterValue(val: string | undefined | null ) {
+    set filterValue(val: string | undefined | null) {
         this._filterValue = val;
         this.activateFilter();
     }
@@ -682,10 +682,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Item size of item to be virtual scrolled.
      * @group Props
      */
-    @Input() get itemSize(): number | undefined{
+    @Input() get itemSize(): number | undefined {
         return this._itemSize;
     }
-    set itemSize(val: number| undefined) {
+    set itemSize(val: number | undefined) {
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
@@ -996,7 +996,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.cd.markForCheck();
     }
 
-    onOptionClick(event: {originalEvent: Event, option: any}) {
+    onOptionClick(event: { originalEvent: Event; option: any }) {
         let option = event.option;
         if (this.isOptionDisabled(option)) {
             return;
@@ -1232,7 +1232,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.preventModelTouched = false;
     }
 
-    onOptionKeydown(event: {originalEvent: Event, option: any}) {
+    onOptionKeydown(event: { originalEvent: Event; option: any }) {
         if (this.readonly) {
             return;
         }
@@ -1417,11 +1417,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             }
 
-            return (
-                visibleOptionsLength === selectedDisabledItemsLength ||
+            return (visibleOptionsLength === selectedDisabledItemsLength ||
                 visibleOptionsLength === selectedEnabledItemsLength ||
-                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)
-            ) as boolean;
+                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)) as boolean;
         }
     }
 

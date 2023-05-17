@@ -74,17 +74,17 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Whether to display as an overlay or not.
      * @group Props
      */
-    @Input() inline: boolean | undefined; 
+    @Input() inline: boolean | undefined;
     /**
      * Format to use in value binding, supported formats are "hex", "rgb" and "hsb".
      * @group Props
      */
-    @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex'; 
+    @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -94,53 +94,53 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: string | undefined; 
+    @Input() tabindex: string | undefined;
     /**
      * Identifier of the focus input to match a label defined for the dropdown.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true; 
+    @Input() autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0; 
+    @Input() baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
      */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)'; 
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
      */
-    @Input() hideTransitionOptions: string = '.1s linear'; 
+    @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ColorPickerChangeEvent> = new EventEmitter<ColorPickerChangeEvent>(); 
+    @Output() onChange: EventEmitter<ColorPickerChangeEvent> = new EventEmitter<ColorPickerChangeEvent>();
     /**
      * Callback to invoke on panel is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter(); 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke on panel is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter(); 
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
@@ -174,19 +174,19 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     selfClick: Nullable<boolean>;
 
-    colorDragging: Nullable<boolean>
+    colorDragging: Nullable<boolean>;
 
-    hueDragging: Nullable<boolean>
+    hueDragging: Nullable<boolean>;
 
     overlay: Nullable<HTMLDivElement>;
 
     colorSelectorViewChild: Nullable<ElementRef>;
 
-    colorHandleViewChild: Nullable<ElementRef>
+    colorHandleViewChild: Nullable<ElementRef>;
 
-    hueViewChild: Nullable<ElementRef>
+    hueViewChild: Nullable<ElementRef>;
 
-    hueHandleViewChild: Nullable<ElementRef>
+    hueHandleViewChild: Nullable<ElementRef>;
 
     window: Window;
 
@@ -610,7 +610,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         }
     }
 
-    validateHSB(hsb: {h: number, s: number, b: number}) {
+    validateHSB(hsb: { h: number; s: number; b: number }) {
         return {
             h: Math.min(360, Math.max(0, hsb.h)),
             s: Math.min(100, Math.max(0, hsb.s)),
@@ -618,7 +618,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         };
     }
 
-    validateRGB(rgb: {r: number, g: number, b: number}) {
+    validateRGB(rgb: { r: number; g: number; b: number }) {
         return {
             r: Math.min(255, Math.max(0, rgb.r)),
             g: Math.min(255, Math.max(0, rgb.g)),
@@ -648,7 +648,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return this.RGBtoHSB(this.HEXtoRGB(hex));
     }
 
-    RGBtoHSB(rgb: {r: number, g: number, b: number}) {
+    RGBtoHSB(rgb: { r: number; g: number; b: number }) {
         var hsb = {
             h: 0,
             s: 0,
@@ -679,7 +679,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return hsb;
     }
 
-    HSBtoRGB(hsb: {h: number, s: number, b: number}) {
+    HSBtoRGB(hsb: { h: number; s: number; b: number }) {
         var rgb = {
             r: 0,
             g: 0,
@@ -732,7 +732,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
     }
 
-    RGBtoHEX(rgb: {r: number, g: number, b: number}) {
+    RGBtoHEX(rgb: { r: number; g: number; b: number }) {
         var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
 
         for (var key in hex) {
@@ -744,7 +744,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return hex.join('');
     }
 
-    HSBtoHEX(hsb: {h: number, s: number, b: number}) {
+    HSBtoHEX(hsb: { h: number; s: number; b: number }) {
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
 

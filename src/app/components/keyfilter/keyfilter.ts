@@ -10,36 +10,36 @@ export const KEYFILTER_VALIDATOR: any = {
 };
 
 type DefaultMasks = {
-    pint: RegExp,
-    int: RegExp,
-    pnum: RegExp,
-    money: RegExp,
-    num: RegExp,
-    hex: RegExp,
-    email: RegExp,
-    alpha: RegExp,
-    alphanum: RegExp
-}
+    pint: RegExp;
+    int: RegExp;
+    pnum: RegExp;
+    money: RegExp;
+    num: RegExp;
+    hex: RegExp;
+    email: RegExp;
+    alpha: RegExp;
+    alphanum: RegExp;
+};
 
 type SafariKeys = {
-    63234: number,
-    63235: number,
-    63232: number,
-    63233: number,
-    63276: number,
-    63277: number,
-    63272: number,
-    63273: number,
-    63275: number
-}
+    63234: number;
+    63235: number;
+    63232: number;
+    63233: number;
+    63276: number;
+    63277: number;
+    63272: number;
+    63273: number;
+    63275: number;
+};
 
 type Keys = {
-    TAB: number,
-    RETURN: number,
-    ESC: number,
-    BACKSPACE: number,
-    DELETE: number
-}
+    TAB: number;
+    RETURN: number;
+    ESC: number;
+    BACKSPACE: number;
+    DELETE: number;
+};
 
 const DEFAULT_MASKS: DefaultMasks = {
     pint: /[\d]/,
@@ -85,7 +85,7 @@ export class KeyFilter implements Validator {
      * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
      * @group Props
      */
-    @Input() pValidateOnly: boolean | undefined; 
+    @Input() pValidateOnly: boolean | undefined;
     /**
      * Sets the pattern for key filtering.
      * @group Props
@@ -122,7 +122,7 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k]|| k : k;
+        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
     }

@@ -131,62 +131,62 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Text for the caption.
      * @group Props
      */
-    @Input() header: string | undefined; 
+    @Input() header: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the list element.
      * @group Props
      */
-    @Input() listStyle: { [klass: string]: any } | null | undefined; 
+    @Input() listStyle: { [klass: string]: any } | null | undefined;
     /**
      * A boolean value that indicates whether the component should be responsive.
      * @group Props
      */
-    @Input() responsive: boolean | undefined; 
+    @Input() responsive: boolean | undefined;
     /**
      * When specified displays an input field to filter the items on keyup and decides which fields to search against.
      * @group Props
      */
-    @Input() filterBy: string | undefined; 
+    @Input() filterBy: string | undefined;
     /**
      * Placeholder of the filter input.
      * @group Props
      */
-    @Input() filterPlaceholder: string | undefined; 
+    @Input() filterPlaceholder: string | undefined;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined; 
+    @Input() filterLocale: string | undefined;
     /**
      * When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true; 
+    @Input() metaKeySelection: boolean = true;
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input() dragdrop: boolean = false; 
+    @Input() dragdrop: boolean = false;
     /**
      * Defines the location of the buttons with respect to the list, valid values are "left" or "right".
      * @group Props
      */
-    @Input() controlsPosition: string = 'left'; 
+    @Input() controlsPosition: string = 'left';
     /**
      * Defines a string that labels the filter input.
      * @group Props
      */
-    @Input() ariaFilterLabel: string | undefined; 
+    @Input() ariaFilterLabel: string | undefined;
     /**
      * Defines how the items are filtered.
      * @group Props
@@ -196,12 +196,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Indicates the width of the screen at which the component should change its behavior.
      * @group Props
      */
-    @Input() breakpoint: string = '960px'; 
+    @Input() breakpoint: string = '960px';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
      */
-    @Input() stripedRows: boolean | undefined; 
+    @Input() stripedRows: boolean | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
@@ -240,25 +240,25 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * @param {*} any - selection instance.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter(); 
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when list is reordered.
      * @param {*} any - list instance.
      * @group Emits
      */
-    @Output() onReorder: EventEmitter<any> = new EventEmitter(); 
+    @Output() onReorder: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when selection changes.
      * @param {OrderListSelectionChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>(); 
+    @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>();
     /**
      * Callback to invoke when filtering occurs.
      * @param {OrderListFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>(); 
+    @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>();
 
     @ViewChild('listelement') listViewChild: Nullable<ElementRef>;
 

@@ -35,7 +35,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from '../ts-helpers';
-import { NavigationState, CalendarResponsiveOptions,CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
+import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -376,254 +376,254 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: { [klass: string]: any } | null | undefined; 
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Name of the input element.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined; 
+    @Input() inputStyleClass: string | undefined;
     /**
      * Placeholder text for the input.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Defines a string that labels the icon button for accessibility.
      * @group Props
      */
-    @Input() iconAriaLabel: string | undefined; 
+    @Input() iconAriaLabel: string | undefined;
     /**
      * When specified, disables the component.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Format of the date which can also be defined at locale settings.
      * @group Props
      */
-    @Input() dateFormat: string | undefined; 
+    @Input() dateFormat: string | undefined;
     /**
      * Separator for multiple selection mode.
      * @group Props
      */
-    @Input() multipleSeparator: string = ','; 
+    @Input() multipleSeparator: string = ',';
     /**
      * Separator for joining start and end dates on range selection mode.
      * @group Props
      */
-    @Input() rangeSeparator: string = '-'; 
+    @Input() rangeSeparator: string = '-';
     /**
      * When enabled, displays the calendar as inline. Default is false for popup mode.
      * @group Props
      */
-    @Input() inline: boolean = false; 
+    @Input() inline: boolean = false;
     /**
      * Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option.
      * @group Props
      */
-    @Input() showOtherMonths: boolean = true; 
+    @Input() showOtherMonths: boolean = true;
     /**
      * Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true.
      * @group Props
      */
-    @Input() selectOtherMonths: boolean | undefined; 
+    @Input() selectOtherMonths: boolean | undefined;
     /**
      * When enabled, displays a button with icon next to input.
      * @group Props
      */
-    @Input() showIcon: boolean | undefined; 
+    @Input() showIcon: boolean | undefined;
     /**
      * Icon of the calendar button.
      * @group Props
      */
-    @Input() icon: string | undefined; 
+    @Input() icon: string | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having#mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo:HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined; 
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * When specified, prevents entering the date manually with keyboard.
      * @group Props
      */
-    @Input() readonlyInput: boolean | undefined; 
+    @Input() readonlyInput: boolean | undefined;
     /**
      * The cutoff year for determining the century for a date.
      * @group Props
      */
-    @Input() shortYearCutoff: any = '+10'; 
+    @Input() shortYearCutoff: any = '+10';
     /**
      * Whether the month should be rendered as a dropdown instead of text.
      * @deprecated Navigator is always on
      * @group Props
      */
-    @Input() monthNavigator: boolean | undefined; 
+    @Input() monthNavigator: boolean | undefined;
     /**
-     * Whether the year should be rendered as a dropdown instead of text. 
-     * @deprecated  Navigator is always on.                 
+     * Whether the year should be rendered as a dropdown instead of text.
+     * @deprecated  Navigator is always on.
      * @group Props
      */
-    @Input() yearNavigator: boolean | undefined; 
+    @Input() yearNavigator: boolean | undefined;
     /**
      * Specifies 12 or 24 hour format.
      * @group Props
      */
-    @Input() hourFormat: string = '24'; 
+    @Input() hourFormat: string = '24';
     /**
      * Whether to display timepicker only.
      * @group Props
      */
-    @Input() timeOnly: boolean | undefined; 
+    @Input() timeOnly: boolean | undefined;
     /**
      * Hours to change per step.
      * @group Props
      */
-    @Input() stepHour: number = 1; 
+    @Input() stepHour: number = 1;
     /**
      * Minutes to change per step.
      * @group Props
      */
-    @Input() stepMinute: number = 1; 
+    @Input() stepMinute: number = 1;
     /**
      * Seconds to change per step.
      * @group Props
      */
-    @Input() stepSecond: number = 1; 
+    @Input() stepSecond: number = 1;
     /**
      * Whether to show the seconds in time picker.
      * @group Props
      */
-    @Input() showSeconds: boolean = false; 
+    @Input() showSeconds: boolean = false;
     /**
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined; 
+    @Input() required: boolean | undefined;
     /**
      * When disabled, datepicker will not be visible with input focus.
      * @group Props
      */
-    @Input() showOnFocus: boolean = true; 
+    @Input() showOnFocus: boolean = true;
     /**
      * When enabled, calendar will show week numbers.
      * @group Props
      */
-    @Input() showWeek: boolean = false; 
+    @Input() showWeek: boolean = false;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * Type of the value to write back to ngModel, default is date and alternative is string.
      * @group Props
      */
-    @Input() dataType: string = 'date'; 
+    @Input() dataType: string = 'date';
     /**
      * Defines the quantity of the selection, valid values are "single", "multiple" and "range".
      * @group Props
      */
-    @Input() selectionMode: 'single' | 'multiple' | 'range' | undefined = 'single'; 
+    @Input() selectionMode: 'single' | 'multiple' | 'range' | undefined = 'single';
     /**
      * Maximum number of selectable dates in multiple mode.
      * @group Props
      */
-    @Input() maxDateCount: number | undefined; 
+    @Input() maxDateCount: number | undefined;
     /**
      * Whether to display today and clear buttons at the footer
      * @group Props
      */
-    @Input() showButtonBar: boolean | undefined; 
+    @Input() showButtonBar: boolean | undefined;
     /**
      * Style class of the today button.
      * @group Props
      */
-    @Input() todayButtonStyleClass: string = 'p-button-text'; 
+    @Input() todayButtonStyleClass: string = 'p-button-text';
     /**
      * Style class of the clear button.
      * @group Props
      */
-    @Input() clearButtonStyleClass: string = 'p-button-text'; 
+    @Input() clearButtonStyleClass: string = 'p-button-text';
     /**
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true; 
+    @Input() autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0; 
+    @Input() baseZIndex: number = 0;
     /**
      * Style class of the datetimepicker container element.
      * @group Props
      */
-    @Input() panelStyleClass: string | undefined; 
+    @Input() panelStyleClass: string | undefined;
     /**
      * Inline style of the datetimepicker container element.
      * @group Props
      */
-    @Input() panelStyle: any; 
+    @Input() panelStyle: any;
     /**
      * Keep invalid value when input blur.
      * @group Props
      */
-    @Input() keepInvalid: boolean = false; 
+    @Input() keepInvalid: boolean = false;
     /**
      * Whether to hide the overlay on date selection.
      * @group Props
      */
-    @Input() hideOnDateTimeSelect: boolean = true; 
+    @Input() hideOnDateTimeSelect: boolean = true;
     /**
      * When enabled, calendar overlay is displayed as optimized for touch devices.
      * @group Props
      */
-    @Input() touchUI: boolean | undefined; 
+    @Input() touchUI: boolean | undefined;
     /**
      * Separator of time selector.
      * @group Props
      */
-    @Input() timeSeparator: string = ':'; 
+    @Input() timeSeparator: string = ':';
     /**
      * When enabled, can only focus on elements inside the calendar.
      * @group Props
      */
-    @Input() focusTrap: boolean = true; 
+    @Input() focusTrap: boolean = true;
     /**
      * Transition options of the show animation.
      * @group Props
      */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)'; 
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
      */
-    @Input() hideTransitionOptions: string = '.1s linear'; 
+    @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * The minimum selectable date.
      * @group Props
@@ -757,7 +757,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      */
     @Input() set locale(newLocale: LocaleSettings) {
         console.warn('Locale property has no effect, use new i18n API instead.');
-    } 
+    }
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
      * @group Props
@@ -792,70 +792,70 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @param {Event} event - Focus event
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
     /**
      * Callback to invoke on blur of input field.
      * @param {Event} event - Blur event
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
     /**
      * Callback to invoke when date panel closed.
      * @param {Event} event - Mouse event
      * @group Emits
      */
-    @Output() onClose: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>(); 
+    @Output() onClose: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke on date select.
      * @param {Date} date - Date
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<Date> = new EventEmitter<Date>(); 
+    @Output() onSelect: EventEmitter<Date> = new EventEmitter<Date>();
     /**
      * Callback to invoke when input field cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter(); 
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when input field is being typed.
      * @param {Event} event - Browser event
      * @group Emits
      */
-    @Output() onInput: EventEmitter<any> = new EventEmitter(); 
+    @Output() onInput: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when today button is clicked.
      * @param {Date} date - Today as a date instance.
      * @group Emits
      */
-    @Output() onTodayClick: EventEmitter<any> = new EventEmitter(); 
+    @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClearClick: EventEmitter<any> = new EventEmitter(); 
+    @Output() onClearClick: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when a month is changed using the navigators.
      * @param {CalendarMonthChangeEvent} event - Custom month change event.
      * @group Emits
      */
-    @Output() onMonthChange: EventEmitter<CalendarMonthChangeEvent> = new EventEmitter<CalendarMonthChangeEvent>(); 
+    @Output() onMonthChange: EventEmitter<CalendarMonthChangeEvent> = new EventEmitter<CalendarMonthChangeEvent>();
     /**
      * Callback to invoke when a year is changed using the navigators.
      * @param {CalendarYearChangeEvent} event - Custom year change event.
      * @group Emits
      */
-    @Output() onYearChange: EventEmitter<CalendarYearChangeEvent> = new EventEmitter<CalendarYearChangeEvent>(); 
+    @Output() onYearChange: EventEmitter<CalendarYearChangeEvent> = new EventEmitter<CalendarYearChangeEvent>();
     /**
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
-    @Output() onClickOutside: EventEmitter<any> = new EventEmitter(); 
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when datepicker panel is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter(); 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -918,9 +918,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     timePickerTimer: any;
 
-    documentClickListener: VoidListener
+    documentClickListener: VoidListener;
 
-    animationEndListener: VoidListener
+    animationEndListener: VoidListener;
 
     ticksTo1970: Nullable<number>;
 
@@ -978,7 +978,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: VoidListener
+    documentResizeListener: VoidListener;
 
     navigationState: Nullable<NavigationState> = null;
 

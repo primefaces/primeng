@@ -454,7 +454,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined; 
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
@@ -526,7 +526,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      */
     @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
     /**
-     * @deprecated 
+     * @deprecated
      * Transition options of the show animation.
      * @group Props
      */
@@ -537,8 +537,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-/**
-     * @deprecated 
+    /**
+     * @deprecated
      * Transition options of the hide animation.
      * @group Props
      */
@@ -560,7 +560,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     _showTransitionOptions: string = '';
-    
+
     _hideTransitionOptions: string = '';
 
     selectionPath: any = null;

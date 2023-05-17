@@ -1,4 +1,4 @@
-import { PickList } from './picklist'
+import { PickList } from './picklist';
 import { TemplateRef } from '@angular/core';
 
 export interface PickListFilterOptions {
@@ -96,7 +96,7 @@ export interface PickListTemplates {
          * Item index.
          */
         index: number;
-    }): TemplateRef<{$implicit: any, index: number}>;
+    }): TemplateRef<{ $implicit: any; index: number }>;
     /**
      * Custom source header template.
      */
@@ -113,7 +113,7 @@ export interface PickListTemplates {
          * Source filter options.
          */
         options: PickListFilterOptions;
-    }): TemplateRef<{options: PickListFilterOptions}>;
+    }): TemplateRef<{ options: PickListFilterOptions }>;
     /**
      * Custom target filter template.
      */
@@ -122,7 +122,7 @@ export interface PickListTemplates {
          * Target filter options.
          */
         options: PickListFilterOptions;
-    }): TemplateRef<{options: PickListFilterOptions}>;
+    }): TemplateRef<{ options: PickListFilterOptions }>;
     /**
      * Custom source list empty message template.
      */
@@ -162,8 +162,8 @@ export interface PickListTemplates {
         /**
          * Boolean value indicates if the view is changed according to breakpoints.
          */
-        $implicit: boolean
-    }): TemplateRef<{$implicit: boolean}>;
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom move all to target icon template.
      */
@@ -171,8 +171,8 @@ export interface PickListTemplates {
         /**
          * Boolean value indicates if the view is changed according to breakpoints.
          */
-        $implicit: boolean
-    }): TemplateRef<{$implicit: boolean}>;
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom move to source icon template.
      */
@@ -180,8 +180,8 @@ export interface PickListTemplates {
         /**
          * Boolean value indicates if the view is changed according to breakpoints.
          */
-        $implicit: boolean
-    }): TemplateRef<{$implicit: boolean}>;
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom move all to source icon template.
      */
@@ -189,8 +189,8 @@ export interface PickListTemplates {
         /**
          * Boolean value indicates if the view is changed according to breakpoints.
          */
-        $implicit: boolean
-    }): TemplateRef<{$implicit: boolean}>;
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom target filter icon template.
      */
@@ -199,5 +199,4 @@ export interface PickListTemplates {
      * Custom source filter icon template.
      */
     sourcefiltericon: TemplateRef<any>;
-
 }

@@ -122,137 +122,137 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined; 
+    @Input() paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined; 
+    @Input() rows: number | undefined;
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() totalRecords: number | undefined; 
+    @Input() totalRecords: number | undefined;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5; 
+    @Input() pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input() rowsPerPageOptions: number[] | any[] | undefined; 
+    @Input() rowsPerPageOptions: number[] | any[] | undefined;
     /**
      * Position of the paginator.
      * @group Props
      */
-    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom'; 
+    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
     /**
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true; 
+    @Input() alwaysShowPaginator: boolean = true;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined; 
+    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() paginatorDropdownScrollHeight: string = '200px'; 
+    @Input() paginatorDropdownScrollHeight: string = '200px';
     /**
      * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
      * @group Props
      */
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}'; 
+    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
     /**
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined; 
+    @Input() showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined; 
+    @Input() showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true; 
+    @Input() showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true; 
+    @Input() showPageLinks: boolean = true;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined; 
+    @Input() lazy: boolean | undefined;
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
      */
-    @Input() emptyMessage: string = ''; 
+    @Input() emptyMessage: string = '';
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Style class of the grid.
      * @group Props
      */
-    @Input() gridStyleClass: string = ''; 
+    @Input() gridStyleClass: string = '';
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item; 
+    @Input() trackBy: Function = (index: number, item: any) => item;
     /**
      * Comma separated list of fields in the object graph to search against.
      * @group Props
      */
-    @Input() filterBy: string | undefined; 
+    @Input() filterBy: string | undefined;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined; 
+    @Input() filterLocale: string | undefined;
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined; 
+    @Input() loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
      */
-    @Input() loadingIcon: string | undefined; 
+    @Input() loadingIcon: string | undefined;
     /**
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number | undefined = 0; 
+    @Input() first: number | undefined = 0;
     /**
      * Property name of data to use in sorting by default.
      * @group Props
      */
-    @Input() sortField: string | undefined; 
+    @Input() sortField: string | undefined;
     /**
      * Order to sort the data by default.
      * @group Props
      */
-    @Input() sortOrder: number | undefined; 
+    @Input() sortOrder: number | undefined;
     /**
      * An array of objects to display.
      * @group Props
@@ -274,24 +274,24 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * @param {DataViewLazyLoadEvent} event - custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<DataViewLazyLoadEvent> = new EventEmitter<DataViewLazyLoadEvent>(); 
+    @Output() onLazyLoad: EventEmitter<DataViewLazyLoadEvent> = new EventEmitter<DataViewLazyLoadEvent>();
     /**
      * Callback to invoke when pagination occurs.
      * @param {DataViewPageEvent} event - custom page event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<DataViewPageEvent> = new EventEmitter<DataViewPageEvent>(); 
+    @Output() onPage: EventEmitter<DataViewPageEvent> = new EventEmitter<DataViewPageEvent>();
     /**
      * Callback to invoke when sorting occurs.
      * @group Emits
      */
-    @Output() onSort: EventEmitter<DataViewSortEvent> = new EventEmitter<DataViewSortEvent>(); 
+    @Output() onSort: EventEmitter<DataViewSortEvent> = new EventEmitter<DataViewSortEvent>();
     /**
      * Callback to invoke when changing layout.
      * @param {DataViewLayoutChangeEvent} event - custom layout change event.
      * @group Emits
      */
-    @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>(); 
+    @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
 
     @ContentChild(Header) header: any;
 
@@ -479,7 +479,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
                 else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-                return this.sortOrder as number * result;
+                return (this.sortOrder as number) * result;
             });
 
             if (this.hasFilter()) {

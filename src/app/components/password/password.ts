@@ -41,9 +41,9 @@ import { Nullable, VoidListener } from '../ts-helpers';
 import { AnimationEvent } from '@angular/animations';
 
 type Meter = {
-    strength: string,
-    width: string,
-}
+    strength: string;
+    width: string;
+};
 
 @Directive({
     selector: '[pPassword]',
@@ -57,27 +57,27 @@ export class PasswordDirective implements OnDestroy, DoCheck {
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() promptLabel: string = 'Enter a password'; 
+    @Input() promptLabel: string = 'Enter a password';
     /**
      * Text for a weak password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() weakLabel: string = 'Weak'; 
+    @Input() weakLabel: string = 'Weak';
     /**
      * Text for a medium password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() mediumLabel: string = 'Medium'; 
+    @Input() mediumLabel: string = 'Medium';
     /**
      * Text for a strong password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() strongLabel: string = 'Strong'; 
+    @Input() strongLabel: string = 'Strong';
     /**
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true; 
+    @Input() feedback: boolean = true;
     /**
      * Sets the visibility of the password field.
      * @group Props
@@ -406,145 +406,145 @@ export class Password implements AfterContentInit, OnInit {
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Label of the input for accessibility.
      * @group Props
      */
-    @Input() label: string | undefined; 
+    @Input() label: string | undefined;
     /**
      * Indicates whether the component is disabled or not.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() promptLabel: string | undefined; 
+    @Input() promptLabel: string | undefined;
     /**
      * ^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).
      * @group Props
      */
-    @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'; 
+    @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
     /**
      * ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})
      * @group Props
      */
-    @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})'; 
+    @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
     /**
      * Text for a weak password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() weakLabel: string | undefined; 
+    @Input() weakLabel: string | undefined;
     /**
      * Text for a medium password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() mediumLabel: string | undefined; 
+    @Input() mediumLabel: string | undefined;
     /**
      * specifies the maximum number of characters allowed in the input element.
      * @group Props
      */
-    @Input() maxLength: number | undefined; 
+    @Input() maxLength: number | undefined;
     /**
      * Text for a strong password. Defaults to PrimeNG I18N API configuration.
      * @group Props
      */
-    @Input() strongLabel: string | undefined; 
+    @Input() strongLabel: string | undefined;
     /**
      * Identifier of the accessible input element.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true; 
+    @Input() feedback: boolean = true;
     /**
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
      */
-    @Input() appendTo: any; 
+    @Input() appendTo: any;
     /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
-    @Input() toggleMask: boolean | undefined; 
+    @Input() toggleMask: boolean | undefined;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined; 
+    @Input() inputStyleClass: string | undefined;
     /**
      * Inline style of the overlay panel element.
      * @group Props
      */
-    @Input() panelStyle: any; 
+    @Input() panelStyle: any;
     /**
      * Style class of the overlay panel element.
      * @group Props
      */
-    @Input() panelStyleClass: string | undefined; 
+    @Input() panelStyleClass: string | undefined;
     /**
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any; 
+    @Input() style: any;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any; 
+    @Input() inputStyle: any;
     /**
      * Transition options of the show animation.
      * @group Props
      */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)'; 
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
      */
-    @Input() hideTransitionOptions: string = '.1s linear'; 
+    @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Advisory information to display on input.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false; 
+    @Input() showClear: boolean = false;
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when clear button is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<undefined | null> = new EventEmitter<undefined | null>(); 
-    
+    @Output() onClear: EventEmitter<undefined | null> = new EventEmitter<undefined | null>();
+
     @ViewChild('input') input!: ElementRef;
 
     contentTemplate: Nullable<TemplateRef<any>>;

@@ -47,63 +47,63 @@ export class InputSwitch implements ControlValueAccessor {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Identifier of the input element.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Name of the input element.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props
      */
-    @Input() trueValue: any = true; 
+    @Input() trueValue: any = true;
     /**
      * Value in unchecked state.
      * @group Props
      */
-    @Input() falseValue: any = false; 
+    @Input() falseValue: any = false;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Callback to invoke when the on value change.
      * @param {InputSwitchOnChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter<InputSwitchOnChangeEvent>(); 
+    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter<InputSwitchOnChangeEvent>();
 
     modelValue: any = false;
 

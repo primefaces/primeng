@@ -36,7 +36,18 @@ import { MinusIcon } from 'primeng/icons/minus';
 import { SearchIcon } from 'primeng/icons/search';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable } from '../ts-helpers';
-import { TreeFilterEvent, TreeLazyLoadEvent, TreeNodeCollapseEvent, TreeNodeContextMenuSelectEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent, TreeScrollEvent, TreeScrollIndexChangeEvent } from './tree.interface';
+import {
+    TreeFilterEvent,
+    TreeLazyLoadEvent,
+    TreeNodeCollapseEvent,
+    TreeNodeContextMenuSelectEvent,
+    TreeNodeDropEvent,
+    TreeNodeExpandEvent,
+    TreeNodeSelectEvent,
+    TreeNodeUnSelectEvent,
+    TreeScrollEvent,
+    TreeScrollIndexChangeEvent
+} from './tree.interface';
 
 @Component({
     selector: 'p-treeNode',
@@ -264,12 +275,12 @@ export class UITreeNode implements OnInit {
     }
 
     onNodeClick(event: MouseEvent) {
-        this.tree.onNodeClick(event, (<TreeNode>this.node));
+        this.tree.onNodeClick(event, <TreeNode>this.node);
     }
 
     onNodeKeydown(event: KeyboardEvent) {
         if (event.which === 13) {
-            this.tree.onNodeClick(event, (<TreeNode>this.node));
+            this.tree.onNodeClick(event, <TreeNode>this.node);
         }
     }
 
@@ -278,11 +289,11 @@ export class UITreeNode implements OnInit {
     }
 
     onNodeRightClick(event: MouseEvent) {
-        this.tree.onNodeRightClick(event, (<TreeNode>this.node));
+        this.tree.onNodeRightClick(event, <TreeNode>this.node);
     }
 
     isSelected() {
-        return this.tree.isSelected((<TreeNode>this.node));
+        return this.tree.isSelected(<TreeNode>this.node);
     }
 
     onDropPoint(event: DragEvent, position: number) {
@@ -292,7 +303,7 @@ export class UITreeNode implements OnInit {
         let dragNodeScope = this.tree.dragNodeScope;
         let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? position === 1 || dragNodeIndex !== <number>this.index - 1 : true;
 
-        if (this.tree.allowDrop(<TreeNode>dragNode, (<TreeNode>this.node), dragNodeScope) && isValidDropPointIndex) {
+        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope) && isValidDropPointIndex) {
             let dropParams = { ...this.createDropPointEventMetadata(<number>position) };
 
             if (this.tree.validateDrop) {
@@ -357,7 +368,7 @@ export class UITreeNode implements OnInit {
     }
 
     onDropPointDragEnter(event: Event, position: number) {
-        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, (<TreeNode>this.node), this.tree.dragNodeScope)) {
+        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
             if (position < 0) this.draghoverPrev = true;
             else this.draghoverNext = true;
         }
@@ -710,181 +721,181 @@ export class UITreeNode implements OnInit {
     }
 })
 export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
-   /**
+    /**
      * An array of treenodes.
      * @group Props
      */
-   @Input() value: TreeNode[] | undefined; 
-   /**
-    * Defines the selection mode, valid values "single", "multiple", and "checkbox".
-    * @group Props
-    */
-   @Input() selectionMode: 'single' | 'multiple' | 'checkbox' | null | undefined; 
-   /**
-    * A single treenode instance or an array to refer to the selections.
-    * @group Props
-    */
-   @Input() selection: any; 
-   /**
-    * Inline style of the component.
-    * @group Props
-    */
-   @Input() style: { [klass: string]: any } | null | undefined; 
-   /**
-    * Style class of the component.
-    * @group Props
-    */
-   @Input() styleClass: string | undefined; 
-   /**
-    * Context menu instance.
-    * @group Props
-    */
-   @Input() contextMenu: any; 
-   /**
-    * Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.
-    * @group Props
-    */
-   @Input() layout: string = 'vertical'; 
-   /**
-    * Scope of the draggable nodes to match a droppableScope.
-    * @group Props
-    */
-   @Input() draggableScope: any; 
-   /**
-    * Scope of the droppable nodes to match a draggableScope.
-    * @group Props
-    */
-   @Input() droppableScope: any; 
-   /**
-    * Whether the nodes are draggable.
-    * @group Props
-    */
-   @Input() draggableNodes: boolean | undefined; 
-   /**
-    * Whether the nodes are droppable.
-    * @group Props
-    */
-   @Input() droppableNodes: boolean | undefined; 
-   /**
-    * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
-    * @group Props
-    */
-   @Input() metaKeySelection: boolean = true; 
-   /**
-    * Whether checkbox selections propagate to ancestor nodes.
-    * @group Props
-    */
-   @Input() propagateSelectionUp: boolean = true; 
-   /**
-    * Whether checkbox selections propagate to descendant nodes.
-    * @group Props
-    */
-   @Input() propagateSelectionDown: boolean = true; 
-   /**
-    * Displays a loader to indicate data load is in progress.
-    * @group Props
-    */
-   @Input() loading: boolean | undefined; 
-   /**
-    * The icon to show while indicating data load is in progress.
-    * @group Props
-    */
-   @Input() loadingIcon: string | undefined; 
-   /**
-    * Text to display when there is no data.
-    * @group Props
-    */
-   @Input() emptyMessage: string = ''; 
-   /**
-    * Used to define a string that labels the tree.
-    * @group Props
-    */
-   @Input() ariaLabel: string | undefined; 
-   /**
-    * Defines a string that labels the toggler icon for accessibility.
-    * @group Props
-    */
-   @Input() togglerAriaLabel: string | undefined; 
-   /**
-    * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
-    * @group Props
-    */
-   @Input() ariaLabelledBy: string | undefined; 
-   /**
-    * When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop.
-    * @group Props
-    */
-   @Input() validateDrop: boolean | undefined; 
-   /**
-    * When specified, displays an input field to filter the items.
-    * @group Props
-    */
-   @Input() filter: boolean | undefined; 
-   /**
-    * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
-    * @group Props
-    */
-   @Input() filterBy: string = 'label'; 
-   /**
-    * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
-    * @group Props
-    */
-   @Input() filterMode: string = 'lenient'; 
-   /**
-    * Placeholder text to show when filter input is empty.
-    * @group Props
-    */
-   @Input() filterPlaceholder: string | undefined; 
-   /**
-    * No description available.
-    * @group Props
-    */
-   @Input() filteredNodes: TreeNode[] | undefined | null; 
-   /**
-    * Locale to use in filtering. The default locale is the host environment's current locale.
-    * @group Props
-    */
-   @Input() filterLocale: string | undefined; 
-   /**
-    * Height of the scrollable viewport.
-    * @group Props
-    */
-   @Input() scrollHeight: string | undefined; 
-   /**
-    * Defines if data is loaded and interacted with in lazy manner.
-    * @group Props
-    */
-   @Input() lazy: boolean = false; 
-   /**
-    * Whether the data should be loaded on demand during scroll.
-    * @group Props
-    */
-   @Input() virtualScroll: boolean | undefined; 
-   /**
-    * Height of an item in the list for VirtualScrolling.
-    * @group Props
-    */
-   @Input() virtualScrollItemSize: number | undefined; 
-   /**
-    * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
-    * @group Props
-    */
-   @Input() virtualScrollOptions: ScrollerOptions | undefined; 
-   /**
-    * Indentation factor for spacing of the nested node when virtual scrolling is enabled.
-    * @group Props
-    */
-   @Input() indentation: number = 1.5; 
-   /**
-    * Custom templates of the component.
-    * @group Props
-    */
-   @Input() _templateMap: any; 
-   /**
-    * Function to optimize the node list rendering, default algorithm checks for object identity.
-    * @group Props
-    */
-   @Input() trackBy: Function = (index: number, item: any) => item; 
+    @Input() value: TreeNode[] | undefined;
+    /**
+     * Defines the selection mode, valid values "single", "multiple", and "checkbox".
+     * @group Props
+     */
+    @Input() selectionMode: 'single' | 'multiple' | 'checkbox' | null | undefined;
+    /**
+     * A single treenode instance or an array to refer to the selections.
+     * @group Props
+     */
+    @Input() selection: any;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Context menu instance.
+     * @group Props
+     */
+    @Input() contextMenu: any;
+    /**
+     * Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.
+     * @group Props
+     */
+    @Input() layout: string = 'vertical';
+    /**
+     * Scope of the draggable nodes to match a droppableScope.
+     * @group Props
+     */
+    @Input() draggableScope: any;
+    /**
+     * Scope of the droppable nodes to match a draggableScope.
+     * @group Props
+     */
+    @Input() droppableScope: any;
+    /**
+     * Whether the nodes are draggable.
+     * @group Props
+     */
+    @Input() draggableNodes: boolean | undefined;
+    /**
+     * Whether the nodes are droppable.
+     * @group Props
+     */
+    @Input() droppableNodes: boolean | undefined;
+    /**
+     * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
+     * @group Props
+     */
+    @Input() metaKeySelection: boolean = true;
+    /**
+     * Whether checkbox selections propagate to ancestor nodes.
+     * @group Props
+     */
+    @Input() propagateSelectionUp: boolean = true;
+    /**
+     * Whether checkbox selections propagate to descendant nodes.
+     * @group Props
+     */
+    @Input() propagateSelectionDown: boolean = true;
+    /**
+     * Displays a loader to indicate data load is in progress.
+     * @group Props
+     */
+    @Input() loading: boolean | undefined;
+    /**
+     * The icon to show while indicating data load is in progress.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
+     * Text to display when there is no data.
+     * @group Props
+     */
+    @Input() emptyMessage: string = '';
+    /**
+     * Used to define a string that labels the tree.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Defines a string that labels the toggler icon for accessibility.
+     * @group Props
+     */
+    @Input() togglerAriaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop.
+     * @group Props
+     */
+    @Input() validateDrop: boolean | undefined;
+    /**
+     * When specified, displays an input field to filter the items.
+     * @group Props
+     */
+    @Input() filter: boolean | undefined;
+    /**
+     * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
+     * @group Props
+     */
+    @Input() filterBy: string = 'label';
+    /**
+     * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
+     * @group Props
+     */
+    @Input() filterMode: string = 'lenient';
+    /**
+     * Placeholder text to show when filter input is empty.
+     * @group Props
+     */
+    @Input() filterPlaceholder: string | undefined;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() filteredNodes: TreeNode[] | undefined | null;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Height of the scrollable viewport.
+     * @group Props
+     */
+    @Input() scrollHeight: string | undefined;
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
+    @Input() lazy: boolean = false;
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Indentation factor for spacing of the nested node when virtual scrolling is enabled.
+     * @group Props
+     */
+    @Input() indentation: number = 1.5;
+    /**
+     * Custom templates of the component.
+     * @group Props
+     */
+    @Input() _templateMap: any;
+    /**
+     * Function to optimize the node list rendering, default algorithm checks for object identity.
+     * @group Props
+     */
+    @Input() trackBy: Function = (index: number, item: any) => item;
     /**
      * @deprecated use virtualScrollItemSize property instead.
      * Height of the node.
@@ -903,67 +914,67 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * @param {(TreeNode | TreeNode[] | null)} event - custom selection change event.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<TreeNode[] | TreeNode | null> = new EventEmitter<TreeNode[] | TreeNode | null> (); 
+    @Output() selectionChange: EventEmitter<TreeNode[] | TreeNode | null> = new EventEmitter<TreeNode[] | TreeNode | null>();
     /**
      * Callback to invoke when a node is selected.
      * @param {TreeNodeSelectEvent} event - node select event.
      * @group Emits
      */
-    @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>(); 
+    @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
     /**
      * Callback to invoke when a node is unselected.
-     * @param {TreeNodeUnSelectEvent} event - node unselect event. 
+     * @param {TreeNodeUnSelectEvent} event - node unselect event.
      * @group Emits
      */
-    @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>(); 
+    @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is expanded.
      * @param {TreeNodeExpandEvent} event - node expand event.
      * @group Emits
      */
-    @Output() onNodeExpand: EventEmitter<TreeNodeExpandEvent> = new EventEmitter<TreeNodeExpandEvent>(); 
+    @Output() onNodeExpand: EventEmitter<TreeNodeExpandEvent> = new EventEmitter<TreeNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
      * @param {TreeNodeCollapseEvent} event - node collapse event.
      * @group Emits
      */
-    @Output() onNodeCollapse: EventEmitter<TreeNodeCollapseEvent> = new EventEmitter<TreeNodeCollapseEvent>(); 
+    @Output() onNodeCollapse: EventEmitter<TreeNodeCollapseEvent> = new EventEmitter<TreeNodeCollapseEvent>();
     /**
      * Callback to invoke when a node is selected with right click.
      * @param {onNodeContextMenuSelect} event - node context menu select event.
      * @group Emits
      */
-    @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>(); 
+    @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
     /**
      * Callback to invoke when a node is dropped.
      * @param {TreeNodeDropEvent} event - node drop event.
      * @group Emits
      */
-    @Output() onNodeDrop: EventEmitter<TreeNodeDropEvent> = new EventEmitter<TreeNodeDropEvent>(); 
+    @Output() onNodeDrop: EventEmitter<TreeNodeDropEvent> = new EventEmitter<TreeNodeDropEvent>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {TreeLazyLoadEvent} event - custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<TreeLazyLoadEvent> = new EventEmitter<TreeLazyLoadEvent>(); 
+    @Output() onLazyLoad: EventEmitter<TreeLazyLoadEvent> = new EventEmitter<TreeLazyLoadEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position changes.
      * @param {TreeScrollEvent} event - custom scroll event.
      * @group Emits
      */
-    @Output() onScroll: EventEmitter<TreeScrollEvent> = new EventEmitter<TreeScrollEvent>(); 
+    @Output() onScroll: EventEmitter<TreeScrollEvent> = new EventEmitter<TreeScrollEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position and item's range in view changes.
      * @param {TreeScrollIndexChangeEvent} event - scroll index change event.
      * @group Emits
      */
-    @Output() onScrollIndexChange: EventEmitter<TreeScrollIndexChangeEvent> = new EventEmitter<TreeScrollIndexChangeEvent>(); 
+    @Output() onScrollIndexChange: EventEmitter<TreeScrollIndexChangeEvent> = new EventEmitter<TreeScrollIndexChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {TreeFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>(); 
+    @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
@@ -1258,7 +1269,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         return index;
     }
 
-    syncNodeOption(node: TreeNode, parentNodes: TreeNode[] , option: any, value?: any) {
+    syncNodeOption(node: TreeNode, parentNodes: TreeNode[], option: any, value?: any) {
         // to synchronize the node option between the filtered nodes and the original nodes(this.value)
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(<string>node.key, parentNodes) : null;
         if (_node) {

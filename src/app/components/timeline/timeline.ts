@@ -51,27 +51,27 @@ export class Timeline implements AfterContentInit, BlockableUI {
      * An array of events to display.
      * @group Props
      */
-    @Input() value: any[] | undefined; 
+    @Input() value: any[] | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout.
      * @group Props
      */
-    @Input() align: string = 'left'; 
+    @Input() align: string = 'left';
     /**
      * Orientation of the timeline.
      * @group Props
      */
-    @Input() layout: 'vertical' | 'horizontal' = 'vertical'; 
+    @Input() layout: 'vertical' | 'horizontal' = 'vertical';
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 

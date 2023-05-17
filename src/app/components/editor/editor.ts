@@ -126,7 +126,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
      * DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling..
      * @group Props
      */
-    @Input() scrollingContainer: HTMLElement | string | undefined;;
+    @Input() scrollingContainer: HTMLElement | string | undefined;
     /**
      * Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default.
      * @group Props

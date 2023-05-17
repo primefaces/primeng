@@ -1,5 +1,5 @@
-import { TemplateRef } from "@angular/core";
-import { DataView } from "primeng/dataview";
+import { TemplateRef } from '@angular/core';
+import { DataView } from 'primeng/dataview';
 /**
  * State of the paginator.
  */
@@ -19,7 +19,7 @@ export interface DataViewPaginatorState {
     /**
      * Page count.
      */
-    pageCount?: number
+    pageCount?: number;
 }
 /**
  * Custom lazy load event.
@@ -99,7 +99,7 @@ export interface DataViewTemplates {
          * Row index.
          */
         rowIndex: number;
-    }): TemplateRef<{$implicit: any; rowIndex: number}>;
+    }): TemplateRef<{ $implicit: any; rowIndex: number }>;
     /**
      * Custom grid item template.
      * @param {Object} context - data of the item.
@@ -113,7 +113,7 @@ export interface DataViewTemplates {
          * Row index.
          */
         rowIndex: number;
-    }): TemplateRef<{$implicit: any; rowIndex: number}>;
+    }): TemplateRef<{ $implicit: any; rowIndex: number }>;
     /**
      * Custom paginator left template.
      * @param {Object} context - paginator state.
@@ -143,7 +143,7 @@ export interface DataViewTemplates {
          * Dropdown item instance.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom empty message template.
      */
@@ -168,5 +168,4 @@ export interface DataViewTemplates {
      * Custom grid icon template.
      */
     gridicon: TemplateRef<any>;
-
 }

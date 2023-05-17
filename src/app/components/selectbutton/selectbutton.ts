@@ -55,69 +55,69 @@ export class SelectButton implements ControlValueAccessor {
      * An array of selectitems to display as the available options.
      * @group Props
      */
-    @Input() options: any[] | undefined; 
+    @Input() options: any[] | undefined;
     /**
      * Name of the label field of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined; 
+    @Input() optionLabel: string | undefined;
     /**
      * Name of the value field of an option.
      * @group Props
      */
-    @Input() optionValue: string | undefined; 
+    @Input() optionValue: string | undefined;
     /**
      * Name of the disabled field of an option.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined; 
+    @Input() optionDisabled: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0; 
+    @Input() tabindex: number = 0;
     /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input() multiple: boolean | undefined; 
+    @Input() multiple: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any; 
+    @Input() style: any;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
-    @Input() dataKey: string | undefined; 
+    @Input() dataKey: string | undefined;
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>(); 
+    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>();
     /**
      * Callback to invoke on selection change.
      * @param {SelectButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>(); 
+    @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
     @ContentChild(TemplateRef) itemTemplate!: TemplateRef<any>;
 

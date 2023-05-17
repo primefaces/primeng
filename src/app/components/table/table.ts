@@ -3069,7 +3069,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     @Input('pTableBodyTemplate') template: Nullable<TemplateRef<any>>;
 
-    @Input() get value(): any[] | undefined{
+    @Input() get value(): any[] | undefined {
         return this._value;
     }
     set value(val: any[] | undefined) {
@@ -3544,7 +3544,7 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null{
+    findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let nextRow = <HTMLTableRowElement>row.nextElementSibling;
         if (nextRow) {
             if (DomHandler.hasClass(nextRow, 'p-selectable-row')) return nextRow;
@@ -4144,7 +4144,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    findPreviousEditableColumn(cell: any): HTMLTableCellElement  | null {
+    findPreviousEditableColumn(cell: any): HTMLTableCellElement | null {
         let prevCell = cell.previousElementSibling;
 
         if (!prevCell) {
@@ -4162,7 +4162,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
         }
     }
 
-    findNextEditableColumn(cell: any) : HTMLTableCellElement  | null {
+    findNextEditableColumn(cell: any): HTMLTableCellElement | null {
         let nextCell = cell.nextElementSibling;
 
         if (!nextCell) {
@@ -4436,23 +4436,23 @@ export class TableRadioButton {
     }
 })
 export class TableCheckbox {
-    @Input() disabled: boolean| undefined;
+    @Input() disabled: boolean | undefined;
 
     @Input() value: any;
 
-    @Input() index: number| undefined;
+    @Input() index: number | undefined;
 
-    @Input() inputId: string| undefined;
+    @Input() inputId: string | undefined;
 
-    @Input() name: string| undefined;
+    @Input() name: string | undefined;
 
-    @Input() required: boolean| undefined;
+    @Input() required: boolean | undefined;
 
-    @Input() ariaLabel: string| undefined;
+    @Input() ariaLabel: string | undefined;
 
-    checked: boolean| undefined;
+    checked: boolean | undefined;
 
-    focused: boolean| undefined;
+    focused: boolean | undefined;
 
     subscription: Subscription;
 
@@ -4519,17 +4519,17 @@ export class TableCheckbox {
     }
 })
 export class TableHeaderCheckbox {
-    @Input() disabled: boolean| undefined;;
+    @Input() disabled: boolean | undefined;
 
-    @Input() inputId: string| undefined;;
+    @Input() inputId: string | undefined;
 
-    @Input() name: string| undefined;;
+    @Input() name: string | undefined;
 
-    @Input() ariaLabel: string| undefined;;
+    @Input() ariaLabel: string | undefined;
 
-    checked: boolean| undefined;;
+    checked: boolean | undefined;
 
-    focused: boolean| undefined;;
+    focused: boolean | undefined;
 
     selectionChangeSubscription: Subscription;
 
@@ -4617,9 +4617,9 @@ export class ReorderableRowHandle implements AfterViewInit {
     }
 })
 export class ReorderableRow implements AfterViewInit {
-    @Input('pReorderableRow') index: number| undefined;;
+    @Input('pReorderableRow') index: number | undefined;
 
-    @Input() pReorderableRowDisabled: boolean| undefined;;
+    @Input() pReorderableRowDisabled: boolean | undefined;
 
     mouseDownListener: VoidListener;
 
@@ -5185,7 +5185,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     getDefaultOperator(): string | undefined {
-        return this.dt.filters ? (<FilterMetadata[]>this.dt.filters[<string><string>this.field])[0].operator : this.operator;
+        return this.dt.filters ? (<FilterMetadata[]>this.dt.filters[<string>(<string>this.field)])[0].operator : this.operator;
     }
 
     hasRowFilter() {
@@ -5419,27 +5419,27 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() type: string | undefined;
 
-    @Input() filterConstraint: FilterMetadata| undefined;
+    @Input() filterConstraint: FilterMetadata | undefined;
 
     @Input() filterTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() placeholder: string| undefined;
+    @Input() placeholder: string | undefined;
 
     @Input() minFractionDigits: number | undefined;
 
     @Input() maxFractionDigits: number | undefined;
 
-    @Input() prefix: string| undefined;
+    @Input() prefix: string | undefined;
 
-    @Input() suffix: string| undefined;
+    @Input() suffix: string | undefined;
 
-    @Input() locale: string| undefined;
+    @Input() locale: string | undefined;
 
-    @Input() localeMatcher: string| undefined;
+    @Input() localeMatcher: string | undefined;
 
-    @Input() currency: string| undefined;
+    @Input() currency: string | undefined;
 
-    @Input() currencyDisplay: string| undefined;
+    @Input() currencyDisplay: string | undefined;
 
     @Input() useGrouping: boolean = true;
 

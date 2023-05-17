@@ -21,7 +21,7 @@ export interface TreeNodeSelectEvent {
 /**
  * Custom node unselect event.
  * @see {@link Tree.onNodeUnSelect}
-* @extends {TreeNodeSelectEvent}
+ * @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
@@ -35,7 +35,7 @@ export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link Tree.onNodeCollapse}
-* @extends {TreeNodeSelectEvent}
+ * @extends {TreeNodeSelectEvent}
  * @event
  */
 export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
@@ -70,7 +70,7 @@ export interface TreeNodeDropEvent {
     index?: number;
     /**
      * Callback to invoke on drop.
-     */   
+     */
     accept?: Function;
 }
 /**
@@ -143,7 +143,7 @@ export interface TreeTemplates {
          * @see {@link ScrollerOptions}
          */
         options: ScrollerOptions;
-    }): TemplateRef<{options: ScrollerOptions}>;
+    }): TemplateRef<{ options: ScrollerOptions }>;
     /**
      * Custom toggler icon template.
      * @param {Object} context - expand data.
@@ -153,7 +153,7 @@ export interface TreeTemplates {
          * Expanded state of the node.
          */
         $implicit: boolean;
-    }): TemplateRef<{$implicit: boolean}>;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom checkbox icon template.
      * @param {Object} context - node data.
@@ -167,7 +167,7 @@ export interface TreeTemplates {
          * Partial selection state of the node.
          */
         partialSelected: boolean;
-    }): TemplateRef<{$implicit: boolean; partialSelected: boolean}>;
+    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
     /**
      * Custom loading icon template.
      */
@@ -176,5 +176,4 @@ export interface TreeTemplates {
      * Custom filter icon template.
      */
     filtericon: TemplateRef<any>;
-
 }

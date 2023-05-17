@@ -1,4 +1,4 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 export interface OrderListFilterOptions {
     filter?: (value?: any) => void;
@@ -64,7 +64,7 @@ export interface OrderListTemplates {
          * Filter options.
          */
         options: OrderListFilterOptions;
-    }): TemplateRef<{options: OrderListFilterOptions}>;
+    }): TemplateRef<{ options: OrderListFilterOptions }>;
     /**
      * Custom empty filter template.
      */

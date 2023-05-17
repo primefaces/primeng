@@ -332,7 +332,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     @Input() get options(): ScrollerOptions | undefined {
         return this._options;
     }
-    set options(val: ScrollerOptions | undefined ) {
+    set options(val: ScrollerOptions | undefined) {
         this._options = val;
 
         if (val && typeof val === 'object') {
@@ -706,7 +706,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     }
                 } else {
                     if (viewport.last - first <= index + 1) {
-                        const pos = (viewport.first + 1) * (<number>this._itemSize);
+                        const pos = (viewport.first + 1) * <number>this._itemSize;
                         this.horizontal ? scrollTo(pos, 0) : scrollTo(0, pos);
                     }
                 }
@@ -801,8 +801,8 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                     contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
                     const [width, height] = [DomHandler.getWidth((<ElementRef>this.elementViewChild).nativeElement), DomHandler.getHeight((<ElementRef>this.elementViewChild).nativeElement)];
-                    (this.both || this.horizontal) && ((<ElementRef>this.elementViewChild).nativeElement.style.width = width < (<number>this.defaultWidth) ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
-                    (this.both || this.vertical) && ((<ElementRef>this.elementViewChild).nativeElement.style.height = height < (<number>this.defaultHeight) ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
+                    (this.both || this.horizontal) && ((<ElementRef>this.elementViewChild).nativeElement.style.width = width < <number>this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
+                    (this.both || this.vertical) && ((<ElementRef>this.elementViewChild).nativeElement.style.height = height < <number>this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
 
                     this.contentEl.style.minHeight = this.contentEl.style.minWidth = '';
                     this.contentEl.style.position = '';

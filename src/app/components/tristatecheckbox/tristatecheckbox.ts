@@ -70,27 +70,27 @@ export class TriStateCheckbox implements ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Name of the component.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -100,33 +100,33 @@ export class TriStateCheckbox implements ControlValueAccessor {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Label of the checkbox.
      * @group Props
      */
-    @Input() label: string | undefined; 
+    @Input() label: string | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * Specifies the icon for checkbox true value.
      * @group Props
      */
-    @Input() checkboxTrueIcon: string | undefined; 
+    @Input() checkboxTrueIcon: string | undefined;
     /**
      * Specifies the icon for checkbox false value.
      * @group Props
      */
-    @Input() checkboxFalseIcon: string | undefined; 
+    @Input() checkboxFalseIcon: string | undefined;
     /**
      * Callback to invoke on value change.
      * @param {TriStateCheckboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<TriStateCheckboxChangeEvent> = new EventEmitter<TriStateCheckboxChangeEvent>(); 
+    @Output() onChange: EventEmitter<TriStateCheckboxChangeEvent> = new EventEmitter<TriStateCheckboxChangeEvent>();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 

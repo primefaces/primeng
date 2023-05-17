@@ -12,7 +12,7 @@ export interface CalendarTemplates {
         /**
          * Date value of the component.
          */
-        $implicit: Date
+        $implicit: Date;
     }): TemplateRef<any> | null;
     /**
      * Custom decade template
@@ -21,7 +21,7 @@ export interface CalendarTemplates {
         /**
          * An array containing the start and and year of a decade to display at header of the year picker.
          */
-        $implicit: Date
+        $implicit: Date;
     }): TemplateRef<any> | null;
     /**
      * Custom disabled date template.
@@ -77,9 +77,9 @@ export interface LocaleSettings {
 }
 
 export interface Month {
-    month?:number;
+    month?: number;
     year?: number;
-    dates?: Array<Date>,
+    dates?: Array<Date>;
     weekNumbers?: number[];
 }
 /**

@@ -151,131 +151,131 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
-     /**
+    /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-     @Input() multiple: boolean | undefined; 
-     /**
-      * Inline style of the container.
-      * @group Props
-      */
-     @Input() style: { [klass: string]: any } | null | undefined;
-     /**
-      * Style class of the container.
-      * @group Props
-      */
-     @Input() styleClass: string | undefined; 
-     /**
-      * Inline style of the list element.
-      * @group Props
-      */
-     @Input() listStyle: { [klass: string]: any } | null | undefined;
-     /**
-      * Style class of the list element.
-      * @group Props
-      */
-     @Input() listStyleClass: string | undefined; 
-     /**
-      * When present, it specifies that the element value cannot be changed.
-      * @group Props
-      */
-     @Input() readonly: boolean | undefined; 
-     /**
-      * When present, it specifies that the element should be disabled.
-      * @group Props
-      */
-     @Input() disabled: boolean | undefined; 
-     /**
-      * When specified, allows selecting items with checkboxes.
-      * @group Props
-      */
-     @Input() checkbox: boolean = false; 
-     /**
-      * When specified, displays a filter input at header.
-      * @group Props
-      */
-     @Input() filter: boolean = false; 
-     /**
-      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
-      * @group Props
-      */
-     @Input() filterBy: string | undefined; 
-     /**
-      * Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
-      * @group Props
-      */
-     @Input() filterMatchMode: string = 'contains'; 
-     /**
-      * Locale to use in filtering. The default locale is the host environment's current locale.
-      * @group Props
-      */
-     @Input() filterLocale: string | undefined; 
-     /**
-      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
-      * @group Props
-      */
-     @Input() metaKeySelection: boolean = true; 
-     /**
-      * A property to uniquely identify a value in options.
-      * @group Props
-      */
-     @Input() dataKey: string | undefined; 
-     /**
-      * Whether header checkbox is shown in multiple mode.
-      * @group Props
-      */
-     @Input() showToggleAll: boolean = true; 
-     /**
-      * Name of the label field of an option.
-      * @group Props
-      */
-     @Input() optionLabel: string | undefined;
-     /**
-      * Name of the value field of an option.
-      * @group Props
-      */
-     @Input() optionValue: string | undefined; 
-     /**
-      * Name of the options field of an option group.
-      * @group Props
-      */
-     @Input() optionGroupChildren: string | undefined = "items";
-     /**
-      * Name of the label field of an option group.
-      * @group Props
-      */
-     @Input() optionGroupLabel: string | undefined; 
-     /**
-      * Name of the disabled field of an option.
-      * @group Props
-      */
-     @Input() optionDisabled: string | undefined;
-     /**
-      * Defines a string that labels the filter input.
-      * @group Props
-      */
-     @Input() ariaFilterLabel: string | undefined; 
-     /**
-      * Defines placeholder of the filter input.
-      * @group Props
-      */
-     @Input() filterPlaceHolder: string | undefined; 
-     /**
-      * Text to display when filtering does not return any results.
-      * @group Props
-      */
-     @Input() emptyFilterMessage: string | undefined; 
-     /**
-      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
-      * @group Props
-      */
-     @Input() emptyMessage: string | undefined; 
-     /**
-      * Whether to display options as grouped when nested options are provided.
-      * @group Props
-      */
-     @Input() group: boolean | undefined; 
+    @Input() multiple: boolean | undefined;
+    /**
+     * Inline style of the container.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the container.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the list element.
+     * @group Props
+     */
+    @Input() listStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the list element.
+     * @group Props
+     */
+    @Input() listStyleClass: string | undefined;
+    /**
+     * When present, it specifies that the element value cannot be changed.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * When specified, allows selecting items with checkboxes.
+     * @group Props
+     */
+    @Input() checkbox: boolean = false;
+    /**
+     * When specified, displays a filter input at header.
+     * @group Props
+     */
+    @Input() filter: boolean = false;
+    /**
+     * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
+     * @group Props
+     */
+    @Input() filterMatchMode: string = 'contains';
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
+     * @group Props
+     */
+    @Input() metaKeySelection: boolean = true;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * Whether header checkbox is shown in multiple mode.
+     * @group Props
+     */
+    @Input() showToggleAll: boolean = true;
+    /**
+     * Name of the label field of an option.
+     * @group Props
+     */
+    @Input() optionLabel: string | undefined;
+    /**
+     * Name of the value field of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | undefined;
+    /**
+     * Name of the options field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupChildren: string | undefined = 'items';
+    /**
+     * Name of the label field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupLabel: string | undefined;
+    /**
+     * Name of the disabled field of an option.
+     * @group Props
+     */
+    @Input() optionDisabled: string | undefined;
+    /**
+     * Defines a string that labels the filter input.
+     * @group Props
+     */
+    @Input() ariaFilterLabel: string | undefined;
+    /**
+     * Defines placeholder of the filter input.
+     * @group Props
+     */
+    @Input() filterPlaceHolder: string | undefined;
+    /**
+     * Text to display when filtering does not return any results.
+     * @group Props
+     */
+    @Input() emptyFilterMessage: string | undefined;
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
+    @Input() emptyMessage: string | undefined;
+    /**
+     * Whether to display options as grouped when nested options are provided.
+     * @group Props
+     */
+    @Input() group: boolean | undefined;
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -304,19 +304,19 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>(); 
+    @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
      * @param {ListboxClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<ListboxClickEvent> = new EventEmitter<ListboxClickEvent>(); 
+    @Output() onClick: EventEmitter<ListboxClickEvent> = new EventEmitter<ListboxClickEvent>();
     /**
      * Callback to invoke when option is double clicked.
      * @param {ListboxDoubleClickEvent} event - Custom double click event.
      * @group Emits
      */
-    @Output() onDblClick: EventEmitter<ListboxDoubleClickEvent> = new EventEmitter<ListboxDoubleClickEvent>(); 
+    @Output() onDblClick: EventEmitter<ListboxDoubleClickEvent> = new EventEmitter<ListboxDoubleClickEvent>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -665,11 +665,9 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                 }
             }
 
-            return (
-                visibleOptionsLength === selectedDisabledItemsLength ||
+            return (visibleOptionsLength === selectedDisabledItemsLength ||
                 visibleOptionsLength === selectedEnabledItemsLength ||
-                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)
-            ) as boolean;
+                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)) as boolean;
         }
     }
 

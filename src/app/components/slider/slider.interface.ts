@@ -16,7 +16,6 @@ export interface SliderChangeEvent {
      * New value.
      */
     value?: number;
-
 }
 /**
  * Custom slide end event.

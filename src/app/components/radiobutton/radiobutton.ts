@@ -89,47 +89,47 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      * Value of the radiobutton.
      * @group Props
      */
-    @Input() value: any; 
+    @Input() value: any;
     /**
      * No description available.
      * @group Props
      */
-    @Input() formControlName: string | undefined; 
+    @Input() formControlName: string | undefined;
     /**
      * Name of the radiobutton group.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * Label of the radiobutton.
      * @group Props
      */
-    @Input() label: string | undefined; 
+    @Input() label: string | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -139,30 +139,30 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Style class of the label.
      * @group Props
      */
-    @Input() labelStyleClass: string | undefined; 
+    @Input() labelStyleClass: string | undefined;
     /**
      * Callback to invoke on radio button click.
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<RadioButtonClickEvent> = new EventEmitter<RadioButtonClickEvent>(); 
+    @Output() onClick: EventEmitter<RadioButtonClickEvent> = new EventEmitter<RadioButtonClickEvent>();
     /**
      * Callback to invoke when the receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('rb') inputViewChild!: ElementRef;
 

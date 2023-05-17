@@ -69,7 +69,7 @@ export class DropdownItem {
     @Input() option: SelectItem | undefined;
 
     @Input() selected: boolean | undefined;
-    
+
     @Input() label: string | undefined;
 
     @Input() disabled: boolean | undefined;
@@ -298,237 +298,237 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() scrollHeight: string = '200px'; 
+    @Input() scrollHeight: string = '200px';
     /**
      * When specified, displays an input field to filter the items on keyup.
      * @group Props
      */
-    @Input() filter: boolean | undefined; 
+    @Input() filter: boolean | undefined;
     /**
      * Name of the input element.
      * @group Props
      */
-    @Input() name: string | undefined; 
+    @Input() name: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the overlay panel element.
      * @group Props
      */
-    @Input() panelStyle: any; 
+    @Input() panelStyle: any;
     /**
      * Style class of the element.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Style class of the overlay panel element.
      * @group Props
      */
-    @Input() panelStyleClass: string | undefined; 
+    @Input() panelStyleClass: string | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined; 
+    @Input() required: boolean | undefined;
     /**
      * When present, custom value instead of predefined options can be entered using the editable input field.
      * @group Props
      */
-    @Input() editable: boolean | undefined; 
+    @Input() editable: boolean | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined; 
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined; 
+    @Input() tabindex: number | undefined;
     /**
      * Default text to display when no option is selected.
      * @group Props
      */
-    @Input() placeholder: string | undefined; 
+    @Input() placeholder: string | undefined;
     /**
      * Placeholder text to show when filter input is empty.
      * @group Props
      */
-    @Input() filterPlaceholder: string | undefined; 
+    @Input() filterPlaceholder: string | undefined;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined; 
+    @Input() filterLocale: string | undefined;
     /**
      * Identifier of the accessible input element.
      * @group Props
      */
-    @Input() inputId: string | undefined; 
+    @Input() inputId: string | undefined;
     /**
      * No description available.
      * @group Props
      */
-    @Input() selectId: string | undefined; 
+    @Input() selectId: string | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
-    @Input() dataKey: string | undefined; 
+    @Input() dataKey: string | undefined;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
      */
-    @Input() filterBy: string | undefined; 
+    @Input() filterBy: string | undefined;
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input() autofocus: boolean | undefined; 
+    @Input() autofocus: boolean | undefined;
     /**
      * Clears the filter value when hiding the dropdown.
      * @group Props
      */
-    @Input() resetFilterOnHide: boolean = false; 
+    @Input() resetFilterOnHide: boolean = false;
     /**
      * Icon class of the dropdown icon.
      * @group Props
      */
-    @Input() dropdownIcon: string | undefined; 
+    @Input() dropdownIcon: string | undefined;
     /**
      * Name of the label field of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined; 
+    @Input() optionLabel: string | undefined;
     /**
      * Name of the value field of an option.
      * @group Props
      */
-    @Input() optionValue: string | undefined; 
+    @Input() optionValue: string | undefined;
     /**
      * Name of the disabled field of an option.
      * @group Props
      */
-    @Input() optionDisabled: string | undefined; 
+    @Input() optionDisabled: string | undefined;
     /**
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined; 
+    @Input() optionGroupLabel: string | undefined;
     /**
      * Name of the options field of an option group.
      * @group Props
      */
-    @Input() optionGroupChildren: string = 'items'; 
+    @Input() optionGroupChildren: string = 'items';
     /**
      * Whether to display the first item as the label if no placeholder is defined and value is null.
      * @group Props
      */
-    @Input() autoDisplayFirst: boolean = true; 
+    @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined; 
+    @Input() group: boolean | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean | undefined; 
+    @Input() showClear: boolean | undefined;
     /**
      * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
      * @group Props
      */
-    @Input() emptyFilterMessage: string = ''; 
+    @Input() emptyFilterMessage: string = '';
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
      */
-    @Input() emptyMessage: string = ''; 
+    @Input() emptyMessage: string = '';
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false; 
+    @Input() lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined; 
+    @Input() virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined; 
+    @Input() virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
-    @Input() virtualScrollOptions: ScrollerOptions | undefined; 
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
     /**
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props
      */
-    @Input() overlayOptions: OverlayOptions | undefined; 
+    @Input() overlayOptions: OverlayOptions | undefined;
     /**
      * Defines a string that labels the filter input.
      * @group Props
      */
-    @Input() ariaFilterLabel: string | undefined; 
+    @Input() ariaFilterLabel: string | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined; 
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined; 
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains'; 
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     /**
      * Maximum number of character allows in the editable input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined; 
+    @Input() maxlength: number | undefined;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
      */
-    @Input() tooltip: string = ''; 
+    @Input() tooltip: string = '';
     /**
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right'; 
+    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right';
     /**
      * Type of CSS position.
      * @group Props
      */
-    @Input() tooltipPositionStyle: string = 'absolute'; 
+    @Input() tooltipPositionStyle: string = 'absolute';
     /**
      * Style class of the tooltip.
      * @group Props
      */
-    @Input() tooltipStyleClass: string | undefined; 
+    @Input() tooltipStyleClass: string | undefined;
     /**
      * Applies focus to the filter element when the overlay is shown.
      * @group Props
      */
-    @Input() autofocusFilter: boolean = true; 
+    @Input() autofocusFilter: boolean = true;
     /**
      * No description available.
      * @group Props
@@ -658,49 +658,49 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @param {DropdownChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<DropdownChangeEvent> = new EventEmitter<DropdownChangeEvent>(); 
+    @Output() onChange: EventEmitter<DropdownChangeEvent> = new EventEmitter<DropdownChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {DropdownFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<DropdownFilterEvent> = new EventEmitter<DropdownFilterEvent>(); 
+    @Output() onFilter: EventEmitter<DropdownFilterEvent> = new EventEmitter<DropdownFilterEvent>();
     /**
      * Callback to invoke when dropdown gets focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when dropdown loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when component is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>(); 
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * Callback to invoke when dropdown overlay gets visible.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>(); 
+    @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when dropdown overlay gets hidden.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>(); 
+    @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when dropdown clears the value.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {DropdownLazyLoadEvent} event - Lazy load event.
@@ -934,7 +934,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
-    onItemClick(event: {originalEvent: Event, option: any}) {
+    onItemClick(event: { originalEvent: Event; option: any }) {
         const option = event.option;
 
         if (!this.isOptionDisabled(option)) {
@@ -1053,7 +1053,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isInputClick(event: MouseEvent): boolean {
-        return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') || (event.target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) || (this.editableInputViewChild && (event.target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean;
+        return (
+            DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
+            (event.target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
+            ((this.editableInputViewChild && (event.target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
+        );
     }
 
     isEmpty() {
@@ -1384,7 +1388,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         let option;
 
         if (this.searchValue) {
-            if(this.optionsToDisplay) {
+            if (this.optionsToDisplay) {
                 for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
                     for (let j = index.groupIndex === i ? index.itemIndex + 1 : 0; j < this.getOptionGroupChildren(this.optionsToDisplay[i]).length; j++) {
                         let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
@@ -1398,7 +1402,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                         }
                     }
                 }
-    
+
                 if (!option) {
                     for (let i = 0; i <= index.groupIndex; i++) {
                         for (let j = 0; j < (index.groupIndex === i ? index.itemIndex : this.getOptionGroupChildren(this.optionsToDisplay[i]).length); j++) {

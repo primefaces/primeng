@@ -1,10 +1,10 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 /**
  * Defines valid templates in Timeline.
  * @group Templates
  */
-export interface TimelineTemplates { 
+export interface TimelineTemplates {
     /**
      * Custom content template.
      * @param {Object} context - item data.
@@ -14,7 +14,7 @@ export interface TimelineTemplates {
          * Item instance.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom opposite item template.
      * @param {Object} context - item data.
@@ -24,7 +24,7 @@ export interface TimelineTemplates {
          * Item instance.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom marker template.
      * @param {Object} context - item data.
@@ -34,5 +34,5 @@ export interface TimelineTemplates {
          * Item instance.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
 }

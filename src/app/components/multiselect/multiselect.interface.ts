@@ -1,6 +1,6 @@
-import { TemplateRef } from "@angular/core";
-import { ScrollerOptions } from "primeng/scroller";
-import { MultiSelectItem } from "primeng/multiselect";
+import { TemplateRef } from '@angular/core';
+import { ScrollerOptions } from 'primeng/scroller';
+import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelect } from 'primeng/multiselect';
 
 export interface MultiSelectFilterOptions {
@@ -112,7 +112,7 @@ export interface MultiSelectTemplates {
          * Function to remove chip.
          */
         removeChip: (chip: MultiSelectItem, event: MouseEvent) => void;
-    }): TemplateRef<{$implicit: any; removeChip: Function}>;
+    }): TemplateRef<{ $implicit: any; removeChip: Function }>;
     /**
      * Custom header template.
      */
@@ -126,7 +126,7 @@ export interface MultiSelectTemplates {
          * Filter options.
          */
         options: MultiSelectFilterOptions;
-    }): TemplateRef<{options: MultiSelectFilterOptions}>;
+    }): TemplateRef<{ options: MultiSelectFilterOptions }>;
     /**
      * Custom footer template.
      */
@@ -147,7 +147,7 @@ export interface MultiSelectTemplates {
          * Data of the item.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom loader template. This template can be used with virtualScroll.
      * @param {ScrollerOptions} options - virtual scroller options.
@@ -157,7 +157,7 @@ export interface MultiSelectTemplates {
          * Virtual scroller options.
          */
         options: ScrollerOptions;
-    }): TemplateRef<{options: ScrollerOptions}>;
+    }): TemplateRef<{ options: ScrollerOptions }>;
     /**
      * Custom dropdown trigger icon template.
      */

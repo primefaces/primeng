@@ -202,13 +202,13 @@ export class Splitter {
         this.prevPanelIndex = index;
         DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
         DomHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
-        this.onResizeStart.emit({ originalEvent: event, sizes: (this._panelSizes as number[]) });
+        this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
 
     onResize(event: MouseEvent) {
         let newPos;
-        if (this.horizontal()) newPos = (event.pageX * 100) / (this.size as number) - (this.startPos as number * 100) / (this.size as number);
-        else newPos = (event.pageY * 100) / (this.size as number) - (this.startPos as number * 100) / (this.size as number);
+        if (this.horizontal()) newPos = (event.pageX * 100) / (this.size as number) - ((this.startPos as number) * 100) / (this.size as number);
+        else newPos = (event.pageY * 100) / (this.size as number) - ((this.startPos as number) * 100) / (this.size as number);
 
         let newPrevPanelSize = (this.prevPanelSize as number) + newPos;
         let newNextPanelSize = (this.nextPanelSize as number) - newPos;
@@ -366,7 +366,7 @@ export class Splitter {
     }
 
     saveState() {
-        this.getStorage().setItem((this.stateKey as string), JSON.stringify(this._panelSizes));
+        this.getStorage().setItem(this.stateKey as string, JSON.stringify(this._panelSizes));
     }
 
     restoreState() {

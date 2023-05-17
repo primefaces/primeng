@@ -457,7 +457,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         if (!tab.selected) {
-            let selectedTab: TabPanel = (this.findSelectedTab() as TabPanel);
+            let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
             if (selectedTab) {
                 selectedTab.selected = false;
             }

@@ -36,7 +36,19 @@ import { AngleUpIcon } from 'primeng/icons/angleup';
 import { SearchIcon } from 'primeng/icons/search';
 import { HomeIcon } from 'primeng/icons/home';
 import { Nullable, VoidListener } from '../ts-helpers';
-import { PickListMoveAllToSourceEvent, PickListMoveAllToTargetEvent, PickListMoveToSourceEvent, PickListMoveToTargetEvent, PickListSourceFilterEvent, PickListSourceReorderEvent, PickListSourceSelectEvent, PickListTargetFilterEvent, PickListTargetReorderEvent, PickListTargetSelectEvent, PickListFilterOptions } from './picklist.interface';
+import {
+    PickListMoveAllToSourceEvent,
+    PickListMoveAllToTargetEvent,
+    PickListMoveToSourceEvent,
+    PickListMoveToTargetEvent,
+    PickListSourceFilterEvent,
+    PickListSourceReorderEvent,
+    PickListSourceSelectEvent,
+    PickListTargetFilterEvent,
+    PickListTargetReorderEvent,
+    PickListTargetSelectEvent,
+    PickListFilterOptions
+} from './picklist.interface';
 
 @Component({
     selector: 'p-pickList',
@@ -239,172 +251,172 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * An array of objects for the source list.
      * @group Props
      */
-    @Input() source: any[] | undefined; 
+    @Input() source: any[] | undefined;
     /**
      * An array of objects for the target list.
      * @group Props
      */
-    @Input() target: any[] | undefined; 
+    @Input() target: any[] | undefined;
     /**
      * Text for the source list caption
      * @group Props
      */
-    @Input() sourceHeader: string | undefined; 
+    @Input() sourceHeader: string | undefined;
     /**
      * Defines a string that labels the move to right button for accessibility.
      * @group Props
      */
-    @Input() rightButtonAriaLabel: string | undefined; 
+    @Input() rightButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to left button for accessibility.
      * @group Props
      */
-    @Input() leftButtonAriaLabel: string | undefined; 
+    @Input() leftButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to all right button for accessibility.
      * @group Props
      */
-    @Input() allRightButtonAriaLabel: string | undefined; 
+    @Input() allRightButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to all left button for accessibility.
      * @group Props
      */
-    @Input() allLeftButtonAriaLabel: string | undefined; 
+    @Input() allLeftButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to up button for accessibility.
      * @group Props
      */
-    @Input() upButtonAriaLabel: string | undefined; 
+    @Input() upButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to down button for accessibility.
      * @group Props
      */
-    @Input() downButtonAriaLabel: string | undefined; 
+    @Input() downButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to top button for accessibility.
      * @group Props
      */
-    @Input() topButtonAriaLabel: string | undefined; 
+    @Input() topButtonAriaLabel: string | undefined;
     /**
      * Defines a string that labels the move to bottom button for accessibility.
      * @group Props
      */
-    @Input() bottomButtonAriaLabel: string | undefined; 
+    @Input() bottomButtonAriaLabel: string | undefined;
     /**
      * Text for the target list caption
      * @group Props
      */
-    @Input() targetHeader: string | undefined; 
+    @Input() targetHeader: string | undefined;
     /**
      * When enabled orderlist adjusts its controls based on screen size.
      * @group Props
      */
-    @Input() responsive: boolean | undefined; 
+    @Input() responsive: boolean | undefined;
     /**
      * When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).
      * @group Props
      */
-    @Input() filterBy: string | undefined; 
+    @Input() filterBy: string | undefined;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() filterLocale: string | undefined; 
+    @Input() filterLocale: string | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. Use sourceTrackBy or targetTrackBy in case different algorithms are needed per list.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item; 
+    @Input() trackBy: Function = (index: number, item: any) => item;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy in source list, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() sourceTrackBy: Function | undefined; 
+    @Input() sourceTrackBy: Function | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy in target list, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() targetTrackBy: Function | undefined; 
+    @Input() targetTrackBy: Function | undefined;
     /**
      * Whether to show filter input for source list when filterBy is enabled.
      * @group Props
      */
-    @Input() showSourceFilter: boolean = true; 
+    @Input() showSourceFilter: boolean = true;
     /**
      * Whether to show filter input for target list when filterBy is enabled.
      * @group Props
      */
-    @Input() showTargetFilter: boolean = true; 
+    @Input() showTargetFilter: boolean = true;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true; 
+    @Input() metaKeySelection: boolean = true;
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input() dragdrop: boolean = false; 
+    @Input() dragdrop: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Inline style of the source list element.
      * @group Props
      */
-    @Input() sourceStyle: any; 
+    @Input() sourceStyle: any;
     /**
      * Inline style of the target list element.
      * @group Props
      */
-    @Input() targetStyle: any; 
+    @Input() targetStyle: any;
     /**
      * Whether to show buttons of source list.
      * @group Props
      */
-    @Input() showSourceControls: boolean = true; 
+    @Input() showSourceControls: boolean = true;
     /**
      * Whether to show buttons of target list.
      * @group Props
      */
-    @Input() showTargetControls: boolean = true; 
+    @Input() showTargetControls: boolean = true;
     /**
      * Placeholder text on source filter input.
      * @group Props
      */
-    @Input() sourceFilterPlaceholder: string | undefined; 
+    @Input() sourceFilterPlaceholder: string | undefined;
     /**
      * Placeholder text on target filter input.
      * @group Props
      */
-    @Input() targetFilterPlaceholder: string | undefined; 
+    @Input() targetFilterPlaceholder: string | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false; 
+    @Input() disabled: boolean = false;
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
      */
-    @Input() ariaSourceFilterLabel: string | undefined; 
+    @Input() ariaSourceFilterLabel: string | undefined;
     /**
      * Defines a string that labels the filter input of target list.
      * @group Props
      */
-    @Input() ariaTargetFilterLabel: string | undefined; 
+    @Input() ariaTargetFilterLabel: string | undefined;
     /**
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains'; 
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
@@ -436,61 +448,61 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * @param {PickListMoveToSourceEvent} event - custom move to source event.
      * @group Emits
      */
-    @Output() onMoveToSource: EventEmitter<PickListMoveToSourceEvent> = new EventEmitter<PickListMoveToSourceEvent>(); 
+    @Output() onMoveToSource: EventEmitter<PickListMoveToSourceEvent> = new EventEmitter<PickListMoveToSourceEvent>();
     /**
      * Callback to invoke when all items are moved from target to source.
      * @param {PickListMoveAllToSourceEvent} event - custom move all to source event.
      * @group Emits
      */
-    @Output() onMoveAllToSource: EventEmitter<PickListMoveAllToSourceEvent> = new EventEmitter<PickListMoveAllToSourceEvent>(); 
+    @Output() onMoveAllToSource: EventEmitter<PickListMoveAllToSourceEvent> = new EventEmitter<PickListMoveAllToSourceEvent>();
     /**
      * Callback to invoke when all items are moved from source to target.
      * @param {PickListMoveAllToTargetEvent} event - custom move all to target event.
      * @group Emits
      */
-    @Output() onMoveAllToTarget: EventEmitter<PickListMoveAllToTargetEvent> = new EventEmitter<PickListMoveAllToTargetEvent>(); 
+    @Output() onMoveAllToTarget: EventEmitter<PickListMoveAllToTargetEvent> = new EventEmitter<PickListMoveAllToTargetEvent>();
     /**
      * Callback to invoke when items are moved from source to target.
      * @param {PickListMoveToTargetEvent} event - custom move to target event.
      * @group Emits
      */
-    @Output() onMoveToTarget: EventEmitter<PickListMoveToTargetEvent> = new EventEmitter<PickListMoveToTargetEvent>(); 
+    @Output() onMoveToTarget: EventEmitter<PickListMoveToTargetEvent> = new EventEmitter<PickListMoveToTargetEvent>();
     /**
      * Callback to invoke when items are reordered within source list.
      * @param {PickListSourceReorderEvent} event - custom source reorder event.
      * @group Emits
      */
-    @Output() onSourceReorder: EventEmitter<PickListSourceReorderEvent> = new EventEmitter<PickListSourceReorderEvent>(); 
+    @Output() onSourceReorder: EventEmitter<PickListSourceReorderEvent> = new EventEmitter<PickListSourceReorderEvent>();
     /**
      * Callback to invoke when items are reordered within target list.
      * @param {PickListTargetReorderEvent} event - custom target reorder event.
      * @group Emits
      */
-    @Output() onTargetReorder: EventEmitter<PickListTargetReorderEvent> = new EventEmitter<PickListTargetReorderEvent>(); 
+    @Output() onTargetReorder: EventEmitter<PickListTargetReorderEvent> = new EventEmitter<PickListTargetReorderEvent>();
     /**
      * Callback to invoke when items are selected within source list.
      * @param {PickListSourceSelectEvent} event - custom source select event.
      * @group Emits
      */
-    @Output() onSourceSelect: EventEmitter<PickListSourceSelectEvent> = new EventEmitter<PickListSourceSelectEvent>(); 
+    @Output() onSourceSelect: EventEmitter<PickListSourceSelectEvent> = new EventEmitter<PickListSourceSelectEvent>();
     /**
      * Callback to invoke when items are selected within target list.
      * @param {PickListTargetSelectEvent} event - custom target select event.
      * @group Emits
      */
-    @Output() onTargetSelect: EventEmitter<PickListTargetSelectEvent> = new EventEmitter<PickListTargetSelectEvent>(); 
+    @Output() onTargetSelect: EventEmitter<PickListTargetSelectEvent> = new EventEmitter<PickListTargetSelectEvent>();
     /**
      * Callback to invoke when the source list is filtered
      * @param {PickListSourceFilterEvent} event - custom source filter event.
      * @group Emits
      */
-    @Output() onSourceFilter: EventEmitter<PickListSourceFilterEvent> = new EventEmitter<PickListSourceFilterEvent>(); 
+    @Output() onSourceFilter: EventEmitter<PickListSourceFilterEvent> = new EventEmitter<PickListSourceFilterEvent>();
     /**
      * Callback to invoke when the target list is filtered
      * @param {PickListTargetFilterEvent} event - custom target filter event.
      * @group Emits
      */
-    @Output() onTargetFilter: EventEmitter<PickListTargetFilterEvent> = new EventEmitter<PickListTargetFilterEvent>(); 
+    @Output() onTargetFilter: EventEmitter<PickListTargetFilterEvent> = new EventEmitter<PickListTargetFilterEvent>();
 
     @ViewChild('sourcelist') listViewSourceChild: Nullable<ElementRef>;
 

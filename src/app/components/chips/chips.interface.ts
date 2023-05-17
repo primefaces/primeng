@@ -1,4 +1,4 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom add event.
@@ -39,7 +39,7 @@ export interface ChipsTemplates {
         /**
          * Value of the chip element.
          */
-        $implicit: any
+        $implicit: any;
     }): TemplateRef<any> | null;
     /**
      * Custom remove icon template.

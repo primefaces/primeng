@@ -65,47 +65,47 @@ export class Rating implements OnInit, ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined; 
+    @Input() disabled: boolean | undefined;
     /**
      * When present, changing the value is not possible.
      * @group Props
      */
-    @Input() readonly: boolean | undefined; 
+    @Input() readonly: boolean | undefined;
     /**
      * Number of stars.
      * @group Props
      */
-    @Input() stars: number = 5; 
+    @Input() stars: number = 5;
     /**
      * When specified a cancel icon is displayed to allow removing the value.
      * @group Props
      */
-    @Input() cancel: boolean = true; 
+    @Input() cancel: boolean = true;
     /**
      * Style class of the on icon.
      * @group Props
      */
-    @Input() iconOnClass: string | undefined; 
+    @Input() iconOnClass: string | undefined;
     /**
      * Inline style of the on icon.
      * @group Props
      */
-    @Input() iconOnStyle: { [klass: string]: any } | null | undefined; 
+    @Input() iconOnStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the off icon.
      * @group Props
      */
-    @Input() iconOffClass: string | undefined; 
+    @Input() iconOffClass: string | undefined;
     /**
      * Inline style of the off icon.
      * @group Props
      */
-    @Input() iconOffStyle: { [klass: string]: any } | null | undefined; 
+    @Input() iconOffStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the cancel icon.
      * @group Props
      */
-    @Input() iconCancelClass: string | undefined; 
+    @Input() iconCancelClass: string | undefined;
     /**
      * Inline style of the cancel icon.
      * @group Props
@@ -116,13 +116,13 @@ export class Rating implements OnInit, ControlValueAccessor {
      * @param {RatingRateEvent} value - Custom rate event.
      * @group Emits
      */
-    @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>(); 
+    @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>();
     /**
      * Emitted when the rating is cancelled.
      * @param {Event} value - Browser event.
      * @group Emits
      */
-    @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>(); 
+    @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 

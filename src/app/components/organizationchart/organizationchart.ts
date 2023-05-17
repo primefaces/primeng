@@ -91,13 +91,13 @@ export class OrganizationChartNode implements OnDestroy {
     }
 
     get leaf(): boolean | undefined {
-        if(this.node) {
+        if (this.node) {
             return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
         }
     }
 
     get colspan() {
-        if(this.node) {
+        if (this.node) {
             return this.node.children && this.node.children.length ? this.node.children.length * 2 : null;
         }
     }
@@ -140,27 +140,27 @@ export class OrganizationChart implements AfterContentInit {
      * An array of nested TreeNodes.
      * @group Props
      */
-    @Input() value: TreeNode[] | undefined; 
+    @Input() value: TreeNode[] | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Defines the selection mode.
      * @group Props
      */
-    @Input() selectionMode: 'single' | 'multiple' | null | undefined; 
+    @Input() selectionMode: 'single' | 'multiple' | null | undefined;
     /**
      * Whether the space allocated by a node is preserved when hidden.
      * @group Props
      */
-    @Input() preserveSpace: boolean = true; 
+    @Input() preserveSpace: boolean = true;
     /**
      * A single treenode instance or an array to refer to the selections.
      * @group Props
@@ -178,31 +178,31 @@ export class OrganizationChart implements AfterContentInit {
      * @param {*} any - selected value.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter(); 
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when a node is selected.
      * @param {OrganizationChartNodeSelectEvent} event - custom node select event.
      * @group Emits
      */
-    @Output() onNodeSelect: EventEmitter<OrganizationChartNodeSelectEvent> = new EventEmitter<OrganizationChartNodeSelectEvent>(); 
+    @Output() onNodeSelect: EventEmitter<OrganizationChartNodeSelectEvent> = new EventEmitter<OrganizationChartNodeSelectEvent>();
     /**
      * Callback to invoke when a node is unselected.
      * @param {OrganizationChartNodeUnSelectEvent} event - custom node unselect event.
      * @group Emits
      */
-    @Output() onNodeUnselect: EventEmitter<OrganizationChartNodeUnSelectEvent> = new EventEmitter<OrganizationChartNodeUnSelectEvent>(); 
+    @Output() onNodeUnselect: EventEmitter<OrganizationChartNodeUnSelectEvent> = new EventEmitter<OrganizationChartNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is expanded.
      * @param {OrganizationChartNodeExpandEvent} event - custom node expand event.
      * @group Emits
      */
-    @Output() onNodeExpand: EventEmitter<OrganizationChartNodeExpandEvent> = new EventEmitter<OrganizationChartNodeExpandEvent>(); 
+    @Output() onNodeExpand: EventEmitter<OrganizationChartNodeExpandEvent> = new EventEmitter<OrganizationChartNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
      * @param {OrganizationChartNodeCollapseEvent} event - custom node collapse event.
      * @group Emits
      */
-    @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>(); 
+    @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 

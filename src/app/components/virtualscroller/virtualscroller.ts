@@ -40,48 +40,48 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * An array of objects to display.
      * @group Props
      */
-    @Input() value: any[] | undefined; 
+    @Input() value: any[] | undefined;
     /**
      * Height of an item in the list.
      * @group Props
      */
-    @Input() itemSize: number | undefined; 
+    @Input() itemSize: number | undefined;
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined; 
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined; 
+    @Input() styleClass: string | undefined;
     /**
      * Max height of the content area in inline mode.
      * @group Props
      */
-    @Input() scrollHeight: any; 
+    @Input() scrollHeight: any;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined; 
+    @Input() lazy: boolean | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
-    @Input() options: ScrollerOptions | undefined; 
+    @Input() options: ScrollerOptions | undefined;
     /**
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input() delay: number = 250; 
+    @Input() delay: number = 250;
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<VirtualScrollerLazyLoadEvent> = new EventEmitter<VirtualScrollerLazyLoadEvent>(); 
+    @Output() onLazyLoad: EventEmitter<VirtualScrollerLazyLoadEvent> = new EventEmitter<VirtualScrollerLazyLoadEvent>();
 
     @ContentChild(Header) header: Header | undefined;
 

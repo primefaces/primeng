@@ -7,9 +7,9 @@ export interface CheckboxChangeEvent {
     /**
      * Checked value.
      */
-    checked?: any, 
+    checked?: any;
     /**
      * Browser event.
      */
-    originalEvent?: Event
+    originalEvent?: Event;
 }
