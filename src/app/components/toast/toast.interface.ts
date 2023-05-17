@@ -15,5 +15,10 @@ export interface ToastTemplates {
     /**
      * Custom template of message.
      */
-    message: TemplateRef<any> | null;
+    message(context: {
+        /**
+         * Data of the message.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
 }

@@ -27,7 +27,12 @@ export interface GalleriaTemplates {
     /**
      * Custom template of indicator.
      */
-    indicator: TemplateRef<any> | null;
+    indicator(context: {
+        /**
+         * Index of the item
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom template of closeicon.
      */
@@ -51,5 +56,13 @@ export interface GalleriaTemplates {
     /**
      * Custom template of caption.
      */
-    caption: TemplateRef<any> | null;
+    caption(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom template of thumbnail.
+     */
+    thumbnail(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom template of item.
+     */
+    item(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
 }

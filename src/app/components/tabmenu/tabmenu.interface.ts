@@ -8,7 +8,16 @@ export interface TabMenuTemplates {
     /**
      * Custom template of item.
      */
-    item: TemplateRef<any> | null;
+    item(context: {
+        /**
+         * Data of the menu item .
+         */
+        $implicit: any;
+        /**
+         * Index of the option
+         */
+        index: number;
+    }): TemplateRef<{ $implicit: any; index: number }>;
     /**
      * Custom template of nexticon.
      */

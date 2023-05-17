@@ -8,5 +8,10 @@ export interface DockTemplates {
     /**
      * Custom template of item.
      */
-    item: TemplateRef<any> | null;
+    item(context: {
+        /**
+         * Data of the menu.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
 }

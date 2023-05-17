@@ -40,5 +40,10 @@ export interface AccordionTemplates {
     /**
      * Custom template of icon.
      */
-    icon: TemplateRef<any> | null;
+    icon(context: {
+        /**
+         * Data of the selected.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
 }

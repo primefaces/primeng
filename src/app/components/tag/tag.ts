@@ -1,7 +1,6 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeTemplate } from 'primeng/api';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-tag',
@@ -62,7 +61,7 @@ export class Tag {
     iconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.iconTemplate = item.template;

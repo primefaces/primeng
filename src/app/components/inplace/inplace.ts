@@ -111,7 +111,7 @@ export class Inplace implements AfterContentInit {
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'display':
                     this.displayTemplate = item.template;

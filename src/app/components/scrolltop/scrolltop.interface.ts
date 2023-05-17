@@ -8,5 +8,5 @@ export interface ScrollTopTemplates {
     /**
      * Icon of the component.
      */
-    icon: TemplateRef<any> | null;
+    icon(context: { styleClass: 'p-scrolltop-icon' }): TemplateRef<any>;
 }

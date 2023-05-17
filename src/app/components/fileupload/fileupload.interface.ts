@@ -108,7 +108,12 @@ export interface FileUploadTemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(context: {
+        /**
+         * File list.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom template of toolbar.
      */

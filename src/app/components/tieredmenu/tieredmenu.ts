@@ -478,7 +478,7 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
      * @param event
      * @group Methods
      */
-    toggle(event: Event) {
+    toggle(event: any) {
         if (this.visible) this.hide();
         else this.show(event);
 
