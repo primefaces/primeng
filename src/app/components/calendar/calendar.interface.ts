@@ -7,22 +7,24 @@ import { TemplateRef } from '@angular/core';
 export interface CalendarTemplates {
     /**
      * Custom header template.
+     * @param {Object} context - date value instance.
      */
-    date(scope: {
+    date(context: {
         /**
          * Date value of the component.
          */
         $implicit: Date;
-    }): TemplateRef<any> | null;
+    }): TemplateRef<{$implicit: Date}> | null;
     /**
      * Custom decade template
+     * @param {Object} context - date value instance.
      */
-    decade(scope: {
+    decade(context: {
         /**
          * An array containing the start and and year of a decade to display at header of the year picker.
          */
         $implicit: Date;
-    }): TemplateRef<any> | null;
+    }): TemplateRef<{$implicit: Date}> | null;
     /**
      * Custom disabled date template.
      */

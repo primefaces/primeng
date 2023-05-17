@@ -34,13 +34,14 @@ export interface ChipsClickEvent extends ChipsAddEvent {}
 export interface ChipsTemplates {
     /**
      * Custom item template.
+     * @param {Object} context - item data.
      */
-    item(scope: {
+    item(context: {
         /**
          * Value of the chip element.
          */
         $implicit: any;
-    }): TemplateRef<any> | null;
+    }): TemplateRef<{$implicit: any}> | null;
     /**
      * Custom remove icon template.
      */
