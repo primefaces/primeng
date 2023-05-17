@@ -43,6 +43,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         <div
             *ngIf="maskVisible"
             [class]="maskStyleClass"
+            [style]="maskStyle"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
