@@ -1,5 +1,6 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import { Overlay } from 'primeng/overlay';
+import { CascadeSelect } from 'primeng/cascadeselect';
 
 /**
  * Custom panel show event.
@@ -22,19 +23,21 @@ export interface CascadeSelectShowEvent {
 /**
  * Custom panel hide event.
  * @see {@link CascadeSelect.onHide}
+ * @extends {CascadeSelectShowEvent}
  */
 export interface CascadeSelectHideEvent extends CascadeSelectShowEvent {}
 /**
  * Custom panel show event emits right before the panel is shown.
  * @see {@link CascadeSelect.onBeforeShow}
+ * @extends {CascadeSelectShowEvent}
  */
 export interface CascadeSelectBeforeShowEvent extends CascadeSelectShowEvent {}
 /**
  * Custom panel hide event emits right before the panel is hidden.
  * @see {@link CascadeSelect.onBeforeHide}
+ * @extends {CascadeSelectShowEvent}
  */
 export interface CascadeSelectBeforeHideEvent extends CascadeSelectShowEvent {}
-
 /**
  * Defines valid templates in CascadeSelect.
  * @group Templates
@@ -42,14 +45,28 @@ export interface CascadeSelectBeforeHideEvent extends CascadeSelectShowEvent {}
 export interface CascadeSelectTemplates {
     /**
      * Custom value template.
-     * @param {Object} implicit - value.
+     * @param {Object} context - value data.
      */
-    value: TemplateRef<any>;
+    value(context: {
+        /**
+         * Value.
+         */
+        $implicit: any;
+        /**
+         * Placeholder.
+         */
+        placeholder: string;
+    }): TemplateRef<{$implicit: any; placeholder: string}>;
     /**
      * Custom option template.
-     * @param {Object} implicit - option.
+     * @param {Object} context - option data.
      */
-    option: TemplateRef<any>;
+    option(context: {
+        /**
+         * Option instance.
+         */
+        $implicit: any
+    }): TemplateRef<{$implicit: any}>;
     /**
      * Custom dropdown trigger icon template.
      */

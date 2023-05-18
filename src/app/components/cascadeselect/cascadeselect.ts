@@ -526,7 +526,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      */
     @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
     /**
-     * @deprecated
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
      */
@@ -538,7 +538,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * @deprecated
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
      */
