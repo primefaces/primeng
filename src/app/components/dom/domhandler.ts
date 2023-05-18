@@ -145,7 +145,7 @@ export class DomHandler {
             left = (targetOffset.left - relativeElementOffset.left) * -1;
         } else if (targetOffset.left + elementDimensions.width > viewport.width) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
+            left = viewport.width - elementDimensions.width - relativeElementOffset.left;
         } else {
             // element fits on screen (align with target)
             left = targetOffset.left - relativeElementOffset.left;
