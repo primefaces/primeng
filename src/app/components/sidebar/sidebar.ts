@@ -201,6 +201,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     @Output() onHide: EventEmitter<object> = new EventEmitter();
     /**
      * Callback to invoke when dialog visibility is changed.
+     * @param {boolean} value - New value.
      * @group Emits
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
