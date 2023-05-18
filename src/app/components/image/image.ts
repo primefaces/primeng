@@ -138,14 +138,15 @@ export class Image implements AfterContentInit {
      * Triggered when the preview overlay is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event | object> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Triggered when the preview overlay is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event | object> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter();
