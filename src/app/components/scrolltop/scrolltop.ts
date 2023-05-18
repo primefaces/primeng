@@ -62,7 +62,7 @@ export class ScrollTop implements OnInit, OnDestroy {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Target of the ScrollTop, valid values are "window" and "parent".
      * @group Props
