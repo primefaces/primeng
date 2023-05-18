@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import { Calendar } from 'primeng/calendar';
 
 /**
  * Defines valid templates in Calendar.
