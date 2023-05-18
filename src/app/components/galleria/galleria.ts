@@ -221,9 +221,17 @@ export class Galleria implements OnChanges, OnDestroy {
             this.maskVisible = true;
         }
     }
-
+    /**
+     * Callback to invoke on active index change.
+     * @param {number} number - active index.
+     * @group Emits
+     */
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
-
+    /**
+     * Callback to invoke on visiblity change.
+     * @param {boolean} boolean - visible value.
+     * @group Emits
+     */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
 
     @ViewChild('mask') mask: ElementRef | undefined;

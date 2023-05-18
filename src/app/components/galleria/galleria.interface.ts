@@ -1,5 +1,7 @@
 import { TemplateRef } from '@angular/core';
-
+/**
+ * Responsive options of the component.
+ */
 export interface GalleriaResponsiveOptions {
     /**
      * Breakpoint for responsive mode. Exp; @media screen and (max-width: ${breakpoint}) {...}
@@ -10,7 +12,6 @@ export interface GalleriaResponsiveOptions {
      */
     numVisible: number;
 }
-
 /**
  * Defines valid templates in Galleria.
  * @group Templates
@@ -26,10 +27,11 @@ export interface GalleriaTemplates {
     footer: TemplateRef<any> | null;
     /**
      * Custom template of indicator.
+     * @param {Object} context - indicator data.
      */
     indicator(context: {
         /**
-         * Index of the item
+         * Index of the item.
          */
         $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
@@ -55,14 +57,32 @@ export interface GalleriaTemplates {
     nextthumbnailicon: TemplateRef<any> | null;
     /**
      * Custom template of caption.
+     * @param {Object} context - item data.
      */
-    caption(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
+    caption(context: {
+        /**
+         * Item instance.
+         */
+         $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom template of thumbnail.
+     * @param {Object} context - item data.
      */
-    thumbnail(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
+    thumbnail(context: { 
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom template of item.
+     * @param {Object} context - item data.
      */
-    item(context: { $implicit: any }): TemplateRef<{ $implicit: any }>;
+    item(context: {
+        /**
+         * Item instance.
+         */
+         $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
 }
