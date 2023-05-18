@@ -324,19 +324,22 @@ export class Button implements AfterContentInit {
     @Input() ariaLabel: string | undefined;
     /**
      * Callback to execute when button is clicked.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
     @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * Callback to execute when button is focused.
+     * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter();
+    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
     /**
      * Callback to execute when button loses focus.
+     * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter();
+    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     contentTemplate: TemplateRef<any> | undefined;
 
