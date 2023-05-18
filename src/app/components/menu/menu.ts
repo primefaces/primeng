@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID, TemplateRef } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -7,6 +7,7 @@ import { ZIndexUtils } from 'primeng/utils';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { VoidListener } from '../ts-helpers';
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -67,15 +68,15 @@ import { TooltipModule } from 'primeng/tooltip';
     }
 })
 export class MenuItemContent {
-    @Input('pMenuItemContent') item: MenuItem;
+    @Input('pMenuItemContent') item: MenuItem | undefined;
 
     menu: Menu;
 
-    constructor(@Inject(forwardRef(() => Menu)) menu) {
+    constructor(@Inject(forwardRef(() => Menu)) menu: Menu) {
         this.menu = menu as Menu;
     }
 
-    onItemKeyDown(event) {
+    onItemKeyDown(event: any) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.code) {
@@ -111,14 +112,14 @@ export class MenuItemContent {
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: any): any {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: any): any {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
@@ -197,45 +198,77 @@ export class MenuItemContent {
     }
 })
 export class Menu implements OnDestroy {
-    @Input() model: MenuItem[];
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined; 
+    /**
+     * Defines if menu would displayed as a popup.
+     * @group Props
+     */
+    @Input() popup: boolean | undefined; 
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined; 
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined; 
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined; 
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
+    @Input() autoZIndex: boolean = true; 
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
+    @Input() baseZIndex: number = 0; 
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)'; 
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
+    @Input() hideTransitionOptions: string = '.1s linear'; 
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter(); 
+    /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter(); 
 
-    @Input() popup: boolean;
+    container: HTMLDivElement | undefined;
 
-    @Input() style: any;
+    scrollHandler: ConnectedOverlayScrollHandler | null | undefined;
 
-    @Input() styleClass: string;
+    documentClickListener: VoidListener;
 
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    documentResizeListener: VoidListener;
 
-    @Input() autoZIndex: boolean = true;
-
-    @Input() baseZIndex: number = 0;
-
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() hideTransitionOptions: string = '.1s linear';
-
-    @ViewChild('container') containerViewChild: ElementRef;
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    container: HTMLDivElement;
-
-    scrollHandler: ConnectedOverlayScrollHandler | null;
-
-    documentClickListener: () => void | null;
-
-    documentResizeListener: () => void | null;
-
-    preventDocumentDefault: boolean;
+    preventDocumentDefault: boolean | undefined;
 
     target: any;
 
-    visible: boolean;
+    visible: boolean | undefined;
 
-    relativeAlign: boolean;
+    relativeAlign: boolean | undefined;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -247,14 +280,14 @@ export class Menu implements OnDestroy {
         public overlayService: OverlayService
     ) {}
 
-    toggle(event) {
+    toggle(event: Event) {
         if (this.visible) this.hide();
         else this.show(event);
 
         this.preventDocumentDefault = true;
     }
 
-    show(event) {
+    show(event: any) {
         this.target = event.currentTarget;
         this.relativeAlign = event.relativeAlign;
         this.visible = true;
@@ -352,7 +385,7 @@ export class Menu implements OnDestroy {
         }
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: Event) {
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
@@ -407,7 +440,7 @@ export class Menu implements OnDestroy {
             });
         }
 
-        this.scrollHandler.bindScrollListener();
+        this.scrollHandler?.bindScrollListener();
     }
 
     unbindScrollListener() {
