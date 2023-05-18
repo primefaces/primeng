@@ -123,6 +123,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
      * This function is executed when the value changes.
+     * @param {Message[]} value - messages value.
      * @group Emits
      */
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
