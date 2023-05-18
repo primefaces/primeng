@@ -382,21 +382,25 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     @Output() onHide: EventEmitter<object> = new EventEmitter();
     /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
+     * @param {boolean} value - New value.
      * @group Emits
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
     /**
      * Callback to invoke when dialog resizing is initiated.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
     @Output() onResizeInit: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * Callback to invoke when dialog resizing is completed.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
     @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * Callback to invoke when dialog dragging is completed.
+     * @param {DragEvent} event - Drag event.
      * @group Emits
      */
     @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter();

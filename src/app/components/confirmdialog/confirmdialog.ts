@@ -316,6 +316,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     /**
      * Callback to invoke when dialog is hidden.
+     * @param {ConfirmEventType} enum - confirm event type.
      * @group Emits
      */
     @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter();
