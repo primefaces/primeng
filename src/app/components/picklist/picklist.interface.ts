@@ -1,6 +1,8 @@
 import { PickList } from './picklist';
 import { TemplateRef } from '@angular/core';
-
+/**
+ * Callbacks to invoke on filter.
+ */
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;
     reset?: () => void;
@@ -19,31 +21,37 @@ export interface PickListMoveToSourceEvent {
 /**
  * Custom move all to source event.
  * @see {@link PickList.onMoveAllToSource}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListMoveAllToSourceEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move all to target event.
  * @see {@link PickList.onMoveAllToTarget}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListMoveAllToTargetEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move to target event.
  * @see {@link PickList.onMoveToTarget}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListMoveToTargetEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move source reorder event.
  * @see {@link PickList.onSourceReorder}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListSourceReorderEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move target reorder event.
  * @see {@link PickList.onTargetReorder}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListTargetReorderEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom source select event.
  * @see {@link PickList.onSourceSelect}
+ * @extends {PickListMoveToSourceEvent}
  */
 export interface PickListSourceSelectEvent {
     /**
@@ -58,6 +66,7 @@ export interface PickListSourceSelectEvent {
 /**
  * Custom target select event.
  * @see {@link PickList.onTargetSelect}
+ * @extends {PickListSourceSelectEvent}
  */
 export interface PickListTargetSelectEvent extends PickListSourceSelectEvent {}
 /**
