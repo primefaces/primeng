@@ -1,5 +1,7 @@
 import { TemplateRef } from '@angular/core';
-
+/**
+ * Responsive options of the component.
+ */
 export interface CarouselResponsiveOptions {
     /**
      * Breakpoint for responsive mode. Exp; @media screen and (max-width: ${breakpoint}) {...}
@@ -26,6 +28,7 @@ export interface CarouselTemplates {
     header: TemplateRef<any> | null;
     /**
      * Custom template of item.
+     * @param {Object} context - item data.
      */
     item(context: {
         /**

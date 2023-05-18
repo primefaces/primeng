@@ -184,7 +184,7 @@ export class Carousel implements AfterContentInit {
      * Inline style of the indicator items.
      * @group Props
      */
-    @Input() indicatorsContentStyle: any;
+    @Input() indicatorsContentStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the indicators.
      * @group Props
@@ -194,7 +194,7 @@ export class Carousel implements AfterContentInit {
      * Style of the indicators.
      * @group Props
      */
-    @Input() indicatorStyle: any;
+    @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
     /**
      * An array of objects to display.
      * @group Props
@@ -229,7 +229,7 @@ export class Carousel implements AfterContentInit {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the viewport container.
      * @group Props
