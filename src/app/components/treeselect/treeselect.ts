@@ -525,7 +525,7 @@ export class TreeSelect implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 if (this.filter) {
-                    ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(this.filterValue);
+                    ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
                     this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
                 }
 
