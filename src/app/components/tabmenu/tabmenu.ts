@@ -136,7 +136,9 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      * @group Props
      */
     @Input() scrollable: boolean | undefined;
-
+    /**
+     * Defines if popup mode enabled.
+     */
     @Input() popup: boolean | undefined;
     /**
      * Inline style of the element.
@@ -150,9 +152,10 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     @Input() styleClass: string | undefined;
     /**
      * Event fired when a tab is selected.
+     * @param {MenuItem} event - item instance.
      * @group Emits
      */
-    @Output() activeItemChange = new EventEmitter<MenuItem>();
+    @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 
     @ViewChild('content') content: Nullable<ElementRef>;
 

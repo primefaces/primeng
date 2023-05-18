@@ -7,14 +7,15 @@ import { TemplateRef } from '@angular/core';
 export interface TabMenuTemplates {
     /**
      * Custom template of item.
+     * @param {Object} context - item data.
      */
     item(context: {
         /**
-         * Data of the menu item .
+         * Item instance.
          */
         $implicit: any;
         /**
-         * Index of the option
+         * Item index.
          */
         index: number;
     }): TemplateRef<{ $implicit: any; index: number }>;

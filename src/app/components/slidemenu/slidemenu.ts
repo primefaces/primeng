@@ -332,12 +332,12 @@ export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy 
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<object> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when overlay menu is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<object> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

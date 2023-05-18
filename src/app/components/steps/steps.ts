@@ -102,9 +102,10 @@ export class Steps implements OnInit, OnDestroy {
     @Input() styleClass: string | undefined;
     /**
      * Callback to invoke when the new step is selected.
+     * @param {number} number - current index.
      * @group Emits
      */
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
