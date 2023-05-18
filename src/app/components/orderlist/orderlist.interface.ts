@@ -1,5 +1,8 @@
 import { TemplateRef } from '@angular/core';
-
+import { OrderList } from './orderlist';
+/**
+ * Callbacks to invoke on filter.
+ */
 export interface OrderListFilterOptions {
     filter?: (value?: any) => void;
     reset?: () => void;
