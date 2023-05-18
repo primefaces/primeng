@@ -1,7 +1,9 @@
 import { TemplateRef } from '@angular/core';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from '../scroller/scroller.interface';
 import { Dropdown } from 'primeng/dropdown';
-
+/**
+ * Filter callbacks of the dropdown.
+ */
 export interface DropdownFilterOptions {
     filter?: (value?: any) => void;
     reset?: () => void;

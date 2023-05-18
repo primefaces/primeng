@@ -559,7 +559,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Item size of item to be virtual scrolled.
      * @group Props
      */
-    _itemSize: number | undefined;
     @Input() get itemSize(): number | undefined {
         return this._itemSize;
     }
@@ -567,12 +566,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
+    _itemSize: number | undefined;
     /**
      * @deprecated since v14.2.0, use overlayOptions property instead.
      * Whether to automatically manage layering.
      * @group Props
      */
-    _autoZIndex: boolean | undefined;
     @Input() get autoZIndex(): boolean | undefined {
         return this._autoZIndex;
     }
@@ -580,12 +579,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._autoZIndex = val;
         console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    _autoZIndex: boolean | undefined;
     /**
      * @deprecated since v14.2.0, use overlayOptions property instead.
      * Base zIndex value to use in layering.
      * @group Props
      */
-    _baseZIndex: number | undefined;
     @Input() get baseZIndex(): number | undefined {
         return this._baseZIndex;
     }
@@ -593,12 +592,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._baseZIndex = val;
         console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    _baseZIndex: number | undefined;
     /**
      * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
      */
-    _showTransitionOptions: string | undefined;
     @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
     }
@@ -606,12 +605,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    _showTransitionOptions: string | undefined;
     /**
      * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
      */
-    _hideTransitionOptions: string | undefined;
     @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
     }
@@ -619,6 +618,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    _hideTransitionOptions: string | undefined;
     /**
      * When specified, filter displays with this value.
      * @group Props
