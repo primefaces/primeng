@@ -33,6 +33,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
     @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter();
     /**
      * Callback to invoke on dragging.
+     * @param {DragEvent} event - Drag event.
      * @group Emits
      */
     @Output() onDrag: EventEmitter<DragEvent> = new EventEmitter();
