@@ -168,7 +168,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @ContentChild(Header) toolbar;
+    @ContentChild(Header) toolbar: any;
 
     value: Nullable<string>;
 
