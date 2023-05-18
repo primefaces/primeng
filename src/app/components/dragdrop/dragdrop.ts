@@ -23,11 +23,13 @@ export class Draggable implements AfterViewInit, OnDestroy {
     @Input() dragHandle: string | undefined;
     /**
      * Callback to invoke when drag begins.
+     * @param {DragEvent} event - Drag event.
      * @group Emits
      */
     @Output() onDragStart: EventEmitter<DragEvent> = new EventEmitter();
     /**
      * Callback to invoke when drag ends.
+     * @param {DragEvent} event - Drag event.
      * @group Emits
      */
     @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter();
