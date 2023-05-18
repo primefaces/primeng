@@ -63,13 +63,13 @@ export interface GalleriaTemplates {
         /**
          * Item instance.
          */
-         $implicit: any;
+        $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom template of thumbnail.
      * @param {Object} context - item data.
      */
-    thumbnail(context: { 
+    thumbnail(context: {
         /**
          * Item instance.
          */
@@ -83,6 +83,6 @@ export interface GalleriaTemplates {
         /**
          * Item instance.
          */
-         $implicit: any;
+        $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
 }

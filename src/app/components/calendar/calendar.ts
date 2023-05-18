@@ -907,7 +907,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     overlay: Nullable<HTMLDivElement>;
 
     responsiveStyleElement: HTMLStyleElement | undefined | null;
-    
+
     overlayVisible: Nullable<boolean>;
 
     onModelChange: Function = () => {};

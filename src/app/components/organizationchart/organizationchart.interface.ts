@@ -30,7 +30,7 @@ export interface OrganizationChartNodeExpandEvent extends OrganizationChartNodeS
 /**
  * Custom node collapse event.
  * @see {@link OrganizationChart.onNodeCollapse}
-* @extends {OrganizationChartNodeSelectEvent}
+ * @extends {OrganizationChartNodeSelectEvent}
  */
 export interface OrganizationChartNodeCollapseEvent extends OrganizationChartNodeSelectEvent {}
 /**

@@ -40,7 +40,7 @@ export interface ChipsTemplates {
          * Value of the chip element.
          */
         $implicit: any;
-    }): TemplateRef<{$implicit: any}> | null;
+    }): TemplateRef<{ $implicit: any }> | null;
     /**
      * Custom remove icon template.
      */

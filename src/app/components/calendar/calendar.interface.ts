@@ -15,7 +15,7 @@ export interface CalendarTemplates {
          * Date value of the component.
          */
         $implicit: Date;
-    }): TemplateRef<{$implicit: Date}> | null;
+    }): TemplateRef<{ $implicit: Date }> | null;
     /**
      * Custom decade template
      * @param {Object} context - date value instance.
@@ -25,7 +25,7 @@ export interface CalendarTemplates {
          * An array containing the start and and year of a decade to display at header of the year picker.
          */
         $implicit: Date;
-    }): TemplateRef<{$implicit: Date}> | null;
+    }): TemplateRef<{ $implicit: Date }> | null;
     /**
      * Custom disabled date template.
      */
