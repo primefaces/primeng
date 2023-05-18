@@ -17,19 +17,16 @@ export interface FormDataEvent {
 /**
  * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
  * @see {@link FileUpload.onSend}
- * @event
  */
 export interface FileSendEvent extends UploadEvent, FormDataEvent {}
 /**
  * Callback to invoke before file upload is initialized.
  * @see {@link FileUpload.onBeforeUpload}
- * @event
  */
 export interface FileBeforeUploadEvent extends FormDataEvent {}
 /**
  * Callback to invoke when file upload is complete.
  * @see {@link FileUpload.onUpload}
- * @event
  */
 export interface FileUploadEvent extends UploadEvent {
     /**
@@ -40,7 +37,6 @@ export interface FileUploadEvent extends UploadEvent {
 /**
  * Callback to invoke when a file is removed without uploading using clear button of a file.
  * @see {@link FileUpload.onRemove}
- * @event
  */
 export interface FileRemoveEvent {
     /**
@@ -55,7 +51,6 @@ export interface FileRemoveEvent {
 /**
  * Callback to invoke when files are selected.
  * @see {@link FileUpload.onSelect}
- * @event
  */
 export interface FileSelectEvent {
     /**
@@ -74,7 +69,6 @@ export interface FileSelectEvent {
 /**
  * Callback to invoke when files are being uploaded.
  * @see {@link FileUpload.onProgress}
- * @event
  */
 export interface FileProgressEvent extends UploadEvent {
     /**
@@ -85,7 +79,6 @@ export interface FileProgressEvent extends UploadEvent {
 /**
  * Callback to invoke in custom upload mode to upload the files manually.
  * @see {@link FileUpload.uploadHandler}
- * @event
  */
 export interface FileUploadHandlerEvent {
     /**

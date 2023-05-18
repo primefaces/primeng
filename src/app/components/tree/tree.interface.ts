@@ -6,7 +6,6 @@ import { ScrollerOptions } from '../scroller/scroller.interface';
 /**
  * Custom node select event.
  * @see {@link Tree.onNodeSelect}
- * @event
  */
 export interface TreeNodeSelectEvent {
     /**
@@ -22,34 +21,29 @@ export interface TreeNodeSelectEvent {
  * Custom node unselect event.
  * @see {@link Tree.onNodeUnSelect}
  * @extends {TreeNodeSelectEvent}
- * @event
  */
 export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node expand event.
  * @see {@link Tree.onNodeExpand}
  * @extends {TreeNodeSelectEvent}
- * @event
  */
 export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link Tree.onNodeCollapse}
  * @extends {TreeNodeSelectEvent}
- * @event
  */
 export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
 /**
  * Custom context menu select event.
  * @see {@link Tree.onNodeContextMenuSelect}
  * @extends {TreeNodeSelectEvent}
- * @event
  */
 export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node drop event.
  * @see {@link Tree.onNodeDrop}
- * @event
  */
 export interface TreeNodeDropEvent {
     /**

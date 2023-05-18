@@ -17,7 +17,6 @@ export interface ListboxFilterOptions {
 /**
  * Custom change event.
  * @see {@link Listbox.onChange}
- * @event
  */
 export interface ListboxChangeEvent {
     /**
@@ -32,7 +31,6 @@ export interface ListboxChangeEvent {
 /**
  * Custom change event.
  * @see {@link Listbox.onClick}
- * @event
  */
 export interface ListboxClickEvent {
     /**
@@ -51,7 +49,6 @@ export interface ListboxClickEvent {
 /**
  * Custom change event.
  * @see {@link Listbox.onDblClick}
- * @event
  */
 export interface ListboxDoubleClickEvent extends ListboxClickEvent {}
 /**

@@ -1,7 +1,6 @@
 /**
  * Custom change event.
  * @see {@link InputSwitch.onChange}
- * @event
  */
 export interface InputSwitchOnChangeEvent {
     /**

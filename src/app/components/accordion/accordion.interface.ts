@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom tab open event.
  * @see {@link Accordion.onOpen}
- * @event
  */
 export interface AccordionTabOpenEvent {
     /**
@@ -20,7 +19,6 @@ export interface AccordionTabOpenEvent {
  * Custom tab close event.
  * @see {@link Accordion.onClose}
  * @extends {AccordionTabOpenEvent}
- * @event
  */
 export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
 

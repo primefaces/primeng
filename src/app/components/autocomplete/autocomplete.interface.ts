@@ -5,7 +5,6 @@ import { AutoComplete } from 'primeng/autocomplete';
 /**
  * Custom complete event.
  * @see {@link AutoComplete.completeMethod}
- * @event
  */
 export interface AutoCompleteCompleteEvent {
     /**
@@ -20,7 +19,6 @@ export interface AutoCompleteCompleteEvent {
 /**
  * Custom click event.
  * @see {@link AutoComplete.onDropdownClick}
- * @event
  */
 export interface AutoCompleteDropdownClickEvent {
     /**

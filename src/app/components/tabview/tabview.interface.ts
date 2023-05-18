@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom tab change event.
  * @see {@link TabView.onChange}
- * @event
  */
 export interface TabViewChangeEvent {
     /**
@@ -19,7 +18,6 @@ export interface TabViewChangeEvent {
 /**
  * Custom tab close event.
  * @see {@link TabView.onClose}
- * @event
  */
 export interface TabViewCloseEvent {
     /**

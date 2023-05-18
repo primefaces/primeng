@@ -17,7 +17,6 @@ export interface TriStateCheckboxTemplates {
 /**
  * Custom change event.
  * @see {@link TriStateCheckbox.onChange}
- * @event
  */
 export interface TriStateCheckboxChangeEvent {
     /**

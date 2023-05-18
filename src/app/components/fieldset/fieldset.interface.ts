@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom panel toggle event, emits after toggle.
  * @see {@link Fieldset.onAfterToggle}
- * @event
  */
 export interface FieldsetAfterToggleEvent {
     /**
@@ -19,7 +18,6 @@ export interface FieldsetAfterToggleEvent {
 /**
  * Custom panel toggle event, emits before toggle.
  * @see {@link Fieldset.onBeforeToggle}
- * @event
  */
 export interface FieldsetBeforeToggleEvent extends FieldsetAfterToggleEvent {}
 

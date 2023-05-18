@@ -3,7 +3,6 @@ import { Checkbox } from "./checkbox";
 /**
  * Custom change event.
  * @see {@link Checkbox.onChange}
- * @event
  */
 export interface CheckboxChangeEvent {
     /**

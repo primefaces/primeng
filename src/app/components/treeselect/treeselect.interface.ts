@@ -3,7 +3,6 @@ import { TreeNode } from 'primeng/api';
 /**
  * Custom node collapse event.
  * @see {@link TreeSelect.onNodeCollapse}
- * @event
  */
 export interface TreeSelectNodeCollapseEvent {
     /**
@@ -18,7 +17,6 @@ export interface TreeSelectNodeCollapseEvent {
 /**
  * Custom node expand event.
  * @see {@link TreeSelect.onNodeExpand}
- * @event
  */
 export interface TreeSelectNodeExpandEvent extends TreeSelectNodeCollapseEvent {}
 /**

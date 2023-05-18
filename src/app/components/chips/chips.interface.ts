@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom add event.
  * @see {@link Chips.onAdd}
- * @event
  */
 export interface ChipsAddEvent {
     /**
@@ -18,13 +17,11 @@ export interface ChipsAddEvent {
 /**
  * Custom remove event.
  * @see {@link Chips.onRemove}
- * @event
  */
 export interface ChipsRemoveEvent extends ChipsAddEvent {}
 /**
  * Custom click event.
  * @see {@link Chips.onChipClick}
- * @event
  */
 export interface ChipsClickEvent extends ChipsAddEvent {}
 /**

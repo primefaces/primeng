@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom click event.
  * @see {@link SelectButton.onOptionClick}
- * @event
  */
 export interface SelectButtonOptionClickEvent {
     /**
@@ -22,7 +21,6 @@ export interface SelectButtonOptionClickEvent {
 /**
  * Custom change event.
  * @see {@link SelectButton.onChange}
- * @event
  */
 export interface SelectButtonChangeEvent {
     /**

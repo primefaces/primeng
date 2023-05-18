@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link Panel.onBeforeToggle}
- * @event
  */
 export interface PanelBeforeToggleEvent {
     /**
@@ -18,7 +17,6 @@ export interface PanelBeforeToggleEvent {
 /**
  * Custom panel toggle event, emits after panel toggle.
  * @see {@link Panel.onAfterToggle}
- * @event
  */
 export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
 /**

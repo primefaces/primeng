@@ -3,7 +3,6 @@ import { TemplateRef } from '@angular/core';
 /**
  * Custom input event.
  * @see {@link InputNumber.onInput}
- * @event
  */
 export interface InputNumberInputEvent {
     /**

@@ -1,7 +1,6 @@
 /**
  * Custom change event.
  * @see {@link ToggleButton.onChange}
- * @event
  */
 export interface ToggleButtonChangeEvent {
     /**

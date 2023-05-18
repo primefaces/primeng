@@ -1,7 +1,6 @@
 /**
  * Custom change event.
  * @see {@link Slider.onChange}
- * @event
  */
 export interface SliderChangeEvent {
     /**
