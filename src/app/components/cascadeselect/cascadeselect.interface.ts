@@ -56,7 +56,7 @@ export interface CascadeSelectTemplates {
          * Placeholder.
          */
         placeholder: string;
-    }): TemplateRef<{$implicit: any; placeholder: string}>;
+    }): TemplateRef<{ $implicit: any; placeholder: string }>;
     /**
      * Custom option template.
      * @param {Object} context - option data.
@@ -65,8 +65,8 @@ export interface CascadeSelectTemplates {
         /**
          * Option instance.
          */
-        $implicit: any
-    }): TemplateRef<{$implicit: any}>;
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom dropdown trigger icon template.
      */

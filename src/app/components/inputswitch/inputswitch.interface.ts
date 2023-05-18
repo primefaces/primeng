@@ -1,4 +1,4 @@
-import { InputSwitch } from "./inputswitch";
+import { InputSwitch } from './inputswitch';
 /**
  * Custom change event.
  * @see {@link InputSwitch.onChange}

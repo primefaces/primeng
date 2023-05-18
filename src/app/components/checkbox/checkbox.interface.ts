@@ -1,5 +1,5 @@
-import { TemplateRef } from "@angular/core";
-import { Checkbox } from "./checkbox";
+import { TemplateRef } from '@angular/core';
+import { Checkbox } from './checkbox';
 /**
  * Custom change event.
  * @see {@link Checkbox.onChange}

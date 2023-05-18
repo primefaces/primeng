@@ -62,7 +62,7 @@ export interface AutoCompleteTemplates {
          * Option index.
          */
         index: number;
-    }): TemplateRef<{$implicit: any; index: number}>;
+    }): TemplateRef<{ $implicit: any; index: number }>;
     /**
      * Custom group template.
      * @param {Object} context - group data.
@@ -72,7 +72,7 @@ export interface AutoCompleteTemplates {
          * Option group.
          */
         $implicit: any | any[];
-    }): TemplateRef<{$implicit: any | any[]}>;
+    }): TemplateRef<{ $implicit: any | any[] }>;
     /**
      * Custom selected item template.
      * @param {Object} context - selected item data.
@@ -82,7 +82,7 @@ export interface AutoCompleteTemplates {
          * Selected value.
          */
         $implicit: any;
-    }): TemplateRef<{$implici: any}>;
+    }): TemplateRef<{ $implici: any }>;
     /**
      * Custom header template.
      */
@@ -104,7 +104,7 @@ export interface AutoCompleteTemplates {
          * Virtual scroller options.
          */
         $implicit: ScrollerOptions;
-    }): TemplateRef<{$implicit: ScrollerOptions}>;
+    }): TemplateRef<{ $implicit: ScrollerOptions }>;
     /**
      * Custom remove token icon template.
      */
