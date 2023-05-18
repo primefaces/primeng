@@ -1,8 +1,10 @@
 import { TemplateRef } from '@angular/core';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from '../scroller/scroller.interface';
 import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelect } from 'primeng/multiselect';
-
+/**
+ * Callbacks to invoke on filter or reset.
+ */
 export interface MultiSelectFilterOptions {
     filter?: (value?: any) => void;
     reset?: () => void;
