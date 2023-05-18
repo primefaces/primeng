@@ -49,7 +49,7 @@ export class Chip implements AfterContentInit {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Class of the element.
      * @group Props
