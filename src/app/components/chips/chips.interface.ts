@@ -17,11 +17,13 @@ export interface ChipsAddEvent {
 /**
  * Custom remove event.
  * @see {@link Chips.onRemove}
+ * @extends {ChipsAddEvent}
  */
 export interface ChipsRemoveEvent extends ChipsAddEvent {}
 /**
  * Custom click event.
  * @see {@link Chips.onChipClick}
+ * @extends {ChipsAddEvent}
  */
 export interface ChipsClickEvent extends ChipsAddEvent {}
 /**
