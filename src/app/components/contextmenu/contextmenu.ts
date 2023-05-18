@@ -623,7 +623,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
                     case 'Enter':
                         if (activeItem) {
-                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey), activeItem);
+                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey!), activeItem);
                         }
 
                         event.preventDefault();

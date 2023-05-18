@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Nullable } from '../ts-helpers';
 
 @Injectable()
 export class ContextMenuService {
@@ -7,15 +8,15 @@ export class ContextMenuService {
 
     activeItemKeyChange$ = this.activeItemKeyChange.asObservable();
 
-    activeItemKey: string;
+    activeItemKey: Nullable<string>;
 
-    changeKey(key) {
+    changeKey(key: string) {
         this.activeItemKey = key;
-        this.activeItemKeyChange.next(this.activeItemKey);
+        this.activeItemKeyChange.next(this.activeItemKey!);
     }
 
     reset() {
         this.activeItemKey = null;
-        this.activeItemKeyChange.next(this.activeItemKey);
+        this.activeItemKeyChange.next(this.activeItemKey!);
     }
 }

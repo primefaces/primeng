@@ -76,7 +76,7 @@ export class PrimeNGConfig {
     translationObserver = this.translationSource.asObservable();
 
     getTranslation(key: string) {
-        return this.translation[key];
+        return this.translation[key as keyof typeof this.translation];
     }
 
     setTranslation(value: Translation) {

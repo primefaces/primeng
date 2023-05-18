@@ -1,6 +1,5 @@
-import { NgModule, EventEmitter, Directive, Input, Output, ContentChildren, ContentChild, TemplateRef, AfterContentInit, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'p-header',
@@ -19,14 +18,14 @@ export class Footer {}
     host: {}
 })
 export class PrimeTemplate {
-    @Input() type: string;
+    @Input() type: string | undefined;
 
-    @Input('pTemplate') name: string;
+    @Input('pTemplate') name: string | undefined;
 
     constructor(public template: TemplateRef<any>) {}
 
     getType(): string {
-        return this.name;
+        return this.name!;
     }
 }
 
