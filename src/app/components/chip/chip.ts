@@ -67,11 +67,13 @@ export class Chip implements AfterContentInit {
     @Input() removeIcon: string | undefined;
     /**
      * Callback to invoke when a chip is removed.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
     @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter();
