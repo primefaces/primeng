@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { OrganizationChart } from 'primeng/organizationchart';
+
 /**
  * Custom node select event.
  * @see {@link OrganizationChart.onNodeSelect}
@@ -23,11 +24,13 @@ export interface OrganizationChartNodeUnSelectEvent extends OrganizationChartNod
 /**
  * Custom node expand event.
  * @see {@link OrganizationChart.onNodeExpand}
+ * @extends {OrganizationChartNodeSelectEvent}
  */
 export interface OrganizationChartNodeExpandEvent extends OrganizationChartNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link OrganizationChart.onNodeCollapse}
+* @extends {OrganizationChartNodeSelectEvent}
  */
 export interface OrganizationChartNodeCollapseEvent extends OrganizationChartNodeSelectEvent {}
 /**
