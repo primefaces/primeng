@@ -19,7 +19,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     @Input() autoResize: boolean | undefined;
     /**
      * Callback to invoke on textarea resize.
-     * @param {Event | {}} event - Custom resize event.
+     * @param {(Event | {})} event - Custom resize event.
      * @group Emits
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
