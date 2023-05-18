@@ -1,12 +1,15 @@
 import { TemplateRef } from '@angular/core';
+import { Paginator } from './paginator';
 
+/**
+ * Paginator state.
+ */
 export interface PaginatorState {
     page?: number;
     first?: number;
     rows?: number;
     pageCount?: number;
 }
-
 /**
  * Defines valid templates in PaginatorTemplates.
  * @group Templates
