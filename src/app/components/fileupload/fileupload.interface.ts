@@ -1,5 +1,5 @@
 import { HttpEvent } from '@angular/common/http';
-
+import { FileUpload } from './fileUpload';
 export interface UploadEvent {
     /**
      * HTTP event.

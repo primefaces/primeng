@@ -167,7 +167,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * HTTP method to send the files to the url such as "post" and "put".
      * @group Props
      */
-    @Input() method: string = 'post';
+    @Input() method: 'post' | 'put' | undefined = 'post';
     /**
      * Used to select multiple files at once from file dialog.
      * @group Props
@@ -284,7 +284,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() showCancelButton: boolean = true;
     /**
-     * Defines the UI of the component, possible values are 'advanced' and 'basic'.
+     * Defines the UI of the component.
      * @group Props
      */
     @Input() mode: 'advanced' | 'basic' | undefined = 'advanced';
@@ -294,7 +294,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() headers: HttpHeaders | undefined;
     /**
-     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeVue Locale configuration.
+     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() customUpload: boolean | undefined;
@@ -325,54 +325,65 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     @Input() chooseStyleClass: string | undefined;
     /**
      * Callback to invoke before file upload is initialized.
+     * @param {FileBeforeUploadEvent} event - upload event.
      * @group Emits
      */
-    @Output() onBeforeUpload: EventEmitter<FileBeforeUploadEvent> = new EventEmitter();
+    @Output() onBeforeUpload: EventEmitter<FileBeforeUploadEvent> = new EventEmitter<FileBeforeUploadEvent>();
     /**
      * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
+     * @param {FileSendEvent} event - send event.
      * @group Emits
      */
-    @Output() onSend: EventEmitter<FileSendEvent> = new EventEmitter();
+    @Output() onSend: EventEmitter<FileSendEvent> = new EventEmitter<FileSendEvent>();
     /**
      * Callback to invoke when file upload is complete.
+     * @param {FileUploadEvent} event - upload event.
      * @group Emits
      */
-    @Output() onUpload: EventEmitter<FileUploadEvent> = new EventEmitter();
+    @Output() onUpload: EventEmitter<FileUploadEvent> = new EventEmitter<FileUploadEvent>();
     /**
      * Callback to invoke if file upload fails.
+     * @param {File[]} files - Files.
+     * @param {ErrorEvent} error - Error event.
      * @group Emits
      */
-    @Output() onError: EventEmitter<{ files: File[]; error?: ErrorEvent }> = new EventEmitter();
+    @Output() onError: EventEmitter<{ files: File[]; error?: ErrorEvent }> = new EventEmitter<{ files: File[]; error?: ErrorEvent }>();
     /**
      * Callback to invoke when files in queue are removed without uploading using clear all button.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event> = new EventEmitter();
+    @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when a file is removed without uploading using clear button of a file.
+     * @param {FileRemoveEvent} event - Remove event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<FileRemoveEvent> = new EventEmitter();
+    @Output() onRemove: EventEmitter<FileRemoveEvent> = new EventEmitter<FileRemoveEvent>();
     /**
      * Callback to invoke when files are selected.
+     * @param {FileSelectEvent} event - Select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<FileSelectEvent> = new EventEmitter();
+    @Output() onSelect: EventEmitter<FileSelectEvent> = new EventEmitter<FileSelectEvent>();
     /**
      * Callback to invoke when files are being uploaded.
+     * @param {FileProgressEvent} event - Progress event.
      * @group Emits
      */
-    @Output() onProgress: EventEmitter<FileProgressEvent> = new EventEmitter();
+    @Output() onProgress: EventEmitter<FileProgressEvent> = new EventEmitter<FileProgressEvent>();
     /**
      * Callback to invoke in custom upload mode to upload the files manually.
+     * @param {FileUploadHandlerEvent} event - upload handler event.
      * @group Emits
      */
-    @Output() uploadHandler: EventEmitter<FileUploadHandlerEvent> = new EventEmitter();
+    @Output() uploadHandler: EventEmitter<FileUploadHandlerEvent> = new EventEmitter<FileUploadHandlerEvent>();
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -653,7 +664,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
             }
 
             this.http
-                .request(this.method, this.url as string, {
+                .request(<string>this.method, this.url as string, {
                     body: formData,
                     headers: this.headers,
                     reportProgress: true,
