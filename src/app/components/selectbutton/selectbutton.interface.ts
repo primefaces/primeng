@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-
+import { SelectButton } from './selectbutton';
 /**
  * Custom click event.
  * @see {@link SelectButton.onOptionClick}
