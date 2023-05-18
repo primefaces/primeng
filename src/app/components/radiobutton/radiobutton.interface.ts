@@ -1,3 +1,4 @@
+import { RadioButton } from "./radiobutton";
 /**
  * Custom click event.
  * @see {@link RadioButton.onClick}
