@@ -1,3 +1,4 @@
+import { Slider } from './slider';
 /**
  * Custom change event.
  * @see {@link Slider.onChange}
