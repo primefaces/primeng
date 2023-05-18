@@ -237,9 +237,10 @@ export class Carousel implements AfterContentInit {
     @Input() styleClass: string | undefined;
     /**
      * Callback to invoke after scroll.
+     * @param {Object} event - custom page event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<object> = new EventEmitter();
+    @Output() onPage: EventEmitter<{page: number}> = new EventEmitter();
 
     @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
