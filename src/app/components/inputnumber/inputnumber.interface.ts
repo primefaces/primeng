@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-
+import { InputNumber } from './inputnumber';
 /**
  * Custom input event.
  * @see {@link InputNumber.onInput}
