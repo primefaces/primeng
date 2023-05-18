@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import { MenuItem } from '../api/menuitem';
-
+import { MenuItem } from 'primeng/api';
+import { Breadcrumb } from './breadcrumb';
 /**
  * Defines valid templates in Breadcumb.
  * @group Templates
@@ -11,7 +11,10 @@ export interface BreadcumbTemplates {
      */
     seperator: TemplateRef<any> | null;
 }
-
+/**
+ * Custom select event.
+ * @see {@link Breadcrumb.onItemClick}
+ */
 export interface BreadcrumbItemClickEvent {
     /**
      * Browser event.

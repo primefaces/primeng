@@ -150,9 +150,10 @@ export class Breadcrumb implements AfterContentInit {
     @Input() homeAriaLabel: string | undefined;
     /**
      * Fired when an item is selected.
+     * @param {BreadcrumbItemClickEvent} event - custom click event.
      * @group Emits
      */
-    @Output() onItemClick: EventEmitter<BreadcrumbItemClickEvent> = new EventEmitter();
+    @Output() onItemClick: EventEmitter<BreadcrumbItemClickEvent> = new EventEmitter<BreadcrumbItemClickEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
