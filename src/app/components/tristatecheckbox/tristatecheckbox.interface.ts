@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import { TriStateCheckbox } from './tristatecheckbox';
 
 /**
  * Defines valid templates in TriStateCheckbox.
