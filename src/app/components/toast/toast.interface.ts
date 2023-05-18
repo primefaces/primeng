@@ -1,6 +1,9 @@
 import { TemplateRef } from '@angular/core';
-
-export interface ToastBreakpointsType {
+import { Toast } from './toast';
+/**
+ * Breakpoints of toast element.
+ */
+export interface ToastBreakpoints {
     /**
      * Breakpoint for responsive mode.
      */
@@ -21,4 +24,18 @@ export interface ToastTemplates {
          */
         $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
+}
+/**
+ * Custom close event.
+ * @see {@link Toast.onClose}
+ */
+export interface ToastCloseEvent {
+    /**
+     * Message of the closed element.
+     */
+    message?: string;
+    /**
+     * Index of the removed element.
+     */
+    index?: number;
 }
