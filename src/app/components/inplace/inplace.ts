@@ -89,11 +89,13 @@ export class Inplace implements AfterContentInit {
     @Input() closeIcon: string | undefined;
     /**
      * Callback to invoke when inplace is opened.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onActivate: EventEmitter<Event> = new EventEmitter();
     /**
      * Callback to invoke when inplace is closed.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
