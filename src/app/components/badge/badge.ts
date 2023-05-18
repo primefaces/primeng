@@ -4,9 +4,6 @@ import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 
-type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
-type BadgeSize = 'large' | 'xlarge';
-
 @Directive({
     selector: '[pBadge]',
     host: {
@@ -18,7 +15,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
      * Icon position of the component.
      * @group Props
      */
-    @Input() iconPos: BadgeDirectiveIconPosition = 'left';
+    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
     /**
      * When specified, disables the component.
      * @group Props
@@ -33,10 +30,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public get size(): BadgeSize {
+    @Input() public get size(): 'large' | 'xlarge' {
         return this._size;
     }
-    set size(val: BadgeSize) {
+    set size(val: 'large' | 'xlarge') {
         this._size = val;
 
         if (this.initialized) {
@@ -88,7 +85,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     private _disabled: boolean = false;
 
-    private _size!: BadgeSize;
+    private _size!: 'large' | 'xlarge';
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
 
@@ -179,7 +176,7 @@ export class Badge {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() size: BadgeSize | undefined;
+    @Input() size: 'large' | 'xlarge' | undefined;
     /**
      * Severity type of the badge.
      * @group Props
