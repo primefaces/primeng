@@ -148,13 +148,22 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() resizable: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines the left offset of dialog.
+     * @group Props
+     */
     @Input() get positionLeft(): number {
         return 0;
     }
     set positionLeft(_positionLeft: number) {
         console.log('positionLeft property is deprecated.');
     }
+    /**
+     * @deprecated
+     * Defines the top offset of dialog.
+     * @group Props
+     */
     @Input() get positionTop(): number {
         return 0;
     }
@@ -196,7 +205,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() closable: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines if the component is responsive.
+     * @group Props
+     */
     @Input() get responsive(): boolean {
         return false;
     }
@@ -228,11 +241,14 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() showHeader: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines the breakpoint of the component responsive.
+     * @group Props
+     */
     @Input() get breakpoint(): number {
         return 649;
     }
-
     set breakpoint(_breakpoint: number) {
         console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
     }
@@ -339,7 +355,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
     /**
-     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
+     * Position of the dialog.
      * @group Props
      */
     @Input() get position(): 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' {
@@ -374,41 +390,41 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<object> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when dialog is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<object> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
     /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
      * @param {boolean} value - New value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Callback to invoke when dialog resizing is initiated.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onResizeInit: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onResizeInit: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * Callback to invoke when dialog resizing is completed.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * Callback to invoke when dialog dragging is completed.
      * @param {DragEvent} event - Drag event.
      * @group Emits
      */
-    @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter();
+    @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
     /**
      * Callback to invoke when dialog maximized or unmaximized.
      * @group Emits
      */
-    @Output() onMaximize: EventEmitter<object> = new EventEmitter();
+    @Output() onMaximize: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild(Header) headerFacet: QueryList<Header> | undefined;
 

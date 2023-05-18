@@ -123,6 +123,17 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Defines if the component is visible.
+     * @group Props
+     */
+    @Input() get visible(): any {
+        return this._visible;
+    }
+    set visible(value: any) {
+        this._visible = value;
+        this.cd.markForCheck();
+    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -143,14 +154,6 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     documentResizeListener: VoidListener;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
-
-    @Input() get visible(): any {
-        return this._visible;
-    }
-    set visible(value: any) {
-        this._visible = value;
-        this.cd.markForCheck();
-    }
 
     private window: Window;
 

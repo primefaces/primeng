@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -14,15 +14,15 @@ import { TooltipOptions } from './tooltip.interface';
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
     /**
-     * Position of the tooltip, valid values are right, left, top and bottom.
+     * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: string | undefined;
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
     /**
-     * Event to show the tooltip, valid values are hover and focus.
+     * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: string | undefined;
+    @Input() tooltipEvent: 'hover' | 'focus' | undefined;
     /**
      *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

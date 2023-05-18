@@ -249,8 +249,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     /**
      * Toggles the visibility of the panel.
-     * @param event
-     * @param target
+     * @param event - Browser event
+     * @param target - Target element.
      * @group Methods
      */
     toggle(event: any, target?: any) {
