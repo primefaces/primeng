@@ -10,6 +10,7 @@ import { Nullable } from '../ts-helpers';
 export class DeferredLoader implements AfterViewInit, OnDestroy {
     /**
      * Callback to invoke when deferred content is loaded.
+     * @param {Event} event - browser event.
      * @group Emits
      */
     @Output() onLoad: EventEmitter<Event> = new EventEmitter();
