@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-
+import { TabView } from './tabview';
 /**
  * Custom tab change event.
  * @see {@link TabView.onChange}

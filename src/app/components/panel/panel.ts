@@ -165,11 +165,6 @@ export class Panel implements AfterContentInit, BlockableUI {
      */
     @Input() toggler: 'icon' | 'header' = 'icon';
     /**
-     * Emits when the collapsed state changes.
-     * @param {boolean} value - New value.
-     * @group Emits
-     */
-    /**
      * Transition options of the animation.
      * @group Props
      */

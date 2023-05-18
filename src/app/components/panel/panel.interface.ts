@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-
+import { Panel } from './panel';
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link Panel.onBeforeToggle}
