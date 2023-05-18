@@ -171,7 +171,7 @@ export class Badge {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: CSSStyleDeclaration | undefined;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
