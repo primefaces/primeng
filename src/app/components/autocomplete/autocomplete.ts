@@ -490,7 +490,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input() optionGroupLabel: string | undefined;
     /**
-     * No description available.
+     * Options for the overlay element.
      * @group Props
      */
     @Input() overlayOptions: OverlayOptions | undefined;
@@ -505,6 +505,18 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this._suggestions = value;
     }
     /**
+     * @deprecated use virtualScrollItemSize property instead.
+     * Element dimensions of option for virtual scrolling.
+     * @group Props
+     */
+    @Input() get itemSize(): number {
+        return this._itemSize as number;
+    }
+    set itemSize(val: number) {
+        this._itemSize = val;
+        console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
+    }
+    /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
@@ -512,13 +524,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
-     * @param {Value} value - selected value.
+     * @param {*} value - selected value.
      * @group Emits
      */
     @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a selected value is removed.
-     * @param {Value} value - removed value.
+     * @param {*} value - removed value.
      * @group Emits
      */
     @Output() onUnselect: EventEmitter<any> = new EventEmitter<any>();
@@ -536,7 +548,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
     /**
      * Callback to invoke to when dropdown button is clicked.
-     * @param {AutoCompleteDropdownClickEvent} event - Custom dropdown click event.
+     * @param {AutoCompleteDropdownClickEvent} event - custom dropdown click event.
      * @group Emits
      */
     @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
@@ -545,10 +557,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter();
+    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
     /**
      * Callback to invoke on input key up.
-     * @param {KeyboardEvent} event - Browser event.
+     * @param {KeyboardEvent} event - Keyboard event.
      * @group Emits
      */
     @Output() onKeyUp: EventEmitter<KeyboardEvent> = new EventEmitter();
@@ -587,17 +599,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @ViewChild('overlay') overlayViewChild!: Overlay;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    /* @deprecated */
     _itemSize: Nullable<number>;
-    @Input() get itemSize(): number {
-        return this._itemSize as number;
-    }
-    set itemSize(val: number) {
-        this._itemSize = val;
-        console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
-    }
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
@@ -643,7 +647,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focus: boolean = false;
 
-    filled!: number | boolean;
+    filled: number | boolean | undefined;
 
     inputClick: Nullable<boolean>;
 
@@ -739,7 +743,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;

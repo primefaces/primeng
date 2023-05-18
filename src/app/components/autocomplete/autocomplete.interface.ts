@@ -1,4 +1,6 @@
 import { TemplateRef } from '@angular/core';
+import { ScrollerOptions } from '../scroller/scroller.interface';
+import { AutoComplete } from 'primeng/autocomplete';
 
 /**
  * Custom complete event.
@@ -16,8 +18,8 @@ export interface AutoCompleteCompleteEvent {
     query: string;
 }
 /**
- * Custom complete event.
- * @see {@link AutoComplete.completeMethod}
+ * Custom click event.
+ * @see {@link AutoComplete.onDropdownClick}
  * @event
  */
 export interface AutoCompleteDropdownClickEvent {
@@ -51,18 +53,38 @@ export interface AutoCompleteLazyLoadEvent {
 export interface AutoCompleteTemplates {
     /**
      * Custom item template.
+     * @param {Object} context - option data.
      */
-    item: TemplateRef<any>;
+    item(context: {
+        /**
+         * Option.
+         */
+        $implicit: any;
+        /**
+         * Option index.
+         */
+        index: number;
+    }): TemplateRef<{$implicit: any; index: number}>;
     /**
      * Custom group template.
-     * @param {Object} implicit - option group.
+     * @param {Object} context - group data.
      */
-    group: TemplateRef<any>;
+    group(context: {
+        /**
+         * Option group.
+         */
+        $implicit: any | any[];
+    }): TemplateRef<{$implicit: any | any[]}>;
     /**
      * Custom selected item template.
-     * @param {Object} implicit - selected item.
+     * @param {Object} context - selected item data.
      */
-    selectedItem: TemplateRef<any>;
+    selectedItem(context: {
+        /**
+         * Selected value.
+         */
+        $implicit: any;
+    }): TemplateRef<{$implici: any}>;
     /**
      * Custom header template.
      */
@@ -77,8 +99,14 @@ export interface AutoCompleteTemplates {
     footer: TemplateRef<any>;
     /**
      * Custom loader template.
+     * @param {Object} context - scroller options.
      */
-    loader: TemplateRef<any>;
+    loader(context: {
+        /**
+         * Virtual scroller options.
+         */
+        $implicit: ScrollerOptions;
+    }): TemplateRef<{$implicit: ScrollerOptions}>;
     /**
      * Custom remove token icon template.
      */
