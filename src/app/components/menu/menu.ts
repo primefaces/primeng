@@ -13,7 +13,7 @@ import { VoidListener } from '../ts-helpers';
     selector: '[pMenuItemContent]',
     template: `
         <a
-            *ngIf="!item.routerLink"
+            *ngIf="!item?.routerLink"
             (keydown)="onItemKeyDown($event)"
             [attr.href]="item.url || null"
             class="p-menuitem-link"
@@ -33,7 +33,7 @@ import { VoidListener } from '../ts-helpers';
             <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
         </a>
         <a
-            *ngIf="item.routerLink"
+            *ngIf="item?.routerLink"
             (keydown)="onItemKeyDown($event)"
             [routerLink]="item.routerLink"
             [attr.data-automationid]="item.automationId"
