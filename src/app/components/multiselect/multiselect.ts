@@ -28,7 +28,8 @@ import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGC
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { ScrollerOptions } from '../scroller/scroller.interface'
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils } from 'primeng/utils';
 import { CheckIcon } from 'primeng/icons/check';
