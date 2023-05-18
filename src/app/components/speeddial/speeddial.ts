@@ -200,29 +200,34 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     @Input() rotateAnimation: boolean = true;
     /**
      * Fired when the visibility of element changed.
+     * @param {Boolean} boolean - Visibility value.
      * @group Emits
      */
-    @Output() onVisibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() onVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Fired when the visibility of element changed.
+     * @param {Boolean} boolean - Visibility value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Fired when the button element clicked.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * Fired when the actions are visible.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event> = new EventEmitter();
+    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Fired when the actions are hidden.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event> = new EventEmitter();
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('container') container: ElementRef | undefined;
 

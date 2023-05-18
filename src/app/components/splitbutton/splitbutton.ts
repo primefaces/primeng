@@ -111,14 +111,16 @@ export class SplitButton {
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Callback to invoke when default command button is clicked.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * Callback to invoke when dropdown button is clicked.
+     * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
