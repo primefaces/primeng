@@ -282,10 +282,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
-     *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -305,12 +305,12 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      * Displays the popup menu.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
     /**
      * Hides the popup menu.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 

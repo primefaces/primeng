@@ -205,7 +205,7 @@ export class Menu implements OnDestroy {
 
     @Input() styleClass: string;
 
-    @Input() appendTo: any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
 
     @Input() autoZIndex: boolean = true;
 

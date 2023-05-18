@@ -471,7 +471,7 @@ export class Password implements AfterContentInit, OnInit {
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
      */
-    @Input() appendTo: any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
     /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
