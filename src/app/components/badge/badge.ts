@@ -50,7 +50,6 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     @Input() get value(): string {
         return this._value;
     }
-
     set value(val: string) {
         if (val !== this._value) {
             this._value = val;
