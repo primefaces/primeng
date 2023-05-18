@@ -251,39 +251,46 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
+     * @param {Boolean} boolean - Value of visibility as boolean.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Callback to invoke before the overlay is shown.
+     * @param {OverlayOnBeforeShowEvent} event - Custom overlay before show event.
      * @group Emits
      */
-    @Output() onBeforeShow: EventEmitter<OverlayOnBeforeShowEvent> = new EventEmitter();
+    @Output() onBeforeShow: EventEmitter<OverlayOnBeforeShowEvent> = new EventEmitter<OverlayOnBeforeShowEvent>();
     /**
      * Callback to invoke when the overlay is shown.
+     * @param {OverlayOnShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<OverlayOnShowEvent> = new EventEmitter();
+    @Output() onShow: EventEmitter<OverlayOnShowEvent> = new EventEmitter<OverlayOnShowEvent>();
     /**
      * Callback to invoke before the overlay is hidden.
+     * @param {OverlayOnBeforeHideEvent} event - Custom overlay before hide event.
      * @group Emits
      */
-    @Output() onBeforeHide: EventEmitter<OverlayOnBeforeHideEvent> = new EventEmitter();
+    @Output() onBeforeHide: EventEmitter<OverlayOnBeforeHideEvent> = new EventEmitter<OverlayOnBeforeHideEvent>();
     /**
      * Callback to invoke when the overlay is hidden
+     * @param {OverlayOnHideEvent} event - Custom hide event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<OverlayOnHideEvent> = new EventEmitter();
+    @Output() onHide: EventEmitter<OverlayOnHideEvent> = new EventEmitter<OverlayOnHideEvent>();
     /**
      * Callback to invoke when the animation is started.
+     * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter();
+    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when the animation is done.
+     * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter();
+    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 

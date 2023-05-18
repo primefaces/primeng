@@ -56,9 +56,10 @@ export class Avatar {
     @Input() styleClass: string | undefined;
     /**
      * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     containerClass() {
         return {
@@ -69,11 +70,7 @@ export class Avatar {
             'p-avatar-xl': this.size === 'xlarge'
         };
     }
-    /**
-     * This event is triggered if an error occurs while loading an image file.
-     * @param event
-     * @group Events
-     */
+
     imageError(event: Event) {
         this.onImageError.emit(event);
     }
