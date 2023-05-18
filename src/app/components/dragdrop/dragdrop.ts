@@ -12,7 +12,7 @@ import { VoidListener } from '../ts-helpers';
 export class Draggable implements AfterViewInit, OnDestroy {
     @Input('pDraggable') scope: string | undefined;
     /**
-     * Defines the cursor style, valid values are none, copy, move, link, copyMove, copyLink, linkMove and all.
+     * Defines the cursor style.
      * @group Props
      */
     @Input() dragEffect: 'none' | 'copy' | 'copyLink' | 'copyMove' | 'link' | 'linkMove' | 'move' | 'all' | 'uninitialized' | undefined;
