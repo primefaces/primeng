@@ -166,7 +166,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @ViewChild('cb') inputViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     checkboxIconTemplate!: TemplateRef<any>;
 
@@ -181,7 +181,7 @@ export class Checkbox implements ControlValueAccessor {
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.checkboxIconTemplate = item.template;
