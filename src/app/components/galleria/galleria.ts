@@ -471,7 +471,7 @@ export class GalleriaContent implements DoCheck {
     ngDoCheck(): void {
         const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
 
-        if (changes!.forEachItem.length > 0) {
+        if (changes && changes.forEachItem.length > 0) {
             // Because we change the properties of the parent component,
             // and the children take our entity from the injector.
             // We can tell the children to redraw themselves when we change the properties of the parent component.
