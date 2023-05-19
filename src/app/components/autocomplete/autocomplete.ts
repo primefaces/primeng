@@ -498,11 +498,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * An array of suggestions to display.
      * @group Props
      */
-    @Input() get suggestions(): object[] {
+    @Input() get suggestions(): string[] | undefined | null {
         return this._suggestions;
     }
-    set suggestions(value: object[]) {
+    set suggestions(value: string[] | undefined | null) {
         this._suggestions = value;
+        this.handleSuggestionsChange();
     }
     /**
      * @deprecated use virtualScrollItemSize property instead.
@@ -629,7 +630,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     value: Nullable<object[] | string>;
 
-    _suggestions!: object[];
+    _suggestions: string[] | undefined | null;
 
     onModelChange: Function = () => {};
 
