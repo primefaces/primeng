@@ -114,6 +114,11 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      */
     @Input() alwaysShow: boolean = true;
     /**
+     * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() dropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    /**
      * Template instance to inject into the left side of the paginator.
      * @param {PaginatorState} context - Paginator state.
      * @group Props

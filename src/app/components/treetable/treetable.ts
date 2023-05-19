@@ -714,7 +714,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _value: TreeTableNode[] = [];
+    _value: any[] = [];
 
     serializedValue: any[] | undefined | null;
 
@@ -726,7 +726,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     _sortOrder: number = 1;
 
-    filteredNodes: Nullable<TreeTableNode[]>;
+    filteredNodes: Nullable<any[]>;
 
     filterTimeout: any;
 
@@ -786,7 +786,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     reorderIconHeight: Nullable<number>;
 
-    draggedColumn: Nullable<TreeTableNode[]>;
+    draggedColumn: Nullable<any[]>;
 
     dropPosition: Nullable<number>;
 

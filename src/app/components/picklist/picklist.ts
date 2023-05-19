@@ -720,7 +720,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    onItemClick(event: Event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+    onItemClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>) {
         if (this.disabled) {
             return;
         }

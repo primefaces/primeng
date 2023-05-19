@@ -182,7 +182,7 @@ export class Breadcrumb implements AfterContentInit {
         });
     }
 
-    onHomeClick(event: MouseEvent) {
+    onHomeClick(event: MouseEvent | any) {
         if (this.home) {
             this.itemClick(event, this.home);
         }

@@ -1478,7 +1478,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
-    onFilterInputChange(event: Event): void {
+    onFilterInputChange(event: Event | any): void {
         let inputValue = (event.target as HTMLInputElement).value;
         if (inputValue && inputValue.length) {
             this._filterValue = inputValue;

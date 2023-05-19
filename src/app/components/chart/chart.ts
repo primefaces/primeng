@@ -20,27 +20,27 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Type of the chart.
      * @group Props
      */
-    @Input() type: string | undefined; 
+    @Input() type: string | undefined;
     /**
      * Array of per-chart plugins to customize the chart behaviour.
      * @group Props
      */
-    @Input() plugins: any[] = []; 
+    @Input() plugins: any[] = [];
     /**
      * Width of the chart.
      * @group Props
      */
-    @Input() width: string | undefined; 
+    @Input() width: string | undefined;
     /**
      * Height of the chart.
      * @group Props
      */
-    @Input() height: string | undefined; 
+    @Input() height: string | undefined;
     /**
      * Whether the chart is redrawn on screen size change.
      * @group Props
      */
-    @Input() responsive: boolean = true; 
+    @Input() responsive: boolean = true;
     /**
      * Data to display.
      * @group Props
@@ -67,7 +67,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Callback to execute when an element on chart is clicked.
      * @group Emits
      */
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter(); 
+    @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
 
     isBrowser: boolean = false;
 

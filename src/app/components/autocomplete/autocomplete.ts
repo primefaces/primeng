@@ -323,7 +323,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: undefined;
+    @Input() virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -333,7 +333,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: undefined;
+    @Input() maxlength: number | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -348,7 +348,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Size of the input field.
      * @group Props
      */
-    @Input() size: undefined;
+    @Input() size: number | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -628,7 +628,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
-    value: Nullable<object[] | string>;
+    value: string | any;
 
     _suggestions: string[] | undefined | null;
 
@@ -993,29 +993,29 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 //down
                 case 40:
                     if (this.group) {
-                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, this.suggestions);
+                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, <string[]>this.suggestions);
                         if (highlightItemIndex !== -1) {
                             let nextItemIndex = highlightItemIndex.itemIndex + 1;
-                            if (nextItemIndex < this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex]).length) {
-                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex])[nextItemIndex];
+                            if (nextItemIndex < this.getOptionGroupChildren((<string[]>this.suggestions)[highlightItemIndex.groupIndex]).length) {
+                                this.highlightOption = this.getOptionGroupChildren((<string[]>this.suggestions)[highlightItemIndex.groupIndex])[nextItemIndex];
                                 this.highlightOptionChanged = true;
-                            } else if (this.suggestions[highlightItemIndex.groupIndex + 1]) {
-                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex + 1])[0];
+                            } else if ((<string[]>this.suggestions)[highlightItemIndex.groupIndex + 1]) {
+                                this.highlightOption = this.getOptionGroupChildren((<string[]>this.suggestions)[highlightItemIndex.groupIndex + 1])[0];
                                 this.highlightOptionChanged = true;
                             }
                         } else {
-                            this.highlightOption = this.getOptionGroupChildren(this.suggestions[0])[0];
+                            this.highlightOption = this.getOptionGroupChildren((<string[]>this.suggestions)[0])[0];
                         }
                     } else {
                         let highlightItemIndex = this.findOptionIndex(this.highlightOption, this.suggestions);
                         if (highlightItemIndex != -1) {
                             var nextItemIndex = highlightItemIndex + 1;
-                            if (nextItemIndex != this.suggestions.length) {
-                                this.highlightOption = this.suggestions[nextItemIndex];
+                            if (nextItemIndex != (<string[]>this.suggestions).length) {
+                                this.highlightOption = (<string[]>this.suggestions)[nextItemIndex];
                                 this.highlightOptionChanged = true;
                             }
                         } else {
-                            this.highlightOption = this.suggestions[0];
+                            this.highlightOption = (<string[]>this.suggestions)[0];
                         }
                     }
 
@@ -1025,14 +1025,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 //up
                 case 38:
                     if (this.group) {
-                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, this.suggestions);
+                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, (<string[]>this.suggestions));
                         if (highlightItemIndex !== -1) {
                             let prevItemIndex = highlightItemIndex.itemIndex - 1;
                             if (prevItemIndex >= 0) {
-                                this.highlightOption = this.getOptionGroupChildren(this.suggestions[highlightItemIndex.groupIndex])[prevItemIndex];
+                                this.highlightOption = this.getOptionGroupChildren((<string[]>this.suggestions)[highlightItemIndex.groupIndex])[prevItemIndex];
                                 this.highlightOptionChanged = true;
                             } else if (prevItemIndex < 0) {
-                                let prevGroup = this.suggestions[highlightItemIndex.groupIndex - 1];
+                                let prevGroup = (<string[]>this.suggestions)[highlightItemIndex.groupIndex - 1];
                                 if (prevGroup) {
                                     this.highlightOption = this.getOptionGroupChildren(prevGroup)[this.getOptionGroupChildren(prevGroup).length - 1];
                                     this.highlightOptionChanged = true;
@@ -1044,7 +1044,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
                         if (highlightItemIndex > 0) {
                             let prevItemIndex = highlightItemIndex - 1;
-                            this.highlightOption = this.suggestions[prevItemIndex];
+                            this.highlightOption = (<string[]>this.suggestions)[prevItemIndex];
                             this.highlightOptionChanged = true;
                         }
                     }

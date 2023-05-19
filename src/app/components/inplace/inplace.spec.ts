@@ -72,7 +72,7 @@ describe('Inplace', () => {
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(undefined);
+        expect(inplace.active).toEqual(false);
         expect(activateSpy).toHaveBeenCalled();
         inplace.active = true;
         fixture.detectChanges();

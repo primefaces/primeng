@@ -2553,7 +2553,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         event.preventDefault();
     }
 
-    onUserInput(event: KeyboardEvent) {
+    onUserInput(event: KeyboardEvent | any) {
         // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
         if (!this.isKeydown) {
             return;
