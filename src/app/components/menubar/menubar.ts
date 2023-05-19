@@ -29,7 +29,8 @@ import { BarsIcon } from 'primeng/icons/bars';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
-import { Subject, Subscription, debounce, filter, interval } from 'rxjs';
+import { Subject, Subscription, interval } from 'rxjs';
+import { debounce, filter } from 'rxjs/operators';
 import { VoidListener } from 'primeng/ts-helpers';
 
 @Injectable()
