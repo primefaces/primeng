@@ -399,7 +399,7 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Whether to automatically manage layering.
      * @group Props

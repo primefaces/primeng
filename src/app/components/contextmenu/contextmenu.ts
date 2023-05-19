@@ -270,7 +270,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      * Local template variable name of the element to attach the context menu.
      * @group Props
      */
-    @Input() target: string | undefined;
+    @Input() target: HTMLElement | string | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -285,7 +285,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Whether to automatically manage layering.
      * @group Props

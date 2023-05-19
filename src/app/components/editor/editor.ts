@@ -180,7 +180,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     onModelTouched: Function = () => {};
 
-    quill: Quill;
+    quill: any;
 
     headerTemplate: Nullable<TemplateRef<any>>;
 

@@ -363,7 +363,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props

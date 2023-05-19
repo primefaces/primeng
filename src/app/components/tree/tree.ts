@@ -1097,7 +1097,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     break;
 
                 default:
-                    this._templateMap[item.name] = item.template;
+                    this._templateMap[<any>item.name] = item.template;
                     break;
             }
         });

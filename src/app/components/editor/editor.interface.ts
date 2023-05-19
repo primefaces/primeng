@@ -1,7 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import { Editor } from './editor';
-//@ts-ignore
-import Quill from 'quill';
 
 /**
  * Custom text change event.
@@ -51,7 +49,7 @@ export interface EditorInitEvent {
     /**
      * Text editor instance.
      */
-    editor: Quill;
+    editor: any;
 }
 /**
  * Defines valid templates in Editor.

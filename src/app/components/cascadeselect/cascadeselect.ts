@@ -454,7 +454,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props

@@ -387,7 +387,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ViewChild('advancedfileinput') advancedFileInput: ElementRef | undefined;
+    @ViewChild('advancedfileinput') advancedFileInput: ElementRef | undefined | any;
 
     @ViewChild('basicfileinput') basicFileInput: ElementRef | undefined;
 
