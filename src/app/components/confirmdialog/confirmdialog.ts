@@ -20,7 +20,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    ViewRef
 } from '@angular/core';
 import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -536,7 +537,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             this.unbindMaskClickListener();
         }
 
-        if (this.container && !this.cd['checkNoChanges']) {
+        if (this.container && !(this.cd as ViewRef)['destroyed']) {
             this.cd.detectChanges();
         }
     }

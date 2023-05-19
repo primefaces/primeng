@@ -8,7 +8,7 @@ export class OverlayService {
 
     clickObservable = this.clickSource.asObservable();
 
-    add(event) {
+    add(event: any) {
         if (event) {
             this.clickSource.next(event);
         }
