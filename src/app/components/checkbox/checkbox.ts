@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { ObjectUtils } from 'primeng/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {

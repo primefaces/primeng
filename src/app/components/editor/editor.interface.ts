@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Editor } from 'primeng/editor';
+import { Editor } from './editor';
 //@ts-ignore
 import Quill from 'quill';
 

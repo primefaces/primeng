@@ -7,7 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
 

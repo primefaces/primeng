@@ -33,7 +33,7 @@ import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { TimesIcon } from 'primeng/icons/times';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {

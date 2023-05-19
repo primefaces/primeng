@@ -37,7 +37,7 @@ import { SearchIcon } from 'primeng/icons/search';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {

@@ -3,7 +3,7 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { ScrollerOptions } from 'primeng/scroller';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 
 @Component({

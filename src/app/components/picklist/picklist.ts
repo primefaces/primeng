@@ -35,7 +35,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { SearchIcon } from 'primeng/icons/search';
 import { HomeIcon } from 'primeng/icons/home';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,

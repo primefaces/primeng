@@ -11,8 +11,8 @@ import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
 import { AngleLeftIcon } from 'primeng/icons/angleleft';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { PaginatorState } from './paginator.interface';
-import { Nullable } from '../ts-helpers';
-import { DropdownChangeEvent } from '../dropdown/dropdown.interface';
+import { Nullable } from 'primeng/ts-helpers';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
     selector: 'p-paginator',

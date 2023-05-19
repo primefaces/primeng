@@ -38,7 +38,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {

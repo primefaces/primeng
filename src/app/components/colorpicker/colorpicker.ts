@@ -5,7 +5,7 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {

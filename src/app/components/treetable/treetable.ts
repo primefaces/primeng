@@ -45,7 +45,7 @@ import { MinusIcon } from 'primeng/icons/minus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     TreeTableColResizeEvent,
     TreeTableContextMenuSelectEvent,

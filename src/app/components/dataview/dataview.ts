@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 
 @Component({

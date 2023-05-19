@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Directive({
     selector: '[pDraggable]',

@@ -27,7 +27,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { ScrollerLazyLoadEvent, ScrollerOptions, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-scroller',

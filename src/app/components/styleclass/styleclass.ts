@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Directive({
     selector: '[pStyleClass]',

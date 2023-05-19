@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { TriStateCheckboxChangeEvent } from './tristatecheckbox.interface';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {

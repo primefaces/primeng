@@ -25,7 +25,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 export const OVERLAY_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

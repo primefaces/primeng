@@ -3,7 +3,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-splitter',

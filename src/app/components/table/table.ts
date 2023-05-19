@@ -70,7 +70,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Injectable()
 export class TableService {

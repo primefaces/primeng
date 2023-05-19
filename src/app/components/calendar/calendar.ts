@@ -34,7 +34,7 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {

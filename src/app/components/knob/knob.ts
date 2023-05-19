@@ -1,7 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter, Renderer2, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

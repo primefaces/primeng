@@ -5,7 +5,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { TimesIcon } from 'primeng/icons/times';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { ChipsAddEvent, ChipsRemoveEvent, ChipsClickEvent } from './chips.interface';
 
 export const CHIPS_VALUE_ACCESSOR: any = {

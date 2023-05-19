@@ -24,7 +24,7 @@ import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 

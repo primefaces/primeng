@@ -29,7 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-contextMenuSub',

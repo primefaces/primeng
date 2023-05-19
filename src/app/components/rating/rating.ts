@@ -6,7 +6,7 @@ import { StarFillIcon } from 'primeng/icons/starfill';
 import { StarIcon } from 'primeng/icons/star';
 import { BanIcon } from 'primeng/icons/ban';
 import { RatingRateEvent } from './rating.interface';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

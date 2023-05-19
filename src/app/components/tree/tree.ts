@@ -35,7 +35,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { MinusIcon } from 'primeng/icons/minus';
 import { SearchIcon } from 'primeng/icons/search';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,

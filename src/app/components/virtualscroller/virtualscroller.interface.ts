@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { VirtualScroller } from 'primeng/virtualscroller';
+import { VirtualScroller } from './virtualscroller';
 import { ScrollerOptions } from 'primeng/scroller';
 
 /**

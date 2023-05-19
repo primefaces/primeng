@@ -35,7 +35,7 @@ import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 import { GalleriaResponsiveOptions } from './galleria.interface';
 
 @Component({

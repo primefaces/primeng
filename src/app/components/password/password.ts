@@ -37,7 +37,7 @@ import { Subscription } from 'rxjs';
 import { TimesIcon } from 'primeng/icons/times';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
 import { EyeIcon } from 'primeng/icons/eye';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AnimationEvent } from '@angular/animations';
 
 type Meter = {

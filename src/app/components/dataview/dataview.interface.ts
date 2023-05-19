@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { DataView } from 'primeng/dataview';
+import { DataView } from './dataview';
 /**
  * State of the paginator.
  */

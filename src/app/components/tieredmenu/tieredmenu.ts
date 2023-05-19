@@ -27,7 +27,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-tieredMenuSub',

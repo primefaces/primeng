@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, 
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { TooltipOptions } from './tooltip.interface';
 
 @Directive({

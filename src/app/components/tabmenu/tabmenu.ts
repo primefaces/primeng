@@ -27,7 +27,7 @@ import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-tabMenu',

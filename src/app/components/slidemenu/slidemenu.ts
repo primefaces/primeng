@@ -31,7 +31,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
 import { CaretRightIcon } from 'primeng/icons/caretright';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-slideMenuSub',

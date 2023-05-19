@@ -27,7 +27,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { SearchIcon } from 'primeng/icons/search';
 import { CheckIcon } from 'primeng/icons/check';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterOptions } from './listbox.interface';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {

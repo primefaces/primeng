@@ -1,6 +1,6 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import { Overlay } from 'primeng/overlay';
-import { CascadeSelect } from 'primeng/cascadeselect';
+import { CascadeSelect } from './cascadeselect';
 
 /**
  * Custom panel show event.

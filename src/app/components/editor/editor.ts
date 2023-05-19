@@ -21,7 +21,7 @@ import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { EditorInitEvent, EditorTextChangeEvent, EditorSelectionChangeEvent } from './editor.interface';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 //@ts-ignore
 import Quill from 'quill';
 

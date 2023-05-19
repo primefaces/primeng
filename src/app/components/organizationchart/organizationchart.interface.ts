@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { OrganizationChart } from 'primeng/organizationchart';
+import { OrganizationChart } from './organizationchart';
 
 /**
  * Custom node select event.

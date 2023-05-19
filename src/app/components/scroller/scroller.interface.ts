@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Scroller } from 'primeng/scroller';
+import { Scroller } from './scroller';
 
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 

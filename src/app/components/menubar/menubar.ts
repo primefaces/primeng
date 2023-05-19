@@ -30,7 +30,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription, debounce, filter, interval } from 'rxjs';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Injectable()
 export class MenubarService {

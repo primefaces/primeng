@@ -29,7 +29,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { TimesIcon } from 'primeng/icons/times';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {

@@ -11,7 +11,7 @@ import { SearchPlusIcon } from 'primeng/icons/searchplus';
 import { TimesIcon } from 'primeng/icons/times';
 import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-image',

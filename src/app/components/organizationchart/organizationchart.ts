@@ -9,7 +9,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { DomHandler } from 'primeng/dom';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 @Component({
     selector: '[pOrganizationChartNode]',
     template: `

@@ -6,7 +6,7 @@ import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from '../ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-megaMenu',

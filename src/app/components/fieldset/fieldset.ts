@@ -7,7 +7,7 @@ import { RippleModule } from 'primeng/ripple';
 import { PlusIcon } from 'primeng/icons/plus';
 import { MinusIcon } from 'primeng/icons/minus';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
 

@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import { ScrollerOptions } from 'primeng/scroller';
-import { AutoComplete } from 'primeng/autocomplete';
+import { AutoComplete } from './autocomplete';
 
 /**
  * Custom complete event.

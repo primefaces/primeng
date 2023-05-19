@@ -1,7 +1,7 @@
 import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-import { Nullable } from '../ts-helpers';
+import { Nullable } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-timeline',

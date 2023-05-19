@@ -27,7 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-overlayPanel',

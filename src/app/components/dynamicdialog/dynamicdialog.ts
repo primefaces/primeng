@@ -27,7 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { ZIndexUtils } from 'primeng/utils';
-import { Nullable, VoidListener } from '../ts-helpers';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
