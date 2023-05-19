@@ -924,7 +924,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.value = null;
         this.inputValue = null;
         if (this.multiple) {
-            this.multiInputEL.nativeElement.value = '';
+            this.multiInputEl.nativeElement.value = '';
         } else {
             this.inputValue = null;
             (this.inputEL as ElementRef).nativeElement.value = '';
