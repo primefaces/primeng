@@ -1025,7 +1025,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 //up
                 case 38:
                     if (this.group) {
-                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, (<string[]>this.suggestions));
+                        let highlightItemIndex = this.findOptionGroupIndex(this.highlightOption, <string[]>this.suggestions);
                         if (highlightItemIndex !== -1) {
                             let prevItemIndex = highlightItemIndex.itemIndex - 1;
                             if (prevItemIndex >= 0) {

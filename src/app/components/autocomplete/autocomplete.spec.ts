@@ -632,7 +632,7 @@ describe('AutoComplete', () => {
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
         let navigateEvent = new Event('keydown');
-        Object.defineProperty(navigateEvent, 'which', {value: 40})
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
         Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(navigateEvent);
 
@@ -660,7 +660,7 @@ describe('AutoComplete', () => {
         autocomplete.overlayVisible = true;
 
         let navigateEvent = new Event('keydown');
-        Object.defineProperty(navigateEvent, 'which', {value: 40})
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
         Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(navigateEvent);
 
