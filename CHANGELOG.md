@@ -1,4 +1,15 @@
 # Changelog
+## [16.0.0-rc.2](https://github.com/primefaces/primeng/tree/16.0.0-rc.2) (2023-05-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0-rc.1...16.0.0-rc.2)
+
+**Enhancements:**
+- Type Improvements[\#12979](https://github.com/primefaces/primeng/issues/12979)
+
+**Fixed bugs:**
+- PrimeNG 15 does not build with RxJS 6 [\#13012](https://github.com/primefaces/primeng/issues/13012)
+- Autocomplete: Clear is not working as expected [\#13026](https://github.com/primefaces/primeng/issues/13026)
+
 ## [16.0.0-rc.1](https://github.com/primefaces/primeng/tree/16.0.0-rc.1) (2023-05-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.4.1...16.0.0-rc.1)
