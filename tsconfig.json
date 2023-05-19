@@ -4,10 +4,6 @@
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": false,
-        /**** @todo update before release **/
-        "strict": true,
-        "noImplicitAny": true,
-        /**********/
         "noImplicitOverride": false,
         "noPropertyAccessFromIndexSignature": false,
         "noImplicitReturns": false,
