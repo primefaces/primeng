@@ -1,7 +1,6 @@
-import { NgModule, Component, Input, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, Footer, PrimeTemplate } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-card',
@@ -39,34 +38,47 @@ import { BlockableUI } from 'primeng/api';
     }
 })
 export class Card implements AfterContentInit, BlockableUI {
-    @Input() header: string;
+    /**
+     * Header of the card.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Subheader of the card.
+     * @group Props
+     */
+    @Input() subheader: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
-    @Input() subheader: string;
+    @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
 
-    @Input() style: any;
+    @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @Input() styleClass: string;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ContentChild(Header) headerFacet;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild(Footer) footerFacet;
+    titleTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    subtitleTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    titleTemplate: TemplateRef<any>;
-
-    subtitleTemplate: TemplateRef<any>;
-
-    contentTemplate: TemplateRef<any>;
-
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: TemplateRef<any> | undefined;
 
     constructor(private el: ElementRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;

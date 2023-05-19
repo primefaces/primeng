@@ -9,7 +9,39 @@ export const KEYFILTER_VALIDATOR: any = {
     multi: true
 };
 
-const DEFAULT_MASKS = {
+type DefaultMasks = {
+    pint: RegExp;
+    int: RegExp;
+    pnum: RegExp;
+    money: RegExp;
+    num: RegExp;
+    hex: RegExp;
+    email: RegExp;
+    alpha: RegExp;
+    alphanum: RegExp;
+};
+
+type SafariKeys = {
+    63234: number;
+    63235: number;
+    63232: number;
+    63233: number;
+    63276: number;
+    63277: number;
+    63272: number;
+    63273: number;
+    63275: number;
+};
+
+type Keys = {
+    TAB: number;
+    RETURN: number;
+    ESC: number;
+    BACKSPACE: number;
+    DELETE: number;
+};
+
+const DEFAULT_MASKS: DefaultMasks = {
     pint: /[\d]/,
     int: /[\d\-]/,
     pnum: /[\d\.]/,
@@ -21,7 +53,7 @@ const DEFAULT_MASKS = {
     alphanum: /[a-z0-9_]/i
 };
 
-const KEYS = {
+const KEYS: Keys = {
     TAB: 9,
     RETURN: 13,
     ESC: 27,
@@ -29,7 +61,7 @@ const KEYS = {
     DELETE: 46
 };
 
-const SAFARI_KEYS = {
+const SAFARI_KEYS: SafariKeys = {
     63234: 37, // left
     63235: 39, // right
     63232: 38, // up
@@ -49,13 +81,32 @@ const SAFARI_KEYS = {
     }
 })
 export class KeyFilter implements Validator {
-    @Input() pValidateOnly: boolean;
+    /**
+     * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
+     * @group Props
+     */
+    @Input() pValidateOnly: boolean | undefined;
+    /**
+     * Sets the pattern for key filtering.
+     * @group Props
+     */
+    @Input('pKeyFilter') set pattern(_pattern: string) {
+        this._pattern = _pattern;
+        this.regex = (DEFAULT_MASKS as any)[this._pattern] || this._pattern;
+    }
+    get pattern(): any {
+        return this._pattern;
+    }
+    /**
+     * Emits a value whenever the ngModel of the component changes.
+     * @param {(string|number)} modelValue - Custom model change event.
+     * @group Emits
+     */
+    @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
-    @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
+    regex!: RegExp;
 
-    regex: RegExp;
-
-    _pattern: any;
+    _pattern: string | null | undefined;
 
     isAndroid: boolean;
 
@@ -69,18 +120,9 @@ export class KeyFilter implements Validator {
         }
     }
 
-    get pattern(): any {
-        return this._pattern;
-    }
-
-    @Input('pKeyFilter') set pattern(_pattern: any) {
-        this._pattern = _pattern;
-        this.regex = DEFAULT_MASKS[this._pattern] || this._pattern;
-    }
-
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
+        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
     }
@@ -93,7 +135,7 @@ export class KeyFilter implements Validator {
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
+        return DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -186,7 +228,7 @@ export class KeyFilter implements Validator {
     }
 
     @HostListener('paste', ['$event'])
-    onPaste(e) {
+    onPaste(e: ClipboardEvent) {
         const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
         if (clipboardData) {
             const pastedText = clipboardData.getData('text');
@@ -199,7 +241,7 @@ export class KeyFilter implements Validator {
         }
     }
 
-    validate(c: AbstractControl): { [key: string]: any } {
+    validate(c: AbstractControl): { [key: string]: any } | any {
         if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {

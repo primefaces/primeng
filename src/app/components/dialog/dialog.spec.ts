@@ -285,8 +285,8 @@ describe('Dialog', () => {
         expect(dialog.dragging).toEqual(true);
         event.pageX = 505;
         event.pageY = 505;
-        dialog.onDrag(event as MouseEvent);
-        dialog.endDrag(event as MouseEvent);
+        dialog.onDrag(event as DragEvent);
+        dialog.endDrag(event as DragEvent);
         fixture.detectChanges();
 
         expect(dialog.container.style.left).not.toEqual(firstLeft);

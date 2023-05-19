@@ -1292,7 +1292,7 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(onColumnDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(' Name ');
+        expect((reorderableTreeTable.draggedColumn as any).textContent).toEqual(' Name ');
         dragEvent.initEvent('dragenter', true, true);
         dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 2 + 1;
         reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
@@ -1326,7 +1326,7 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(onColumnDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(' Name ');
+        expect((reorderableTreeTable.draggedColumn as any).textContent).toEqual(' Name ');
         dragEvent.initEvent('dragenter', true, true);
         dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 3 + 1;
         reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
