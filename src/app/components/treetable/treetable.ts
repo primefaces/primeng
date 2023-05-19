@@ -27,7 +27,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
 import { RippleModule } from 'primeng/ripple';
@@ -570,10 +570,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * An array of objects to display.
      * @group Props
      */
-    @Input() get value(): TreeTableNode[] {
+    @Input() get value(): TreeNode<any> | TreeNode<any>[] | any[] | any {
         return this._value;
     }
-    set value(val: TreeTableNode[]) {
+    set value(val: TreeNode<any> | TreeNode<any>[] | any[] | any) {
         this._value = val;
     }
     /**
@@ -992,7 +992,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         else this.serializeNodes(null, this.filteredNodes || this.value, 0, true);
     }
 
-    serializeNodes(parent: Nullable<TreeTableNode>, nodes: Nullable<TreeTableNode[]>, level: Nullable<number>, visible: Nullable<boolean>) {
+    serializeNodes(parent: Nullable<TreeTableNode>, nodes: Nullable<TreeNode[]>, level: Nullable<number>, visible: Nullable<boolean>) {
         if (nodes && nodes.length) {
             for (let node of nodes) {
                 node.parent = <TreeTableNode>parent;
@@ -1002,7 +1002,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     level: level,
                     visible: visible && (parent ? parent.expanded : true)
                 };
-                (<TreeTableNode[]>this.serializedValue).push(<TreeTableNode>rowNode);
+                (<TreeNode[]>this.serializedValue).push(<TreeTableNode>rowNode);
 
                 if (rowNode.visible && node.expanded) {
                     this.serializeNodes(node, node.children, <number>level + 1, rowNode.visible);
@@ -1041,7 +1041,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.selectionKeys[String(ObjectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
                 }
             } else {
-                this.selectionKeys[String(ObjectUtils.resolveFieldData(this._selection.data, this.dataKey))] = 1;
+                this.selectionKeys[String(ObjectUtils.resolveFieldData((<any>this._selection).data, this.dataKey))] = 1;
             }
         }
     }
@@ -1129,7 +1129,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    sortNodes(nodes: TreeTableNode[]) {
+    sortNodes(nodes: TreeNode[]) {
         if (!nodes || nodes.length === 0) {
             return;
         }
@@ -1158,7 +1158,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         for (let node of nodes) {
-            this.sortNodes(node.children as TreeTableNode[]);
+            this.sortNodes(node.children as TreeNode[]);
         }
     }
 
@@ -1182,7 +1182,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    sortMultipleNodes(nodes: TreeTableNode[]) {
+    sortMultipleNodes(nodes: TreeNode[]) {
         if (!nodes || nodes.length === 0) {
             return;
         }
@@ -1200,7 +1200,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         for (let node of nodes) {
-            this.sortMultipleNodes(node.children as TreeTableNode[]);
+            this.sortMultipleNodes(node.children as TreeNode[]);
         }
     }
 

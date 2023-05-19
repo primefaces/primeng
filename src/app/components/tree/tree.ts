@@ -725,9 +725,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * An array of treenodes.
      * @group Props
      */
-    @Input() value: TreeNode[] | undefined;
+    @Input() value: TreeNode<any> | TreeNode<any>[] | any[] | any;
     /**
-     * Defines the selection mode, valid values "single", "multiple", and "checkbox".
+     * Defines the selection mode.
      * @group Props
      */
     @Input() selectionMode: 'single' | 'multiple' | 'checkbox' | null | undefined;
@@ -1382,14 +1382,14 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     onDragOver(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
             (<any>event).dataTransfer.dropEffect = 'move';
             event.preventDefault();
         }
     }
 
     onDrop(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || this.value.length === 0)) {
+        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
             event.preventDefault();
             let dragNode = this.dragNode as TreeNode;
 
