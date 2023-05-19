@@ -1,3 +1,6 @@
+/**
+ * Represents a node in a tree data structure.
+ */
 export interface TreeNode<T = any> {
     label?: string;
     data?: T;
