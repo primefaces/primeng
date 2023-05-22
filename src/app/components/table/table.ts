@@ -2307,7 +2307,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * @group Methods
      */
     public scrollToVirtualIndex(index: number) {
-        this.virtualScroll && this.scroller?.scrollToIndex(index);
+        this.scroller && this.scroller.scrollToIndex(index);
     }
     /**
      * Scrolls to given index.
