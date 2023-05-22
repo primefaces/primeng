@@ -28,10 +28,10 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { BarsIcon } from 'primeng/icons/bars';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription, interval } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
-import { VoidListener } from 'primeng/ts-helpers';
 
 @Injectable()
 export class MenubarService {
@@ -152,7 +152,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     @Input() autoDisplay: boolean | undefined;
 
     @Input() get parentActive(): boolean {
-        return this._parentActive!;
+        return this._parentActive as boolean;
     }
     set parentActive(value) {
         if (!this.root) {

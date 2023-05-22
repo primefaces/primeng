@@ -29,9 +29,9 @@ import { DomHandler } from 'primeng/dom';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
+import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { Nullable } from 'primeng/ts-helpers';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -501,7 +501,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper!);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
@@ -581,7 +581,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     moveOnTop() {
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
-            this.wrapper!.style.zIndex = String(parseInt(this.container!.style.zIndex, 10) - 1);
+            (<HTMLElement>this.wrapper).style.zIndex = String(parseInt((<HTMLDivElement>this.container).style.zIndex, 10) - 1);
         }
     }
 
@@ -604,7 +604,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && this.option('closeOnEscape') && this.closable) {
-                    if (parseInt(this.container!.style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
+                    if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
                         this.close(event);
                     }
                 }
@@ -612,7 +612,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
 
-                    let focusableElements = DomHandler.getFocusableElements(this.container!);
+                    let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         if (!focusableElements[0].ownerDocument.activeElement) {

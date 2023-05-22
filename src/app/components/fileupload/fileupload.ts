@@ -33,8 +33,8 @@ import { UploadIcon } from 'primeng/icons/upload';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
-import { Subscription } from 'rxjs';
 import { VoidListener } from 'primeng/ts-helpers';
+import { Subscription } from 'rxjs';
 import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
 
 @Component({
@@ -415,7 +415,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     public get basicButtonLabel(): string {
         if (this.auto || !this.hasFiles()) {
-            return this.chooseLabel!;
+            return this.chooseLabel as string;
         }
 
         return this.uploadLabel ?? this.files[0].name;
@@ -750,8 +750,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
-                summary: this.invalidFileLimitMessageSummary.replace('{0}', this.fileLimit!.toString()),
-                detail: this.invalidFileLimitMessageDetail.replace('{0}', this.fileLimit!.toString())
+                summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
+                detail: this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())
             });
         } else {
             this.msgs = [];
