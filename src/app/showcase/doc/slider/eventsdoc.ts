@@ -27,7 +27,8 @@ import { Component, Input } from '@angular/core';
                         <td>onSlideEnd</td>
                         <td>
                             event.originalEvent: Mouseup event<br />
-                            event.value: New value
+                            event.value: New value <br />
+                            event.values: Values in range mode <br />
                         </td>
                         <td>Callback to invoke when slide stops.</td>
                     </tr>

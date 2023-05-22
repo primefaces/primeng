@@ -1,11 +1,12 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, OnDestroy, Input, EventEmitter, Renderer2, Inject, TemplateRef, AfterContentInit, QueryList, ContentChildren } from '@angular/core';
+import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { Subscription } from 'rxjs';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-confirmPopup',
@@ -82,42 +83,50 @@ import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
     }
 })
 export class ConfirmPopup implements AfterContentInit, OnDestroy {
-    @Input() key: string;
-
+    /**
+     * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
+     * @group Props
+     */
+    @Input() key: string | undefined;
+    /**
+     * Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".
+     * @group Props
+     */
     @Input() defaultFocus: string = 'accept';
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    container: HTMLDivElement;
-
-    subscription: Subscription;
-
-    confirmation: Confirmation;
-
-    acceptIconTemplate: TemplateRef<any>;
-
-    rejectIconTemplate: TemplateRef<any>;
-
-    _visible: boolean;
-
-    documentClickListener: VoidFunction | null;
-
-    documentResizeListener: VoidFunction | null;
-
-    scrollHandler: ConnectedOverlayScrollHandler | null;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Defines if the component is visible.
+     * @group Props
+     */
     @Input() get visible(): any {
         return this._visible;
     }
@@ -125,6 +134,26 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         this._visible = value;
         this.cd.markForCheck();
     }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    container: Nullable<HTMLDivElement>;
+
+    subscription: Subscription;
+
+    confirmation: Nullable<Confirmation>;
+
+    acceptIconTemplate: Nullable<TemplateRef<any>>;
+
+    rejectIconTemplate: Nullable<TemplateRef<any>>;
+
+    _visible: boolean | undefined;
+
+    documentClickListener: VoidListener;
+
+    documentResizeListener: VoidListener;
+
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
     private window: Window;
 
@@ -162,7 +191,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'rejecticon':
                     this.rejectIconTemplate = item.template;
@@ -215,16 +244,16 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
             ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
-        DomHandler.absolutePosition(this.container, this.confirmation.target);
+        DomHandler.absolutePosition(this.container, this.confirmation?.target);
 
         const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(this.confirmation.target);
+        const targetOffset = DomHandler.getOffset(this.confirmation?.target);
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left;
         }
-        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        this.container!.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-confirm-popup-flipped');
@@ -251,7 +280,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         this.hide();
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
@@ -285,7 +314,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 if (this.confirmation) {
                     let targetElement = <HTMLElement>this.confirmation.target;
-                    if (this.container !== event.target && !this.container.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
+                    if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
                         this.hide();
                     }
                 }

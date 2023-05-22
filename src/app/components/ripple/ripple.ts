@@ -1,7 +1,8 @@
-import { NgModule, Directive, AfterViewInit, ElementRef, NgZone, OnDestroy, Optional, Inject, Renderer2, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestroy, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Directive({
     selector: '[pRipple]',
@@ -12,9 +13,9 @@ import { PrimeNGConfig } from 'primeng/api';
 export class Ripple implements AfterViewInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
 
-    animationListener: VoidFunction | null;
+    animationListener: VoidListener;
 
-    mouseDownListener: VoidFunction | null;
+    mouseDownListener: VoidListener;
 
     timeout: any;
 
@@ -31,7 +32,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
 
     onMouseDown(event: MouseEvent) {
         let ink = this.getInk();
-        if (!ink || this.document.defaultView.getComputedStyle(ink, null).display === 'none') {
+        if (!ink || this.document.defaultView?.getComputedStyle(ink, null).display === 'none') {
             return;
         }
 
@@ -95,8 +96,8 @@ export class Ripple implements AfterViewInit, OnDestroy {
     remove() {
         let ink = this.getInk();
         if (ink) {
-            this.mouseDownListener();
-            this.animationListener();
+            this.mouseDownListener && this.mouseDownListener();
+            this.animationListener && this.animationListener();
             this.mouseDownListener = null;
             this.animationListener = null;
 

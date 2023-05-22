@@ -1,7 +1,6 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeTemplate } from 'primeng/api';
-import { SharedModule } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-tag',
@@ -25,24 +24,44 @@ import { SharedModule } from 'primeng/api';
     }
 })
 export class Tag {
-    @Input() styleClass: string;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Severity type of the tag.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | string | undefined;
+    /**
+     * Value to display inside the tag.
+     * @group Props
+     */
+    @Input() value: string | undefined;
+    /**
+     * Icon of the tag to display next to the value.
+     * @deprecated since 15.4.2. Use 'icon' template.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Whether the corners of the tag are rounded.
+     * @group Props
+     */
+    @Input() rounded: boolean | undefined;
 
-    @Input() style: any;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() severity: string;
-
-    @Input() value: string;
-
-    @Input() icon: string;
-
-    @Input() rounded: boolean;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    iconTemplate: TemplateRef<any>;
+    iconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.iconTemplate = item.template;

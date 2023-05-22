@@ -24,6 +24,6 @@ export class SVGDoc {
             </g>
         </svg>
     </ng-template>
-</p-dropdown`
+</p-dropdown>`
     };
 }

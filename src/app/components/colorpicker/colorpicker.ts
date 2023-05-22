@@ -1,10 +1,12 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, TemplateRef } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
 import { ZIndexUtils } from 'primeng/utils';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ColorPickerChangeEvent } from './colorpicker.interface';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -63,47 +65,94 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     }
 })
 export class ColorPicker implements ControlValueAccessor, OnDestroy {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() inline: boolean;
-
-    @Input() format: string = 'hex';
-
-    @Input() appendTo: any;
-
-    @Input() disabled: boolean;
-
-    @Input() tabindex: string;
-
-    @Input() inputId: string;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether to display as an overlay or not.
+     * @group Props
+     */
+    @Input() inline: boolean | undefined;
+    /**
+     * Format to use in value binding, supported formats are "hex", "rgb" and "hsb".
+     * @group Props
+     */
+    @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: string | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the dropdown.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Callback to invoke on value change.
+     * @param {ColorPickerChangeEvent} event - Custom event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<ColorPickerChangeEvent> = new EventEmitter<ColorPickerChangeEvent>();
+    /**
+     * Callback to invoke on panel is shown.
+     * @group Emits
+     */
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Callback to invoke on panel is hidden.
+     * @group Emits
+     */
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
-    @ViewChild('input') inputViewChild: ElementRef;
+    @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
     value: any = { h: 0, s: 100, b: 100 };
 
-    inputBgColor: string;
+    inputBgColor: string | undefined;
 
-    shown: boolean;
+    shown: Nullable<boolean>;
 
-    overlayVisible: boolean;
+    overlayVisible: Nullable<boolean>;
 
     defaultColor: string = 'ff0000';
 
@@ -111,33 +160,33 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     onModelTouched: Function = () => {};
 
-    documentClickListener: Function;
+    documentClickListener: VoidListener;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidListener;
 
-    documentMousemoveListener: Function;
+    documentMousemoveListener: VoidListener;
 
-    documentMouseupListener: Function;
+    documentMouseupListener: VoidListener;
 
-    documentHueMoveListener: Function;
+    documentHueMoveListener: VoidListener;
 
-    scrollHandler: any;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    selfClick: boolean;
+    selfClick: Nullable<boolean>;
 
-    colorDragging: boolean;
+    colorDragging: Nullable<boolean>;
 
-    hueDragging: boolean;
+    hueDragging: Nullable<boolean>;
 
-    overlay: HTMLDivElement;
+    overlay: Nullable<HTMLDivElement>;
 
-    colorSelectorViewChild: ElementRef;
+    colorSelectorViewChild: Nullable<ElementRef>;
 
-    colorHandleViewChild: ElementRef;
+    colorHandleViewChild: Nullable<ElementRef>;
 
-    hueViewChild: ElementRef;
+    hueViewChild: Nullable<ElementRef>;
 
-    hueHandleViewChild: ElementRef;
+    hueHandleViewChild: Nullable<ElementRef>;
 
     window: Window;
 
@@ -181,27 +230,27 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event);
     }
 
-    onHueTouchStart(event) {
+    onHueTouchStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
 
         this.hueDragging = true;
-        this.pickHue(event, event.changedTouches[0]);
+        this.pickHue(event, (event as TouchEvent).changedTouches[0]);
     }
 
-    onColorTouchStart(event) {
+    onColorTouchStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
 
         this.colorDragging = true;
-        this.pickColor(event, event.changedTouches[0]);
+        this.pickColor(event, (event as TouchEvent).changedTouches[0]);
     }
 
-    pickHue(event, position?) {
-        let pageY = position ? position.pageY : event.pageY;
-        let top: number = this.hueViewChild.nativeElement.getBoundingClientRect().top + (this.document.defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
+    pickHue(event: MouseEvent | TouchEvent, position?: any) {
+        let pageY = position ? position.pageY : (event as MouseEvent).pageY;
+        let top: number = this.hueViewChild?.nativeElement.getBoundingClientRect().top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
         this.value = this.validateHSB({
             h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
             s: this.value.s,
@@ -226,7 +275,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickColor(event);
     }
 
-    onMove(event) {
+    onMove(event: TouchEvent) {
         if (this.colorDragging) {
             this.pickColor(event, event.changedTouches[0]);
             event.preventDefault();
@@ -246,11 +295,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.unbindDocumentMouseupListener();
     }
 
-    pickColor(event, position?) {
-        let pageX = position ? position.pageX : event.pageX;
-        let pageY = position ? position.pageY : event.pageY;
-        let rect = this.colorSelectorViewChild.nativeElement.getBoundingClientRect();
-        let top = rect.top + (this.document.defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
+    pickColor(event: MouseEvent | TouchEvent, position?: any) {
+        let pageX = position ? position.pageX : (event as MouseEvent).pageX;
+        let pageY = position ? position.pageY : (event as MouseEvent).pageY;
+        let rect = this.colorSelectorViewChild?.nativeElement.getBoundingClientRect();
+        let top = rect.top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
         let left = rect.left + this.document.body.scrollLeft;
         let saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
         let brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
@@ -324,7 +373,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     updateUI() {
-        if (this.colorHandleViewChild && this.hueHandleViewChild.nativeElement) {
+        if (this.colorHandleViewChild && this.hueHandleViewChild?.nativeElement) {
             this.colorHandleViewChild.nativeElement.style.left = Math.floor((150 * this.value.s) / 100) + 'px';
             this.colorHandleViewChild.nativeElement.style.top = Math.floor((150 * (100 - this.value.b)) / 100) + 'px';
             this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h) / 360) + 'px';
@@ -401,8 +450,8 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.inputViewChild.nativeElement);
-        else DomHandler.relativePosition(this.overlay, this.inputViewChild.nativeElement);
+        if (this.appendTo) DomHandler.absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
+        else DomHandler.relativePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -436,7 +485,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         }
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
@@ -545,7 +594,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild.nativeElement, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerViewChild?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }
@@ -561,7 +610,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         }
     }
 
-    validateHSB(hsb) {
+    validateHSB(hsb: { h: number; s: number; b: number }) {
         return {
             h: Math.min(360, Math.max(0, hsb.h)),
             s: Math.min(100, Math.max(0, hsb.s)),
@@ -569,7 +618,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         };
     }
 
-    validateRGB(rgb) {
+    validateRGB(rgb: { r: number; g: number; b: number }) {
         return {
             r: Math.min(255, Math.max(0, rgb.r)),
             g: Math.min(255, Math.max(0, rgb.g)),
@@ -577,7 +626,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         };
     }
 
-    validateHEX(hex) {
+    validateHEX(hex: string) {
         var len = 6 - hex.length;
         if (len > 0) {
             var o = [];
@@ -590,16 +639,16 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return hex;
     }
 
-    HEXtoRGB(hex) {
+    HEXtoRGB(hex: string) {
         let hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
         return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
     }
 
-    HEXtoHSB(hex) {
+    HEXtoHSB(hex: string) {
         return this.RGBtoHSB(this.HEXtoRGB(hex));
     }
 
-    RGBtoHSB(rgb) {
+    RGBtoHSB(rgb: { r: number; g: number; b: number }) {
         var hsb = {
             h: 0,
             s: 0,
@@ -630,11 +679,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return hsb;
     }
 
-    HSBtoRGB(hsb) {
+    HSBtoRGB(hsb: { h: number; s: number; b: number }) {
         var rgb = {
-            r: null,
-            g: null,
-            b: null
+            r: 0,
+            g: 0,
+            b: 0
         };
         let h: number = hsb.h;
         let s: number = (hsb.s * 255) / 100;
@@ -683,7 +732,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
     }
 
-    RGBtoHEX(rgb) {
+    RGBtoHEX(rgb: { r: number; g: number; b: number }) {
         var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
 
         for (var key in hex) {
@@ -695,7 +744,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         return hex.join('');
     }
 
-    HSBtoHEX(hsb) {
+    HSBtoHEX(hsb: { h: number; s: number; b: number }) {
         return this.RGBtoHEX(this.HSBtoRGB(hsb));
     }
 

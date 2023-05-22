@@ -27,6 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-overlayPanel',
@@ -87,35 +88,75 @@ import { Subscription } from 'rxjs';
     }
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
+    /**
+     * Enables to hide the overlay when outside is clicked.
+     * @group Props
+     */
     @Input() dismissable: boolean = true;
-
-    @Input() showCloseIcon: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * When enabled, displays a close icon at top right corner.
+     * @group Props
+     */
+    @Input() showCloseIcon: boolean | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     *  Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
     @Input() appendTo: any = 'body';
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
-    @Input() ariaCloseLabel: string;
-
+    /**
+     * Aria label of the close icon.
+     * @group Props
+     */
+    @Input() ariaCloseLabel: string | undefined;
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * When enabled, first button receives focus on show.
+     * @group Props
+     */
     @Input() focusOnShow: boolean = true;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
+    /**
+     * Callback to invoke when an overlay becomes visible.
+     * @group Emits
+     */
     @Output() onShow: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when an overlay gets hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<object> = new EventEmitter();
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    container: HTMLDivElement;
+    container: Nullable<HTMLDivElement>;
 
     overlayVisible: boolean = false;
 
@@ -125,25 +166,25 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     selfClick: boolean = false;
 
-    documentClickListener: () => void | null;
+    documentClickListener: VoidListener;
 
     target: any;
 
-    willHide: boolean;
+    willHide: Nullable<boolean>;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: () => void | null;
+    documentResizeListener: VoidListener;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    closeIconTemplate: TemplateRef<any>;
+    closeIconTemplate: Nullable<TemplateRef<any>>;
 
-    destroyCallback: Function;
+    destroyCallback: Nullable<Function>;
 
-    overlayEventListener: (event?) => void | null;
+    overlayEventListener: Nullable<(event?: any) => void>;
 
-    overlaySubscription: Subscription;
+    overlaySubscription: Subscription | undefined;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -157,7 +198,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     ) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -184,7 +225,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                     this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                        if (!this.container.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
+                        if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                             this.zone.run(() => {
                                 this.hide();
                             });
@@ -206,7 +247,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         }
     }
 
-    toggle(event, target?) {
+    /**
+     * Toggles the visibility of the panel.
+     * @param event - Browser event
+     * @param target - Target element.
+     * @group Methods
+     */
+    toggle(event: any, target?: any) {
         if (this.isOverlayAnimationInProgress) {
             return;
         }
@@ -223,8 +270,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             this.show(event, target);
         }
     }
-
-    show(event, target?) {
+    /**
+     * Displays the panel.
+     * @param event
+     * @param target
+     * @group Methods
+     */
+    show(event: any, target?: any) {
         target && event && event.stopPropagation();
         if (this.isOverlayAnimationInProgress) {
             return;
@@ -236,7 +288,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
@@ -249,7 +301,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.selfClick = true;
     }
 
-    hasTargetChanged(event, target) {
+    hasTargetChanged(event: any, target: any) {
         return this.target != null && this.target !== (target || event.currentTarget || event.target);
     }
 
@@ -275,13 +327,13 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = this.document.defaultView.getComputedStyle(this.container).getPropertyValue('border-radius');
+        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius) * 2;
+            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
         }
-        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
@@ -357,18 +409,21 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             });
         }
     }
-
+    /**
+     * Hides the panel.
+     * @group Methods
+     */
     hide() {
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
 
-    onCloseClick(event) {
+    onCloseClick(event: MouseEvent) {
         this.hide();
         event.preventDefault();
     }
 
-    onWindowResize(event) {
+    onWindowResize() {
         if (this.overlayVisible && !DomHandler.isTouchDevice()) {
             this.hide();
         }

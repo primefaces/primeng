@@ -1,7 +1,6 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, TemplateRef, EmbeddedViewRef, ViewContainerRef, Renderer2, EventEmitter, Output, ContentChild, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-
+import { AfterViewInit, ChangeDetectorRef, ContentChild, Directive, ElementRef, EmbeddedViewRef, EventEmitter, Inject, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Nullable } from 'primeng/ts-helpers';
 @Directive({
     selector: '[pDefer]',
     host: {
@@ -9,13 +8,18 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class DeferredLoader implements AfterViewInit, OnDestroy {
-    @Output() onLoad: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when deferred content is loaded.
+     * @param {Event} event - browser event.
+     * @group Emits
+     */
+    @Output() onLoad: EventEmitter<Event> = new EventEmitter();
 
-    @ContentChild(TemplateRef) template: TemplateRef<any>;
+    @ContentChild(TemplateRef) template: TemplateRef<any> | undefined;
 
-    documentScrollListener: Function;
+    documentScrollListener: Nullable<Function>;
 
-    view: EmbeddedViewRef<any>;
+    view: Nullable<EmbeddedViewRef<any>>;
 
     window: Window;
 
@@ -33,7 +37,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
                 this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
                     if (this.shouldLoad()) {
                         this.load();
-                        this.documentScrollListener();
+                        this.documentScrollListener && this.documentScrollListener();
                         this.documentScrollListener = null;
                     }
                 });
@@ -54,7 +58,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
     }
 
     load(): void {
-        this.view = this.viewContainer.createEmbeddedView(this.template);
+        this.view = this.viewContainer.createEmbeddedView(this.template as TemplateRef<any>);
         this.onLoad.emit();
         this.cd.detectChanges();
     }

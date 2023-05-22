@@ -27,6 +27,8 @@ import { Subscription } from 'rxjs';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
+import { Nullable } from 'primeng/ts-helpers';
+import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 
 @Component({
     selector: 'p-dataView',
@@ -116,122 +118,225 @@ import { BarsIcon } from 'primeng/icons/bars';
     }
 })
 export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
-    @Input() paginator: boolean;
-
-    @Input() rows: number;
-
-    @Input() totalRecords: number;
-
+    /**
+     * When specified as true, enables the pagination.
+     * @group Props
+     */
+    @Input() paginator: boolean | undefined;
+    /**
+     * Number of rows to display per page.
+     * @group Props
+     */
+    @Input() rows: number | undefined;
+    /**
+     * Number of total records, defaults to length of value when not defined.
+     * @group Props
+     */
+    @Input() totalRecords: number | undefined;
+    /**
+     * Number of page links to display in paginator.
+     * @group Props
+     */
     @Input() pageLinks: number = 5;
-
-    @Input() rowsPerPageOptions: any[];
-
-    @Input() paginatorPosition: string = 'bottom';
-
+    /**
+     * Array of integer/object values to display inside rows per page dropdown of paginator
+     * @group Props
+     */
+    @Input() rowsPerPageOptions: number[] | any[] | undefined;
+    /**
+     * Position of the paginator.
+     * @group Props
+     */
+    @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    /**
+     * Whether to show it even there is only one page.
+     * @group Props
+     */
     @Input() alwaysShowPaginator: boolean = true;
-
-    @Input() paginatorDropdownAppendTo: any;
-
+    /**
+     * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() paginatorDropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Paginator dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
     @Input() paginatorDropdownScrollHeight: string = '200px';
-
+    /**
+     * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
+     * @group Props
+     */
     @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
-
-    @Input() showCurrentPageReport: boolean;
-
-    @Input() showJumpToPageDropdown: boolean;
-
+    /**
+     * Whether to display current page report.
+     * @group Props
+     */
+    @Input() showCurrentPageReport: boolean | undefined;
+    /**
+     * Whether to display a dropdown to navigate to any page.
+     * @group Props
+     */
+    @Input() showJumpToPageDropdown: boolean | undefined;
+    /**
+     * When enabled, icons are displayed on paginator to go first and last page.
+     * @group Props
+     */
     @Input() showFirstLastIcon: boolean = true;
-
+    /**
+     * Whether to show page links.
+     * @group Props
+     */
     @Input() showPageLinks: boolean = true;
-
-    @Input() lazy: boolean;
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
+    @Input() lazy: boolean | undefined;
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
     @Input() emptyMessage: string = '';
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the grid.
+     * @group Props
+     */
     @Input() gridStyleClass: string = '';
-
+    /**
+     * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
+     * @group Props
+     */
     @Input() trackBy: Function = (index: number, item: any) => item;
+    /**
+     * Comma separated list of fields in the object graph to search against.
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Displays a loader to indicate data load is in progress.
+     * @group Props
+     */
+    @Input() loading: boolean | undefined;
+    /**
+     * The icon to show while indicating data load is in progress.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
+     * Index of the first row to be displayed.
+     * @group Props
+     */
+    @Input() first: number | undefined = 0;
+    /**
+     * Property name of data to use in sorting by default.
+     * @group Props
+     */
+    @Input() sortField: string | undefined;
+    /**
+     * Order to sort the data by default.
+     * @group Props
+     */
+    @Input() sortOrder: number | undefined;
+    /**
+     * An array of objects to display.
+     * @group Props
+     */
+    @Input() value: any[] | undefined;
 
-    @Input() filterBy: string;
-
-    @Input() filterLocale: string;
-
-    @Input() loading: boolean;
-
-    @Input() loadingIcon: string;
-
-    @Input() first: number = 0;
-
-    @Input() sortField: string;
-
-    @Input() sortOrder: number;
-
-    @Input() value: any[];
-
-    @Output() onPage: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSort: EventEmitter<any> = new EventEmitter();
-
-    @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
-
-    @ContentChild(Header) header;
-
-    @ContentChild(Footer) footer;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    _value: any[];
-
-    listItemTemplate: TemplateRef<any>;
-
-    gridItemTemplate: TemplateRef<any>;
-
-    itemTemplate: TemplateRef<any>;
-
-    headerTemplate: TemplateRef<any>;
-
-    emptyMessageTemplate: TemplateRef<any>;
-
-    footerTemplate: TemplateRef<any>;
-
-    paginatorLeftTemplate: TemplateRef<any>;
-
-    paginatorRightTemplate: TemplateRef<any>;
-
-    paginatorDropdownItemTemplate: TemplateRef<any>;
-
-    loadingIconTemplate: TemplateRef<any>;
-
-    listIconTemplate: TemplateRef<any>;
-
-    gridIconTemplate: TemplateRef<any>;
-
-    filteredValue: any[];
-
-    filterValue: string;
-
-    initialized: boolean;
-
-    _layout: string = 'list';
-
-    translationSubscription: Subscription;
-
-    @Input() get layout(): string {
+    @Input() get layout(): 'list' | 'grid' {
         return this._layout;
     }
-
-    set layout(layout: string) {
+    set layout(layout: 'list' | 'grid') {
         this._layout = layout;
 
         if (this.initialized) {
             this.changeLayout(layout);
         }
+    }
+    /**
+     * Callback to invoke when paging, sorting or filtering happens in lazy mode.
+     * @param {DataViewLazyLoadEvent} event - custom lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<DataViewLazyLoadEvent> = new EventEmitter<DataViewLazyLoadEvent>();
+    /**
+     * Callback to invoke when pagination occurs.
+     * @param {DataViewPageEvent} event - custom page event.
+     * @group Emits
+     */
+    @Output() onPage: EventEmitter<DataViewPageEvent> = new EventEmitter<DataViewPageEvent>();
+    /**
+     * Callback to invoke when sorting occurs.
+     * @group Emits
+     */
+    @Output() onSort: EventEmitter<DataViewSortEvent> = new EventEmitter<DataViewSortEvent>();
+    /**
+     * Callback to invoke when changing layout.
+     * @param {DataViewLayoutChangeEvent} event - custom layout change event.
+     * @group Emits
+     */
+    @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
+
+    @ContentChild(Header) header: any;
+
+    @ContentChild(Footer) footer: any;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _value: Nullable<any[]>;
+
+    listItemTemplate: Nullable<TemplateRef<any>>;
+
+    gridItemTemplate: Nullable<TemplateRef<any>>;
+
+    itemTemplate: Nullable<TemplateRef<any>>;
+
+    headerTemplate: Nullable<TemplateRef<any>>;
+
+    emptyMessageTemplate: Nullable<TemplateRef<any>>;
+
+    footerTemplate: Nullable<TemplateRef<any>>;
+
+    paginatorLeftTemplate: Nullable<TemplateRef<any>>;
+
+    paginatorRightTemplate: Nullable<TemplateRef<any>>;
+
+    paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
+
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
+
+    listIconTemplate: Nullable<TemplateRef<any>>;
+
+    gridIconTemplate: Nullable<TemplateRef<any>>;
+
+    filteredValue: Nullable<any[]>;
+
+    filterValue: Nullable<string>;
+
+    initialized: Nullable<boolean>;
+
+    _layout: 'list' | 'grid' = 'list';
+
+    translationSubscription: Nullable<Subscription>;
+
+    get emptyMessageLabel(): string {
+        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
@@ -253,7 +358,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
             this.updateTotalRecords();
 
             if (!this.lazy && this.hasFilter()) {
-                this.filter(this.filterValue);
+                this.filter(this.filterValue as string);
             }
         }
 
@@ -266,7 +371,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'listItem':
                     this.listItemTemplate = item.template;
@@ -329,7 +434,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         }
     }
 
-    changeLayout(layout: string) {
+    changeLayout(layout: 'list' | 'grid') {
         this._layout = layout;
         this.onChangeLayout.emit({
             layout: this.layout
@@ -343,7 +448,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         this.totalRecords = this.lazy ? this.totalRecords : this._value ? this._value.length : 0;
     }
 
-    paginate(event) {
+    paginate(event: DataViewPaginatorState) {
         this.first = event.first;
         this.rows = event.rows;
 
@@ -352,8 +457,8 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         }
 
         this.onPage.emit({
-            first: this.first,
-            rows: this.rows
+            first: <number>this.first,
+            rows: <number>this.rows
         });
     }
 
@@ -374,17 +479,17 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
                 else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                 else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-                return this.sortOrder * result;
+                return (this.sortOrder as number) * result;
             });
 
             if (this.hasFilter()) {
-                this.filter(this.filterValue);
+                this.filter(this.filterValue as string);
             }
         }
 
         this.onSort.emit({
-            sortField: this.sortField,
-            sortOrder: this.sortOrder
+            sortField: <string>this.sortField,
+            sortOrder: <number>this.sortOrder
         });
     }
 
@@ -393,12 +498,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         return data == null || data.length == 0;
     }
 
-    createLazyLoadMetadata(): any {
+    createLazyLoadMetadata(): DataViewLazyLoadEvent {
         return {
-            first: this.first,
-            rows: this.rows,
-            sortField: this.sortField,
-            sortOrder: this.sortOrder
+            first: <number>this.first,
+            rows: <number>this.rows,
+            sortField: <string>this.sortField,
+            sortOrder: <number>this.sortOrder
         };
     }
 
@@ -406,15 +511,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         return this.el.nativeElement.children[0];
     }
 
-    get emptyMessageLabel(): string {
-        return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
-    }
-
     filter(filter: string, filterMatchMode: string = 'contains') {
         this.filterValue = filter;
 
         if (this.value && this.value.length) {
-            let searchFields = this.filterBy.split(',');
+            let searchFields = (this.filterBy as string).split(',');
             this.filteredValue = this.filterService.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
 
             if (this.filteredValue.length === this.value.length) {
@@ -460,13 +561,13 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     }
 })
 export class DataViewLayoutOptions {
-    @Input() style: any;
+    @Input() style: { [klass: string]: any } | null | undefined;
 
-    @Input() styleClass: string;
+    @Input() styleClass: string | undefined;
 
     constructor(public dv: DataView) {}
 
-    changeLayout(event: Event, layout: string) {
+    changeLayout(event: Event, layout: 'list' | 'grid') {
         this.dv.changeLayout(layout);
         event.preventDefault();
     }
