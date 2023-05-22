@@ -342,11 +342,17 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.global) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
             this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
+                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                    this.hide();
+                }
                 this.show(event);
                 event.preventDefault();
             });
         } else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                    this.hide();
+                }
                 this.show(event);
                 event.preventDefault();
             });
