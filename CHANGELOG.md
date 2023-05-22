@@ -1,4 +1,15 @@
 # Changelog
+## [16.0.0-rc.2](https://github.com/primefaces/primeng/tree/16.0.0-rc.2) (2023-05-19)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0-rc.1...16.0.0-rc.2)
+
+**Enhancements:**
+- Type Improvements[\#12979](https://github.com/primefaces/primeng/issues/12979)
+
+**Fixed bugs:**
+- PrimeNG 15 does not build with RxJS 6 [\#13012](https://github.com/primefaces/primeng/issues/13012)
+- Autocomplete: Clear is not working as expected [\#13026](https://github.com/primefaces/primeng/issues/13026)
+
 ## [16.0.0-rc.1](https://github.com/primefaces/primeng/tree/16.0.0-rc.1) (2023-05-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/15.4.1...16.0.0-rc.1)
@@ -26,6 +37,13 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.3-LTS](https://www.npmjs.com/package/primeng/v/15.4.3-lts) (2023-05-18)
+
+**Fixed bugs:**
+- Autocomplete: Clear is not working as expected [\#13026](https://github.com/primefaces/primeng/issues/13026)
+- ConfirmDialog: Accept Icon is duplicated [\#13022](https://github.com/primefaces/primeng/issues/13022)
+- Button: The button is firing the click event even when it is disabled [\#13042](https://github.com/primefaces/primeng/issues/13042)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.2-LTS](https://www.npmjs.com/package/primeng/v/15.4.2-lts) (2023-05-05)
 
@@ -232,6 +250,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.7-LTS](https://www.npmjs.com/package/primeng/v/14.2.7-lts) (2023-05-18)
+
+**Fixed bugs:**
+- MultiSelect | maxSelectionLimit not refreshed after clear called [\#12906](https://github.com/primefaces/primeng/issues/12906)
+- MultiSelect | onPanelHide triggers twice [\#12382](https://github.com/primefaces/primeng/issues/12382)
+- Button | The button is firing the click event even when it is disabled [\#13042](https://github.com/primefaces/primeng/issues/13042)
+- pFocusTrap: focus stuck when ancestor of tabbable element is hidden [\#12349](https://github.com/primefaces/primeng/issues/12349)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.6-LTS](https://www.npmjs.com/package/primeng/v/14.2.6-lts) (2023-05-05)
 

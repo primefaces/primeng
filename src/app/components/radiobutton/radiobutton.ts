@@ -1,6 +1,8 @@
 import { NgModule, Component, Input, Output, ElementRef, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
+import { Nullable } from 'primeng/ts-helpers';
+import { RadioButtonClickEvent } from './radiobutton.interface';
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,7 +39,7 @@ export class RadioControlRegistry {
             return false;
         }
 
-        return controlPair[0].control.root === accessor.control.control.root && controlPair[1].name === accessor.name;
+        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
     }
 }
 
@@ -83,47 +85,96 @@ export class RadioControlRegistry {
     }
 })
 export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
+    /**
+     * Value of the radiobutton.
+     * @group Props
+     */
     @Input() value: any;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() formControlName: string | undefined;
+    /**
+     * Name of the radiobutton group.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Label of the radiobutton.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Used to define a string that labels the input element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the label.
+     * @group Props
+     */
+    @Input() labelStyleClass: string | undefined;
+    /**
+     * Callback to invoke on radio button click.
+     * @param {RadioButtonClickEvent} event - Custom click event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<RadioButtonClickEvent> = new EventEmitter<RadioButtonClickEvent>();
+    /**
+     * Callback to invoke when the receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Input() formControlName: string;
-
-    @Input() name: string;
-
-    @Input() disabled: boolean;
-
-    @Input() label: string;
-
-    @Input() tabindex: number;
-
-    @Input() inputId: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() ariaLabel: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() labelStyleClass: string;
-
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('rb') inputViewChild: ElementRef;
+    @ViewChild('rb') inputViewChild!: ElementRef;
 
     public onModelChange: Function = () => {};
 
     public onModelTouched: Function = () => {};
 
-    public checked: boolean;
+    public checked: Nullable<boolean>;
 
-    public focused: boolean;
+    public focused: Nullable<boolean>;
 
-    control: NgControl;
+    control: Nullable<NgControl>;
 
     constructor(public cd: ChangeDetectorRef, private injector: Injector, private registry: RadioControlRegistry) {}
 
@@ -133,7 +184,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
         this.registry.add(this.control, this);
     }
 
-    handleClick(event, radioButton, focus) {
+    handleClick(event: Event, radioButton: HTMLElement, focus: boolean) {
         event.preventDefault();
 
         if (this.disabled) {
@@ -147,7 +198,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
         }
     }
 
-    select(event) {
+    select(event: Event) {
         if (!this.disabled) {
             this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
@@ -180,22 +231,25 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focused = true;
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focused = false;
         this.onModelTouched();
         this.onBlur.emit(event);
     }
 
-    onChange(event) {
+    onChange(event: Event) {
         this.select(event);
     }
-
-    focus() {
+    /**
+     * Applies focus to input field.
+     * @group Methods
+     */
+    public focus() {
         this.inputViewChild.nativeElement.focus();
     }
 

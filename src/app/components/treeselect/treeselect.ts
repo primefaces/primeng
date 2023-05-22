@@ -11,6 +11,8 @@ import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule } from 'primeng/tree';
 import { ObjectUtils } from 'primeng/utils';
+import { Nullable } from 'primeng/ts-helpers';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -164,163 +166,289 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class TreeSelect implements AfterContentInit {
-    @Input() type: string = 'button';
-
-    @Input() inputId: string;
-
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
     @Input() scrollHeight: string = '400px';
-
-    @Input() disabled: boolean;
-
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
+     * @group Props
+     */
     @Input() metaKeySelection: boolean = true;
-
-    @Input() display: string = 'comma';
-
-    @Input() selectionMode: string = 'single';
-
-    @Input() tabindex: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() placeholder: string;
-
-    @Input() panelClass: string;
-
-    @Input() panelStyle: any;
-
-    @Input() panelStyleClass: string;
-
-    @Input() containerStyle: object;
-
-    @Input() containerStyleClass: string;
-
-    @Input() labelStyle: object;
-
-    @Input() labelStyleClass: string;
-
-    @Input() overlayOptions: OverlayOptions;
-
+    /**
+     * Defines how the selected items are displayed.
+     * @group Props
+     */
+    @Input() display: 'comma' | 'chip' = 'comma';
+    /**
+     * Defines the selection mode.
+     * @group Props
+     */
+    @Input() selectionMode: 'single' | 'multiple' | 'checkbox' = 'single';
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Label to display when there are no selections.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * Style class of the overlay panel.
+     * @group Props
+     */
+    @Input() panelClass: string | string[] | Set<string> | { [klass: string]: any } | undefined;
+    /**
+     * Inline style of the panel element.
+     * @group Props
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the panel element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * Inline style of the container element.
+     * @group Props
+     */
+    @Input() containerStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the container element.
+     * @group Props
+     */
+    @Input() containerStyleClass: string | undefined;
+    /**
+     * Inline style of the label element.
+     * @group Props
+     */
+    @Input() labelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the label element.
+     * @group Props
+     */
+    @Input() labelStyleClass: string | undefined;
+    /**
+     * Specifies the options for the overlay.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * Text to display when there are no options available. Defaults to value from PrimeNG locale configuration.
+     * @group Props
+     */
     @Input() emptyMessage: string = '';
-
-    @Input() appendTo: any;
-
+    /**
+     * A valid query selector or an HTMLElement to specify where the overlay gets attached. Special keywords are "body" for document body and "self" for the element itself.
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * When specified, displays an input field to filter the items.
+     * @group Props
+     */
     @Input() filter: boolean = false;
-
+    /**
+     * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
+     * @group Props
+     */
     @Input() filterBy: string = 'label';
-
+    /**
+     * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
+     * @group Props
+     */
     @Input() filterMode: string = 'lenient';
-
-    @Input() filterPlaceholder: string;
-
-    @Input() filterLocale: string;
-
+    /**
+     * Placeholder text to show when filter input is empty.
+     * @group Props
+     */
+    @Input() filterPlaceholder: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Determines whether the filter input should be automatically focused when the component is rendered.
+     * @group Props
+     */
     @Input() filterInputAutoFocus: boolean = true;
-
+    /**
+     * Whether checkbox selections propagate to descendant nodes.
+     * @group Props
+     */
     @Input() propagateSelectionDown: boolean = true;
-
+    /**
+     * Whether checkbox selections propagate to ancestor nodes.
+     * @group Props
+     */
     @Input() propagateSelectionUp: boolean = true;
-
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
+    /**
+     * Clears the filter value when hiding the dropdown.
+     * @group Props
+     */
     @Input() resetFilterOnHide: boolean = true;
-
-    @Input() get options(): any[] {
+    /**
+     * An array of treenodes.
+     * @group Props
+     */
+    @Input() get options(): TreeNode[] | undefined {
         return this._options;
     }
-    set options(options) {
+    set options(options: TreeNode[] | undefined) {
         this._options = options;
         this.updateTreeState();
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @ViewChild('container') containerEl: ElementRef;
-
-    @ViewChild('focusInput') focusInput: ElementRef;
-
-    @ViewChild('filter') filterViewChild: ElementRef;
-
-    @ViewChild('tree') treeViewChild: Tree;
-
-    @ViewChild('panel') panelEl: ElementRef;
-
-    @ViewChild('overlay') overlayViewChild: Overlay;
-
-    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
-
-    /* @deprecated */
-    _showTransitionOptions: string;
-    @Input() get showTransitionOptions(): string {
+    /**
+     * @deprecated since v14.2.0 use overlayOptions property instead.
+     * Transition options of the show animation.
+     * @group Props
+     */
+    @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
     }
-    set showTransitionOptions(val: string) {
+    set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _hideTransitionOptions: string;
-    @Input() get hideTransitionOptions(): string {
+    /**
+     * @deprecated since v14.2.0 use overlayOptions property instead.
+     * Transition options of the hide animation.
+     * @group Props
+     */
+    @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
     }
-    set hideTransitionOptions(val: string) {
+    set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    /**
+     * Callback to invoke when a node is expanded.
+     * @group Emits
+     */
+    @Output() onNodeExpand: EventEmitter<TreeSelectNodeExpandEvent> = new EventEmitter<TreeSelectNodeExpandEvent>();
+    /**
+     * Callback to invoke when a node is collapsed.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
+    /**
+     * Callback to invoke when the overlay is shown.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when the overlay is hidden.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when input field is cleared.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
+    /**
+     * Callback to invoke when data is filtered.
+     * @group Emits
+     */
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when a node is unselected.
+     * @param {TreeNode} node - Node instance.
+     * @group Emits
+     */
+    @Output() onNodeUnselect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
+    /**
+     * Callback to invoke when a node is selected.
+     * @param {TreeNode} node - Node instance.
+     * @group Emits
+     */
+    @Output() onNodeSelect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
 
-    public filteredNodes: TreeNode[];
+    _showTransitionOptions: string | undefined;
 
-    filterValue: string = null;
+    _hideTransitionOptions: string | undefined;
 
-    serializedValue: any[];
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    valueTemplate: TemplateRef<any>;
+    @ViewChild('container') containerEl: Nullable<ElementRef>;
 
-    headerTemplate: TemplateRef<any>;
+    @ViewChild('focusInput') focusInput: Nullable<ElementRef>;
 
-    emptyTemplate: TemplateRef<any>;
+    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
-    footerTemplate: TemplateRef<any>;
+    @ViewChild('tree') treeViewChild: Nullable<Tree>;
 
-    clearIconTemplate: TemplateRef<any>;
+    @ViewChild('panel') panelEl: Nullable<ElementRef>;
 
-    triggerIconTemplate: TemplateRef<any>;
+    @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
 
-    filterIconTemplate: TemplateRef<any>;
+    public filteredNodes: TreeNode[] | undefined | null;
 
-    closeIconTemplate: TemplateRef<any>;
+    filterValue: Nullable<string> = null;
 
-    itemTogglerIconTemplate: TemplateRef<any>;
+    serializedValue: Nullable<any[]>;
 
-    itemCheckboxIconTemplate: TemplateRef<any>;
+    valueTemplate: Nullable<TemplateRef<any>>;
 
-    itemLoadingIconTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    focused: boolean;
+    emptyTemplate: Nullable<TemplateRef<any>>;
 
-    overlayVisible: boolean;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    selfChange: boolean;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    value;
+    triggerIconTemplate: Nullable<TemplateRef<any>>;
+
+    filterIconTemplate: Nullable<TemplateRef<any>>;
+
+    closeIconTemplate: Nullable<TemplateRef<any>>;
+
+    itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
+
+    itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
+
+    itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
+
+    focused: Nullable<boolean>;
+
+    overlayVisible: Nullable<boolean>;
+
+    selfChange: Nullable<boolean>;
+
+    value: any | undefined;
 
     expandedNodes: any[] = [];
 
-    _options: any[];
+    _options: TreeNode[] | undefined;
 
     public templateMap: any;
 
@@ -335,11 +463,11 @@ export class TreeSelect implements AfterContentInit {
     }
 
     ngAfterContentInit() {
-        if (this.templates.length) {
+        if ((this.templates as QueryList<PrimeTemplate>).length) {
             this.templateMap = {};
         }
 
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'value':
                     this.valueTemplate = item.template;
@@ -397,21 +525,21 @@ export class TreeSelect implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 if (this.filter) {
-                    ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(this.filterValue);
-                    this.filterInputAutoFocus && this.filterViewChild.nativeElement.focus();
+                    ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
+                    this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
                 }
 
                 break;
         }
     }
 
-    onSelectionChange(event) {
+    onSelectionChange(event: Event) {
         this.value = event;
         this.onModelChange(this.value);
         this.cd.markForCheck();
     }
 
-    onClick(event) {
+    onClick(event: Event) {
         if (this.disabled) {
             return;
         }
@@ -423,11 +551,11 @@ export class TreeSelect implements AfterContentInit {
                 this.show();
             }
 
-            this.focusInput.nativeElement.focus();
+            this.focusInput?.nativeElement.focus();
         }
     }
 
-    onKeyDown(event) {
+    onKeyDown(event: KeyboardEvent) {
         switch (event.which) {
             //down
             case 40:
@@ -472,8 +600,8 @@ export class TreeSelect implements AfterContentInit {
         }
     }
 
-    onFilterInput(event) {
-        this.filterValue = event.target.value;
+    onFilterInput(event: Event) {
+        this.filterValue = (event.target as HTMLInputElement).value;
         this.treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
             originalEvent: event,
@@ -493,7 +621,7 @@ export class TreeSelect implements AfterContentInit {
         this.cd.markForCheck();
     }
 
-    clear(event) {
+    clear(event: Event) {
         this.value = null;
         this.resetExpandedNodes();
         this.resetPartialSelected();
@@ -527,7 +655,7 @@ export class TreeSelect implements AfterContentInit {
         }
     }
 
-    updateTreeBranchState(node, path, selectedNodes) {
+    updateTreeBranchState(node: TreeNode | null, path: any, selectedNodes: TreeNode[]) {
         if (node) {
             if (this.isSelected(node)) {
                 this.expandPath(path);
@@ -540,13 +668,13 @@ export class TreeSelect implements AfterContentInit {
                 }
             }
         } else {
-            for (let childNode of this.options) {
+            for (let childNode of this.options as TreeNode[]) {
                 this.updateTreeBranchState(childNode, [], selectedNodes);
             }
         }
     }
 
-    expandPath(expandedNodes) {
+    expandPath(expandedNodes: TreeNode[]) {
         for (let node of expandedNodes) {
             node.expanded = true;
         }
@@ -554,12 +682,12 @@ export class TreeSelect implements AfterContentInit {
         this.expandedNodes = [...expandedNodes];
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
     }
 
-    nodeCollapse(event) {
+    nodeCollapse(event: { originalEvent: Event; node: TreeNode }) {
         this.onNodeCollapse.emit(event);
         this.expandedNodes.splice(this.expandedNodes.indexOf(event.node), 1);
     }
@@ -586,11 +714,11 @@ export class TreeSelect implements AfterContentInit {
         }
     }
 
-    findSelectedNodes(node, keys, selectedNodes) {
+    findSelectedNodes(node: TreeNode, keys: any[], selectedNodes: TreeNode[]) {
         if (node) {
             if (this.isSelected(node)) {
                 selectedNodes.push(node);
-                delete keys[node.key];
+                delete keys[node.key as any];
             }
 
             if (Object.keys(keys).length && node.children) {
@@ -599,7 +727,7 @@ export class TreeSelect implements AfterContentInit {
                 }
             }
         } else {
-            for (let childNode of this.options) {
+            for (let childNode of this.options as TreeNode[]) {
                 this.findSelectedNodes(childNode, keys, selectedNodes);
             }
         }
@@ -631,7 +759,7 @@ export class TreeSelect implements AfterContentInit {
         return index;
     }
 
-    onSelect(node) {
+    onSelect(node: TreeNode) {
         this.onNodeSelect.emit(node);
 
         if (this.selectionMode === 'single') {
@@ -639,7 +767,7 @@ export class TreeSelect implements AfterContentInit {
         }
     }
 
-    onUnselect(node) {
+    onUnselect(node: TreeNode) {
         this.onNodeUnselect.emit(node);
     }
 
@@ -697,7 +825,7 @@ export class TreeSelect implements AfterContentInit {
 
     get label() {
         let value = this.value || [];
-        return value.length ? value.map((node) => node.label).join(', ') : this.selectionMode === 'single' && this.value ? value.label : this.placeholder;
+        return value.length ? value.map((node: TreeNode) => node.label).join(', ') : this.selectionMode === 'single' && this.value ? value.label : this.placeholder;
     }
 }
 

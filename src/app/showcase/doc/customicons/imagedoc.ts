@@ -20,6 +20,6 @@ export class ImageDoc {
     <ng-template pTemplate="dropdownicon">
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-dropdown`
+</p-dropdown>`
     };
 }

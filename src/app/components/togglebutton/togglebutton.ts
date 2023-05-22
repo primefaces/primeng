@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, NgModule, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
+import { ToggleButtonChangeEvent } from './togglebutton.interface';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -37,29 +38,67 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     }
 })
 export class ToggleButton implements ControlValueAccessor {
-    @Input() onLabel: string;
-
-    @Input() offLabel: string;
-
-    @Input() onIcon: string;
-
-    @Input() offIcon: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() disabled: boolean;
-
+    /**
+     * Label for the on state.
+     * @group Props
+     */
+    @Input() onLabel: string | undefined;
+    /**
+     * Label for the off state.
+     * @group Props
+     */
+    @Input() offLabel: string | undefined;
+    /**
+     * Icon for the on state.
+     * @group Props
+     */
+    @Input() onIcon: string | undefined;
+    /**
+     * Icon for the off state.
+     * @group Props
+     */
+    @Input() offIcon: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
     @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() inputId: string;
-
-    @Input() tabindex: number;
-
-    @Input() iconPos: string = 'left';
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: 'left' | 'right' = 'left';
+    /**
+     * Callback to invoke on value change.
+     * @param {ToggleButtonChangeEvent} event - Browser event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
 
     checked: boolean = false;
 
@@ -106,11 +145,11 @@ export class ToggleButton implements ControlValueAccessor {
     }
 
     get hasOnLabel(): boolean {
-        return this.onLabel && this.onLabel.length > 0;
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 
     get hasOffLabel(): boolean {
-        return this.onLabel && this.onLabel.length > 0;
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 }
 
