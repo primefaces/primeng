@@ -362,7 +362,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.clearActiveItem();
         this.position(event);
         this.moveOnTop();
-        this.containerViewChild!.nativeElement.style.display = 'block';
+        (<ElementRef>this.containerViewChild).nativeElement.style.display = 'block';
         this.preventDocumentDefault = true;
         DomHandler.fadeIn(this.containerViewChild?.nativeElement, 250);
         this.bindGlobalListeners();
@@ -375,7 +375,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     hide() {
-        this.containerViewChild!.nativeElement.style.display = 'none';
+        (<ElementRef>this.containerViewChild).nativeElement.style.display = 'none';
 
         if (this.autoZIndex) {
             ZIndexUtils.clear(this.containerViewChild?.nativeElement);
@@ -393,7 +393,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent) {
-        if (this.containerViewChild!.nativeElement.offsetParent) this.hide();
+        if ((<ElementRef>this.containerViewChild).nativeElement.offsetParent) this.hide();
         else this.show(event);
     }
 
@@ -401,32 +401,32 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (event) {
             let left = event.pageX + 1;
             let top = event.pageY + 1;
-            let width = this.containerViewChild!.nativeElement.offsetParent ? this.containerViewChild!.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild!.nativeElement);
-            let height = this.containerViewChild!.nativeElement.offsetParent ? this.containerViewChild!.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild!.nativeElement);
+            let width = this.containerViewChild?.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild?.nativeElement);
+            let height = this.containerViewChild?.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild?.nativeElement);
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - this.document.scrollingElement!.scrollLeft > viewport.width) {
+            if (left + width - (<any>this.document).scrollingElement.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - this.document.scrollingElement!.scrollTop > viewport.height) {
+            if (top + height - (<any>this.document).scrollingElement.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < this.document.scrollingElement!.scrollLeft) {
-                left = this.document.scrollingElement!.scrollLeft;
+            if (left < (<any>this.document).scrollingElement.scrollLeft) {
+                left = (<any>this.document).scrollingElement.scrollLeft;
             }
 
             //fit
-            if (top < this.document.scrollingElement!.scrollTop) {
-                top = this.document.scrollingElement!.scrollTop;
+            if (top < (<any>this.document).scrollingElement.scrollTop) {
+                top = (<any>this.document).scrollingElement.scrollTop;
             }
 
-            this.containerViewChild!.nativeElement.style.left = left + 'px';
-            this.containerViewChild!.nativeElement.style.top = top + 'px';
+            (<ElementRef>this.containerViewChild).nativeElement.style.left = left + 'px';
+            (<ElementRef>this.containerViewChild).nativeElement.style.top = top + 'px';
         }
     }
 
@@ -478,21 +478,21 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (prevMenuitem) {
             return this.isItemMatched(prevMenuitem) ? prevMenuitem : this.findPrevItem(prevMenuitem, isRepeated);
         } else {
-            let lastItem = menuitem.parentElement!.children[menuitem.parentElement!.children.length - 1];
+            let lastItem = menuitem.parentElement?.children[menuitem.parentElement.children.length - 1];
 
-            return this.isItemMatched(lastItem) ? lastItem : !isRepeated ? this.findPrevItem(lastItem, true) : null;
+            return this.isItemMatched(<Element>lastItem) ? lastItem : !isRepeated ? this.findPrevItem(<Element>lastItem, true) : null;
         }
     }
 
     getActiveItem() {
         let activeItemKey = this.contextMenuService.activeItemKey;
 
-        return activeItemKey == null ? null : DomHandler.findSingle(this.containerViewChild!.nativeElement, '.p-menuitem[data-ik="' + activeItemKey + '"]');
+        return activeItemKey == null ? null : DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-menuitem[data-ik="' + activeItemKey + '"]');
     }
 
     clearActiveItem() {
         if (this.contextMenuService.activeItemKey) {
-            this.removeActiveFromSubLists(this.containerViewChild!.nativeElement);
+            this.removeActiveFromSubLists(this.containerViewChild?.nativeElement);
             this.contextMenuService.reset();
         }
     }
@@ -520,13 +520,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.containerViewChild!.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
+                if (this.containerViewChild?.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
                     this.hide();
                 }
             });
 
             this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
-                if (this.containerViewChild!.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
+                if (this.containerViewChild?.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
                     this.hide();
                 }
                 this.preventDocumentDefault = false;
@@ -551,7 +551,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findNextItem(activeItem);
                         } else {
-                            let firstItem = DomHandler.findSingle(this.containerViewChild!.nativeElement, '.p-menuitem-link').parentElement;
+                            let firstItem = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-menuitem-link').parentElement;
                             activeItem = this.isItemMatched(firstItem) ? firstItem : this.findNextItem(firstItem);
                         }
 
@@ -567,7 +567,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findPrevItem(activeItem);
                         } else {
-                            let sublist = DomHandler.findSingle(this.containerViewChild!.nativeElement, 'ul');
+                            let sublist = DomHandler.findSingle(this.containerViewChild?.nativeElement, 'ul');
                             let lastItem = sublist.children[sublist.children.length - 1];
                             activeItem = this.isItemMatched(lastItem) ? lastItem : this.findPrevItem(lastItem);
                         }
@@ -700,13 +700,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     onWindowResize() {
-        if (this.containerViewChild!.nativeElement.offsetParent) {
+        if (this.containerViewChild?.nativeElement.offsetParent) {
             this.hide();
         }
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild!.nativeElement.isSameNode(event.target) || this.containerViewChild!.nativeElement.contains(event.target));
+        return !(this.containerViewChild?.nativeElement.isSameNode(event.target) || this.containerViewChild?.nativeElement.contains(event.target));
     }
 
     ngOnDestroy() {
@@ -722,7 +722,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild!.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
         }
 
         this.ngDestroy$.next(true);
