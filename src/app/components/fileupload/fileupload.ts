@@ -746,7 +746,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     checkFileLimit() {
-        this.msgs = this.msgs ?? [];
+        this.msgs ??= [];
         if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
