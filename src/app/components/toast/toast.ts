@@ -31,7 +31,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { ToastBreakpoints, ToastCloseEvent } from './toast.interface';
+import { ToastBreakpoints, ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
 
 @Component({
     selector: 'p-toastItem',
@@ -98,9 +98,9 @@ import { ToastBreakpoints, ToastCloseEvent } from './toast.interface';
     }
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
-    @Input({required: true}) message!: Message;
+    @Input() message: Message | null | undefined;
 
-    @Input({required: true}) index!: number;
+    @Input() index: number | null | undefined;
 
     @Input() template: TemplateRef<any> | undefined;
 
@@ -112,7 +112,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() hideTransitionOptions: string | undefined;
 
-    @Output() onClose: EventEmitter<{message: Message, index: number}> = new EventEmitter();
+    @Output() onClose: EventEmitter<ToastItemCloseEvent> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
@@ -129,8 +129,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
             this.zone.runOutsideAngular(() => {
                 this.timeout = setTimeout(() => {
                     this.onClose.emit({
-                        index: this.index,
-                        message: this.message
+                        index: <number>this.index,
+                        message: <Message>this.message
                     });
                 }, this.message?.life || 3000);
             });
@@ -156,8 +156,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         this.clearTimeout();
 
         this.onClose.emit({
-            index: this.index,
-            message: this.message
+            index: <number>this.index,
+            message: <Message>this.message
         });
 
         event.preventDefault();
@@ -370,7 +370,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
         });
     }
 
-    onMessageClose(event: {message: Message, index: number}) {
+    onMessageClose(event: ToastItemCloseEvent) {
         this.messages?.splice(event.index, 1);
 
         this.onClose.emit({
