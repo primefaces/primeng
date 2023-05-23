@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import { Toast } from './toast';
+import { Message } from '../api/message';
 /**
  * Breakpoints of toast element.
  */
@@ -33,9 +34,5 @@ export interface ToastCloseEvent {
     /**
      * Message of the closed element.
      */
-    message?: string;
-    /**
-     * Index of the removed element.
-     */
-    index?: number;
+    message: Message;
 }
