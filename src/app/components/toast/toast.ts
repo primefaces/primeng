@@ -98,9 +98,9 @@ import { ToastBreakpoints, ToastCloseEvent } from './toast.interface';
     }
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
-    @Input() message: Message | null | undefined;
+    @Input({required: true}) message!: Message;
 
-    @Input() index: number | undefined;
+    @Input({required: true}) index!: number;
 
     @Input() template: TemplateRef<any> | undefined;
 
@@ -112,7 +112,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() hideTransitionOptions: string | undefined;
 
-    @Output() onClose: EventEmitter<object> = new EventEmitter();
+    @Output() onClose: EventEmitter<{message: Message, index: number}> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
@@ -370,7 +370,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
         });
     }
 
-    onMessageClose(event: any) {
+    onMessageClose(event: {message: Message, index: number}) {
         this.messages?.splice(event.index, 1);
 
         this.onClose.emit({
