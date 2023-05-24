@@ -1,24 +1,13 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID, Provider } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
+import { KeyFilterPattern } from './keyfilter.interface';
 
-export const KEYFILTER_VALIDATOR: any = {
+export const KEYFILTER_VALIDATOR: Provider = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => KeyFilter),
     multi: true
-};
-
-type DefaultMasks = {
-    pint: RegExp;
-    int: RegExp;
-    pnum: RegExp;
-    money: RegExp;
-    num: RegExp;
-    hex: RegExp;
-    email: RegExp;
-    alpha: RegExp;
-    alphanum: RegExp;
 };
 
 type SafariKeys = {
@@ -41,7 +30,7 @@ type Keys = {
     DELETE: number;
 };
 
-const DEFAULT_MASKS: DefaultMasks = {
+const DEFAULT_MASKS: Record<KeyFilterPattern, RegExp> = {
     pint: /[\d]/,
     int: /[\d\-]/,
     pnum: /[\d\.]/,
@@ -90,11 +79,18 @@ export class KeyFilter implements Validator {
      * Sets the pattern for key filtering.
      * @group Props
      */
-    @Input('pKeyFilter') set pattern(_pattern: string) {
+    @Input('pKeyFilter') set pattern(_pattern: RegExp | KeyFilterPattern | null | undefined) {
         this._pattern = _pattern;
-        this.regex = (DEFAULT_MASKS as any)[this._pattern] || this._pattern;
+
+        if (_pattern instanceof RegExp) {
+            this.regex = _pattern;
+        } else if (_pattern in DEFAULT_MASKS) {
+            this.regex = DEFAULT_MASKS[_pattern];
+        } else {
+            this.regex = /./;
+        }
     }
-    get pattern(): any {
+    get pattern(): RegExp | KeyFilterPattern | null | undefined {
         return this._pattern;
     }
     /**
@@ -104,9 +100,9 @@ export class KeyFilter implements Validator {
      */
     @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
-    regex!: RegExp;
+    regex: RegExp = /./;
 
-    _pattern: string | null | undefined;
+    _pattern: RegExp | KeyFilterPattern | null | undefined;
 
     isAndroid: boolean;
 
