@@ -454,7 +454,7 @@ export class GalleriaContent implements DoCheck {
 
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
 
-    id: string = this.galleria.id || UniqueComponentId();
+    id: string = this.galleria?.id || UniqueComponentId();
 
     _activeIndex: number = 0;
 
