@@ -106,7 +106,7 @@ import { Component } from '@angular/core';
     selector: 'focus-trap-basic-demo',
     templateUrl: './focus-trap-basic-demo.html'
 })
-export class BasicDoc {
+export class FocusTrapBasicDemo {
     selectedCity: string;
 
     cities = [
