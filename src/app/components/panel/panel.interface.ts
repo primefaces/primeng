@@ -3,7 +3,6 @@ import { Panel } from './panel';
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link Panel.onBeforeToggle}
- * @group Events
  */
 export interface PanelBeforeToggleEvent {
     /**
@@ -18,7 +17,6 @@ export interface PanelBeforeToggleEvent {
 /**
  * Custom panel toggle event, emits after panel toggle.
  * @see {@link Panel.onAfterToggle}
- * @group Events
  */
 export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
 /**
@@ -29,15 +27,15 @@ export interface PanelTemplates {
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any> | null;
+    header: TemplateRef<any> | null;
     /**
      * Custom content template.
      */
-    content(): TemplateRef<any> | null;
+    content: TemplateRef<any> | null;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any> | null;
+    footer: TemplateRef<any> | null;
     /**
      * Custom icons template of the panel toggler.
      * @param {Object} context - header icon data.
@@ -51,5 +49,5 @@ export interface PanelTemplates {
     /**
      * Custom icons template of the panel header.
      */
-    icons(): TemplateRef<any> | null;
+    icons: TemplateRef<any> | null;
 }

@@ -111,6 +111,7 @@ let idx: number = 0;
 export class Panel implements AfterContentInit, BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
+     * @defaultValue false
      * @group Props
      */
     @Input() toggleable: boolean | undefined;
@@ -122,6 +123,7 @@ export class Panel implements AfterContentInit, BlockableUI {
     /**
      * Defines the initial state of panel content, supports one or two-way binding as well.
      * @group Props
+     * @defaultValue false
      */
     @Input() collapsed: boolean | undefined;
     /**
