@@ -68,7 +68,7 @@ import { Code } from '../../domain/code';
                         <td>
                             <i>enter</i>
                         </td>
-                        <td>Actives the menuitem, closes the menu and sets focus on the menu button.</td>
+                        <td>Activates the menuitem, closes the menu and sets focus on the menu button.</td>
                     </tr>
                     <tr>
                         <td>

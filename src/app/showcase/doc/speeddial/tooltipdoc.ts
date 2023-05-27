@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'tooltip-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Items display a tooltip on hober when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
+            <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
