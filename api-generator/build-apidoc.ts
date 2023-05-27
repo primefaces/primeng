@@ -88,9 +88,10 @@ if (project) {
 
     let props = {
         descripsion: staticMessages['props'],
+        values: []
     }
 
-    if(templates_group ) {
+    if(templates_group) {
         templates_group.forEach((template) => {
             template.children.forEach((child) => {
                 const signature = child.getAllSignatures()[0];
@@ -136,7 +137,15 @@ if (project) {
 
     if(props_group) {
         props_group.forEach((prop) => {
-
+            props.values.push({
+                name: prop.name,
+                optional: prop.flags.isOptional,
+                readonly: prop.flags.isReadonly,
+                type: prop.type,
+                default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
+                description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
+                deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
+            });
         })
     }
 
