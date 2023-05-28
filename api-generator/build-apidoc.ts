@@ -77,7 +77,7 @@ if (project) {
     const props_group = extractValues(project.children, 'Props');
     const emits_group = extractValues(project.children, 'Emits');
     const templates_group = extractValues(project.children, 'Templates');
-    const methods_group = extractValues(project.children, 'Methods');
+    const methods_group = extractValues(project.children, 'Method');
     const interfaces_group = extractValues(project.children, 'Interfaces');
     const events_group = extractValues(project.children, 'Events');
 
@@ -87,7 +87,17 @@ if (project) {
     };
 
     let props = {
-        descripsion: staticMessages['props'],
+        description: staticMessages['props'],
+        values: []
+    }
+
+    let emits = {
+        description: staticMessages['emits'],
+        values: []
+    }
+
+    let events = {
+        description: staticMessages['events'],
         values: []
     }
 
@@ -141,8 +151,8 @@ if (project) {
                 name: prop.name,
                 optional: prop.flags.isOptional,
                 readonly: prop.flags.isReadonly,
-                type: prop.type,
-                default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
+                type: prop.type, //TODO: make it meaningful
+                default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '',
                 description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
                 deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
             });
@@ -150,8 +160,14 @@ if (project) {
     }
 
     if(emits_group) {
-        emits_group.forEach((emit) => {
-
+        emits_group.forEach((emitter) => {
+            emits.values.push({
+                name: emitter.name,
+                parameters: emitter.type,
+                description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
+                returnType: 'void', //TODO: make it meaningful
+                deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined,
+            })
         })
     }
 
@@ -162,12 +178,24 @@ if (project) {
     }
 
     if(interfaces_group) {
-        interfaces_group.forEach((interface) => {})
+        interfaces_group.forEach((interface) => {
+        })
     }
 
     if(events_group) {
         events_group.forEach((event) => {
-
+            events.values.push({
+                name: event.name,
+                description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
+                props: event.children && event.children.map(child => ({
+                    name: child.name,
+                    optional: child.flags.isOptional,
+                    readonly: child.flags.isReadonly,
+                    type: child.type.toString(),
+                    description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                    deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
+                }))
+            })
         })
     }
 
