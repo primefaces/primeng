@@ -27,7 +27,7 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 app.bootstrap({
     // typedoc options here
     name: 'PrimeNG',
-    entryPoints: [`src/app/components/accordion`],
+    entryPoints: [`src/app/components/`],
     entryPointStrategy: 'expand',
     hideGenerator: true,
     excludeExternals: true,
@@ -41,7 +41,6 @@ app.bootstrap({
 
 const project = app.convert();
 app.generateJson(project, `./api-generator/typedoc.json`);
-const projectJson = fs.readdirSync('./api-generator').filter((file) => file.endsWith('.json'));
 
 function extractValues(children, arg) {
     const propsChildren = [];
@@ -51,7 +50,6 @@ function extractValues(children, arg) {
 
             if (groups) {
                 const propsGroup = groups.find((group) => group.title === arg);
-
                 if (propsGroup) {
                     propsChildren.push(...propsGroup.children);
                 }
@@ -101,11 +99,18 @@ if (project) {
         values: []
     }
 
+    let methods = {
+        description: staticMessages['methods'],
+        values: []
+    }
+
     if(templates_group) {
         templates_group.forEach((template) => {
+            const parent = template.parent ? template.parent.name : undefined;
             template.children.forEach((child) => {
                 const signature = child.getAllSignatures()[0];
                 templates.values.push({
+                    parent: parent,
                     name: signature ? signature.name : child.name,
                     parameters: signature.parameters.map((param) => {
                         let type = param.type.toString();
@@ -148,6 +153,7 @@ if (project) {
     if(props_group) {
         props_group.forEach((prop) => {
             props.values.push({
+                parent: prop.parent ? prop.parent.name : undefined,
                 name: prop.name,
                 optional: prop.flags.isOptional,
                 readonly: prop.flags.isReadonly,
@@ -162,6 +168,7 @@ if (project) {
     if(emits_group) {
         emits_group.forEach((emitter) => {
             emits.values.push({
+                parent: emitter.parent ? emitter.parent.name : undefined,
                 name: emitter.name,
                 parameters: emitter.type,
                 description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
@@ -173,7 +180,20 @@ if (project) {
 
     if(methods_group) {
         methods_group.forEach((method) => {
-
+            const signature = method.getAllSignatures()[0];
+            methods.values.push({
+                parent: method.parent ? method.parent.name : undefined,
+                name: signature.name,
+                parameters: signature.parameters.map((param) => {
+                    return {
+                        name: param.name,
+                        type: param.type.toString(),
+                        description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                    };
+                }),
+                returnType: signature.type.toString(),
+                description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+            })
         })
     }
 
@@ -185,6 +205,7 @@ if (project) {
     if(events_group) {
         events_group.forEach((event) => {
             events.values.push({
+                parent: event.parent ? event.parent.name : undefined,
                 name: event.name,
                 description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
                 props: event.children && event.children.map(child => ({
@@ -198,5 +219,4 @@ if (project) {
             })
         })
     }
-
 }
