@@ -81,7 +81,6 @@ if (project) {
         };
         
         const description = comment && comment.summary.map((s) => s.text || '').join(' ');
-        console.log(comment)
 
         const props_group = extractValues(children, 'Props');
         const emits_group = extractValues(children, 'Emits');
