@@ -257,6 +257,13 @@
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.8-LTS](https://www.npmjs.com/package/primeng/v/14.2.8-lts) (2023-05-30)
+
+**Fixed bugs:**
+- VirtualScroller | fails to initalize correctly inside tabView [\#12542](https://github.com/primefaces/primeng/issues/12542)
+- Menubar: Overflow Problem [\#12549](https://github.com/primefaces/primeng/issues/12549)
+- Reimplement LicenseManager structure
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.7-LTS](https://www.npmjs.com/package/primeng/v/14.2.7-lts) (2023-05-18)
 
 **Fixed bugs:**
