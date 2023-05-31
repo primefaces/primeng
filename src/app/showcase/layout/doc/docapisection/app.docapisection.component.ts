@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Doc } from 'src/app/showcase/domain/doc';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import APIDocs from 'src/app/showcase/doc/apidoc/index.json';
+import { AppDocApiTable } from '../docapitable/app.docapitable.component';
 
 @Component({
     selector: 'app-docapisection',
@@ -12,15 +14,164 @@ export class AppDocApiSection {
 
     @Input() docs!: Doc[];
 
+    @Input() apiDocs!: string[];
+
+    _apiDocs = [];
+
     _docs: Doc[] = [];
 
-    constructor(private location: Location, private router: Router) {}
+    constructor(private location: Location, private router: Router, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {
             this.location.go(this.location.path().split('#')[0]);
         }
         this.generateDocs();
+        if(this.apiDocs && this.apiDocs.length) {
+            this.createDocs();
+        }
+    }
+
+    createDocs() {
+        const newDocs = [];
+
+        for(const docName of this.apiDocs){
+            const moduleName = docName.toLowerCase();
+
+            let newDoc = {
+                id:`api.${moduleName}`,
+                label: docName, 
+                description: APIDocs[moduleName]?.description || 'No description available.',
+                children: [],
+                docName: docName
+            };
+
+            const interfaceModule = APIDocs[moduleName + '.interface'] ?? undefined;
+            const components = APIDocs[this.apiDocs[0].toLowerCase()]?.components;
+
+            let props = null;
+            let emits = null;
+            let templates = null;
+            let events = null;
+            let methods = null;
+
+            if(interfaceModule) {
+                templates = interfaceModule.templates ?? undefined;
+                events = interfaceModule.events ?? undefined;
+
+                if(events && events.values && events.values.length){
+                    newDoc.children.push({
+                        id:`api.${docName}.events`,
+                        label: 'Events',
+                        description: events.description,
+                        component: AppDocApiTable,
+                        data: this.setEventsData(moduleName, events.values)
+                    })
+                }
+
+                
+                if(templates && templates.values && templates.values.length){
+                    newDoc.children.push({
+                        id:`api.${docName}.templates`,
+                        label: 'Templates',
+                        description: templates.description,
+                        component: AppDocApiTable,
+                        data: this.setTemplatesData(moduleName, templates.values)
+                    })
+                }
+            }
+
+            if(components) {
+                props = components[docName].props;
+                emits = components[docName].emits;
+                methods = components[docName].methods;
+
+                if(props && props.values.length) {
+                    newDoc.children.push({
+                        id: `api.${docName}.props`,
+                        label: 'Properties',
+                        component: AppDocApiTable,
+                        description: `Properties of ${docName} component.`,
+                        data: this.setPropsData(props.values)
+                    })
+                }
+
+                if(emits && emits.values.length) {
+                    newDoc.children.push({
+                        id: `api.${docName}.emitters`,
+                        label: 'Emitters',
+                        description: `Event emitters of ${docName} component.`,
+                        component: AppDocApiTable,
+                        data: this.setEmitData(emits.values)
+                    })
+                }
+
+                if(methods && methods.values.length) {
+                    newDoc.children.push({
+                        id: `api.${docName}.methods`,
+                        label: 'Methods',
+                        description: `Methods of ${docName} component.`,
+                        component: AppDocApiTable,
+                        data: this.setEmitData(methods.values)
+                    })
+                }
+            }
+
+            newDocs.push(newDoc);
+        }
+    }
+
+    setEventsData(moduleName, events) {
+        const data = [];
+
+        for(const event of events){
+            const eventData = {
+                id: `api.${moduleName}.events.${event.name}`,
+                label: event.name,
+                component: AppDocApiTable,
+                description: event.description,
+                relatedProp: event.relatedProp ?? 'Related Prop',
+                data: []
+            }
+
+            if(event.props && event.props.length) {
+                event.props.forEach((prop) => {
+                    eventData.data.push({
+                        name: prop.name,
+                        type: prop.type,
+                        description: prop.description
+                    })
+                })
+            }
+            
+            data.push(eventData);
+        }
+
+        return data;
+    }
+
+    setEmitData(emitters){
+        return emitters.map(emitter => ({
+            name: emitter.name,
+            parameters: {name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type},
+            returnType: emitter.returnType, 
+            description: emitter.description, 
+            deprecated: emitter.deprecated
+        }));
+    }
+
+    setPropsData(props) {
+        return props.map(prop => ({
+            name: prop.name,
+            type: prop.type,
+            default: prop.default,
+            description: prop.description,
+            deprecated: prop.deprecated
+        }));
+    }
+
+    setTemplatesData(moduleName, values) {
+        return [];
     }
 
     generateDocs() {

@@ -19,7 +19,7 @@
             <app-docsection-nav [docs]="docs"></app-docsection-nav>
         </div>
         <div [ngClass]="{'hidden': activeTab === 0}">
-            <app-docapisection [docs]="apiDocs" [header]="header" ngClass="doc-tabpanel"></app-docapisection>
+            <app-docapisection [docs]="apiDocs" [apiDocs]="newApiDocs" [header]="header" ngClass="doc-tabpanel"></app-docapisection>
         </div>
     </div>
 </div>

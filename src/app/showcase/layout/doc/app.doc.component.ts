@@ -18,6 +18,8 @@ export class AppDoc implements OnInit, OnChanges {
 
     @Input() apiDocs!: Doc[];
 
+    @Input() newApiDocs: string[];
+
     activeTab!: number;
 
     constructor(private router: Router, private titleService: Title, private metaService: Meta) {}
