@@ -21,7 +21,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
                 [paginator]="true"
                 [rows]="rows"
                 [showCurrentPageReport]="true"
-                [(first)]="first"
+                [first]="first"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [rowsPerPageOptions]="[10, 25, 50]"
@@ -92,6 +92,11 @@ export class PaginatorProgrammaticDoc {
 
     code: Code = {
         basic: `
+<div class="mb-3">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+</div>
 <p-table
     [value]="customers"
     [paginator]="true"
@@ -125,6 +130,11 @@ export class PaginatorProgrammaticDoc {
     </ng-template>
 </p-table>`,
         html: `
+<div class="mb-3">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+</div>
 <div class="card">
     <p-table
         [value]="customers"
