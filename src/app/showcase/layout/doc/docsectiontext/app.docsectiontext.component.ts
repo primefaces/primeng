@@ -13,6 +13,8 @@ export class AppDocSectionTextComponent {
 
     @Input() level: number = 2;
 
+    @Input() label!: string;
+
     public parentTitle: string;
 
     public parentId: string;
