@@ -12,13 +12,9 @@ import { AppDocApiTable } from '../docapitable/app.docapitable.component';
 export class AppDocApiSection {
     @Input() header!: string;
 
-    @Input() docs!: Doc[];
+    @Input() docs!: any[];
 
-    @Input() apiDocs!: string[];
-
-    _apiDocs = [];
-
-    _docs: Doc[] = [];
+    _docs!: any[];
 
     constructor(private location: Location, private router: Router, private cd: ChangeDetectorRef) {}
 
@@ -26,16 +22,15 @@ export class AppDocApiSection {
         if (!this.router.url.includes('#api')) {
             this.location.go(this.location.path().split('#')[0]);
         }
-        this.generateDocs();
-        if(this.apiDocs && this.apiDocs.length) {
-            this.createDocs();
+        if(this.docs) {
+            this._docs = this.createDocs();
         }
     }
 
     createDocs() {
         const newDocs = [];
 
-        for(const docName of this.apiDocs){
+        for(const docName of this.docs){
             const moduleName = docName.toLowerCase();
 
             let newDoc = {
@@ -47,39 +42,13 @@ export class AppDocApiSection {
             };
 
             const interfaceModule = APIDocs[moduleName + '.interface'] ?? undefined;
-            const components = APIDocs[this.apiDocs[0].toLowerCase()]?.components;
+            const components = APIDocs[this.docs[0].toLowerCase()]?.components;
 
             let props = null;
             let emits = null;
             let templates = null;
             let events = null;
             let methods = null;
-
-            if(interfaceModule) {
-                templates = interfaceModule.templates ?? undefined;
-                events = interfaceModule.events ?? undefined;
-
-                if(events && events.values && events.values.length){
-                    newDoc.children.push({
-                        id:`api.${docName}.events`,
-                        label: 'Events',
-                        description: events.description,
-                        component: AppDocApiTable,
-                        data: this.setEventsData(moduleName, events.values)
-                    })
-                }
-
-                
-                if(templates && templates.values && templates.values.length){
-                    newDoc.children.push({
-                        id:`api.${docName}.templates`,
-                        label: 'Templates',
-                        description: templates.description,
-                        component: AppDocApiTable,
-                        data: this.setTemplatesData(moduleName, templates.values)
-                    })
-                }
-            }
 
             if(components) {
                 props = components[docName].props;
@@ -117,8 +86,33 @@ export class AppDocApiSection {
                 }
             }
 
+            if(interfaceModule) {
+                templates = interfaceModule.templates ?? undefined;
+                events = interfaceModule.events ?? undefined;
+                
+                if(templates && templates.values && templates.values.length){
+                    newDoc.children.push({
+                        id:`api.${docName}.templates`,
+                        label: 'Templates',
+                        description: templates.description,
+                        component: AppDocApiTable,
+                        data: this.setEmitData(templates.values)
+                    })
+                }
+
+                if(events && events.values && events.values.length){
+                    newDoc.children.push({
+                        id:`api.${docName}.events`,
+                        label: 'Events',
+                        description: events.description,
+                        component: AppDocApiTable,
+                        data: this.setEventsData(moduleName, events.values)
+                    })
+                }
+            }
             newDocs.push(newDoc);
         }
+        return newDocs;
     }
 
     setEventsData(moduleName, events) {
@@ -170,22 +164,18 @@ export class AppDocApiSection {
         }));
     }
 
-    setTemplatesData(moduleName, values) {
-        return [];
-    }
-
-    generateDocs() {
-        if (this.docs) {
-            for (let i = 0; i < this.docs.length; i++) {
-                const doc = this.docs[i];
-                const _doc = {
-                    ...doc,
-                    id: `api.${doc.id}`
-                };
-                this._docs.push(_doc);
-            }
-        }
-    }
+    // generateDocs() {
+    //     if (this.docs) {
+    //         for (let i = 0; i < this.docs.length; i++) {
+    //             const doc = this.docs[i];
+    //             const _doc = {
+    //                 ...doc,
+    //                 id: `api.${doc.id}`
+    //             };
+    //             this._docs.push(_doc);
+    //         }
+    //     }
+    // }
 
     ngOnDestroy() {
         this.location.go(this.location.path().split('#')[0]);
