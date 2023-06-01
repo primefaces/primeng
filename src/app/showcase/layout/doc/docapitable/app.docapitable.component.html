@@ -1,0 +1,61 @@
+<ng-container *ngIf="data">
+    <app-docsectiontext [id]="id" [title]="label" [level]="level">
+        <p>{{ description || null }}</p>
+    </app-docsectiontext>
+
+    <div class="doc-tablewrapper mt-3" *ngIf="!data[0].data">
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th *ngFor="let key of getKeys(data[0])">
+                        <ng-container *ngIf="key !== 'readonly' && key !== 'optional' && key !== 'deprecated'">
+                            {{key}}
+                        </ng-container>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prop of data">
+                    <td *ngFor="let entry of getEntries(prop)" [ngClass]="{'doc-option-type': entry[0] === 'type', 'doc-option-default': entry[0] === 'default'}">
+                        <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
+                            <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{'line-through cursor-pointer': !!prop.deprecated}" [attr.title]="prop.deprecated">
+                                {{entry[1]}} <a [routerLink]="'/' + router.url + '/#' + id + '.' + entry[1]">
+                                    <i class="pi pi-link"></i>
+                                </a>
+                            </span>
+
+                            <span *ngIf="entry[0] === 'type'">
+                                {{entry[1]}}
+                            </span>
+
+                            <ng-container *ngIf="entry[0] === 'parameters'">
+                                <ng-container>
+                                    <span *ngIf="entry[1].name" [ngClass]="{'parameter-bold': label === 'Templates'}">
+                                        {{entry[1].name}} :
+                                    </span>
+                                    <ng-container *ngFor="let value of getType(entry[1].type); let i = index;">
+                                        {{i !== 0 ? ' |' : '' }} 
+                                        <a *ngIf="isLinkType(value); else elseBlock" [routerLink]="setLinkPath(value)" class="doc-option-link">{{value}}</a>
+                                        <ng-template #elseBlock>
+                                            <span [innerHTML]="value"></span>
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+
+                            <span *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'" [id]="id + '.' + entry[0]">
+                                {{ entry[1] }}
+                            </span>
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-container *ngIf="data[0].data && data[0].data.length > 0">
+        <ng-container *ngFor="let childData of data;">
+            <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label" [description]="childData.description" [relatedProp]="childData.relatedProp"></app-docapitable>
+        </ng-container>
+    </ng-container>
+</ng-container>

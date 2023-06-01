@@ -1,9 +1,9 @@
 <div class="doc-component">
-    <ul class="doc-tabmenu" *ngIf="docs && apiDocs">
+    <ul class="doc-tabmenu" *ngIf="docs && (apiDocs || newApiDocs)">
         <li [ngClass]="{'doc-tabmenu-active': activeTab === 0}">
             <button type="button" (click)="activateTab(0)">FEATURES</button>
         </li>
-        <li *ngIf="apiDocs" [ngClass]="{'doc-tabmenu-active': activeTab === 1}" >
+        <li *ngIf="apiDocs || newApiDocs" [ngClass]="{'doc-tabmenu-active': activeTab === 1}" >
             <button type="button" (click)="activateTab(1)">API</button>
         </li>
     </ul>
@@ -19,7 +19,7 @@
             <app-docsection-nav [docs]="docs"></app-docsection-nav>
         </div>
         <div [ngClass]="{'hidden': activeTab === 0}">
-            <app-docapisection [docs]="apiDocs" [apiDocs]="newApiDocs" [header]="header" ngClass="doc-tabpanel"></app-docapisection>
+            <app-docapisection [docs]="newApiDocs" [header]="header" ngClass="doc-tabpanel"></app-docapisection>
         </div>
     </div>
 </div>

@@ -65,6 +65,25 @@ function extractValues(children, arg) {
     }
 }
 
+function extractType(emitter) {
+    let {comment, type} = emitter;
+
+    if(type.typeArguments) {
+        if(!type.typeArguments[0].types){
+            return type.typeArguments.map(el => ( {name: el.name.includes('Event') ? 'event' : 'value', type: el.name}));
+        }
+
+        if(type.typeArguments[0].types) {
+            return type.typeArguments[0].types.map(el => {
+                if(el.type && el.type === 'array') {
+                    return {name: 'value', type: el.elementType.name + '[]'}
+                } else {
+                    return {name: el.name.includes('Event') ? 'event' : 'value', type: el.name};
+                }
+            })
+        }
+    }
+}
 if (project) {
     let doc = {};
 
@@ -132,17 +151,20 @@ if (project) {
 
                     emits_group.forEach((emitter) => {
                         if(emitter.parent.name === componentName) {
+
                             emits.values.push({
                                 name: emitter.name,
-                                parameters: 'emitter.type',
+                                parameters: extractType(emitter),
                                 description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
-                                returnType: 'void', //TODO: make it meaningful
+                                returnType: 'EventEmitter', //TODO: make it meaningful
                                 deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined
                             });
                         }
                     });
 
                     doc[name]['components'][componentName]['emits'] = emits;
+
+                    console.log(emits.values)
                 }
 
                 if (methods_group) {
@@ -235,6 +257,8 @@ if (project) {
                                         }
                                     });
                                 }
+
+                                type = `{\n ${type} }`;
                             }
 
                             return {
@@ -244,7 +268,8 @@ if (project) {
                             };
                         }),
                         returnType: signature ? signature.type?.name : child.type.toString(),
-                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
+                        deprecated: signature.comment && signature.comment.getTag('@deprecated') ? parseText(signature.comment.getTag('@deprecated').content[0].text) : undefined
                     });
                 });
             });

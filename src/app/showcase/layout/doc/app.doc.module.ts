@@ -12,10 +12,11 @@ import { AppDocSectionTextComponent } from './docsectiontext/app.docsectiontext.
 import { AppDevelopmentSection } from './developmentsection/app.developmentsection.component';
 import { AppDocApiTable } from './docapitable/app.docapitable.component';
 import { AppDoc } from './app.doc.component';
+import { HostDirective } from './hostdirective/host.directive';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule],
     exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable],
-    declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable]
+    declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, HostDirective]
 })
 export class AppDocModule {}
