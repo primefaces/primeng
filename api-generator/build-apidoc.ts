@@ -163,8 +163,6 @@ if (project) {
                     });
 
                     doc[name]['components'][componentName]['emits'] = emits;
-
-                    console.log(emits.values)
                 }
 
                 if (methods_group) {
