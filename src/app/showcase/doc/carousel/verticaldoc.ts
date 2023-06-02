@@ -40,7 +40,7 @@ export class VerticalDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
     constructor(private productService: ProductService) {}
 
@@ -119,7 +119,7 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-vertical-demo.scss']
 })
 export class CarouselVerticalDemo implements OnInit {
-    products: Product[];
+    products: Product[] | undefined;
 
     responsiveOptions: any[];
 
