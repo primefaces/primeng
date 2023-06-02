@@ -18,8 +18,6 @@ export class AutoResizeDoc {
 
     @Input() title: string;
 
-    value: string;
-
     code: Code = {
         basic: `
 <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>`,

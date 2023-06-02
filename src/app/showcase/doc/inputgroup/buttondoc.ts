@@ -32,8 +32,6 @@ export class ButtonDoc {
 
     @Input() title: string;
 
-    dates: Date[];
-
     code: Code = {
         basic: `
 <div class="p-inputgroup">
