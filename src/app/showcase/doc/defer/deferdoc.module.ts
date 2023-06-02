@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { RouterModule } from '@angular/router';
 import { DeferModule } from 'primeng/defer';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { ImportDoc } from './importdoc';
+import { AppDocModule } from '../../layout/doc/app.doc.module';
+import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { BasicDoc } from './basicdoc';
-import { EventsDoc } from './eventsdoc';
 import { DataTableDoc } from './datatabledoc';
+import { EventsDoc } from './eventsdoc';
+import { ImportDoc } from './importdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, DeferModule, TableModule, ToastModule],

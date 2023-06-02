@@ -46,7 +46,7 @@ export class DataTableDoc {
 
     @Input() title: string;
 
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService, private messageService: MessageService) {}
 
@@ -122,7 +122,7 @@ import { CarService } from '../../service/carservice';
     providers: [MessageService, CarService]
 })
 export class DeferDataTableDemo {
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService, private messageService: MessageService) {}
 
