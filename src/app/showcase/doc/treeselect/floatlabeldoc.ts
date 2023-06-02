@@ -22,7 +22,7 @@ export class FloatLabelDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -54,7 +54,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-floatlabel-demo.html'
 })
 export class TreeSelectFloatlabelDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

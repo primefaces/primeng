@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
@@ -22,9 +22,9 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
@@ -59,9 +59,9 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-reactive-forms-demo.html'
 })
 export class TreeSelectReactiveFormsDemo implements OnInit {
-    nodes: any[];
+    nodes!: any[];
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     constructor(private nodeService: NodeService) {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
