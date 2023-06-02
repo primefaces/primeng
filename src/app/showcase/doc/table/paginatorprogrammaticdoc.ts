@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
 import { Code } from '../../domain/code';
+import { Customer } from '../../domain/customer';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-programmatic-doc',
@@ -55,7 +55,7 @@ export class PaginatorProgrammaticDoc {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     first = 0;
 
@@ -169,7 +169,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-paginator-programmatic-demo.html'
 })
 export class TablePaginatorProgrammaticDemo {
-    customers: Customer[];
+    customers!: Customer[];
 
     first = 0;
 

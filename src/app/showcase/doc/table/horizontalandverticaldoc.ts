@@ -61,7 +61,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -72,7 +72,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
@@ -173,7 +173,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-horizontal-and-vertical-scroll-demo.html'
 })
 export class TableHorizontalAndVerticalScrollDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -183,7 +183,7 @@ export class TableHorizontalAndVerticalScrollDemo implements OnInit{
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 }`,
