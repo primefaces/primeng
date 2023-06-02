@@ -1,6 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'template-doc',
     template: ` <section>
@@ -80,17 +87,17 @@ export class TemplateDoc {
         { label: 120, value: 120 }
     ];
 
-    onPageChange1(event) {
+    onPageChange1(event: PageEvent) {
         this.first1 = event.first;
         this.rows1 = event.rows;
     }
 
-    onPageChange2(event) {
+    onPageChange2(event: PageEvent) {
         this.first2 = event.first;
         this.rows2 = event.rows;
     }
 
-    onPageChange3(event) {
+    onPageChange3(event: PageEvent) {
         this.first3 = event.first;
         this.rows3 = event.rows;
     }
@@ -159,6 +166,13 @@ export class TemplateDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'paginator-template-demo',
     templateUrl: './paginator-template-demo.html'
@@ -185,17 +199,17 @@ export class PaginatorTemplateDemo {
         { label: 120, value: 120 }
     ];
 
-    onPageChange1(event) {
+    onPageChange1(event: PageEvent) {
         this.first1 = event.first;
         this.rows1 = event.rows;
     }
 
-    onPageChange2(event) {
+    onPageChange2(event: PageEvent) {
         this.first2 = event.first;
         this.rows2 = event.rows;
     }
 
-    onPageChange3(event) {
+    onPageChange3(event: PageEvent) {
         this.first3 = event.first;
         this.rows3 = event.rows;
     }

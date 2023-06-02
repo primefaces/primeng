@@ -37,7 +37,7 @@ export class FilterDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -109,7 +109,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './orderlist-filter-demo.html'
 })
 export class OrderlistFilterDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

@@ -47,9 +47,9 @@ export class FilterDoc {
 
     @Input() title: string;
 
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
     constructor(private carService: ProductService) {}
 
@@ -107,9 +107,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './picklist-filter-demo.html'
 })
 export class PicklistFilterDemo {
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
     constructor(private carService: ProductService) {}
 
