@@ -549,7 +549,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
-        if (this.fileLimit && this.mode == 'advanced') {
+        if (this.fileLimit) {
             this.checkFileLimit();
         }
 
