@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -52,7 +52,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-basic-demo.html'
 })
 export class MenuBasicDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
