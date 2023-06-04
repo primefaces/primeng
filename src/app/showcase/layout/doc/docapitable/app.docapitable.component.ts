@@ -1,18 +1,12 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface Props {
-    id?: string;
-    label?: string;
-    data?: any[];
-    description?: string;
-    relatedProp?: string;
-    level?: number;
-}
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-docapitable',
-    templateUrl: './app.docapitable.component.html'
+    templateUrl: './app.docapitable.component.html',
+    styleUrls: ['./app.docapitable.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocApiTable implements OnInit {
 
@@ -26,11 +20,24 @@ export class AppDocApiTable implements OnInit {
 
     @Input() relatedProp: string;
 
+    @Input() parentTitle: string;
+
     @Input() level: number;
 
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router){}
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location){}
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    navigate(event, param) {
+        if (typeof window !== undefined) {
+            const parentElement = event.currentTarget.parentElement;
+            this.location.go(this.location.path() + '#' + this.id + '.' + param);
+
+            setTimeout(() => {
+                parentElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }, 1);
+            event.preventDefault();
+        }
     }
 
     getKeys(object) {
@@ -47,6 +54,9 @@ export class AppDocApiTable implements OnInit {
         if(this.label === 'Templates') {
             return value?.split('|');
         }
+        if(this.label === 'Methods' && !value) {
+            return ['-'];
+        }
 
         return value?.split('|').map(item => item.replace(/(\[|\]|<|>).*$/gm, '').trim());
     }
@@ -54,8 +64,7 @@ export class AppDocApiTable implements OnInit {
     isLinkType(value) {
         if (this.label === 'Templates') return false;
         const validValues = ['confirmationoptions', 'toastmessageoptions'];
-
-        return value.toLowerCase().includes(this.id.split('.')[1]) || validValues.includes(value.toLowerCase());
+        return value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) || validValues.includes(value.toLowerCase());
     }
 
     setLinkPath(value, type) {
@@ -72,47 +81,24 @@ export class AppDocApiTable implements OnInit {
         return definationType === 'options' ? `/${currentRoute}/#api.${definationType}.${value}` : `/${currentRoute}/#api.${componentName}.${definationType}.${value}`;
     }
 
-    relatedPropValue(value) {
-        return this.findRelatedProps(value).secondPart;
-    }
+    scrollToLinkedElement(event, value) {
+        if(document && document.createElement) {
+            const section = this.label === 'Emitters' ? 'Events' : this.label;
+            const elementId = `api.${this.id.split('.')[1].toLowerCase()}.${section.toLowerCase()}.${value}`;
 
-    setRelatedPropPath(value) {
-        let { firstPart, secondPart } = this.findRelatedProps(value);
+            setTimeout(() => {
+                this.scrollToLabelById(elementId)
+            }, 1);
 
-        const docName = this.router.url;
-
-        firstPart = firstPart.toLowerCase().replace(docName, '');
-
-        return this.setLinkPath(secondPart, firstPart);
-    }
-
-    findRelatedProps(value) {
-        let firstPart = '';
-        let secondPart = '';
-
-        if (value.includes('.')) {
-            const parts = value.split('.');
-
-            firstPart = parts[0].trim();
-            secondPart = parts[1].trim();
-        } else if (value.includes('[')) {
-            const start = value.indexOf("['") + 2;
-            const end = value.indexOf("']");
-
-            firstPart = value.slice(0, start - 2).trim();
-            secondPart = value.slice(start, end).trim();
+            event.preventDefault()
         }
-
-        return { firstPart, secondPart };
     }
 
-    componentLevel() {
-        if (this.label === 'Interfaces' || this.label === 'Events') {
-            return 2;
-        } else if (this.level === 3) {
-            return 3;
+    scrollToLabelById(id) {
+        if (typeof document !== undefined) {
+            const label = document.getElementById(id);
+            this.location.go(`${this.location.path()}/#${id}`);
+            label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
-
-        return this.data[0].data ? 1 : 2;
     }
 }
