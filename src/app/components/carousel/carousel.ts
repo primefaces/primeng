@@ -29,7 +29,10 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
 import { CarouselResponsiveOptions } from './carousel.interface';
-
+/**
+ * Carousel is a content slider featuring various customization options.
+ * @group Components
+ */
 @Component({
     selector: 'p-carousel',
     template: `

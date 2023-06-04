@@ -221,7 +221,10 @@ export class SlideMenuSub implements OnDestroy {
         return -this.slideMenu.left == this.index! * this.menuWidth!;
     }
 }
-
+/**
+ * SlideMenu displays submenus with slide animation.
+ * @group Components
+ */
 @Component({
     selector: 'p-slideMenu',
     template: `

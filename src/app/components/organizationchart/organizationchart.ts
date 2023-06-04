@@ -122,7 +122,10 @@ export class OrganizationChartNode implements OnDestroy {
         this.subscription.unsubscribe();
     }
 }
-
+/**
+ * OrganizationChart visualizes hierarchical organization data.
+ * @group Components
+ */
 @Component({
     selector: 'p-organizationChart',
     template: `
@@ -240,7 +243,7 @@ export class OrganizationChart implements AfterContentInit {
         this.initialized = true;
     }
 
-    getTemplateForNode(node: TreeNode): TemplateRef<any> {
+    getTemplateForNode(node: TreeNode): TemplateRef<any> | null {
         if (this.templateMap) return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else return null;
     }

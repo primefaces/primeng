@@ -3,7 +3,10 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, C
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-
+/**
+ * BlockUI can either block other components or the whole page.
+ * @group Components
+ */
 @Component({
     selector: 'p-blockUI',
     template: `

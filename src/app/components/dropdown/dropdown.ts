@@ -91,13 +91,8 @@ export class DropdownItem {
     }
 }
 /**
- *
  * Dropdown also known as Select, is used to choose an item from a collection of options.
- *
- * [Live Demo](https://www.primeng.org/dropdown/)
- *
  * @group Components
- *
  */
 @Component({
     selector: 'p-dropdown',

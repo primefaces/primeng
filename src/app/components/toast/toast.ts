@@ -167,7 +167,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         this.clearTimeout();
     }
 }
-
+/**
+ * Toast is used to display messages in an overlay.
+ * @group Components
+ */
 @Component({
     selector: 'p-toast',
     template: `

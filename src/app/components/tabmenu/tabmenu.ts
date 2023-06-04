@@ -28,7 +28,10 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-
+/**
+ * TabMenu is a navigation component that displays items as tab headers.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabMenu',
     template: `

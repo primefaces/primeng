@@ -348,7 +348,10 @@ export class TieredMenuSub implements OnDestroy {
         this.unbindDocumentClickListener();
     }
 }
-
+/**
+ * TieredMenu displays submenus in nested overlays.
+ * @group Components
+ */
 @Component({
     selector: 'p-tieredMenu',
     template: `

@@ -46,7 +46,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
-
+/**
+ * AutoComplete is an input component that provides real-time suggestions when being typed.
+ * @group Components
+ */
 @Component({
     selector: 'p-autoComplete',
     template: `
@@ -924,10 +927,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.value = null;
         this.inputValue = null;
         if (this.multiple) {
-            this.multiInputEl.nativeElement.value = '';
+            (<ElementRef>this.multiInputEl).nativeElement.value = '';
         } else {
             this.inputValue = null;
-            (this.inputEL as ElementRef).nativeElement.value = '';
+            (<ElementRef>this.inputEL).nativeElement.value = '';
         }
 
         this.updateFilledState();

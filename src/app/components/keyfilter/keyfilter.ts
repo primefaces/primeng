@@ -72,7 +72,10 @@ const SAFARI_KEYS: SafariKeys = {
     63273: 36, // home
     63275: 35 // end
 };
-
+/**
+ * KeyFilter is a built-in feature of InputText to restrict user input based on a regular expression.
+ * @group Components
+ */
 @Directive({
     selector: '[pKeyFilter]',
     providers: [KEYFILTER_VALIDATOR],

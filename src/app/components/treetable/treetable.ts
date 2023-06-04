@@ -96,7 +96,10 @@ export class TreeTableService {
         this.totalRecordsSource.next(value);
     }
 }
-
+/**
+ * TreeTable is used to display hierarchical data in tabular format.
+ * @group Components
+ */
 @Component({
     selector: 'p-treeTable',
     template: `

@@ -2,7 +2,10 @@ import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmit
 import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-
+/**
+ * InputTextarea adds styling and autoResize functionality to standard textarea element.
+ * @group Components
+ */
 @Directive({
     selector: '[pInputTextarea]',
     host: {

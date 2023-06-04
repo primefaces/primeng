@@ -28,7 +28,10 @@ import { RippleModule } from 'primeng/ripple';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * OverlayPanel is a container component positioned as connected to its target.
+ * @group Components
+ */
 @Component({
     selector: 'p-overlayPanel',
     template: `

@@ -5,7 +5,10 @@ import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { ScrollerOptions } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
-
+/**
+ * VirtualScroller is a performant approach to handle huge data efficiently.
+ * @group Components
+ */
 @Component({
     selector: 'p-virtualScroller',
     template: `

@@ -28,7 +28,10 @@ import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { ScrollerLazyLoadEvent, ScrollerOptions, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * Scroller is a performance-approach to handle huge data efficiently.
+ * @group Components
+ */
 @Component({
     selector: 'p-scroller',
     template: `

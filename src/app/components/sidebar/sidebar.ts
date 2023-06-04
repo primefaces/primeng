@@ -29,7 +29,10 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * Sidebar is a panel component displayed as an overlay at the edges of the screen.
+ * @group Components
+ */
 @Component({
     selector: 'p-sidebar',
     template: `

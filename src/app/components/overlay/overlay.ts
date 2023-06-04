@@ -36,7 +36,10 @@ export const OVERLAY_VALUE_ACCESSOR: any = {
 const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
 const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * This API allows overlay components to be controlled from the PrimeNGConfig. In this way, all overlay components in the application can have the same behavior.
+ * @group Components
+ */
 @Component({
     selector: 'p-overlay',
     template: `
@@ -92,6 +95,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
 export class Overlay implements AfterContentInit, OnDestroy {
     /**
      * The visible property is an input that determines the visibility of the component.
+     * @defaultValue false
      * @group Props
      */
     @Input() get visible(): boolean {
@@ -106,6 +110,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The mode property is an input that determines the overlay mode type or string.
+     * @defaultValue null
      * @group Props
      */
     @Input() get mode(): OverlayModeType | string {
@@ -116,16 +121,18 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The style property is an input that determines the style object for the component.
+     * @defaultValue null
      * @group Props
      */
-    @Input() get style(): any {
+    @Input() get style(): { [klass: string]: any } | null | undefined {
         return ObjectUtils.merge(this._style, this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
     }
-    set style(value: any) {
+    set style(value: { [klass: string]: any } | null | undefined) {
         this._style = value;
     }
     /**
      * The styleClass property is an input that determines the CSS class(es) for the component.
+     * @defaultValue null
      * @group Props
      */
     @Input() get styleClass(): string {
@@ -136,16 +143,18 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The contentStyle property is an input that determines the style object for the content of the component.
+     * @defaultValue null
      * @group Props
      */
-    @Input() get contentStyle(): any {
+    @Input() get contentStyle(): { [klass: string]: any } | null | undefined {
         return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
     }
-    set contentStyle(value: any) {
+    set contentStyle(value: { [klass: string]: any } | null | undefined ) {
         this._contentStyle = value;
     }
     /**
      * The contentStyleClass property is an input that determines the CSS class(es) for the content of the component.
+     * @defaultValue null
      * @group Props
      */
     @Input() get contentStyleClass(): string {
@@ -156,27 +165,30 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The target property is an input that specifies the target element or selector for the component.
+     * @defaultValue null
      * @group Props
      */
-    @Input() get target(): any {
+    @Input() get target(): string | null | undefined {
         const value = this._target || this.overlayOptions?.target;
         return value === undefined ? '@prev' : value;
     }
-    set target(value: any) {
+    set target(value: string | null | undefined) {
         this._target = value;
     }
     /**
      * Overlay can be mounted into its location, body or DOM element instance using this option.
+     * @defaultValue null
      * @group Props
      */
-    @Input() get appendTo(): any {
+    @Input() get appendTo(): 'body' | HTMLElement | undefined {
         return this._appendTo || this.overlayOptions?.appendTo;
     }
-    set appendTo(value: any) {
+    set appendTo(value: 'body' | HTMLElement | undefined) {
         this._appendTo = value;
     }
     /**
      * The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
+     * @defaultValue false
      * @group Props
      */
     @Input() get autoZIndex(): boolean {
@@ -187,7 +199,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._autoZIndex = value;
     }
     /**
-     * The baseZIndex is base zIndex value to use in layering. Its default value is 0.
+     * The baseZIndex is base zIndex value to use in layering.
+     * @defaultValue null
      * @group Props
      */
     @Input() get baseZIndex(): number {
@@ -198,7 +211,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this._baseZIndex = value;
     }
     /**
-     * Transition options of the show or hide animation. The default value of showTransitionOptions is '.12s cubic-bezier(0, 0, 0.2, 1)' and the default value of hideTransitionOptions is '.1s linear'.
+     * Transition options of the show or hide animation.
+     * @defaultValue .12s cubic-bezier(0, 0, 0.2, 1)
      * @group Props
      */
     @Input() get showTransitionOptions(): string {
@@ -210,6 +224,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
+     * @defaultValue .1s linear
      * @group Props
      */
     @Input() get hideTransitionOptions(): string {
@@ -221,6 +236,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The listener property is an input that specifies the listener object for the component.
+     * @defaultValue null
      * @group Props
      */
     @Input() get listener(): any {
@@ -231,6 +247,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * It is the option used to determine in which mode it should appear according to the given media or breakpoint.
+     * @defaultValue null
      * @group Props
      */
     @Input() get responsive(): ResponsiveOverlayOptions | undefined {
@@ -241,6 +258,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
     /**
      * The options property is an input that specifies the overlay options for the component.
+     * @defaultValue null
      * @group Props
      */
     @Input() get options(): OverlayOptions | undefined {
@@ -304,11 +322,11 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     _mode: OverlayModeType | string;
 
-    _style: any;
+    _style: { [klass: string]: any } | null | undefined;
 
     _styleClass: string | undefined;
 
-    _contentStyle: any;
+    _contentStyle: { [klass: string]: any } | null | undefined;
 
     _contentStyleClass: string | undefined;
 

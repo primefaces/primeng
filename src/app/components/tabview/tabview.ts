@@ -33,7 +33,10 @@ import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
-
+/**
+ * TabPanel is a helper component for TabPanel component.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabPanel',
     template: `

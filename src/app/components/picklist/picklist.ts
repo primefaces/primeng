@@ -49,7 +49,10 @@ import {
     PickListTargetSelectEvent,
     PickListFilterOptions
 } from './picklist.interface';
-
+/**
+ * PickList is used to reorder items between different lists.
+ * @group Components
+ */
 @Component({
     selector: 'p-pickList',
     template: `

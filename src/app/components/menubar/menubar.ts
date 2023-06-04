@@ -284,7 +284,10 @@ export class MenubarSub implements OnInit, OnDestroy {
         this.unbindDocumentClickListener();
     }
 }
-
+/**
+ * Menubar is a horizontal menu component.
+ * @group Components
+ */
 @Component({
     selector: 'p-menubar',
     template: `

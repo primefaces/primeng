@@ -241,6 +241,10 @@ export class ContextMenuSub {
     }
 }
 
+/**
+ * ContextMenu displays an overlay menu on right click of its target. Note that components like Table has special integration with ContextMenu.
+ * @group Components
+ */
 @Component({
     selector: 'p-contextMenu',
     template: `

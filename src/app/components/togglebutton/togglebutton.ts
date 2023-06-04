@@ -11,7 +11,10 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ToggleButton),
     multi: true
 };
-
+/**
+ * ToggleButton is used to select a boolean value using a button.
+ * @group Components
+ */
 @Component({
     selector: 'p-toggleButton',
     template: `

@@ -598,7 +598,10 @@ export class UITreeNode implements OnInit {
         }, 1);
     }
 }
-
+/**
+ * Tree is used to display hierarchical data.
+ * @group Components
+ */
 @Component({
     selector: 'p-tree',
     template: `

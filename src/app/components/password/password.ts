@@ -319,6 +319,10 @@ export const Password_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Password),
     multi: true
 };
+/**
+ * Password displays strength indicator for password fields.
+ * @group Components
+ */
 @Component({
     selector: 'p-password',
     template: `

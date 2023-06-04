@@ -21,7 +21,10 @@ export class InplaceDisplay {}
     }
 })
 export class InplaceContent {}
-
+/**
+ * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
+ * @group Components
+ */
 @Component({
     selector: 'p-inplace',
     template: `

@@ -13,7 +13,10 @@ export const RATING_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Rating),
     multi: true
 };
-
+/**
+ * RadioButton is an extension to standard radio button element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-rating',
     template: `

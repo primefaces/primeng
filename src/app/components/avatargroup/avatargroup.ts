@@ -1,6 +1,9 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+/**
+ * AvatarGroup is a helper component for Avatar.
+ * @group Components
+ */
 @Component({
     selector: 'p-avatarGroup',
     template: `

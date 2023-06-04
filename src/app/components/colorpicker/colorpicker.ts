@@ -13,7 +13,10 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ColorPicker),
     multi: true
 };
-
+/**
+ * ColorPicker groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-colorPicker',
     template: `

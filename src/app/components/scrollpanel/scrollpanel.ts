@@ -21,7 +21,10 @@ import {
 } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-
+/**
+ * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollPanel',
     template: `

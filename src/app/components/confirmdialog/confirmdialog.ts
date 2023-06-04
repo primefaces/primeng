@@ -36,7 +36,10 @@ import { Nullable } from 'primeng/ts-helpers';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
+ * @group Components
+ */
 @Component({
     selector: 'p-confirmDialog',
     template: `

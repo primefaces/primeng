@@ -12,7 +12,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Checkbox),
     multi: true
 };
-
+/**
+ * Checkbox is an extension to standard checkbox element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-checkbox',
     template: `

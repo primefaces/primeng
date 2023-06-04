@@ -27,7 +27,10 @@ import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-
+/**
+ * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
+ * @group Components
+ */
 @Component({
     selector: 'p-speedDial',
     template: `

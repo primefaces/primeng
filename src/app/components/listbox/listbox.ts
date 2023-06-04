@@ -35,7 +35,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Listbox),
     multi: true
 };
-
+/**
+ * ListBox is used to select one or more values from a list of items.
+ * @group Components
+ */
 @Component({
     selector: 'p-listbox',
     template: `

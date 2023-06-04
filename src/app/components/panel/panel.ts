@@ -10,7 +10,10 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
 import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
-
+/**
+ * Panel is a container with the optional content toggle feature.
+ * @group Components
+ */
 @Component({
     selector: 'p-panel',
     template: `

@@ -12,7 +12,10 @@ import { TimesIcon } from 'primeng/icons/times';
 import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-
+/**
+ * Displays an image with preview and tranformation options. For multiple image, see Galleria.
+ * @group Components
+ */
 @Component({
     selector: 'p-image',
     template: `

@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-
+/**
+ * Tag component is used to categorize content.
+ * @group Components
+ */
 @Component({
     selector: 'p-tag',
     template: `

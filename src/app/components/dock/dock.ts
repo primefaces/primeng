@@ -4,7 +4,10 @@ import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-
+/**
+ * Dock is a navigation component consisting of menuitems.
+ * @group Components
+ */
 @Component({
     selector: 'p-dock',
     template: `

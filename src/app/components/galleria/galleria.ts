@@ -37,7 +37,10 @@ import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-
+/**
+ * Galleria is an advanced content gallery component.
+ * @group Components
+ */
 @Component({
     selector: 'p-galleria',
     template: `

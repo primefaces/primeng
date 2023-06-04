@@ -278,7 +278,10 @@ export class CascadeSelectSub implements OnInit {
         }
     }
 }
-
+/**
+ * CascadeSelect is a form component to select a value from a nested structure of options.
+ * @group Components
+ */
 @Component({
     selector: 'p-cascadeSelect',
     template: `

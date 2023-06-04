@@ -13,7 +13,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Chips),
     multi: true
 };
-
+/**
+ * Chips groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-chips',
     template: `
@@ -127,7 +130,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string;
+    @Input() inputStyleClass: string | undefined;
     /**
      * Whether to add an item on tab key press.
      * @group Props

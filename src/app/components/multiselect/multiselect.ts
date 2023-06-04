@@ -112,7 +112,10 @@ export class MultiSelectItem {
         });
     }
 }
-
+/**
+ * MultiSelect is used to select multiple items from a collection.
+ * @group Components
+ */
 @Component({
     selector: 'p-multiSelect',
     template: `

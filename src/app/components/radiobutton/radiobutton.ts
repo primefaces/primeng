@@ -42,7 +42,10 @@ export class RadioControlRegistry {
         return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
     }
 }
-
+/**
+ * RadioButton is an extension to standard radio button element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-radioButton',
     template: `

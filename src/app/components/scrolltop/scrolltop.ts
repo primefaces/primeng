@@ -5,7 +5,10 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-
+/**
+ * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollTop',
     template: `

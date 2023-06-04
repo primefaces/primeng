@@ -42,7 +42,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Calendar),
     multi: true
 };
-
+/**
+ * Calendar also known as DatePicker, is a form component to work with dates.
+ * @group Components
+ */
 @Component({
     selector: 'p-calendar',
     template: `

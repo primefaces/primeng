@@ -37,7 +37,10 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * Dialog is a container to display content in an overlay window.
+ * @group Components
+ */
 @Component({
     selector: 'p-dialog',
     template: `

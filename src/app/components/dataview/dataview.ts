@@ -29,7 +29,10 @@ import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
 import { Nullable } from 'primeng/ts-helpers';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
-
+/**
+ * DataView displays data in grid or list layout with pagination and sorting features.
+ * @group Components
+ */
 @Component({
     selector: 'p-dataView',
     template: `

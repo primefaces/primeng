@@ -32,7 +32,10 @@ import { AngleDownIcon } from 'primeng/icons/angledown';
 import { SearchIcon } from 'primeng/icons/search';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
-
+/**
+ * OrderList is used to managed the order of a collection.
+ * @group Components
+ */
 @Component({
     selector: 'p-orderList',
     template: `

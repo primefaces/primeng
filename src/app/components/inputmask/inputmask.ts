@@ -41,7 +41,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputMask),
     multi: true
 };
-
+/**
+ * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputMask',
     template: `

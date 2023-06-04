@@ -19,7 +19,10 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => TreeSelect),
     multi: true
 };
-
+/**
+ * TreeSelect is a form component to choose from hierarchical data.
+ * @group Components
+ */
 @Component({
     selector: 'p-treeSelect',
     template: `

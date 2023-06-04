@@ -6,7 +6,10 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { HomeIcon } from 'primeng/icons/home';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
-
+/**
+ * Breadcrumb provides contextual information about page hierarchy.
+ * @group Components
+ */
 @Component({
     selector: 'p-breadcrumb',
     template: `

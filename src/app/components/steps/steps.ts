@@ -4,7 +4,10 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
-
+/**
+ * Steps components is an indicator for the steps in a wizard workflow.
+ * @group Components
+ */
 @Component({
     selector: 'p-steps',
     template: `

@@ -36,7 +36,10 @@ import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { VoidListener } from 'primeng/ts-helpers';
 import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
-
+/**
+ * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+ * @group Components
+ */
 @Component({
     selector: 'p-fileUpload',
     template: `

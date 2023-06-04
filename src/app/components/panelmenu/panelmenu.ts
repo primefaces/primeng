@@ -168,7 +168,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
         return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 }
-
+/**
+ * PanelMenu is a hybrid of Accordion and Tree components.
+ * @group Components
+ */
 @Component({
     selector: 'p-panelMenu',
     template: `

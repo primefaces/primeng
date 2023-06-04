@@ -3,7 +3,11 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRe
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
-
+/**
+ *
+ * Badge is a small status indicator for another element.
+ * @group Components
+ */
 @Directive({
     selector: '[pBadge]',
     host: {

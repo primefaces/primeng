@@ -126,7 +126,10 @@ export class MenuItemContent {
         else return null;
     }
 }
-
+/**
+ * Menu is a navigation / command component that supports dynamic and static positioning.
+ * @group Components
+ */
 @Component({
     selector: 'p-menu',
     template: `

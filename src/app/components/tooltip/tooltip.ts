@@ -5,7 +5,10 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { TooltipOptions } from './tooltip.interface';
-
+/**
+ * Tooltip directive provides advisory information for a component.
+ * @group Components
+ */
 @Directive({
     selector: '[pTooltip]',
     host: {
