@@ -15,9 +15,9 @@ export class AppDocSectionTextComponent {
 
     @Input() label!: string;
 
-    public parentTitle: string;
+    @Input() parentTitle: string;
 
-    public parentId: string;
+    @Input() parentId: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
