@@ -27,7 +27,7 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 app.bootstrap({
     // typedoc options here
     name: 'PrimeNG',
-    entryPoints: [`src/app/components/accordion/`],
+    entryPoints: [`src/app/components/table/`],
     entryPointStrategy: 'expand',
     hideGenerator: true,
     excludeExternals: true,
@@ -42,7 +42,7 @@ app.bootstrap({
 const project = app.convert();
 app.generateJson(project, `./api-generator/typedoc.json`);
 
-function extractValues(children, arg) {
+function extractGroup(children, arg) {
     const propsChildren = [];
 
     if (children) {
@@ -57,7 +57,7 @@ function extractValues(children, arg) {
             }
 
             if (nestedChildren) {
-                const nestedPropsChildren = extractValues(nestedChildren, arg);
+                const nestedPropsChildren = extractGroup(nestedChildren, arg);
                 propsChildren.push(...nestedPropsChildren);
             }
         });
@@ -65,24 +65,68 @@ function extractValues(children, arg) {
     }
 }
 
-function extractType(emitter) {
-    let {comment, type} = emitter;
-
-    if(type.typeArguments) {
-        if(!type.typeArguments[0].types){
-            return type.typeArguments.map(el => ( {name: el.name.includes('Event') ? 'event' : 'value', type: el.name}));
-        }
-
-        if(type.typeArguments[0].types) {
-            return type.typeArguments[0].types.map(el => {
-                if(el.type && el.type === 'array') {
-                    return {name: 'value', type: el.elementType.name + '[]'}
-                } else {
-                    return {name: el.name.includes('Event') ? 'event' : 'value', type: el.name};
-                }
-            })
+function extractType(prop, arg) {
+    if(arg === 'emitter') {
+        let {comment, type} = prop;
+    
+        if(type.typeArguments) {
+            if(!type.typeArguments[0].types){
+                return type.typeArguments.map(el => ( {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')}));
+            }
+    
+            if(type.typeArguments[0].types) {
+                return type.typeArguments[0].types.map(el => {
+                    if(el.type && el.type === 'array') {
+                        return {name: 'value', type: el.elementType.name + '[]'}
+                    } else {
+                        return {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')};
+                    }
+                })
+            }
         }
     }
+    if(arg === 'props'){
+        let {type} = prop;
+        let typeStr = '';
+        if(type) {
+            if(prop.name === 'appendTo' || prop.name.includes('appendTo')) {
+                typeStr += 'HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | ';
+            }
+            if(type.type && type.type !== 'reflection') {
+                typeStr += type.name;
+            }
+            if(type.declaration && type.declaration.indexSignature && prop.name.toLowerCase().includes('style')) {
+                typeStr += '{ [klass: string]: any } | null | undefined';
+            }
+        }
+
+        if(!type) {
+            if(prop.getSignature) {
+                let {getSignature} = prop;
+                if(getSignature.type.type !== 'union' ) {
+                    typeStr = getSignature.type.name;
+                }
+                if(getSignature.type.type === 'union') {
+                    typeStr += getSignature.type.types.map(el => {
+                        if(el.type === 'array') {
+                            return el.elementType.name + '[]'
+                        }
+                        else {
+                            return el.name
+                        }
+                    }).join(' | ');
+                }
+            }
+        }
+
+        if (typeStr) {
+            return typeStr.replace(/^'|'$/g, '');
+        }
+    }
+}
+
+function extractMethod(method) {
+    console.log()
 }
 if (project) {
     let doc = {};
@@ -101,13 +145,13 @@ if (project) {
         
         const description = comment && comment.summary.map((s) => s.text || '').join(' ');
 
-        const props_group = extractValues(children, 'Props');
-        const emits_group = extractValues(children, 'Emits');
-        const templates_group = name.includes('interface') ? extractValues(project.children, 'Templates') : undefined;
-        const methods_group = extractValues(children, 'Method');
-        const types_group = extractValues(children, 'Types');
-        const events_group = name.includes('interface') ? extractValues(project.children, 'Events') : undefined;
-        const components_group = (!name.includes('interface') && !name.includes('Module')) ? extractValues(project.children, 'Components') : undefined;
+        const props_group = extractGroup(children, 'Props');
+        const emits_group = extractGroup(children, 'Emits');
+        const templates_group = name.includes('interface') ? extractGroup(project.children, 'Templates') : undefined;
+        const methods_group = extractGroup(children, 'Method');
+        const types_group = extractGroup(children, 'Types');
+        const events_group = name.includes('interface') ? extractGroup(project.children, 'Events') : undefined;
+        const components_group = (!name.includes('interface') && !name.includes('Module')) ? extractGroup(project.children, 'Components') : undefined;
         if(components_group) {
             components_group.forEach((component) => {
                 const componentName = component.name;
@@ -129,13 +173,14 @@ if (project) {
                     props_group.forEach((prop) => {
                         if(prop.parent.name === componentName){
                             props.values.push({
+                                parent: prop.parent.name ?? undefined,
                                 name: prop.name,
                                 optional: prop.flags.isOptional,
                                 readonly: prop.flags.isReadonly,
-                                type: 'prop.type', //TODO: make it meaningful -> getType?
-                                default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '',
-                                description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
-                                deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
+                                type: extractType(prop, 'props'), //TODO: make it meaningful -> getType?
+                                default: (prop.type && prop.type.name === 'boolean' && !prop.defaultValue) ? 'false' : prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined,
+                                description:prop.getSignature && prop.getSignature.comment ? prop.getSignature.comment.summary.map((s) => s.text || '').join(' ') : prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
+                                deprecated: prop.getSignature && prop.getSignature.comment && prop.getSignature.comment.getTag('@deprecated') ? parseText(prop.getSignature.comment.getTag('@deprecated').content[0].text) : prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
                             });
                         }
                     });
@@ -151,12 +196,11 @@ if (project) {
 
                     emits_group.forEach((emitter) => {
                         if(emitter.parent.name === componentName) {
-
                             emits.values.push({
+                                parent: emitter.parent.name ?? undefined,
                                 name: emitter.name,
-                                parameters: extractType(emitter),
+                                parameters: extractType(emitter, 'emitter'),
                                 description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
-                                returnType: 'EventEmitter', //TODO: make it meaningful
                                 deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined
                             });
                         }
@@ -175,6 +219,7 @@ if (project) {
                         const signature = method.getAllSignatures()[0];
                         if(method.parent.name === componentName){
                             methods.values.push({
+                                parent: method.parent.name ?? undefined,
                                 name: signature.name,
                                 parameters: signature.parameters.map((param) => {
                                     return {
@@ -183,7 +228,6 @@ if (project) {
                                         description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
                                     };
                                 }),
-                                returnType: signature.type.toString(),
                                 description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
                             });
                         }
@@ -204,6 +248,7 @@ if (project) {
             events_group.forEach((event) => {
                 parentName = event.parent.name.split('.').slice(0,1).join('');
                 events.values.push({
+                    parent: parentName,
                     name: event.name,
                     description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
                     props:
@@ -265,7 +310,6 @@ if (project) {
                                 description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
                             };
                         }),
-                        returnType: signature ? signature.type?.name : child.type.toString(),
                         description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
                         deprecated: signature.comment && signature.comment.getTag('@deprecated') ? parseText(signature.comment.getTag('@deprecated').content[0].text) : undefined
                     });
