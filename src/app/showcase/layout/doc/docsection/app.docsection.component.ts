@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Directive, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AppDocSectionTextComponent } from '../docsectiontext/app.docsectiontext.component';
 import { Doc } from 'src/app/showcase/domain/doc';
 import { AppDocApiTable } from '../docapitable/app.docapitable.component';
@@ -13,7 +13,8 @@ interface Props {
 
 @Component({
     selector: 'app-docsection',
-    templateUrl: './app.docsection.component.html'
+    templateUrl: './app.docsection.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocSectionsComponent {
     @Input() docs!: Doc[];
@@ -84,6 +85,9 @@ export class AppDocSectionsComponent {
                     componentRef.instance.data = child.data;
                     componentRef.instance.label = child.label;
                     componentRef.instance.relatedProp = child.relatedProp;
+                    if(i === 0) {
+                        componentRef.instance.parentTitle = newComponent.label
+                    }
                 }
             }
         }

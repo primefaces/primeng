@@ -147,8 +147,7 @@ export class AppDocApiSection {
     setEmitData(emitters){
         return emitters.map(emitter => ({
             name: emitter.name,
-            parameters: {name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type},
-            returnType: emitter.returnType, 
+            parameters: {name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type}, 
             description: emitter.description, 
             deprecated: emitter.deprecated
         }));
@@ -163,19 +162,6 @@ export class AppDocApiSection {
             deprecated: prop.deprecated
         }));
     }
-
-    // generateDocs() {
-    //     if (this.docs) {
-    //         for (let i = 0; i < this.docs.length; i++) {
-    //             const doc = this.docs[i];
-    //             const _doc = {
-    //                 ...doc,
-    //                 id: `api.${doc.id}`
-    //             };
-    //             this._docs.push(_doc);
-    //         }
-    //     }
-    // }
 
     ngOnDestroy() {
         this.location.go(this.location.path().split('#')[0]);
