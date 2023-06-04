@@ -13,9 +13,10 @@ import { AppDevelopmentSection } from './developmentsection/app.developmentsecti
 import { AppDocApiTable } from './docapitable/app.docapitable.component';
 import { AppDoc } from './app.doc.component';
 import { HostDirective } from './hostdirective/host.directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule],
+    imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, TooltipModule, AppCodeModule, RouterModule],
     exports: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable],
     declarations: [AppDocSectionTextComponent, AppDocApiSection, AppDocSectionNavComponent, AppDocSectionsComponent, AppDevelopmentSection, AppDoc, AppDocApiTable, HostDirective]
 })
