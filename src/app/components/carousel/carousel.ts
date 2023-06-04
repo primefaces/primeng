@@ -161,15 +161,15 @@ export class Carousel implements AfterContentInit {
      */
     @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
     /**
-     * Specifies the layout of the component, valid values are 'horizontal' and 'vertical'.
+     * Specifies the layout of the component.
      * @group Props
      */
-    @Input() orientation = 'horizontal';
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
     /**
      * Height of the viewport in vertical layout.
      * @group Props
      */
-    @Input() verticalViewPortHeight = '300px';
+    @Input() verticalViewPortHeight: string = '300px';
     /**
      * Style class of main content.
      * @group Props

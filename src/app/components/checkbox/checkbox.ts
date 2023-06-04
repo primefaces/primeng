@@ -159,7 +159,7 @@ export class Checkbox implements ControlValueAccessor {
     @Input() falseValue: any = false;
     /**
      * Callback to invoke on value change.
-     * @param {CheckboxChangeEvent} event - Browser event.
+     * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();

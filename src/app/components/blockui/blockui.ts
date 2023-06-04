@@ -22,7 +22,6 @@ import { ZIndexUtils } from 'primeng/utils';
 export class BlockUI implements AfterViewInit, OnDestroy {
     /**
      * Name of the local ng-template variable referring to another component.
-     * Default - document
      * @group Props
      */
     @Input() target: any;
@@ -48,7 +47,6 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     @Input() get blocked(): boolean {
         return this._blocked;
     }
-
     set blocked(val: boolean) {
         if (this.mask && this.mask.nativeElement) {
             if (val) this.block();

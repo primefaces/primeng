@@ -8,25 +8,25 @@ export interface DialogTemplates {
     /**
      * Custom template of header.
      */
-    header: TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of footer.
      */
-    footer: TemplateRef<any> | null;
+    footer(): TemplateRef<any>;
     /**
      * Custom template of closeicon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
     /**
      * Custom template of maximizeicon.
      */
-    maximizeicon: TemplateRef<any> | null;
+    maximizeicon(): TemplateRef<any>;
     /**
      * Custom template of minimizeicon.
      */
-    minimizeicon: TemplateRef<any> | null;
+    minimizeicon(): TemplateRef<any>;
 }

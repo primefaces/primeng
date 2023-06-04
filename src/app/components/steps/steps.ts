@@ -81,7 +81,7 @@ export class Steps implements OnInit, OnDestroy {
      */
     @Input() activeIndex: number = 0;
     /**
-     * An array of menuitems.
+     * An array of menu items.
      * @group Props
      */
     @Input() model: MenuItem[] | undefined;

@@ -2,6 +2,7 @@ import { TemplateRef } from '@angular/core';
 import { DataView } from './dataview';
 /**
  * State of the paginator.
+ * @group Interface
  */
 export interface DataViewPaginatorState {
     /**
@@ -24,6 +25,7 @@ export interface DataViewPaginatorState {
 /**
  * Custom lazy load event.
  * @see {@link DataView.onLazyLoad}
+ * @group Events
  */
 export interface DataViewLazyLoadEvent {
     /**
@@ -46,6 +48,7 @@ export interface DataViewLazyLoadEvent {
 /**
  * Custom page event.
  * @see {@link DataView.onPage}
+ * @group Events
  */
 export interface DataViewPageEvent {
     /**
@@ -60,6 +63,7 @@ export interface DataViewPageEvent {
 /**
  * Custom sort event.
  * @see {@link DataView.onSort}
+ * @group Events
  */
 export interface DataViewSortEvent {
     /**
@@ -74,6 +78,7 @@ export interface DataViewSortEvent {
 /**
  * Custom layout change.
  * @see {@link DataView.onChangeLayout}
+ * @group Events
  */
 export interface DataViewLayoutChangeEvent {
     /**
@@ -147,25 +152,25 @@ export interface DataViewTemplates {
     /**
      * Custom empty message template.
      */
-    empty: TemplateRef<any>;
+    empty(): TemplateRef<any>;
     /**
      * Custom header template.
      */
-    header: TemplateRef<any>;
+    header(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom loading icon template.
      */
-    loadingicon: TemplateRef<any>;
+    loadingicon(): TemplateRef<any>;
     /**
      * Custom list icon template.
      */
-    listicon: TemplateRef<any>;
+    listicon(): TemplateRef<any>;
     /**
      * Custom grid icon template.
      */
-    gridicon: TemplateRef<any>;
+    gridicon(): TemplateRef<any>;
 }

@@ -506,9 +506,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.handleSuggestionsChange();
     }
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Element dimensions of option for virtual scrolling.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get itemSize(): number {
         return this._itemSize as number;

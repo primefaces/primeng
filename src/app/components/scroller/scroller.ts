@@ -342,19 +342,19 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
     /**
      * Callback to invoke in lazy mode to load new data.
-     * @param {ScrollerLazyLoadEvent} event - custom lazy load event.
+     * @param {ScrollerLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
     /**
      * Callback to invoke when scroll position changes.
-     * @param {ScrollerScrollEvent} event - custom scroll event.
+     * @param {ScrollerScrollEvent} event - Custom scroll event.
      * @group Emits
      */
     @Output() onScroll: EventEmitter<ScrollerScrollEvent> = new EventEmitter<ScrollerScrollEvent>();
     /**
      * Callback to invoke when scroll position and item's range in view changes.
-     * @param {ScrollerScrollEvent} event - custom scroll index change event.
+     * @param {ScrollerScrollEvent} event - Custom scroll index change event.
      * @group Emits
      */
     @Output() onScrollIndexChange: EventEmitter<ScrollerScrollIndexChangeEvent> = new EventEmitter<ScrollerScrollIndexChangeEvent>();

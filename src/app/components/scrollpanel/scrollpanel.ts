@@ -265,7 +265,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Scrolls the top location to the given value.
      * @param scrollTop
-     * @group Methods
+     * @group Method
      */
     scrollTop(scrollTop: number) {
         let scrollableHeight = (this.contentViewChild as ElementRef).nativeElement.scrollHeight - (this.contentViewChild as ElementRef).nativeElement.clientHeight;
@@ -322,7 +322,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     /**
      * Refreshes the position and size of the scrollbar.
-     * @group Methods
+     * @group Method
      */
     refresh() {
         this.moveBar();

@@ -3,6 +3,7 @@ import { Checkbox } from './checkbox';
 /**
  * Custom change event.
  * @see {@link Checkbox.onChange}
+ * @group Events
  */
 export interface CheckboxChangeEvent {
     /**
@@ -22,5 +23,5 @@ export interface CheckboxTemplates {
     /**
      * Custom checkbox icon template
      */
-    icon: TemplateRef<any>;
+    icon(): TemplateRef<any>;
 }

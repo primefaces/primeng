@@ -112,7 +112,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      *  Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: any = 'body';
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -152,7 +152,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Callback to invoke when an overlay gets hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<object> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -249,9 +249,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     /**
      * Toggles the visibility of the panel.
-     * @param event - Browser event
-     * @param target - Target element.
-     * @group Methods
+     * @param {Event} event - Browser event
+     * @param {Target} target - Target element.
+     * @group Method
      */
     toggle(event: any, target?: any) {
         if (this.isOverlayAnimationInProgress) {
@@ -272,9 +272,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Displays the panel.
-     * @param event
-     * @param target
-     * @group Methods
+     * @param {Event} event - Browser event
+     * @param {Target} target - Target element.
+     * @group Method
      */
     show(event: any, target?: any) {
         target && event && event.stopPropagation();
@@ -411,7 +411,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Hides the panel.
-     * @group Methods
+     * @group Method
      */
     hide() {
         this.overlayVisible = false;

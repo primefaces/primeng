@@ -1,5 +1,6 @@
 /**
  * Defines options of Tooltip.
+ * @group Interface
  */
 export interface TooltipOptions {
     tooltipLabel?: string;

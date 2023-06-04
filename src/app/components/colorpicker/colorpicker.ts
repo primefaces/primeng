@@ -81,7 +81,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      */
     @Input() inline: boolean | undefined;
     /**
-     * Format to use in value binding, supported formats are "hex", "rgb" and "hsb".
+     * Format to use in value binding.
      * @group Props
      */
     @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
@@ -127,7 +127,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Callback to invoke on value change.
-     * @param {ColorPickerChangeEvent} event - Custom event.
+     * @param {ColorPickerChangeEvent} event - Custom value change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<ColorPickerChangeEvent> = new EventEmitter<ColorPickerChangeEvent>();
@@ -135,12 +135,12 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * Callback to invoke on panel is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke on panel is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 

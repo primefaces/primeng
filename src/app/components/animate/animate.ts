@@ -11,10 +11,12 @@ import { DomHandler } from 'primeng/dom';
 export class Animate implements AfterViewInit {
     /**
      * Selector to define the CSS class for enter animation.
+     * @group Props
      */
     @Input() enterClass: string | undefined;
     /**
      * Selector to define the CSS class for leave animation.
+     * @group Props
      */
     @Input() leaveClass: string | undefined;
 

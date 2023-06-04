@@ -313,6 +313,7 @@ export class TreeSelect implements AfterContentInit {
     @Input() resetFilterOnHide: boolean = true;
     /**
      * An array of treenodes.
+     * @defaultValue undefined
      * @group Props
      */
     @Input() get options(): TreeNode[] | undefined {
@@ -323,9 +324,9 @@ export class TreeSelect implements AfterContentInit {
         this.updateTreeState();
     }
     /**
-     * @deprecated since v14.2.0 use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v14.2.0 use overlayOptions property instead.
      */
     @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
@@ -335,9 +336,9 @@ export class TreeSelect implements AfterContentInit {
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * @deprecated since v14.2.0 use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v14.2.0 use overlayOptions property instead.
      */
     @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
@@ -348,12 +349,13 @@ export class TreeSelect implements AfterContentInit {
     }
     /**
      * Callback to invoke when a node is expanded.
+     * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeSelectNodeExpandEvent> = new EventEmitter<TreeSelectNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
-     * @param {Event} event - Browser event.
+     * @param {TreeSelectNodeCollapseEvent} event - Custom node collapse event.
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
@@ -362,7 +364,7 @@ export class TreeSelect implements AfterContentInit {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the overlay is hidden.
      * @param {Event} event - Browser event.
@@ -373,12 +375,12 @@ export class TreeSelect implements AfterContentInit {
      * Callback to invoke when input field is cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when data is filtered.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a node is unselected.
      * @param {TreeNode} node - Node instance.

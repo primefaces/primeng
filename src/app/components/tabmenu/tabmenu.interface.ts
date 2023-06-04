@@ -22,9 +22,9 @@ export interface TabMenuTemplates {
     /**
      * Custom template of nexticon.
      */
-    nexticon: TemplateRef<any> | null;
+    nexticon(): TemplateRef<any>;
     /**
      * Custom template of previousicon.
      */
-    previousicon: TemplateRef<any> | null;
+    previousicon(): TemplateRef<any>;
 }

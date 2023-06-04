@@ -622,9 +622,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
@@ -634,9 +634,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
@@ -645,16 +645,22 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
+    /**
+     * Label to display when there are no selections.
+     * @group Props
+     * @deprecated Use placeholder instead.
+     */
     @Input() set defaultLabel(val: string | undefined) {
         this._defaultLabel = val;
         this.updateLabel();
     }
-
     get defaultLabel(): string | undefined {
         return this._defaultLabel;
     }
-
+    /**
+     * Label to display when there are no selections.
+     * @group Props
+     */
     @Input() set placeholder(val: string | undefined) {
         this._placeholder = val;
         this.updateLabel();
@@ -662,7 +668,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get placeholder(): string | undefined {
         return this._placeholder;
     }
-
+    /**
+     * An array of objects to display as the available options.
+     * @group Props
+     */
     @Input() get options(): any[] | undefined {
         return this._options;
     }
@@ -670,7 +679,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._options = val;
         this.updateLabel();
     }
-
+    /**
+     * When specified, filter displays with this value.
+     * @group Props
+     */
     @Input() get filterValue(): string | undefined | null {
         return this._filterValue;
     }
@@ -679,9 +691,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.activateFilter();
     }
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Item size of item to be virtual scrolled.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get itemSize(): number | undefined {
         return this._itemSize;
@@ -765,7 +777,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @param {MultiSelectRemoveEvent} event - Remove event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<MultiSelectRemoveEvent> = new EventEmitter();
+    @Output() onRemove: EventEmitter<MultiSelectRemoveEvent> = new EventEmitter<MultiSelectRemoveEvent>();
 
     _autoZIndex: boolean | undefined;
 

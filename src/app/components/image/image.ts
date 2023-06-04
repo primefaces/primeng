@@ -149,7 +149,7 @@ export class Image implements AfterContentInit {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('mask') mask: ElementRef | undefined;
 

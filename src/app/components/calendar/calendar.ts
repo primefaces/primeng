@@ -474,14 +474,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() shortYearCutoff: any = '+10';
     /**
      * Whether the month should be rendered as a dropdown instead of text.
-     * @deprecated Navigator is always on
      * @group Props
+     * @deprecated Navigator is always on.
      */
     @Input() monthNavigator: boolean | undefined;
     /**
      * Whether the year should be rendered as a dropdown instead of text.
-     * @deprecated  Navigator is always on.
      * @group Props
+     * @deprecated  Navigator is always on.
      */
     @Input() yearNavigator: boolean | undefined;
     /**
@@ -752,8 +752,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createWeekDays();
     }
     /**
-     * No description available.
+     * Option to set calendar locale.
      * @group Props
+     * @deprecated Locale property has no effect, use new i18n API instead.
      */
     @Input() set locale(newLocale: LocaleSettings) {
         console.warn('Locale property has no effect, use new i18n API instead.');
@@ -792,13 +793,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on blur of input field.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when date panel closed.
      * @param {Event} event - Mouse event
@@ -815,25 +816,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Callback to invoke when input field cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when input field is being typed.
      * @param {Event} event - browser event
      * @group Emits
      */
-    @Output() onInput: EventEmitter<any> = new EventEmitter();
+    @Output() onInput: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when today button is clicked.
      * @param {Date} date - today as a date instance.
      * @group Emits
      */
-    @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
+    @Output() onTodayClick: EventEmitter<Date> = new EventEmitter<Date>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onClearClick: EventEmitter<any> = new EventEmitter();
+    @Output() onClearClick: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a month is changed using the navigators.
      * @param {CalendarMonthChangeEvent} event - custom month change event.
@@ -850,12 +851,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
-    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when datepicker panel is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -3246,7 +3247,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         }
                     `;
 
-                    for (let j: number = numMonths; j < this.numberOfMonths; j++) {
+                    for (let j: number = <number>numMonths; j < this.numberOfMonths; j++) {
                         styles += `
                             .p-datepicker[${this.attributeSelector}] .p-datepicker-group:nth-child(${j + 1}) {
                                 display: none !important;

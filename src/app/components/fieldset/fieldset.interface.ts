@@ -3,6 +3,7 @@ import { Fieldset } from './fieldset';
 /**
  * Custom panel toggle event, emits after toggle.
  * @see {@link Fieldset.onAfterToggle}
+ * @group Events
  */
 export interface FieldsetAfterToggleEvent {
     /**
@@ -19,6 +20,7 @@ export interface FieldsetAfterToggleEvent {
  * Custom panel toggle event, emits before toggle.
  * @see {@link Fieldset.onBeforeToggle}
  * @extends {FieldsetAfterToggleEvent}
+ * @group Events
  */
 export interface FieldsetBeforeToggleEvent extends FieldsetAfterToggleEvent {}
 
@@ -30,17 +32,17 @@ export interface FieldsetTemplates {
     /**
      * Custom header template.
      */
-    header: TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom content template.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    expandicon: TemplateRef<any> | null;
+    expandicon(): TemplateRef<any>;
     /**
      * Custom icons template of the panel toggler.
      */
-    collapseicon: TemplateRef<any> | null;
+    collapseicon(): TemplateRef<any>;
 }

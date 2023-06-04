@@ -247,7 +247,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
     }
     /**
      * Applies focus to input field.
-     * @group Methods
+     * @group Method
      */
     public focus() {
         this.inputViewChild.nativeElement.focus();

@@ -122,12 +122,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any;
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: any;
+    @Input() inputStyleClass: string;
     /**
      * Whether to add an item on tab key press.
      * @group Props
@@ -150,31 +150,31 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     @Input() showClear: boolean = false;
     /**
      * Callback to invoke on chip add.
-     * @param {ChipsAddEvent} event - Custom event.
+     * @param {ChipsAddEvent} event - Custom chip add event.
      * @group Emits
      */
     @Output() onAdd: EventEmitter<ChipsAddEvent> = new EventEmitter<ChipsAddEvent>();
     /**
      * Callback to invoke on chip remove.
-     * @param {ChipsRemoveEvent} event - Custom event.
+     * @param {ChipsRemoveEvent} event - Custom chip remove event.
      * @group Emits
      */
     @Output() onRemove: EventEmitter<ChipsRemoveEvent> = new EventEmitter<ChipsRemoveEvent>();
     /**
      * Callback to invoke on focus of input field.
-     * @param {Event} event - Focus event
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on blur of input field.
-     * @param {Event} event - Blur event
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on chip clicked.
-     * @param {ChipsClickEvent} event - Custom event
+     * @param {ChipsClickEvent} event - Custom chip click event.
      * @group Emits
      */
     @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>();
@@ -182,7 +182,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Callback to invoke on clear token clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('inputtext') inputViewChild!: ElementRef;
 

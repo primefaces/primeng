@@ -2,16 +2,19 @@ import { AnimationEvent } from '@angular/animations';
 
 /**
  * Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined.
+ * @group Interface
  */
 export type OverlayModeType = 'modal' | 'overlay' | undefined;
 
 /**
  * Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined.
+ * @group Interface
  */
 export type ResponsiveOverlayDirectionType = 'center' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | undefined;
 
 /**
  * Represents the options for an overlay listener.
+ * @group Interface
  */
 export interface OverlayListenerOptions {
     /**
@@ -30,6 +33,7 @@ export interface OverlayListenerOptions {
 
 /**
  * Represents the options for a responsive overlay.
+ * @group Events
  */
 export interface ResponsiveOverlayOptions {
     /**
@@ -64,6 +68,7 @@ export interface ResponsiveOverlayOptions {
 
 /**
  * Represents an event that occurs when an overlay is shown.
+ * @group Events
  */
 export interface OverlayOnShowEvent {
     /**
@@ -82,18 +87,25 @@ export interface OverlayOnShowEvent {
 
 /**
  * Represents an event that occurs before an overlay is shown.
+ * @extends {OverlayOnShowEvent}
+ * @group Events
  */
 export interface OverlayOnBeforeShowEvent extends OverlayOnShowEvent {}
 /**
  * Represents an event that occurs before an overlay is hidden.
+ * @extends {OverlayOnBeforeShowEvent}
+ * @group Events
  */
 export interface OverlayOnBeforeHideEvent extends OverlayOnBeforeShowEvent {}
 /**
  * Represents an event that occurs when an overlay is hidden.
+ * @extends {OverlayOnShowEvent}
+ * @group Events
  */
 export interface OverlayOnHideEvent extends OverlayOnShowEvent {}
 /**
  * Represents the options for an overlay.
+ * @group Interface
  */
 export interface OverlayOptions {
     /**

@@ -7,5 +7,5 @@ export interface MessagesTemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
 }

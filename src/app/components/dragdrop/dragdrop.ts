@@ -165,6 +165,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @Input('pDroppable') scope: string | string[] | undefined;
     /**
      * Whether the element is droppable, useful for conditional cases.
+     * @group Props
      */
     @Input() pDroppableDisabled: boolean = false;
     /**

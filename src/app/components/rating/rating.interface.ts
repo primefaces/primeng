@@ -3,6 +3,7 @@ import { Rating } from './rating';
 /**
  * Custom change event.
  * @see {@link Rating.onRate}
+ * @group Events
  */
 export interface RatingRateEvent {
     /**
@@ -22,13 +23,13 @@ export interface RatingTemplates {
     /**
      * Custom on icon template.
      */
-    onicon: TemplateRef<any>;
+    onicon(): TemplateRef<any>;
     /**
      * Custom off icon template.
      */
-    officon: TemplateRef<any>;
+    officon(): TemplateRef<any>;
     /**
      * Custom cancel icon template.
      */
-    cancelicon: TemplateRef<any>;
+    cancelicon(): TemplateRef<any>;
 }

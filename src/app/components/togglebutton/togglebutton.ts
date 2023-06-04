@@ -95,7 +95,7 @@ export class ToggleButton implements ControlValueAccessor {
     @Input() iconPos: 'left' | 'right' = 'left';
     /**
      * Callback to invoke on value change.
-     * @param {ToggleButtonChangeEvent} event - Browser event.
+     * @param {ToggleButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();

@@ -10,10 +10,10 @@ import { Nullable } from 'primeng/ts-helpers';
 export class DeferredLoader implements AfterViewInit, OnDestroy {
     /**
      * Callback to invoke when deferred content is loaded.
-     * @param {Event} event - browser event.
+     * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onLoad: EventEmitter<Event> = new EventEmitter();
+    @Output() onLoad: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ContentChild(TemplateRef) template: TemplateRef<any> | undefined;
 

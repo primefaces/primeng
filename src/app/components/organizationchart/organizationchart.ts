@@ -240,7 +240,7 @@ export class OrganizationChart implements AfterContentInit {
         this.initialized = true;
     }
 
-    getTemplateForNode(node: TreeNode): TemplateRef<any> | null {
+    getTemplateForNode(node: TreeNode): TemplateRef<any> {
         if (this.templateMap) return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else return null;
     }

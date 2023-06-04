@@ -70,13 +70,13 @@ export class Chip implements AfterContentInit {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     visible: boolean = true;
 

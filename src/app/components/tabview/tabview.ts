@@ -137,8 +137,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Left icon of the tabPanel.
-     * @deprecated since v15.4.2, use `lefticon` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `lefticon` template instead.
      */
     @Input() get leftIcon(): string {
         return this._leftIcon;
@@ -149,8 +149,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Left icon of the tabPanel.
-     * @deprecated since v15.4.2, use `righticon` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `righticon` template instead.
      */
     @Input() get rightIcon(): string | undefined {
         return this._rightIcon;

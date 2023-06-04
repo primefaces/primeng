@@ -8,9 +8,9 @@ export interface ConfirmPopupTemplates {
     /**
      * Custom template of rejecticon.
      */
-    rejecticon: TemplateRef<any> | null;
+    rejecticon(): TemplateRef<any>;
     /**
      * Custom template of accepticon.
      */
-    accepticon: TemplateRef<any> | null;
+    accepticon(): TemplateRef<any>;
 }

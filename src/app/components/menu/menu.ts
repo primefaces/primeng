@@ -247,12 +247,12 @@ export class Menu implements OnDestroy {
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when overlay menu is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     container: HTMLDivElement | undefined;
 

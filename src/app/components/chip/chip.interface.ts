@@ -8,9 +8,9 @@ export interface ChipTemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of remove icon.
      */
-    removeicon: TemplateRef<any> | null;
+    removeicon(): TemplateRef<any>;
 }

@@ -3,6 +3,7 @@ import { FilterMetadata, LazyLoadMeta, SortMeta, TreeNode } from 'primeng/api';
 import { TreeTable } from './treetable';
 /**
  * Paginator state.
+ * @group Interface
  */
 export interface TreeTablePaginatorState {
     /**
@@ -26,6 +27,7 @@ export interface TreeTablePaginatorState {
  * Custom lazy load event.
  * @see {@link TreeTable.onLazyLoad}
  * @extends {LazyLoadMeta}
+ * @group Events
  */
 export interface TreeTableLazyLoadEvent extends LazyLoadMeta {
     /**
@@ -40,6 +42,7 @@ export interface TreeTableLazyLoadEvent extends LazyLoadMeta {
 /**
  * Custom column reorder event.
  * @see {@link TreeTable.onColReorder}
+ * @group Events
  */
 export interface TreeTableColumnReorderEvent {
     /**
@@ -58,6 +61,7 @@ export interface TreeTableColumnReorderEvent {
 /**
  * Tree table node element.
  * @extends {TreeNode}
+ * @group Events
  */
 export interface TreeTableNode extends TreeNode {
     /**
@@ -92,6 +96,7 @@ export interface TreeTableNode extends TreeNode {
 /**
  * Custom filter event.
  * @see {@link TreeTable.onFilter}
+ * @group Events
  */
 export interface TreeTableFilterEvent {
     /**
@@ -106,6 +111,7 @@ export interface TreeTableFilterEvent {
 /**
  * Custom node collapse event.
  * @see {@link TreeTable.onNodeCollapse}
+ * @group Events
  */
 export interface TreeTableNodeCollapseEvent {
     /**
@@ -121,6 +127,7 @@ export interface TreeTableNodeCollapseEvent {
  * Custom sort event.
  * @see {@link TreeTable.onSort}
  * @see {@link TreeTable.sortFunction}
+ * @group Events
  */
 export interface TreeTableSortEvent {
     /**
@@ -159,6 +166,7 @@ export interface TreeTableSortEvent {
 /**
  * Custom column resize event.
  * @see {@link TreeTable.onColResize}
+ * @group Events
  */
 export interface TreeTableColResizeEvent {
     /**
@@ -174,11 +182,13 @@ export interface TreeTableColResizeEvent {
  * Custom node select event.
  * @see {@link TreeTable.onNodeSelect}
  * @extends {TreeTableNode}
+ * @group Events
  */
 export interface TreeTableNodeSelectEvent extends TreeTableNode {}
 /**
  * Custom node unselect event.
  * @see {@link TreeTable.onNodeUnSelect}
+ * @group Events
  */
 export interface TreeTableNodeUnSelectEvent {
     /**
@@ -197,6 +207,7 @@ export interface TreeTableNodeUnSelectEvent {
 /**
  * Custom context menu select event.
  * @see {@link TreeTable.onContextMenuSelect}
+ * @group Events
  */
 export interface TreeTableContextMenuSelectEvent {
     /**
@@ -211,6 +222,7 @@ export interface TreeTableContextMenuSelectEvent {
 /**
  * Custom checkbox toggle event.
  * @see {@link TreeTable.onHeaderCheckboxToggle}
+ * @group Events
  */
 export interface TreeTableHeaderCheckboxToggleEvent {
     /**
@@ -227,6 +239,7 @@ export interface TreeTableHeaderCheckboxToggleEvent {
  * @see {@link TreeTable.onEditInit}
  * @see {@link TreeTable.onEditCancel}
  * @see {@link TreeTable.onEditComplete}
+ * @group Events
  */
 export interface TreeTableEditEvent {
     /**
@@ -240,6 +253,7 @@ export interface TreeTableEditEvent {
 }
 /**
  * Filtering options.
+ * @group Events
  */
 export type TreeTableFilterOptions = {
     /**
@@ -267,7 +281,7 @@ export interface TreeTableTemplates {
     /**
      * Custom caption template.
      */
-    caption: TemplateRef<any>;
+    caption(): TemplateRef<any>;
     /**
      * Custom header template.
      * @param {Object} context - header data.
@@ -310,7 +324,7 @@ export interface TreeTableTemplates {
     /**
      * Custom summary template.
      */
-    summary: TemplateRef<any>;
+    summary(): TemplateRef<any>;
     /**
      * Custom colgroup template.
      * @param {Object} context - column group data.
@@ -337,15 +351,15 @@ export interface TreeTableTemplates {
     /**
      * Custom paginator left section template.
      */
-    paginatorleft: TemplateRef<any>;
+    paginatorleft(): TemplateRef<any>;
     /**
      * Custom paginator right section template.
      */
-    paginatorright: TemplateRef<any>;
+    paginatorright(): TemplateRef<any>;
     /**
      * Custom paginator dropdown template.
      */
-    paginatordropdownitem: TemplateRef<any>;
+    paginatordropdownitem(): TemplateRef<any>;
     /**
      * Custom frozenheader template.
      * @param {Object} context - frozen header data.
@@ -359,7 +373,7 @@ export interface TreeTableTemplates {
     /**
      * Custom frozenbody template.
      */
-    frozenbody: TemplateRef<any>;
+    frozenbody(): TemplateRef<any>;
     /**
      * Custom frozenfooter template.
      * @param {Object} context - frozen footer data.
@@ -383,15 +397,15 @@ export interface TreeTableTemplates {
     /**
      * Custom loading icon template.
      */
-    loadingicon: TemplateRef<any>;
+    loadingicon(): TemplateRef<any>;
     /**
      * Custom reorder indicator up icon template.
      */
-    reorderindicatorupicon: TemplateRef<any>;
+    reorderindicatorupicon(): TemplateRef<any>;
     /**
      * Custom reorder indicator down icon template.
      */
-    reorderindicatordownicon: TemplateRef<any>;
+    reorderindicatordownicon(): TemplateRef<any>;
     /**
      * Custom sort icon template.
      * @param {Object} context - sort data.
@@ -439,17 +453,17 @@ export interface TreeTableTemplates {
     /**
      * Custom paginator first page link icon template.
      */
-    paginatorfirstpagelinkicon: TemplateRef<any>;
+    paginatorfirstpagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginatorlastpagelinkicon template.
      */
-    paginatorlastpagelinkicon: TemplateRef<any>;
+    paginatorlastpagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginatorpreviouspagelinkicon template.
      */
-    paginatorpreviouspagelinkicon: TemplateRef<any>;
+    paginatorpreviouspagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginatornextpagelinkicon template.
      */
-    paginatornextpagelinkicon: TemplateRef<any>;
+    paginatornextpagelinkicon(): TemplateRef<any>;
 }

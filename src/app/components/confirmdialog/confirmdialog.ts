@@ -257,7 +257,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() focusTrap: boolean = true;
     /**
-     * Element to receive the focus when the dialog gets visible, valid values are "accept", "reject", "close" and "none".
+     * Element to receive the focus when the dialog gets visible.
      * @group Props
      */
     @Input() defaultFocus: 'accept' | 'reject' | 'close' = 'accept';
@@ -317,10 +317,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     /**
      * Callback to invoke when dialog is hidden.
-     * @param {ConfirmEventType} enum - confirm event type.
+     * @param {ConfirmEventType} enum - Custom confirm event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter();
+    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter<ConfirmEventType>();
 
     @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
 

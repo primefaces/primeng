@@ -897,9 +897,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      */
     @Input() trackBy: Function = (index: number, item: any) => item;
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Height of the node.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     _virtualNodeHeight: number | undefined;
     @Input() get virtualNodeHeight(): number | undefined {
@@ -911,67 +911,67 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
     /**
      * Callback to invoke on selection change.
-     * @param {(TreeNode | TreeNode[] | null)} event - custom selection change event.
+     * @param {(TreeNode | TreeNode[] | null)} event - Custom selection change event.
      * @group Emits
      */
     @Output() selectionChange: EventEmitter<TreeNode[] | TreeNode | null> = new EventEmitter<TreeNode[] | TreeNode | null>();
     /**
      * Callback to invoke when a node is selected.
-     * @param {TreeNodeSelectEvent} event - node select event.
+     * @param {TreeNodeSelectEvent} event - Node select event.
      * @group Emits
      */
     @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
     /**
      * Callback to invoke when a node is unselected.
-     * @param {TreeNodeUnSelectEvent} event - node unselect event.
+     * @param {TreeNodeUnSelectEvent} event - Node unselect event.
      * @group Emits
      */
     @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeNodeExpandEvent} event - node expand event.
+     * @param {TreeNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeNodeExpandEvent> = new EventEmitter<TreeNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
-     * @param {TreeNodeCollapseEvent} event - node collapse event.
+     * @param {TreeNodeCollapseEvent} event - Node collapse event.
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeNodeCollapseEvent> = new EventEmitter<TreeNodeCollapseEvent>();
     /**
      * Callback to invoke when a node is selected with right click.
-     * @param {onNodeContextMenuSelect} event - node context menu select event.
+     * @param {onNodeContextMenuSelect} event - Node context menu select event.
      * @group Emits
      */
     @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
     /**
      * Callback to invoke when a node is dropped.
-     * @param {TreeNodeDropEvent} event - node drop event.
+     * @param {TreeNodeDropEvent} event - Node drop event.
      * @group Emits
      */
     @Output() onNodeDrop: EventEmitter<TreeNodeDropEvent> = new EventEmitter<TreeNodeDropEvent>();
     /**
      * Callback to invoke in lazy mode to load new data.
-     * @param {TreeLazyLoadEvent} event - custom lazy load event.
+     * @param {TreeLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<TreeLazyLoadEvent> = new EventEmitter<TreeLazyLoadEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position changes.
-     * @param {TreeScrollEvent} event - custom scroll event.
+     * @param {TreeScrollEvent} event - Custom scroll event.
      * @group Emits
      */
     @Output() onScroll: EventEmitter<TreeScrollEvent> = new EventEmitter<TreeScrollEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position and item's range in view changes.
-     * @param {TreeScrollIndexChangeEvent} event - scroll index change event.
+     * @param {TreeScrollIndexChangeEvent} event - Scroll index change event.
      * @group Emits
      */
     @Output() onScrollIndexChange: EventEmitter<TreeScrollIndexChangeEvent> = new EventEmitter<TreeScrollIndexChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
-     * @param {TreeFilterEvent} event - custom filter event.
+     * @param {TreeFilterEvent} event - Custom filter event.
      * @group Emits
      */
     @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
@@ -1525,6 +1525,10 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         });
     }
 
+    /**
+     * Resets filter.
+     * @group Method
+     */
     public resetFilter() {
         this.filteredNodes = null;
 
@@ -1532,11 +1536,19 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             this.filterViewChild.nativeElement.value = '';
         }
     }
-
+    /**
+     * Scrolls to virtual index.
+     * @param {number} number - Index to be scrolled.
+     * @group Method
+     */
     public scrollToVirtualIndex(index: number) {
         this.virtualScroll && this.scroller?.scrollToIndex(index);
     }
-
+    /**
+     * Scrolls to virtual index.
+     * @param {ScrollToOptions} options - Scroll options.
+     * @group Method
+     */
     public scrollTo(options: any) {
         if (this.virtualScroll) {
             this.scroller?.scrollTo(options);

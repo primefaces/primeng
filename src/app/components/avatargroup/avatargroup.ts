@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 export class AvatarGroup {
     /**
      * Style class of the component
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**

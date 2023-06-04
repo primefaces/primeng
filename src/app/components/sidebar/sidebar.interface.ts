@@ -8,17 +8,17 @@ export interface SidebarTemplates {
     /**
      * Custom template of header.
      */
-    header: TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of footer.
      */
-    footer: TemplateRef<any> | null;
+    footer(): TemplateRef<any>;
     /**
      * Custom template of closeicon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
 }

@@ -152,7 +152,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     @Input() styleClass: string | undefined;
     /**
      * Event fired when a tab is selected.
-     * @param {MenuItem} event - item instance.
+     * @param {MenuItem} item - Menu item.
      * @group Emits
      */
     @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();

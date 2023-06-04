@@ -15,7 +15,7 @@ export class StyleClass implements OnDestroy {
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
      * @group Props
      */
-    @Input('pStyleClass') selector: '@next' | '@prev' | '@parent' | '@grandparent' | string | undefined;
+    @Input('pStyleClass') selector: string | undefined;
     /**
      * Style class to add when item begins to get displayed.
      * @group Props

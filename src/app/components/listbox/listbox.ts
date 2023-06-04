@@ -202,10 +202,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Input() filterBy: string | undefined;
     /**
-     * Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
+     * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: string = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props

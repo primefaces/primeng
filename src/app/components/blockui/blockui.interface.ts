@@ -8,5 +8,5 @@ export interface BlockUITemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
 }

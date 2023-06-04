@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 
 /**
  * Represents a confirmation dialog configuration.
+ * @group Interface
  */
 export interface Confirmation {
     /**

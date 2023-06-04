@@ -538,6 +538,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * Order to sort when default sorting is enabled.
+     * @defaultValue 1
      * @group Props
      */
     @Input() get sortOrder(): number {
@@ -548,6 +549,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * An array of SortMeta objects to sort the data by default in multiple sort mode.
+     * @defaultValue null
      * @group Props
      */
     @Input() get multiSortMeta(): SortMeta[] | undefined | null {
@@ -558,6 +560,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * Selected row in single mode or an array of values in multiple mode.
+     * @defaultValue null
      * @group Props
      */
     @Input() get selection(): any {
@@ -568,6 +571,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * An array of objects to display.
+     * @defaultValue null
      * @group Props
      */
     @Input() get value(): TreeNode<any> | TreeNode<any>[] | any[] | any {
@@ -577,11 +581,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this._value = val;
     }
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Indicates the height of rows to be scrolled.
+     * @defaultValue 28
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
-    _virtualRowHeight: number = 28;
     @Input() get virtualRowHeight(): number {
         return this._virtualRowHeight;
     }
@@ -589,111 +593,112 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this._virtualRowHeight = val;
         console.warn('The virtualRowHeight property is deprecated, use virtualScrollItemSize property instead.');
     }
+    _virtualRowHeight: number = 28;
     /**
      * Callback to invoke on selected node change.
-     * @param {TreeTableNode} object - node instance.
+     * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
     @Output() selectionChange: EventEmitter<TreeTableNode | null> = new EventEmitter<TreeTableNode | null>();
     /**
      * Callback to invoke on context menu selection change.
-     * @param {TreeTableNode} object - node instance.
+     * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
     @Output() contextMenuSelectionChange: EventEmitter<TreeTableNode> = new EventEmitter<TreeTableNode>();
     /**
      * Callback to invoke when data is filtered.
-     * @param {TreeTableFilterEvent} event - custom filter event.
+     * @param {TreeTableFilterEvent} event - Custom filter event.
      * @group Emits
      */
     @Output() onFilter: EventEmitter<TreeTableFilterEvent> = new EventEmitter<TreeTableFilterEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeTableNode} object - node instance.
+     * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeTableNode> = new EventEmitter<TreeTableNode>();
     /**
      * Callback to invoke when a node is collapsed.
-     * @param {TreeTableNodeCollapseEvent} event - node collapse event.
+     * @param {TreeTableNodeCollapseEvent} event - Node collapse event.
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeTableNodeCollapseEvent> = new EventEmitter<TreeTableNodeCollapseEvent>();
     /**
      * Callback to invoke when pagination occurs.
-     * @param {TreeTablePaginatorState} object - paginator state.
+     * @param {TreeTablePaginatorState} object - Paginator state.
      * @group Emits
      */
     @Output() onPage: EventEmitter<TreeTablePaginatorState> = new EventEmitter<TreeTablePaginatorState>();
     /**
      * Callback to invoke when a column gets sorted.
-     * @param {*} Object - sort data.
+     * @param {Object} Object - Sort data.
      * @group Emits
      */
     @Output() onSort: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when paging, sorting or filtering happens in lazy mode.
-     * @param {TreeTableLazyLoadEvent} event - custom lazy load event.
+     * @param {TreeTableLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<TreeTableLazyLoadEvent> = new EventEmitter<TreeTableLazyLoadEvent>();
     /**
      * An event emitter to invoke on custom sorting, refer to sorting section for details.
-     * @param {TreeTableSortEvent} event - custom sort event.
+     * @param {TreeTableSortEvent} event - Custom sort event.
      * @group Emits
      */
     @Output() sortFunction: EventEmitter<TreeTableSortEvent> = new EventEmitter<TreeTableSortEvent>();
     /**
      * Callback to invoke when a column is resized.
-     * @param {TreeTableColResizeEvent} event - custom column resize event.
+     * @param {TreeTableColResizeEvent} event - Custom column resize event.
      * @group Emits
      */
     @Output() onColResize: EventEmitter<TreeTableColResizeEvent> = new EventEmitter<TreeTableColResizeEvent>();
     /**
      * Callback to invoke when a column is reordered.
-     * @param {TreeTableColumnReorderEvent} event - custom column reorder.
+     * @param {TreeTableColumnReorderEvent} event - Custom column reorder.
      * @group Emits
      */
     @Output() onColReorder: EventEmitter<TreeTableColumnReorderEvent> = new EventEmitter<TreeTableColumnReorderEvent>();
     /**
      * Callback to invoke when a node is selected.
-     * @param {TreeTableNode} object - node instance.
+     * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
     @Output() onNodeSelect: EventEmitter<TreeTableNode> = new EventEmitter<TreeTableNode>();
     /**
      * Callback to invoke when a node is unselected.
-     * @param {TreeTableNodeUnSelectEvent} event - custom node unselect event.
+     * @param {TreeTableNodeUnSelectEvent} event - Custom node unselect event.
      * @group Emits
      */
     @Output() onNodeUnselect: EventEmitter<TreeTableNodeUnSelectEvent> = new EventEmitter<TreeTableNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is selected with right click.
-     * @param {TreeTableContextMenuSelectEvent} event - custom context menu select event.
+     * @param {TreeTableContextMenuSelectEvent} event - Custom context menu select event.
      * @group Emits
      */
     @Output() onContextMenuSelect: EventEmitter<TreeTableContextMenuSelectEvent> = new EventEmitter<TreeTableContextMenuSelectEvent>();
     /**
      * Callback to invoke when state of header checkbox changes.
-     * @param {TreeTableHeaderCheckboxToggleEvent} event - custom checkbox toggle event.
+     * @param {TreeTableHeaderCheckboxToggleEvent} event - Custom checkbox toggle event.
      * @group Emits
      */
     @Output() onHeaderCheckboxToggle: EventEmitter<TreeTableHeaderCheckboxToggleEvent> = new EventEmitter<TreeTableHeaderCheckboxToggleEvent>();
     /**
      * Callback to invoke when a cell switches to edit mode.
-     * @param {TreeTableEditEvent} event - custom edit event.
+     * @param {TreeTableEditEvent} event - Custom edit event.
      * @group Emits
      */
     @Output() onEditInit: EventEmitter<TreeTableEditEvent> = new EventEmitter<TreeTableEditEvent>();
     /**
      * Callback to invoke when cell edit is completed.
-     * @param {TreeTableEditEvent} event - custom edit event.
+     * @param {TreeTableEditEvent} event - Custom edit event.
      * @group Emits
      */
     @Output() onEditComplete: EventEmitter<TreeTableEditEvent> = new EventEmitter<TreeTableEditEvent>();
     /**
      * Callback to invoke when cell edit is cancelled with escape key.
-     * @param {TreeTableEditEvent} event - custom edit event.
+     * @param {TreeTableEditEvent} event - Custom edit event.
      * @group Emits
      */
     @Output() onEditCancel: EventEmitter<TreeTableEditEvent> = new EventEmitter<TreeTableEditEvent>();
@@ -1282,7 +1287,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * Resets scroll to top.
-     * @group Methods
+     * @group Method
      */
     public resetScrollTop() {
         if (this.virtualScroll) this.scrollToVirtualIndex(0);
@@ -1291,7 +1296,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     /**
      * Scrolls to given index when using virtual scroll.
      * @param {number} index - index of the element.
-     * @group Methods
+     * @group Method
      */
     public scrollToVirtualIndex(index: number) {
         if (this.scrollableViewChild) {
@@ -1304,8 +1309,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * Scrolls to given index.
-     * @param {ScrollToOptions} options - scroll options.
-     * @group Methods
+     * @param {ScrollToOptions} options - Scroll options.
+     * @group Method
      */
     public scrollTo(options: ScrollToOptions) {
         if (this.scrollableViewChild) {
@@ -2021,7 +2026,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
     /**
      * Clears the sort and paginator state.
-     * @group Methods
+     * @group Method
      */
     public reset() {
         this._sortField = null;

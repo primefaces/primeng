@@ -1,14 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import { Toast } from './toast';
-/**
- * Breakpoints of toast element.
- */
-export interface ToastBreakpoints {
-    /**
-     * Breakpoint for responsive mode.
-     */
-    [key: string]: any;
-}
 
 /**
  * Defines valid templates in Toast.
@@ -28,6 +19,7 @@ export interface ToastTemplates {
 /**
  * Custom close event.
  * @see {@link Toast.onClose}
+ * @group Events
  */
 export interface ToastCloseEvent {
     /**

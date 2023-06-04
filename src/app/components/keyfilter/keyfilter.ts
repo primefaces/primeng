@@ -99,7 +99,7 @@ export class KeyFilter implements Validator {
     }
     /**
      * Emits a value whenever the ngModel of the component changes.
-     * @param {(string|number)} modelValue - Custom model change event.
+     * @param {(string | number)} modelValue - Custom model change event.
      * @group Emits
      */
     @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();

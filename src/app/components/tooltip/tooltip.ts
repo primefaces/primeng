@@ -95,6 +95,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input('pTooltip') text: string | undefined;
     /**
      * When present, it specifies that the component should be disabled.
+     * @defaultValue false
      * @group Props
      */
     @Input('tooltipDisabled') get disabled(): boolean {

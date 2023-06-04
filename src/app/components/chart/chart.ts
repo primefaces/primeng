@@ -67,7 +67,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Callback to execute when an element on chart is clicked.
      * @group Emits
      */
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
 
     isBrowser: boolean = false;
 

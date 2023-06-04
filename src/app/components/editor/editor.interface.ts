@@ -4,6 +4,7 @@ import { Editor } from './editor';
 /**
  * Custom text change event.
  * @see {@link Editor.onTextChange}
+ * @group Events
  */
 export interface EditorTextChangeEvent {
     /**
@@ -26,6 +27,7 @@ export interface EditorTextChangeEvent {
 /**
  * Custom selection change event.
  * @see {@link Editor.onSelectionChange}
+ * @group Events
  */
 export interface EditorSelectionChangeEvent {
     /**
@@ -43,7 +45,8 @@ export interface EditorSelectionChangeEvent {
 }
 /**
  * Custom load event.
- * @see {@link EditorEmits.onInit}
+ * @see {@link Editor.onInit}
+ * @group Events
  */
 export interface EditorInitEvent {
     /**
@@ -59,5 +62,5 @@ export interface EditorTemplates {
     /**
      * Custom header template.
      */
-    header: TemplateRef<any>;
+    header(): TemplateRef<any>;
 }

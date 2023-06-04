@@ -92,13 +92,13 @@ export class Inplace implements AfterContentInit {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onActivate: EventEmitter<Event> = new EventEmitter();
+    @Output() onActivate: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when inplace is closed.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onDeactivate: EventEmitter<Event> = new EventEmitter();
+    @Output() onDeactivate: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -139,8 +139,8 @@ export class Inplace implements AfterContentInit {
     }
     /**
      * Activates the content.
-     * @param event
-     * @group Methods
+     * @param {Event} event - Browser event.
+     * @group Method
      */
     activate(event?: Event) {
         if (!this.disabled) {
@@ -151,8 +151,8 @@ export class Inplace implements AfterContentInit {
     }
     /**
      * Deactivates the content.
-     * @param event
-     * @group Methods
+     * @param {Event} event - Browser event.
+     * @group Method
      */
     deactivate(event?: Event) {
         if (!this.disabled) {

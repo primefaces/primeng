@@ -52,17 +52,17 @@ export class Splitter {
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
      * @group Props
      */
-    @Input() stateStorage: 'local' | 'session' | undefined = 'session';
+    @Input() stateStorage: string | undefined = 'session';
     /**
      * Storage identifier of a stateful Splitter.
      * @group Props
      */
     @Input() stateKey: string | undefined | null = null;
     /**
-     * Orientation of the panels.
+     * Orientation of the panels. Valid values are 'horizontal' and 'vertical'.
      * @group Props
      */
-    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    @Input() layout: string | undefined = 'horizontal';
     /**
      * Size of the divider in pixels.
      * @group Props

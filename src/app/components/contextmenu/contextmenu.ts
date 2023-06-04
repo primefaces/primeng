@@ -305,12 +305,12 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      * Displays the popup menu.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Hides the popup menu.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 

@@ -92,7 +92,7 @@ export class Dock implements AfterContentInit {
      */
     @Input() model: MenuItem[] | undefined | null = null;
     /**
-     * Position of element. Valid values are 'bottom', 'top', 'left' and 'right'.
+     * Position of element.
      * @group Props
      */
     @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
