@@ -27,7 +27,7 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 app.bootstrap({
     // typedoc options here
     name: 'PrimeNG',
-    entryPoints: [`src/app/components/table/`],
+    entryPoints: [`src/app/components/virtualscroller`],
     entryPointStrategy: 'expand',
     hideGenerator: true,
     excludeExternals: true,
@@ -70,21 +70,27 @@ function extractType(prop, arg) {
         let {comment, type} = prop;
     
         if(type.typeArguments) {
-            if(!type.typeArguments[0].types){
-                return type.typeArguments.map(el => ( {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')}));
-            }
-    
-            if(type.typeArguments[0].types) {
-                return type.typeArguments[0].types.map(el => {
-                    if(el.type && el.type === 'array') {
-                        return {name: 'value', type: el.elementType.name + '[]'}
-                    } else {
-                        return {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')};
-                    }
-                })
+            if(type.toString()) {
+                return type.toString().replace(/^.*?<([^>]*)>.*$/, '$1');
+
+            }else {
+                if(!type.typeArguments[0].types && !type.typeArguments[0].type){
+                    return type.typeArguments.map(el => ( {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')}));
+                }
+        
+                if(type.typeArguments[0].types) {
+                    return type.typeArguments[0].types.map(el => {
+                        if(el.type && el.type === 'array') {
+                            return {name: 'value', type: el.elementType.name + '[]'}
+                        } else {
+                            return {name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '')};
+                        }
+                    })
+                } 
             }
         }
     }
+
     if(arg === 'props'){
         let {type} = prop;
         let typeStr = '';
@@ -125,9 +131,8 @@ function extractType(prop, arg) {
     }
 }
 
-function extractMethod(method) {
-    console.log()
-}
+function extractMethod(method) {}
+
 if (project) {
     let doc = {};
 
@@ -142,15 +147,13 @@ if (project) {
             description: '',
             components: {},
         };
-        
-        const description = comment && comment.summary.map((s) => s.text || '').join(' ');
 
         const props_group = extractGroup(children, 'Props');
         const emits_group = extractGroup(children, 'Emits');
         const templates_group = name.includes('interface') ? extractGroup(project.children, 'Templates') : undefined;
         const methods_group = extractGroup(children, 'Method');
         const types_group = extractGroup(children, 'Types');
-        const events_group = name.includes('interface') ? extractGroup(project.children, 'Events') : undefined;
+        const events_group = name.includes('interface') ? extractGroup(project.children, 'Events')  : undefined;
         const components_group = (!name.includes('interface') && !name.includes('Module')) ? extractGroup(project.children, 'Components') : undefined;
         if(components_group) {
             components_group.forEach((component) => {
