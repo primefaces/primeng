@@ -154,7 +154,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     /**
      * Defines the left offset of dialog.
      * @group Props
-     * @deprecated
+     * @deprecated positionLeft property is deprecated.
      */
     @Input() get positionLeft(): number {
         return 0;
@@ -165,7 +165,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     /**
      * Defines the top offset of dialog.
      * @group Props
-     * @deprecated
+     * @deprecated positionTop property is deprecated.
      */
     @Input() get positionTop(): number {
         return 0;
@@ -209,9 +209,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() closable: boolean = true;
     /**
-     * @deprecated
      * Defines if the component is responsive.
      * @group Props
+     * @deprecated Responsive property is deprecated.
      */
     @Input() get responsive(): boolean {
         return false;
