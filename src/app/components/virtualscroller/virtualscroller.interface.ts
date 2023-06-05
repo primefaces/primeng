@@ -60,9 +60,9 @@ export interface VirtualScrollerTemplates {
     /**
      * Custom header template.
      */
-    header: TemplateRef<any>;
+    header(): TemplateRef<any>;
     /**
      * Custom header template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
 }
