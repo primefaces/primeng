@@ -9,7 +9,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
         <button type="text" (click)="op1.toggle($event)"></button>
         <button type="text" (click)="op1.toggle($event)"></button>
         <p-overlayPanel #op1>
-            <img src="assets/showcase/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
+            <img src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria1.jpg" alt="Galleria 1" />
         </p-overlayPanel>
         <a (click)="outSideClick()" class="outside-anchor"></a>
     `

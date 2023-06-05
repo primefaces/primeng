@@ -33,7 +33,11 @@
     position: relative;
 }
 
-.p-contextmenu .p-menuitem-link .p-submenu-icon {
+.p-contextmenu .p-menuitem-link .p-submenu-icon:not(svg) {
+    margin-left: auto;
+}
+
+.p-contextmenu .p-menuitem-link .p-icon-wrapper {
     margin-left: auto;
 }
 

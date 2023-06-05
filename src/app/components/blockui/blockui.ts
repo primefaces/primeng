@@ -1,8 +1,8 @@
-import { NgModule, Component, Input, AfterViewInit, OnDestroy, ElementRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, ContentChildren, QueryList, TemplateRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-blockUI',
@@ -20,26 +20,31 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class BlockUI implements AfterViewInit, OnDestroy {
+    /**
+     * Name of the local ng-template variable referring to another component.
+     * Default - document
+     * @group Props
+     */
     @Input() target: any;
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
-    @Input() styleClass: string;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @ViewChild('mask') mask: ElementRef;
-
-    _blocked: boolean;
-
-    animationEndListener: any;
-
-    contentTemplate: TemplateRef<any>;
-
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Current blocked state as a boolean.
+     * @group Props
+     */
     @Input() get blocked(): boolean {
         return this._blocked;
     }
@@ -53,6 +58,18 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         }
     }
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    @ViewChild('mask') mask: ElementRef | undefined;
+
+    _blocked: boolean = false;
+
+    animationEndListener: VoidFunction | null | undefined;
+
+    contentTemplate: TemplateRef<any> | undefined;
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
+
     ngAfterViewInit() {
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
@@ -60,7 +77,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -77,21 +94,20 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         this._blocked = true;
 
         if (this.target) {
-            this.target.getBlockableElement().appendChild(this.mask.nativeElement);
+            this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
             this.target.getBlockableElement().style.position = 'relative';
         } else {
-            document.body.appendChild(this.mask.nativeElement);
+            this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
         }
 
         if (this.autoZIndex) {
-            ZIndexUtils.set('modal', this.mask.nativeElement, this.baseZIndex + this.config.zIndex.modal);
+            ZIndexUtils.set('modal', (this.mask as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
         }
     }
 
     unblock() {
-        this.animationEndListener = this.destroyModal.bind(this);
         if (this.mask) {
-            this.mask.nativeElement.addEventListener('animationend', this.animationEndListener);
+            this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
     }
@@ -101,7 +117,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
         if (this.mask) {
             DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             ZIndexUtils.clear(this.mask.nativeElement);
-            this.el.nativeElement.appendChild(this.mask.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.mask.nativeElement);
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
@@ -109,7 +125,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     unbindAnimationEndListener() {
         if (this.animationEndListener && this.mask) {
-            this.mask.nativeElement.removeEventListener('animationend', this.animationEndListener);
+            this.animationEndListener();
             this.animationEndListener = null;
         }
     }

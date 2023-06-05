@@ -10,12 +10,15 @@ import { DomHandler } from 'primeng/dom';
 })
 export class AutoFocus {
     constructor(private host: ElementRef) {}
-
-    @Input() autofocus: boolean;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input() autofocus: boolean | undefined;
 
     focused: boolean = false;
 
-    ngAfterViewChecked() {
+    ngAfterContentChecked() {
         if (!this.focused) {
             if (this.autofocus) {
                 const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);

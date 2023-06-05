@@ -34,7 +34,11 @@
     position: relative;
 }
 
-.p-tieredmenu .p-menuitem-link .p-submenu-icon {
+.p-tieredmenu .p-menuitem-link .p-submenu-icon:not(svg) {
+    margin-left: auto;
+}
+
+.p-tieredmenu .p-menuitem-link .p-icon-wrapper {
     margin-left: auto;
 }
 

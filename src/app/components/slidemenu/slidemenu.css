@@ -46,8 +46,13 @@
     position: relative;
 }
 
-.p-slidemenu .p-menuitem-link .p-submenu-icon {
+.p-slidemenu .p-menuitem-link .p-submenu-icon:not(svg) {
     margin-left: auto;
+}
+
+.p-slidemenu .p-menuitem-link .p-icon-wrapper {
+    margin-left: auto;
+    vertical-align: middle;
 }
 
 .p-slidemenu .p-slidemenu-wrapper {

@@ -1,7 +1,8 @@
-import { NgModule, Directive, AfterViewInit, ElementRef, NgZone, OnDestroy, Optional } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestroy, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { VoidListener } from 'primeng/ts-helpers';
 
 @Directive({
     selector: '[pRipple]',
@@ -10,28 +11,28 @@ import { PrimeNGConfig } from 'primeng/api';
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-    constructor(public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
 
-    animationListener: any;
+    animationListener: VoidListener;
 
-    mouseDownListener: any;
+    mouseDownListener: VoidListener;
 
     timeout: any;
 
     ngAfterViewInit() {
-        if (this.config && this.config.ripple) {
-            this.zone.runOutsideAngular(() => {
-                this.create();
-
-                this.mouseDownListener = this.onMouseDown.bind(this);
-                this.el.nativeElement.addEventListener('mousedown', this.mouseDownListener);
-            });
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.config && this.config.ripple) {
+                this.zone.runOutsideAngular(() => {
+                    this.create();
+                    this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+                });
+            }
         }
     }
 
     onMouseDown(event: MouseEvent) {
         let ink = this.getInk();
-        if (!ink || getComputedStyle(ink, null).display === 'none') {
+        if (!ink || this.document.defaultView?.getComputedStyle(ink, null).display === 'none') {
             return;
         }
 
@@ -43,11 +44,11 @@ export class Ripple implements AfterViewInit, OnDestroy {
         }
 
         let offset = DomHandler.getOffset(this.el.nativeElement);
-        let x = event.pageX - offset.left + document.body.scrollTop - DomHandler.getWidth(ink) / 2;
-        let y = event.pageY - offset.top + document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
+        let x = event.pageX - offset.left + this.document.body.scrollTop - DomHandler.getWidth(ink) / 2;
+        let y = event.pageY - offset.top + this.document.body.scrollLeft - DomHandler.getHeight(ink) / 2;
 
-        ink.style.top = y + 'px';
-        ink.style.left = x + 'px';
+        this.renderer.setStyle(ink, 'top', y + 'px');
+        this.renderer.setStyle(ink, 'left', x + 'px');
         DomHandler.addClass(ink, 'p-ink-active');
 
         this.timeout = setTimeout(() => {
@@ -83,19 +84,23 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     create() {
-        let ink = document.createElement('span');
-        ink.className = 'p-ink';
-        this.el.nativeElement.appendChild(ink);
+        let ink = this.renderer.createElement('span');
+        this.renderer.addClass(ink, 'p-ink');
+        this.renderer.appendChild(this.el.nativeElement, ink);
 
-        this.animationListener = this.onAnimationEnd.bind(this);
-        ink.addEventListener('animationend', this.animationListener);
+        if (!this.animationListener) {
+            this.animationListener = this.renderer.listen(ink, 'animationend', this.onAnimationEnd.bind(this));
+        }
     }
 
     remove() {
         let ink = this.getInk();
         if (ink) {
-            this.el.nativeElement.removeEventListener('mousedown', this.mouseDownListener);
-            ink.removeEventListener('animationend', this.animationListener);
+            this.mouseDownListener && this.mouseDownListener();
+            this.animationListener && this.animationListener();
+            this.mouseDownListener = null;
+            this.animationListener = null;
+
             DomHandler.removeElement(ink);
         }
     }

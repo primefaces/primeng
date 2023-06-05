@@ -1,5 +1,9 @@
-import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { CheckIcon } from 'primeng/icons/check';
+import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
     selector: 'p-message',
@@ -7,7 +11,6 @@ import { CommonModule } from '@angular/common';
         <div
             aria-live="polite"
             class="p-inline-message p-component p-inline-message"
-            *ngIf="severity"
             [ngStyle]="style"
             [class]="styleClass"
             [ngClass]="{
@@ -18,7 +21,10 @@ import { CommonModule } from '@angular/common';
                 'p-inline-message-icon-only': this.text == null
             }"
         >
-            <span class="p-inline-message-icon" [ngClass]="icon"></span>
+            <CheckIcon *ngIf="icon === 'success'" [styleClass]="'p-inline-message-icon'" />
+            <InfoCircleIcon *ngIf="icon === 'info'" [styleClass]="'p-inline-message-icon'" />
+            <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'" />
+            <ExclamationTriangleIcon *ngIf="icon === 'warn'" [styleClass]="'p-inline-message-icon'" />
             <div *ngIf="!escape; else escapeOut">
                 <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
             </div>
@@ -35,49 +41,43 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class UIMessage {
-    @Input() severity: string;
-
-    @Input() text: string;
-
+    /**
+     * Severity level of the message.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warn' | 'error' | string | undefined;
+    /**
+     * Text content.
+     * @group Props
+     */
+    @Input() text: string | undefined;
+    /**
+     * Whether displaying messages would be escaped or not.
+     * @group Props
+     */
     @Input() escape: boolean = true;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    get icon(): string {
-        let icon: string = null;
-
-        if (this.severity) {
-            switch (this.severity) {
-                case 'success':
-                    icon = 'pi pi-check';
-                    break;
-
-                case 'info':
-                    icon = 'pi pi-info-circle';
-                    break;
-
-                case 'error':
-                    icon = 'pi pi-times-circle';
-                    break;
-
-                case 'warn':
-                    icon = 'pi pi-exclamation-triangle';
-                    break;
-
-                default:
-                    icon = 'pi pi-info-circle';
-                    break;
-            }
+    get icon() {
+        if (this.severity && this.severity.trim()) {
+            return this.severity;
+        } else {
+            return 'info';
         }
-
-        return icon;
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon],
     exports: [UIMessage],
     declarations: [UIMessage]
 })

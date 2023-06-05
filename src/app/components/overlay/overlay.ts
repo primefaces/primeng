@@ -1,5 +1,5 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -14,6 +14,7 @@ import {
     NgZone,
     OnDestroy,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -21,9 +22,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayModeType, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { VoidListener } from 'primeng/ts-helpers';
 
 export const OVERLAY_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -88,6 +90,10 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     }
 })
 export class Overlay implements AfterContentInit, OnDestroy {
+    /**
+     * The visible property is an input that determines the visibility of the component.
+     * @group Props
+     */
     @Input() get visible(): boolean {
         return this._visible;
     }
@@ -98,42 +104,60 @@ export class Overlay implements AfterContentInit, OnDestroy {
             this.modalVisible = true;
         }
     }
-
+    /**
+     * The mode property is an input that determines the overlay mode type or string.
+     * @group Props
+     */
     @Input() get mode(): OverlayModeType | string {
         return this._mode || this.overlayOptions?.mode;
     }
     set mode(value: OverlayModeType | string) {
         this._mode = value;
     }
-
+    /**
+     * The style property is an input that determines the style object for the component.
+     * @group Props
+     */
     @Input() get style(): any {
         return ObjectUtils.merge(this._style, this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
     }
     set style(value: any) {
         this._style = value;
     }
-
+    /**
+     * The styleClass property is an input that determines the CSS class(es) for the component.
+     * @group Props
+     */
     @Input() get styleClass(): string {
         return ObjectUtils.merge(this._styleClass, this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
     }
     set styleClass(value: string) {
         this._styleClass = value;
     }
-
+    /**
+     * The contentStyle property is an input that determines the style object for the content of the component.
+     * @group Props
+     */
     @Input() get contentStyle(): any {
         return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
     }
     set contentStyle(value: any) {
         this._contentStyle = value;
     }
-
+    /**
+     * The contentStyleClass property is an input that determines the CSS class(es) for the content of the component.
+     * @group Props
+     */
     @Input() get contentStyleClass(): string {
         return ObjectUtils.merge(this._contentStyleClass, this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
     }
     set contentStyleClass(value: string) {
         this._contentStyleClass = value;
     }
-
+    /**
+     * The target property is an input that specifies the target element or selector for the component.
+     * @group Props
+     */
     @Input() get target(): any {
         const value = this._target || this.overlayOptions?.target;
         return value === undefined ? '@prev' : value;
@@ -141,14 +165,20 @@ export class Overlay implements AfterContentInit, OnDestroy {
     set target(value: any) {
         this._target = value;
     }
-
+    /**
+     * Overlay can be mounted into its location, body or DOM element instance using this option.
+     * @group Props
+     */
     @Input() get appendTo(): any {
         return this._appendTo || this.overlayOptions?.appendTo;
     }
     set appendTo(value: any) {
         this._appendTo = value;
     }
-
+    /**
+     * The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
+     * @group Props
+     */
     @Input() get autoZIndex(): boolean {
         const value = this._autoZIndex || this.overlayOptions?.autoZIndex;
         return value === undefined ? true : value;
@@ -156,7 +186,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
     set autoZIndex(value: boolean) {
         this._autoZIndex = value;
     }
-
+    /**
+     * The baseZIndex is base zIndex value to use in layering. Its default value is 0.
+     * @group Props
+     */
     @Input() get baseZIndex(): number {
         const value = this._baseZIndex || this.overlayOptions?.baseZIndex;
         return value === undefined ? 0 : value;
@@ -164,7 +197,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
     set baseZIndex(value: number) {
         this._baseZIndex = value;
     }
-
+    /**
+     * Transition options of the show or hide animation. The default value of showTransitionOptions is '.12s cubic-bezier(0, 0, 0.2, 1)' and the default value of hideTransitionOptions is '.1s linear'.
+     * @group Props
+     */
     @Input() get showTransitionOptions(): string {
         const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
         return value === undefined ? '.12s cubic-bezier(0, 0, 0.2, 1)' : value;
@@ -172,7 +208,10 @@ export class Overlay implements AfterContentInit, OnDestroy {
     set showTransitionOptions(value: string) {
         this._showTransitionOptions = value;
     }
-
+    /**
+     * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
+     * @group Props
+     */
     @Input() get hideTransitionOptions(): string {
         const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
         return value === undefined ? '.1s linear' : value;
@@ -180,41 +219,78 @@ export class Overlay implements AfterContentInit, OnDestroy {
     set hideTransitionOptions(value: string) {
         this._hideTransitionOptions = value;
     }
-
+    /**
+     * The listener property is an input that specifies the listener object for the component.
+     * @group Props
+     */
     @Input() get listener(): any {
         return this._listener || this.overlayOptions?.listener;
     }
     set listener(value: any) {
         this._listener = value;
     }
-
+    /**
+     * It is the option used to determine in which mode it should appear according to the given media or breakpoint.
+     * @group Props
+     */
     @Input() get responsive(): ResponsiveOverlayOptions | undefined {
         return this._responsive || this.overlayOptions?.responsive;
     }
     set responsive(val: ResponsiveOverlayOptions | undefined) {
         this._responsive = val;
     }
-
+    /**
+     * The options property is an input that specifies the overlay options for the component.
+     * @group Props
+     */
     @Input() get options(): OverlayOptions | undefined {
         return this._options;
     }
     set options(val: OverlayOptions | undefined) {
         this._options = val;
     }
-
-    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAnimationDone: EventEmitter<any> = new EventEmitter();
+    /**
+     * This EventEmitter is used to notify changes in the visibility state of a component.
+     * @param {Boolean} boolean - Value of visibility as boolean.
+     * @group Emits
+     */
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Callback to invoke before the overlay is shown.
+     * @param {OverlayOnBeforeShowEvent} event - Custom overlay before show event.
+     * @group Emits
+     */
+    @Output() onBeforeShow: EventEmitter<OverlayOnBeforeShowEvent> = new EventEmitter<OverlayOnBeforeShowEvent>();
+    /**
+     * Callback to invoke when the overlay is shown.
+     * @param {OverlayOnShowEvent} event - Custom overlay show event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<OverlayOnShowEvent> = new EventEmitter<OverlayOnShowEvent>();
+    /**
+     * Callback to invoke before the overlay is hidden.
+     * @param {OverlayOnBeforeHideEvent} event - Custom overlay before hide event.
+     * @group Emits
+     */
+    @Output() onBeforeHide: EventEmitter<OverlayOnBeforeHideEvent> = new EventEmitter<OverlayOnBeforeHideEvent>();
+    /**
+     * Callback to invoke when the overlay is hidden
+     * @param {OverlayOnHideEvent} event - Custom hide event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<OverlayOnHideEvent> = new EventEmitter<OverlayOnHideEvent>();
+    /**
+     * Callback to invoke when the animation is started.
+     * @param {AnimationEvent} event - Animation event.
+     * @group Emits
+     */
+    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    /**
+     * Callback to invoke when the animation is done.
+     * @param {AnimationEvent} event - Animation event.
+     * @group Emits
+     */
+    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
 
@@ -266,7 +342,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     documentResizeListener: any;
 
-    private documentKeyboardListener: VoidFunction | null;
+    private documentKeyboardListener: VoidListener;
 
     private window: Window | null;
 
@@ -288,7 +364,9 @@ export class Overlay implements AfterContentInit, OnDestroy {
     };
 
     get modal() {
-        return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+        if (isPlatformBrowser(this.platformId)) {
+            return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+        }
     }
 
     get overlayMode() {
@@ -319,7 +397,15 @@ export class Overlay implements AfterContentInit, OnDestroy {
         return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private config: PrimeNGConfig,
+        public overlayService: OverlayService,
+        private zone: NgZone
+    ) {
         this.window = this.document.defaultView;
     }
 
@@ -365,7 +451,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.visibleChange.emit(visible);
     }
 
-    onOverlayClick(event) {
+    onOverlayClick() {
         this.isOverlayClicked = true;
     }
 

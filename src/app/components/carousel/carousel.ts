@@ -1,28 +1,34 @@
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-    Component,
-    Input,
-    ElementRef,
-    ViewChild,
     AfterContentInit,
-    TemplateRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
     ContentChildren,
-    QueryList,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
     NgModule,
     NgZone,
-    EventEmitter,
     Output,
-    ContentChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    SimpleChanges,
+    PLATFORM_ID,
+    QueryList,
     Renderer2,
-    Inject
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
+import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
-import { CommonModule, DOCUMENT } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
+import { CarouselResponsiveOptions } from './carousel.interface';
 
 @Component({
     selector: 'p-carousel',
@@ -35,7 +41,13 @@ import { UniqueComponentId } from 'primeng/utils';
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
                 <div class="p-carousel-container">
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical() }"></span>
+                        <ng-container *ngIf="!previousIconTemplate">
+                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
+                        </ng-container>
+                        <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                        </span>
                     </button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -70,7 +82,13 @@ import { UniqueComponentId } from 'primeng/utils';
                         </div>
                     </div>
                     <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical() }"></span>
+                        <ng-container *ngIf="!nextIconTemplate">
+                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
+                        </ng-container>
+                        <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                        </span>
                     </button>
                 </div>
                 <ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators">
@@ -93,6 +111,10 @@ import { UniqueComponentId } from 'primeng/utils';
     }
 })
 export class Carousel implements AfterContentInit {
+    /**
+     * Index of the first item.
+     * @group Props
+     */
     @Input() get page(): number {
         return this._page;
     }
@@ -112,65 +134,121 @@ export class Carousel implements AfterContentInit {
 
         this._page = val;
     }
-
+    /**
+     * Number of items per page.
+     * @group Props
+     */
     @Input() get numVisible(): number {
         return this._numVisible;
     }
     set numVisible(val: number) {
         this._numVisible = val;
     }
-
+    /**
+     * Number of items to scroll.
+     * @group Props
+     */
     @Input() get numScroll(): number {
         return this._numVisible;
     }
     set numScroll(val: number) {
         this._numScroll = val;
     }
-
-    @Input() responsiveOptions: any[];
-
+    /**
+     * An array of options for responsive design.
+     * @see CarouselResponsiveOptions
+     * @group Props
+     */
+    @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
+    /**
+     * Specifies the layout of the component, valid values are 'horizontal' and 'vertical'.
+     * @group Props
+     */
     @Input() orientation = 'horizontal';
-
+    /**
+     * Height of the viewport in vertical layout.
+     * @group Props
+     */
     @Input() verticalViewPortHeight = '300px';
-
+    /**
+     * Style class of main content.
+     * @group Props
+     */
     @Input() contentClass: string = '';
-
+    /**
+     * Style class of the indicator items.
+     * @group Props
+     */
     @Input() indicatorsContentClass: string = '';
-
-    @Input() indicatorsContentStyle: any;
-
+    /**
+     * Inline style of the indicator items.
+     * @group Props
+     */
+    @Input() indicatorsContentStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the indicators.
+     * @group Props
+     */
     @Input() indicatorStyleClass: string = '';
-
-    @Input() indicatorStyle: any;
-
+    /**
+     * Style of the indicators.
+     * @group Props
+     */
+    @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * An array of objects to display.
+     * @group Props
+     */
     @Input() get value(): any[] {
-        return this._value;
+        return this._value as any[];
     }
     set value(val) {
         this._value = val;
     }
-
+    /**
+     * Defines if scrolling would be infinite.
+     * @group Props
+     */
     @Input() circular: boolean = false;
-
+    /**
+     * Whether to display indicator container.
+     * @group Props
+     */
     @Input() showIndicators: boolean = true;
-
+    /**
+     * Whether to display navigation buttons in container.
+     * @group Props
+     */
     @Input() showNavigators: boolean = true;
-
+    /**
+     * Time in milliseconds to scroll items automatically.
+     * @group Props
+     */
     @Input() autoplayInterval: number = 0;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the viewport container.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Callback to invoke after scroll.
+     * @param {Object} event - custom page event.
+     * @group Emits
+     */
+    @Output() onPage: EventEmitter<{ page: number }> = new EventEmitter();
 
-    @Input() style: any;
+    @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
-    @Input() styleClass: string;
+    @ContentChild(Header) headerFacet: QueryList<Header> | undefined;
 
-    @Output() onPage: EventEmitter<any> = new EventEmitter();
+    @ContentChild(Footer) footerFacet: QueryList<Footer> | undefined;
 
-    @ViewChild('itemsContainer') itemsContainer: ElementRef;
-
-    @ContentChild(Header) headerFacet;
-
-    @ContentChild(Footer) footerFacet;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _numVisible: number = 1;
 
@@ -190,11 +268,11 @@ export class Carousel implements AfterContentInit {
 
     _page: number = 0;
 
-    _value: any[];
+    _value: any[] | null | undefined;
 
     carouselStyle: any;
 
-    id: string;
+    id: string | undefined;
 
     totalShiftedItems;
 
@@ -206,32 +284,39 @@ export class Carousel implements AfterContentInit {
 
     remainingItems: number = 0;
 
-    _items: any[];
+    _items: any[] | undefined;
 
     startPos: any;
 
     documentResizeListener: any;
 
-    clonedItemsForStarting: any[];
+    clonedItemsForStarting: any[] | undefined;
 
-    clonedItemsForFinishing: any[];
+    clonedItemsForFinishing: any[] | undefined;
 
-    allowAutoplay: boolean;
+    allowAutoplay: boolean | undefined;
 
     interval: any;
 
-    isCreated: boolean;
+    isCreated: boolean | undefined;
 
     swipeThreshold: number = 20;
 
-    itemTemplate: TemplateRef<any>;
+    itemTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: TemplateRef<any> | undefined;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+    previousIconTemplate: TemplateRef<any> | undefined;
+
+    nextIconTemplate: TemplateRef<any> | undefined;
+
+    window: Window;
+
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
+        this.window = this.document.defaultView as Window;
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -283,7 +368,7 @@ export class Carousel implements AfterContentInit {
             this.bindDocumentListeners();
         }
 
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -295,6 +380,14 @@ export class Carousel implements AfterContentInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
                     break;
 
                 default:
@@ -343,7 +436,7 @@ export class Carousel implements AfterContentInit {
             this._oldNumScroll = this._numScroll;
             this.prevState.numScroll = this._numScroll;
             this.prevState.numVisible = this._numVisible;
-            this.prevState.value = [...this._value];
+            this.prevState.value = [...(this._value as any[])];
 
             if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
                 this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
@@ -512,7 +605,7 @@ export class Carousel implements AfterContentInit {
         return !this.value || this.value.length === 0;
     }
 
-    navForward(e, index?) {
+    navForward(e: MouseEvent | TouchEvent, index?: number) {
         if (this.isCircular() || this._page < this.totalDots() - 1) {
             this.step(-1, index);
         }
@@ -527,7 +620,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    navBackward(e, index?) {
+    navBackward(e: MouseEvent | TouchEvent, index?: number) {
         if (this.isCircular() || this._page !== 0) {
             this.step(1, index);
         }
@@ -542,7 +635,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    onDotClick(e, index) {
+    onDotClick(e: MouseEvent, index: number) {
         let page = this._page;
 
         if (this.autoplayInterval) {
@@ -557,7 +650,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    step(dir, page) {
+    step(dir: number, page?: number) {
         let totalShiftedItems = this.totalShiftedItems;
         const isCircular = this.isCircular();
 
@@ -631,7 +724,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    onTouchStart(e) {
+    onTouchStart(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
         this.startPos = {
@@ -640,12 +733,12 @@ export class Carousel implements AfterContentInit {
         };
     }
 
-    onTouchMove(e) {
+    onTouchMove(e: TouchEvent | MouseEvent) {
         if (e.cancelable) {
             e.preventDefault();
         }
     }
-    onTouchEnd(e) {
+    onTouchEnd(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
         if (this.isVertical()) {
@@ -655,7 +748,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    changePageOnTouch(e, diff) {
+    changePageOnTouch(e: TouchEvent | MouseEvent, diff: number) {
         if (Math.abs(diff) > this.swipeThreshold) {
             if (diff < 0) {
                 this.navForward(e);
@@ -666,19 +759,21 @@ export class Carousel implements AfterContentInit {
     }
 
     bindDocumentListeners() {
-        if (!this.documentResizeListener && typeof window !== 'undefined') {
-            this.documentResizeListener = (e) => {
-                this.calculatePosition();
-            };
-
-            window.addEventListener('resize', this.documentResizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentResizeListener) {
+                this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+                    this.calculatePosition();
+                });
+            }
         }
     }
 
     unbindDocumentListeners() {
-        if (this.documentResizeListener && typeof window !== 'undefined') {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.documentResizeListener) {
+                this.documentResizeListener();
+                this.documentResizeListener = null;
+            }
         }
     }
 
@@ -693,7 +788,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

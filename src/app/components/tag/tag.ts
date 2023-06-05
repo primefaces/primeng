@@ -1,12 +1,18 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'p-tag',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-            <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            <ng-container *ngIf="!iconTemplate">
+                <span class="p-tag-icon" [ngClass]="icon" *ngIf="icon"></span>
+            </ng-container>
+            <span class="p-tag-icon" *ngIf="iconTemplate">
+                <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+            </span>
             <span class="p-tag-value">{{ value }}</span>
         </span>
     `,
@@ -18,17 +24,51 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class Tag {
-    @Input() styleClass: string;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Severity type of the tag.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | string | undefined;
+    /**
+     * Value to display inside the tag.
+     * @group Props
+     */
+    @Input() value: string | undefined;
+    /**
+     * Icon of the tag to display next to the value.
+     * @deprecated since 15.4.2. Use 'icon' template.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Whether the corners of the tag are rounded.
+     * @group Props
+     */
+    @Input() rounded: boolean | undefined;
 
-    @Input() style: any;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() severity: string;
+    iconTemplate: TemplateRef<any> | undefined;
 
-    @Input() value: string;
-
-    @Input() icon: string;
-
-    @Input() rounded: boolean;
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     containerClass() {
         return {
@@ -43,8 +83,8 @@ export class Tag {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Tag],
+    imports: [CommonModule, SharedModule],
+    exports: [Tag, SharedModule],
     declarations: [Tag]
 })
 export class TagModule {}

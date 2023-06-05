@@ -1,8 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { TimesIcon } from 'primeng/icons/times';
+import { Nullable } from 'primeng/ts-helpers';
+import { ChipsAddEvent, ChipsRemoveEvent, ChipsClickEvent } from './chips.interface';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -18,7 +22,12 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 <li #token *ngFor="let item of value; let i = index" class="p-chips-token" (click)="onItemClick($event, item)">
                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                     <span *ngIf="!itemTemplate" class="p-chips-token-label">{{ field ? resolveFieldData(item, field) : item }}</span>
-                    <span *ngIf="!disabled" class="p-chips-token-icon pi pi-times-circle" (click)="removeItem($event, i)"></span>
+                    <ng-container *ngIf="!disabled">
+                        <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" />
+                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)">
+                            <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
                 </li>
                 <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }">
                     <input
@@ -39,7 +48,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
-                    <i class="p-chips-clear-icon pi pi-times" (click)="clear()"></i>
+                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()" />
+                    <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
+                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -56,55 +68,131 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     styleUrls: ['./chips.css']
 })
 export class Chips implements AfterContentInit, ControlValueAccessor {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() disabled: boolean;
-
-    @Input() field: string;
-
-    @Input() placeholder: string;
-
-    @Input() max: number;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() tabindex: number;
-
-    @Input() inputId: string;
-
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Name of the property to display on a chip.
+     * @group Props
+     */
+    @Input() field: string | undefined;
+    /**
+     * Advisory information to display on input.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * Maximum number of entries allowed.
+     * @group Props
+     */
+    @Input() max: number | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Whether to allow duplicate values or not.
+     * @group Props
+     */
     @Input() allowDuplicate: boolean = true;
-
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
     @Input() inputStyle: any;
-
+    /**
+     * Style class of the input field.
+     * @group Props
+     */
     @Input() inputStyleClass: any;
-
-    @Input() addOnTab: boolean;
-
-    @Input() addOnBlur: boolean;
-
-    @Input() separator: string;
-
+    /**
+     * Whether to add an item on tab key press.
+     * @group Props
+     */
+    @Input() addOnTab: boolean | undefined;
+    /**
+     * Whether to add an item when the input loses focus.
+     * @group Props
+     */
+    @Input() addOnBlur: boolean | undefined;
+    /**
+     * Separator char to add an item when pressed in addition to the enter key.
+     * @group Props
+     */
+    @Input() separator: string | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
-    @Output() onAdd: EventEmitter<any> = new EventEmitter();
-
-    @Output() onRemove: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onChipClick: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Callback to invoke on chip add.
+     * @param {ChipsAddEvent} event - Custom event.
+     * @group Emits
+     */
+    @Output() onAdd: EventEmitter<ChipsAddEvent> = new EventEmitter<ChipsAddEvent>();
+    /**
+     * Callback to invoke on chip remove.
+     * @param {ChipsRemoveEvent} event - Custom event.
+     * @group Emits
+     */
+    @Output() onRemove: EventEmitter<ChipsRemoveEvent> = new EventEmitter<ChipsRemoveEvent>();
+    /**
+     * Callback to invoke on focus of input field.
+     * @param {Event} event - Focus event
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on blur of input field.
+     * @param {Event} event - Blur event
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on chip clicked.
+     * @param {ChipsClickEvent} event - Custom event
+     * @group Emits
+     */
+    @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>();
+    /**
+     * Callback to invoke on clear token clicked.
+     * @group Emits
+     */
     @Output() onClear: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('inputtext') inputViewChild: ElementRef;
+    @ViewChild('inputtext') inputViewChild!: ElementRef;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<any>;
 
-    public itemTemplate: TemplateRef<any>;
+    public itemTemplate: Nullable<TemplateRef<any>>;
+
+    removeTokenIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
     value: any;
 
@@ -112,19 +200,27 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     onModelTouched: Function = () => {};
 
-    valueChanged: boolean;
+    valueChanged: Nullable<boolean>;
 
-    focus: boolean;
+    focus: Nullable<boolean>;
 
-    filled: boolean;
+    filled: Nullable<boolean>;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
+                    break;
+
+                case 'removetokenicon':
+                    this.removeTokenIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
                     break;
 
                 default:
@@ -137,18 +233,18 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     }
 
     onClick() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild?.nativeElement.focus();
     }
 
     onInput() {
         this.updateFilledState();
     }
 
-    onPaste(event) {
+    onPaste(event: any) {
         if (!this.disabled) {
             if (this.separator) {
-                let pastedData = (event.clipboardData || window['clipboardData']).getData('Text');
-                pastedData.split(this.separator).forEach((val) => {
+                let pastedData = (event.clipboardData || (this.document.defaultView as any)['clipboardData']).getData('Text');
+                pastedData.split(this.separator).forEach((val: any) => {
                     this.addItem(event, val, true);
                 });
                 this.inputViewChild.nativeElement.value = '';
@@ -230,7 +326,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         }
 
         let removedItem = this.value[index];
-        this.value = this.value.filter((val, i) => i != index);
+        this.value = this.value.filter((val: any, i: number) => i != index);
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -326,7 +422,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, SharedModule],
+    imports: [CommonModule, InputTextModule, SharedModule, TimesCircleIcon, TimesIcon],
     exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })

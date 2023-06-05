@@ -5,7 +5,11 @@ import { SharedModule } from 'primeng/api';
 import { TreeNode } from 'primeng/api';
 import { PrimeTemplate } from 'primeng/api';
 import { Subject, Subscription } from 'rxjs';
-
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
+import { DomHandler } from 'primeng/dom';
+import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
+import { Nullable } from 'primeng/ts-helpers';
 @Component({
     selector: '[pOrganizationChartNode]',
     template: `
@@ -22,7 +26,13 @@ import { Subject, Subscription } from 'rxjs';
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </div>
                         <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)">
-                            <i class="p-node-toggler-icon pi" [ngClass]="{ 'pi-chevron-down': node.expanded, 'pi-chevron-up': !node.expanded }"></i>
+                            <ng-container *ngIf="!chart.togglerIconTemplate">
+                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" />
+                                <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" />
+                            </ng-container>
+                            <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{ display: 'inline' }">
+                                <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                            </span>
                         </a>
                     </div>
                 </td>
@@ -61,31 +71,35 @@ import { Subject, Subscription } from 'rxjs';
     }
 })
 export class OrganizationChartNode implements OnDestroy {
-    @Input() node: TreeNode;
+    @Input() node: TreeNode | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
-    @Input() first: boolean;
+    @Input() first: boolean | undefined;
 
-    @Input() last: boolean;
+    @Input() last: boolean | undefined;
 
     chart: OrganizationChart;
 
     subscription: Subscription;
 
-    constructor(@Inject(forwardRef(() => OrganizationChart)) chart, public cd: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart: OrganizationChart, public cd: ChangeDetectorRef) {
         this.chart = chart as OrganizationChart;
         this.subscription = this.chart.selectionSource$.subscribe(() => {
             this.cd.markForCheck();
         });
     }
 
-    get leaf(): boolean {
-        return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
+    get leaf(): boolean | undefined {
+        if (this.node) {
+            return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
+        }
     }
 
     get colspan() {
-        return this.node.children && this.node.children.length ? this.node.children.length * 2 : null;
+        if (this.node) {
+            return this.node.children && this.node.children.length ? this.node.children.length * 2 : null;
+        }
     }
 
     onNodeClick(event: Event, node: TreeNode) {
@@ -94,14 +108,14 @@ export class OrganizationChartNode implements OnDestroy {
 
     toggleNode(event: Event, node: TreeNode) {
         node.expanded = !node.expanded;
-        if (node.expanded) this.chart.onNodeExpand.emit({ originalEvent: event, node: this.node });
-        else this.chart.onNodeCollapse.emit({ originalEvent: event, node: this.node });
+        if (node.expanded) this.chart.onNodeExpand.emit({ originalEvent: event, node: <TreeNode>this.node });
+        else this.chart.onNodeCollapse.emit({ originalEvent: event, node: <TreeNode>this.node });
 
         event.preventDefault();
     }
 
     isSelected() {
-        return this.chart.isSelected(this.node);
+        return this.chart.isSelected(this.node as TreeNode);
     }
 
     ngOnDestroy() {
@@ -122,67 +136,111 @@ export class OrganizationChartNode implements OnDestroy {
     }
 })
 export class OrganizationChart implements AfterContentInit {
-    @Input() value: TreeNode[];
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() selectionMode: string;
-
+    /**
+     * An array of nested TreeNodes.
+     * @group Props
+     */
+    @Input() value: TreeNode[] | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Defines the selection mode.
+     * @group Props
+     */
+    @Input() selectionMode: 'single' | 'multiple' | null | undefined;
+    /**
+     * Whether the space allocated by a node is preserved when hidden.
+     * @group Props
+     */
     @Input() preserveSpace: boolean = true;
-
+    /**
+     * A single treenode instance or an array to refer to the selections.
+     * @group Props
+     */
     @Input() get selection(): any {
         return this._selection;
     }
-
     set selection(val: any) {
         this._selection = val;
 
         if (this.initialized) this.selectionSource.next(null);
     }
-
+    /**
+     * Callback to invoke on selection change.
+     * @param {*} any - selected value.
+     * @group Emits
+     */
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when a node is selected.
+     * @param {OrganizationChartNodeSelectEvent} event - custom node select event.
+     * @group Emits
+     */
+    @Output() onNodeSelect: EventEmitter<OrganizationChartNodeSelectEvent> = new EventEmitter<OrganizationChartNodeSelectEvent>();
+    /**
+     * Callback to invoke when a node is unselected.
+     * @param {OrganizationChartNodeUnSelectEvent} event - custom node unselect event.
+     * @group Emits
+     */
+    @Output() onNodeUnselect: EventEmitter<OrganizationChartNodeUnSelectEvent> = new EventEmitter<OrganizationChartNodeUnSelectEvent>();
+    /**
+     * Callback to invoke when a node is expanded.
+     * @param {OrganizationChartNodeExpandEvent} event - custom node expand event.
+     * @group Emits
+     */
+    @Output() onNodeExpand: EventEmitter<OrganizationChartNodeExpandEvent> = new EventEmitter<OrganizationChartNodeExpandEvent>();
+    /**
+     * Callback to invoke when a node is collapsed.
+     * @param {OrganizationChartNodeCollapseEvent} event - custom node collapse event.
+     * @group Emits
+     */
+    @Output() onNodeCollapse: EventEmitter<OrganizationChartNodeCollapseEvent> = new EventEmitter<OrganizationChartNodeCollapseEvent>();
 
-    @Output() onNodeSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeExpand: EventEmitter<any> = new EventEmitter();
-
-    @Output() onNodeCollapse: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     public templateMap: any;
+
+    togglerIconTemplate: Nullable<TemplateRef<any>>;
 
     private selectionSource = new Subject<any>();
 
     _selection: any;
 
-    initialized: boolean;
+    initialized: Nullable<boolean>;
 
     selectionSource$ = this.selectionSource.asObservable();
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    get root(): TreeNode {
+    get root(): TreeNode | null {
         return this.value && this.value.length ? this.value[0] : null;
     }
 
     ngAfterContentInit() {
-        if (this.templates.length) {
+        if ((this.templates as QueryList<PrimeTemplate>).length) {
             this.templateMap = {};
         }
 
-        this.templates.forEach((item) => {
-            this.templateMap[item.getType()] = item.template;
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            if (item.getType() === 'togglericon') {
+                this.togglerIconTemplate = item.template;
+            } else {
+                this.templateMap[item.getType()] = item.template;
+            }
         });
 
         this.initialized = true;
     }
 
-    getTemplateForNode(node: TreeNode): TemplateRef<any> {
+    getTemplateForNode(node: TreeNode): TemplateRef<any> | null {
         if (this.templateMap) return node.type ? this.templateMap[node.type] : this.templateMap['default'];
         else return null;
     }
@@ -190,7 +248,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (eventTarget.className.indexOf('p-node-toggler') !== -1 || eventTarget.className.indexOf('p-node-toggler-icon') !== -1)) {
+        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-node-toggler') || DomHandler.hasClass(eventTarget, 'p-node-toggler-icon'))) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -210,7 +268,7 @@ export class OrganizationChart implements AfterContentInit {
                 }
             } else if (this.selectionMode === 'multiple') {
                 if (selected) {
-                    this.selection = this.selection.filter((val, i) => i != index);
+                    this.selection = this.selection.filter((val: any, i: number) => i != index);
                     this.onNodeUnselect.emit({ originalEvent: event, node: node });
                 } else {
                     this.selection = [...(this.selection || []), node];
@@ -248,7 +306,7 @@ export class OrganizationChart implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule],
     exports: [OrganizationChart, SharedModule],
     declarations: [OrganizationChart, OrganizationChartNode]
 })

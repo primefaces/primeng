@@ -73,6 +73,6 @@
     display: none;
 }
 
-.p-tabmenuitem {
+.p-tabmenuitem:not(.p-hidden) {
     display: flex;
 }

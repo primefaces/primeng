@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -12,6 +12,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     Input,
     NgModule,
     NgZone,
@@ -20,7 +21,9 @@ import {
     Output,
     Pipe,
     PipeTransform,
+    PLATFORM_ID,
     QueryList,
+    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -31,6 +34,16 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { TimesIcon } from 'primeng/icons/times';
+import { EyeSlashIcon } from 'primeng/icons/eyeslash';
+import { EyeIcon } from 'primeng/icons/eye';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { AnimationEvent } from '@angular/animations';
+
+type Meter = {
+    strength: string;
+    width: string;
+};
 
 @Directive({
     selector: '[pPassword]',
@@ -40,40 +53,59 @@ import { Subscription } from 'rxjs';
     }
 })
 export class PasswordDirective implements OnDestroy, DoCheck {
+    /**
+     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() promptLabel: string = 'Enter a password';
-
+    /**
+     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() weakLabel: string = 'Weak';
-
+    /**
+     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() mediumLabel: string = 'Medium';
-
+    /**
+     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() strongLabel: string = 'Strong';
-
+    /**
+     * Whether to show the strength indicator or not.
+     * @group Props
+     */
     @Input() feedback: boolean = true;
-
+    /**
+     * Sets the visibility of the password field.
+     * @group Props
+     */
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
     }
 
-    panel: HTMLDivElement;
+    panel: Nullable<HTMLDivElement>;
 
-    meter: any;
+    meter: Nullable<Meter>;
 
-    info: any;
+    info: Nullable<HTMLDivElement>;
 
-    filled: boolean;
+    filled: Nullable<boolean>;
 
-    scrollHandler: any;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: any;
+    documentResizeListener: VoidListener;
 
-    constructor(public el: ElementRef, public zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
 
     ngDoCheck() {
         this.updateFilledState();
     }
 
     @HostListener('input', ['$event'])
-    onInput(e) {
+    onInput(e: Event) {
         this.updateFilledState();
     }
 
@@ -82,17 +114,25 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     createPanel() {
-        this.panel = document.createElement('div');
-        this.panel.className = 'p-password-panel p-component p-password-panel-overlay p-connected-overlay';
-        this.meter = document.createElement('div');
-        this.meter.className = 'p-password-meter';
-        this.info = document.createElement('div');
-        this.info.className = 'p-password-info';
-        this.info.textContent = this.promptLabel;
-        this.panel.appendChild(this.meter);
-        this.panel.appendChild(this.info);
-        this.panel.style.minWidth = DomHandler.getOuterWidth(this.el.nativeElement) + 'px';
-        document.body.appendChild(this.panel);
+        if (isPlatformBrowser(this.platformId)) {
+            this.panel = this.renderer.createElement('div');
+            this.renderer.addClass(this.panel, 'p-password-panel');
+            this.renderer.addClass(this.panel, 'p-component');
+            this.renderer.addClass(this.panel, 'p-password-panel-overlay');
+            this.renderer.addClass(this.panel, 'p-connected-overlay');
+
+            this.meter = this.renderer.createElement('div');
+            this.renderer.addClass(this.meter, 'p-password-meter');
+            this.renderer.appendChild(this.panel, this.meter);
+
+            this.info = this.renderer.createElement('div');
+            this.renderer.addClass(this.info, 'p-password-info');
+            this.renderer.setProperty(this.info, 'textContent', this.promptLabel);
+            this.renderer.appendChild(this.panel, this.info);
+
+            this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
+            this.renderer.appendChild(document.body, this.panel);
+        }
     }
 
     showOverlay() {
@@ -101,8 +141,8 @@ export class PasswordDirective implements OnDestroy, DoCheck {
                 this.createPanel();
             }
 
-            this.panel.style.zIndex = String(++DomHandler.zindex);
-            this.panel.style.display = 'block';
+            this.renderer.setStyle(this.panel, 'zIndex', String(++DomHandler.zindex));
+            this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     DomHandler.addClass(this.panel, 'p-connected-overlay-visible');
@@ -140,9 +180,9 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     @HostListener('keyup', ['$event'])
-    onKeyup(e) {
+    onKeyup(e: Event) {
         if (this.feedback) {
-            let value = e.target.value,
+            let value = (e.target as HTMLInputElement).value,
                 label = null,
                 meterPos = null;
 
@@ -168,14 +208,14 @@ export class PasswordDirective implements OnDestroy, DoCheck {
                 this.showOverlay();
             }
 
-            this.meter.style.backgroundPosition = meterPos;
-            this.info.textContent = label;
+            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            (this.info as HTMLDivElement).textContent = label;
         }
     }
 
     testStrength(str: string) {
         let grade: number = 0;
-        let val: RegExpMatchArray;
+        let val: Nullable<RegExpMatchArray>;
 
         val = str.match('[0-9]');
         grade += this.normalize(val ? val.length : 1 / 4, 1) * 25;
@@ -194,7 +234,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
         return grade > 100 ? 100 : grade;
     }
 
-    normalize(x, y) {
+    normalize(x: number, y: number) {
         let diff = x - y;
 
         if (diff <= 0) return x / y;
@@ -224,13 +264,17 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     bindDocumentResizeListener() {
-        this.documentResizeListener = this.onWindowResize.bind(this);
-        window.addEventListener('resize', this.documentResizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentResizeListener) {
+                const window = this.document.defaultView as Window;
+                this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
+            }
+        }
     }
 
     unbindDocumentResizeListener() {
         if (this.documentResizeListener) {
-            window.removeEventListener('resize', this.documentResizeListener);
+            this.documentResizeListener();
             this.documentResizeListener = null;
         }
     }
@@ -250,7 +294,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
             this.unbindDocumentResizeListener();
 
-            document.body.removeChild(this.panel);
+            this.renderer.removeChild(this.document.body, this.panel);
             this.panel = null;
             this.meter = null;
             this.info = null;
@@ -278,7 +322,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass">
             <input
                 #input
                 [attr.label]="label"
@@ -286,10 +330,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper: inputFieldClass"
+                [ngClass]="disabled | mapper : inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper: inputType"
+                [attr.type]="unmasked | mapper : inputType"
                 [attr.placeholder]="placeholder"
                 [value]="value"
                 (input)="onInput($event)"
@@ -299,8 +343,28 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keydown)="onKeyDown($event)"
                 [attr.maxlength]="maxLength"
             />
-            <i *ngIf="showClear && value != null" class="p-password-clear-icon pi pi-times" (click)="clear()"></i>
-            <i *ngIf="toggleMask" [ngClass]="unmasked | mapper: toggleIconClass" (click)="onMaskToggle()"></i>
+            <ng-container *ngIf="showClear && value != null">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
+                <span (click)="clear()" class="p-password-clear-icon">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
+            <ng-container *ngIf="toggleMask">
+                <ng-container *ngIf="unmasked">
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" />
+                    <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+                <ng-container *ngIf="!unmasked">
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" />
+                    <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
+                        <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
+                    </span>
+                </ng-container>
+            </ng-container>
+
             <div
                 #overlay
                 *ngIf="overlayVisible"
@@ -316,7 +380,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter">
-                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
+                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
                     <div className="p-password-info">{{ infoText }}</div>
                 </ng-template>
@@ -338,103 +402,202 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class Password implements AfterContentInit, OnInit {
-    @Input() ariaLabel: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() label: string;
-
-    @Input() disabled: boolean;
-
-    @Input() promptLabel: string;
-
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Label of the input for accessibility.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Indicates whether the component is disabled or not.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() promptLabel: string | undefined;
+    /**
+     * ^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).
+     * @group Props
+     */
     @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
-
+    /**
+     * ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})
+     * @group Props
+     */
     @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
-
-    @Input() weakLabel: string;
-
-    @Input() mediumLabel: string;
-
-    @Input() maxLength: number;
-
-    @Input() strongLabel: string;
-
-    @Input() inputId: string;
-
+    /**
+     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() weakLabel: string | undefined;
+    /**
+     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() mediumLabel: string | undefined;
+    /**
+     * specifies the maximum number of characters allowed in the input element.
+     * @group Props
+     */
+    @Input() maxLength: number | undefined;
+    /**
+     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() strongLabel: string | undefined;
+    /**
+     * Identifier of the accessible input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Whether to show the strength indicator or not.
+     * @group Props
+     */
     @Input() feedback: boolean = true;
-
-    @Input() appendTo: any;
-
-    @Input() toggleMask: boolean;
-
-    @Input() inputStyleClass: string;
-
+    /**
+     * Id of the element or "body" for document where the overlay should be appended to.
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to show an icon to display the password as plain text.
+     * @group Props
+     */
+    @Input() toggleMask: boolean | undefined;
+    /**
+     * Style class of the input field.
+     * @group Props
+     */
+    @Input() inputStyleClass: string | undefined;
+    /**
+     * Inline style of the overlay panel element.
+     * @group Props
+     */
     @Input() panelStyle: any;
-
-    @Input() panelStyleClass: string;
-
-    @Input() styleClass: string;
-
+    /**
+     * Style class of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
     @Input() style: any;
-
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
     @Input() inputStyle: any;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Input() placeholder: string;
-
+    /**
+     * Advisory information to display on input.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
+    /**
+     * Callback to invoke when the component receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when clear button is clicked.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<undefined | null> = new EventEmitter<undefined | null>();
 
-    @ViewChild('input') input: ElementRef;
+    @ViewChild('input') input!: ElementRef;
 
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    hideIconTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    showIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     overlayVisible: boolean = false;
 
-    meter: any;
+    meter: Nullable<Meter>;
 
-    infoText: string;
+    infoText: Nullable<string>;
 
     focused: boolean = false;
 
     unmasked: boolean = false;
 
-    mediumCheckRegExp: any;
+    mediumCheckRegExp!: RegExp;
 
-    strongCheckRegExp: any;
+    strongCheckRegExp!: RegExp;
 
-    resizeListener: any;
+    resizeListener: VoidListener;
 
-    outsideClickListener: any;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    scrollHandler: any;
+    overlay: HTMLElement | ElementRef | null | undefined;
 
-    overlay: any;
-
-    value: string = null;
+    value: Nullable<string> = null;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    translationSubscription: Subscription;
+    translationSubscription: Nullable<Subscription>;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig, public el: ElementRef, public overlayService: OverlayService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private config: PrimeNGConfig,
+        public el: ElementRef,
+        public overlayService: OverlayService
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -449,6 +612,18 @@ export class Password implements AfterContentInit, OnInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'hideicon':
+                    this.hideIconTemplate = item.template;
+                    break;
+
+                case 'showicon':
+                    this.showIconTemplate = item.template;
                     break;
 
                 default:
@@ -467,7 +642,7 @@ export class Password implements AfterContentInit, OnInit {
         });
     }
 
-    onAnimationStart(event) {
+    onAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
@@ -486,7 +661,7 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    onAnimationEnd(event) {
+    onAnimationEnd(event: AnimationEvent) {
         switch (event.toState) {
             case 'void':
                 ZIndexUtils.clear(event.element);
@@ -496,22 +671,22 @@ export class Password implements AfterContentInit, OnInit {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlay);
-            else document.getElementById(this.appendTo).appendChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
+            else (this.document as any).getElementById(this.appendTo).appendChild(this.overlay as HTMLElement);
         }
     }
 
     alignOverlay() {
         if (this.appendTo) {
-            this.overlay.style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
+            (this.overlay as HTMLElement).style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
             DomHandler.absolutePosition(this.overlay, this.input.nativeElement);
         } else {
             DomHandler.relativePosition(this.overlay, this.input.nativeElement);
         }
     }
 
-    onInput(event) {
-        this.value = event.target.value;
+    onInput(event: Event) {
+        this.value = (event.target as HTMLInputElement).value;
         this.onModelChange(this.value);
     }
 
@@ -540,9 +715,9 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    onKeyUp(event) {
+    onKeyUp(event: Event) {
         if (this.feedback) {
-            let value = event.target.value;
+            let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
 
             if (!this.overlayVisible) {
@@ -551,7 +726,7 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    updateUI(value) {
+    updateUI(value: string) {
         let label = null;
         let meter = null;
 
@@ -594,14 +769,14 @@ export class Password implements AfterContentInit, OnInit {
         this.unmasked = !this.unmasked;
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: Event) {
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
         });
     }
 
-    testStrength(str) {
+    testStrength(str: string) {
         let level = 0;
 
         if (this.strongCheckRegExp.test(str)) level = 3;
@@ -634,25 +809,29 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.overlayVisible = false;
-                }
-            });
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.scrollHandler) {
+                this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
+                    if (this.overlayVisible) {
+                        this.overlayVisible = false;
+                    }
+                });
+            }
 
-        this.scrollHandler.bindScrollListener();
+            this.scrollHandler.bindScrollListener();
+        }
     }
 
     bindResizeListener() {
-        if (!this.resizeListener) {
-            this.resizeListener = () => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-                    this.overlayVisible = false;
-                }
-            };
-            window.addEventListener('resize', this.resizeListener);
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                const window = this.document.defaultView as Window;
+                this.resizeListener = this.renderer.listen(window, 'resize', () => {
+                    if (this.overlayVisible && !DomHandler.isTouchDevice()) {
+                        this.overlayVisible = false;
+                    }
+                });
+            }
         }
     }
 
@@ -664,15 +843,8 @@ export class Password implements AfterContentInit, OnInit {
 
     unbindResizeListener() {
         if (this.resizeListener) {
-            window.removeEventListener('resize', this.resizeListener);
+            this.resizeListener();
             this.resizeListener = null;
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
-            this.outsideClickListener = null;
         }
     }
 
@@ -682,10 +854,6 @@ export class Password implements AfterContentInit, OnInit {
 
     inputFieldClass(disabled: boolean) {
         return { 'p-password-input': true, 'p-disabled': disabled };
-    }
-
-    toggleIconClass(unmasked: boolean) {
-        return unmasked ? 'pi pi-eye-slash' : 'pi pi-eye';
     }
 
     strengthClass(meter: any) {
@@ -714,8 +882,8 @@ export class Password implements AfterContentInit, OnInit {
 
     restoreAppend() {
         if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') document.body.removeChild(this.overlay);
-            else document.getElementById(this.appendTo).removeChild(this.overlay);
+            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else (this.document as any).getElementById(this.appendTo).removeChild(this.overlay);
         }
     }
 
@@ -755,7 +923,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule],
+    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })
