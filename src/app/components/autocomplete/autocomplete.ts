@@ -396,25 +396,25 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
-    @Input() ariaLabel: string;
+    @Input() ariaLabel: string | undefined;
 
     /**
      * Defines a string that labels the dropdown button for accessibility.
      * @group Props
      */
-    @Input() dropdownAriaLabel: string;
+    @Input() dropdownAriaLabel: string | undefined;
 
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
-    @Input() ariaLabelledBy: string;
+    @Input() ariaLabelledBy: string | undefined;
 
     /**
      * Icon class of the dropdown icon.
      * @group Props
      */
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
+    @Input() dropdownIcon: string | undefined;
 
     @Input() unique: boolean = true;
     /**
