@@ -416,6 +416,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input() dropdownIcon: string | undefined;
 
+    /**
+     * Ensures uniqueness of selected items on multiple mode.
+     * @group Props
+     */
     @Input() unique: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
