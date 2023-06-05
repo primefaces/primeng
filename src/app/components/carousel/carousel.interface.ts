@@ -17,7 +17,16 @@ export interface CarouselResponsiveOptions {
      */
     numScroll: number;
 }
-
+/**
+ * Custom page event.
+ * @group Events
+ */
+export interface CarouselPageEvent {
+    /**
+     * Current page.
+     */
+    page?: number;
+}
 /**
  * Defines valid templates in Carousel.
  * @group Templates
