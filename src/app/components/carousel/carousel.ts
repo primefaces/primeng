@@ -28,7 +28,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
-import { CarouselResponsiveOptions } from './carousel.interface';
+import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -116,6 +116,7 @@ import { CarouselResponsiveOptions } from './carousel.interface';
 export class Carousel implements AfterContentInit {
     /**
      * Index of the first item.
+     * @defaultValue 0
      * @group Props
      */
     @Input() get page(): number {
@@ -139,6 +140,7 @@ export class Carousel implements AfterContentInit {
     }
     /**
      * Number of items per page.
+     * @defaultValue 1
      * @group Props
      */
     @Input() get numVisible(): number {
@@ -149,6 +151,7 @@ export class Carousel implements AfterContentInit {
     }
     /**
      * Number of items to scroll.
+     * @defaultValue 1
      * @group Props
      */
     @Input() get numScroll(): number {
@@ -159,7 +162,7 @@ export class Carousel implements AfterContentInit {
     }
     /**
      * An array of options for responsive design.
-     * @see CarouselResponsiveOptions
+     * @see {CarouselResponsiveOptions}
      * @group Props
      */
     @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
@@ -200,6 +203,7 @@ export class Carousel implements AfterContentInit {
     @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
     /**
      * An array of objects to display.
+     * @defaultValue null
      * @group Props
      */
     @Input() get value(): any[] {
@@ -240,10 +244,10 @@ export class Carousel implements AfterContentInit {
     @Input() styleClass: string | undefined;
     /**
      * Callback to invoke after scroll.
-     * @param {Object} event - custom page event.
+     * @param {CarouselPageEvent} event - Custom page event.
      * @group Emits
      */
-    @Output() onPage: EventEmitter<{ page: number }> = new EventEmitter();
+    @Output() onPage: EventEmitter<CarouselPageEvent> = new EventEmitter<CarouselPageEvent>();
 
     @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
