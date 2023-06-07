@@ -3,6 +3,7 @@ import { SortMeta } from './sortmeta';
 
 /**
  * Represents the state of a table component.
+ * @group Interface
  */
 export interface TableState {
     /**

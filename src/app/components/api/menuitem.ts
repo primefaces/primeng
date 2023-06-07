@@ -2,6 +2,7 @@ import { QueryParamsHandling } from '@angular/router';
 
 /**
  * MenuItem provides the following properties. Note that not all of them may be utilized by the tabmenu component.
+ * @group Interface
  */
 export interface MenuItem {
     /**
@@ -108,6 +109,7 @@ export interface MenuItem {
      *  How to handle query parameters in the router link for the next navigation. One of:
         merge : Merge new with current parameters.
         preserve : Preserve current parameters.k. 
+        @group Props
      */
     queryParamsHandling?: QueryParamsHandling;
     /**

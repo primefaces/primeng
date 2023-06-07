@@ -1,5 +1,6 @@
 /**
  * Represents a node in a tree data structure.
+ * @group Interface
  */
 export interface TreeNode<T = any> {
     label?: string;
