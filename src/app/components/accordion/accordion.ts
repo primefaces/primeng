@@ -285,13 +285,8 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 }
 
 /**
- *
  * Accordion groups a collection of contents in tabs.
- *
- * [Live Demo](https://www.primeng.org/accordion/)
- *
  * @group Components
- *
  */
 @Component({
     selector: 'p-accordion',
