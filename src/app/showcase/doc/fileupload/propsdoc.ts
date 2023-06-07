@@ -43,7 +43,7 @@ import { Component, Input } from '@angular/core';
                         <td>accept</td>
                         <td>string</td>
                         <td>false</td>
-                        <td>Pattern to restrict the allowed file types such as "image/*".</td>
+                        <td>Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").</td>
                     </tr>
                     <tr>
                         <td>disabled</td>
