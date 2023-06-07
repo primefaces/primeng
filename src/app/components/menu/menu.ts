@@ -282,15 +282,23 @@ export class Menu implements OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {}
-
-    toggle(event: Event) {
+    /**
+     * Toggles the visibility of the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    public toggle(event: Event) {
         if (this.visible) this.hide();
         else this.show(event);
 
         this.preventDocumentDefault = true;
     }
-
-    show(event: any) {
+    /**
+     * Displays the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    public show(event: any) {
         this.target = event.currentTarget;
         this.relativeAlign = event.relativeAlign;
         this.visible = true;
@@ -353,8 +361,11 @@ export class Menu implements OnDestroy {
             ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
         }
     }
-
-    hide() {
+    /**
+     * Hides the popup menu.
+     * @group Method
+     */
+    public hide() {
         this.visible = false;
         this.relativeAlign = false;
         this.cd.markForCheck();
