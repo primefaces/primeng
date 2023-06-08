@@ -84,8 +84,8 @@ export class AppDocApiSection {
                 if(templates && templates.values.length && templates.values[0].parent === moduleName) {
                     newDoc.children.push({
                         id: `api.${docName}.templates`,
-                        label: 'Methods',
-                        description: `Methods of ${docName} component.`,
+                        label: 'Templates',
+                        description: `Templates of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(templates.values)
                     })
@@ -112,6 +112,19 @@ export class AppDocApiSection {
                         description: `Events used in ${docName} component.`
                     });
                 }
+
+                if(interfaces && interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
+                    interfaces.interfaces.values.forEach(value => {
+                        newDoc.children.push({
+                            id: `api.${moduleName}.interfaces.${value.name}`,
+                            label: value.name,
+                            component: AppDocApiTable,
+                            description: value.description,
+                            data: value.props && this.setInterfacesData(value)
+                        })
+                    })
+                }
+
             }
 
             newDocs.push(newDoc);
