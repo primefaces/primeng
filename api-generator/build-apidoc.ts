@@ -45,7 +45,7 @@ app.generateJson(project, `./api-generator/typedoc.json`);
 function extractParameter(emitter) {
     let { comment, type } = emitter;
 
-    if (type.typeArguments) {
+    if (type && type.typeArguments) {
         if (type.toString()) {
             return type.toString().replace(/^.*?<([^>]*)>.*$/, '$1');
         } else {
