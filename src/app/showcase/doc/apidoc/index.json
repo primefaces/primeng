@@ -13445,6 +13445,59 @@
     "password": {
         "description": "",
         "components": {
+            "PasswordDirective": {
+                "description": "Password directive.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "promptLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "Enter a password",
+                            "description": "Text to prompt password entry. Defaults to PrimeNG I18N API configuration."
+                        },
+                        {
+                            "name": "weakLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "Weak",
+                            "description": "Text for a weak password. Defaults to PrimeNG I18N API configuration."
+                        },
+                        {
+                            "name": "mediumLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "Medium",
+                            "description": "Text for a medium password. Defaults to PrimeNG I18N API configuration."
+                        },
+                        {
+                            "name": "strongLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "Strong",
+                            "description": "Text for a strong password. Defaults to PrimeNG I18N API configuration."
+                        },
+                        {
+                            "name": "feedback",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to show the strength indicator or not."
+                        },
+                        {
+                            "name": "showPassword",
+                            "optional": false,
+                            "readonly": false
+                        }
+                    ]
+                }
+            },
             "Password": {
                 "description": "Password displays strength indicator for password fields.",
                 "props": {
@@ -13641,6 +13694,50 @@
                         }
                     ]
                 }
+            }
+        },
+        "interfaces": {
+            "description": "",
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "password",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "password",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "password",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    },
+                    {
+                        "parent": "password",
+                        "name": "clearicon",
+                        "parameters": [],
+                        "description": "Custom template of clear icon."
+                    },
+                    {
+                        "parent": "password",
+                        "name": "hideicon",
+                        "parameters": [],
+                        "description": "Custom template of hide icon."
+                    },
+                    {
+                        "parent": "password",
+                        "name": "showicon",
+                        "parameters": [],
+                        "description": "Custom template of show icon."
+                    }
+                ]
             }
         }
     },
