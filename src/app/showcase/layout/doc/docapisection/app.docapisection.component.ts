@@ -91,7 +91,7 @@ export class AppDocApiSection {
                     })
                 }
 
-                if(interfaces && interfaces.values.length) {
+                if(interfaces && interfaces.values && interfaces.values.length) {
                     interfaces.values.forEach(value => {
                         newDoc.children.push({
                             id: `api.${moduleName}.interfaces.${value.name}`,
