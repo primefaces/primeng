@@ -12,10 +12,6 @@ import { DragDropDoc } from '../../doc/tree/dragdropdoc';
 import { ContextMenuDoc } from '../../doc/tree/contextmenudoc';
 import { FilterDoc } from '../../doc/tree/filterdoc';
 import { StyleDoc } from '../../doc/tree/styledoc';
-import { PropsDoc } from '../../doc/tree/propsdoc';
-import { EventsDoc } from '../../doc/tree/eventsdoc';
-import { MethodsDoc } from '../../doc/tree/methodsdoc';
-import { TemplatesDoc } from '../../doc/tree/templatesdoc';
 import { AccessibilityDoc } from '../../doc/tree/accessibilitydoc';
 
 @Component({
@@ -98,29 +94,6 @@ export class TreeDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

@@ -61,7 +61,7 @@ export interface TreeTableColumnReorderEvent {
 /**
  * Tree table node element.
  * @extends {TreeNode}
- * @group Events
+ * @group Interface
  */
 export interface TreeTableNode extends TreeNode {
     /**
