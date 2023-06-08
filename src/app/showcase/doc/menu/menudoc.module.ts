@@ -9,20 +9,16 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { BasicDoc } from './basicdoc';
 import { CustomContentDoc } from './customdoc';
 import { CommandDoc } from './commanddoc';
-import { EventsDoc } from './eventsdoc';
-import { MethodsDoc } from './methodsdoc';
 import { GroupDoc } from './groupdoc';
-import { ImportDoc } from './importdoc';
-import { MenuItemDoc } from './menuitemdoc';
+import { ImportDoc } from './importdoc';;
 import { NavigationDoc } from './navigationdoc';
 import { PopupDoc } from './popupdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MenuModule, ToastModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, CommandDoc, CustomContentDoc, EventsDoc, GroupDoc, ImportDoc, MenuItemDoc, MethodsDoc, NavigationDoc, PopupDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, CommandDoc, CustomContentDoc, GroupDoc, ImportDoc, NavigationDoc, PopupDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MenuDocModule {}
