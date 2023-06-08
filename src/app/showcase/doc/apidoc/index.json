@@ -3089,7 +3089,7 @@
         "description": "",
         "components": {
             "BadgeDirective": {
-                "description": "Badge is a small status indicator for another element.",
+                "description": "Badge Directive is directive usage of badge component.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -3125,6 +3125,57 @@
                             "readonly": false,
                             "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
                             "description": "Severity type of the badge."
+                        }
+                    ]
+                }
+            },
+            "Badge": {
+                "description": "Badge is a small status indicator for another element.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"large\" | \"xlarge\"",
+                            "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
+                            "description": "Severity type of the badge."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Value to display inside the badge."
+                        },
+                        {
+                            "name": "badgeDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When specified, disables the component."
                         }
                     ]
                 }
