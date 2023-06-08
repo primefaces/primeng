@@ -21790,157 +21790,6 @@
                         ]
                     },
                     {
-                        "name": "TreeTableNode",
-                        "description": "Tree table node element.",
-                        "props": [
-                            {
-                                "name": "label",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "icon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "expandedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "collapsedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "children",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]"
-                            },
-                            {
-                                "name": "leaf",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "expanded",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "parent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>"
-                            },
-                            {
-                                "name": "partialSelected",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "style",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "styleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "draggable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "droppable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "selectable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "key",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "rowNode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Row of the node."
-                            },
-                            {
-                                "name": "node",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            },
-                            {
-                                "name": "type",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node index."
-                            },
-                            {
-                                "name": "level",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node level."
-                            },
-                            {
-                                "name": "visible",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value indicates if node is in viewport."
-                            }
-                        ]
-                    },
-                    {
                         "name": "TreeTableFilterEvent",
                         "description": "Custom filter event.",
                         "props": [
@@ -22566,6 +22415,157 @@
                                 "readonly": false,
                                 "type": "number",
                                 "description": "Page count."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "TreeTableNode",
+                        "description": "Tree table node element.",
+                        "props": [
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string"
+                            },
+                            {
+                                "name": "data",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any"
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string"
+                            },
+                            {
+                                "name": "expandedIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any"
+                            },
+                            {
+                                "name": "collapsedIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any"
+                            },
+                            {
+                                "name": "children",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "TreeNode<any>[]"
+                            },
+                            {
+                                "name": "leaf",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "expanded",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "parent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "TreeNode<any>"
+                            },
+                            {
+                                "name": "partialSelected",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "style",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string"
+                            },
+                            {
+                                "name": "styleClass",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string"
+                            },
+                            {
+                                "name": "draggable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "droppable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "selectable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
+                            {
+                                "name": "key",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string"
+                            },
+                            {
+                                "name": "originalEvent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "rowNode",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Row of the node."
+                            },
+                            {
+                                "name": "node",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "TreeNode<any>",
+                                "description": "Node instance."
+                            },
+                            {
+                                "name": "type",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Selection type."
+                            },
+                            {
+                                "name": "index",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Node index."
+                            },
+                            {
+                                "name": "level",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Node level."
+                            },
+                            {
+                                "name": "visible",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Boolean value indicates if node is in viewport."
                             }
                         ]
                     }
