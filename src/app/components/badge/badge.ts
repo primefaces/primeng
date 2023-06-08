@@ -4,8 +4,7 @@ import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 /**
- *
- * Badge is a small status indicator for another element.
+ * Badge Directive is directive usage of badge component.
  * @group Components
  */
 @Directive({
@@ -154,7 +153,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
-
+/**
+ * Badge is a small status indicator for another element.
+ * @group Components
+ */
 @Component({
     selector: 'p-badge',
     template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
