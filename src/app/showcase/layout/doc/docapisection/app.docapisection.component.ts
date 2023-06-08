@@ -36,7 +36,7 @@ export class AppDocApiSection {
             let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
 
             let newDoc = {
-                id:`api.${moduleName}`,
+                id:`api.${docName}`,
                 label: docName, 
                 description: APIDoc[moduleName]?.description || 'No description available.',
                 children: [],
