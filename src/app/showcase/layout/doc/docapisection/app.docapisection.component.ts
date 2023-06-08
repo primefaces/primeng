@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { Doc } from 'src/app/showcase/domain/doc';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import APIDocs from 'src/app/showcase/doc/apidoc/index.json';
+import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
 import { AppDocApiTable } from '../docapitable/app.docapitable.component';
 
 @Component({
@@ -24,6 +23,7 @@ export class AppDocApiSection {
         }
         if(this.docs) {
             this._docs = this.createDocs();
+            
         }
     }
 
@@ -31,48 +31,44 @@ export class AppDocApiSection {
         const newDocs = [];
 
         for(const docName of this.docs){
+            
             const moduleName = docName.toLowerCase();
+            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
 
             let newDoc = {
                 id:`api.${moduleName}`,
                 label: docName, 
-                description: APIDocs[moduleName]?.description || 'No description available.',
+                description: APIDoc[moduleName]?.description || 'No description available.',
                 children: [],
                 docName: docName
             };
 
-            const interfaceModule = APIDocs[moduleName + '.interface'] ?? undefined;
-            const components = APIDocs[this.docs[0].toLowerCase()]?.components;
+            if(module) {
+                let props = module.components && module.components[docName] ? module.components[docName].props : module.props ? module.props : undefined;
+                let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
+                let templates = module.interfaces ? module.interfaces.templates : undefined;
+                let events = module.interfaces ? module.interfaces.events : undefined;
+                let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
+                let interfaces = module.interfaces ? module.interfaces : undefined;
 
-            let props = null;
-            let emits = null;
-            let templates = null;
-            let events = null;
-            let methods = null;
-
-            if(components) {
-                props = components[docName].props;
-                emits = components[docName].emits;
-                methods = components[docName].methods;
-
-                if(props && props.values.length) {
+                if (props && props.values.length) {
                     newDoc.children.push({
                         id: `api.${docName}.props`,
                         label: 'Properties',
                         component: AppDocApiTable,
                         description: `Properties of ${docName} component.`,
                         data: this.setPropsData(props.values)
-                    })
+                    });
                 }
 
-                if(emits && emits.values.length) {
+                if (emits && emits.values.length) {
                     newDoc.children.push({
                         id: `api.${docName}.emitters`,
                         label: 'Emitters',
                         description: `Event emitters of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(emits.values)
-                    })
+                    });
                 }
 
                 if(methods && methods.values.length) {
@@ -84,32 +80,40 @@ export class AppDocApiSection {
                         data: this.setEmitData(methods.values)
                     })
                 }
-            }
 
-            if(interfaceModule) {
-                templates = interfaceModule.templates ?? undefined;
-                events = interfaceModule.events ?? undefined;
-                
-                if(templates && templates.values && templates.values.length){
+                if(templates && templates.values.length && templates.values[0].parent === moduleName) {
                     newDoc.children.push({
-                        id:`api.${docName}.templates`,
-                        label: 'Templates',
-                        description: templates.description,
+                        id: `api.${docName}.templates`,
+                        label: 'Methods',
+                        description: `Methods of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(templates.values)
                     })
                 }
 
-                if(events && events.values && events.values.length){
-                    newDoc.children.push({
-                        id:`api.${docName}.events`,
-                        label: 'Events',
-                        description: events.description,
-                        component: AppDocApiTable,
-                        data: this.setEventsData(moduleName, events.values)
+                if(interfaces && interfaces.values.length) {
+                    interfaces.values.forEach(value => {
+                        newDoc.children.push({
+                            id: `api.${moduleName}.interfaces.${value.name}`,
+                            label: value.name,
+                            component: AppDocApiTable,
+                            description: value.description,
+                            data: value.props && this.setInterfacesData(value)
+                        })
                     })
                 }
+
+                if(events && events.values.length) {
+                    newDoc.children.push({
+                        id: `api.${moduleName}.events`,
+                        label: 'Events',
+                        component: AppDocApiTable,
+                        data: this.setEventsData(moduleName, events.values),
+                        description: `Events used in ${docName} component.`
+                    });
+                }
             }
+
             newDocs.push(newDoc);
         }
         return newDocs;
@@ -159,8 +163,19 @@ export class AppDocApiSection {
             type: prop.type,
             default: prop.default,
             description: prop.description,
-            deprecated: prop.deprecated
+            deprecated: prop.deprecated,
+            optional: prop.optional
         }));
+    }
+
+    setInterfacesData(value) {
+        return value.props.map(prop => ({
+            name: prop.name,
+            type: prop.type,
+            default: prop.default,
+            optional: prop.optional,
+            description: prop.description
+        }))
     }
 
     ngOnDestroy() {
