@@ -44,7 +44,10 @@ type Meter = {
     strength: string;
     width: string;
 };
-
+/**
+ * Password directive.
+ * @group Components
+ */
 @Directive({
     selector: '[pPassword]',
     host: {

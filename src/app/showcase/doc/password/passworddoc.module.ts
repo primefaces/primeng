@@ -9,21 +9,18 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
-import { EventsDoc } from './eventsdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { MeterDoc } from './meterdoc';
-import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
-import { TemplatesDoc } from './templatesdoc';
 import { ToggleMaskDoc } from './togglemaskdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, ReactiveFormsModule, DividerModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, PropsDoc, EventsDoc, TemplatesDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class PasswordDocModule {}
