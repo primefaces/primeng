@@ -13,14 +13,11 @@ import { ImportDoc } from './importdoc';
 import { ClosableDoc } from './closabledoc';
 import { ScrollableDoc } from './scrollabledoc';
 import { StyleDoc } from './styledoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
-import { TemplatesDoc } from './templatesdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TabViewModule, RouterModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, StyleDoc, AccessibilityDoc]
 })
 export class TabViewDocModule {}
