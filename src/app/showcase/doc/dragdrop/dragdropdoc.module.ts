@@ -12,14 +12,10 @@ import { BasicDoc } from './basicdoc';
 import { DropIndicatorDoc } from './dropindicatordoc';
 import { PanelModule } from 'primeng/panel';
 import { DragHandleDoc } from './draghandledoc';
-import { DraggableEventsDoc } from './draggableeventsdoc';
-import { DraggablePropsDoc } from './draggablepropsdoc';
-import { DroppableEventsDoc } from './droppableeventsdoc';
-import { DroppablePropsDoc } from './droppablepropsdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, DragDropModule, TableModule, TagModule, FormsModule, PanelModule],
-    declarations: [BasicDoc, DataTableDoc, ImportDoc, DropIndicatorDoc, DragHandleDoc, DraggableEventsDoc, DraggablePropsDoc, DroppableEventsDoc, DroppablePropsDoc],
+    declarations: [BasicDoc, DataTableDoc, ImportDoc, DropIndicatorDoc, DragHandleDoc],
     exports: [AppDocModule]
 })
 export class DragDropDocModule {}
