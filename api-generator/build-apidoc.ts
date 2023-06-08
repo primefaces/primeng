@@ -69,6 +69,7 @@ function extractParameter(emitter) {
 const isProcessable = (value) => {
     return value && value.children && value.children.length;
 };
+
 const allowed = (name) => {
     return !name.includes('ts-helpers') && !name.includes('icons');
 };
@@ -215,9 +216,11 @@ if (project) {
                         };
 
                         module_templates_group.children.forEach((template) => {
+                            const parent = template.parent.name.split(/[^a-zA-Z]+/)[1];
                             template.children.forEach((child) => {
                                 const signature = child.getAllSignatures()[0];
                                 templates.values.push({
+                                    parent: parent,
                                     name: signature ? signature.name : child.name,
                                     parameters: signature.parameters.map((param) => {
                                         let type = param.type.toString();
@@ -263,17 +266,17 @@ if (project) {
                             values: []
                         };
 
-                        module_interface_group.children.forEach(interface => {
+                        module_interface_group.children.forEach(int => {
                             interfaces.values.push({
-                                name: interface.name,
-                                description: interface.comment && interface.comment.summary.map((s) => s.text || '').join(' '),
+                                name: int.name,
+                                description: int.comment && int.comment.summary.map((s) => s.text || '').join(' '),
                                 props:
-                                    interface.children &&
-                                    interface.children.map((child) => ({
+                                    int.children &&
+                                    int.children.map((child) => ({
                                         name: child.name,
                                         optional: child.flags.isOptional,
                                         readonly: child.flags.isReadonly,
-                                        type: child.type && child.type.toString(),
+                                        type: child.type ? child.type.toString() : extractParameter(int),
                                         description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
                                     }))
@@ -284,9 +287,38 @@ if (project) {
                     }
                 }
             }
-        });
+        });  
     }
-    const typedocJSON = JSON.stringify(doc, null, 4);
+
+    let mergedDocs = {};
+
+    for(const key in doc) {
+        if(key.includes('.interface')) {
+            const parentKey = key.split('.')[0];
+            const interfaceDoc = doc[key];
+            if(interfaceDoc.hasOwnProperty('components') && !Object.keys(interfaceDoc['components']).length) {
+                delete interfaceDoc['components'];
+            }
+
+            if(!mergedDocs[parentKey]) {
+                mergedDocs[parentKey] = {
+                    ...doc[parentKey],
+                    interfaces: {
+                        ...interfaceDoc
+                    }
+                }
+            }
+        } else {
+            if(!mergedDocs[key]) {
+                mergedDocs[key] = {
+                    ...doc[key]
+                }
+            }
+        }
+    }
+
+    
+    const typedocJSON = JSON.stringify(mergedDocs, null, 4);
 
     !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
     fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);
