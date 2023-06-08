@@ -1,3 +1,4 @@
+import { ElementRef, TemplateRef } from '@angular/core';
 import { QueryParamsHandling } from '@angular/router';
 
 /**
@@ -72,7 +73,7 @@ export interface MenuItem {
     /**
      * Inline style of the menuitem.
      */
-    style?: any;
+    style?: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the menuitem.
      */
@@ -109,7 +110,6 @@ export interface MenuItem {
      *  How to handle query parameters in the router link for the next navigation. One of:
         merge : Merge new with current parameters.
         preserve : Preserve current parameters.k. 
-        @group Props
      */
     queryParamsHandling?: QueryParamsHandling;
     /**
@@ -127,34 +127,81 @@ export interface MenuItem {
     /**
      * Inline style of the item's icon.
      */
-    iconStyle?: any;
+    iconStyle?: { [klass: string]: any } | null | undefined;
     /**
      * Class of the item's icon.
      */
     iconClass?: string;
     /**
      * Developer-defined state that can be passed to any navigation.
+     * @see {MenuItemState}
      */
-    state?: {
-        [k: string]: any;
-    };
+    state?: {[k: string]: any};
     /**
      * Options of the item's tooltip.
+     * @see {TooltipOptions}
      */
-    tooltipOptions?: {
-        tooltipLabel?: string;
-        tooltipPosition?: string;
-        tooltipEvent?: string;
-        appendTo?: any;
-        positionStyle?: string;
-        tooltipStyleClass?: string;
-        tooltipZIndex?: string;
-        escape?: boolean;
-        disabled?: boolean;
-        positionTop?: number;
-        positionLeft?: number;
-        showDelay?: number;
-        hideDelay?: number;
-        life?: number;
-    };
+    tooltipOptions?: TooltipOptions;
 }
+/**
+ * Tooltip options of MenuItem provides the following properties.
+ * @group Interface
+ */
+export interface TooltipOptions {
+    /**
+     * Label of tooltip.
+     */
+    tooltipLabel?: string;
+    /**
+     * Position of tooltip.
+     */
+    tooltipPosition?:  'right' | 'left' | 'top' | 'bottom';
+    /**
+     * Position of tooltip.
+     */
+    tooltipEvent?: 'hover' | 'focus';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     */
+    appendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Type of CSS position.
+     */
+    positionStyle?: string;
+    /**
+     * Style class of the tooltip.
+     */
+    tooltipStyleClass?: string;
+    /**
+     * Whether the z-index should be managed automatically to always go on top or have a fixed value.
+     */
+    tooltipZIndex?: string;
+    /**
+     * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
+     */
+    escape?: boolean;
+    /**
+     * When present, it specifies that the component should be disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Specifies the additional vertical offset of the tooltip from its default position.
+     */
+    positionTop?: number;
+    /**
+     * Specifies the additional horizontal offset of the tooltip from its default position.
+     */
+    positionLeft?: number;
+    /**
+     * Delay to show the tooltip in milliseconds.
+     */
+    showDelay?: number;
+    /**
+     * Delay to hide the tooltip in milliseconds.
+     */
+    hideDelay?: number;
+    /**
+     * Time to wait in milliseconds to hide the tooltip even it is active.
+     */
+    life?: number;
+};
