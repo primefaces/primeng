@@ -26,6 +26,7 @@ import { VoidListener } from 'primeng/ts-helpers';
             (click)="menu.itemClick($event, item)"
             role="menuitem"
             [target]="item.target"
+            [attr.aria-label]="item.ariaLabel"
         >
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
@@ -55,6 +56,7 @@ import { VoidListener } from 'primeng/ts-helpers';
             [skipLocationChange]="item.skipLocationChange"
             [replaceUrl]="item.replaceUrl"
             [state]="item.state"
+            [attr.aria-label]="item.ariaLabel"
         >
             <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
@@ -278,7 +280,7 @@ export class Menu implements OnDestroy {
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
-    ) {}
+    ) { }
 
     toggle(event: Event) {
         if (this.visible) this.hide();
@@ -493,4 +495,4 @@ export class Menu implements OnDestroy {
     exports: [Menu, RouterModule, TooltipModule],
     declarations: [Menu, MenuItemContent]
 })
-export class MenuModule {}
+export class MenuModule { }

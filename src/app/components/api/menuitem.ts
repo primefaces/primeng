@@ -9,6 +9,10 @@ export interface MenuItem {
      */
     label?: string;
     /**
+     * aria-label of the item.
+     */
+    ariaLabel?: string;
+    /**
      * Icon of the item.
      */
     icon?: string;

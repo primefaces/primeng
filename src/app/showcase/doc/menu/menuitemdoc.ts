@@ -30,6 +30,12 @@ import { Component, Input } from '@angular/core';
                         <td>Text of the item.</td>
                     </tr>
                     <tr>
+                        <td>ariaLabel</td>
+                        <td>string</td>
+                        <td>null</td>
+                        <td>aria-label of the item.</td>
+                    </tr>
+                    <tr>
                         <td>icon</td>
                         <td>string</td>
                         <td>null</td>
