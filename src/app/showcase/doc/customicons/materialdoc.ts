@@ -20,6 +20,6 @@ export class MaterialDoc {
     <ng-template pTemplate="dropdownicon">
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>
-</p-dropdown`
+</p-dropdown>`
     };
 }

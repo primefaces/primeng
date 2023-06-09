@@ -4,6 +4,8 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 import { ObjectUtils } from 'primeng/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
+import { Nullable } from 'primeng/ts-helpers';
+import { CheckboxChangeEvent } from './checkbox.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -65,49 +67,108 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class Checkbox implements ControlValueAccessor {
-    @Input() value: any;
-
-    @Input() name: string;
-
-    @Input() disabled: boolean;
-
-    @Input() binary: boolean;
-
-    @Input() label: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() ariaLabel: string;
-
-    @Input() tabindex: number;
-
-    @Input() inputId: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() labelStyleClass: string;
-
-    @Input() formControl: FormControl;
-
-    @Input() checkboxIcon: string;
-
-    @Input() readonly: boolean;
-
-    @Input() required: boolean;
-
+    /**
+     * Value of the checkbox.
+     * @group Props
+     */
+    @Input() value: string | object | boolean | undefined | null;
+    /**
+     * Name of the checkbox group.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Allows to select a boolean value instead of multiple values.
+     * @group Props
+     */
+    @Input() binary: boolean | undefined;
+    /**
+     * Label of the checkbox.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Used to define a string that labels the input element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the label.
+     * @group Props
+     */
+    @Input() labelStyleClass: string | undefined;
+    /**
+     * Form control value.
+     * @group Props
+     */
+    @Input() formControl: FormControl | undefined;
+    /**
+     * Icon class of the checkbox icon.
+     * @group Props
+     */
+    @Input() checkboxIcon: string | undefined;
+    /**
+     * When present, it specifies that the component cannot be edited.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * When present, it specifies that checkbox must be checked before submitting the form.
+     * @group Props
+     */
+    @Input() required: boolean | undefined;
+    /**
+     * Value in checked state.
+     * @group Props
+     */
     @Input() trueValue: any = true;
-
+    /**
+     * Value in unchecked state.
+     * @group Props
+     */
     @Input() falseValue: any = false;
+    /**
+     * Callback to invoke on value change.
+     * @param {CheckboxChangeEvent} event - Browser event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
 
-    @ViewChild('cb') inputViewChild: ElementRef;
+    @ViewChild('cb') inputViewChild: Nullable<ElementRef>;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    checkboxIconTemplate: TemplateRef<any>;
+    checkboxIconTemplate!: TemplateRef<any>;
 
     model: any;
 
@@ -120,7 +181,7 @@ export class Checkbox implements ControlValueAccessor {
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.checkboxIconTemplate = item.template;
@@ -129,7 +190,7 @@ export class Checkbox implements ControlValueAccessor {
         });
     }
 
-    onClick(event, checkbox, focus: boolean) {
+    onClick(event: Event, checkbox: HTMLElement, focus: boolean) {
         event.preventDefault();
 
         if (this.disabled || this.readonly) {
@@ -143,11 +204,11 @@ export class Checkbox implements ControlValueAccessor {
         }
     }
 
-    updateModel(event) {
+    updateModel(event: Event) {
         let newModelValue;
 
         if (!this.binary) {
-            if (this.checked()) newModelValue = this.model.filter((val) => !ObjectUtils.equals(val, this.value));
+            if (this.checked()) newModelValue = this.model.filter((val: object) => !ObjectUtils.equals(val, this.value));
             else newModelValue = this.model ? [...this.model, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
@@ -165,7 +226,7 @@ export class Checkbox implements ControlValueAccessor {
         this.onChange.emit({ checked: newModelValue, originalEvent: event });
     }
 
-    handleChange(event) {
+    handleChange(event: Event) {
         if (!this.readonly) {
             this.updateModel(event);
         }
@@ -181,7 +242,7 @@ export class Checkbox implements ControlValueAccessor {
     }
 
     focus() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild?.nativeElement.focus();
     }
 
     writeValue(model: any): void {

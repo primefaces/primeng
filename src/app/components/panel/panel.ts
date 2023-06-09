@@ -6,8 +6,8 @@ import { RippleModule } from 'primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
-
-type PanelIconPosition = 'start' | 'end' | 'center';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
 
@@ -36,8 +36,8 @@ let idx: number = 0;
                     >
                         <ng-container *ngIf="!headerIconTemplate">
                             <ng-container *ngIf="!collapsed">
-                                <span *ngIf="!expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
-                                <MinusIcon *ngIf="!collapseIcon" [styleClass]="iconClass" />
+                                <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
+                                <MinusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
@@ -109,56 +109,107 @@ let idx: number = 0;
     }
 })
 export class Panel implements AfterContentInit, BlockableUI {
-    @Input() toggleable: boolean;
-
-    @Input() header: string;
-
-    @Input() collapsed: boolean = false;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() iconPos: PanelIconPosition = 'end';
-
-    @Input() expandIcon: string;
-
-    @Input() collapseIcon: string;
-
+    /**
+     * Defines if content of panel can be expanded and collapsed.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() toggleable: boolean | undefined;
+    /**
+     * Header text of the panel.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Defines the initial state of panel content, supports one or two-way binding as well.
+     * @group Props
+     * @defaultValue false
+     */
+    @Input() collapsed: boolean | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Position of the icons.
+     * @group Props
+     */
+    @Input() iconPos: 'start' | 'end' | 'center' = 'end';
+    /**
+     * Expand icon of the toggle button.
+     * @deprecated since v15.4.2, use `headericons` template instead.
+     * @group Props
+     */
+    @Input() expandIcon: string | undefined;
+    /**
+     * Collapse icon of the toggle button.
+     * @deprecated since v15.4.2, use `headericons` template instead.
+     * @group Props
+     */
+    @Input() collapseIcon: string | undefined;
+    /**
+     * Specifies if header of panel cannot be displayed.
+     * @deprecated since v15.4.2, use `headericons` template instead.
+     * @group Props
+     */
     @Input() showHeader: boolean = true;
-
-    @Input() toggler: string = 'icon';
-
-    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Specifies the toggler element to toggle the panel content.
+     * @group Props
+     */
+    @Input() toggler: 'icon' | 'header' = 'icon';
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Emitted when the collapsed changes.
+     * @param {boolean} value - New Value.
+     * @group Emits
+     */
+    @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Callback to invoke before panel toggle.
+     * @param {PanelBeforeToggleEvent} event - Custom panel toggle event
+     * @group Emits
+     */
+    @Output() onBeforeToggle: EventEmitter<PanelBeforeToggleEvent> = new EventEmitter<PanelBeforeToggleEvent>();
+    /**
+     * Callback to invoke after panel toggle.
+     * @param {PanelAfterToggleEvent} event - Custom panel toggle event
+     * @group Emits
+     */
+    @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    public iconTemplate: TemplateRef<any>;
+    public iconTemplate: Nullable<TemplateRef<any>>;
 
-    animating: boolean;
+    animating: Nullable<boolean>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    headerIconTemplate: TemplateRef<any>;
+    headerIconTemplate: Nullable<TemplateRef<any>>;
 
     id: string = `p-panel-${idx++}`;
 
     constructor(private el: ElementRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
@@ -187,19 +238,19 @@ export class Panel implements AfterContentInit, BlockableUI {
         });
     }
 
-    onHeaderClick(event: Event) {
+    onHeaderClick(event: MouseEvent) {
         if (this.toggler === 'header') {
             this.toggle(event);
         }
     }
 
-    onIconClick(event: Event) {
+    onIconClick(event: MouseEvent) {
         if (this.toggler === 'icon') {
             this.toggle(event);
         }
     }
 
-    toggle(event: Event) {
+    toggle(event: MouseEvent) {
         if (this.animating) {
             return false;
         }
@@ -208,19 +259,19 @@ export class Panel implements AfterContentInit, BlockableUI {
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.toggleable) {
-            if (this.collapsed) this.expand(event);
-            else this.collapse(event);
+            if (this.collapsed) this.expand();
+            else this.collapse();
         }
 
         event.preventDefault();
     }
 
-    expand(event) {
+    expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
 
-    collapse(event) {
+    collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }

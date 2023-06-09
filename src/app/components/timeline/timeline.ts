@@ -1,6 +1,7 @@
 import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Nullable } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-timeline',
@@ -46,23 +47,39 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
     }
 })
 export class Timeline implements AfterContentInit, BlockableUI {
-    @Input() value: any[];
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * An array of events to display.
+     * @group Props
+     */
+    @Input() value: any[] | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout.
+     * @group Props
+     */
     @Input() align: string = 'left';
+    /**
+     * Orientation of the timeline.
+     * @group Props
+     */
+    @Input() layout: 'vertical' | 'horizontal' = 'vertical';
 
-    @Input() layout: string = 'vertical';
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    oppositeTemplate: Nullable<TemplateRef<any>>;
 
-    oppositeTemplate: TemplateRef<any>;
-
-    markerTemplate: TemplateRef<any>;
+    markerTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private el: ElementRef) {}
 
@@ -71,7 +88,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;

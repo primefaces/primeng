@@ -28,7 +28,8 @@ import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGC
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/scroller';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils } from 'primeng/utils';
 import { CheckIcon } from 'primeng/icons/check';
@@ -36,22 +37,14 @@ import { SearchIcon } from 'primeng/icons/search';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { Nullable } from 'primeng/ts-helpers';
+import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MultiSelect),
     multi: true
 };
-
-export interface MultiSelectFilterOptions {
-    filter?: (value?: any) => void;
-    reset?: () => void;
-}
-
-export interface MultiselectOnRemoveEvent {
-    newValue: object;
-    removed: MultiSelectItem;
-}
 
 @Component({
     selector: 'p-multiSelectItem',
@@ -88,17 +81,17 @@ export interface MultiselectOnRemoveEvent {
 export class MultiSelectItem {
     @Input() option: any;
 
-    @Input() selected: boolean;
+    @Input() selected: boolean | undefined;
 
-    @Input() label: any;
+    @Input() label: string | undefined;
 
-    @Input() disabled: boolean;
+    @Input() disabled: boolean | undefined;
 
-    @Input() itemSize: number;
+    @Input() itemSize: number | undefined;
 
-    @Input() template: TemplateRef<any>;
+    @Input() template: TemplateRef<any> | undefined;
 
-    @Input() checkIconTemplate: TemplateRef<any>;
+    @Input() checkIconTemplate: TemplateRef<any> | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -354,293 +347,499 @@ export class MultiSelectItem {
     styleUrls: ['./multiselect.css']
 })
 export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the overlay panel.
+     * @group Props
+     */
     @Input() panelStyle: any;
-
-    @Input() panelStyleClass: string;
-
-    @Input() inputId: string;
-
-    @Input() disabled: boolean;
-
-    @Input() readonly: boolean;
-
-    @Input() group: boolean;
-
+    /**
+     * Style class of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * When present, it specifies that the component cannot be edited.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * Whether to display options as grouped when nested options are provided.
+     * @group Props
+     */
+    @Input() group: boolean | undefined;
+    /**
+     * When specified, displays an input field to filter the items on keyup.
+     * @group Props
+     */
     @Input() filter: boolean = true;
-
-    @Input() filterPlaceHolder: string;
-
-    @Input() filterLocale: string;
-
-    @Input() overlayVisible: boolean;
-
-    @Input() tabindex: number;
-
-    @Input() appendTo: any;
-
-    @Input() dataKey: string;
-
-    @Input() name: string;
-
-    @Input() label: string;
-
-    @Input() ariaLabelledBy: string;
-
+    /**
+     * Defines placeholder of the filter input.
+     * @group Props
+     */
+    @Input() filterPlaceHolder: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Specifies the visibility of the options panel.
+     * @group Props
+     */
+    @Input() overlayVisible: boolean | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * Label of the input for accessibility.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Whether to show labels of selected item labels or use default label.
+     * @group Props
+     */
     @Input() displaySelectedLabel: boolean = true;
-
+    /**
+     * Decides how many selected item labels to show at most.
+     * @group Props
+     */
     @Input() maxSelectedLabels: number = 3;
-
-    @Input() selectionLimit: number;
-
+    /**
+     * Number of maximum options that can be selected.
+     * @group Props
+     */
+    @Input() selectionLimit: number | undefined;
+    /**
+     * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
+     * @group Props
+     */
     @Input() selectedItemsLabel: string = 'ellipsis';
-
+    /**
+     * Whether to show the checkbox at header to toggle all items at once.
+     * @group Props
+     */
     @Input() showToggleAll: boolean = true;
-
+    /**
+     * Text to display when filtering does not return any results.
+     * @group Props
+     */
     @Input() emptyFilterMessage: string = '';
-
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
     @Input() emptyMessage: string = '';
-
+    /**
+     * Clears the filter value when hiding the dropdown.
+     * @group Props
+     */
     @Input() resetFilterOnHide: boolean = false;
-
-    @Input() dropdownIcon: string;
-
-    @Input() optionLabel: string;
-
-    @Input() optionValue: string;
-
-    @Input() optionDisabled: string;
-
-    @Input() optionGroupLabel: string;
-
+    /**
+     * Icon class of the dropdown icon.
+     * @group Props
+     */
+    @Input() dropdownIcon: string | undefined;
+    /**
+     * Name of the label field of an option.
+     * @group Props
+     */
+    @Input() optionLabel: string | undefined;
+    /**
+     * Name of the value field of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | undefined;
+    /**
+     * Name of the disabled field of an option.
+     * @group Props
+     */
+    @Input() optionDisabled: string | undefined;
+    /**
+     * Name of the label field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupLabel: string | undefined;
+    /**
+     * Name of the options field of an option group.
+     * @group Props
+     */
     @Input() optionGroupChildren: string = 'items';
-
+    /**
+     * Whether to show the header.
+     * @group Props
+     */
     @Input() showHeader: boolean = true;
-
-    @Input() filterBy: string;
-
+    /**
+     * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
     @Input() scrollHeight: string = '200px';
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
     @Input() lazy: boolean = false;
-
-    @Input() virtualScroll: boolean;
-
-    @Input() virtualScrollItemSize: number;
-
-    @Input() virtualScrollOptions: ScrollerOptions;
-
-    @Input() overlayOptions: OverlayOptions;
-
-    @Input() ariaFilterLabel: string;
-
-    @Input() filterMatchMode: string = 'contains';
-
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * Defines a string that labels the filter input.
+     * @group Props
+     */
+    @Input() ariaFilterLabel: string | undefined;
+    /**
+     * Defines how the items are filtered.
+     * @group Props
+     */
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    /**
+     * Advisory information to display in a tooltip on hover.
+     * @group Props
+     */
     @Input() tooltip: string = '';
-
-    @Input() tooltipPosition: string = 'right';
-
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right';
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
     @Input() tooltipPositionStyle: string = 'absolute';
-
-    @Input() tooltipStyleClass: string;
-
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Applies focus to the filter element when the overlay is shown.
+     * @group Props
+     */
     @Input() autofocusFilter: boolean = true;
-
+    /**
+     * No description available.
+     * @group Props
+     */
     @Input() display: string = 'comma';
-
+    /**
+     * No description available.
+     * @group Props
+     */
     @Input() autocomplete: string = 'on';
-
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
-    @ViewChild('container') containerViewChild: ElementRef;
-
-    @ViewChild('overlay') overlayViewChild: Overlay;
-
-    @ViewChild('filterInput') filterInputChild: ElementRef;
-
-    @ViewChild('in') accessibleViewChild: ElementRef;
-
-    @ViewChild('items') itemsViewChild: ElementRef;
-
-    @ViewChild('scroller') scroller: Scroller;
-
-    @ContentChild(Footer) footerFacet;
-
-    @ContentChild(Header) headerFacet;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onPanelHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
-    @Output() onRemove: EventEmitter<MultiselectOnRemoveEvent> = new EventEmitter();
-
-    /* @deprecated */
-    _autoZIndex: boolean;
-    @Input() get autoZIndex(): boolean {
+    /**
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     * Whether to automatically manage layering.
+     * @group Props
+     */
+    @Input() get autoZIndex(): boolean | undefined {
         return this._autoZIndex;
     }
-    set autoZIndex(val: boolean) {
+    set autoZIndex(val: boolean | undefined) {
         this._autoZIndex = val;
         console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _baseZIndex: number;
-    @Input() get baseZIndex(): number {
+    /**
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
+    @Input() get baseZIndex(): number | undefined {
         return this._baseZIndex;
     }
-    set baseZIndex(val: number) {
+    set baseZIndex(val: number | undefined) {
         this._baseZIndex = val;
         console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _showTransitionOptions: string;
-    @Input() get showTransitionOptions(): string {
+    /**
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     * Transition options of the show animation.
+     * @group Props
+     */
+    @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
     }
-    set showTransitionOptions(val: string) {
+    set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _hideTransitionOptions: string;
-    @Input() get hideTransitionOptions(): string {
+    /**
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     * Transition options of the hide animation.
+     * @group Props
+     */
+    @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
     }
-    set hideTransitionOptions(val: string) {
+    set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
 
-    _defaultLabel: string;
-
-    @Input() set defaultLabel(val: string) {
+    @Input() set defaultLabel(val: string | undefined) {
         this._defaultLabel = val;
         this.updateLabel();
     }
 
-    get defaultLabel(): string {
+    get defaultLabel(): string | undefined {
         return this._defaultLabel;
     }
 
-    _placeholder: string;
-
-    @Input() set placeholder(val: string) {
+    @Input() set placeholder(val: string | undefined) {
         this._placeholder = val;
         this.updateLabel();
     }
-
-    get placeholder(): string {
+    get placeholder(): string | undefined {
         return this._placeholder;
     }
 
-    @Input() get options(): any[] {
+    @Input() get options(): any[] | undefined {
         return this._options;
     }
-
-    set options(val: any[]) {
+    set options(val: any[] | undefined) {
         this._options = val;
         this.updateLabel();
     }
 
-    @Input() get filterValue(): string {
+    @Input() get filterValue(): string | undefined | null {
         return this._filterValue;
     }
-
-    set filterValue(val: string) {
+    set filterValue(val: string | undefined | null) {
         this._filterValue = val;
         this.activateFilter();
     }
-
-    /* @deprecated */
-    _itemSize: number;
-    @Input() get itemSize(): number {
+    /**
+     * @deprecated use virtualScrollItemSize property instead.
+     * Item size of item to be virtual scrolled.
+     * @group Props
+     */
+    @Input() get itemSize(): number | undefined {
         return this._itemSize;
     }
-    set itemSize(val: number) {
+    set itemSize(val: number | undefined) {
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
 
-    public value: any[];
+    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
-    public _filteredOptions: any[];
+    @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
+
+    @ViewChild('filterInput') filterInputChild: Nullable<ElementRef>;
+
+    @ViewChild('in') accessibleViewChild: Nullable<ElementRef>;
+
+    @ViewChild('items') itemsViewChild: Nullable<ElementRef>;
+
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
+
+    @ContentChild(Footer) footerFacet: any;
+
+    @ContentChild(Header) headerFacet: any;
+
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    /**
+     * Callback to invoke when value changes.
+     * @param {MultiSelectChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<MultiSelectChangeEvent> = new EventEmitter<MultiSelectChangeEvent>();
+    /**
+     * Callback to invoke when data is filtered.
+     * @param {MultiSelectFilterEvent} event - Custom filter event.
+     * @group Emits
+     */
+    @Output() onFilter: EventEmitter<MultiSelectFilterEvent> = new EventEmitter<MultiSelectFilterEvent>();
+    /**
+     * Callback to invoke when multiselect receives focus.
+     * @param {MultiSelectFocusEvent} event - Custom focus event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<MultiSelectFocusEvent> = new EventEmitter<MultiSelectFocusEvent>();
+    /**
+     * Callback to invoke when multiselect loses focus.
+     * @param {MultiSelectBlurEvent} event - Custom blur event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<MultiSelectBlurEvent> = new EventEmitter<MultiSelectBlurEvent>();
+    /**
+     * Callback to invoke when component is clicked.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when input field is cleared.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
+    /**
+     * Callback to invoke when overlay panel becomes visible.
+     * @group Emits
+     */
+    @Output() onPanelShow: EventEmitter<void> = new EventEmitter<void>();
+    /**
+     * Callback to invoke when overlay panel becomes hidden.
+     * @group Emits
+     */
+    @Output() onPanelHide: EventEmitter<void> = new EventEmitter<void>();
+    /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {MultiSelectLazyLoadEvent} event - Lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<MultiSelectLazyLoadEvent> = new EventEmitter<MultiSelectLazyLoadEvent>();
+    /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {MultiSelectRemoveEvent} event - Remove event.
+     * @group Emits
+     */
+    @Output() onRemove: EventEmitter<MultiSelectRemoveEvent> = new EventEmitter();
+
+    _autoZIndex: boolean | undefined;
+
+    _baseZIndex: number | undefined;
+
+    _showTransitionOptions: string | undefined;
+
+    _hideTransitionOptions: string | undefined;
+
+    _defaultLabel: string | undefined;
+
+    _placeholder: string | undefined;
+
+    _itemSize: number | undefined;
+
+    public value: any[] | undefined | null;
+
+    public _filteredOptions: any[] | undefined | null;
 
     public onModelChange: Function = () => {};
 
     public onModelTouched: Function = () => {};
 
-    public valuesAsString: string;
+    public valuesAsString: string | undefined;
 
-    public focus: boolean;
+    public focus: boolean | undefined;
 
-    filled: boolean;
+    filled: boolean | undefined | null;
 
-    public _filterValue: string;
+    public _filterValue: string | undefined | null;
 
-    public filtered: boolean;
+    public filtered: boolean | undefined;
 
-    public itemTemplate: TemplateRef<any>;
+    public itemTemplate: TemplateRef<any> | undefined;
 
-    public groupTemplate: TemplateRef<any>;
+    public groupTemplate: TemplateRef<any> | undefined;
 
-    public loaderTemplate: TemplateRef<any>;
+    public loaderTemplate: TemplateRef<any> | undefined;
 
-    public headerTemplate: TemplateRef<any>;
+    public headerTemplate: TemplateRef<any> | undefined;
 
-    public filterTemplate: TemplateRef<any>;
+    public filterTemplate: TemplateRef<any> | undefined;
 
-    public footerTemplate: TemplateRef<any>;
+    public footerTemplate: TemplateRef<any> | undefined;
 
-    public emptyFilterTemplate: TemplateRef<any>;
+    public emptyFilterTemplate: TemplateRef<any> | undefined;
 
-    public emptyTemplate: TemplateRef<any>;
+    public emptyTemplate: TemplateRef<any> | undefined;
 
-    public selectedItemsTemplate: TemplateRef<any>;
+    public selectedItemsTemplate: TemplateRef<any> | undefined;
 
-    checkIconTemplate: TemplateRef<any>;
+    checkIconTemplate: TemplateRef<any> | undefined;
 
-    filterIconTemplate: TemplateRef<any>;
+    filterIconTemplate: TemplateRef<any> | undefined;
 
-    removeTokenIconTemplate: TemplateRef<any>;
+    removeTokenIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any>;
+    closeIconTemplate: TemplateRef<any> | undefined;
 
-    clearIconTemplate: TemplateRef<any>;
+    clearIconTemplate: TemplateRef<any> | undefined;
 
-    dropdownIconTemplate: TemplateRef<any>;
+    dropdownIconTemplate: TemplateRef<any> | undefined;
 
-    public headerCheckboxFocus: boolean;
+    public headerCheckboxFocus: boolean | undefined;
 
-    filterOptions: MultiSelectFilterOptions;
+    filterOptions: MultiSelectFilterOptions | undefined;
 
-    _options: any[];
+    _options: any[] | undefined;
 
-    maxSelectionLimitReached: boolean;
+    maxSelectionLimitReached: boolean | undefined;
 
-    preventModelTouched: boolean;
+    preventModelTouched: boolean | undefined;
 
-    preventDocumentDefault: boolean;
+    preventDocumentDefault: boolean | undefined;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
@@ -656,7 +855,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -798,7 +997,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.cd.markForCheck();
     }
 
-    onOptionClick(event) {
+    onOptionClick(event: { originalEvent: Event; option: any }) {
         let option = event.option;
         if (this.isOptionDisabled(option)) {
             return;
@@ -807,7 +1006,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let optionValue = this.getOptionValue(option);
         let selectionIndex = this.findSelectionIndex(optionValue);
         if (selectionIndex != -1) {
-            this.value = this.value.filter((val, i) => i != selectionIndex);
+            this.value = (this.value as any[]).filter((val, i) => i != selectionIndex);
             this.onRemove.emit({ newValue: this.value, removed: optionValue });
 
             if (this.selectionLimit) {
@@ -827,7 +1026,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateFilledState();
     }
 
-    isSelected(option) {
+    isSelected(option: any) {
         return this.findSelectionIndex(this.getOptionValue(option)) != -1;
     }
 
@@ -859,7 +1058,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
     }
 
-    toggleAll(event) {
+    toggleAll(event: Event) {
         if (this.disabled || this.toggleAllDisabled || this.readonly) {
             return;
         }
@@ -890,7 +1089,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 let subOptions = this.getOptionGroupChildren(opt);
 
                 if (subOptions) {
-                    subOptions.forEach((option) => {
+                    subOptions.forEach((option: any) => {
                         let optionDisabled = this.isOptionDisabled(option);
                         if (!optionDisabled || (optionDisabled && this.isSelected(option))) {
                             val.push(this.getOptionValue(option));
@@ -915,7 +1114,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             } else {
                 if (opt.items) {
-                    opt.items.forEach((option) => {
+                    opt.items.forEach((option: any) => {
                         let optionDisabled = this.isOptionDisabled(option);
                         if (optionDisabled && this.isSelected(option)) {
                             val.push(this.getOptionValue(option));
@@ -939,7 +1138,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
-                this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
+                this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
                 if (this.filterInputChild && this.filterInputChild.nativeElement) {
                     this.preventModelTouched = true;
@@ -976,13 +1175,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._filteredOptions = null;
     }
 
-    close(event) {
+    close(event: Event) {
         this.hide();
         event.preventDefault();
         event.stopPropagation();
     }
 
-    clear(event) {
+    clear(event: Event) {
         this.value = null;
         this.updateLabel();
         this.updateFilledState();
@@ -992,8 +1191,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         event.stopPropagation();
     }
 
-    onMouseclick(event: MouseEvent, input) {
-        if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.accessibleViewChild.nativeElement)) {
+    onMouseclick(event: MouseEvent, input: HTMLInputElement) {
+        if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.accessibleViewChild?.nativeElement)) {
             return;
         }
 
@@ -1010,8 +1209,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
     }
 
-    removeChip(chip: any, event: MouseEvent) {
-        this.value = this.value.filter((val) => !ObjectUtils.equals(val, chip, this.dataKey));
+    removeChip(chip: MultiSelectItem, event: MouseEvent) {
+        this.value = (<any[]>this.value).filter((val) => !ObjectUtils.equals(val, chip, this.dataKey));
         this.onModelChange(this.value);
         this.checkSelectionLimit();
         this.onChange.emit({ originalEvent: event, value: this.value, itemValue: chip });
@@ -1019,12 +1218,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateFilledState();
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focus = true;
         this.onFocus.emit({ originalEvent: event });
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focus = false;
         this.onBlur.emit({ originalEvent: event });
 
@@ -1034,15 +1233,15 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.preventModelTouched = false;
     }
 
-    onOptionKeydown(event) {
+    onOptionKeydown(event: { originalEvent: Event; option: any }) {
         if (this.readonly) {
             return;
         }
 
-        switch (event.originalEvent.which) {
+        switch ((<KeyboardEvent>event.originalEvent).which) {
             //down
             case 40:
-                var nextItem = this.findNextItem(event.originalEvent.target.parentElement);
+                var nextItem = this.findNextItem((event.originalEvent.target as any).parentElement);
                 if (nextItem) {
                     nextItem.focus();
                 }
@@ -1052,7 +1251,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             //up
             case 38:
-                var prevItem = this.findPrevItem(event.originalEvent.target.parentElement);
+                var prevItem = this.findPrevItem((event.originalEvent.target as any).parentElement);
                 if (prevItem) {
                     prevItem.focus();
                 }
@@ -1073,14 +1272,14 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return DomHandler.hasClass(nextItem.children[0], 'p-disabled') || DomHandler.isHidden(nextItem.children[0]) || DomHandler.hasClass(nextItem, 'p-multiselect-item-group') ? this.findNextItem(nextItem) : nextItem.children[0];
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return DomHandler.hasClass(prevItem.children[0], 'p-disabled') || DomHandler.isHidden(prevItem.children[0]) || DomHandler.hasClass(prevItem, 'p-multiselect-item-group') ? this.findPrevItem(prevItem) : prevItem.children[0];
@@ -1130,7 +1329,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             } else {
                 let pattern = /{(.*?)}/;
                 if (pattern.test(this.selectedItemsLabel)) {
-                    this.valuesAsString = this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.value.length + '');
+                    this.valuesAsString = this.selectedItemsLabel.replace((this.selectedItemsLabel as any).match(pattern)[0], this.value.length + '');
                 } else {
                     this.valuesAsString = this.selectedItemsLabel;
                 }
@@ -1144,8 +1343,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (this.group) {
             let label = null;
 
-            for (let i = 0; i < this.options.length; i++) {
-                let subOptions = this.getOptionGroupChildren(this.options[i]);
+            for (let i = 0; i < (this.options as any[]).length; i++) {
+                let subOptions = this.getOptionGroupChildren((this.options as any[])[i]);
                 if (subOptions) {
                     label = this.searchLabelByValue(val, subOptions);
 
@@ -1155,9 +1354,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             }
 
-            return label;
+            return label as string;
         } else {
-            return this.searchLabelByValue(val, this.options);
+            return this.searchLabelByValue(val, this.options as any[]);
         }
     }
 
@@ -1219,16 +1418,14 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             }
 
-            return (
-                visibleOptionsLength === selectedDisabledItemsLength ||
+            return (visibleOptionsLength === selectedDisabledItemsLength ||
                 visibleOptionsLength === selectedEnabledItemsLength ||
-                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)
-            );
+                (selectedEnabledItemsLength && visibleOptionsLength === selectedEnabledItemsLength + unselectedDisabledItemsLength + selectedDisabledItemsLength)) as boolean;
         }
     }
 
     get optionsToRender(): any[] {
-        return this._filteredOptions || this.options;
+        return (this._filteredOptions || this.options) as any[];
     }
 
     get emptyMessageLabel(): string {
@@ -1260,7 +1457,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             if (this.group) {
                 let filteredGroups = [];
-                for (let optgroup of this.options) {
+                for (let optgroup of this.options as any[]) {
                     let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({ ...optgroup, ...{ [this.optionGroupChildren]: filteredSubOptions } });
@@ -1269,7 +1466,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 this._filteredOptions = filteredGroups;
             } else {
-                this._filteredOptions = this.filterService.filter(this.options, searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);
+                this._filteredOptions = this.filterService.filter(this.options as any[], searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);
             }
         } else {
             this._filteredOptions = null;

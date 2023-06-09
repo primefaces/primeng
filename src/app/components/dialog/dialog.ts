@@ -1,37 +1,38 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
-    Renderer2,
-    ContentChildren,
-    QueryList,
-    ViewChild,
-    NgZone,
-    ChangeDetectorRef,
-    ViewRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    AfterContentInit,
-    TemplateRef,
-    ContentChild,
-    OnInit,
-    Inject,
-    PLATFORM_ID
-} from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
+import { AnimationEvent, animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
+import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
 import { FocusTrapModule } from 'primeng/focustrap';
-import { RippleModule } from 'primeng/ripple';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { RippleModule } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -132,183 +133,370 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     }
 })
 export class Dialog implements AfterContentInit, OnInit, OnDestroy {
-    @Input() header: string;
-
+    /**
+     * Title text of the dialog.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Enables dragging to change the position using header.
+     * @group Props
+     */
     @Input() draggable: boolean = true;
-
+    /**
+     * Enables resizing of the content.
+     * @group Props
+     */
     @Input() resizable: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines the left offset of dialog.
+     * @group Props
+     */
     @Input() get positionLeft(): number {
         return 0;
     }
-
     set positionLeft(_positionLeft: number) {
         console.log('positionLeft property is deprecated.');
     }
-
+    /**
+     * @deprecated
+     * Defines the top offset of dialog.
+     * @group Props
+     */
     @Input() get positionTop(): number {
         return 0;
     }
-
     set positionTop(_positionTop: number) {
         console.log('positionTop property is deprecated.');
     }
-
+    /**
+     * Style of the content section.
+     * @group Props
+     */
     @Input() contentStyle: any;
-
-    @Input() contentStyleClass: string;
-
-    @Input() modal: boolean;
-
+    /**
+     * Style class of the content.
+     * @group Props
+     */
+    @Input() contentStyleClass: string | undefined;
+    /**
+     * Defines if background should be blocked when dialog is displayed.
+     * @group Props
+     */
+    @Input() modal: boolean = false;
+    /**
+     * Specifies if pressing escape key should hide the dialog.
+     * @group Props
+     */
     @Input() closeOnEscape: boolean = true;
-
-    @Input() dismissableMask: boolean;
-
-    @Input() rtl: boolean;
-
+    /**
+     * Specifies if clicking the modal background should hide the dialog.
+     * @group Props
+     */
+    @Input() dismissableMask: boolean = false;
+    /**
+     * When enabled dialog is displayed in RTL direction.
+     * @group Props
+     */
+    @Input() rtl: boolean = false;
+    /**
+     * Adds a close icon to the header to hide the dialog.
+     * @group Props
+     */
     @Input() closable: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines if the component is responsive.
+     * @group Props
+     */
     @Input() get responsive(): boolean {
         return false;
     }
-
     set responsive(_responsive: boolean) {
         console.log('Responsive property is deprecated.');
     }
-
-    @Input() appendTo: any;
-
+    /**
+     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Object literal to define widths per screen size.
+     * @group Props
+     */
     @Input() breakpoints: any;
-
-    @Input() styleClass: string;
-
-    @Input() maskStyleClass: string;
-
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the mask.
+     * @group Props
+     */
+    @Input() maskStyleClass: string | undefined;
+    /**
+     * Whether to show the header or not.
+     * @group Props
+     */
     @Input() showHeader: boolean = true;
-
+    /**
+     * @deprecated
+     * Defines the breakpoint of the component responsive.
+     * @group Props
+     */
     @Input() get breakpoint(): number {
         return 649;
     }
-
     set breakpoint(_breakpoint: number) {
         console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
     }
-
+    /**
+     * Whether background scroll should be blocked when dialog is visible.
+     * @group Props
+     */
     @Input() blockScroll: boolean = false;
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Minimum value for the left coordinate of dialog in dragging.
+     * @group Props
+     */
     @Input() minX: number = 0;
-
+    /**
+     * Minimum value for the top coordinate of dialog in dragging.
+     * @group Props
+     */
     @Input() minY: number = 0;
-
+    /**
+     * When enabled, first button receives focus on show.
+     * @group Props
+     */
     @Input() focusOnShow: boolean = true;
-
-    @Input() maximizable: boolean;
-
+    /**
+     * Whether the dialog can be displayed full screen.
+     * @group Props
+     */
+    @Input() maximizable: boolean = false;
+    /**
+     * Keeps dialog in the viewport.
+     * @group Props
+     */
     @Input() keepInViewport: boolean = true;
-
+    /**
+     * When enabled, can only focus on elements inside the dialog.
+     * @group Props
+     */
     @Input() focusTrap: boolean = true;
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() closeIcon: string;
-
-    @Input() closeAriaLabel: string;
-
+    /**
+     * Name of the close icon.
+     * @group Props
+     */
+    @Input() closeIcon: string | undefined;
+    /**
+     * Defines a string that labels the close button for accessibility.
+     * @group Props
+     */
+    @Input() closeAriaLabel: string | undefined;
+    /**
+     * Index of the close button in tabbing order.
+     * @group Props
+     */
     @Input() closeTabindex: string = '-1';
+    /**
+     * Name of the minimize icon.
+     * @group Props
+     */
+    @Input() minimizeIcon: string | undefined;
+    /**
+     * Name of the maximize icon.
+     * @group Props
+     */
+    @Input() maximizeIcon: string | undefined;
+    /**
+     * Specifies the visibility of the dialog.
+     * @group Props
+     */
+    @Input() get visible(): any {
+        return this._visible;
+    }
+    set visible(value: any) {
+        this._visible = value;
 
-    @Input() minimizeIcon: string;
+        if (this._visible && !this.maskVisible) {
+            this.maskVisible = true;
+        }
+    }
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() get style(): any {
+        return this._style;
+    }
+    set style(value: any) {
+        if (value) {
+            this._style = { ...value };
+            this.originalStyle = value;
+        }
+    }
+    /**
+     * Position of the dialog.
+     * @group Props
+     */
+    @Input() get position(): 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' {
+        return this._position;
+    }
+    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+        this._position = value;
 
-    @Input() maximizeIcon: string;
+        switch (value) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
+            case 'bottom':
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
+            case 'top':
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
+            default:
+                this.transformOptions = 'scale(0.7)';
+                break;
+        }
+    }
+    /**
+     * Callback to invoke when dialog is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when dialog is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * This EventEmitter is used to notify changes in the visibility state of a component.
+     * @param {boolean} value - New value.
+     * @group Emits
+     */
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Callback to invoke when dialog resizing is initiated.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onResizeInit: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
+     * Callback to invoke when dialog resizing is completed.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
+     * Callback to invoke when dialog dragging is completed.
+     * @param {DragEvent} event - Drag event.
+     * @group Emits
+     */
+    @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
+    /**
+     * Callback to invoke when dialog maximized or unmaximized.
+     * @group Emits
+     */
+    @Output() onMaximize: EventEmitter<any> = new EventEmitter<any>();
 
-    @ContentChild(Header) headerFacet: QueryList<Header>;
+    @ContentChild(Header) headerFacet: QueryList<Header> | undefined;
 
-    @ContentChild(Footer) footerFacet: QueryList<Footer>;
+    @ContentChild(Footer) footerFacet: QueryList<Footer> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ViewChild('titlebar') headerViewChild: ElementRef;
+    @ViewChild('titlebar') headerViewChild: Nullable<ElementRef>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @ViewChild('footer') footerViewChild: ElementRef;
+    @ViewChild('footer') footerViewChild: Nullable<ElementRef>;
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onResizeInit: EventEmitter<any> = new EventEmitter();
+    maximizeIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onResizeEnd: EventEmitter<any> = new EventEmitter();
+    closeIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onDragEnd: EventEmitter<any> = new EventEmitter();
+    minimizeIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onMaximize: EventEmitter<any> = new EventEmitter();
+    _visible: boolean | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    maskVisible: boolean | undefined;
 
-    contentTemplate: TemplateRef<any>;
+    container: Nullable<HTMLDivElement>;
 
-    footerTemplate: TemplateRef<any>;
+    wrapper: Nullable<HTMLElement>;
 
-    maximizeIconTemplate: TemplateRef<any>;
+    dragging: boolean | undefined;
 
-    closeIconTemplate: TemplateRef<any>;
+    documentDragListener: VoidListener;
 
-    minimizeIconTemplate: TemplateRef<any>;
+    documentDragEndListener: VoidListener;
 
-    _visible: boolean;
+    resizing: boolean | undefined;
 
-    maskVisible: boolean;
+    documentResizeListener: VoidListener;
 
-    container: HTMLDivElement;
+    documentResizeEndListener: VoidListener;
 
-    wrapper: HTMLElement;
+    documentEscapeListener: VoidListener;
 
-    dragging: boolean;
+    maskClickListener: VoidListener;
 
-    documentDragListener: VoidFunction | null;
+    lastPageX: number | undefined;
 
-    documentDragEndListener: VoidFunction | null;
+    lastPageY: number | undefined;
 
-    resizing: boolean;
+    preventVisibleChangePropagation: boolean | undefined;
 
-    documentResizeListener: VoidFunction | null;
+    maximized: boolean | undefined;
 
-    documentResizeEndListener: VoidFunction | null;
+    preMaximizeContentHeight: number | undefined;
 
-    documentEscapeListener: VoidFunction | null;
+    preMaximizeContainerWidth: number | undefined;
 
-    maskClickListener: VoidFunction | null;
+    preMaximizeContainerHeight: number | undefined;
 
-    lastPageX: number;
+    preMaximizePageX: number | undefined;
 
-    lastPageY: number;
-
-    preventVisibleChangePropagation: boolean;
-
-    maximized: boolean;
-
-    preMaximizeContentHeight: number;
-
-    preMaximizeContainerWidth: number;
-
-    preMaximizeContainerHeight: number;
-
-    preMaximizePageX: number;
-
-    preMaximizePageY: number;
+    preMaximizePageY: number | undefined;
 
     id: string = UniqueComponentId();
 
     _style: any = {};
 
-    _position: string = 'center';
+    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     originalStyle: any;
 
@@ -323,7 +511,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
@@ -359,57 +547,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     ngOnInit() {
         if (this.breakpoints) {
             this.createStyle();
-        }
-    }
-
-    @Input() get visible(): any {
-        return this._visible;
-    }
-    set visible(value: any) {
-        this._visible = value;
-
-        if (this._visible && !this.maskVisible) {
-            this.maskVisible = true;
-        }
-    }
-
-    @Input() get style(): any {
-        return this._style;
-    }
-    set style(value: any) {
-        if (value) {
-            this._style = { ...value };
-            this.originalStyle = value;
-        }
-    }
-
-    @Input() get position(): string {
-        return this._position;
-    }
-
-    set position(value: string) {
-        this._position = value;
-
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
         }
     }
 
@@ -478,7 +615,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     moveOnTop() {
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
-            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
         }
     }
 
@@ -514,7 +651,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
 
-            this.container.style.margin = '0';
+            (this.container as HTMLDivElement).style.margin = '0';
             DomHandler.addClass(this.document.body, 'p-unselectable-text');
         }
     }
@@ -524,7 +661,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             if (event.which === 9) {
                 event.preventDefault();
 
-                let focusableElements = DomHandler.getFocusableElements(this.container);
+                let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
 
                 if (focusableElements && focusableElements.length > 0) {
                     if (!focusableElements[0].ownerDocument.activeElement) {
@@ -549,37 +686,37 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         if (this.dragging) {
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
-            let offset = this.container.getBoundingClientRect();
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            this.container.style.position = 'fixed';
+            (this.container as HTMLDivElement).style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
                     this._style.left = leftPos + 'px';
                     this.lastPageX = event.pageX;
-                    this.container.style.left = leftPos + 'px';
+                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
-                    this.container.style.top = topPos + 'px';
+                    (this.container as HTMLDivElement).style.top = topPos + 'px';
                 }
             } else {
                 this.lastPageX = event.pageX;
-                this.container.style.left = leftPos + 'px';
+                (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
-                this.container.style.top = topPos + 'px';
+                (this.container as HTMLDivElement).style.top = topPos + 'px';
             }
         }
     }
 
-    endDrag(event: MouseEvent) {
+    endDrag(event: DragEvent) {
         if (this.dragging) {
             this.dragging = false;
             DomHandler.removeClass(this.document.body, 'p-unselectable-text');
@@ -589,10 +726,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     resetPosition() {
-        this.container.style.position = '';
-        this.container.style.left = '';
-        this.container.style.top = '';
-        this.container.style.margin = '';
+        (this.container as HTMLDivElement).style.position = '';
+        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.top = '';
+        (this.container as HTMLDivElement).style.margin = '';
     }
 
     //backward compatibility
@@ -612,18 +749,18 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
+            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
-            let minWidth = this.container.style.minWidth;
-            let minHeight = this.container.style.minHeight;
-            let offset = this.container.getBoundingClientRect();
+            let minWidth = (this.container as HTMLDivElement).style.minWidth;
+            let minHeight = (this.container as HTMLDivElement).style.minHeight;
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -632,15 +769,15 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
-                this.container.style.width = this._style.width;
+                (this.container as HTMLDivElement).style.width = this._style.width;
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
-                this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
+                (<ElementRef>this.contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
-                    this.container.style.height = this._style.height;
+                    (this.container as HTMLDivElement).style.height = this._style.height;
                 }
             }
 
@@ -649,7 +786,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
-    resizeEnd(event) {
+    resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
             DomHandler.removeClass(this.document.body, 'p-unselectable-text');
@@ -761,11 +898,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.wrapper = this.container.parentElement;
+                this.wrapper = this.container?.parentElement;
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
-                this.container.setAttribute(this.id, '');
+                this.container?.setAttribute(this.id, '');
 
                 if (this.modal) {
                     this.enableModality();

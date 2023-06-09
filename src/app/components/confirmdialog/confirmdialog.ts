@@ -1,37 +1,37 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnDestroy,
-    Input,
-    EventEmitter,
-    Renderer2,
-    ContentChild,
-    NgZone,
-    ViewChild,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ContentChildren,
-    QueryList,
-    TemplateRef,
-    AfterContentInit,
-    Output,
-    OnInit,
-    Inject
-} from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent, useAnimation, animation } from '@angular/animations';
+import { AnimationEvent, animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { Footer, SharedModule, PrimeTemplate, PrimeNGConfig, TranslationKeys, ConfirmEventType } from 'primeng/api';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
+import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { Confirmation } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { RippleModule } from 'primeng/ripple';
-import { TimesIcon } from 'primeng/icons/times';
+import { DomHandler } from 'primeng/dom';
 import { CheckIcon } from 'primeng/icons/check';
+import { TimesIcon } from 'primeng/icons/times';
+import { RippleModule } from 'primeng/ripple';
+import { Nullable } from 'primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Subscription } from 'rxjs';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -121,64 +121,155 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     }
 })
 export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
-    @Input() header: string;
-
-    @Input() icon: string;
-
-    @Input() message: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() maskStyleClass: string;
-
-    @Input() acceptIcon: string;
-
-    @Input() acceptLabel: string;
-
-    @Input() acceptAriaLabel: string;
-
+    /**
+     * Title text of the dialog.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Icon to display next to message.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Message of the confirmation.
+     * @group Props
+     */
+    @Input() message: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Specify the CSS class(es) for styling the mask element
+     * @group Props
+     */
+    @Input() maskStyleClass: string | undefined;
+    /**
+     * Icon of the accept button.
+     * @group Props
+     */
+    @Input() acceptIcon: string | undefined;
+    /**
+     * Label of the accept button.
+     * @group Props
+     */
+    @Input() acceptLabel: string | undefined;
+    /**
+     * Defines a string that labels the accept button for accessibility.
+     * @group Props
+     */
+    @Input() acceptAriaLabel: string | undefined;
+    /**
+     * Visibility of the accept button.
+     * @group Props
+     */
     @Input() acceptVisible: boolean = true;
-
-    @Input() rejectIcon: string;
-
-    @Input() rejectLabel: string;
-
-    @Input() rejectAriaLabel: string;
-
+    /**
+     * Icon of the reject button.
+     * @group Props
+     */
+    @Input() rejectIcon: string | undefined;
+    /**
+     * Label of the reject button.
+     * @group Props
+     */
+    @Input() rejectLabel: string | undefined;
+    /**
+     * Defines a string that labels the reject button for accessibility.
+     * @group Props
+     */
+    @Input() rejectAriaLabel: string | undefined;
+    /**
+     * Visibility of the reject button.
+     * @group Props
+     */
     @Input() rejectVisible: boolean = true;
-
-    @Input() acceptButtonStyleClass: string;
-
-    @Input() rejectButtonStyleClass: string;
-
+    /**
+     * Style class of the accept button.
+     * @group Props
+     */
+    @Input() acceptButtonStyleClass: string | undefined;
+    /**
+     * Style class of the reject button.
+     * @group Props
+     */
+    @Input() rejectButtonStyleClass: string | undefined;
+    /**
+     * Specifies if pressing escape key should hide the dialog.
+     * @group Props
+     */
     @Input() closeOnEscape: boolean = true;
-
-    @Input() dismissableMask: boolean;
-
+    /**
+     * Specifies if clicking the modal background should hide the dialog.
+     * @group Props
+     */
+    @Input() dismissableMask: boolean | undefined;
+    /**
+     * Determines whether scrolling behavior should be blocked within the component.
+     * @group Props
+     */
     @Input() blockScroll: boolean = true;
-
-    @Input() rtl: boolean;
-
+    /**
+     * When enabled dialog is displayed in RTL direction.
+     * @group Props
+     */
+    @Input() rtl: boolean = false;
+    /**
+     * Adds a close icon to the header to hide the dialog.
+     * @group Props
+     */
     @Input() closable: boolean = true;
-
-    @Input() appendTo: any;
-
-    @Input() key: string;
-
+    /**
+     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
+     * @group Props
+     */
+    @Input() key: string | undefined;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * When enabled, can only focus on elements inside the confirm dialog.
+     * @group Props
+     */
     @Input() focusTrap: boolean = true;
-
-    @Input() defaultFocus: string = 'accept';
-
+    /**
+     * Element to receive the focus when the dialog gets visible, valid values are "accept", "reject", "close" and "none".
+     * @group Props
+     */
+    @Input() defaultFocus: 'accept' | 'reject' | 'close' = 'accept';
+    /**
+     * Object literal to define widths per screen size.
+     * @group Props
+     */
     @Input() breakpoints: any;
-
+    /**
+     * Current visible state as a boolean.
+     * @group Props
+     */
     @Input() get visible(): any {
         return this._visible;
     }
@@ -191,11 +282,13 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
         this.cd.markForCheck();
     }
-
+    /**
+     *  Allows getting the position of the component.
+     * @group Props
+     */
     @Input() get position(): string {
         return this._position;
     }
-
     set position(value: string) {
         this._position = value;
 
@@ -222,16 +315,21 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when dialog is hidden.
+     * @param {ConfirmEventType} enum - confirm event type.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter();
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
@@ -251,33 +349,33 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         });
     }
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    rejectIconTemplate: TemplateRef<any>;
+    rejectIconTemplate: Nullable<TemplateRef<any>>;
 
-    acceptIconTemplate: TemplateRef<any>;
+    acceptIconTemplate: Nullable<TemplateRef<any>>;
 
-    confirmation: Confirmation;
+    confirmation: Nullable<Confirmation>;
 
-    _visible: boolean;
+    _visible: boolean | undefined;
 
-    maskVisible: boolean;
+    maskVisible: boolean | undefined;
 
     documentEscapeListener: any;
 
-    container: HTMLDivElement;
+    container: Nullable<HTMLDivElement>;
 
-    wrapper: HTMLElement;
+    wrapper: Nullable<HTMLElement>;
 
-    contentContainer: HTMLDivElement;
+    contentContainer: Nullable<HTMLDivElement>;
 
     subscription: Subscription;
 
-    maskClickListener: Function;
+    maskClickListener: Function | null | undefined;
 
-    preWidth: number;
+    preWidth: number | undefined;
 
     _position: string = 'center';
 
@@ -287,9 +385,9 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     id = UniqueComponentId();
 
-    confirmationOptions: Confirmation;
+    confirmationOptions: Nullable<Confirmation>;
 
-    translationSubscription: Subscription;
+    translationSubscription: Subscription | undefined;
 
     constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig, @Inject(DOCUMENT) private document: Document) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
@@ -346,7 +444,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     option(name: string) {
-        const source = this.confirmationOptions || this;
+        const source: { [key: string]: any } = this.confirmationOptions || this;
         if (source.hasOwnProperty(name)) {
             return source[name];
         }
@@ -357,9 +455,9 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.wrapper = this.container.parentElement;
+                this.wrapper = this.container?.parentElement;
                 this.contentContainer = DomHandler.findSingle(this.container, '.p-dialog-content');
-                this.container.setAttribute(this.id, '');
+                this.container?.setAttribute(this.id, '');
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -403,7 +501,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
@@ -439,7 +537,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             this.unbindMaskClickListener();
         }
 
-        if (this.container && !this.cd['destroyed']) {
+        if (this.container && !(this.cd as ViewRef)['destroyed']) {
             this.cd.detectChanges();
         }
     }
@@ -465,7 +563,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     close(event: Event) {
-        if (this.confirmation.rejectEvent) {
+        if (this.confirmation?.rejectEvent) {
             this.confirmation.rejectEvent.emit(ConfirmEventType.CANCEL);
         }
 
@@ -473,7 +571,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    hide(type?) {
+    hide(type?: ConfirmEventType) {
         this.onHide.emit(type);
         this.visible = false;
         this.confirmation = null;
@@ -483,12 +581,12 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     moveOnTop() {
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
-            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+            (<HTMLElement>this.wrapper).style.zIndex = String(parseInt((<HTMLDivElement>this.container).style.zIndex, 10) - 1);
         }
     }
 
     getMaskClass() {
-        let maskClass = { 'p-dialog-mask p-component-overlay': true, 'p-dialog-mask-scrollblocker': this.blockScroll };
+        let maskClass: { [key: string]: boolean } = { 'p-dialog-mask p-component-overlay': true, 'p-dialog-mask-scrollblocker': this.blockScroll };
         maskClass[this.getPositionClass().toString()] = true;
         return maskClass;
     }
@@ -506,7 +604,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
             this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
                 if (event.which == 27 && this.option('closeOnEscape') && this.closable) {
-                    if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
+                    if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container) && this.visible) {
                         this.close(event);
                     }
                 }
@@ -514,7 +612,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 if (event.which === 9 && this.focusTrap) {
                     event.preventDefault();
 
-                    let focusableElements = DomHandler.getFocusableElements(this.container);
+                    let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
 
                     if (focusableElements && focusableElements.length > 0) {
                         if (!focusableElements[0].ownerDocument.activeElement) {

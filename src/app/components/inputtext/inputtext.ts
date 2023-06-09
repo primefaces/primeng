@@ -1,6 +1,7 @@
 import { NgModule, Directive, ElementRef, HostListener, DoCheck, Optional, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Nullable } from 'primeng/ts-helpers';
 
 @Directive({
     selector: '[pInputText]',
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class InputText implements DoCheck, AfterViewInit {
-    filled: boolean;
+    filled: Nullable<boolean>;
 
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel, private cd: ChangeDetectorRef) {}
 
@@ -24,7 +25,7 @@ export class InputText implements DoCheck, AfterViewInit {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e) {
+    onInput() {
         this.updateFilledState();
     }
 

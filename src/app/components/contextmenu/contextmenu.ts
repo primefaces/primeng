@@ -1,6 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -8,7 +7,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    forwardRef,
     Inject,
     Input,
     NgModule,
@@ -19,23 +17,25 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    forwardRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ContextMenuService, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AngleRightIcon } from 'primeng/icons/angleright';
 
 @Component({
     selector: 'p-contextMenuSub',
     template: `
         <ul #sublist [ngClass]="{ 'p-submenu-list': !root }">
-            <ng-template ngFor let-child let-index="index" [ngForOf]="root ? item : item.items">
+            <ng-template ngFor let-child let-index="index" [ngForOf]="root ? item : item?.items">
                 <li *ngIf="child.separator" #menuitem class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }" role="separator"></li>
                 <li
                     *ngIf="!child.separator"
@@ -117,27 +117,27 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
     }
 })
 export class ContextMenuSub {
-    @Input() item: MenuItem;
+    @Input() item: MenuItem | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
     @Input() parentItemKey: any;
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('sublist') sublistViewChild: ElementRef;
+    @ViewChild('sublist') sublistViewChild: ElementRef | undefined;
 
-    @ViewChild('menuitem') menuitemViewChild: ElementRef;
+    @ViewChild('menuitem') menuitemViewChild: ElementRef | undefined;
 
     contextMenu: ContextMenu;
 
-    activeItemKey: string;
+    activeItemKey: Nullable<string>;
 
     hideTimeout: any;
 
-    activeItemKeyChangeSubscription: Subscription;
+    activeItemKeyChangeSubscription: Subscription | undefined;
 
-    constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu) {
+    constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu: ContextMenu) {
         this.contextMenu = contextMenu as ContextMenu;
     }
 
@@ -145,15 +145,15 @@ export class ContextMenuSub {
         this.activeItemKeyChangeSubscription = this.contextMenu.contextMenuService.activeItemKeyChange$.pipe(takeUntil(this.contextMenu.ngDestroy$)).subscribe((activeItemKey) => {
             this.activeItemKey = activeItemKey;
 
-            if (this.isActive(this.parentItemKey) && DomHandler.hasClass(this.sublistViewChild.nativeElement, 'p-submenu-list-active')) {
-                this.contextMenu.positionSubmenu(this.sublistViewChild.nativeElement);
+            if (this.isActive(this.parentItemKey) && DomHandler.hasClass(this.sublistViewChild?.nativeElement, 'p-submenu-list-active')) {
+                this.contextMenu.positionSubmenu(this.sublistViewChild?.nativeElement);
             }
 
             this.contextMenu.cd.markForCheck();
         });
     }
 
-    onItemMouseEnter(event, item, key) {
+    onItemMouseEnter(event: Event, item: MenuItem, key: string) {
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
@@ -172,14 +172,14 @@ export class ContextMenuSub {
         this.contextMenu.contextMenuService.changeKey(key);
     }
 
-    onItemMouseLeave(event, item) {
+    onItemMouseLeave(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {
             return;
         }
 
-        if (this.contextMenu.el.nativeElement.contains(<Node>event.toElement)) {
+        if (this.contextMenu.el.nativeElement.contains(<Node>event.target)) {
             if (item.items) {
-                this.contextMenu.removeActiveFromSubLists(event.currentTarget);
+                this.contextMenu.removeActiveFromSubLists(event.currentTarget as Element);
             }
 
             if (!this.root) {
@@ -188,7 +188,7 @@ export class ContextMenuSub {
         }
     }
 
-    onItemClick(event, item, menuitem, key) {
+    onItemClick(event: MouseEvent, item: MenuItem, menuitem: Element, key: string) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -232,11 +232,11 @@ export class ContextMenuSub {
         this.leafClick.emit();
     }
 
-    getKey(index) {
+    getKey(index: number) {
         return this.root ? String(index) : this.parentItemKey + '_' + index;
     }
 
-    isActive(key) {
+    isActive(key: string) {
         return this.activeItemKey && (this.activeItemKey.startsWith(key + '_') || this.activeItemKey === key);
     }
 }
@@ -256,39 +256,73 @@ export class ContextMenuSub {
     }
 })
 export class ContextMenu implements AfterViewInit, OnDestroy {
-    @Input() model: MenuItem[];
-
-    @Input() global: boolean;
-
-    @Input() target: any;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() appendTo: any;
-
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Attaches the menu to document instead of a particular item.
+     * @group Props
+     */
+    @Input() global: boolean | undefined;
+    /**
+     * Local template variable name of the element to attach the context menu.
+     * @group Props
+     */
+    @Input() target: HTMLElement | string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Event for which the menu must be displayed.
+     * @group Props
+     */
     @Input() triggerEvent: string = 'contextmenu';
-
+    /**
+     * Displays the popup menu.
+     * @group Emits
+     */
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Hides the popup menu.
+     * @group Emits
+     */
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef | undefined;
 
-    documentClickListener: VoidFunction | null;
+    documentClickListener: VoidListener;
 
-    documentTriggerListener: VoidFunction | null;
+    documentTriggerListener: VoidListener;
 
-    documentKeydownListener: VoidFunction | null;
+    documentKeydownListener: VoidListener;
 
-    windowResizeListener: VoidFunction | null;
+    windowResizeListener: VoidListener;
 
-    triggerEventListener: VoidFunction | null;
+    triggerEventListener: VoidListener;
 
     ngDestroy$ = new Subject();
 
@@ -296,9 +330,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     private window: Window;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    submenuIconTemplate: TemplateRef<any>;
+    submenuIconTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public contextMenuService: ContextMenuService, private config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;
@@ -308,19 +342,25 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.global) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
             this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
+                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                    this.hide();
+                }
                 this.show(event);
                 event.preventDefault();
             });
         } else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                    this.hide();
+                }
                 this.show(event);
                 event.preventDefault();
             });
         }
 
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild?.nativeElement);
+            else DomHandler.appendChild(this.containerViewChild?.nativeElement, this.appendTo);
         }
     }
 
@@ -328,9 +368,9 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         this.clearActiveItem();
         this.position(event);
         this.moveOnTop();
-        this.containerViewChild.nativeElement.style.display = 'block';
+        (<ElementRef>this.containerViewChild).nativeElement.style.display = 'block';
         this.preventDocumentDefault = true;
-        DomHandler.fadeIn(this.containerViewChild.nativeElement, 250);
+        DomHandler.fadeIn(this.containerViewChild?.nativeElement, 250);
         this.bindGlobalListeners();
 
         if (event) {
@@ -341,10 +381,10 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     hide() {
-        this.containerViewChild.nativeElement.style.display = 'none';
+        (<ElementRef>this.containerViewChild).nativeElement.style.display = 'none';
 
         if (this.autoZIndex) {
-            ZIndexUtils.clear(this.containerViewChild.nativeElement);
+            ZIndexUtils.clear(this.containerViewChild?.nativeElement);
         }
 
         this.clearActiveItem();
@@ -359,7 +399,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent) {
-        if (this.containerViewChild.nativeElement.offsetParent) this.hide();
+        if ((<ElementRef>this.containerViewChild).nativeElement.offsetParent) this.hide();
         else this.show(event);
     }
 
@@ -367,45 +407,45 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (event) {
             let left = event.pageX + 1;
             let top = event.pageY + 1;
-            let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-            let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+            let width = this.containerViewChild?.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : DomHandler.getHiddenElementOuterWidth(this.containerViewChild?.nativeElement);
+            let height = this.containerViewChild?.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : DomHandler.getHiddenElementOuterHeight(this.containerViewChild?.nativeElement);
             let viewport = DomHandler.getViewport();
 
             //flip
-            if (left + width - this.document.scrollingElement.scrollLeft > viewport.width) {
+            if (left + width - (<any>this.document).scrollingElement.scrollLeft > viewport.width) {
                 left -= width;
             }
 
             //flip
-            if (top + height - this.document.scrollingElement.scrollTop > viewport.height) {
+            if (top + height - (<any>this.document).scrollingElement.scrollTop > viewport.height) {
                 top -= height;
             }
 
             //fit
-            if (left < this.document.scrollingElement.scrollLeft) {
-                left = this.document.scrollingElement.scrollLeft;
+            if (left < (<any>this.document).scrollingElement.scrollLeft) {
+                left = (<any>this.document).scrollingElement.scrollLeft;
             }
 
             //fit
-            if (top < this.document.scrollingElement.scrollTop) {
-                top = this.document.scrollingElement.scrollTop;
+            if (top < (<any>this.document).scrollingElement.scrollTop) {
+                top = (<any>this.document).scrollingElement.scrollTop;
             }
 
-            this.containerViewChild.nativeElement.style.left = left + 'px';
-            this.containerViewChild.nativeElement.style.top = top + 'px';
+            (<ElementRef>this.containerViewChild).nativeElement.style.left = left + 'px';
+            (<ElementRef>this.containerViewChild).nativeElement.style.top = top + 'px';
         }
     }
 
-    positionSubmenu(sublist) {
-        let parentMenuItem = sublist.parentElement.parentElement;
+    positionSubmenu(sublist: HTMLElement) {
+        let parentMenuItem = sublist.parentElement?.parentElement;
         let viewport = DomHandler.getViewport();
         let sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
         let sublistHeight = sublist.offsetHeight ? sublist.offsetHeight : DomHandler.getHiddenElementOuterHeight(sublist);
-        let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem.children[0]);
-        let itemOuterHeight = DomHandler.getOuterHeight(parentMenuItem.children[0]);
-        let containerOffset = DomHandler.getOffset(parentMenuItem.parentElement);
+        let itemOuterWidth = DomHandler.getOuterWidth(parentMenuItem?.children[0]);
+        let itemOuterHeight = DomHandler.getOuterHeight(parentMenuItem?.children[0]);
+        let containerOffset = DomHandler.getOffset(parentMenuItem?.parentElement);
 
-        sublist.style.zIndex = ++DomHandler.zindex;
+        sublist.style.zIndex = (++DomHandler.zindex).toString();
 
         if (parseInt(containerOffset.top) + itemOuterHeight + sublistHeight > viewport.height - DomHandler.calculateScrollbarHeight()) {
             sublist.style.removeProperty('top');
@@ -422,48 +462,48 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
     }
 
-    isItemMatched(menuitem) {
+    isItemMatched(menuitem: Element) {
         return DomHandler.hasClass(menuitem, 'p-menuitem') && !DomHandler.hasClass(menuitem.children[0], 'p-disabled');
     }
 
-    findNextItem(menuitem, isRepeated?) {
+    findNextItem(menuitem: Element, isRepeated?: boolean): any {
         let nextMenuitem = menuitem.nextElementSibling;
 
         if (nextMenuitem) {
             return this.isItemMatched(nextMenuitem) ? nextMenuitem : this.findNextItem(nextMenuitem, isRepeated);
         } else {
-            let firstItem = menuitem.parentElement.children[0];
+            let firstItem = menuitem.parentElement?.children[0];
 
-            return this.isItemMatched(firstItem) ? firstItem : !isRepeated ? this.findNextItem(firstItem, true) : null;
+            return this.isItemMatched(firstItem!) ? firstItem : !isRepeated ? this.findNextItem(firstItem as Element, true) : null;
         }
     }
 
-    findPrevItem(menuitem, isRepeated?) {
+    findPrevItem(menuitem: Element, isRepeated?: boolean): any {
         let prevMenuitem = menuitem.previousElementSibling;
 
         if (prevMenuitem) {
             return this.isItemMatched(prevMenuitem) ? prevMenuitem : this.findPrevItem(prevMenuitem, isRepeated);
         } else {
-            let lastItem = menuitem.parentElement.children[menuitem.parentElement.children.length - 1];
+            let lastItem = menuitem.parentElement?.children[menuitem.parentElement.children.length - 1];
 
-            return this.isItemMatched(lastItem) ? lastItem : !isRepeated ? this.findPrevItem(lastItem, true) : null;
+            return this.isItemMatched(<Element>lastItem) ? lastItem : !isRepeated ? this.findPrevItem(<Element>lastItem, true) : null;
         }
     }
 
     getActiveItem() {
         let activeItemKey = this.contextMenuService.activeItemKey;
 
-        return activeItemKey == null ? null : DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-menuitem[data-ik="' + activeItemKey + '"]');
+        return activeItemKey == null ? null : DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-menuitem[data-ik="' + activeItemKey + '"]');
     }
 
     clearActiveItem() {
         if (this.contextMenuService.activeItemKey) {
-            this.removeActiveFromSubLists(this.containerViewChild.nativeElement);
+            this.removeActiveFromSubLists(this.containerViewChild?.nativeElement);
             this.contextMenuService.reset();
         }
     }
 
-    removeActiveFromSubLists(el) {
+    removeActiveFromSubLists(el: Element) {
         let sublists = DomHandler.find(el, '.p-submenu-list-active');
 
         for (let sublist of sublists) {
@@ -471,7 +511,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
     }
 
-    removeActiveFromSublist(menuitem) {
+    removeActiveFromSublist(menuitem: MenuItem) {
         if (menuitem) {
             let sublist = DomHandler.findSingle(menuitem, '.p-submenu-list');
 
@@ -486,13 +526,13 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
+                if (this.containerViewChild?.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
                     this.hide();
                 }
             });
 
             this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
-                if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
+                if (this.containerViewChild?.nativeElement.offsetParent && this.isOutsideClicked(event) && !this.preventDocumentDefault) {
                     this.hide();
                 }
                 this.preventDocumentDefault = false;
@@ -517,7 +557,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findNextItem(activeItem);
                         } else {
-                            let firstItem = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-menuitem-link').parentElement;
+                            let firstItem = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-menuitem-link').parentElement;
                             activeItem = this.isItemMatched(firstItem) ? firstItem : this.findNextItem(firstItem);
                         }
 
@@ -533,7 +573,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
                             this.removeActiveFromSublist(activeItem);
                             activeItem = this.findPrevItem(activeItem);
                         } else {
-                            let sublist = DomHandler.findSingle(this.containerViewChild.nativeElement, 'ul');
+                            let sublist = DomHandler.findSingle(this.containerViewChild?.nativeElement, 'ul');
                             let lastItem = sublist.children[sublist.children.length - 1];
                             activeItem = this.isItemMatched(lastItem) ? lastItem : this.findPrevItem(lastItem);
                         }
@@ -589,7 +629,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
                     case 'Enter':
                         if (activeItem) {
-                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey), activeItem);
+                            this.handleItemClick(event, this.findModelItemFromKey(this.contextMenuService.activeItemKey!), activeItem);
                         }
 
                         event.preventDefault();
@@ -602,18 +642,18 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
     }
 
-    findModelItemFromKey(key) {
+    findModelItemFromKey(key: string) {
         if (key == null || !this.model) {
             return null;
         }
 
         let indexes = key.split('_');
-        return indexes.reduce((item, currentIndex) => {
-            return item ? item.items[currentIndex] : this.model[currentIndex];
+        return indexes.reduce((item: any, currentIndex: any) => {
+            return item ? item.items[currentIndex] : (this.model as MenuItem[])[currentIndex];
         }, null);
     }
 
-    handleItemClick(event, item, menuitem) {
+    handleItemClick(event: Event, item: any, menuitem: any) {
         if (!item || item.disabled) {
             return;
         }
@@ -665,14 +705,14 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
     }
 
-    onWindowResize(event) {
-        if (this.containerViewChild.nativeElement.offsetParent) {
+    onWindowResize() {
+        if (this.containerViewChild?.nativeElement.offsetParent) {
             this.hide();
         }
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
+        return !(this.containerViewChild?.nativeElement.isSameNode(event.target) || this.containerViewChild?.nativeElement.contains(event.target));
     }
 
     ngOnDestroy() {
@@ -688,7 +728,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         }
 
         if (this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
         }
 
         this.ngDestroy$.next(true);

@@ -21,9 +21,10 @@ import {
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ZIndexUtils } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
+import { RippleModule } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -79,65 +80,159 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     }
 })
 export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
-    @Input() appendTo: any;
-
+    /**
+     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to block scrolling of the document when sidebar is active.
+     * @group Props
+     */
     @Input() blockScroll: boolean = false;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
     @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() ariaCloseLabel: string;
-
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Aria label of the close icon.
+     * @group Props
+     */
+    @Input() ariaCloseLabel: string | undefined;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Whether an overlay mask is displayed behind the sidebar.
+     * @group Props
+     */
     @Input() modal: boolean = true;
-
+    /**
+     * Whether to dismiss sidebar on click of the mask.
+     * @group Props
+     */
     @Input() dismissible: boolean = true;
-
+    /**
+     * Whether to display the close icon.
+     * @group Props
+     */
     @Input() showCloseIcon: boolean = true;
-
+    /**
+     * Specifies if pressing escape key should hide the sidebar.
+     * @group Props
+     */
     @Input() closeOnEscape: boolean = true;
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Specifies the visibility of the dialog.
+     * @group Props
+     */
+    @Input() get visible(): boolean {
+        return this._visible as boolean;
+    }
+    set visible(val: boolean) {
+        this._visible = val;
+    }
+    /**
+     * Specifies the position of the sidebar, valid values are "left", "right", "bottom" and "top".
+     * @group Props
+     */
+    @Input() get position(): string {
+        return this._position;
+    }
+    set position(value: string) {
+        this._position = value;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+        switch (value) {
+            case 'left':
+                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                break;
+            case 'right':
+                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                break;
+            case 'bottom':
+                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                break;
+            case 'top':
+                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                break;
+        }
+    }
+    /**
+     * Adds a close icon to the header to hide the dialog.
+     * @group Props
+     */
+    @Input() get fullScreen(): boolean {
+        return this._fullScreen;
+    }
+    set fullScreen(value: boolean) {
+        this._fullScreen = value;
 
+        if (value) this.transformOptions = 'none';
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    /**
+     * Callback to invoke when dialog is shown.
+     * @group Emits
+     */
     @Output() onShow: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Callback to invoke when dialog is hidden.
+     * @group Emits
+     */
     @Output() onHide: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when dialog visibility is changed.
+     * @param {boolean} value - New value.
+     * @group Emits
+     */
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
 
-    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
+    initialized: boolean | undefined;
 
-    initialized: boolean;
-
-    _visible: boolean;
+    _visible: boolean | undefined;
 
     _position: string = 'left';
 
     _fullScreen: boolean = false;
 
-    container: HTMLDivElement;
+    container: Nullable<HTMLDivElement>;
 
     transformOptions: any = 'translate3d(-100%, 0px, 0px)';
 
-    mask: HTMLDivElement;
+    mask: Nullable<HTMLDivElement>;
 
-    maskClickListener: VoidFunction | null;
+    maskClickListener: VoidListener;
 
-    documentEscapeListener: VoidFunction | null;
+    documentEscapeListener: VoidListener;
 
-    animationEndListener: VoidFunction | null;
+    animationEndListener: VoidListener;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    closeIconTemplate: TemplateRef<any>;
+    closeIconTemplate: Nullable<TemplateRef<any>>;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
@@ -146,7 +241,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -166,47 +261,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
             }
         });
-    }
-
-    @Input() get visible(): boolean {
-        return this._visible;
-    }
-
-    set visible(val: boolean) {
-        this._visible = val;
-    }
-
-    @Input() get position(): string {
-        return this._position;
-    }
-
-    set position(value: string) {
-        this._position = value;
-
-        switch (value) {
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-        }
-    }
-
-    @Input() get fullScreen(): boolean {
-        return this._fullScreen;
-    }
-
-    set fullScreen(value: boolean) {
-        this._fullScreen = value;
-
-        if (value) this.transformOptions = 'none';
     }
 
     show() {
@@ -241,7 +295,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     enableModality() {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(this.container.style.zIndex) - 1));
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1));
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {
@@ -281,7 +335,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         this.mask = null;
     }
 
-    onAnimationStart(event) {
+    onAnimationStart(event: any) {
         switch (event.toState) {
             case 'visible':
                 this.container = event.element;
@@ -295,7 +349,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
     }
 
-    onAnimationEnd(event) {
+    onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
                 this.hide(false);
@@ -317,7 +371,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container)) {
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }

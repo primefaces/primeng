@@ -1,3 +1,6 @@
+/**
+ * Deines valid options for the message.
+ */
 export interface Message {
     severity?: string;
     summary?: string;
