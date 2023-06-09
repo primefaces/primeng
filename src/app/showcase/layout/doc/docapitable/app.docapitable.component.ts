@@ -24,6 +24,8 @@ export class AppDocApiTable implements OnInit {
 
     @Input() parentDescription: string;
 
+    @Input() parentId: string;
+
     @Input() level: number;
 
     constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location){}

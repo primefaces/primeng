@@ -88,6 +88,7 @@ export class AppDocSectionsComponent {
                     if(i === 0) {
                         componentRef.instance.parentTitle = newComponent.label
                         componentRef.instance.parentDescription = newComponent.description;
+                        componentRef.instance.parentId = newComponent.id;
                     }
                 }
             }

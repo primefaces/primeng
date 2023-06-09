@@ -22,14 +22,13 @@ export class AppDocSectionTextComponent {
     @Input() parentId: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
-    ngOnInit() {
-        console.log(this.parentDescription)
-    }
+    
     navigate(event) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const parentElement = event.currentTarget.parentElement;
-            this.location.go(this.location.path().split('#')[0] + '#' + this.id);
+            const id = this.id ?? this.parentId;
+            this.location.go(this.location.path().split('#')[0] + '#' + id);
 
             setTimeout(() => {
                 parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });

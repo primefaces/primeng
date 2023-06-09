@@ -46,7 +46,7 @@ export class AppDocApiSection {
             let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
             
             let newDoc = {
-                id:`api.${docName}`,
+                id:`api.${moduleName}`,
                 label: docName, 
                 description: this.getDescription(module, docName),
                 children: [],
@@ -71,7 +71,7 @@ export class AppDocApiSection {
 
                         if(props && props.values && props.values.length) {
                             newDoc.children.push({
-                                id: `api.${docName}.props`,
+                                id: `api.${component.toLowerCase()}.props`,
                                 label: 'Properties',
                                 component: AppDocApiTable,
                                 description: props.description ?? `Properties of ${docName} component.`,
@@ -81,7 +81,7 @@ export class AppDocApiSection {
 
                         if(emits && emits.values && emits.values.length) {
                             newDoc.children.push({
-                                id: `api.${docName}.emitters`,
+                                id: `api.${component.toLowerCase()}.emitters`,
                                 label: 'Emitters',
                                 description: emits.description ?? `Event emitters of ${docName} component.`,
                                 component: AppDocApiTable,
@@ -91,7 +91,7 @@ export class AppDocApiSection {
 
                         if(methods && methods.values && methods.values.length) {
                             newDoc.children.push({
-                                id: `api.${component}.methods`,
+                                id: `api.${component.toLowerCase()}.methods`,
                                 label: 'Methods',
                                 description: methods.description ?? `Methods of ${component} component.`,
                                 component: AppDocApiTable,
@@ -104,7 +104,7 @@ export class AppDocApiSection {
 
                 if (props && props.values.length) {
                     newDoc.children.push({
-                        id: `api.${docName}.props`,
+                        id: `api.${docName.toLowerCase()}.props`,
                         label: 'Properties',
                         component: AppDocApiTable,
                         description: props.description ?? `Properties of ${docName} component.`,
@@ -114,7 +114,7 @@ export class AppDocApiSection {
 
                 if (emits && emits.values.length) {
                     newDoc.children.push({
-                        id: `api.${docName}.emitters`,
+                        id: `api.${docName.toLowerCase()}.emitters`,
                         label: 'Emitters',
                         description: emits.description ?? `Event emitters of ${docName} component.`,
                         component: AppDocApiTable,
@@ -124,7 +124,7 @@ export class AppDocApiSection {
 
                 if(methods && methods.values.length) {
                     newDoc.children.push({
-                        id: `api.${docName}.methods`,
+                        id: `api.${docName.toLowerCase()}.methods`,
                         label: 'Methods',
                         description: methods.description ?? `Methods of ${docName} component.`,
                         component: AppDocApiTable,
@@ -134,7 +134,7 @@ export class AppDocApiSection {
 
                 if(templates && templates.values.length && templates.values[0].parent === moduleName) {
                     newDoc.children.push({
-                        id: `api.${docName}.templates`,
+                        id: `api.${docName.toLowerCase()}.templates`,
                         label: 'Templates',
                         description: templates.description ?? `Templates of ${docName} component.`,
                         component: AppDocApiTable,
@@ -145,7 +145,7 @@ export class AppDocApiSection {
                 if(interfaces && interfaces.values && interfaces.values.length) {
                     interfaces.values.forEach(value => {
                         newDoc.children.push({
-                            id: `api.${moduleName}.interfaces.${value.name}`,
+                            id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
                             label: value.name,
                             component: AppDocApiTable,
                             description: value.description,
@@ -156,7 +156,7 @@ export class AppDocApiSection {
 
                 if(events && events.values.length) {
                     newDoc.children.push({
-                        id: `api.${moduleName}.events`,
+                        id: `api.${moduleName.toLowerCase()}.events`,
                         label: 'Events',
                         component: AppDocApiTable,
                         description: events.description ?? `Events used in ${docName} component.`,
@@ -167,7 +167,7 @@ export class AppDocApiSection {
                 if(interfaces && interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
                     interfaces.interfaces.values.forEach(value => {
                         newDoc.children.push({
-                            id: `api.${moduleName}.interfaces.${value.name}`,
+                            id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
                             label: value.name,
                             component: AppDocApiTable,
                             description: value.description,
@@ -187,7 +187,7 @@ export class AppDocApiSection {
 
         for(const event of events){
             const eventData = {
-                id: `api.${moduleName}.events.${event.name}`,
+                id: `api.${moduleName.toLowerCase()}.events.${event.name}`,
                 label: event.name,
                 component: AppDocApiTable,
                 description: event.description,
