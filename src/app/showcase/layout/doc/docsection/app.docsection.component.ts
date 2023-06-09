@@ -87,6 +87,7 @@ export class AppDocSectionsComponent {
                     componentRef.instance.relatedProp = child.relatedProp;
                     if(i === 0) {
                         componentRef.instance.parentTitle = newComponent.label
+                        componentRef.instance.parentDescription = newComponent.description;
                     }
                 }
             }

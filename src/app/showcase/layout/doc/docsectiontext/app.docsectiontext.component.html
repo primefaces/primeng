@@ -1,7 +1,9 @@
 <h2 *ngIf="parentTitle" class="doc-section-label mb-0">{{parentTitle}}
     <a (click)="navigate($event)" class="cursor-pointer" [id]="parentId">#</a>
 </h2>
-
+<div class="doc-section-description">
+    <p class="mt-3">{{parentDescription || null}}</p>
+</div>
 <h2 *ngIf="level === 2" class="doc-section-label">{{title}}
     <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
 </h2>

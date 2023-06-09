@@ -17,10 +17,14 @@ export class AppDocSectionTextComponent {
 
     @Input() parentTitle: string;
 
+    @Input() parentDescription: string;
+
     @Input() parentId: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
-
+    ngOnInit() {
+        console.log(this.parentDescription)
+    }
     navigate(event) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);

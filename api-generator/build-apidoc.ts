@@ -87,7 +87,6 @@ if (project) {
         modules.children.forEach((module) => {
 
             const name = module.name.replace(/.*\//, '');
-            
             if (allowed(name)) {
                 doc[name] = {
                     description: '',

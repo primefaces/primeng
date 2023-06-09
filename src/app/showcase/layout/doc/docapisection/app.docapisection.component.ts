@@ -26,6 +26,16 @@ export class AppDocApiSection {
             
         }
     }
+    getDescription(module, docName) {
+        if(module.description) {
+            return module.description;
+        }
+        if(!module.description && module.components && Object.keys(module.components).length) {
+            return module.components[docName].description ?? 'No description available'
+
+        }
+    }
+
 
     createDocs() {
         const newDocs = [];
@@ -38,7 +48,7 @@ export class AppDocApiSection {
             let newDoc = {
                 id:`api.${docName}`,
                 label: docName, 
-                description: APIDoc[moduleName]?.description || 'No description available.',
+                description: this.getDescription(module, docName),
                 children: [],
                 docName: docName
             };
@@ -64,7 +74,7 @@ export class AppDocApiSection {
                                 id: `api.${docName}.props`,
                                 label: 'Properties',
                                 component: AppDocApiTable,
-                                description: `Properties of ${docName} component.`,
+                                description: props.description ?? `Properties of ${docName} component.`,
                                 data: this.setPropsData(comp['props']['values'])
                             })
                         }
@@ -73,7 +83,7 @@ export class AppDocApiSection {
                             newDoc.children.push({
                                 id: `api.${docName}.emitters`,
                                 label: 'Emitters',
-                                description: `Event emitters of ${docName} component.`,
+                                description: emits.description ?? `Event emitters of ${docName} component.`,
                                 component: AppDocApiTable,
                                 data: this.setEmitData(emits.values)
                             });
@@ -83,7 +93,7 @@ export class AppDocApiSection {
                             newDoc.children.push({
                                 id: `api.${component}.methods`,
                                 label: 'Methods',
-                                description: `Methods of ${component} component.`,
+                                description: methods.description ?? `Methods of ${component} component.`,
                                 component: AppDocApiTable,
                                 data: this.setEmitData(methods.values)
                             })
@@ -97,7 +107,7 @@ export class AppDocApiSection {
                         id: `api.${docName}.props`,
                         label: 'Properties',
                         component: AppDocApiTable,
-                        description: `Properties of ${docName} component.`,
+                        description: props.description ?? `Properties of ${docName} component.`,
                         data: this.setPropsData(props.values)
                     });
                 }
@@ -106,7 +116,7 @@ export class AppDocApiSection {
                     newDoc.children.push({
                         id: `api.${docName}.emitters`,
                         label: 'Emitters',
-                        description: `Event emitters of ${docName} component.`,
+                        description: emits.description ?? `Event emitters of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(emits.values)
                     });
@@ -116,7 +126,7 @@ export class AppDocApiSection {
                     newDoc.children.push({
                         id: `api.${docName}.methods`,
                         label: 'Methods',
-                        description: `Methods of ${docName} component.`,
+                        description: methods.description ?? `Methods of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(methods.values)
                     })
@@ -126,7 +136,7 @@ export class AppDocApiSection {
                     newDoc.children.push({
                         id: `api.${docName}.templates`,
                         label: 'Templates',
-                        description: `Templates of ${docName} component.`,
+                        description: templates.description ?? `Templates of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(templates.values)
                     })
@@ -149,8 +159,8 @@ export class AppDocApiSection {
                         id: `api.${moduleName}.events`,
                         label: 'Events',
                         component: AppDocApiTable,
+                        description: events.description ?? `Events used in ${docName} component.`,
                         data: this.setEventsData(moduleName, events.values),
-                        description: `Events used in ${docName} component.`
                     });
                 }
 
