@@ -18,17 +18,20 @@
                 <tr *ngFor="let prop of data">
                     <td *ngFor="let entry of getEntries(prop)" [ngClass]="{'doc-option-type': entry[0] === 'type', 'doc-option-default': entry[0] === 'default'}">
                         <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
-                            <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{'line-through cursor-pointer': !!prop.deprecated}" [attr.title]="prop.deprecated">{{entry[1]}}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a></span>
-                            <span *ngIf="entry[0] === 'type'">{{entry[1]}}</span>
+                            <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{'line-through cursor-pointer': !!prop.deprecated}" [attr.title]="prop.deprecated">{{entry[1] || '-'}}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a></span>
+                            <span *ngIf="entry[0] === 'type'">{{entry[1] || '-'}}</span>
                             <ng-container *ngIf="entry[0] === 'parameters'">
-                                <ng-container>
+                                <ng-container *ngIf="entry[1].name; else nullValue">
                                     <span *ngIf="entry[1].name" [ngClass]="{'parameter-bold': label === 'Templates'}">{{entry[1].name}} :</span>
-                                    <ng-container *ngFor="let value of getType(entry[1].type); let i = index;">{{i !== 0 ? ' |' : ' ' }} <a *ngIf="isLinkType(value); else elseBlock" (click)="scrollToLinkedElement($event, value, prop)" class="doc-option-link">{{value}}</a>
+                                    <ng-container *ngFor="let value of getType(entry[1].type); let i = index;">{{i !== 0 ? ' |' : ' ' }} <a *ngIf="isLinkType(value); else elseBlock" (click)="scrollToLinkedElement($event, value, prop)" class="cursor-pointer text-primary">{{value || '-'}}</a>
                                         <ng-template #elseBlock>
-                                            <span [innerHTML]="value"></span>
+                                            <span>{{value}}</span>
                                         </ng-template>
                                     </ng-container>
                                 </ng-container>
+                                <ng-template #nullValue>
+                                    <span>-</span>
+                                </ng-template>
                             </ng-container>
                             <span *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'" [id]="id + '.' + entry[0]">{{entry[1]}}</span>
                         </ng-container>

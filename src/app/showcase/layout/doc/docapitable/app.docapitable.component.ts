@@ -57,7 +57,7 @@ export class AppDocApiTable implements OnInit {
         if(this.label === 'Methods' && !value) {
             return ['-'];
         }
-
+        
         return value?.split('|').map(item => item.replace(/(\[|\]|<|>).*$/gm, '').trim());
     }
 
