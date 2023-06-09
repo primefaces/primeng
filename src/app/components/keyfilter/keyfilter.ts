@@ -73,7 +73,7 @@ const SAFARI_KEYS: SafariKeys = {
     63275: 35 // end
 };
 /**
- * KeyFilter is a built-in feature of InputText to restrict user input based on a regular expression.
+ * KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.
  * @group Components
  */
 @Directive({
@@ -93,11 +93,11 @@ export class KeyFilter implements Validator {
      * Sets the pattern for key filtering.
      * @group Props
      */
-    @Input('pKeyFilter') set pattern(_pattern: string) {
+    @Input('pKeyFilter') set pattern(_pattern: string | RegExp) {
         this._pattern = _pattern;
-        this.regex = (DEFAULT_MASKS as any)[this._pattern] || this._pattern;
+        this.regex = (DEFAULT_MASKS as any)[this._pattern as string] || this._pattern;
     }
-    get pattern(): any {
+    get pattern(): string | RegExp {
         return this._pattern;
     }
     /**
@@ -109,7 +109,7 @@ export class KeyFilter implements Validator {
 
     regex!: RegExp;
 
-    _pattern: string | null | undefined;
+    _pattern: string | RegExp;
 
     isAndroid: boolean;
 
@@ -158,7 +158,7 @@ export class KeyFilter implements Validator {
     }
 
     isValidChar(c: string) {
-        return this.regex.test(c);
+        return (<RegExp>this.regex).test(c);
     }
 
     isValidString(str: string) {
@@ -223,7 +223,7 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        ok = this.regex.test(cc);
+        ok = (<RegExp>this.regex).test(cc);
 
         if (!ok) {
             e.preventDefault();
