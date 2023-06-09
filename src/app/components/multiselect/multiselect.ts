@@ -29,7 +29,7 @@ import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils } from 'primeng/utils';
 import { CheckIcon } from 'primeng/icons/check';

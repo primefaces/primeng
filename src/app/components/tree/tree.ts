@@ -26,7 +26,7 @@ import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKey
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { CheckIcon } from 'primeng/icons/check';

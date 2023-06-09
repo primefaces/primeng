@@ -26,7 +26,8 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { ScrollerLazyLoadEvent, ScrollerOptions, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { ScrollerOptions } from 'primeng/api';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
@@ -322,10 +323,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.
      * @group Props
      */
-    @Input() get trackBy() {
+    @Input() get trackBy(): Function {
         return this._trackBy;
     }
-    set trackBy(val: any) {
+    set trackBy(val: Function) {
         this._trackBy = val;
     }
     /**

@@ -683,9 +683,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
     /**
-     * @deprecated Years are based on decades by default.
      * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
      * @group Props
+     * @deprecated Years are based on decades by default.
      */
     @Input() get yearRange(): string {
         return this._yearRange;
