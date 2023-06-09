@@ -11,39 +11,6 @@ export type ScrollerToType = 'to-start' | 'to-end' | undefined;
  */
 export type ScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
 /**
- * Options for the virtual scroller.
- * @group Interface
- */
-export interface ScrollerOptions {
-    id?: string | undefined;
-    style?: any;
-    styleClass?: string | undefined;
-    tabindex?: number | undefined;
-    items?: any[];
-    itemSize?: any;
-    scrollHeight?: string | undefined;
-    scrollWidth?: string | undefined;
-    orientation?: ScrollerOrientationType;
-    step?: number | undefined;
-    delay?: number | undefined;
-    resizeDelay?: number | undefined;
-    appendOnly?: boolean;
-    inline?: boolean;
-    lazy?: boolean;
-    disabled?: boolean;
-    loaderDisabled?: boolean;
-    columns?: any[] | undefined;
-    showSpacer?: boolean;
-    showLoader?: boolean;
-    numToleratedItems?: any;
-    loading?: boolean;
-    autoSize?: boolean;
-    trackBy?: any;
-    onLazyLoad?: Function | undefined;
-    onScroll?: Function | undefined;
-    onScrollIndexChange?: Function | undefined;
-}
-/**
  * Loader icon options.
  * @group Interface
  */
