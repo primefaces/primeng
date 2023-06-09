@@ -34,7 +34,7 @@ export class AppDocApiSection {
             
             const moduleName = docName.toLowerCase();
             let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
-
+            
             let newDoc = {
                 id:`api.${docName}`,
                 label: docName, 
@@ -50,6 +50,47 @@ export class AppDocApiSection {
                 let events = module.interfaces ? module.interfaces.events : undefined;
                 let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
                 let interfaces = module.interfaces ? module.interfaces : undefined;
+                
+                if(module && module.components && !module.components[docName] && Object.keys(module.components).length && !docName.includes('Service')) {
+                    const components = Object.keys(module.components);
+                    components.forEach(component => {
+                        const comp = module.components[component];
+                        const props = comp['props'] ?? undefined;
+                        const emits = comp['emits'] ?? undefined;
+                        const methods = comp['methods'] ?? undefined;
+
+                        if(props && props.values && props.values.length) {
+                            newDoc.children.push({
+                                id: `api.${docName}.props`,
+                                label: 'Properties',
+                                component: AppDocApiTable,
+                                description: `Properties of ${docName} component.`,
+                                data: this.setPropsData(comp['props']['values'])
+                            })
+                        }
+
+                        if(emits && emits.values && emits.values.length) {
+                            newDoc.children.push({
+                                id: `api.${docName}.emitters`,
+                                label: 'Emitters',
+                                description: `Event emitters of ${docName} component.`,
+                                component: AppDocApiTable,
+                                data: this.setEmitData(emits.values)
+                            });
+                        }
+
+                        if(methods && methods.values && methods.values.length) {
+                            newDoc.children.push({
+                                id: `api.${component}.methods`,
+                                label: 'Methods',
+                                description: `Methods of ${component} component.`,
+                                component: AppDocApiTable,
+                                data: this.setEmitData(methods.values)
+                            })
+                        }
+
+                    });
+                }
 
                 if (props && props.values.length) {
                     newDoc.children.push({
@@ -124,7 +165,6 @@ export class AppDocApiSection {
                         })
                     })
                 }
-
             }
 
             newDocs.push(newDoc);
@@ -174,7 +214,7 @@ export class AppDocApiSection {
         return props.map(prop => ({
             name: prop.name,
             type: prop.type,
-            default: prop.default,
+            default: prop.default ? prop.default : 'null',
             description: prop.description,
             deprecated: prop.deprecated,
             optional: prop.optional
@@ -185,7 +225,7 @@ export class AppDocApiSection {
         return value.props.map(prop => ({
             name: prop.name,
             type: prop.type,
-            default: prop.default,
+            default: prop.default ? prop.default : 'null',
             optional: prop.optional,
             description: prop.description
         }))
