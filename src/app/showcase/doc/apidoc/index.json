@@ -101,7 +101,12 @@
                     "values": [
                         {
                             "name": "selectedChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Event triggered by changing the choice."
                         }
                     ]
@@ -161,17 +166,32 @@
                     "values": [
                         {
                             "name": "onClose",
-                            "parameters": "AccordionTabCloseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AccordionTabCloseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when an active tab is collapsed by clicking on the header."
                         },
                         {
                             "name": "onOpen",
-                            "parameters": "AccordionTabOpenEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AccordionTabOpenEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a tab gets expanded."
                         },
                         {
                             "name": "activeIndexChange",
-                            "parameters": "number | number[]",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number | number[]"
+                                }
+                            ],
                             "description": "Returns the active index."
                         }
                     ]
@@ -453,8 +473,35 @@
         }
     },
     "confirmationservice": {
-        "description": "",
-        "components": {}
+        "methods": {
+            "description": "Methods used in service.",
+            "values": [
+                {
+                    "name": "confirm",
+                    "parameters": [
+                        {
+                            "name": "confirmation",
+                            "type": "Confirmation",
+                            "description": "Represents a confirmation dialog configuration."
+                        }
+                    ],
+                    "returnType": "ConfirmationService",
+                    "description": "Callback to invoke on confirm."
+                },
+                {
+                    "name": "close",
+                    "parameters": [],
+                    "returnType": "ConfirmationService",
+                    "description": "Closes the dialog."
+                },
+                {
+                    "name": "onAccept",
+                    "parameters": [],
+                    "returnType": "void",
+                    "description": "Accepts the dialog."
+                }
+            ]
+        }
     },
     "contextmenuservice": {
         "description": "",
@@ -867,6 +914,38 @@
     "menuitem": {
         "description": "",
         "components": {},
+        "events": {
+            "description": "Defines the custom events used by the component's emitters.",
+            "values": [
+                {
+                    "name": "MenuItemCommandEvent",
+                    "description": "Custom command event",
+                    "props": [
+                        {
+                            "name": "originalEvent",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Event",
+                            "description": "Browser event."
+                        },
+                        {
+                            "name": "item",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "MenuItem | MegaMenuItem",
+                            "description": "Selected menu item."
+                        },
+                        {
+                            "name": "index",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the selected item."
+                        }
+                    ]
+                }
+            ]
+        },
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
             "values": [
@@ -891,8 +970,7 @@
                         {
                             "name": "command",
                             "optional": true,
-                            "readonly": false,
-                            "type": "Function"
+                            "readonly": false
                         },
                         {
                             "name": "url",
@@ -1105,110 +1183,6 @@
                             "description": "Options of the item's tooltip."
                         }
                     ]
-                },
-                {
-                    "name": "TooltipOptions",
-                    "description": "Tooltip options of MenuItem provides the following properties.",
-                    "props": [
-                        {
-                            "name": "tooltipLabel",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Label of tooltip."
-                        },
-                        {
-                            "name": "tooltipPosition",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
-                            "description": "Position of tooltip."
-                        },
-                        {
-                            "name": "tooltipEvent",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "\"focus\" | \"hover\"",
-                            "description": "Position of tooltip."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
-                        },
-                        {
-                            "name": "positionStyle",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Type of CSS position."
-                        },
-                        {
-                            "name": "tooltipStyleClass",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the tooltip."
-                        },
-                        {
-                            "name": "tooltipZIndex",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Whether the z-index should be managed automatically to always go on top or have a fixed value."
-                        },
-                        {
-                            "name": "escape",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "By default the tooltip contents are rendered as text. Set to false to support html tags in the content."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "When present, it specifies that the component should be disabled."
-                        },
-                        {
-                            "name": "positionTop",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Specifies the additional vertical offset of the tooltip from its default position."
-                        },
-                        {
-                            "name": "positionLeft",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Specifies the additional horizontal offset of the tooltip from its default position."
-                        },
-                        {
-                            "name": "showDelay",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Delay to show the tooltip in milliseconds."
-                        },
-                        {
-                            "name": "hideDelay",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Delay to hide the tooltip in milliseconds."
-                        },
-                        {
-                            "name": "life",
-                            "optional": true,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Time to wait in milliseconds to hide the tooltip even it is active."
-                        }
-                    ]
                 }
             ]
         }
@@ -1263,8 +1237,47 @@
         }
     },
     "messageservice": {
-        "description": "",
-        "components": {}
+        "methods": {
+            "description": "Methods used in service.",
+            "values": [
+                {
+                    "name": "add",
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": "Message",
+                            "description": "Message to be added."
+                        }
+                    ],
+                    "returnType": "void",
+                    "description": "Inserts single message."
+                },
+                {
+                    "name": "addAll",
+                    "parameters": [
+                        {
+                            "name": "messages",
+                            "type": "Message[]",
+                            "description": "Messages to be added."
+                        }
+                    ],
+                    "returnType": "void",
+                    "description": "Insterts new messages."
+                },
+                {
+                    "name": "clear",
+                    "parameters": [
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "description": "Key of the message to be cleared."
+                        }
+                    ],
+                    "returnType": "void",
+                    "description": "Clears the message with the given key."
+                }
+            ]
+        }
     },
     "overlayoptions": {
         "description": "",
@@ -1625,6 +1638,210 @@
         "description": "",
         "components": {}
     },
+    "scrolleroptions": {
+        "description": "",
+        "components": {},
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "ScrollerOptions",
+                    "description": "Options for the scroller.",
+                    "props": [
+                        {
+                            "name": "id",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the element."
+                        },
+                        {
+                            "name": "style",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "items",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "An array of objects to display."
+                        },
+                        {
+                            "name": "itemSize",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "The height/width of item according to orientation."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Height of the scroll viewport."
+                        },
+                        {
+                            "name": "scrollWidth",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Width of the scroll viewport."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "\"both\" | \"vertical\" | \"horizontal\"",
+                            "description": "The orientation of scrollbar."
+                        },
+                        {
+                            "name": "step",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Used to specify how many items to load in each load method in lazy mode."
+                        },
+                        {
+                            "name": "delay",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Delay in scroll before new data is loaded."
+                        },
+                        {
+                            "name": "resizeDelay",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Delay after window's resize finishes."
+                        },
+                        {
+                            "name": "appendOnly",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Used to append each loaded item to top without removing any items from the DOM. Using very large data may cause the browser to crash."
+                        },
+                        {
+                            "name": "inline",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Specifies whether the scroller should be displayed inline or not."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines if data is loaded and interacted with in lazy manner."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "If disabled, the scroller feature is eliminated and the content is displayed directly."
+                        },
+                        {
+                            "name": "loaderDisabled",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Used to implement a custom loader instead of using the loader feature in the scroller."
+                        },
+                        {
+                            "name": "columns",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Columns to display."
+                        },
+                        {
+                            "name": "showSpacer",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Used to implement a custom spacer instead of using the spacer feature in the scroller."
+                        },
+                        {
+                            "name": "showLoader",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines whether to show loader."
+                        },
+                        {
+                            "name": "numToleratedItems",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Determines how many additional elements to add to the DOM outside of the view. According to the scrolls made up and down, extra items are added in a certain algorithm in the form of multiples of this number. Default value is half the number of items shown in the view."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines whether the data is loaded."
+                        },
+                        {
+                            "name": "autoSize",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines whether to dynamically change the height or width of scrollable container."
+                        },
+                        {
+                            "name": "trackBy",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity."
+                        },
+                        {
+                            "name": "onLazyLoad",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Callback to invoke in lazy mode to load new data."
+                        },
+                        {
+                            "name": "onScroll",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Callback to invoke when scroll position changes."
+                        },
+                        {
+                            "name": "onScrollIndexChange",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Function",
+                            "description": "Callback to invoke when scroll position and item's range in view changes."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
     "selectitem": {
         "description": "",
         "components": {},
@@ -1878,6 +2095,119 @@
                             "readonly": false,
                             "type": "Object",
                             "description": "The keys of the expanded rows in the table."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "tooltipoptions": {
+        "description": "",
+        "components": {},
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "TooltipOptions",
+                    "description": "Defines options of Tooltip.",
+                    "props": [
+                        {
+                            "name": "tooltipLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Label of tooltip."
+                        },
+                        {
+                            "name": "tooltipPosition",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "description": "Position of tooltip."
+                        },
+                        {
+                            "name": "tooltipEvent",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "\"focus\" | \"hover\"",
+                            "description": "Position of tooltip."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
+                            "name": "positionStyle",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Type of CSS position."
+                        },
+                        {
+                            "name": "tooltipStyleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the tooltip."
+                        },
+                        {
+                            "name": "tooltipZIndex",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Whether the z-index should be managed automatically to always go on top or have a fixed value."
+                        },
+                        {
+                            "name": "escape",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "By default the tooltip contents are rendered as text. Set to false to support html tags in the content."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "positionTop",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Specifies the additional vertical offset of the tooltip from its default position."
+                        },
+                        {
+                            "name": "positionLeft",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Specifies the additional horizontal offset of the tooltip from its default position."
+                        },
+                        {
+                            "name": "showDelay",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Delay to show the tooltip in milliseconds."
+                        },
+                        {
+                            "name": "hideDelay",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Delay to hide the tooltip in milliseconds."
+                        },
+                        {
+                            "name": "life",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Time to wait in milliseconds to hide the tooltip even it is active."
                         }
                     ]
                 }
@@ -2742,57 +3072,112 @@
                     "values": [
                         {
                             "name": "completeMethod",
-                            "parameters": "AutoCompleteCompleteEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AutoCompleteCompleteEvent"
+                                }
+                            ],
                             "description": "Callback to invoke to search for suggestions."
                         },
                         {
                             "name": "onSelect",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when a suggestion is selected."
                         },
                         {
                             "name": "onUnselect",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when a selected value is removed."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component loses focus."
                         },
                         {
                             "name": "onDropdownClick",
-                            "parameters": "AutoCompleteDropdownClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AutoCompleteDropdownClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke to when dropdown button is clicked."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when clear button is clicked."
                         },
                         {
                             "name": "onKeyUp",
-                            "parameters": "KeyboardEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "KeyboardEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on input key up."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on overlay is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on overlay is hidden."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "AutoCompleteLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AutoCompleteLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on lazy load data."
                         }
                     ]
@@ -3050,7 +3435,12 @@
                     "values": [
                         {
                             "name": "onImageError",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
@@ -3299,7 +3689,12 @@
                     "values": [
                         {
                             "name": "onItemClick",
-                            "parameters": "BreadcrumbItemClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "BreadcrumbItemClickEvent"
+                                }
+                            ],
                             "description": "Fired when an item is selected."
                         }
                     ]
@@ -3490,17 +3885,32 @@
                     "values": [
                         {
                             "name": "onClick",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to execute when button is clicked."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "FocusEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
                             "description": "Callback to execute when button is focused."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "FocusEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
                             "description": "Callback to execute when button loses focus."
                         }
                     ]
@@ -4023,7 +4433,12 @@
                     "values": [
                         {
                             "name": "onPage",
-                            "parameters": "CarouselPageEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CarouselPageEvent"
+                                }
+                            ],
                             "description": "Callback to invoke after scroll."
                         }
                     ]
@@ -4311,37 +4726,72 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         },
                         {
                             "name": "onGroupChange",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when a group changes."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "CascadeSelectShowEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CascadeSelectShowEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "CascadeSelectHideEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CascadeSelectHideEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is hidden."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when the clear token is clicked."
                         },
                         {
                             "name": "onBeforeShow",
-                            "parameters": "CascadeSelectBeforeShowEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CascadeSelectBeforeShowEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before overlay is shown."
                         },
                         {
                             "name": "onBeforeHide",
-                            "parameters": "CascadeSelectBeforeHideEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CascadeSelectBeforeHideEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before overlay is hidden."
                         }
                     ]
@@ -4576,7 +5026,12 @@
                     "values": [
                         {
                             "name": "onDataSelect",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to execute when an element on chart is clicked."
                         }
                     ]
@@ -4731,7 +5186,12 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "CheckboxChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "CheckboxChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         }
                     ]
@@ -4843,12 +5303,22 @@
                     "values": [
                         {
                             "name": "onRemove",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a chip is removed."
                         },
                         {
                             "name": "onImageError",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
@@ -5008,32 +5478,62 @@
                     "values": [
                         {
                             "name": "onAdd",
-                            "parameters": "ChipsAddEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ChipsAddEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on chip add."
                         },
                         {
                             "name": "onRemove",
-                            "parameters": "ChipsRemoveEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ChipsRemoveEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on chip remove."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on focus of input field."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on blur of input field."
                         },
                         {
                             "name": "onChipClick",
-                            "parameters": "ChipsClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ChipsClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on chip clicked."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on clear token clicked."
                         }
                     ]
@@ -5244,17 +5744,32 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "ColorPickerChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ColorPickerChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on panel is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on panel is hidden."
                         }
                     ]
@@ -5532,7 +6047,12 @@
                     "values": [
                         {
                             "name": "onHide",
-                            "parameters": "ConfirmEventType",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ConfirmEventType"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog is hidden."
                         }
                     ]
@@ -5754,12 +6274,22 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Displays the popup menu."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Hides the popup menu."
                         }
                     ]
@@ -6000,22 +6530,42 @@
                     "values": [
                         {
                             "name": "onLazyLoad",
-                            "parameters": "DataViewLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DataViewLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when paging, sorting or filtering happens in lazy mode."
                         },
                         {
                             "name": "onPage",
-                            "parameters": "DataViewPageEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DataViewPageEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when pagination occurs."
                         },
                         {
                             "name": "onSort",
-                            "parameters": "DataViewSortEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DataViewSortEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when sorting occurs."
                         },
                         {
                             "name": "onChangeLayout",
-                            "parameters": "DataViewLayoutChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DataViewLayoutChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when changing layout."
                         }
                     ]
@@ -6268,7 +6818,12 @@
                     "values": [
                         {
                             "name": "onLoad",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when deferred content is loaded."
                         }
                     ]
@@ -6566,37 +7121,72 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog is hidden."
                         },
                         {
                             "name": "visibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "This EventEmitter is used to notify changes in the visibility state of a component."
                         },
                         {
                             "name": "onResizeInit",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog resizing is initiated."
                         },
                         {
                             "name": "onResizeEnd",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog resizing is completed."
                         },
                         {
                             "name": "onDragEnd",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog dragging is completed."
                         },
                         {
                             "name": "onMaximize",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog maximized or unmaximized."
                         }
                     ]
@@ -6805,17 +7395,32 @@
                     "values": [
                         {
                             "name": "onDragStart",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when drag begins."
                         },
                         {
                             "name": "onDragEnd",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when drag ends."
                         },
                         {
                             "name": "onDrag",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on dragging."
                         }
                     ]
@@ -6848,17 +7453,32 @@
                     "values": [
                         {
                             "name": "onDragEnter",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a draggable enters drop area."
                         },
                         {
                             "name": "onDragLeave",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a draggable leave drop area."
                         },
                         {
                             "name": "onDrop",
-                            "parameters": "DragEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DragEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a draggable is dropped onto drop area."
                         }
                     ]
@@ -7291,47 +7911,92 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "DropdownChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when value of dropdown changes."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "DropdownFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown gets focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown loses focus."
                         },
                         {
                             "name": "onClick",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when component is clicked."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "AnimationEvent_2",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown overlay gets visible."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "AnimationEvent_2",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown overlay gets hidden."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown clears the value."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "DropdownLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         }
                     ]
@@ -7560,8 +8225,28 @@
         }
     },
     "dialogservice": {
-        "description": "",
-        "components": {}
+        "methods": {
+            "description": "Methods used in service.",
+            "values": [
+                {
+                    "name": "open",
+                    "parameters": [
+                        {
+                            "name": "componentType",
+                            "type": "Type<any>",
+                            "description": "Dynamic component for content template."
+                        },
+                        {
+                            "name": "config",
+                            "type": "DynamicDialogConfig<any>",
+                            "description": "DynamicDialog object."
+                        }
+                    ],
+                    "returnType": "DynamicDialogRef",
+                    "description": "Displays the dialog using the dynamic dialog object options."
+                }
+            ]
+        }
     },
     "dynamicdialog-config": {
         "description": "",
@@ -7778,7 +8463,119 @@
     },
     "dynamicdialog-ref": {
         "description": "",
-        "components": {}
+        "components": {
+            "DynamicDialogRef": {
+                "description": "Dynamic Dialog instance.",
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "close",
+                            "parameters": [
+                                {
+                                    "name": "result",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Closes dialog."
+                        },
+                        {
+                            "name": "destroy",
+                            "parameters": [],
+                            "description": "Destroys the dialog instance."
+                        },
+                        {
+                            "name": "dragStart",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent",
+                                    "description": "Mouse event."
+                                }
+                            ],
+                            "description": "Callback to invoke on drag start."
+                        },
+                        {
+                            "name": "dragEnd",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent",
+                                    "description": "Mouse event."
+                                }
+                            ],
+                            "description": "Callback to invoke on drag end."
+                        },
+                        {
+                            "name": "resizeInit",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent",
+                                    "description": "Mouse event."
+                                }
+                            ],
+                            "description": "Callback to invoke on resize start."
+                        },
+                        {
+                            "name": "resizeEnd",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent",
+                                    "description": "Mouse event."
+                                }
+                            ],
+                            "description": "Callback to invoke on resize start."
+                        },
+                        {
+                            "name": "maximize",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any",
+                                    "description": "Size value."
+                                }
+                            ],
+                            "description": "Callback to invoke on dialog is maximized."
+                        }
+                    ]
+                },
+                "events": {
+                    "description": "Defines the custom events used by the component's emitters.",
+                    "values": [
+                        {
+                            "name": "onClose",
+                            "description": "Event triggered on dialog is closed."
+                        },
+                        {
+                            "name": "onDestroy",
+                            "description": "Event triggered on dialog instance is destroyed."
+                        },
+                        {
+                            "name": "onDragStart",
+                            "description": "Event triggered on drag start."
+                        },
+                        {
+                            "name": "onDragEnd",
+                            "description": "Event triggered on drag end."
+                        },
+                        {
+                            "name": "onResizeInit",
+                            "description": "Event triggered on resize start."
+                        },
+                        {
+                            "name": "onResizeEnd",
+                            "description": "Event triggered on resize end."
+                        },
+                        {
+                            "name": "onMaximize",
+                            "description": "Event triggered on resize end."
+                        }
+                    ]
+                }
+            }
+        }
     },
     "dynamicdialog": {
         "description": "",
@@ -7865,17 +8662,32 @@
                     "values": [
                         {
                             "name": "onInit",
-                            "parameters": "EditorInitEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorInitEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the quill modules are loaded."
                         },
                         {
                             "name": "onTextChange",
-                            "parameters": "EditorTextChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorTextChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when text of editor changes."
                         },
                         {
                             "name": "onSelectionChange",
-                            "parameters": "EditorSelectionChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "EditorSelectionChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when selection of the text changes."
                         }
                     ]
@@ -8036,17 +8848,32 @@
                     "values": [
                         {
                             "name": "collapsedChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Emits when the collapsed state changes."
                         },
                         {
                             "name": "onBeforeToggle",
-                            "parameters": "FieldsetBeforeToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FieldsetBeforeToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before panel toggle."
                         },
                         {
                             "name": "onAfterToggle",
-                            "parameters": "FieldsetAfterToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FieldsetAfterToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke after panel toggle."
                         }
                     ]
@@ -8400,52 +9227,102 @@
                     "values": [
                         {
                             "name": "onBeforeUpload",
-                            "parameters": "FileBeforeUploadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileBeforeUploadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before file upload is initialized."
                         },
                         {
                             "name": "onSend",
-                            "parameters": "FileSendEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileSendEvent"
+                                }
+                            ],
                             "description": "An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream."
                         },
                         {
                             "name": "onUpload",
-                            "parameters": "FileUploadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileUploadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when file upload is complete."
                         },
                         {
                             "name": "onError",
-                            "parameters": "FileUploadErrorEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileUploadErrorEvent"
+                                }
+                            ],
                             "description": "Callback to invoke if file upload fails."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when files in queue are removed without uploading using clear all button."
                         },
                         {
                             "name": "onRemove",
-                            "parameters": "FileRemoveEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileRemoveEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a file is removed without uploading using clear button of a file."
                         },
                         {
                             "name": "onSelect",
-                            "parameters": "FileSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when files are selected."
                         },
                         {
                             "name": "onProgress",
-                            "parameters": "FileProgressEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileProgressEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when files are being uploaded."
                         },
                         {
                             "name": "uploadHandler",
-                            "parameters": "FileUploadHandlerEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FileUploadHandlerEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in custom upload mode to upload the files manually."
                         },
                         {
                             "name": "onImageError",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
@@ -8935,12 +9812,22 @@
                     "values": [
                         {
                             "name": "activeIndexChange",
-                            "parameters": "number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
                             "description": "Callback to invoke on active index change."
                         },
                         {
                             "name": "visibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Callback to invoke on visiblity change."
                         }
                     ]
@@ -9377,17 +10264,32 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Triggered when the preview overlay is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Triggered when the preview overlay is hidden."
                         },
                         {
                             "name": "onImageError",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
@@ -9507,12 +10409,22 @@
                     "values": [
                         {
                             "name": "onActivate",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when inplace is opened."
                         },
                         {
                             "name": "onDeactivate",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when inplace is closed."
                         }
                     ]
@@ -9767,32 +10679,62 @@
                     "values": [
                         {
                             "name": "onComplete",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when the mask is completed."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component loses focus."
                         },
                         {
                             "name": "onInput",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on input."
                         },
                         {
                             "name": "onKeydown",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke on input key press."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when input field is cleared."
                         }
                     ]
@@ -10112,27 +11054,52 @@
                     "values": [
                         {
                             "name": "onInput",
-                            "parameters": "InputNumberInputEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "InputNumberInputEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on input."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component loses focus."
                         },
                         {
                             "name": "onKeyDown",
-                            "parameters": "KeyboardEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "KeyboardEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on input key press."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "void",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "void"
+                                }
+                            ],
                             "description": "Callback to invoke when clear token is clicked."
                         }
                     ]
@@ -10294,7 +11261,12 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "InputSwitchOnChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "InputSwitchOnChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the on value change."
                         }
                     ]
@@ -10357,7 +11329,12 @@
                     "values": [
                         {
                             "name": "onResize",
-                            "parameters": "Object | Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Object | Event"
+                                }
+                            ],
                             "description": "Callback to invoke on textarea resize."
                         }
                     ]
@@ -10369,7 +11346,7 @@
         "description": "",
         "components": {
             "KeyFilter": {
-                "description": "KeyFilter is a built-in feature of InputText to restrict user input based on a regular expression.",
+                "description": "KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -10393,7 +11370,12 @@
                     "values": [
                         {
                             "name": "ngModelChange",
-                            "parameters": "string | number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "string | number"
+                                }
+                            ],
                             "description": "Emits a value whenever the ngModel of the component changes."
                         }
                     ]
@@ -10533,7 +11515,12 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         }
                     ]
@@ -10753,17 +11740,32 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "ListboxChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         },
                         {
                             "name": "onClick",
-                            "parameters": "ListboxClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when option is clicked."
                         },
                         {
                             "name": "onDblClick",
-                            "parameters": "ListboxDoubleClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxDoubleClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when option is double clicked."
                         }
                     ]
@@ -11104,12 +12106,22 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is hidden."
                         }
                     ]
@@ -11343,7 +12355,12 @@
                     "values": [
                         {
                             "name": "valueChange",
-                            "parameters": "Message[]",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Message[]"
+                                }
+                            ],
                             "description": "This function is executed when the value changes."
                         }
                     ]
@@ -11812,52 +12829,102 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "MultiSelectChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when value changes."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "MultiSelectFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "MultiSelectFocusEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectFocusEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when multiselect receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "MultiSelectBlurEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectBlurEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when multiselect loses focus."
                         },
                         {
                             "name": "onClick",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when component is clicked."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "void",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "void"
+                                }
+                            ],
                             "description": "Callback to invoke when input field is cleared."
                         },
                         {
                             "name": "onPanelShow",
-                            "parameters": "void",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "void"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay panel becomes visible."
                         },
                         {
                             "name": "onPanelHide",
-                            "parameters": "void",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "void"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay panel becomes hidden."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "MultiSelectLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         },
                         {
                             "name": "onRemove",
-                            "parameters": "MultiSelectRemoveEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectRemoveEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         }
                     ]
@@ -12284,22 +13351,42 @@
                     "values": [
                         {
                             "name": "selectionChange",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on selection change."
                         },
                         {
                             "name": "onReorder",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when list is reordered."
                         },
                         {
                             "name": "onSelectionChange",
-                            "parameters": "OrderListSelectionChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrderListSelectionChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when selection changes."
                         },
                         {
                             "name": "onFilterEvent",
-                            "parameters": "OrderListFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrderListFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when filtering occurs."
                         }
                     ]
@@ -12527,27 +13614,52 @@
                     "values": [
                         {
                             "name": "selectionChange",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on selection change."
                         },
                         {
                             "name": "onNodeSelect",
-                            "parameters": "OrganizationChartNodeSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrganizationChartNodeSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected."
                         },
                         {
                             "name": "onNodeUnselect",
-                            "parameters": "OrganizationChartNodeUnSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrganizationChartNodeUnSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is unselected."
                         },
                         {
                             "name": "onNodeExpand",
-                            "parameters": "OrganizationChartNodeExpandEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrganizationChartNodeExpandEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is expanded."
                         },
                         {
                             "name": "onNodeCollapse",
-                            "parameters": "OrganizationChartNodeCollapseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OrganizationChartNodeCollapseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is collapsed."
                         }
                     ]
@@ -12765,37 +13877,72 @@
                     "values": [
                         {
                             "name": "visibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "This EventEmitter is used to notify changes in the visibility state of a component."
                         },
                         {
                             "name": "onBeforeShow",
-                            "parameters": "OverlayOnBeforeShowEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OverlayOnBeforeShowEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before the overlay is shown."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "OverlayOnShowEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OverlayOnShowEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is shown."
                         },
                         {
                             "name": "onBeforeHide",
-                            "parameters": "OverlayOnBeforeHideEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OverlayOnBeforeHideEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before the overlay is hidden."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "OverlayOnHideEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "OverlayOnHideEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is hidden"
                         },
                         {
                             "name": "onAnimationStart",
-                            "parameters": "AnimationEvent_2",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
                             "description": "Callback to invoke when the animation is started."
                         },
                         {
                             "name": "onAnimationDone",
-                            "parameters": "AnimationEvent_2",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
                             "description": "Callback to invoke when the animation is done."
                         }
                     ]
@@ -12902,12 +14049,22 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when an overlay becomes visible."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when an overlay gets hidden."
                         }
                     ]
@@ -13142,7 +14299,12 @@
                     "values": [
                         {
                             "name": "onPageChange",
-                            "parameters": "PaginatorState",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "PaginatorState"
+                                }
+                            ],
                             "description": "Callback to invoke when page changes, the event object contains information about the new state."
                         }
                     ]
@@ -13318,17 +14480,32 @@
                     "values": [
                         {
                             "name": "collapsedChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Emitted when the collapsed changes."
                         },
                         {
                             "name": "onBeforeToggle",
-                            "parameters": "PanelBeforeToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PanelBeforeToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke before panel toggle."
                         },
                         {
                             "name": "onAfterToggle",
-                            "parameters": "PanelAfterToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PanelAfterToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke after panel toggle."
                         }
                     ]
@@ -13726,17 +14903,32 @@
                     "values": [
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the component loses focus."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when clear button is clicked."
                         }
                     ]
@@ -14073,52 +15265,102 @@
                     "values": [
                         {
                             "name": "onMoveToSource",
-                            "parameters": "PickListMoveToSourceEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListMoveToSourceEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are moved from target to source."
                         },
                         {
                             "name": "onMoveAllToSource",
-                            "parameters": "PickListMoveAllToSourceEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListMoveAllToSourceEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when all items are moved from target to source."
                         },
                         {
                             "name": "onMoveAllToTarget",
-                            "parameters": "PickListMoveAllToTargetEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListMoveAllToTargetEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when all items are moved from source to target."
                         },
                         {
                             "name": "onMoveToTarget",
-                            "parameters": "PickListMoveToTargetEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListMoveToTargetEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are moved from source to target."
                         },
                         {
                             "name": "onSourceReorder",
-                            "parameters": "PickListSourceReorderEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListSourceReorderEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are reordered within source list."
                         },
                         {
                             "name": "onTargetReorder",
-                            "parameters": "PickListTargetReorderEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListTargetReorderEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are reordered within target list."
                         },
                         {
                             "name": "onSourceSelect",
-                            "parameters": "PickListSourceSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListSourceSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are selected within source list."
                         },
                         {
                             "name": "onTargetSelect",
-                            "parameters": "PickListTargetSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListTargetSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when items are selected within target list."
                         },
                         {
                             "name": "onSourceFilter",
-                            "parameters": "PickListSourceFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListSourceFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the source list is filtered"
                         },
                         {
                             "name": "onTargetFilter",
-                            "parameters": "PickListTargetFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "PickListTargetFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when the target list is filtered"
                         }
                     ]
@@ -14685,17 +15927,32 @@
                     "values": [
                         {
                             "name": "onClick",
-                            "parameters": "RadioButtonClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "RadioButtonClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on radio button click."
                         },
                         {
                             "name": "onFocus",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the receives focus."
                         },
                         {
                             "name": "onBlur",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the loses focus."
                         }
                     ]
@@ -14830,12 +16087,22 @@
                     "values": [
                         {
                             "name": "onRate",
-                            "parameters": "RatingRateEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "RatingRateEvent"
+                                }
+                            ],
                             "description": "Emitted on value change."
                         },
                         {
                             "name": "onCancel",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Emitted when the rating is cancelled."
                         }
                     ]
@@ -15067,17 +16334,32 @@
                     "values": [
                         {
                             "name": "onLazyLoad",
-                            "parameters": "ScrollerLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ScrollerLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         },
                         {
                             "name": "onScroll",
-                            "parameters": "ScrollerScrollEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ScrollerScrollEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when scroll position changes."
                         },
                         {
                             "name": "onScrollIndexChange",
-                            "parameters": "ScrollerScrollIndexChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ScrollerScrollIndexChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when scroll position and item's range in view changes."
                         }
                     ]
@@ -15207,174 +16489,6 @@
                     {
                         "name": "ScrollerOrientationType",
                         "description": "Options of the scroller orientation."
-                    },
-                    {
-                        "name": "ScrollerOptions",
-                        "description": "Options for the virtual scroller.",
-                        "props": [
-                            {
-                                "name": "id",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "style",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "styleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "tabindex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "items",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any[]"
-                            },
-                            {
-                                "name": "itemSize",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "scrollHeight",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "scrollWidth",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "orientation",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "ScrollerOrientationType"
-                            },
-                            {
-                                "name": "step",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "delay",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "resizeDelay",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "appendOnly",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "inline",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "lazy",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "disabled",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "loaderDisabled",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "columns",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any[]"
-                            },
-                            {
-                                "name": "showSpacer",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "showLoader",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "numToleratedItems",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "loading",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "autoSize",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "trackBy",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "onLazyLoad",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            },
-                            {
-                                "name": "onScroll",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            },
-                            {
-                                "name": "onScrollIndexChange",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            }
-                        ]
                     },
                     {
                         "name": "ScrollerLoaderIconOptions",
@@ -15814,12 +16928,22 @@
                     "values": [
                         {
                             "name": "onOptionClick",
-                            "parameters": "SelectButtonOptionClickEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SelectButtonOptionClickEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on input click."
                         },
                         {
                             "name": "onChange",
-                            "parameters": "SelectButtonChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SelectButtonChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on selection change."
                         }
                     ]
@@ -16018,17 +17142,32 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog is hidden."
                         },
                         {
                             "name": "visibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Callback to invoke when dialog visibility is changed."
                         }
                     ]
@@ -16256,12 +17395,22 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is hidden."
                         }
                     ]
@@ -16420,12 +17569,22 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "SliderChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SliderChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         },
                         {
                             "name": "onSlideEnd",
-                            "parameters": "SliderSlideEndEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SliderSlideEndEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when slide ended."
                         }
                     ]
@@ -16643,27 +17802,52 @@
                     "values": [
                         {
                             "name": "onVisibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Fired when the visibility of element changed."
                         },
                         {
                             "name": "visibleChange",
-                            "parameters": "boolean",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
                             "description": "Fired when the visibility of element changed."
                         },
                         {
                             "name": "onClick",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Fired when the button element clicked."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Fired when the actions are visible."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Fired when the actions are hidden."
                         }
                     ]
@@ -16802,12 +17986,22 @@
                     "values": [
                         {
                             "name": "onClick",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
                             "name": "onDropdownClick",
-                            "parameters": "MouseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when dropdown button is clicked."
                         }
                     ]
@@ -16924,12 +18118,22 @@
                     "values": [
                         {
                             "name": "onResizeEnd",
-                            "parameters": "SplitterResizeEndEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SplitterResizeEndEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when resize ends."
                         },
                         {
                             "name": "onResizeStart",
-                            "parameters": "SplitterResizeStartEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "SplitterResizeStartEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when resize starts."
                         }
                     ]
@@ -17048,7 +18252,12 @@
                     "values": [
                         {
                             "name": "activeIndexChange",
-                            "parameters": "number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
                             "description": "Callback to invoke when the new step is selected."
                         }
                     ]
@@ -17774,117 +18983,232 @@
                     "values": [
                         {
                             "name": "contextMenuSelectionChange",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on context menu selection change."
                         },
                         {
                             "name": "selectionChange",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke on selection changed."
                         },
                         {
                             "name": "onRowSelect",
-                            "parameters": "TableRowSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableRowSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is selected."
                         },
                         {
                             "name": "onRowUnselect",
-                            "parameters": "TableRowUnSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableRowUnSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is unselected."
                         },
                         {
                             "name": "onPage",
-                            "parameters": "TablePageEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TablePageEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when pagination occurs."
                         },
                         {
                             "name": "onSort",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when a column gets sorted."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "TableFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "TableLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when paging, sorting or filtering happens in lazy mode."
                         },
                         {
                             "name": "onRowExpand",
-                            "parameters": "TableRowExpandEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableRowExpandEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is expanded."
                         },
                         {
                             "name": "onRowCollapse",
-                            "parameters": "TableRowCollapseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableRowCollapseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is collapsed."
                         },
                         {
                             "name": "onContextMenuSelect",
-                            "parameters": "TableContextMenuSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableContextMenuSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is selected with right click."
                         },
                         {
                             "name": "onColResize",
-                            "parameters": "TableColResizeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableColResizeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a column is resized."
                         },
                         {
                             "name": "onColReorder",
-                            "parameters": "TableColumnReorderEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableColumnReorderEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a column is reordered."
                         },
                         {
                             "name": "onRowReorder",
-                            "parameters": "TableRowReorderEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableRowReorderEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a row is reordered."
                         },
                         {
                             "name": "onEditInit",
-                            "parameters": "TableEditInitEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableEditInitEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a cell switches to edit mode."
                         },
                         {
                             "name": "onEditComplete",
-                            "parameters": "TableEditCompleteEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableEditCompleteEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when cell edit is completed."
                         },
                         {
                             "name": "onEditCancel",
-                            "parameters": "TableEditCancelEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableEditCancelEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when cell edit is cancelled with escape key."
                         },
                         {
                             "name": "onHeaderCheckboxToggle",
-                            "parameters": "TableHeaderCheckboxToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableHeaderCheckboxToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when state of header checkbox changes."
                         },
                         {
                             "name": "sortFunction",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "A function to implement custom sorting, refer to sorting section for details."
                         },
                         {
                             "name": "firstChange",
-                            "parameters": "number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
                             "description": "Callback to invoke on pagination."
                         },
                         {
                             "name": "rowsChange",
-                            "parameters": "number",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
                             "description": "Callback to invoke on rows change."
                         },
                         {
                             "name": "onStateSave",
-                            "parameters": "TableState",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TableState"
+                                }
+                            ],
                             "description": "Callback to invoke table state is saved."
                         },
                         {
                             "name": "onStateRestore",
-                            "parameters": "TableState",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TableState"
+                                }
+                            ],
                             "description": "Callback to invoke table state is restored."
                         }
                     ]
@@ -18837,7 +20161,12 @@
                     "values": [
                         {
                             "name": "activeItemChange",
-                            "parameters": "MenuItem",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "MenuItem"
+                                }
+                            ],
                             "description": "Event fired when a tab is selected."
                         }
                     ]
@@ -19202,6 +20531,32 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "description": "",
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "TerminalService",
+                        "description": "Defines Terminal service options.",
+                        "props": [
+                            {
+                                "name": "sendCommand",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "sendResponse",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
     "terminalservice": {
@@ -19299,12 +20654,22 @@
                     "values": [
                         {
                             "name": "onShow",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when overlay menu is hidden."
                         }
                     ]
@@ -19566,7 +20931,12 @@
                     "values": [
                         {
                             "name": "onClose",
-                            "parameters": "ToastCloseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ToastCloseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a message is closed."
                         }
                     ]
@@ -19712,7 +21082,12 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "ToggleButtonChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ToggleButtonChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         }
                     ]
@@ -19820,7 +21195,8 @@
                             "name": "tooltipEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"focus\" | \"hover\"",
+                            "type": "any",
+                            "default": "hover",
                             "description": "Event to show the tooltip."
                         },
                         {
@@ -19940,116 +21316,6 @@
                         }
                     ]
                 }
-            }
-        },
-        "interfaces": {
-            "description": "",
-            "interfaces": {
-                "description": "Defines the custom interfaces used by the module.",
-                "values": [
-                    {
-                        "name": "TooltipOptions",
-                        "description": "Defines options of Tooltip.",
-                        "props": [
-                            {
-                                "name": "tooltipLabel",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "tooltipPosition",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "tooltipEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "appendTo",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "positionStyle",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "tooltipStyleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "tooltipZIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "escape",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "disabled",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "showDelay",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "hideDelay",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "positionTop",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "positionLeft",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "life",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "autoHide",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "hideOnEscape",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            }
-                        ]
-                    }
-                ]
             }
         }
     },
@@ -20337,57 +21603,112 @@
                     "values": [
                         {
                             "name": "selectionChange",
-                            "parameters": "TreeNode<any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeNode<any"
+                                }
+                            ],
                             "description": "Callback to invoke on selection change."
                         },
                         {
                             "name": "onNodeSelect",
-                            "parameters": "TreeNodeSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected."
                         },
                         {
                             "name": "onNodeUnselect",
-                            "parameters": "TreeNodeUnSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeUnSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is unselected."
                         },
                         {
                             "name": "onNodeExpand",
-                            "parameters": "TreeNodeExpandEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeExpandEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is expanded."
                         },
                         {
                             "name": "onNodeCollapse",
-                            "parameters": "TreeNodeCollapseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeCollapseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is collapsed."
                         },
                         {
                             "name": "onNodeContextMenuSelect",
-                            "parameters": "TreeNodeContextMenuSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeContextMenuSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected with right click."
                         },
                         {
                             "name": "onNodeDrop",
-                            "parameters": "TreeNodeDropEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeNodeDropEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is dropped."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "TreeLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         },
                         {
                             "name": "onScroll",
-                            "parameters": "TreeScrollEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeScrollEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in virtual scroll mode when scroll position changes."
                         },
                         {
                             "name": "onScrollIndexChange",
-                            "parameters": "TreeScrollIndexChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeScrollIndexChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in virtual scroll mode when scroll position and item's range in view changes."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "TreeFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         }
                     ]
@@ -20971,42 +22292,82 @@
                     "values": [
                         {
                             "name": "onNodeExpand",
-                            "parameters": "TreeSelectNodeExpandEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeSelectNodeExpandEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is expanded."
                         },
                         {
                             "name": "onNodeCollapse",
-                            "parameters": "TreeSelectNodeCollapseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeSelectNodeCollapseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is collapsed."
                         },
                         {
                             "name": "onShow",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is shown."
                         },
                         {
                             "name": "onHide",
-                            "parameters": "Event",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
                             "description": "Callback to invoke when the overlay is hidden."
                         },
                         {
                             "name": "onClear",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when input field is cleared."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         },
                         {
                             "name": "onNodeUnselect",
-                            "parameters": "TreeNode<any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeNode<any"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is unselected."
                         },
                         {
                             "name": "onNodeSelect",
-                            "parameters": "TreeNode<any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeNode<any"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected."
                         }
                     ]
@@ -21613,92 +22974,182 @@
                     "values": [
                         {
                             "name": "selectionChange",
-                            "parameters": "TreeTableNode",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeTableNode"
+                                }
+                            ],
                             "description": "Callback to invoke on selected node change."
                         },
                         {
                             "name": "contextMenuSelectionChange",
-                            "parameters": "TreeTableNode",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeTableNode"
+                                }
+                            ],
                             "description": "Callback to invoke on context menu selection change."
                         },
                         {
                             "name": "onFilter",
-                            "parameters": "TreeTableFilterEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableFilterEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when data is filtered."
                         },
                         {
                             "name": "onNodeExpand",
-                            "parameters": "TreeTableNode",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeTableNode"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is expanded."
                         },
                         {
                             "name": "onNodeCollapse",
-                            "parameters": "TreeTableNodeCollapseEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableNodeCollapseEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is collapsed."
                         },
                         {
                             "name": "onPage",
-                            "parameters": "TreeTablePaginatorState",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeTablePaginatorState"
+                                }
+                            ],
                             "description": "Callback to invoke when pagination occurs."
                         },
                         {
                             "name": "onSort",
-                            "parameters": "any",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Callback to invoke when a column gets sorted."
                         },
                         {
                             "name": "onLazyLoad",
-                            "parameters": "TreeTableLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when paging, sorting or filtering happens in lazy mode."
                         },
                         {
                             "name": "sortFunction",
-                            "parameters": "TreeTableSortEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableSortEvent"
+                                }
+                            ],
                             "description": "An event emitter to invoke on custom sorting, refer to sorting section for details."
                         },
                         {
                             "name": "onColResize",
-                            "parameters": "TreeTableColResizeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableColResizeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a column is resized."
                         },
                         {
                             "name": "onColReorder",
-                            "parameters": "TreeTableColumnReorderEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableColumnReorderEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a column is reordered."
                         },
                         {
                             "name": "onNodeSelect",
-                            "parameters": "TreeTableNode",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "TreeTableNode"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected."
                         },
                         {
                             "name": "onNodeUnselect",
-                            "parameters": "TreeTableNodeUnSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableNodeUnSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is unselected."
                         },
                         {
                             "name": "onContextMenuSelect",
-                            "parameters": "TreeTableContextMenuSelectEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableContextMenuSelectEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a node is selected with right click."
                         },
                         {
                             "name": "onHeaderCheckboxToggle",
-                            "parameters": "TreeTableHeaderCheckboxToggleEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableHeaderCheckboxToggleEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when state of header checkbox changes."
                         },
                         {
                             "name": "onEditInit",
-                            "parameters": "TreeTableEditEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableEditEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when a cell switches to edit mode."
                         },
                         {
                             "name": "onEditComplete",
-                            "parameters": "TreeTableEditEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableEditEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when cell edit is completed."
                         },
                         {
                             "name": "onEditCancel",
-                            "parameters": "TreeTableEditEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TreeTableEditEvent"
+                                }
+                            ],
                             "description": "Callback to invoke when cell edit is cancelled with escape key."
                         }
                     ]
@@ -22714,7 +24165,12 @@
                     "values": [
                         {
                             "name": "onChange",
-                            "parameters": "TriStateCheckboxChangeEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TriStateCheckboxChangeEvent"
+                                }
+                            ],
                             "description": "Callback to invoke on value change."
                         }
                     ]
@@ -22852,7 +24308,12 @@
                     "values": [
                         {
                             "name": "onLazyLoad",
-                            "parameters": "VirtualScrollerLazyLoadEvent",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "VirtualScrollerLazyLoadEvent"
+                                }
+                            ],
                             "description": "Callback to invoke in lazy mode to load new data."
                         }
                     ]
