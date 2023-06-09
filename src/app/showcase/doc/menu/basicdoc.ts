@@ -25,11 +25,11 @@ export class BasicDoc implements OnInit {
         this.items = [
             {
                 label: 'New',
-                icon: 'pi pi-fw pi-plus',
+                icon: 'pi pi-fw pi-plus'
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-fw pi-trash',
+                icon: 'pi pi-fw pi-trash'
             }
         ];
     }
