@@ -99,6 +99,7 @@ if (project) {
                     const module_events_group = module.groups.find((g) => g.title === 'Events');
                     const module_templates_group = module.groups.find((g) => g.title === 'Templates');
                     const module_interface_group = module.groups.find((g) => g.title === 'Interface');
+                    const module_service_group = module.groups.find((g) => g.title === 'Service');
 
                     if(isProcessable(module_components_group)) {
                         module_components_group.children.forEach(component => {
@@ -108,7 +109,6 @@ if (project) {
                             doc[name]['components'][componentName] = {
                                 description: comment && comment.summary.map((s) => s.text || '').join(' ')
                             }
-
 
                             const component_props_group = component.groups.find(g => g.title === 'Props');
                             if(isProcessable(component_props_group)) {
@@ -147,7 +147,7 @@ if (project) {
                                 component_emits_group.children.forEach(emitter => {
                                     emits.values.push({
                                         name: emitter.name,
-                                        parameters: extractParameter(emitter),
+                                        parameters: [{name: extractParameter(emitter) && extractParameter(emitter).includes('Event') ? 'event' : 'value' , type: extractParameter(emitter)}],
                                         description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined
                                     })
@@ -179,6 +179,34 @@ if (project) {
                                 });
 
                                 doc[name]['components'][componentName]['methods'] = methods;
+                            }
+
+                            const component_events_group = component.groups.find(g => g.title === 'Events');
+
+                            if(isProcessable(component_events_group)) {
+                                const events = {
+                                    description: staticMessages['events'],
+                                    values: []
+                                };
+
+                                component_events_group.children.forEach(event => {
+                                    events.values.push({
+                                        name: event.name,
+                                        description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
+                                        props:
+                                            event.children &&
+                                            event.children.map((child) => ({
+                                                name: child.name,
+                                                optional: child.flags.isOptional,
+                                                readonly: child.flags.isReadonly,
+                                                type: child.type && child.type.toString(),
+                                                description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                                                deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
+                                            }))
+                                    });    
+                                });
+
+                                doc[name]['components'][componentName]['events'] = events;
                             }
                         })
                     }
@@ -284,6 +312,40 @@ if (project) {
                         })
 
                         doc[name]['interfaces'] = interfaces;
+                    }
+
+                    if(isProcessable(module_service_group)) {
+                        doc[name] = {
+                            description: staticMessages['service'],
+                        };
+
+                        module_service_group.children.forEach(service => {
+                            const service_methods_group = service.groups.find(g => g.title === 'Method');
+                            if(isProcessable(service_methods_group)) {
+                                const methods = {
+                                    description: 'Methods used in service.',
+                                    values: []
+                                };
+
+                                service_methods_group.children.forEach(method => {
+                                    const signature = method.getAllSignatures()[0];
+                                    methods.values.push({
+                                        name: signature.name,
+                                        parameters: signature.parameters.map((param) => {
+                                            return {
+                                                name: param.name,
+                                                type: param.type.toString(),
+                                                description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                            };
+                                        }),
+                                        returnType: signature.type.toString(),
+                                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                                    });
+                                });
+
+                                doc[name]['methods'] = methods;
+                            }
+                        })
                     }
                 }
             }
