@@ -280,7 +280,7 @@ export class Menu implements OnDestroy {
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
-    ) { }
+    ) {}
 
     toggle(event: Event) {
         if (this.visible) this.hide();
@@ -495,4 +495,4 @@ export class Menu implements OnDestroy {
     exports: [Menu, RouterModule, TooltipModule],
     declarations: [Menu, MenuItemContent]
 })
-export class MenuModule { }
+export class MenuModule {}
