@@ -1,6 +1,5 @@
 {
     "accordion": {
-        "description": "",
         "components": {
             "AccordionTab": {
                 "description": "AccordionTab is a helper component for Accordion.",
@@ -199,7 +198,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -276,7 +274,6 @@
         }
     },
     "animate": {
-        "description": "",
         "components": {
             "Animate": {
                 "description": "Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.",
@@ -303,15 +300,12 @@
         }
     },
     "blockableui": {
-        "description": "",
         "components": {}
     },
     "confirmaeventtype": {
-        "description": "",
         "components": {}
     },
     "confirmation": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -504,15 +498,12 @@
         }
     },
     "contextmenuservice": {
-        "description": "",
         "components": {}
     },
     "filtermatchmode": {
-        "description": "",
         "components": {}
     },
     "filtermetadata": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -548,15 +539,12 @@
         }
     },
     "filteroperator": {
-        "description": "",
         "components": {}
     },
     "filterservice": {
-        "description": "",
         "components": {}
     },
     "lazyloadevent": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -633,7 +621,6 @@
         }
     },
     "lazyloadmeta": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -702,7 +689,6 @@
         }
     },
     "megamenuitem": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -912,7 +898,6 @@
         }
     },
     "menuitem": {
-        "description": "",
         "components": {},
         "events": {
             "description": "Defines the custom events used by the component's emitters.",
@@ -1188,7 +1173,6 @@
         }
     },
     "message": {
-        "description": "",
         "components": {
             "UIMessage": {
                 "description": "Message groups a collection of contents in tabs.",
@@ -1280,7 +1264,6 @@
         }
     },
     "overlayoptions": {
-        "description": "",
         "components": {},
         "events": {
             "description": "Defines the custom events used by the component's emitters.",
@@ -1454,14 +1437,6 @@
             "description": "Defines the custom interfaces used by the module.",
             "values": [
                 {
-                    "name": "OverlayModeType",
-                    "description": "Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined."
-                },
-                {
-                    "name": "ResponsiveOverlayDirectionType",
-                    "description": "Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined."
-                },
-                {
                     "name": "OverlayListenerOptions",
                     "description": "Represents the options for an overlay listener.",
                     "props": [
@@ -1628,18 +1603,30 @@
                     ]
                 }
             ]
+        },
+        "types": {
+            "description": "Defines the custom types used by the module.",
+            "values": [
+                {
+                    "name": "OverlayModeType",
+                    "value": "\"modal\" | \"overlay\" | undefined",
+                    "description": "Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined."
+                },
+                {
+                    "name": "ResponsiveOverlayDirectionType",
+                    "value": "\"center\" | \"top\" | \"top-start\" | \"top-end\" | \"bottom\" | \"bottom-start\" | \"bottom-end\" | \"left\" | \"left-start\" | \"left-end\" | \"right\" | \"right-start\" | \"right-end\" | undefined",
+                    "description": "Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined."
+                }
+            ]
         }
     },
     "overlayservice": {
-        "description": "",
         "components": {}
     },
     "primengconfig": {
-        "description": "",
         "components": {}
     },
     "scrolleroptions": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -1843,7 +1830,6 @@
         }
     },
     "selectitem": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -1894,7 +1880,6 @@
         }
     },
     "selectitemgroup": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -1927,11 +1912,9 @@
         }
     },
     "shared": {
-        "description": "",
         "components": {}
     },
     "sortevent": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -1976,7 +1959,6 @@
         }
     },
     "sortmeta": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2003,7 +1985,6 @@
         }
     },
     "tablestate": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2102,7 +2083,6 @@
         }
     },
     "tooltipoptions": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2215,7 +2195,6 @@
         }
     },
     "translation": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2500,15 +2479,12 @@
         }
     },
     "translationkeys": {
-        "description": "",
         "components": {}
     },
     "treedragdropservice": {
-        "description": "",
         "components": {}
     },
     "treenode": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2521,103 +2497,120 @@
                             "name": "label",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Label of the node."
                         },
                         {
                             "name": "data",
                             "optional": true,
                             "readonly": false,
-                            "type": "T"
+                            "type": "any",
+                            "description": "Data represented by the node."
                         },
                         {
                             "name": "icon",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Icon of the node to display next to content."
                         },
                         {
                             "name": "expandedIcon",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "string",
+                            "description": "Icon to use in expanded state."
                         },
                         {
                             "name": "collapsedIcon",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "string",
+                            "description": "Icon to use in collapsed state."
                         },
                         {
                             "name": "children",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode<T>[]"
+                            "type": "TreeNode[]",
+                            "description": "An array of treenodes as children."
                         },
                         {
                             "name": "leaf",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Specifies if the node has children. Used in lazy loading."
                         },
                         {
                             "name": "expanded",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Expanded state of the node."
                         },
                         {
                             "name": "type",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Type of the node to match a template."
                         },
                         {
                             "name": "parent",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode<T>"
+                            "type": "TreeNode",
+                            "description": "Parent of the node."
                         },
                         {
                             "name": "partialSelected",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Defines if value is partially selected."
                         },
                         {
                             "name": "style",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "any",
+                            "description": "Inline style of the node."
                         },
                         {
                             "name": "styleClass",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Style class of the node."
                         },
                         {
                             "name": "draggable",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Defines if the node is draggable."
                         },
                         {
                             "name": "droppable",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Defines if the node is droppable."
                         },
                         {
                             "name": "selectable",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Whether the node is selectable when selection mode is enabled."
                         },
                         {
                             "name": "key",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Mandatory unique key of the node."
                         }
                     ]
                 }
@@ -2625,7 +2618,6 @@
         }
     },
     "treenodedragevent": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -2638,31 +2630,211 @@
                             "name": "tree",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "any",
+                            "description": "Tree instance."
                         },
                         {
                             "name": "node",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode<any>"
+                            "type": "TreeNode",
+                            "description": "Node to be dragged."
                         },
                         {
                             "name": "subNodes",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode<any>[]"
+                            "type": "TreeNode[]",
+                            "description": "Child nodes of dragged node."
                         },
                         {
                             "name": "index",
                             "optional": true,
                             "readonly": false,
-                            "type": "number"
+                            "type": "number",
+                            "description": "Index of dragged node."
                         },
                         {
                             "name": "scope",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "any",
+                            "description": "Scope of dragged node."
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "treetablenode": {
+        "components": {},
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "TreeTableNode",
+                    "description": "Tree table node element.",
+                    "props": [
+                        {
+                            "name": "label",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Label of the node."
+                        },
+                        {
+                            "name": "data",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Data represented by the node."
+                        },
+                        {
+                            "name": "icon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon of the node to display next to content."
+                        },
+                        {
+                            "name": "expandedIcon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to use in expanded state."
+                        },
+                        {
+                            "name": "collapsedIcon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to use in collapsed state."
+                        },
+                        {
+                            "name": "children",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "TreeNode[]",
+                            "description": "An array of treenodes as children."
+                        },
+                        {
+                            "name": "leaf",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Specifies if the node has children. Used in lazy loading."
+                        },
+                        {
+                            "name": "expanded",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Expanded state of the node."
+                        },
+                        {
+                            "name": "parent",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "TreeNode",
+                            "description": "Parent of the node."
+                        },
+                        {
+                            "name": "partialSelected",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines if value is partially selected."
+                        },
+                        {
+                            "name": "style",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Inline style of the node."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the node."
+                        },
+                        {
+                            "name": "draggable",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines if the node is draggable."
+                        },
+                        {
+                            "name": "droppable",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Defines if the node is droppable."
+                        },
+                        {
+                            "name": "selectable",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether the node is selectable when selection mode is enabled."
+                        },
+                        {
+                            "name": "key",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Mandatory unique key of the node."
+                        },
+                        {
+                            "name": "originalEvent",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Event",
+                            "description": "Browser event."
+                        },
+                        {
+                            "name": "rowNode",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Row of the node."
+                        },
+                        {
+                            "name": "node",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "TreeNode",
+                            "description": "Node instance."
+                        },
+                        {
+                            "name": "type",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Selection type."
+                        },
+                        {
+                            "name": "index",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Node index."
+                        },
+                        {
+                            "name": "level",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Node level."
+                        },
+                        {
+                            "name": "visible",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Boolean value indicates if node is in viewport."
                         }
                     ]
                 }
@@ -2670,7 +2842,6 @@
         }
     },
     "autocomplete": {
-        "description": "",
         "components": {
             "AutoComplete": {
                 "description": "AutoComplete is an input component that provides real-time suggestions when being typed.",
@@ -3185,7 +3356,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -3349,7 +3519,6 @@
         }
     },
     "autofocus": {
-        "description": "",
         "components": {
             "AutoFocus": {
                 "description": "AutoFocus manages focus on focusable element on load.",
@@ -3370,7 +3539,6 @@
         }
     },
     "avatar": {
-        "description": "",
         "components": {
             "Avatar": {
                 "description": "Avatar represents people using icons, labels and images.",
@@ -3449,7 +3617,6 @@
         }
     },
     "avatargroup": {
-        "description": "",
         "components": {
             "AvatarGroup": {
                 "description": "AvatarGroup is a helper component for Avatar.",
@@ -3476,7 +3643,6 @@
         }
     },
     "badge": {
-        "description": "",
         "components": {
             "BadgeDirective": {
                 "description": "Badge Directive is directive usage of badge component.",
@@ -3573,11 +3739,9 @@
         }
     },
     "baseicon": {
-        "description": "",
         "components": {}
     },
     "blockui": {
-        "description": "",
         "components": {
             "BlockUI": {
                 "description": "BlockUI can either block other components or the whole page.",
@@ -3625,7 +3789,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -3640,7 +3803,6 @@
         }
     },
     "breadcrumb": {
-        "description": "",
         "components": {
             "Breadcrumb": {
                 "description": "Breadcrumb provides contextual information about page hierarchy.",
@@ -3702,7 +3864,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -3742,7 +3903,6 @@
         }
     },
     "button": {
-        "description": "",
         "components": {
             "ButtonDirective": {
                 "description": "Button directive is an extension to button component.",
@@ -3918,7 +4078,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -3945,10 +4104,8 @@
         }
     },
     "calendar": {
-        "description": "",
         "components": {},
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -4195,13 +4352,20 @@
                                 "description": "The number of visible months on breakpoint."
                             }
                         ]
-                    },
+                    }
+                ]
+            },
+            "types": {
+                "description": "Defines the custom types used by the module.",
+                "values": [
                     {
                         "name": "CalendarTypeView",
+                        "value": "\"date\" | \"month\" | \"year\"",
                         "description": "Custom type for the calendar views."
                     },
                     {
                         "name": "NavigationState",
+                        "value": "{\n    \"backward\": \"boolean\",\n    \"button\": \"boolean\"\n}",
                         "description": "Custom type for the calendar navigation state."
                     }
                 ]
@@ -4209,7 +4373,6 @@
         }
     },
     "card": {
-        "description": "",
         "components": {
             "Card": {
                 "description": "Card is a flexible container component.",
@@ -4249,7 +4412,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -4288,7 +4450,6 @@
         }
     },
     "carousel": {
-        "description": "",
         "components": {
             "Carousel": {
                 "description": "Carousel is a content slider featuring various customization options.",
@@ -4446,7 +4607,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -4541,7 +4701,6 @@
         }
     },
     "cascadeselect": {
-        "description": "",
         "components": {
             "CascadeSelect": {
                 "description": "CascadeSelect is a form component to select a value from a nested structure of options.",
@@ -4799,7 +4958,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -4963,7 +5121,6 @@
         }
     },
     "chart": {
-        "description": "",
         "components": {
             "UIChart": {
                 "description": "Chart groups a collection of contents in tabs.",
@@ -5040,7 +5197,6 @@
         }
     },
     "checkbox": {
-        "description": "",
         "components": {
             "Checkbox": {
                 "description": "Checkbox is an extension to standard checkbox element with theming.",
@@ -5199,7 +5355,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -5239,7 +5394,6 @@
         }
     },
     "chip": {
-        "description": "",
         "components": {
             "Chip": {
                 "description": "Chip represents people using icons, labels and images.",
@@ -5326,7 +5480,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -5347,7 +5500,6 @@
         }
     },
     "chips": {
-        "description": "",
         "components": {
             "Chips": {
                 "description": "Chips groups a collection of contents in tabs.",
@@ -5541,7 +5693,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -5639,7 +5790,6 @@
         }
     },
     "colorpicker": {
-        "description": "",
         "components": {
             "ColorPicker": {
                 "description": "ColorPicker groups a collection of contents in tabs.",
@@ -5777,7 +5927,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -5806,7 +5955,6 @@
         }
     },
     "confirmdialog": {
-        "description": "",
         "components": {
             "ConfirmDialog": {
                 "description": "ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.",
@@ -6060,7 +6208,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -6093,7 +6240,6 @@
         }
     },
     "confirmpopup": {
-        "description": "",
         "components": {
             "ConfirmPopup": {
                 "description": "ConfirmPopup displays a confirmation overlay displayed relatively to its target.",
@@ -6172,7 +6318,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -6193,7 +6338,6 @@
         }
     },
     "contextmenu": {
-        "description": "",
         "components": {
             "ContextMenu": {
                 "description": "ContextMenu displays an overlay menu on right click of its target. Note that components like Table has special integration with ContextMenu.",
@@ -6298,7 +6442,6 @@
         }
     },
     "dataview": {
-        "description": "",
         "components": {
             "DataView": {
                 "description": "DataView displays data in grid or list layout with pagination and sorting features.",
@@ -6573,7 +6716,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -6809,7 +6951,6 @@
         }
     },
     "defer": {
-        "description": "",
         "components": {
             "DeferredLoader": {
                 "description": "Defer postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.",
@@ -6832,7 +6973,6 @@
         }
     },
     "dialog": {
-        "description": "",
         "components": {
             "Dialog": {
                 "description": "Dialog is a container to display content in an overlay window.",
@@ -7194,7 +7334,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -7239,7 +7378,6 @@
         }
     },
     "divider": {
-        "description": "",
         "components": {
             "Divider": {
                 "description": "Divider is used to separate contents.",
@@ -7289,7 +7427,6 @@
         }
     },
     "dock": {
-        "description": "",
         "components": {
             "Dock": {
                 "description": "Dock is a navigation component consisting of menuitems.",
@@ -7338,7 +7475,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -7359,15 +7495,12 @@
         }
     },
     "connectedoverlayscrollhandler": {
-        "description": "",
         "components": {}
     },
     "domhandler": {
-        "description": "",
         "components": {}
     },
     "dragdrop": {
-        "description": "",
         "components": {
             "Draggable": {
                 "description": "pDraggable directive apply draggable behavior to any element.",
@@ -7487,7 +7620,6 @@
         }
     },
     "dropdown": {
-        "description": "",
         "components": {
             "Dropdown": {
                 "description": "Dropdown also known as Select, is used to choose an item from a collection of options.",
@@ -8029,7 +8161,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -8249,7 +8380,6 @@
         }
     },
     "dynamicdialog-config": {
-        "description": "",
         "components": {},
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
@@ -8458,11 +8588,9 @@
         }
     },
     "dynamicdialog-injector": {
-        "description": "",
         "components": {}
     },
     "dynamicdialog-ref": {
-        "description": "",
         "components": {
             "DynamicDialogRef": {
                 "description": "Dynamic Dialog instance.",
@@ -8578,15 +8706,12 @@
         }
     },
     "dynamicdialog": {
-        "description": "",
         "components": {}
     },
     "dynamicdialogcontent": {
-        "description": "",
         "components": {}
     },
     "editor": {
-        "description": "",
         "components": {
             "Editor": {
                 "description": "Editor groups a collection of contents in tabs.",
@@ -8695,7 +8820,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -8789,7 +8913,6 @@
         }
     },
     "fieldset": {
-        "description": "",
         "components": {
             "Fieldset": {
                 "description": "Fieldset is a grouping component with the optional content toggle feature.",
@@ -8881,7 +9004,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -8959,7 +9081,6 @@
         }
     },
     "fileupload": {
-        "description": "",
         "components": {
             "FileUpload": {
                 "description": "FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.",
@@ -9345,7 +9466,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -9579,7 +9699,6 @@
         }
     },
     "focustrap": {
-        "description": "",
         "components": {
             "FocusTrap": {
                 "description": "Focus Trap keeps focus within a certain DOM element while tabbing.",
@@ -9600,7 +9719,6 @@
         }
     },
     "galleria": {
-        "description": "",
         "components": {
             "Galleria": {
                 "description": "Galleria is an advanced content gallery component.",
@@ -9835,7 +9953,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -9959,211 +10076,159 @@
         }
     },
     "angledoubledown": {
-        "description": "",
         "components": {}
     },
     "angledoubleleft": {
-        "description": "",
         "components": {}
     },
     "angledoubleright": {
-        "description": "",
         "components": {}
     },
     "angledoubleup": {
-        "description": "",
         "components": {}
     },
     "angledown": {
-        "description": "",
         "components": {}
     },
     "angleleft": {
-        "description": "",
         "components": {}
     },
     "angleright": {
-        "description": "",
         "components": {}
     },
     "angleup": {
-        "description": "",
         "components": {}
     },
     "arrowdown": {
-        "description": "",
         "components": {}
     },
     "arrowdownleft": {
-        "description": "",
         "components": {}
     },
     "arrowdownright": {
-        "description": "",
         "components": {}
     },
     "arrowleft": {
-        "description": "",
         "components": {}
     },
     "arrowright": {
-        "description": "",
         "components": {}
     },
     "arrowup": {
-        "description": "",
         "components": {}
     },
     "ban": {
-        "description": "",
         "components": {}
     },
     "bars": {
-        "description": "",
         "components": {}
     },
     "caretleft": {
-        "description": "",
         "components": {}
     },
     "caretright": {
-        "description": "",
         "components": {}
     },
     "check": {
-        "description": "",
         "components": {}
     },
     "chevrondown": {
-        "description": "",
         "components": {}
     },
     "chevronleft": {
-        "description": "",
         "components": {}
     },
     "chevronright": {
-        "description": "",
         "components": {}
     },
     "chevronup": {
-        "description": "",
         "components": {}
     },
     "exclamationtriangle": {
-        "description": "",
         "components": {}
     },
     "eye": {
-        "description": "",
         "components": {}
     },
     "eyeslash": {
-        "description": "",
         "components": {}
     },
     "filter": {
-        "description": "",
         "components": {}
     },
     "filterslash": {
-        "description": "",
         "components": {}
     },
     "home": {
-        "description": "",
         "components": {}
     },
     "infocircle": {
-        "description": "",
         "components": {}
     },
     "minus": {
-        "description": "",
         "components": {}
     },
     "pencil": {
-        "description": "",
         "components": {}
     },
     "plus": {
-        "description": "",
         "components": {}
     },
     "refresh": {
-        "description": "",
         "components": {}
     },
     "search": {
-        "description": "",
         "components": {}
     },
     "searchminus": {
-        "description": "",
         "components": {}
     },
     "searchplus": {
-        "description": "",
         "components": {}
     },
     "sortalt": {
-        "description": "",
         "components": {}
     },
     "sortamountdown": {
-        "description": "",
         "components": {}
     },
     "sortamountupalt": {
-        "description": "",
         "components": {}
     },
     "spinner": {
-        "description": "",
         "components": {}
     },
     "star": {
-        "description": "",
         "components": {}
     },
     "starfill": {
-        "description": "",
         "components": {}
     },
     "thlarge": {
-        "description": "",
         "components": {}
     },
     "times": {
-        "description": "",
         "components": {}
     },
     "timescircle": {
-        "description": "",
         "components": {}
     },
     "trash": {
-        "description": "",
         "components": {}
     },
     "undo": {
-        "description": "",
         "components": {}
     },
     "upload": {
-        "description": "",
         "components": {}
     },
     "windowmaximize": {
-        "description": "",
         "components": {}
     },
     "windowminimize": {
-        "description": "",
         "components": {}
     },
     "image": {
-        "description": "",
         "components": {
             "Image": {
                 "description": "Displays an image with preview and tranformation options. For multiple image, see Galleria.",
@@ -10297,7 +10362,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -10342,7 +10406,6 @@
         }
     },
     "inplace": {
-        "description": "",
         "components": {
             "Inplace": {
                 "description": "Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.",
@@ -10459,7 +10522,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -10486,7 +10548,6 @@
         }
     },
     "inputmask": {
-        "description": "",
         "components": {
             "InputMask": {
                 "description": "InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.",
@@ -10742,7 +10803,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -10753,11 +10813,20 @@
                         "description": "Custom clear icon template."
                     }
                 ]
+            },
+            "types": {
+                "description": "Defines the custom types used by the module.",
+                "values": [
+                    {
+                        "name": "Caret",
+                        "value": "{\n    \"begin\": \"number\",\n    \"end\": \"number\"\n}",
+                        "description": "Caret positions."
+                    }
+                ]
             }
         }
     },
     "inputnumber": {
-        "description": "",
         "components": {
             "InputNumber": {
                 "description": "InputNumber is an input component to provide numerical input.",
@@ -11107,7 +11176,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -11166,7 +11234,6 @@
         }
     },
     "inputswitch": {
-        "description": "",
         "components": {
             "InputSwitch": {
                 "description": "InputSwitch is used to select a boolean value.",
@@ -11274,7 +11341,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -11303,11 +11369,9 @@
         }
     },
     "inputtext": {
-        "description": "",
         "components": {}
     },
     "inputtextarea": {
-        "description": "",
         "components": {
             "InputTextarea": {
                 "description": "InputTextarea adds styling and autoResize functionality to standard textarea element.",
@@ -11343,7 +11407,6 @@
         }
     },
     "keyfilter": {
-        "description": "",
         "components": {
             "KeyFilter": {
                 "description": "KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.",
@@ -11384,7 +11447,6 @@
         }
     },
     "knob": {
-        "description": "",
         "components": {
             "Knob": {
                 "description": "Knob is a form component to define number inputs with a dial.",
@@ -11529,7 +11591,6 @@
         }
     },
     "listbox": {
-        "description": "",
         "components": {
             "Listbox": {
                 "description": "ListBox is used to select one or more values from a list of items.",
@@ -11773,7 +11834,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -11956,7 +12016,6 @@
         }
     },
     "megamenu": {
-        "description": "",
         "components": {
             "MegaMenu": {
                 "description": "MegaMenu is navigation component that displays submenus together.",
@@ -11997,7 +12056,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -12024,7 +12082,6 @@
         }
     },
     "menu": {
-        "description": "",
         "components": {
             "Menu": {
                 "description": "Menu is a navigation / command component that supports dynamic and static positioning.",
@@ -12162,7 +12219,6 @@
         }
     },
     "menubar": {
-        "description": "",
         "components": {
             "Menubar": {
                 "description": "Menubar is a horizontal menu component.",
@@ -12235,7 +12291,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -12268,7 +12323,6 @@
         }
     },
     "messages": {
-        "description": "",
         "components": {
             "Messages": {
                 "description": "Messages is used to display alerts inline.",
@@ -12368,7 +12422,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -12383,7 +12436,6 @@
         }
     },
     "multiselect": {
-        "description": "",
         "components": {
             "MultiSelect": {
                 "description": "MultiSelect is used to select multiple items from a collection.",
@@ -12932,7 +12984,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -13199,7 +13250,6 @@
         }
     },
     "orderlist": {
-        "description": "",
         "components": {
             "OrderList": {
                 "description": "OrderList is used to managed the order of a collection.",
@@ -13404,7 +13454,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -13558,7 +13607,6 @@
         }
     },
     "organizationchart": {
-        "description": "",
         "components": {
             "OrganizationChart": {
                 "description": "OrganizationChart visualizes hierarchical organization data.",
@@ -13569,7 +13617,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode<any>[]",
+                            "type": "TreeNode[]",
                             "description": "An array of nested TreeNodes."
                         },
                         {
@@ -13667,7 +13715,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -13686,7 +13733,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -13706,7 +13753,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -13726,7 +13773,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -13746,7 +13793,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -13773,7 +13820,6 @@
         }
     },
     "overlay": {
-        "description": "",
         "components": {
             "Overlay": {
                 "description": "This API allows overlay components to be controlled from the PrimeNGConfig. In this way, all overlay components in the application can have the same behavior.",
@@ -13951,7 +13997,6 @@
         }
     },
     "overlaypanel": {
-        "description": "",
         "components": {
             "OverlayPanel": {
                 "description": "OverlayPanel is a container component positioned as connected to its target.",
@@ -14114,7 +14159,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -14135,7 +14179,6 @@
         }
     },
     "paginator": {
-        "description": "",
         "components": {
             "Paginator": {
                 "description": "Paginator is a generic component to display content in paged format.",
@@ -14312,7 +14355,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -14380,7 +14422,6 @@
         }
     },
     "panel": {
-        "description": "",
         "components": {
             "Panel": {
                 "description": "Panel is a container with the optional content toggle feature.",
@@ -14513,7 +14554,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -14603,7 +14643,6 @@
         }
     },
     "panelmenu": {
-        "description": "",
         "components": {
             "PanelMenu": {
                 "description": "PanelMenu is a hybrid of Accordion and Tree components.",
@@ -14652,7 +14691,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -14667,7 +14705,6 @@
         }
     },
     "password": {
-        "description": "",
         "components": {
             "PasswordDirective": {
                 "description": "Password directive.",
@@ -14936,7 +14973,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -14981,7 +15017,6 @@
         }
     },
     "picklist": {
-        "description": "",
         "components": {
             "PickList": {
                 "description": "PickList is used to reorder items between different lists.",
@@ -15368,7 +15403,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -15712,7 +15746,6 @@
         }
     },
     "progressbar": {
-        "description": "",
         "components": {
             "ProgressBar": {
                 "description": "ProgressBar is a process status indicator.",
@@ -15777,7 +15810,6 @@
         }
     },
     "progressspinner": {
-        "description": "",
         "components": {
             "ProgressSpinner": {
                 "description": "ProgressSpinner is a process status indicator.",
@@ -15828,7 +15860,6 @@
         }
     },
     "radiobutton": {
-        "description": "",
         "components": {
             "RadioButton": {
                 "description": "RadioButton is an extension to standard radio button element with theming.",
@@ -15970,7 +16001,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -15999,7 +16029,6 @@
         }
     },
     "rating": {
-        "description": "",
         "components": {
             "Rating": {
                 "description": "RadioButton is an extension to standard radio button element with theming.",
@@ -16110,7 +16139,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -16162,7 +16190,6 @@
         }
     },
     "ripple": {
-        "description": "",
         "components": {
             "Ripple": {
                 "description": "Ripple directive adds ripple effect to the host element."
@@ -16170,7 +16197,6 @@
         }
     },
     "scroller": {
-        "description": "",
         "components": {
             "Scroller": {
                 "description": "Scroller is a performance-approach to handle huge data efficiently.",
@@ -16367,7 +16393,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -16482,18 +16507,6 @@
             "interfaces": {
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
-                    {
-                        "name": "ScrollerToType",
-                        "description": "Options of the scroll direction."
-                    },
-                    {
-                        "name": "ScrollerOrientationType",
-                        "description": "Options of the scroller orientation."
-                    },
-                    {
-                        "name": "ScrollerLoaderIconOptions",
-                        "description": "Loader icon options."
-                    },
                     {
                         "name": "ScrollerContentOptions",
                         "description": "Scroller content options.",
@@ -16675,11 +16688,30 @@
                         ]
                     }
                 ]
+            },
+            "types": {
+                "description": "Defines the custom types used by the module.",
+                "values": [
+                    {
+                        "name": "ScrollerToType",
+                        "value": "\"to-start\" | \"to-end\" | undefined",
+                        "description": "Options of the scroll direction."
+                    },
+                    {
+                        "name": "ScrollerOrientationType",
+                        "value": "\"vertical\" | \"horizontal\" | \"both\"",
+                        "description": "Options of the scroller orientation."
+                    },
+                    {
+                        "name": "ScrollerLoaderIconOptions",
+                        "value": "{\"[klass:string]\":\"any\"}",
+                        "description": "Loader icon options."
+                    }
+                ]
             }
         }
     },
     "scrollpanel": {
-        "description": "",
         "components": {
             "ScrollPanel": {
                 "description": "ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.",
@@ -16726,7 +16758,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -16741,7 +16772,6 @@
         }
     },
     "scrolltop": {
-        "description": "",
         "components": {
             "ScrollTop": {
                 "description": "ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.",
@@ -16814,7 +16844,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -16834,7 +16863,6 @@
         }
     },
     "selectbutton": {
-        "description": "",
         "components": {
             "SelectButton": {
                 "description": "SelectButton is used to choose single or multiple items from a list using buttons.",
@@ -16951,7 +16979,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -17018,7 +17045,6 @@
         }
     },
     "sidebar": {
-        "description": "",
         "components": {
             "Sidebar": {
                 "description": "Sidebar is a panel component displayed as an overlay at the edges of the screen.",
@@ -17175,7 +17201,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -17208,7 +17233,6 @@
         }
     },
     "skeleton": {
-        "description": "",
         "components": {
             "Skeleton": {
                 "description": "Skeleton is a placeholder to display instead of the actual content.",
@@ -17273,7 +17297,6 @@
         }
     },
     "slidemenu": {
-        "description": "",
         "components": {
             "SlideMenu": {
                 "description": "SlideMenu displays submenus with slide animation.",
@@ -17450,7 +17473,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -17471,7 +17493,6 @@
         }
     },
     "slider": {
-        "description": "",
         "components": {
             "Slider": {
                 "description": "Slider is a component to provide input with a drag handle.",
@@ -17592,7 +17613,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -17655,7 +17675,6 @@
         }
     },
     "speeddial": {
-        "description": "",
         "components": {
             "SpeedDial": {
                 "description": "When pressed, a floating action button can display multiple primary actions that can be performed on a page.",
@@ -17855,7 +17874,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -17870,7 +17888,6 @@
         }
     },
     "splitbutton": {
-        "description": "",
         "components": {
             "SplitButton": {
                 "description": "SplitButton groups a set of commands in an overlay with a default command.",
@@ -18009,7 +18026,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -18030,7 +18046,6 @@
         }
     },
     "splitter": {
-        "description": "",
         "components": {
             "Splitter": {
                 "description": "Splitter is utilized to separate and resize panels.",
@@ -18141,7 +18156,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -18201,7 +18215,6 @@
         }
     },
     "steps": {
-        "description": "",
         "components": {
             "Steps": {
                 "description": "Steps components is an indicator for the steps in a wizard workflow.",
@@ -18266,7 +18279,6 @@
         }
     },
     "styleclass": {
-        "description": "",
         "components": {
             "StyleClass": {
                 "description": "StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.",
@@ -18351,7 +18363,6 @@
         }
     },
     "table": {
-        "description": "",
         "components": {
             "Table": {
                 "description": "Table displays data in tabular format.",
@@ -19258,7 +19269,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -20111,7 +20121,6 @@
         }
     },
     "tabmenu": {
-        "description": "",
         "components": {
             "TabMenu": {
                 "description": "TabMenu is a navigation component that displays items as tab headers.",
@@ -20174,7 +20183,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -20208,7 +20216,6 @@
     },
     "tabpanel": {
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -20247,7 +20254,6 @@
         }
     },
     "tabview": {
-        "description": "",
         "components": {
             "TabPanel": {
                 "description": "TabPanel is a helper component for TabPanel component.",
@@ -20351,7 +20357,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -20422,7 +20427,6 @@
         }
     },
     "tag": {
-        "description": "",
         "components": {
             "Tag": {
                 "description": "Tag component is used to categorize content.",
@@ -20478,7 +20482,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -20493,7 +20496,6 @@
         }
     },
     "terminal": {
-        "description": "",
         "components": {
             "Terminal": {
                 "description": "Terminal is a text based user interface.",
@@ -20533,7 +20535,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "interfaces": {
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
@@ -20560,11 +20561,9 @@
         }
     },
     "terminalservice": {
-        "description": "",
         "components": {}
     },
     "tieredmenu": {
-        "description": "",
         "components": {
             "TieredMenu": {
                 "description": "TieredMenu displays submenus in nested overlays.",
@@ -20708,7 +20707,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -20723,7 +20721,6 @@
         }
     },
     "timeline": {
-        "description": "",
         "components": {
             "Timeline": {
                 "description": "Timeline visualizes a series of chained events.",
@@ -20772,7 +20769,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -20817,7 +20813,6 @@
         }
     },
     "toast": {
-        "description": "",
         "components": {
             "Toast": {
                 "description": "Toast is used to display messages in an overlay.",
@@ -20944,7 +20939,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -20989,7 +20983,6 @@
         }
     },
     "togglebutton": {
-        "description": "",
         "components": {
             "ToggleButton": {
                 "description": "ToggleButton is used to select a boolean value using a button.",
@@ -21095,7 +21088,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -21124,7 +21116,6 @@
         }
     },
     "toolbar": {
-        "description": "",
         "components": {
             "Toolbar": {
                 "description": "Toolbar is a grouping component for buttons and other content.",
@@ -21150,7 +21141,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -21177,7 +21167,6 @@
         }
     },
     "tooltip": {
-        "description": "",
         "components": {
             "Tooltip": {
                 "description": "Tooltip directive provides advisory information for a component.",
@@ -21320,7 +21309,6 @@
         }
     },
     "tree": {
-        "description": "",
         "components": {
             "Tree": {
                 "description": "Tree is used to display hierarchical data.",
@@ -21518,7 +21506,7 @@
                             "name": "filteredNodes",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode<any>[]",
+                            "type": "TreeNode[]",
                             "description": "No description available."
                         },
                         {
@@ -21606,7 +21594,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode<any"
+                                    "type": "TreeNode | TreeNode[]"
                                 }
                             ],
                             "description": "Callback to invoke on selection change."
@@ -21747,7 +21735,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -21766,7 +21753,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -21786,7 +21773,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -21806,7 +21793,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -21826,7 +21813,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -21846,7 +21833,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -21866,14 +21853,14 @@
                                 "name": "dragNode",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Dragged node instance."
                             },
                             {
                                 "name": "dropNode",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Dropped node instance."
                             },
                             {
@@ -21960,7 +21947,7 @@
                                 "name": "filteredValue",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>[]",
+                                "type": "TreeNode[]",
                                 "description": "Filtered nodes."
                             }
                         ]
@@ -22041,7 +22028,6 @@
         }
     },
     "treeselect": {
-        "description": "",
         "components": {
             "TreeSelect": {
                 "description": "TreeSelect is a form component to choose from hierarchical data.",
@@ -22355,7 +22341,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode<any"
+                                    "type": "TreeNode"
                                 }
                             ],
                             "description": "Callback to invoke when a node is unselected."
@@ -22365,7 +22351,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode<any"
+                                    "type": "TreeNode"
                                 }
                             ],
                             "description": "Callback to invoke when a node is selected."
@@ -22375,7 +22361,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -22394,7 +22379,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -22414,7 +22399,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             }
                         ]
@@ -22513,7 +22498,6 @@
         }
     },
     "treetable": {
-        "description": "",
         "components": {
             "TreeTable": {
                 "description": "TreeTable is used to display hierarchical data in tabular format.",
@@ -23194,7 +23178,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -23302,7 +23285,7 @@
                                 "name": "filteredValue",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>[]",
+                                "type": "TreeNode[]",
                                 "description": "Value after filter."
                             }
                         ]
@@ -23342,7 +23325,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>[]",
+                                "type": "TreeNode[]",
                                 "description": "Value to be sorted."
                             },
                             {
@@ -23417,97 +23400,113 @@
                                 "name": "label",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string"
+                                "type": "string",
+                                "description": "Label of the node."
                             },
                             {
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any"
+                                "type": "any",
+                                "description": "Data represented by the node."
                             },
                             {
                                 "name": "icon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string"
+                                "type": "string",
+                                "description": "Icon of the node to display next to content."
                             },
                             {
                                 "name": "expandedIcon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any"
+                                "type": "string",
+                                "description": "Icon to use in expanded state."
                             },
                             {
                                 "name": "collapsedIcon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any"
+                                "type": "string",
+                                "description": "Icon to use in collapsed state."
                             },
                             {
                                 "name": "children",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>[]"
+                                "type": "TreeNode[]",
+                                "description": "An array of treenodes as children."
                             },
                             {
                                 "name": "leaf",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Specifies if the node has children. Used in lazy loading."
                             },
                             {
                                 "name": "expanded",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Expanded state of the node."
                             },
                             {
                                 "name": "parent",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>"
+                                "type": "TreeNode",
+                                "description": "Parent of the node."
                             },
                             {
                                 "name": "partialSelected",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Defines if value is partially selected."
                             },
                             {
                                 "name": "style",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string"
+                                "type": "any",
+                                "description": "Inline style of the node."
                             },
                             {
                                 "name": "styleClass",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string"
+                                "type": "string",
+                                "description": "Style class of the node."
                             },
                             {
                                 "name": "draggable",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Defines if the node is draggable."
                             },
                             {
                                 "name": "droppable",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Defines if the node is droppable."
                             },
                             {
                                 "name": "selectable",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean"
+                                "type": "boolean",
+                                "description": "Whether the node is selectable when selection mode is enabled."
                             },
                             {
                                 "name": "key",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string"
+                                "type": "string",
+                                "description": "Mandatory unique key of the node."
                             },
                             {
                                 "name": "originalEvent",
@@ -23527,7 +23526,7 @@
                                 "name": "node",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
+                                "type": "TreeNode",
                                 "description": "Node instance."
                             },
                             {
@@ -23915,164 +23914,12 @@
                                 "description": "Page count."
                             }
                         ]
-                    },
-                    {
-                        "name": "TreeTableNode",
-                        "description": "Tree table node element.",
-                        "props": [
-                            {
-                                "name": "label",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "icon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "expandedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "collapsedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any"
-                            },
-                            {
-                                "name": "children",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]"
-                            },
-                            {
-                                "name": "leaf",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "expanded",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "parent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>"
-                            },
-                            {
-                                "name": "partialSelected",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "style",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "styleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "draggable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "droppable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "selectable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "key",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string"
-                            },
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "rowNode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Row of the node."
-                            },
-                            {
-                                "name": "node",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
-                            },
-                            {
-                                "name": "type",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node index."
-                            },
-                            {
-                                "name": "level",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Node level."
-                            },
-                            {
-                                "name": "visible",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value indicates if node is in viewport."
-                            }
-                        ]
                     }
                 ]
             }
         }
     },
     "tristatecheckbox": {
-        "description": "",
         "components": {
             "TriStateCheckbox": {
                 "description": "TriStateCheckbox is used to select either 'true', 'false' or 'null' as the value.",
@@ -24178,7 +24025,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
@@ -24224,19 +24070,15 @@
         }
     },
     "objectutils": {
-        "description": "",
         "components": {}
     },
     "uniquecomponentid": {
-        "description": "",
         "components": {}
     },
     "zindexutils": {
-        "description": "",
         "components": {}
     },
     "virtualscroller": {
-        "description": "",
         "components": {
             "VirtualScroller": {
                 "description": "VirtualScroller is a performant approach to handle huge data efficiently.",
@@ -24321,7 +24163,6 @@
             }
         },
         "interfaces": {
-            "description": "",
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
