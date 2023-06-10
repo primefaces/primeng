@@ -26,16 +26,15 @@ export class AppDocApiSection {
             
         }
     }
+
     getDescription(module, docName) {
         if(module.description) {
             return module.description;
         }
         if(!module.description && module.components && Object.keys(module.components).length) {
             return module.components[docName].description ?? 'No description available'
-
         }
     }
-
 
     createDocs() {
         const newDocs = [];
@@ -60,6 +59,7 @@ export class AppDocApiSection {
                 let events = module.interfaces ? module.interfaces.events : undefined;
                 let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
                 let interfaces = module.interfaces ? module.interfaces : undefined;
+                let types = module.types ? module.types : undefined;
                 
                 if(module && module.components && !module.components[docName] && Object.keys(module.components).length && !docName.includes('Service')) {
                     const components = Object.keys(module.components);
@@ -154,6 +154,16 @@ export class AppDocApiSection {
                     })
                 }
 
+                if(types && types.values && types.values.length) {
+                    newDoc.children.push({
+                        id: `api.${moduleName}.types`,
+                        label: 'Types',
+                        component: AppDocApiTable,
+                        data: this.setTypesData(moduleName, types.values),
+                        description: APIDoc[moduleName].types.description || null
+                    });
+                }
+
                 if(events && events.values.length) {
                     newDoc.children.push({
                         id: `api.${moduleName.toLowerCase()}.events`,
@@ -164,19 +174,33 @@ export class AppDocApiSection {
                     });
                 }
 
-                if(interfaces && interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
-                    interfaces.interfaces.values.forEach(value => {
-                        newDoc.children.push({
-                            id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
-                            label: value.name,
-                            component: AppDocApiTable,
-                            description: value.description,
-                            data: value.props && this.setInterfacesData(value)
-                        })
-                    })
-                }
-            }
+                if(interfaces) {
+                    if(interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length){
+                        interfaces.interfaces.values.forEach(value => {
+                            newDoc.children.push({
+                                id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
+                                label: value.name,
+                                component: AppDocApiTable,
+                                description: value.description,
+                                data: value.props && this.setInterfacesData(value)
+                            });
+                        });
+                        
 
+                        if(interfaces.types && interfaces.types.values && interfaces.types.values.length) {
+                            newDoc.children.push({
+                                id: `api.${moduleName}.types`,
+                                label: 'Types',
+                                component: AppDocApiTable,
+                                data: this.setTypesData(moduleName, interfaces.types.values),
+                                description: APIDoc[moduleName].interfaces.types.description || null
+                            });
+                        }
+
+                    }
+                }
+
+            }
             newDocs.push(newDoc);
         }
         return newDocs;
@@ -207,7 +231,6 @@ export class AppDocApiSection {
             
             data.push(eventData);
         }
-
         return data;
     }
 
@@ -238,6 +261,15 @@ export class AppDocApiSection {
             default: prop.default ? prop.default : 'null',
             optional: prop.optional,
             description: prop.description
+        }))
+    }
+
+    setTypesData(moduleName, types) {
+        return types.map(type => ({
+            id: `api.${moduleName}.types.${type.name}`,
+            label: type.name,
+            component: AppDocApiTable,
+            data: [{values: type.value}]
         }))
     }
 
