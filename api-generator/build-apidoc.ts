@@ -74,6 +74,35 @@ const allowed = (name) => {
     return !name.includes('ts-helpers') && !name.includes('icons');
 };
 
+
+const getTypesValue = (typeobj) => {
+    let { type } = typeobj;
+
+    if(typeobj.indexSignature) {
+        const signature = typeobj.getAllSignatures()[0];
+        const value = signature.parameters.map(param => {
+            return{
+                [`[${param.name}:${param.type.toString()}]`]: signature.type.toString()
+            }
+        })[0];
+
+        return JSON.stringify(value)
+    }
+
+    if(type) {
+        if(type.type === 'union'){
+            return type.toString()
+        }
+        if(type.type === 'reflection' && type.declaration){
+            let values = type.declaration.children.map(child => ({
+                [child.name]: child.type.toString()
+            }));
+
+            return JSON.stringify(Object.assign({}, ...values), null, 4);
+        }
+    }
+}
+
 if (project) {
     let doc = {};
 
@@ -89,7 +118,6 @@ if (project) {
             const name = module.name.replace(/.*\//, '');
             if (allowed(name)) {
                 doc[name] = {
-                    description: '',
                     components: {}
                 };
 
@@ -99,6 +127,7 @@ if (project) {
                     const module_templates_group = module.groups.find((g) => g.title === 'Templates');
                     const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                     const module_service_group = module.groups.find((g) => g.title === 'Service');
+                    const module_types_group = module.groups.find((g) => g.title === 'Types')
 
                     if(isProcessable(module_components_group)) {
                         module_components_group.children.forEach(component => {
@@ -345,6 +374,23 @@ if (project) {
                                 doc[name]['methods'] = methods;
                             }
                         })
+                    }
+
+                    if(isProcessable(module_types_group)){
+                        const types = {
+                            description: staticMessages['types'],
+                            values: []
+                        }
+
+                        module_types_group.children.forEach(t => {
+                            types.values.push({
+                                name: t.name,
+                                value: getTypesValue(t),
+                                description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' ')
+                            })
+                        });
+
+                        doc[name]['types'] = types;
                     }
                 }
             }
