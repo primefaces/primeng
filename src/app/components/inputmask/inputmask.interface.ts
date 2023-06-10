@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 /**
  * Caret positions.
+ * @group Types
  */
 export type Caret = { begin: number; end: number };
 /**

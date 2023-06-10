@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { FilterMetadata, LazyLoadMeta, SortMeta, TreeNode } from 'primeng/api';
+import { FilterMetadata, LazyLoadMeta, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { TreeTable } from './treetable';
 /**
  * Paginator state.
@@ -57,41 +57,6 @@ export interface TreeTableColumnReorderEvent {
      * Columns after reorder.
      */
     columns?: any[];
-}
-/**
- * Tree table node element.
- * @extends {TreeNode}
- * @group Interface
- */
-export interface TreeTableNode extends TreeNode {
-    /**
-     * Browser event.
-     */
-    originalEvent?: Event;
-    /**
-     * Row of the node.
-     */
-    rowNode?: any;
-    /**
-     * Node instance.
-     */
-    node?: TreeNode;
-    /**
-     * Selection type.
-     */
-    type?: string;
-    /**
-     * Node index.
-     */
-    index?: number;
-    /**
-     * Node level.
-     */
-    level?: number;
-    /**
-     * Boolean value indicates if node is in viewport.
-     */
-    visible?: boolean;
 }
 /**
  * Custom filter event.

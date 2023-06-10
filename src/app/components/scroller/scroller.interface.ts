@@ -2,17 +2,17 @@ import { TemplateRef } from '@angular/core';
 import { Scroller } from './scroller';
 /**
  * Options of the scroll direction.
- * @group Interface
+ * @group Types
  */
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
 /**
  * Options of the scroller orientation.
- * @group Interface
+ * @group Types
  */
 export type ScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
 /**
  * Loader icon options.
- * @group Interface
+ * @group Types
  */
 export interface ScrollerLoaderIconOptions {
     [klass: string]: any;

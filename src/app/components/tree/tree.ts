@@ -728,7 +728,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * An array of treenodes.
      * @group Props
      */
-    @Input() value: TreeNode<any> | TreeNode<any>[] | any[] | any;
+    @Input() value: TreeNode | TreeNode[] | any[] | any;
     /**
      * Defines the selection mode.
      * @group Props

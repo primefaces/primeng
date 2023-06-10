@@ -32,7 +32,7 @@ import { DomHandler } from 'primeng/dom';
 import { PaginatorModule } from 'primeng/paginator';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
+import { ScrollerOptions, TreeTableNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
@@ -49,7 +49,6 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     TreeTableColResizeEvent,
     TreeTableContextMenuSelectEvent,
-    TreeTableNode,
     TreeTableEditEvent,
     TreeTableFilterEvent,
     TreeTableFilterOptions,
@@ -577,10 +576,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @defaultValue null
      * @group Props
      */
-    @Input() get value(): TreeNode<any> | TreeNode<any>[] | any[] | any {
+    @Input() get value(): TreeNode[] | undefined {
         return this._value;
     }
-    set value(val: TreeNode<any> | TreeNode<any>[] | any[] | any) {
+    set value(val: TreeNode[] | undefined) {
         this._value = val;
     }
     /**

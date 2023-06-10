@@ -105,12 +105,12 @@ export interface CalendarResponsiveOptions {
 }
 /**
  * Custom type for the calendar views.
- * @group Interface
+ * @group Types
  */
 export type CalendarTypeView = 'date' | 'month' | 'year';
 /**
  * Custom type for the calendar navigation state.
- * @group Interface
+ * @group Types
  */
 export type NavigationState = { backward?: boolean; button?: boolean };
 
