@@ -2,13 +2,13 @@ import { AnimationEvent } from '@angular/animations';
 
 /**
  * Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined.
- * @group Interface
+ * @group Types
  */
 export type OverlayModeType = 'modal' | 'overlay' | undefined;
 
 /**
  * Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined.
- * @group Interface
+ * @group Types
  */
 export type ResponsiveOverlayDirectionType = 'center' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | undefined;
 
