@@ -74,34 +74,33 @@ const allowed = (name) => {
     return !name.includes('ts-helpers') && !name.includes('icons');
 };
 
-
 const getTypesValue = (typeobj) => {
     let { type } = typeobj;
 
-    if(typeobj.indexSignature) {
+    if (typeobj.indexSignature) {
         const signature = typeobj.getAllSignatures()[0];
-        const value = signature.parameters.map(param => {
-            return{
+        const value = signature.parameters.map((param) => {
+            return {
                 [`[${param.name}:${param.type.toString()}]`]: signature.type.toString()
-            }
+            };
         })[0];
 
-        return JSON.stringify(value)
+        return JSON.stringify(value);
     }
 
-    if(type) {
-        if(type.type === 'union'){
-            return type.toString()
+    if (type) {
+        if (type.type === 'union') {
+            return type.toString();
         }
-        if(type.type === 'reflection' && type.declaration){
-            let values = type.declaration.children.map(child => ({
+        if (type.type === 'reflection' && type.declaration) {
+            let values = type.declaration.children.map((child) => ({
                 [child.name]: child.type.toString()
             }));
 
             return JSON.stringify(Object.assign({}, ...values), null, 4);
         }
     }
-}
+};
 
 if (project) {
     let doc = {};
@@ -114,7 +113,6 @@ if (project) {
 
     if (isProcessable(modules)) {
         modules.children.forEach((module) => {
-
             const name = module.name.replace(/.*\//, '');
             if (allowed(name)) {
                 doc[name] = {
@@ -127,25 +125,25 @@ if (project) {
                     const module_templates_group = module.groups.find((g) => g.title === 'Templates');
                     const module_interface_group = module.groups.find((g) => g.title === 'Interface');
                     const module_service_group = module.groups.find((g) => g.title === 'Service');
-                    const module_types_group = module.groups.find((g) => g.title === 'Types')
+                    const module_types_group = module.groups.find((g) => g.title === 'Types');
 
-                    if(isProcessable(module_components_group)) {
-                        module_components_group.children.forEach(component => {
+                    if (isProcessable(module_components_group)) {
+                        module_components_group.children.forEach((component) => {
                             const componentName = component.name;
-                            const comment = component.comment
+                            const comment = component.comment;
 
                             doc[name]['components'][componentName] = {
                                 description: comment && comment.summary.map((s) => s.text || '').join(' ')
-                            }
+                            };
 
-                            const component_props_group = component.groups.find(g => g.title === 'Props');
-                            if(isProcessable(component_props_group)) {
+                            const component_props_group = component.groups.find((g) => g.title === 'Props');
+                            if (isProcessable(component_props_group)) {
                                 const props = {
                                     description: staticMessages['props'],
                                     values: []
                                 };
 
-                                component_props_group.children.forEach(prop => {
+                                component_props_group.children.forEach((prop) => {
                                     props.values.push({
                                         name: prop.name,
                                         optional: prop.flags.isOptional,
@@ -162,36 +160,36 @@ if (project) {
                                     });
                                 });
 
-                                doc[name]['components'][componentName]['props'] = props
+                                doc[name]['components'][componentName]['props'] = props;
                             }
 
-                            const component_emits_group = component.groups.find(g => g.title === 'Emits');
-                            if(isProcessable(component_emits_group)){
+                            const component_emits_group = component.groups.find((g) => g.title === 'Emits');
+                            if (isProcessable(component_emits_group)) {
                                 const emits = {
                                     description: staticMessages['emits'],
                                     values: []
                                 };
 
-                                component_emits_group.children.forEach(emitter => {
+                                component_emits_group.children.forEach((emitter) => {
                                     emits.values.push({
                                         name: emitter.name,
-                                        parameters: [{name: extractParameter(emitter) && extractParameter(emitter).includes('Event') ? 'event' : 'value' , type: extractParameter(emitter)}],
+                                        parameters: [{ name: extractParameter(emitter) && extractParameter(emitter).includes('Event') ? 'event' : 'value', type: extractParameter(emitter) }],
                                         description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined
-                                    })
+                                    });
                                 });
 
                                 doc[name]['components'][componentName]['emits'] = emits;
                             }
 
-                            const component_methods_group = component.groups.find(g => g.title === 'Method');
-                            if(isProcessable(component_methods_group)) {
+                            const component_methods_group = component.groups.find((g) => g.title === 'Method');
+                            if (isProcessable(component_methods_group)) {
                                 const methods = {
                                     description: staticMessages['methods'],
                                     values: []
                                 };
 
-                                component_methods_group.children.forEach(method => {
+                                component_methods_group.children.forEach((method) => {
                                     const signature = method.getAllSignatures()[0];
                                     methods.values.push({
                                         name: signature.name,
@@ -209,15 +207,15 @@ if (project) {
                                 doc[name]['components'][componentName]['methods'] = methods;
                             }
 
-                            const component_events_group = component.groups.find(g => g.title === 'Events');
+                            const component_events_group = component.groups.find((g) => g.title === 'Events');
 
-                            if(isProcessable(component_events_group)) {
+                            if (isProcessable(component_events_group)) {
                                 const events = {
                                     description: staticMessages['events'],
                                     values: []
                                 };
 
-                                component_events_group.children.forEach(event => {
+                                component_events_group.children.forEach((event) => {
                                     events.values.push({
                                         name: event.name,
                                         description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
@@ -231,21 +229,21 @@ if (project) {
                                                 description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
                                                 deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
                                             }))
-                                    });    
+                                    });
                                 });
 
                                 doc[name]['components'][componentName]['events'] = events;
                             }
-                        })
+                        });
                     }
 
-                    if(isProcessable(module_events_group)) {
+                    if (isProcessable(module_events_group)) {
                         const events = {
                             description: staticMessages['events'],
                             values: []
                         };
 
-                        module_events_group.children.forEach(event => {
+                        module_events_group.children.forEach((event) => {
                             events.values.push({
                                 name: event.name,
                                 description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
@@ -259,13 +257,13 @@ if (project) {
                                         description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
                                     }))
-                            });    
-                        })
+                            });
+                        });
 
                         doc[name]['events'] = events;
                     }
 
-                    if(isProcessable(module_templates_group)) {
+                    if (isProcessable(module_templates_group)) {
                         const templates = {
                             description: staticMessages['templates'],
                             values: []
@@ -280,10 +278,10 @@ if (project) {
                                     name: signature ? signature.name : child.name,
                                     parameters: signature.parameters.map((param) => {
                                         let type = param.type.toString();
-            
+
                                         if (param.type.declaration) {
                                             type = '';
-            
+
                                             if (param.type.declaration.children) {
                                                 param.type.declaration.children.forEach((child) => {
                                                     if (child.signatures) {
@@ -292,15 +290,15 @@ if (project) {
                                                         type += ` \t ${childSignature.name}(${parameters}): ${childSignature.type?.name}, // ${childSignature.comment?.summary[0]?.text}\n `;
                                                     } else {
                                                         const childType = child.type.elementType ? child.type.elementType.name : child.type.name;
-            
+
                                                         type += ` \t ${child.name}: ${childType}, // ${child.comment?.summary[0]?.text}\n `;
                                                     }
                                                 });
                                             }
-            
+
                                             type = `{\n ${type} }`;
                                         }
-            
+
                                         return {
                                             name: param.name,
                                             type: type,
@@ -316,13 +314,13 @@ if (project) {
                         doc[name]['templates'] = templates;
                     }
 
-                    if(isProcessable(module_interface_group)){
+                    if (isProcessable(module_interface_group)) {
                         const interfaces = {
                             description: staticMessages['interfaces'],
                             values: []
                         };
 
-                        module_interface_group.children.forEach(int => {
+                        module_interface_group.children.forEach((int) => {
                             interfaces.values.push({
                                 name: int.name,
                                 description: int.comment && int.comment.summary.map((s) => s.text || '').join(' '),
@@ -336,26 +334,26 @@ if (project) {
                                         description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
                                     }))
-                            });    
-                        })
+                            });
+                        });
 
                         doc[name]['interfaces'] = interfaces;
                     }
 
-                    if(isProcessable(module_service_group)) {
+                    if (isProcessable(module_service_group)) {
                         doc[name] = {
-                            description: staticMessages['service'],
+                            description: staticMessages['service']
                         };
 
-                        module_service_group.children.forEach(service => {
-                            const service_methods_group = service.groups.find(g => g.title === 'Method');
-                            if(isProcessable(service_methods_group)) {
+                        module_service_group.children.forEach((service) => {
+                            const service_methods_group = service.groups.find((g) => g.title === 'Method');
+                            if (isProcessable(service_methods_group)) {
                                 const methods = {
                                     description: 'Methods used in service.',
                                     values: []
                                 };
 
-                                service_methods_group.children.forEach(method => {
+                                service_methods_group.children.forEach((method) => {
                                     const signature = method.getAllSignatures()[0];
                                     methods.values.push({
                                         name: signature.name,
@@ -373,58 +371,57 @@ if (project) {
 
                                 doc[name]['methods'] = methods;
                             }
-                        })
+                        });
                     }
 
-                    if(isProcessable(module_types_group)){
+                    if (isProcessable(module_types_group)) {
                         const types = {
                             description: staticMessages['types'],
                             values: []
-                        }
+                        };
 
-                        module_types_group.children.forEach(t => {
+                        module_types_group.children.forEach((t) => {
                             types.values.push({
                                 name: t.name,
                                 value: getTypesValue(t),
                                 description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' ')
-                            })
+                            });
                         });
 
                         doc[name]['types'] = types;
                     }
                 }
             }
-        });  
+        });
     }
 
     let mergedDocs = {};
 
-    for(const key in doc) {
-        if(key.includes('.interface')) {
+    for (const key in doc) {
+        if (key.includes('.interface')) {
             const parentKey = key.split('.')[0];
             const interfaceDoc = doc[key];
-            if(interfaceDoc.hasOwnProperty('components') && !Object.keys(interfaceDoc['components']).length) {
+            if (interfaceDoc.hasOwnProperty('components') && !Object.keys(interfaceDoc['components']).length) {
                 delete interfaceDoc['components'];
             }
 
-            if(!mergedDocs[parentKey]) {
+            if (!mergedDocs[parentKey]) {
                 mergedDocs[parentKey] = {
                     ...doc[parentKey],
                     interfaces: {
                         ...interfaceDoc
                     }
-                }
+                };
             }
         } else {
-            if(!mergedDocs[key]) {
+            if (!mergedDocs[key]) {
                 mergedDocs[key] = {
                     ...doc[key]
-                }
+                };
             }
         }
     }
 
-    
     const typedocJSON = JSON.stringify(mergedDocs, null, 4);
 
     !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);

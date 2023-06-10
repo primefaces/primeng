@@ -21,38 +21,36 @@ export class AppDocApiSection {
         if (!this.router.url.includes('#api')) {
             this.location.go(this.location.path().split('#')[0]);
         }
-        if(this.docs) {
+        if (this.docs) {
             this._docs = this.createDocs();
-            
         }
     }
 
     getDescription(module, docName) {
-        if(module.description) {
+        if (module.description) {
             return module.description;
         }
-        if(!module.description && module.components && Object.keys(module.components).length) {
-            return module.components[docName].description ?? 'No description available'
+        if (!module.description && module.components && Object.keys(module.components).length) {
+            return module.components[docName].description ?? 'No description available';
         }
     }
 
     createDocs() {
         const newDocs = [];
 
-        for(const docName of this.docs){
-            
+        for (const docName of this.docs) {
             const moduleName = docName.toLowerCase();
             let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
-            
+
             let newDoc = {
-                id:`api.${moduleName}`,
-                label: docName, 
+                id: `api.${moduleName}`,
+                label: docName,
                 description: this.getDescription(module, docName),
                 children: [],
                 docName: docName
             };
 
-            if(module) {
+            if (module) {
                 let props = module.components && module.components[docName] ? module.components[docName].props : module.props ? module.props : undefined;
                 let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
                 let templates = module.interfaces ? module.interfaces.templates : undefined;
@@ -60,26 +58,26 @@ export class AppDocApiSection {
                 let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
                 let interfaces = module.interfaces ? module.interfaces : undefined;
                 let types = module.types ? module.types : undefined;
-                
-                if(module && module.components && !module.components[docName] && Object.keys(module.components).length && !docName.includes('Service')) {
+
+                if (module && module.components && !module.components[docName] && Object.keys(module.components).length && !docName.includes('Service')) {
                     const components = Object.keys(module.components);
-                    components.forEach(component => {
+                    components.forEach((component) => {
                         const comp = module.components[component];
                         const props = comp['props'] ?? undefined;
                         const emits = comp['emits'] ?? undefined;
                         const methods = comp['methods'] ?? undefined;
 
-                        if(props && props.values && props.values.length) {
+                        if (props && props.values && props.values.length) {
                             newDoc.children.push({
                                 id: `api.${component.toLowerCase()}.props`,
                                 label: 'Properties',
                                 component: AppDocApiTable,
                                 description: props.description ?? `Properties of ${docName} component.`,
                                 data: this.setPropsData(comp['props']['values'])
-                            })
+                            });
                         }
 
-                        if(emits && emits.values && emits.values.length) {
+                        if (emits && emits.values && emits.values.length) {
                             newDoc.children.push({
                                 id: `api.${component.toLowerCase()}.emitters`,
                                 label: 'Emitters',
@@ -89,16 +87,15 @@ export class AppDocApiSection {
                             });
                         }
 
-                        if(methods && methods.values && methods.values.length) {
+                        if (methods && methods.values && methods.values.length) {
                             newDoc.children.push({
                                 id: `api.${component.toLowerCase()}.methods`,
                                 label: 'Methods',
                                 description: methods.description ?? `Methods of ${component} component.`,
                                 component: AppDocApiTable,
                                 data: this.setEmitData(methods.values)
-                            })
+                            });
                         }
-
                     });
                 }
 
@@ -122,39 +119,39 @@ export class AppDocApiSection {
                     });
                 }
 
-                if(methods && methods.values.length) {
+                if (methods && methods.values.length) {
                     newDoc.children.push({
                         id: `api.${docName.toLowerCase()}.methods`,
                         label: 'Methods',
                         description: methods.description ?? `Methods of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(methods.values)
-                    })
+                    });
                 }
 
-                if(templates && templates.values.length && templates.values[0].parent === moduleName) {
+                if (templates && templates.values.length && templates.values[0].parent === moduleName) {
                     newDoc.children.push({
                         id: `api.${docName.toLowerCase()}.templates`,
                         label: 'Templates',
                         description: templates.description ?? `Templates of ${docName} component.`,
                         component: AppDocApiTable,
                         data: this.setEmitData(templates.values)
-                    })
+                    });
                 }
 
-                if(interfaces && interfaces.values && interfaces.values.length) {
-                    interfaces.values.forEach(value => {
+                if (interfaces && interfaces.values && interfaces.values.length) {
+                    interfaces.values.forEach((value) => {
                         newDoc.children.push({
                             id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
                             label: value.name,
                             component: AppDocApiTable,
                             description: value.description,
                             data: value.props && this.setInterfacesData(value)
-                        })
-                    })
+                        });
+                    });
                 }
 
-                if(types && types.values && types.values.length) {
+                if (types && types.values && types.values.length) {
                     newDoc.children.push({
                         id: `api.${moduleName}.types`,
                         label: 'Types',
@@ -164,19 +161,19 @@ export class AppDocApiSection {
                     });
                 }
 
-                if(events && events.values.length) {
+                if (events && events.values.length) {
                     newDoc.children.push({
                         id: `api.${moduleName.toLowerCase()}.events`,
                         label: 'Events',
                         component: AppDocApiTable,
                         description: events.description ?? `Events used in ${docName} component.`,
-                        data: this.setEventsData(moduleName, events.values),
+                        data: this.setEventsData(moduleName, events.values)
                     });
                 }
 
-                if(interfaces) {
-                    if(interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length){
-                        interfaces.interfaces.values.forEach(value => {
+                if (interfaces) {
+                    if (interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
+                        interfaces.interfaces.values.forEach((value) => {
                             newDoc.children.push({
                                 id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
                                 label: value.name,
@@ -185,9 +182,8 @@ export class AppDocApiSection {
                                 data: value.props && this.setInterfacesData(value)
                             });
                         });
-                        
 
-                        if(interfaces.types && interfaces.types.values && interfaces.types.values.length) {
+                        if (interfaces.types && interfaces.types.values && interfaces.types.values.length) {
                             newDoc.children.push({
                                 id: `api.${moduleName}.types`,
                                 label: 'Types',
@@ -196,10 +192,8 @@ export class AppDocApiSection {
                                 description: APIDoc[moduleName].interfaces.types.description || null
                             });
                         }
-
                     }
                 }
-
             }
             newDocs.push(newDoc);
         }
@@ -209,7 +203,7 @@ export class AppDocApiSection {
     setEventsData(moduleName, events) {
         const data = [];
 
-        for(const event of events){
+        for (const event of events) {
             const eventData = {
                 id: `api.${moduleName.toLowerCase()}.events.${event.name}`,
                 label: event.name,
@@ -217,34 +211,34 @@ export class AppDocApiSection {
                 description: event.description,
                 relatedProp: event.relatedProp ?? 'Related Prop',
                 data: []
-            }
+            };
 
-            if(event.props && event.props.length) {
+            if (event.props && event.props.length) {
                 event.props.forEach((prop) => {
                     eventData.data.push({
                         name: prop.name,
                         type: prop.type,
                         description: prop.description
-                    })
-                })
+                    });
+                });
             }
-            
+
             data.push(eventData);
         }
         return data;
     }
 
-    setEmitData(emitters){
-        return emitters.map(emitter => ({
+    setEmitData(emitters) {
+        return emitters.map((emitter) => ({
             name: emitter.name,
-            parameters: {name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type}, 
-            description: emitter.description, 
+            parameters: { name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type },
+            description: emitter.description,
             deprecated: emitter.deprecated
         }));
     }
 
     setPropsData(props) {
-        return props.map(prop => ({
+        return props.map((prop) => ({
             name: prop.name,
             type: prop.type,
             default: prop.default ? prop.default : 'null',
@@ -255,22 +249,22 @@ export class AppDocApiSection {
     }
 
     setInterfacesData(value) {
-        return value.props.map(prop => ({
+        return value.props.map((prop) => ({
             name: prop.name,
             type: prop.type,
             default: prop.default ? prop.default : 'null',
             optional: prop.optional,
             description: prop.description
-        }))
+        }));
     }
 
     setTypesData(moduleName, types) {
-        return types.map(type => ({
+        return types.map((type) => ({
             id: `api.${moduleName}.types.${type.name}`,
             label: type.name,
             component: AppDocApiTable,
-            data: [{values: type.value}]
-        }))
+            data: [{ values: type.value }]
+        }));
     }
 
     ngOnDestroy() {

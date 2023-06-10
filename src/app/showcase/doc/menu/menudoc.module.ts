@@ -10,7 +10,7 @@ import { BasicDoc } from './basicdoc';
 import { CustomContentDoc } from './customdoc';
 import { CommandDoc } from './commanddoc';
 import { GroupDoc } from './groupdoc';
-import { ImportDoc } from './importdoc';;
+import { ImportDoc } from './importdoc';
 import { NavigationDoc } from './navigationdoc';
 import { PopupDoc } from './popupdoc';
 import { StyleDoc } from './styledoc';

@@ -264,7 +264,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * Object literal to define styles per screen size.
      * @group Props
      */
-    @Input() breakpoints: {[key: string]: any} | undefined;
+    @Input() breakpoints: { [key: string]: any } | undefined;
     /**
      * Callback to invoke when a message is closed.
      * @param {ToastCloseEvent} event - custom close event.

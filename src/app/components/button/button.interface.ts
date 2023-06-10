@@ -15,6 +15,6 @@ export interface ButtonTemplates {
     icon(): TemplateRef<any>;
     /**
      * Custom template of loadingicon.
-    */
+     */
     loadingicon(): TemplateRef<any>;
 }

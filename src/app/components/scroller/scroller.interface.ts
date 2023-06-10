@@ -144,20 +144,20 @@ export interface ScrollerTemplates {
      * Custom loader template.
      * @param {Object} context - Options instance.
      */
-    loader(context: { 
+    loader(context: {
         /**
          * Options.
          */
-        options: ScrollerLoaderOptions 
+        options: ScrollerLoaderOptions;
     }): TemplateRef<{ options: ScrollerLoaderOptions }>;
     /**
      * Custom loader icon template.
      * @param {Object} context - Icon options.
      */
-    loadericon(context: { 
+    loadericon(context: {
         /**
          * Options.
          */
-        options: ScrollerLoaderIconOptions 
+        options: ScrollerLoaderIconOptions;
     }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
 }

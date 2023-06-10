@@ -22,7 +22,7 @@ export class AppDocSectionTextComponent {
     @Input() parentId: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
-    
+
     navigate(event) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);

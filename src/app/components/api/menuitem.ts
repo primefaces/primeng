@@ -137,7 +137,7 @@ export interface MenuItem {
      * Developer-defined state that can be passed to any navigation.
      * @see {MenuItemState}
      */
-    state?: {[k: string]: any};
+    state?: { [k: string]: any };
     /**
      * Options of the item's tooltip.
      * @see {TooltipOptions}

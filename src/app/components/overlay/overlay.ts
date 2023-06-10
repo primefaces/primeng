@@ -149,7 +149,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     @Input() get contentStyle(): { [klass: string]: any } | null | undefined {
         return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
     }
-    set contentStyle(value: { [klass: string]: any } | null | undefined ) {
+    set contentStyle(value: { [klass: string]: any } | null | undefined) {
         this._contentStyle = value;
     }
     /**

@@ -1,4 +1,4 @@
-import { ElementRef, TemplateRef } from "@angular/core";
+import { ElementRef, TemplateRef } from '@angular/core';
 
 /**
  * Defines options of Tooltip.
@@ -12,7 +12,7 @@ export interface TooltipOptions {
     /**
      * Position of tooltip.
      */
-    tooltipPosition?:  'right' | 'left' | 'top' | 'bottom';
+    tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
     /**
      * Position of tooltip.
      */

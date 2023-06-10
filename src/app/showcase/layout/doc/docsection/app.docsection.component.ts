@@ -25,18 +25,18 @@ export class AppDocSectionsComponent {
 
     @ViewChild('Doc', { read: ViewContainerRef }) Doc: ViewContainerRef;
 
-    @ViewChild(HostDirective, {static: true}) host!: HostDirective;
+    @ViewChild(HostDirective, { static: true }) host!: HostDirective;
 
     constructor(private cd: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
-        if(this.docs && this.docs.length){
+        if (this.docs && this.docs.length) {
             for (let index = 0; index < this.docs.length; index++) {
                 this.loadComponent();
             }
         }
-        if(this.apiDocs && this.apiDocs.length) {
-            for(let i = 0; i < this.apiDocs.length; i++) {
+        if (this.apiDocs && this.apiDocs.length) {
+            for (let i = 0; i < this.apiDocs.length; i++) {
                 this.loadApiDocComponent();
             }
         }
@@ -70,23 +70,23 @@ export class AppDocSectionsComponent {
         }
     }
 
-    loadApiDocComponent() {        
+    loadApiDocComponent() {
         this.currentDocIndex = (this.currentDocIndex + 1) % this.apiDocs.length;
         const newComponent: any = this.apiDocs[this.currentDocIndex];
         const viewContainerRef = this.host.viewContainerRef;
 
-        if(newComponent && newComponent.children) {
-            for(let i = 0; i < newComponent.children.length; i++){
+        if (newComponent && newComponent.children) {
+            for (let i = 0; i < newComponent.children.length; i++) {
                 const child = newComponent.children[i];
-                if(child.data && child.data.length) {
+                if (child.data && child.data.length) {
                     const componentRef = viewContainerRef.createComponent<AppDocApiTable>(child.component);
                     componentRef.instance.id = child.id;
                     componentRef.instance.description = child.description;
                     componentRef.instance.data = child.data;
                     componentRef.instance.label = child.label;
                     componentRef.instance.relatedProp = child.relatedProp;
-                    if(i === 0) {
-                        componentRef.instance.parentTitle = newComponent.label
+                    if (i === 0) {
+                        componentRef.instance.parentTitle = newComponent.label;
                         componentRef.instance.parentDescription = newComponent.description;
                         componentRef.instance.parentId = newComponent.id;
                     }

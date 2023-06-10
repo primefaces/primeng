@@ -9,7 +9,6 @@ import { Location } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocApiTable implements OnInit {
-
     @Input() id: string;
 
     @Input() label: string;
@@ -28,7 +27,7 @@ export class AppDocApiTable implements OnInit {
 
     @Input() level: number;
 
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location){}
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location) {}
 
     ngOnInit() {}
 
@@ -55,14 +54,14 @@ export class AppDocApiTable implements OnInit {
     ngAfterViewInit() {}
 
     getType(value) {
-        if(this.label === 'Templates') {
+        if (this.label === 'Templates') {
             return value?.split('|');
         }
-        if(this.label === 'Methods' && !value) {
+        if (this.label === 'Methods' && !value) {
             return ['-'];
         }
-        
-        return value?.split('|').map(item => item.replace(/(\[|\]|<|>).*$/gm, '').trim());
+
+        return value?.split('|').map((item) => item.replace(/(\[|\]|<|>).*$/gm, '').trim());
     }
 
     isLinkType(value) {
@@ -86,15 +85,15 @@ export class AppDocApiTable implements OnInit {
     }
 
     scrollToLinkedElement(event, value) {
-        if(document && document.createElement) {
+        if (document && document.createElement) {
             const section = this.label === 'Emitters' ? 'Events' : this.label;
             const elementId = `api.${this.id.split('.')[1].toLowerCase()}.${section.toLowerCase()}.${value}`;
 
             setTimeout(() => {
-                this.scrollToLabelById(elementId)
+                this.scrollToLabelById(elementId);
             }, 1);
 
-            event.preventDefault()
+            event.preventDefault();
         }
     }
 
