@@ -6,7 +6,13 @@ import { Dropdown } from './dropdown';
  * @group Interface
  */
 export interface DropdownFilterOptions {
+    /**
+     * Filter function.
+     */
     filter?: (value?: any) => void;
+    /**
+     * Reset function.
+     */
     reset?: () => void;
 }
 /**
