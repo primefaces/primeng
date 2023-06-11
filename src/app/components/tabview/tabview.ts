@@ -34,7 +34,7 @@ import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
 /**
- * TabPanel is a helper component for TabPanel component.
+ * TabPanel is a helper component for TabView component.
  * @group Components
  */
 @Component({
@@ -233,7 +233,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         this.view = null;
     }
 }
-
+/**
+ * TabView is a container component to group content with tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabView',
     template: `
