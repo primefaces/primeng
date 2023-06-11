@@ -265,9 +265,30 @@ export interface TableTemplates {
     caption(): TemplateRef<any>;
     /**
      * Custom grouped header template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    headergrouped(): TemplateRef<TableRowContext>;
+    headergrouped(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom grouped header template.
      * @param {Object} context - header data.
@@ -294,9 +315,18 @@ export interface TableTemplates {
     }): TemplateRef<{ $implicit: any; frozen: boolean }>;
     /**
      * Custom loading body template.
-     * @param {TableLoadingBodyContext} context - loading body data.
+     * @param {Object} context - loading body data.
      */
-    loadingbody(): TemplateRef<TableLoadingBodyContext>;
+    loadingbody(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+    }): TemplateRef<any>;
     /**
      * Custom footer template.
      * @param {Object} context - footer data.
@@ -333,19 +363,74 @@ export interface TableTemplates {
     summary(): TemplateRef<any>;
     /**
      * Custom expanded row template.
-     * @param {TableExpandedRowContext} context - expanded row data.
+     * @param {Object} context - expanded row data.
      */
-    rowexpansion(): TemplateRef<TableExpandedRowContext>;
+    rowexpansion(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+        /**
+         * Expanded state.
+         */
+        expanded: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom group header template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    groupheader(): TemplateRef<TableRowContext>;
+    groupheader(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom group footer template.
      * @param {TableRowContext} context - row data.
      */
-    groupfooter(): TemplateRef<TableRowContext>;
+    groupfooter(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom frozen header template.
      * @param {*} context - columns.
@@ -353,9 +438,30 @@ export interface TableTemplates {
     frozenheader(): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen body template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    frozenbody(): TemplateRef<TableRowContext>;
+    frozenbody(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom frozen footer template.
      * @param {*} context - columns.
@@ -368,9 +474,22 @@ export interface TableTemplates {
     frozencolgroup(): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen expanded row template.
-     * @param {*} context - row data.
+     * @param {Object} context - row data.
      */
-    frozenrowexpansion(): TemplateRef<TableExpandedRowContext>;
+    frozenrowexpansion(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+        /**
+         * Expanded state.
+         */
+        expanded: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom empty message template.
      */
@@ -457,56 +576,4 @@ export interface TableTemplates {
          */
         $implicit: boolean;
     }): TemplateRef<{ $implicit: boolean }>;
-}
-/**
- * Data of the header template.
- * @group Interface
- */
-export interface TableRowContext {
-    /**
-     * Row data.
-     */
-    $implicit?: any;
-    /**
-     * Row index.
-     */
-    rowIndex?: number;
-    /**
-     * Columns.
-     */
-    columns?: any[];
-    /**
-     * Editing state.
-     */
-    editing?: boolean;
-    /**
-     * Frozen state.
-     */
-    frozen?: boolean;
-}
-/**
- * Data of the loading body template.
- * @extends {TableRowContext}
- * @group Interface
- */
-export interface TableLoadingBodyContext extends TableRowContext {
-    /**
-     * Row span.
-     */
-    rowspan?: number;
-    /**
-     * Row group.
-     */
-    rowgroup?: number;
-}
-/**
- * Data of the expanded row.
- * @extends {TableRowContext}
- * @group Interface
- */
-export interface TableExpandedRowContext extends TableRowContext {
-    /**
-     * Expanded state.
-     */
-    expanded: boolean;
 }
