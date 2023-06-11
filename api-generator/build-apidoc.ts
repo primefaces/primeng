@@ -115,11 +115,12 @@ if (project) {
         modules.children.forEach((module) => {
             const name = module.name.replace(/.*\//, '');
             if (allowed(name)) {
-                doc[name] = {
-                    components: {}
-                };
-
                 if (module.groups) {
+                    if (!doc[name]) {
+                        doc[name] = {
+                            components: {}
+                        };
+                    }
                     const module_components_group = module.groups.find((g) => g.title === 'Components');
                     const module_events_group = module.groups.find((g) => g.title === 'Events');
                     const module_templates_group = module.groups.find((g) => g.title === 'Templates');
@@ -137,6 +138,7 @@ if (project) {
                             };
 
                             const component_props_group = component.groups.find((g) => g.title === 'Props');
+
                             if (isProcessable(component_props_group)) {
                                 const props = {
                                     description: staticMessages['props'],
@@ -159,7 +161,6 @@ if (project) {
                                                 : undefined
                                     });
                                 });
-
                                 doc[name]['components'][componentName]['props'] = props;
                             }
 
@@ -208,7 +209,6 @@ if (project) {
                             }
 
                             const component_events_group = component.groups.find((g) => g.title === 'Events');
-
                             if (isProcessable(component_events_group)) {
                                 const events = {
                                     description: staticMessages['events'],
@@ -401,10 +401,6 @@ if (project) {
         if (key.includes('.interface')) {
             const parentKey = key.split('.')[0];
             const interfaceDoc = doc[key];
-            if (interfaceDoc.hasOwnProperty('components') && !Object.keys(interfaceDoc['components']).length) {
-                delete interfaceDoc['components'];
-            }
-
             if (!mergedDocs[parentKey]) {
                 mergedDocs[parentKey] = {
                     ...doc[parentKey],
