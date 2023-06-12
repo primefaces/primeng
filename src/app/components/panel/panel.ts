@@ -10,7 +10,10 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
 import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
-
+/**
+ * Panel is a container with the optional content toggle feature.
+ * @group Components
+ */
 @Component({
     selector: 'p-panel',
     template: `
@@ -141,20 +144,20 @@ export class Panel implements AfterContentInit, BlockableUI {
     @Input() iconPos: 'start' | 'end' | 'center' = 'end';
     /**
      * Expand icon of the toggle button.
-     * @deprecated since v15.4.2, use `headericons` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `headericons` template instead.
      */
     @Input() expandIcon: string | undefined;
     /**
      * Collapse icon of the toggle button.
-     * @deprecated since v15.4.2, use `headericons` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `headericons` template instead.
      */
     @Input() collapseIcon: string | undefined;
     /**
      * Specifies if header of panel cannot be displayed.
-     * @deprecated since v15.4.2, use `headericons` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `headericons` template instead.
      */
     @Input() showHeader: boolean = true;
     /**

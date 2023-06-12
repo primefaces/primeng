@@ -4,6 +4,7 @@ import { TreeSelect } from './treeselect';
 /**
  * Custom node collapse event.
  * @see {@link TreeSelect.onNodeCollapse}
+ * @group Events
  */
 export interface TreeSelectNodeCollapseEvent {
     /**
@@ -18,6 +19,7 @@ export interface TreeSelectNodeCollapseEvent {
 /**
  * Custom node expand event.
  * @see {@link TreeSelect.onNodeExpand}
+ * @group Events
  */
 export interface TreeSelectNodeExpandEvent extends TreeSelectNodeCollapseEvent {}
 /**
@@ -56,27 +58,27 @@ export interface TreeSelectTemplates {
     /**
      * Custom empty template.
      */
-    empty: TemplateRef<any>;
+    empty(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom clear icon template.
      */
-    clearicon: TemplateRef<any>;
+    clearicon(): TemplateRef<any>;
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon: TemplateRef<any>;
+    triggericon(): TemplateRef<any>;
     /**
      * Custom filter icon template.
      */
-    filtericon: TemplateRef<any>;
+    filtericon(): TemplateRef<any>;
     /**
      * Custom close icon template.
      */
-    closeicon: TemplateRef<any>;
+    closeicon(): TemplateRef<any>;
     /**
      * Custom node toggler template.
      * @param {Object} context - toggler icon data.
@@ -90,9 +92,9 @@ export interface TreeSelectTemplates {
     /**
      * Custom node checkbox icon template.
      */
-    itemcheckboxicon: TemplateRef<any>;
+    itemcheckboxicon(): TemplateRef<any>;
     /**
      * Custom loading icon template.
      */
-    itemloadingicon: TemplateRef<any>;
+    itemloadingicon(): TemplateRef<any>;
 }

@@ -122,7 +122,10 @@ export class OrganizationChartNode implements OnDestroy {
         this.subscription.unsubscribe();
     }
 }
-
+/**
+ * OrganizationChart visualizes hierarchical organization data.
+ * @group Components
+ */
 @Component({
     selector: 'p-organizationChart',
     template: `

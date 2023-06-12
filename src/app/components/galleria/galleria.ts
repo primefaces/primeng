@@ -37,7 +37,10 @@ import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-
+/**
+ * Galleria is an advanced content gallery component.
+ * @group Components
+ */
 @Component({
     selector: 'p-galleria',
     template: `
@@ -108,7 +111,7 @@ export class Galleria implements OnChanges, OnDestroy {
     @Input() numVisible: number = 3;
     /**
      * An array of options for responsive design.
-     * @see GalleriaResponsiveOptions
+     * @see {GalleriaResponsiveOptions}
      * @group Props
      */
     @Input() responsiveOptions: GalleriaResponsiveOptions[] | undefined;
@@ -223,16 +226,16 @@ export class Galleria implements OnChanges, OnDestroy {
     }
     /**
      * Callback to invoke on active index change.
-     * @param {number} number - active index.
+     * @param {number} number - Active index.
      * @group Emits
      */
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke on visiblity change.
-     * @param {boolean} boolean - visible value.
+     * @param {boolean} boolean - Visible value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('mask') mask: ElementRef | undefined;
 

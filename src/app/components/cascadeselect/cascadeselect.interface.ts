@@ -5,6 +5,7 @@ import { CascadeSelect } from './cascadeselect';
 /**
  * Custom panel show event.
  * @see {@link CascadeSelect.onShow}
+ * @group Events
  */
 export interface CascadeSelectShowEvent {
     /**
@@ -24,18 +25,21 @@ export interface CascadeSelectShowEvent {
  * Custom panel hide event.
  * @see {@link CascadeSelect.onHide}
  * @extends {CascadeSelectShowEvent}
+ * @group Events
  */
 export interface CascadeSelectHideEvent extends CascadeSelectShowEvent {}
 /**
  * Custom panel show event emits right before the panel is shown.
  * @see {@link CascadeSelect.onBeforeShow}
  * @extends {CascadeSelectShowEvent}
+ * @group Events
  */
 export interface CascadeSelectBeforeShowEvent extends CascadeSelectShowEvent {}
 /**
  * Custom panel hide event emits right before the panel is hidden.
  * @see {@link CascadeSelect.onBeforeHide}
  * @extends {CascadeSelectShowEvent}
+ * @group Events
  */
 export interface CascadeSelectBeforeHideEvent extends CascadeSelectShowEvent {}
 /**
@@ -70,13 +74,13 @@ export interface CascadeSelectTemplates {
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon: TemplateRef<any>;
+    triggericon(): TemplateRef<any>;
     /**
      * Custom clear icon template.
      */
-    clearicon: TemplateRef<any>;
+    clearicon(): TemplateRef<any>;
     /**
      * Custom option group icon template.
      */
-    optiongroupicon: TemplateRef<any>;
+    optiongroupicon(): TemplateRef<any>;
 }

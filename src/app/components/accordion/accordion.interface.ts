@@ -1,5 +1,4 @@
 import { TemplateRef } from '@angular/core';
-import { Accordion } from './accordion';
 
 /**
  * Custom tab open event.
@@ -33,14 +32,13 @@ export interface AccordionTemplates {
     /**
      * Custom template of content.
      */
-    content(): TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of header.
      */
-    header(): TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom template of icon.
-     * @param {Object} context - icon data.
      */
     icon(context: {
         /**

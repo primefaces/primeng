@@ -1,6 +1,9 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+/**
+ * Divider is used to separate contents.
+ * @group Components
+ */
 @Component({
     selector: 'p-divider',
     template: `

@@ -8,13 +8,13 @@ export interface ToolbarTemplates {
     /**
      * Custom start content.
      */
-    start: TemplateRef<any> | null;
+    start(): TemplateRef<any>;
     /**
      * Custom end content.
      */
-    end: TemplateRef<any> | null;
+    end(): TemplateRef<any>;
     /**
      * Custom center content.
      */
-    center: TemplateRef<any> | null;
+    center(): TemplateRef<any>;
 }

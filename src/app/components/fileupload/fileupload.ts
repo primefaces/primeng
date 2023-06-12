@@ -35,8 +35,11 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
-
+import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
+/**
+ * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+ * @group Components
+ */
 @Component({
     selector: 'p-fileUpload',
     template: `
@@ -325,29 +328,28 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     @Input() chooseStyleClass: string | undefined;
     /**
      * Callback to invoke before file upload is initialized.
-     * @param {FileBeforeUploadEvent} event - upload event.
+     * @param {FileBeforeUploadEvent} event - Custom upload event.
      * @group Emits
      */
     @Output() onBeforeUpload: EventEmitter<FileBeforeUploadEvent> = new EventEmitter<FileBeforeUploadEvent>();
     /**
      * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
-     * @param {FileSendEvent} event - send event.
+     * @param {FileSendEvent} event - Custom send event.
      * @group Emits
      */
     @Output() onSend: EventEmitter<FileSendEvent> = new EventEmitter<FileSendEvent>();
     /**
      * Callback to invoke when file upload is complete.
-     * @param {FileUploadEvent} event - upload event.
+     * @param {FileUploadEvent} event - Custom upload event.
      * @group Emits
      */
     @Output() onUpload: EventEmitter<FileUploadEvent> = new EventEmitter<FileUploadEvent>();
     /**
      * Callback to invoke if file upload fails.
-     * @param {File[]} files - Files.
-     * @param {ErrorEvent} error - Error event.
+     * @param {FileUploadErrorEvent} event - Custom error event.
      * @group Emits
      */
-    @Output() onError: EventEmitter<{ files: File[]; error?: ErrorEvent }> = new EventEmitter<{ files: File[]; error?: ErrorEvent }>();
+    @Output() onError: EventEmitter<FileUploadErrorEvent> = new EventEmitter<FileUploadErrorEvent>();
     /**
      * Callback to invoke when files in queue are removed without uploading using clear all button.
      * @param {Event} event - Browser event.
@@ -374,7 +376,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     @Output() onProgress: EventEmitter<FileProgressEvent> = new EventEmitter<FileProgressEvent>();
     /**
      * Callback to invoke in custom upload mode to upload the files manually.
-     * @param {FileUploadHandlerEvent} event - upload handler event.
+     * @param {FileUploadHandlerEvent} event - Upload handler event.
      * @group Emits
      */
     @Output() uploadHandler: EventEmitter<FileUploadHandlerEvent> = new EventEmitter<FileUploadHandlerEvent>();
@@ -637,7 +639,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
     /**
      * Uploads the selected files.
-     * @group Methods
+     * @group Method
      */
     upload() {
         if (this.customUpload) {
@@ -717,7 +719,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
     /**
      * Clears the files list.
-     * @group Methods
+     * @group Method
      */
     clear() {
         this.files = [];

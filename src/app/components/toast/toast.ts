@@ -31,7 +31,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { ToastBreakpoints, ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
+import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
 
 @Component({
     selector: 'p-toastItem',
@@ -167,7 +167,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         this.clearTimeout();
     }
 }
-
+/**
+ * Toast is used to display messages in an overlay.
+ * @group Components
+ */
 @Component({
     selector: 'p-toast',
     template: `
@@ -261,7 +264,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * Object literal to define styles per screen size.
      * @group Props
      */
-    @Input() breakpoints: ToastBreakpoints | undefined;
+    @Input() breakpoints: { [key: string]: any } | undefined;
     /**
      * Callback to invoke when a message is closed.
      * @param {ToastCloseEvent} event - custom close event.

@@ -221,7 +221,10 @@ export class SlideMenuSub implements OnDestroy {
         return -this.slideMenu.left == (this.index as number) * (this.menuWidth as number);
     }
 }
-
+/**
+ * SlideMenu displays submenus with slide animation.
+ * @group Components
+ */
 @Component({
     selector: 'p-slideMenu',
     template: `
@@ -422,8 +425,8 @@ export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy 
 
     /**
      * Toggles the visibility of the popup menu.
-     * @group Methods
-     * @param event
+     * @param {Event} event - Browser event.
+     * @group Method
      */
     toggle(event: Event) {
         if (this.visible) this.hide();
@@ -433,8 +436,8 @@ export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy 
     }
     /**
      * Displays the popup menu.
-     * @group Methods
-     * @param event
+     * @param {Event} event - Browser event.
+     * @group Method
      */
     show(event: Event) {
         this.target = event.currentTarget;
@@ -505,7 +508,7 @@ export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy 
 
     /**
      * Hides the popup menu.
-     * @group Methods
+     * @group Method
      */
     hide() {
         this.visible = false;

@@ -7,7 +7,10 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-
+/**
+ * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
+ * @group Components
+ */
 @Component({
     selector: 'p-confirmPopup',
     template: `

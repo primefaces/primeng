@@ -8,7 +8,10 @@ import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
 
 let idx: number = 0;
-
+/**
+ * AccordionTab is a helper component for Accordion.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordionTab',
     template: `
@@ -138,15 +141,16 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
-     * Position of the icon, valid values are "end", "start".
+     * Position of the icon.
      * @group Props
      */
-    @Input() iconPos: string = 'start';
+    @Input() iconPos: 'end' | 'start' = 'start';
     /**
-     * Event triggered by changing the choice
+     * Event triggered by changing the choice.
+     * @param {boolean} value - Boolean value indicates that the option is changed.
      * @group Emits
      */
-    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ContentChildren(Header) headerFacet!: QueryList<Header>;
 
@@ -280,6 +284,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 }
 
+/**
+ * Accordion groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordion',
     template: `
@@ -325,7 +333,6 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     @Input() get activeIndex(): number | number[] | null | undefined {
         return this._activeIndex;
     }
-
     set activeIndex(val: number | number[] | null | undefined) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
@@ -337,19 +344,22 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
+     * @param {AccordionTabCloseEvent} event - Custom tab close event.
      * @group Emits
      */
     @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
     /**
      * Callback to invoke when a tab gets expanded.
+     * @param {AccordionTabOpenEvent} event - Custom tab open event.
      * @group Emits
      */
     @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
     /**
      * Returns the active index.
+     * @param {number | number[]} value - New index.
      * @group Emits
      */
-    @Output() activeIndexChange: EventEmitter<number | number[] | null> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
 
     @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab> | undefined;
 
@@ -410,7 +420,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         });
 
         this.preventActiveIndexPropagation = true;
-        this.activeIndexChange.emit(index);
+        this.activeIndexChange.emit(index as number[] | number);
     }
 
     ngOnDestroy() {

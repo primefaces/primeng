@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 /**
  * Responsive options of the component.
+ * @group Interface
  */
 export interface CarouselResponsiveOptions {
     /**
@@ -16,7 +17,16 @@ export interface CarouselResponsiveOptions {
      */
     numScroll: number;
 }
-
+/**
+ * Custom page event.
+ * @group Events
+ */
+export interface CarouselPageEvent {
+    /**
+     * Current page.
+     */
+    page?: number;
+}
 /**
  * Defines valid templates in Carousel.
  * @group Templates
@@ -25,7 +35,7 @@ export interface CarouselTemplates {
     /**
      * Custom template of header.
      */
-    header: TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom template of item.
      * @param {Object} context - item data.
@@ -39,13 +49,13 @@ export interface CarouselTemplates {
     /**
      * Custom template of previousicon.
      */
-    previousicon: TemplateRef<any> | null;
+    previousicon(): TemplateRef<any>;
     /**
      * Custom template of nexticon.
      */
-    nexticon: TemplateRef<any> | null;
+    nexticon(): TemplateRef<any>;
     /**
      * Custom template of footer.
      */
-    footer: TemplateRef<any> | null;
+    footer(): TemplateRef<any>;
 }

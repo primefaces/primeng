@@ -10,8 +10,6 @@ import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { MessagesStyleDoc } from './messagesstyledoc';
 import { MessageStyleDoc } from './messagestyledoc';
-import { MessagesPropsDoc } from './messagespropsdoc';
-import { MessagePropsDoc } from './messagepropsdoc';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SeverityDoc } from './severitydoc';
@@ -21,12 +19,11 @@ import { DynamicDoc } from './dynamicdoc';
 import { ServiceDoc } from './servicedoc';
 import { InlineDoc } from './inlinedoc';
 import { AnimationDoc } from './animationdoc';
-import { TemplatesDoc } from './templatesdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, MessagesPropsDoc, MessagePropsDoc, TemplatesDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MessagesDocModule {}

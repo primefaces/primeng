@@ -29,7 +29,10 @@ import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
 import { Nullable } from 'primeng/ts-helpers';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
-
+/**
+ * DataView displays data in grid or list layout with pagination and sorting features.
+ * @group Components
+ */
 @Component({
     selector: 'p-dataView',
     template: `
@@ -258,7 +261,10 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * @group Props
      */
     @Input() value: any[] | undefined;
-
+    /**
+     * Defines the layout mode.
+     * @group Props
+     */
     @Input() get layout(): 'list' | 'grid' {
         return this._layout;
     }
@@ -271,24 +277,25 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     }
     /**
      * Callback to invoke when paging, sorting or filtering happens in lazy mode.
-     * @param {DataViewLazyLoadEvent} event - custom lazy load event.
+     * @param {DataViewLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<DataViewLazyLoadEvent> = new EventEmitter<DataViewLazyLoadEvent>();
     /**
      * Callback to invoke when pagination occurs.
-     * @param {DataViewPageEvent} event - custom page event.
+     * @param {DataViewPageEvent} event - Custom page event.
      * @group Emits
      */
     @Output() onPage: EventEmitter<DataViewPageEvent> = new EventEmitter<DataViewPageEvent>();
     /**
      * Callback to invoke when sorting occurs.
+     * @param {DataViewSortEvent} event - Custom sort event.
      * @group Emits
      */
     @Output() onSort: EventEmitter<DataViewSortEvent> = new EventEmitter<DataViewSortEvent>();
     /**
      * Callback to invoke when changing layout.
-     * @param {DataViewLayoutChangeEvent} event - custom layout change event.
+     * @param {DataViewLayoutChangeEvent} event - Custom layout change event.
      * @group Emits
      */
     @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();

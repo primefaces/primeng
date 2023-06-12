@@ -15,8 +15,6 @@ import { SizeDoc } from './sizedoc';
 import { ColorDoc } from './colordoc';
 import { ReadonlyDoc } from './readonlydoc';
 import { DisabledDoc } from './disableddoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
@@ -24,6 +22,6 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, AppCodeModule, AppDocModule, KnobModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class KnobDocModule {}

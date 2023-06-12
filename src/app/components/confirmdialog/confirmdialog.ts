@@ -36,7 +36,10 @@ import { Subscription } from 'rxjs';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
+ * @group Components
+ */
 @Component({
     selector: 'p-confirmDialog',
     template: `
@@ -257,7 +260,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() focusTrap: boolean = true;
     /**
-     * Element to receive the focus when the dialog gets visible, valid values are "accept", "reject", "close" and "none".
+     * Element to receive the focus when the dialog gets visible.
      * @group Props
      */
     @Input() defaultFocus: 'accept' | 'reject' | 'close' = 'accept';
@@ -317,10 +320,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     /**
      * Callback to invoke when dialog is hidden.
-     * @param {ConfirmEventType} enum - confirm event type.
+     * @param {ConfirmEventType} enum - Custom confirm event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter();
+    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter<ConfirmEventType>();
 
     @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
 

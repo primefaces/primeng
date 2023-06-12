@@ -9,7 +9,6 @@ import { SizesDoc } from 'src/app/showcase/doc/inputtext/sizesdoc';
 import { AccessibilityDoc } from '../../doc/inputtext/accessibilitydoc';
 import { BasicDoc } from '../../doc/inputtext/basicdoc';
 import { KeyFilterDoc } from '../../doc/inputtext/keyfilterdoc';
-import { PropsDoc } from '../../doc/inputtext/propsdoc';
 import { ReactiveFormsDoc } from '../../doc/inputtext/reactiveformsdoc';
 import { StyleDoc } from '../../doc/inputtext/styledoc';
 
@@ -78,14 +77,6 @@ export class InputTextDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

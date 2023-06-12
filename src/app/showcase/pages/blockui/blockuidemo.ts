@@ -3,7 +3,6 @@ import { AccessibilityDoc } from '../../doc/blockui/accessibilitydoc';
 import { BasicDoc } from '../../doc/blockui/basicdoc';
 import { DocumentDoc } from '../../doc/blockui/documentdoc';
 import { ImportDoc } from '../../doc/blockui/importdoc';
-import { PropsDoc } from '../../doc/blockui/propsdoc';
 import { StyleDoc } from '../../doc/blockui/styledoc';
 
 @Component({
@@ -79,14 +78,6 @@ export class BlockUIDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

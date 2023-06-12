@@ -10,7 +10,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Slider),
     multi: true
 };
-
+/**
+ * Slider is a component to provide input with a drag handle.
+ * @group Components
+ */
 @Component({
     selector: 'p-slider',
     template: `

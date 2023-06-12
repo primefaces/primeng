@@ -4,7 +4,10 @@ import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * Splitter is utilized to separate and resize panels.
+ * @group Components
+ */
 @Component({
     selector: 'p-splitter',
     template: `
@@ -52,17 +55,17 @@ export class Splitter {
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
      * @group Props
      */
-    @Input() stateStorage: 'local' | 'session' | undefined = 'session';
+    @Input() stateStorage: string | undefined = 'session';
     /**
      * Storage identifier of a stateful Splitter.
      * @group Props
      */
     @Input() stateKey: string | undefined | null = null;
     /**
-     * Orientation of the panels.
+     * Orientation of the panels. Valid values are 'horizontal' and 'vertical'.
      * @group Props
      */
-    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    @Input() layout: string | undefined = 'horizontal';
     /**
      * Size of the divider in pixels.
      * @group Props

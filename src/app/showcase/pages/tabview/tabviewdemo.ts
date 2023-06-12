@@ -7,9 +7,6 @@ import { TemplateDoc } from '../../doc/tabview/customtemplatedoc';
 import { ClosableDoc } from '../../doc/tabview/closabledoc';
 import { ScrollableDoc } from '../../doc/tabview/scrollabledoc';
 import { StyleDoc } from '../../doc/tabview/styledoc';
-import { PropsDoc } from '../../doc/tabview/propsdoc';
-import { EventsDoc } from '../../doc/tabview/eventsdoc';
-import { TemplatesDoc } from '../../doc/tabview/templatesdoc';
 import { AccessibilityDoc } from '../../doc/tabview/accessibilitydoc';
 
 @Component({
@@ -62,24 +59,6 @@ export class TabViewDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

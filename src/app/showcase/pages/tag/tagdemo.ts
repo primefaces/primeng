@@ -3,7 +3,6 @@ import { IconDoc } from '../../doc/tag/icondoc';
 import { ImportDoc } from '../../doc/tag/importdoc';
 import { SeverityDoc } from '../../doc/tag/severitydoc';
 import { BasicDoc } from '../../doc/tag/basicdoc';
-import { PropsDoc } from '../../doc/tag/propsdoc';
 import { StyleDoc } from '../../doc/tag/styledoc';
 import { PillDoc } from '../../doc/tag/pilldoc';
 import { TemplateDoc } from '../../doc/tag/templatedoc';
@@ -53,14 +52,6 @@ export class TagDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

@@ -1,16 +1,20 @@
 <ul #nav *ngIf="docs && docs.length" class="doc-section-nav" [ngClass]="{'hidden' : visible}">
     <li *ngFor="let doc of docs; let i = index;" class="navbar-item" [ngClass]="{'active-navbar-item' : activeId === doc.id}">
-        <div class="navbar-item-content">
-            <button class="p-link" (click)="onButtonClick(doc)">{{doc.label}}</button>
-        </div>
-        <ul *ngIf="doc.children">
-            <li *ngFor="let child of doc.children" class="navbar-item" [ngClass]="{'active-navbar-item': activeId === child.id }">
-                <div class="navbar-item-content">
-                    <button class="p-link" (click)="onButtonClick(child)">
-                        {{ child.label }}
-                    </button>
-                </div>
-            </li>
-        </ul>
+        <ng-container *ngIf="!doc.isInterface">
+            <div class="navbar-item-content">
+                <button class="p-link" (click)="onButtonClick(doc)">{{doc.label}}</button>
+            </div>
+            <ng-container>
+                <ul *ngIf="doc.children">
+                    <li *ngFor="let child of doc.children" class="navbar-item" [ngClass]="{'active-navbar-item': getActiveChildId(activeId, child.id) }">
+                        <div class="navbar-item-content">
+                            <button class="p-link" (click)="onButtonClick(child)">
+                                {{ child.label }}
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </ng-container>
+        </ng-container>
     </li>
 </ul>

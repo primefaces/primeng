@@ -1,16 +1,24 @@
 import { TemplateRef } from '@angular/core';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { Dropdown } from './dropdown';
 /**
  * Filter callbacks of the dropdown.
+ * @group Interface
  */
 export interface DropdownFilterOptions {
+    /**
+     * Filter function.
+     */
     filter?: (value?: any) => void;
+    /**
+     * Reset function.
+     */
     reset?: () => void;
 }
 /**
  * Custom change event.
  * @see {@link Dropdown.onChange}
+ * @group Events
  */
 export interface DropdownChangeEvent {
     /**
@@ -25,6 +33,7 @@ export interface DropdownChangeEvent {
 /**
  * Custom filter event.
  * @see {@link Dropdown.onFilter}
+ * @group Events
  */
 export interface DropdownFilterEvent {
     /**
@@ -39,6 +48,7 @@ export interface DropdownFilterEvent {
 /**
  * Custom lazy load event.
  * @see {@link Dropdown.onLazyLoad}
+ * @group Events
  */
 export interface DropdownLazyLoadEvent {
     /**
@@ -78,7 +88,7 @@ export interface DropdownTemplates {
     /**
      * Custom header template.
      */
-    header: TemplateRef<any>;
+    header(): TemplateRef<any>;
     /**
      * Custom filter template.
      * @param {DropdownFilterOptions} options - filter options.
@@ -92,15 +102,15 @@ export interface DropdownTemplates {
     /**
      * Custom footer template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom empty filter template.
      */
-    emptyfilter: TemplateRef<any>;
+    emptyfilter(): TemplateRef<any>;
     /**
      * Custom empty template.
      */
-    empty: TemplateRef<any>;
+    empty(): TemplateRef<any>;
     /**
      * Custom group template.
      */
@@ -123,13 +133,13 @@ export interface DropdownTemplates {
     /**
      * Custom dropdown trigger icon template.
      */
-    dropdownicon: TemplateRef<any>;
+    dropdownicon(): TemplateRef<any>;
     /**
      * Custom clear icon template.
      */
-    clearicon: TemplateRef<any>;
+    clearicon(): TemplateRef<any>;
     /**
      * Custom filter icon template.
      */
-    filtericon: TemplateRef<any>;
+    filtericon(): TemplateRef<any>;
 }

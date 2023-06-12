@@ -44,7 +44,10 @@ type Meter = {
     strength: string;
     width: string;
 };
-
+/**
+ * Password directive.
+ * @group Components
+ */
 @Directive({
     selector: '[pPassword]',
     host: {
@@ -319,6 +322,10 @@ export const Password_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Password),
     multi: true
 };
+/**
+ * Password displays strength indicator for password fields.
+ * @group Components
+ */
 @Component({
     selector: 'p-password',
     template: `
@@ -428,12 +435,12 @@ export class Password implements AfterContentInit, OnInit {
      */
     @Input() promptLabel: string | undefined;
     /**
-     * ^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).
+     * Regex value for medium regex.
      * @group Props
      */
     @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
     /**
-     * ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})
+     * Regex value for strong regex.
      * @group Props
      */
     @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
@@ -483,16 +490,6 @@ export class Password implements AfterContentInit, OnInit {
      */
     @Input() inputStyleClass: string | undefined;
     /**
-     * Inline style of the overlay panel element.
-     * @group Props
-     */
-    @Input() panelStyle: any;
-    /**
-     * Style class of the overlay panel element.
-     * @group Props
-     */
-    @Input() panelStyleClass: string | undefined;
-    /**
      * Style class of the element.
      * @group Props
      */
@@ -501,12 +498,12 @@ export class Password implements AfterContentInit, OnInit {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any;
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -543,7 +540,7 @@ export class Password implements AfterContentInit, OnInit {
      * Callback to invoke when clear button is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<undefined | null> = new EventEmitter<undefined | null>();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('input') input!: ElementRef;
 
