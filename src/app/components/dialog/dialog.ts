@@ -31,8 +31,8 @@ import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { RippleModule } from 'primeng/ripple';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -615,7 +615,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     moveOnTop() {
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
-            this.wrapper!.style.zIndex = String(parseInt(this.container!.style.zIndex, 10) - 1);
+            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
         }
     }
 
@@ -651,7 +651,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
 
-            this.container!.style.margin = '0';
+            (this.container as HTMLDivElement).style.margin = '0';
             DomHandler.addClass(this.document.body, 'p-unselectable-text');
         }
     }
@@ -661,7 +661,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             if (event.which === 9) {
                 event.preventDefault();
 
-                let focusableElements = DomHandler.getFocusableElements(this.container!);
+                let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
 
                 if (focusableElements && focusableElements.length > 0) {
                     if (!focusableElements[0].ownerDocument.activeElement) {
@@ -686,32 +686,32 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         if (this.dragging) {
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - this.lastPageX!;
-            let deltaY = event.pageY - this.lastPageY!;
-            let offset = this.container!.getBoundingClientRect();
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            this.container!.style.position = 'fixed';
+            (this.container as HTMLDivElement).style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
                     this._style.left = leftPos + 'px';
                     this.lastPageX = event.pageX;
-                    this.container!.style.left = leftPos + 'px';
+                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
-                    this.container!.style.top = topPos + 'px';
+                    (this.container as HTMLDivElement).style.top = topPos + 'px';
                 }
             } else {
                 this.lastPageX = event.pageX;
-                this.container!.style.left = leftPos + 'px';
+                (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
-                this.container!.style.top = topPos + 'px';
+                (this.container as HTMLDivElement).style.top = topPos + 'px';
             }
         }
     }
@@ -726,10 +726,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     resetPosition() {
-        this.container!.style.position = '';
-        this.container!.style.left = '';
-        this.container!.style.top = '';
-        this.container!.style.margin = '';
+        (this.container as HTMLDivElement).style.position = '';
+        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.top = '';
+        (this.container as HTMLDivElement).style.margin = '';
     }
 
     //backward compatibility
@@ -749,18 +749,18 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - this.lastPageX!;
-            let deltaY = event.pageY - this.lastPageY!;
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
             let contentHeight = DomHandler.getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
-            let minWidth = this.container!.style.minWidth;
-            let minHeight = this.container!.style.minHeight;
-            let offset = this.container!.getBoundingClientRect();
+            let minWidth = (this.container as HTMLDivElement).style.minWidth;
+            let minHeight = (this.container as HTMLDivElement).style.minHeight;
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt(this.container!.style.top) || !parseInt(this.container!.style.left);
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -769,15 +769,15 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
-                this.container!.style.width = this._style.width;
+                (this.container as HTMLDivElement).style.width = this._style.width;
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
-                this.contentViewChild!.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
+                (<ElementRef>this.contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
-                    this.container!.style.height = this._style.height;
+                    (this.container as HTMLDivElement).style.height = this._style.height;
                 }
             }
 

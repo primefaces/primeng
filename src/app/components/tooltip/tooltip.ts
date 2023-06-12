@@ -2,8 +2,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 import { TooltipOptions } from './tooltip.interface';
 
 @Directive({
@@ -98,7 +98,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input('tooltipDisabled') get disabled(): boolean {
-        return this._disabled!;
+        return this._disabled as boolean;
     }
     set disabled(val: boolean) {
         this._disabled = val;

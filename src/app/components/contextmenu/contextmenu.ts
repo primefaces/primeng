@@ -26,10 +26,10 @@ import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -649,7 +649,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
         let indexes = key.split('_');
         return indexes.reduce((item: any, currentIndex: any) => {
-            return item ? item.items[currentIndex] : this.model![currentIndex];
+            return item ? item.items[currentIndex] : (this.model as MenuItem[])[currentIndex];
         }, null);
     }
 

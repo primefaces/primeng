@@ -118,9 +118,9 @@ export class Draggable implements AfterViewInit, OnDestroy {
     dragStart(event: DragEvent) {
         if (this.allowDrag() && !this.pDraggableDisabled) {
             if (this.dragEffect) {
-                event.dataTransfer!.effectAllowed = this.dragEffect;
+                (event.dataTransfer as DataTransfer).effectAllowed = this.dragEffect;
             }
-            event.dataTransfer!.setData('text', this.scope!);
+            (event.dataTransfer as DataTransfer).setData('text', this.scope!);
 
             this.onDragStart.emit(event);
 
@@ -233,7 +233,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
         event.preventDefault();
 
         if (this.dropEffect) {
-            event.dataTransfer!.dropEffect = this.dropEffect;
+            (event.dataTransfer as DataTransfer).dropEffect = this.dropEffect;
         }
 
         DomHandler.addClass(this.el.nativeElement, 'p-draggable-enter');
@@ -249,7 +249,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     }
 
     allowDrop(event: DragEvent): boolean {
-        let dragScope = event.dataTransfer!.getData('text');
+        let dragScope = (event.dataTransfer as DataTransfer).getData('text');
         if (typeof this.scope == 'string' && dragScope == this.scope) {
             return true;
         } else if (Array.isArray(this.scope)) {

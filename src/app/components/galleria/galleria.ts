@@ -34,8 +34,8 @@ import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { RippleModule } from 'primeng/ripple';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
 
 @Component({
@@ -698,13 +698,13 @@ export class GalleriaItem implements OnChanges {
 
     next() {
         let nextItemIndex = this.activeIndex + 1;
-        let activeIndex = this.circular && this.value!.length - 1 === this.activeIndex ? 0 : nextItemIndex;
+        let activeIndex = this.circular && (<any[]>this.value).length - 1 === this.activeIndex ? 0 : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
     prev() {
         let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
-        let activeIndex = this.circular && this.activeIndex === 0 ? this.value!.length - 1 : prevItemIndex;
+        let activeIndex = this.circular && this.activeIndex === 0 ? (<any[]>this.value).length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
     }
 
@@ -750,7 +750,7 @@ export class GalleriaItem implements OnChanges {
     }
 
     isNavForwardDisabled() {
-        return !this.circular && this.activeIndex === this.value!.length - 1;
+        return !this.circular && this.activeIndex === (<any[]>this.value).length - 1;
     }
 
     isNavBackwardDisabled() {
@@ -888,9 +888,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         if ((this._oldNumVisible !== this.d_numVisible || this._oldactiveIndex !== this._activeIndex) && this.itemsContainer) {
             if (this._activeIndex <= this.getMedianItemIndex()) {
                 totalShiftedItems = 0;
-            } else if (this.value!.length - this.d_numVisible + this.getMedianItemIndex() < this._activeIndex) {
-                totalShiftedItems = this.d_numVisible - this.value!.length;
-            } else if (this.value!.length - this.d_numVisible < this._activeIndex && this.d_numVisible % 2 === 0) {
+            } else if ((<any[]>this.value).length - this.d_numVisible + this.getMedianItemIndex() < this._activeIndex) {
+                totalShiftedItems = this.d_numVisible - (<any[]>this.value).length;
+            } else if ((<any[]>this.value).length - this.d_numVisible < this._activeIndex && this.d_numVisible % 2 === 0) {
                 totalShiftedItems = this._activeIndex * -1 + this.getMedianItemIndex() + 1;
             } else {
                 totalShiftedItems = this._activeIndex * -1 + this.getMedianItemIndex();
@@ -996,7 +996,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             this.step(-1);
         }
 
-        let activeIndex = this.circular && this.value!.length - 1 === this._activeIndex ? 0 : nextItemIndex;
+        let activeIndex = this.circular && (<any[]>this.value).length - 1 === this._activeIndex ? 0 : nextItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -1013,7 +1013,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             this.step(1);
         }
 
-        let activeIndex = this.circular && this._activeIndex === 0 ? this.value!.length - 1 : prevItemIndex;
+        let activeIndex = this.circular && this._activeIndex === 0 ? (<any[]>this.value).length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
 
         if (e.cancelable) {
@@ -1048,17 +1048,17 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     step(dir: number) {
         let totalShiftedItems = this.totalShiftedItems + dir;
 
-        if (dir < 0 && -1 * totalShiftedItems + this.d_numVisible > this.value!.length - 1) {
-            totalShiftedItems = this.d_numVisible - this.value!.length;
+        if (dir < 0 && -1 * totalShiftedItems + this.d_numVisible > (<any[]>this.value).length - 1) {
+            totalShiftedItems = this.d_numVisible - (<any[]>this.value).length;
         } else if (dir > 0 && totalShiftedItems > 0) {
             totalShiftedItems = 0;
         }
 
         if (this.circular) {
-            if (dir < 0 && this.value!.length - 1 === this._activeIndex) {
+            if (dir < 0 && (<any[]>this.value).length - 1 === this._activeIndex) {
                 totalShiftedItems = 0;
             } else if (dir > 0 && this._activeIndex === 0) {
-                totalShiftedItems = this.d_numVisible - this.value!.length;
+                totalShiftedItems = this.d_numVisible - (<any[]>this.value).length;
             }
         }
 
@@ -1088,7 +1088,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     getTotalPageNumber() {
-        return this.value!.length > this.d_numVisible ? this.value!.length - this.d_numVisible + 1 : 0;
+        return (<any[]>this.value).length > this.d_numVisible ? (<any[]>this.value).length - this.d_numVisible + 1 : 0;
     }
 
     getMedianItemIndex() {
@@ -1108,9 +1108,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         let touchobj = e.changedTouches[0];
 
         if (this.isVertical) {
-            this.changePageOnTouch(e, touchobj.pageY - this.startPos!.y);
+            this.changePageOnTouch(e, touchobj.pageY - (<{ x: number; y: number }>this.startPos).y);
         } else {
-            this.changePageOnTouch(e, touchobj.pageX - this.startPos!.x);
+            this.changePageOnTouch(e, touchobj.pageX - (<{ x: number; y: number }>this.startPos).x);
         }
     }
 
@@ -1130,11 +1130,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     isNavBackwardDisabled() {
-        return (!this.circular && this._activeIndex === 0) || this.value!.length <= this.d_numVisible;
+        return (!this.circular && this._activeIndex === 0) || (<any[]>this.value).length <= this.d_numVisible;
     }
 
     isNavForwardDisabled() {
-        return (!this.circular && this._activeIndex === this.value!.length - 1) || this.value!.length <= this.d_numVisible;
+        return (!this.circular && this._activeIndex === (<any[]>this.value).length - 1) || (<any[]>this.value).length <= this.d_numVisible;
     }
 
     firstItemAciveIndex() {

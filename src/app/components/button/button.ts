@@ -39,7 +39,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() get label(): string {
-        return this._label!;
+        return this._label as string;
     }
     set label(val: string) {
         this._label = val;
@@ -55,7 +55,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() get icon(): string {
-        return this._icon!;
+        return this._icon as string;
     }
     set icon(val: string) {
         this._icon = val;

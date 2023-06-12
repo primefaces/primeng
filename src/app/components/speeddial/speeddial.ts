@@ -309,7 +309,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         const type = this.type;
 
         if (type !== 'linear') {
-            const length = this.model!.length;
+            const length = (this.model as MenuItem[]).length;
             const radius = this.radius || length * 20;
 
             if (type === 'circle') {
@@ -354,7 +354,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     calculateTransitionDelay(index: number) {
-        const length = this.model!.length;
+        const length = (this.model as MenuItem[]).length;
 
         return (this.visible ? index : length - index - 1) * this.transitionDelay;
     }

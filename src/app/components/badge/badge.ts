@@ -52,7 +52,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             this._value = val;
 
             if (this.initialized) {
-                let badge = document.getElementById(this.id);
+                let badge: HTMLElement = document.getElementById(this.id) as HTMLElement;
 
                 if (this._value) {
                     if (DomHandler.hasClass(badge, 'p-badge-dot')) DomHandler.removeClass(badge, 'p-badge-dot');
@@ -66,7 +66,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
                     DomHandler.addClass(badge, 'p-badge-dot');
                 }
 
-                badge!.innerHTML = '';
+                badge.innerHTML = '';
                 this.renderer.appendChild(badge, document.createTextNode(this._value));
             }
         }

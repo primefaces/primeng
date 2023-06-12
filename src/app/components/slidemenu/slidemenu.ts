@@ -30,8 +30,8 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { CaretLeftIcon } from 'primeng/icons/caretleft';
 import { CaretRightIcon } from 'primeng/icons/caretright';
 import { TooltipModule } from 'primeng/tooltip';
-import { ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -218,7 +218,7 @@ export class SlideMenuSub implements OnDestroy {
     }
 
     get isActive() {
-        return -this.slideMenu.left == this.index! * this.menuWidth!;
+        return -this.slideMenu.left == (this.index as number) * (this.menuWidth as number);
     }
 }
 

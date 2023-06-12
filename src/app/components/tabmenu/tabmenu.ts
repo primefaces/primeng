@@ -262,8 +262,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     updateInkBar() {
         const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
         if (tabHeader) {
-            this.inkbar!.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            this.inkbar!.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
         }
     }
 
@@ -319,7 +319,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         this.clearAutoScrollHandler();
         // We have to wait for the rendering and then can scroll to element.
         this.timerIdForInitialAutoScroll = setTimeout(() => {
-            const activeItem = this.model!.findIndex((menuItem) => this.isActive(menuItem));
+            const activeItem = (this.model as MenuItem[]).findIndex((menuItem) => this.isActive(menuItem));
 
             if (activeItem !== -1) {
                 this.updateScrollBar(activeItem);

@@ -137,7 +137,7 @@ export class TieredMenuSub implements OnDestroy {
     @Input() popup: boolean | undefined;
 
     @Input() get parentActive(): boolean {
-        return this._parentActive!;
+        return this._parentActive as boolean;
     }
     set parentActive(value) {
         if (!this.root) {

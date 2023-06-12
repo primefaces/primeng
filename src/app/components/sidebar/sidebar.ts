@@ -23,8 +23,8 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
-import { ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -145,7 +145,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() get visible(): boolean {
-        return this._visible!;
+        return this._visible as boolean;
     }
     set visible(val: boolean) {
         this._visible = val;
@@ -295,7 +295,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     enableModality() {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(this.container!.style.zIndex) - 1));
+            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1));
             DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
 
             if (this.dismissible) {
@@ -371,7 +371,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container!.style.zIndex) === ZIndexUtils.get(this.container)) {
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }
