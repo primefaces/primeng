@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseIcon } from 'primeng/baseicon';
-import { UniqueComponentId } from '../../utils/uniquecomponentid';
+import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
     selector: 'SearchPlusIcon',
