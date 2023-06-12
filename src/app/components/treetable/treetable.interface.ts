@@ -218,9 +218,9 @@ export interface TreeTableEditEvent {
 }
 /**
  * Filtering options.
- * @group Events
+ * @group Interface
  */
-export type TreeTableFilterOptions = {
+export interface TreeTableFilterOptions {
     /**
      * Field to be filtered.
      */
