@@ -25,14 +25,18 @@ export class AppDocApiSection {
             this._docs = this.createDocs();
         }
     }
-
+    
     getDescription(module, docName) {
         if (module.description) {
             return module.description;
         }
         if (!module.description && module.components && Object.keys(module.components).length) {
-            return module.components[docName].description ?? 'No description available';
+            return module.components[docName] && module.components[docName].description ? module.components[docName].description : 'No description available';
         }
+    }
+
+    isInterface(module) {
+        return (module.components && !Object.keys(module.components).length && Object.keys(module.interfaces).indexOf('interfaces') === -1);
     }
 
     createDocs() {
@@ -41,9 +45,9 @@ export class AppDocApiSection {
         for (const docName of this.docs) {
             const moduleName = docName.toLowerCase();
             let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs[0].toLowerCase()].components[docName];
-
             let newDoc = {
-                id: `api.${moduleName}`,
+                id: `api.${this.isInterface(module) ? this.docs[0].toLowerCase() + '.interfaces' : moduleName}`,
+                isInterface: this.isInterface(module),
                 label: docName,
                 description: this.getDescription(module, docName),
                 children: [],
@@ -140,14 +144,12 @@ export class AppDocApiSection {
                 }
 
                 if (interfaces && interfaces.values && interfaces.values.length) {
-                    interfaces.values.forEach((value) => {
-                        newDoc.children.push({
-                            id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
-                            label: value.name,
-                            component: AppDocApiTable,
-                            description: value.description,
-                            data: value.props && this.setInterfacesData(value)
-                        });
+                    newDoc.children.push({
+                        id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                        label: 'Interfaces',
+                        component: AppDocApiTable,
+                        description: interfaces.description,
+                        data: this.setEventsData(this.docs[0].toLowerCase(), interfaces.values, 'interfaces')
                     });
                 }
 
@@ -173,14 +175,13 @@ export class AppDocApiSection {
 
                 if (interfaces) {
                     if (interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
-                        interfaces.interfaces.values.forEach((value) => {
-                            newDoc.children.push({
-                                id: `api.${moduleName.toLowerCase()}.interfaces.${value.name}`,
-                                label: value.name,
-                                component: AppDocApiTable,
-                                description: value.description,
-                                data: value.props && this.setInterfacesData(value)
-                            });
+                        newDoc.children.push({
+                            id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                            label: 'Interfaces',
+                            component: AppDocApiTable,
+                            isInterface: interfaces.isInterface ?? false,
+                            description: interfaces.interfaces.description,
+                            data: this.setEventsData(this.docs[0], interfaces.interfaces.values, 'interfaces')
                         });
 
                         if (interfaces.types && interfaces.types.values && interfaces.types.values.length) {
@@ -197,15 +198,59 @@ export class AppDocApiSection {
             }
             newDocs.push(newDoc);
         }
-        return newDocs;
+        
+        let mergedInterfaces = [];
+            newDocs.forEach(doc => {
+                if((doc.isInterface || doc.label === 'Interfaces') && doc.children) {
+                    doc.children.forEach(child => mergedInterfaces.push(...child.data))
+                }
+            })
+
+
+        if(newDocs[0].children.find(child => child.title == 'Interfaces')) {
+            newDocs[0].children = newDocs[0].children.map(child => child.label === 'Interfaces' ? ({...child, data: [...child.data, ...mergedInterfaces]}) : child)
+        }
+        else {
+            if(mergedInterfaces.length) {
+                newDocs[0].children.push({
+                    id: `api.${this.docs[0].toLowerCase()}.interfaces`,
+                    label: 'Interfaces',
+                    component: AppDocApiTable,
+                    description: 'Defines the custom interfaces used by the module.',
+                    data: mergedInterfaces
+                });
+            }
+        }
+
+        newDocs[0].children = [...this.merge(newDocs[0].children)]
+        return newDocs.filter(doc => !doc.isInterface);
     }
 
-    setEventsData(moduleName, events) {
+    merge(arr) {
+        const mergedArray = [];
+        const idMap = {};
+      
+        arr.forEach((element) => {
+          if (!idMap[element.id]) {
+            idMap[element.id] = element;
+            mergedArray.push(element);
+          } else {
+            const existingElement = idMap[element.id];
+            if (existingElement.data && element.data) {
+              existingElement.data = existingElement.data.concat(element.data);
+            }
+          }
+        });
+      
+        return mergedArray;
+    }
+
+    setEventsData(moduleName, events, arg = 'events') {
         const data = [];
 
         for (const event of events) {
             const eventData = {
-                id: `api.${moduleName.toLowerCase()}.events.${event.name}`,
+                id: `api.${moduleName.toLowerCase()}.${arg}.${event.name}`,
                 label: event.name,
                 component: AppDocApiTable,
                 description: event.description,

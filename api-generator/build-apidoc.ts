@@ -16,7 +16,8 @@ const staticMessages = {
     events: "Defines the custom events used by the component's emitters.",
     interfaces: 'Defines the custom interfaces used by the module.',
     types: 'Defines the custom types used by the module.',
-    props: 'Defines the input properties of the component.'
+    props: 'Defines the input properties of the component.',
+    service: 'Defines the service used by the component',
 };
 const app = new TypeDoc.Application();
 

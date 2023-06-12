@@ -1,6 +1,7 @@
 <ng-container *ngIf="data">
-    <app-docsectiontext *ngIf="parentId" [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="3"></app-docsectiontext>
-
+    <div *ngIf="parentId" class="my-3 pt-3">
+        <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
+    </div>
     <app-docsectiontext [id]="id" [title]="label" [level]="3">
         <p>{{description || null}}</p>
     </app-docsectiontext>

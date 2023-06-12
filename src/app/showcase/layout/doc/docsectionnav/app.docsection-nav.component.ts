@@ -78,7 +78,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             }, 50);
         }
     }
-
+    
     onButtonClick(doc) {
         this.activeId = doc.id;
         setTimeout(() => {

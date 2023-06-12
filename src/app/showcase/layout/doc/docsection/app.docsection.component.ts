@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { AppDocSectionTextComponent } from '../docsectiontext/app.docsectiontext.component';
 import { Doc } from 'src/app/showcase/domain/doc';
 import { AppDocApiTable } from '../docapitable/app.docapitable.component';
 import { HostDirective } from '../hostdirective/host.directive';

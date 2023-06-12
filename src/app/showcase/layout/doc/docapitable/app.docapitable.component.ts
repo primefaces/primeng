@@ -27,6 +27,8 @@ export class AppDocApiTable implements OnInit {
 
     @Input() level: number;
 
+    @Input() isInterface: boolean = false;
+
     constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location) {}
 
     ngOnInit() {}
