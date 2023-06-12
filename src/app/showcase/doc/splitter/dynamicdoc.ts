@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-button label="Remove Panel" (onClick)="removePanel()" styleClass="p-button-danger"></p-button>
         </div>
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" styleClass="mb-5 mt-2">
+            <p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
                 <ng-container *ngFor="let item of items">
                     <ng-template pTemplate>
                         <div class="col flex align-items-center justify-content-center">{{item}}</div>
