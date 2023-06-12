@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { Message } from '../api/message';
+import { Message } from 'primeng/api';
 import { Toast } from './toast';
 
 /**
