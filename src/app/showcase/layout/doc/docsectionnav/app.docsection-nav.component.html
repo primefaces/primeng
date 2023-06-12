@@ -4,7 +4,7 @@
             <button class="p-link" (click)="onButtonClick(doc)">{{doc.label}}</button>
         </div>
         <ul *ngIf="doc.children">
-            <li *ngFor="let child of doc.children" class="navbar-item" [ngClass]="{'active-navbar-item': activeId === child.id }">
+            <li *ngFor="let child of doc.children" class="navbar-item" [ngClass]="{'active-navbar-item': getActiveChildId(activeId, child.id) }">
                 <div class="navbar-item-content">
                     <button class="p-link" (click)="onButtonClick(child)">
                         {{ child.label }}
