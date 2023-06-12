@@ -62,7 +62,6 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
                         if (top - threshold <= windowScrollTop) {
                             const link = DomHandler.findSingle(label, 'a');
-                            console.log(this.activeId, link)
                             this.activeId = link.id;
                         }
                     });
