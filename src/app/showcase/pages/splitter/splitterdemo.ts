@@ -6,6 +6,7 @@ import { VerticalDoc } from '../../doc/splitter/verticaldoc';
 import { NestedDoc } from '../../doc/splitter/nesteddoc';
 import { StyleDoc } from '../../doc/splitter/styledoc';
 import { AccessibilityDoc } from '../../doc/splitter/accessibilitydoc';
+import { DynamicSplitterDoc } from '../../doc/splitter/dynamicdoc';
 
 @Component({
     templateUrl: './splitterdemo.html'
@@ -46,6 +47,11 @@ export class SplitterDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
+        },
+        {
+            id: 'dynamc',
+            label: 'Dynamic Panels',
+            component: DynamicSplitterDoc
         }
     ];
 }

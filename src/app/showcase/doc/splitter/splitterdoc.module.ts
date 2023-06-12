@@ -11,10 +11,12 @@ import { NestedDoc } from './nesteddoc';
 import { SizeDoc } from './sizedoc';
 import { StyleDoc } from './styledoc';
 import { VerticalDoc } from './verticaldoc';
+import { DynamicSplitterDoc } from './dynamicdoc';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, SplitterModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, SplitterModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, HorizontalDoc, SizeDoc, VerticalDoc, NestedDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, HorizontalDoc, SizeDoc, VerticalDoc, NestedDoc, StyleDoc, AccessibilityDoc, DynamicSplitterDoc]
 })
 export class SplitterDocModule {}

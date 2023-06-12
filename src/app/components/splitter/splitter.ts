@@ -158,16 +158,13 @@ export class Splitter {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'panel':
-                    this.panels.push(item.template);
-                    break;
-                default:
-                    this.panels.push(item.template);
-                    break;
-            }
+
+        this.templates.changes.subscribe(_ => {
+            this.initPanels();
+            this.cd.detectChanges();
         });
+
+        this.initPanels();
     }
 
     ngAfterViewInit() {
@@ -191,6 +188,20 @@ export class Splitter {
                 this._panelSizes = _panelSizes;
             }
         }
+    }
+
+    initPanels() {
+        this.panels = [];
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'panel':
+                    this.panels.push(item.template);
+                    break;
+                default:
+                    this.panels.push(item.template);
+                    break;
+            }
+        });
     }
 
     resizeStart(event: TouchEvent | MouseEvent, index: number) {
