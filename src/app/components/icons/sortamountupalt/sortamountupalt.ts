@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseIcon } from 'primeng/baseicon';
+import { UniqueComponentId } from '../../utils/uniquecomponentid';
 
 @Component({
     selector: 'SortAmountUpAltIcon',
@@ -7,7 +8,7 @@ import { BaseIcon } from 'primeng/baseicon';
     imports: [BaseIcon],
     template: `
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g clip-path="url(#clip0_378_15578)">
+            <g [attr.clip-path]="pathId">
                 <path
                     d="M4.59864 3.99958C4.44662 3.99958 4.2946 3.94357 4.17458 3.82356L2.59836 2.24734L1.02214 3.82356C0.79011 4.05559 0.406057 4.05559 0.174024 3.82356C-0.0580081 3.59152 -0.0580081 3.20747 0.174024 2.97544L2.1743 0.97516C2.40634 0.743127 2.79039 0.743127 3.02242 0.97516L5.0227 2.97544C5.25473 3.20747 5.25473 3.59152 5.0227 3.82356C4.90268 3.94357 4.75066 3.99958 4.59864 3.99958Z"
                     fill="currentColor"
@@ -34,11 +35,17 @@ import { BaseIcon } from 'primeng/baseicon';
                 />
             </g>
             <defs>
-                <clipPath id="clip0_378_15578">
+                <clipPath [id]="pathId">
                     <rect width="14" height="14" fill="white" />
                 </clipPath>
             </defs>
         </svg>
     `
 })
-export class SortAmountUpAltIcon extends BaseIcon {}
+export class SortAmountUpAltIcon extends BaseIcon {
+    pathId: string;
+
+    ngOnInit() {
+        this.pathId = 'url(#' + UniqueComponentId() + ')';
+    }
+}
