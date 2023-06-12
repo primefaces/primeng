@@ -237,7 +237,7 @@ export interface TreeTableFilterOptions {
      * Boolean value that defines if strict mode enabled.
      */
     isStrictMode: boolean;
-};
+}
 /**
  * Defines valid templates in TreeTable.
  * @group Templates

@@ -25,7 +25,7 @@ export class AppDocApiSection {
             this._docs = this.createDocs();
         }
     }
-    
+
     getDescription(module, docName) {
         if (module.description) {
             return module.description;
@@ -36,7 +36,7 @@ export class AppDocApiSection {
     }
 
     isInterface(module) {
-        return (module.components && !Object.keys(module.components).length && Object.keys(module.interfaces).indexOf('interfaces') === -1);
+        return module.components && !Object.keys(module.components).length && Object.keys(module.interfaces).indexOf('interfaces') === -1;
     }
 
     createDocs() {
@@ -198,20 +198,18 @@ export class AppDocApiSection {
             }
             newDocs.push(newDoc);
         }
-        
+
         let mergedInterfaces = [];
-            newDocs.forEach(doc => {
-                if((doc.isInterface || doc.label === 'Interfaces') && doc.children) {
-                    doc.children.forEach(child => mergedInterfaces.push(...child.data))
-                }
-            })
+        newDocs.forEach((doc) => {
+            if ((doc.isInterface || doc.label === 'Interfaces') && doc.children) {
+                doc.children.forEach((child) => mergedInterfaces.push(...child.data));
+            }
+        });
 
-
-        if(newDocs[0].children.find(child => child.title == 'Interfaces')) {
-            newDocs[0].children = newDocs[0].children.map(child => child.label === 'Interfaces' ? ({...child, data: [...child.data, ...mergedInterfaces]}) : child)
-        }
-        else {
-            if(mergedInterfaces.length) {
+        if (newDocs[0].children.find((child) => child.title == 'Interfaces')) {
+            newDocs[0].children = newDocs[0].children.map((child) => (child.label === 'Interfaces' ? { ...child, data: [...child.data, ...mergedInterfaces] } : child));
+        } else {
+            if (mergedInterfaces.length) {
                 newDocs[0].children.push({
                     id: `api.${this.docs[0].toLowerCase()}.interfaces`,
                     label: 'Interfaces',
@@ -222,26 +220,26 @@ export class AppDocApiSection {
             }
         }
 
-        newDocs[0].children = [...this.merge(newDocs[0].children)]
-        return newDocs.filter(doc => !doc.isInterface);
+        newDocs[0].children = [...this.merge(newDocs[0].children)];
+        return newDocs.filter((doc) => !doc.isInterface);
     }
 
     merge(arr) {
         const mergedArray = [];
         const idMap = {};
-      
+
         arr.forEach((element) => {
-          if (!idMap[element.id]) {
-            idMap[element.id] = element;
-            mergedArray.push(element);
-          } else {
-            const existingElement = idMap[element.id];
-            if (existingElement.data && element.data) {
-              existingElement.data = existingElement.data.concat(element.data);
+            if (!idMap[element.id]) {
+                idMap[element.id] = element;
+                mergedArray.push(element);
+            } else {
+                const existingElement = idMap[element.id];
+                if (existingElement.data && element.data) {
+                    existingElement.data = existingElement.data.concat(element.data);
+                }
             }
-          }
         });
-      
+
         return mergedArray;
     }
 

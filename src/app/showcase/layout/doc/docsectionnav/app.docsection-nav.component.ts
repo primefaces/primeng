@@ -78,7 +78,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             }, 50);
         }
     }
-    
+
     onButtonClick(doc) {
         this.activeId = doc.id;
         setTimeout(() => {
@@ -108,7 +108,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     getActiveChildId(activeId, childId) {
-        return activeId.toLowerCase().includes(childId.toLowerCase())
+        return activeId.toLowerCase().includes(childId.toLowerCase());
     }
 
     ngOnDestroy() {
