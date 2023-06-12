@@ -150,7 +150,7 @@ if (project) {
                                         name: prop.name,
                                         optional: prop.flags.isOptional,
                                         readonly: prop.flags.isReadonly,
-                                        type: prop.type && prop.type.toString(),
+                                        type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
                                         default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined,
                                         description: prop.getSignature && prop.getSignature.comment ? prop.getSignature.comment.summary.map((s) => s.text || '').join(' ') : prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
                                         deprecated:
