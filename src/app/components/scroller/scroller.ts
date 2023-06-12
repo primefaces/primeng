@@ -103,10 +103,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * Inline style of the component.
      * @group Props
      */
-    @Input() get style(): { [klass: string]: any } | null | undefined {
+    @Input() get style(): any {
         return this._style;
     }
-    set style(val: { [klass: string]: any } | null | undefined) {
+    set style(val: any) {
         this._style = val;
     }
     /**
