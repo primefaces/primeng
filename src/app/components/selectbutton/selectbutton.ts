@@ -4,6 +4,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
+import { PrimeTemplate, SharedModule } from '../api/shared';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,7 +38,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <span class="p-button-label">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                    <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
                 </ng-template>
             </div>
         </div>
@@ -119,7 +120,11 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
-    @ContentChild(TemplateRef) itemTemplate!: TemplateRef<any>;
+    @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
+
+    public get selectButtonTemplate(): TemplateRef<any> {
+        return this.itemTemplate?.template;
+    }
 
     value: any;
 
@@ -225,8 +230,8 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [SelectButton],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })
 export class SelectButtonModule {}
