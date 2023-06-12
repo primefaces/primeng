@@ -58,7 +58,7 @@ import { Nullable } from 'primeng/ts-helpers';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img [attr.src]="src" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -104,6 +104,11 @@ export class Image implements AfterContentInit {
     @Input() src: string | SafeUrl | undefined;
     /**
      * Attribute of the image element.
+     * @group Props
+     */
+    @Input() previewImageSrc: string | SafeUrl | undefined;
+    /**
+     * Attribute of the preview image element.
      * @group Props
      */
     @Input() alt: string | undefined;
