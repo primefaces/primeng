@@ -503,7 +503,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.getPagesDelta().length > 0;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) { }
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -656,7 +656,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     getPagesDelta(): number[] {
-        return this.getPagesInView().filter(page => !this.pages.includes(page));
+        return this.getPagesInView().filter((page) => !this.pages.includes(page));
     }
 
     scrollTo(options: ScrollToOptions) {
@@ -1120,4 +1120,4 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     exports: [Scroller, SharedModule],
     declarations: [Scroller]
 })
-export class ScrollerModule { }
+export class ScrollerModule {}
