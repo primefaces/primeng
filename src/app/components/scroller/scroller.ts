@@ -433,7 +433,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
     last: any = 0;
 
-    page: number = 0;
+    pages: number[] = [0];
 
     isRangeChanged: boolean = false;
 
@@ -500,7 +500,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     get isPageChanged() {
-        return this._step ? this.page !== this.getPageByFirst() : true;
+        return this.getPagesDelta().length > 0;
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
@@ -648,9 +648,16 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.elementViewChild;
     }
 
-    getPageByFirst() {
-        return Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
-    }
+    getPagesInView(): number[] {
+		const firstPage = Math.max(0, Math.floor((this.last - this.d_numToleratedItems * 4) / (this._step || 1)));
+		const secondPage = Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+		if (firstPage === secondPage) return [firstPage];
+		return [firstPage, secondPage];
+	}
+
+    getPagesDelta(): number[] {
+		return this.getPagesInView().filter(page => !this.pages.includes(page));
+	}
 
     scrollTo(options: ScrollToOptions) {
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
@@ -966,10 +973,11 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             this.handleEvents('onScrollIndexChange', newState);
 
             if (this._lazy && this.isPageChanged) {
-                const lazyLoadState = {
-                    first: this._step ? Math.min(this.getPageByFirst() * this._step, (<any[]>this.items).length - this._step) : first,
-                    last: Math.min(this._step ? (this.getPageByFirst() + 1) * this._step : last, (<any[]>this.items).length)
-                };
+                const delta = this.getPagesDelta();
+				const lazyLoadState = {
+					first: this._step ? Math.max(Math.min(delta[0] * this._step, this.items.length - this._step), 0) : first,
+					last: Math.min(this._step ? (delta[delta.length - 1] + 1) * this._step : last, this.items.length)
+				};
                 const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
 
                 isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
@@ -1002,7 +1010,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
                 if (this.d_loading && this.showLoader && (!this._lazy || this._loading === undefined)) {
                     this.d_loading = false;
-                    this.page = this.getPageByFirst();
+                    this.pages = this.getPagesInView();
                     this.cd.detectChanges();
                 }
             }, this._delay);
