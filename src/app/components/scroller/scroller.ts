@@ -503,7 +503,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.getPagesDelta().length > 0;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) { }
 
     ngOnInit() {
         this.setInitialState();
@@ -649,15 +649,15 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     getPagesInView(): number[] {
-		const firstPage = Math.max(0, Math.floor((this.last - this.d_numToleratedItems * 4) / (this._step || 1)));
-		const secondPage = Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
-		if (firstPage === secondPage) return [firstPage];
-		return [firstPage, secondPage];
-	}
+        const firstPage = Math.max(0, Math.floor((this.last - this.d_numToleratedItems * 4) / (this._step || 1)));
+        const secondPage = Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+        if (firstPage === secondPage) return [firstPage];
+        return [firstPage, secondPage];
+    }
 
     getPagesDelta(): number[] {
-		return this.getPagesInView().filter(page => !this.pages.includes(page));
-	}
+        return this.getPagesInView().filter(page => !this.pages.includes(page));
+    }
 
     scrollTo(options: ScrollToOptions) {
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
@@ -974,10 +974,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             if (this._lazy && this.isPageChanged) {
                 const delta = this.getPagesDelta();
-				const lazyLoadState = {
-					first: this._step ? Math.max(Math.min(delta[0] * this._step, this.items.length - this._step), 0) : first,
-					last: Math.min(this._step ? (delta[delta.length - 1] + 1) * this._step : last, this.items.length)
-				};
+                const lazyLoadState = {
+                    first: this._step ? Math.max(Math.min(delta[0] * this._step, this.items.length - this._step), 0) : first,
+                    last: Math.min(this._step ? (delta[delta.length - 1] + 1) * this._step : last, this.items.length)
+                };
                 const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
 
                 isLazyStateChanged && this.handleEvents('onLazyLoad', lazyLoadState);
@@ -1120,4 +1120,4 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     exports: [Scroller, SharedModule],
     declarations: [Scroller]
 })
-export class ScrollerModule {}
+export class ScrollerModule { }
