@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -48,10 +48,13 @@ export class BasicDoc {
 
     targetProducts: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(private carService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 
@@ -95,7 +98,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -108,10 +111,16 @@ export class PicklistBasicDemo {
 
     targetProducts: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(
+      private carService: ProductService,
+      private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then(products => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 }`,
