@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-button label="Add Panel" (onClick)="addPanel()"></p-button>  
             <p-button label="Remove Panel" (onClick)="removePanel()" styleClass="p-button-danger"></p-button>
         </div>
-        <div class="card">
+        <div class="card overflow-x-hidden">
             <p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
                 <ng-container *ngFor="let item of items">
                     <ng-template pTemplate>

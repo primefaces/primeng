@@ -4,6 +4,7 @@ import { DomHandler } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { Subscription, startWith } from 'rxjs';
 /**
  * Splitter is utilized to separate and resize panels.
  * @group Components
@@ -149,6 +150,8 @@ export class Splitter {
 
     private window: Window;
 
+    templateChangesSubscription: Subscription;
+
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
         this.window = this.document.defaultView as Window;
     }
@@ -158,13 +161,13 @@ export class Splitter {
     }
 
     ngAfterContentInit() {
-
-        this.templates.changes.subscribe(_ => {
+        this.templateChangesSubscription = this.templates.changes.pipe(
+            startWith(null)
+        ).
+            subscribe(_ => {
             this.initPanels();
-            this.cd.detectChanges();
+            this.cd.markForCheck();
         });
-
-        this.initPanels();
     }
 
     ngAfterViewInit() {
@@ -190,18 +193,24 @@ export class Splitter {
         }
     }
 
+    ngOnDestroy() {
+        if (this.templateChangesSubscription) {
+            this.templateChangesSubscription.unsubscribe();
+        }    
+    }
+
     initPanels() {
-        this.panels = [];
-        this.templates.forEach((item) => {
+        this.panels = this.templates.reduce((acc, item) => {
             switch (item.getType()) {
                 case 'panel':
-                    this.panels.push(item.template);
-                    break;
+                    acc.push(item.template);
+                     break;
                 default:
-                    this.panels.push(item.template);
-                    break;
-            }
-        });
+                    acc.push(item.template);
+                     break;
+           }
+           return acc;
+       }, []);
     }
 
     resizeStart(event: TouchEvent | MouseEvent, index: number) {
