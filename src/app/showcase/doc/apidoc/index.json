@@ -5493,7 +5493,7 @@
                             "name": "optionGroupChildren",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | string[]",
                             "description": "Property name or getter function to retrieve the items of a group."
                         },
                         {
@@ -21825,17 +21825,10 @@
                         "props": [
                             {
                                 "name": "message",
-                                "optional": true,
+                                "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "Message",
                                 "description": "Message of the closed element."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the removed element."
                             }
                         ]
                     }

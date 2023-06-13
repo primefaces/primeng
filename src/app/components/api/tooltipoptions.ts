@@ -19,6 +19,7 @@ export interface TooltipOptions {
     tooltipEvent?: 'hover' | 'focus';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue body
      */
     appendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
