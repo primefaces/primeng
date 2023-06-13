@@ -79,6 +79,10 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         }
     }
 
+    onChildButtonClick(parent: Doc, isFirst: boolean, child: Doc): void {
+        this.onButtonClick(isFirst ? parent : child);
+    }
+
     onButtonClick(doc) {
         this.activeId = doc.id;
         setTimeout(() => {
@@ -106,9 +110,17 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
     }
+    
+    isActiveChildId(isFirst: boolean, activeId: string, childId: string, parentId: string): boolean {
+        if (isFirst) {
+            return this.getActiveChildId(activeId, parentId);
+        }
+
+        return this.getActiveChildId(activeId, childId);
+    }
 
     getActiveChildId(activeId, childId) {
-        return activeId.toLowerCase().includes(childId.toLowerCase());
+        return activeId.toLowerCase() === childId.toLowerCase();
     }
 
     ngOnDestroy() {
