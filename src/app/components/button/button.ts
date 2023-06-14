@@ -368,11 +368,11 @@ export class Button implements AfterContentInit {
     buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': this.icon && !this.label,
+            'p-button-icon-only': (this.icon || !!this.iconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label
+            'p-button-loading-label-only': this.loading && !(this.icon && !this.iconTemplate) && this.label
         };
     }
 
