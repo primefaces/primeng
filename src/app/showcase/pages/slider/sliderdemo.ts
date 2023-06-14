@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { ReactiveFormsDoc } from '../../doc/slider/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/slider/accessibilitydoc';
 import { BasicDoc } from '../../doc/slider/basicdoc';
-import { EventsDoc } from '../../doc/slider/eventsdoc';
 import { ImportDoc } from '../../doc/slider/importdoc';
 import { InputDoc } from '../../doc/slider/inputdoc';
-import { PropsDoc } from '../../doc/slider/propsdoc';
 import { RangeDoc } from '../../doc/slider/rangedoc';
 import { StepDoc } from '../../doc/slider/stepdoc';
 import { StyleDoc } from '../../doc/slider/styledoc';
@@ -61,19 +59,6 @@ export class SliderDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

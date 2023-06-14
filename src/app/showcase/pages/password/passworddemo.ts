@@ -3,15 +3,12 @@ import { ReactiveFormsDoc } from '../../doc/password/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/password/accessibilitydoc';
 import { BasicDoc } from '../../doc/password/basicdoc';
 import { DisabledDoc } from '../../doc/password/disableddoc';
-import { EventsDoc } from '../../doc/password/eventsdoc';
 import { FloatLabelDoc } from '../../doc/password/floatlabeldoc';
 import { ImportDoc } from '../../doc/password/importdoc';
 import { InvalidDoc } from '../../doc/password/invaliddoc';
 import { MeterDoc } from '../../doc/password/meterdoc';
-import { PropsDoc } from '../../doc/password/propsdoc';
 import { StyleDoc } from '../../doc/password/styledoc';
 import { TemplateDoc } from '../../doc/password/templatedoc';
-import { TemplatesDoc } from '../../doc/password/templatesdoc';
 import { ToggleMaskDoc } from '../../doc/password/togglemaskdoc';
 
 @Component({
@@ -73,24 +70,6 @@ export class PasswordDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

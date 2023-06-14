@@ -73,7 +73,7 @@ import { ProductService } from '../../service/productservice';
                                     <input pInputText type="text" [(ngModel)]="product.price" />
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ product.price | currency: 'USD' }}
+                                    {{ product.price | currency : 'USD' }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>

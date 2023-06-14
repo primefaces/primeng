@@ -1,12 +1,16 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
+import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
-
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { VoidListener } from 'primeng/ts-helpers';
+/**
+ * MegaMenu is navigation component that displays submenus together.
+ * @group Components
+ */
 @Component({
     selector: 'p-megaMenu',
     template: `
@@ -42,8 +46,8 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                             <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
                             <ng-container *ngIf="!submenuIconTemplate">
-                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'"/>
-                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'"/>
+                                <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'horizontal'" />
+                                <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="orientation === 'vertical'" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                         </a>
@@ -166,30 +170,43 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
     }
 })
 export class MegaMenu implements AfterContentInit {
-    @Input() model: MegaMenuItem[];
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MegaMenuItem[] | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Defines the orientation.
+     * @group Props
+     */
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() orientation: string = 'horizontal';
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     activeItem: any;
 
-    documentClickListener: () => void | null;
+    documentClickListener: VoidListener;
 
-    startTemplate: TemplateRef<any>;
+    startTemplate: TemplateRef<any> | undefined;
 
-    endTemplate: TemplateRef<any>;
+    endTemplate: TemplateRef<any> | undefined;
 
-    submenuIconTemplate: TemplateRef<any>;
+    submenuIconTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
                     this.startTemplate = item.template;
@@ -206,7 +223,7 @@ export class MegaMenu implements AfterContentInit {
         });
     }
 
-    onCategoryMouseEnter(event, menuitem: MegaMenuItem) {
+    onCategoryMouseEnter(event: MouseEvent, menuitem: MegaMenuItem) {
         if (menuitem.disabled) {
             event.preventDefault();
             return;
@@ -217,7 +234,7 @@ export class MegaMenu implements AfterContentInit {
         }
     }
 
-    onCategoryClick(event, item: MenuItem | MegaMenuItem) {
+    onCategoryClick(event: MouseEvent, item: MenuItem | MegaMenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;

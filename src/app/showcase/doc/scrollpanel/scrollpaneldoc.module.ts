@@ -8,14 +8,11 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CusstomDoc } from './customdoc';
 import { ImportDoc } from './importdoc';
-import { MethodsDoc } from './methodsdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
-import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ScrollPanelModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CusstomDoc, StyleDoc, PropsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, CusstomDoc, StyleDoc, AccessibilityDoc]
 })
 export class ScrollPanelDocModule {}

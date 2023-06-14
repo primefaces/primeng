@@ -9,14 +9,11 @@ import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { TemplateDoc } from './templatedoc';
 import { ToggleableDoc } from './toggleabledoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
-import { TemplatesDoc } from './templatesdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PanelModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, ToggleableDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class PanelDocModule {}

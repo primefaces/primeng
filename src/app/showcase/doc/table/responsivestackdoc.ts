@@ -28,7 +28,7 @@ import { ProductService } from '../../service/productservice';
                 <ng-template pTemplate="body" let-product let-columns="columns">
                     <tr>
                         <td><span class="p-column-title">Name</span>{{ product.name }}</td>
-                        <td><span class="p-column-title">Price</span>{{ product.price | currency: 'USD' }}</td>
+                        <td><span class="p-column-title">Price</span>{{ product.price | currency : 'USD' }}</td>
                         <td><span class="p-column-title">Category</span>{{ product.category }}</td>
                         <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
                         <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>

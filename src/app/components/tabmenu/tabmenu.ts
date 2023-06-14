@@ -23,18 +23,22 @@ import {
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
-
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { Nullable } from 'primeng/ts-helpers';
+/**
+ * TabMenu is a navigation component that displays items as tab headers.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabMenu',
     template: `
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate"/>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
@@ -106,7 +110,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate"/>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -120,39 +124,61 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
     }
 })
 export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
-    @Input() model: MenuItem[];
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Defines the default active menuitem
+     * @group Props
+     */
+    @Input() activeItem: MenuItem | undefined;
+    /**
+     * When enabled displays buttons at each side of the tab headers to scroll the tab list.
+     * @group Props
+     */
+    @Input() scrollable: boolean | undefined;
+    /**
+     * Defines if popup mode enabled.
+     */
+    @Input() popup: boolean | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Event fired when a tab is selected.
+     * @param {MenuItem} item - Menu item.
+     * @group Emits
+     */
+    @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 
-    @Input() activeItem: MenuItem;
+    @ViewChild('content') content: Nullable<ElementRef>;
 
-    @Output() activeItemChange = new EventEmitter<MenuItem>();
+    @ViewChild('navbar') navbar: Nullable<ElementRef>;
 
-    @Input() scrollable: boolean;
+    @ViewChild('inkbar') inkbar: Nullable<ElementRef>;
 
-    @Input() popup: boolean;
+    @ViewChild('prevBtn') prevBtn: Nullable<ElementRef>;
 
-    @Input() style: any;
+    @ViewChild('nextBtn') nextBtn: Nullable<ElementRef>;
 
-    @Input() styleClass: string;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ViewChild('content') content: ElementRef;
+    itemTemplate: Nullable<TemplateRef<any>>;
 
-    @ViewChild('navbar') navbar: ElementRef;
+    previousIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ViewChild('inkbar') inkbar: ElementRef;
+    nextIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ViewChild('prevBtn') prevBtn: ElementRef;
-
-    @ViewChild('nextBtn') nextBtn: ElementRef;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    itemTemplate: TemplateRef<any>;
-
-    previousIconTemplate: TemplateRef<any>;
-
-    nextIconTemplate: TemplateRef<any>;
-
-    tabChanged: boolean;
+    tabChanged: boolean | undefined;
 
     backwardIsDisabled: boolean = true;
 
@@ -163,7 +189,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -233,13 +259,14 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         this.activeItem = item;
         this.activeItemChange.emit(item);
         this.tabChanged = true;
+        this.cd.markForCheck();
     }
 
     updateInkBar() {
-        const tabHeader = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
         if (tabHeader) {
-            this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
         }
     }
 
@@ -248,7 +275,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     updateButtonState() {
-        const content = this.content.nativeElement;
+        const content = this.content?.nativeElement;
         const { scrollLeft, scrollWidth } = content;
         const width = DomHandler.getWidth(content);
 
@@ -257,7 +284,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     updateScrollBar(index: number): void {
-        const tabHeader = this.navbar.nativeElement.children[index];
+        const tabHeader = this.navbar?.nativeElement.children[index];
 
         if (!tabHeader) {
             return;
@@ -266,21 +293,21 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
     }
 
-    onScroll(event) {
+    onScroll(event: Event) {
         this.scrollable && this.updateButtonState();
 
         event.preventDefault();
     }
 
     navBackward() {
-        const content = this.content.nativeElement;
+        const content = this.content?.nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
-        const content = this.content.nativeElement;
+        const content = this.content?.nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
@@ -295,7 +322,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         this.clearAutoScrollHandler();
         // We have to wait for the rendering and then can scroll to element.
         this.timerIdForInitialAutoScroll = setTimeout(() => {
-            const activeItem = this.model.findIndex((menuItem) => this.isActive(menuItem));
+            const activeItem = (this.model as MenuItem[]).findIndex((menuItem) => this.isActive(menuItem));
 
             if (activeItem !== -1) {
                 this.updateScrollBar(activeItem);

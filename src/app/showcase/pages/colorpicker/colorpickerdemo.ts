@@ -4,9 +4,7 @@ import { BasicDoc } from '../../doc/colorpicker/basicdoc';
 import { ImportDoc } from '../../doc/colorpicker/importdoc';
 import { FormatDoc } from '../../doc/colorpicker/formatdoc';
 import { DisabledDoc } from '../../doc/colorpicker/disableddoc';
-import { PropsDoc } from '../../doc/colorpicker/propsdoc';
 import { StyleDoc } from '../../doc/colorpicker/styledoc';
-import { EventsDoc } from '../../doc/colorpicker/eventsdoc';
 import { AccessibilityDoc } from '../../doc/colorpicker/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/colorpicker/reactiveformsdoc';
 
@@ -54,19 +52,6 @@ export class ColorPickerDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

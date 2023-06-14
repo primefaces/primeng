@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/sidebar/basicdoc';
 import { TemplateDoc } from '../../doc/sidebar/templatedoc';
-import { EventsDoc } from '../../doc/sidebar/eventsdoc';
 import { ImportDoc } from '../../doc/sidebar/importdoc';
-import { PropsDoc } from '../../doc/sidebar/propsdoc';
 import { StyleDoc } from '../../doc/sidebar/styledoc';
-import { TemplatesDoc } from '../../doc/sidebar/templatesdoc';
 import { PositionDoc } from '../../doc/sidebar/positiondoc';
 import { FullScreenDoc } from '../../doc/sidebar/fullscreendoc';
 import { SizeDoc } from '../../doc/sidebar/sizedoc';
@@ -55,24 +52,6 @@ export class SidebarDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

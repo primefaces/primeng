@@ -1,3 +1,7 @@
+/**
+ * Represents a set of translated strings used in a component or application.
+ * @group Interface
+ */
 export interface Translation {
     startsWith?: string;
     contains?: string;

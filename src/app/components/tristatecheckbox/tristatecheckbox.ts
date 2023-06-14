@@ -4,13 +4,18 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { Nullable } from 'primeng/ts-helpers';
+import { TriStateCheckboxChangeEvent } from './tristatecheckbox.interface';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TriStateCheckbox),
     multi: true
 };
-
+/**
+ * TriStateCheckbox is used to select either 'true', 'false' or 'null' as the value.
+ * @group Components
+ */
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
@@ -36,7 +41,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="value === true">
                     <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxTrueIcon">
-                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate"/>
+                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
                         <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
                             <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
                         </span>
@@ -51,7 +56,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                         </span>
                     </ng-container>
                 </ng-container>
-        </div>
+            </div>
         </div>
         <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
@@ -64,40 +69,77 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 })
 export class TriStateCheckbox implements ControlValueAccessor {
     constructor(private cd: ChangeDetectorRef) {}
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Name of the component.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Label of the checkbox.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * When present, it specifies that the component cannot be edited.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * Specifies the icon for checkbox true value.
+     * @group Props
+     */
+    @Input() checkboxTrueIcon: string | undefined;
+    /**
+     * Specifies the icon for checkbox false value.
+     * @group Props
+     */
+    @Input() checkboxFalseIcon: string | undefined;
+    /**
+     * Callback to invoke on value change.
+     * @param {TriStateCheckboxChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<TriStateCheckboxChangeEvent> = new EventEmitter<TriStateCheckboxChangeEvent>();
 
-    @Input() disabled: boolean;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Input() name: string;
+    checkIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() ariaLabelledBy: string;
+    uncheckIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() tabindex: number;
+    focused: Nullable<boolean>;
 
-    @Input() inputId: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() label: string;
-
-    @Input() readonly: boolean;
-
-    @Input() checkboxTrueIcon: string;
-
-    @Input() checkboxFalseIcon: string;
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    checkIconTemplate: TemplateRef<any>;
-
-    uncheckIconTemplate: TemplateRef<any>;
-
-    focused: boolean;
-
-    value: any;
+    value: Nullable<boolean>;
 
     onModelChange: Function = () => {};
 

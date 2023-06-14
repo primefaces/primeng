@@ -22,6 +22,10 @@
     vertical-align: middle;
 }
 
+.p-datatable .p-sortable-column .p-icon-wrapper {
+    display: inline;
+}
+
 .p-datatable .p-sortable-column .p-sortable-column-badge {
     display: inline-flex;
     align-items: center;

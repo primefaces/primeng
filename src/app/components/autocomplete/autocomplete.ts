@@ -31,19 +31,25 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
-
+/**
+ * AutoComplete is an input component that provides real-time suggestions when being typed.
+ * @group Components
+ */
 @Component({
     selector: 'p-autoComplete',
     template: `
@@ -84,7 +90,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-required]="required"
             />
             <ng-container *ngIf="filled && !disabled && showClear">
-                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()"/>
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -136,26 +142,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 </li>
             </ul>
             <ng-container *ngIf="loading">
-                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true"/>
+                <SpinnerIcon *ngIf="!loadingIconTemplate" [styleClass]="'p-autocomplete-loader'" [spin]="true" />
                 <span *ngIf="loadingIconTemplate" class="p-autocomplete-loader pi-spin ">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <button
-                #ddBtn
-                type="button"
-                pButton
-                [attr.aria-label]="dropdownAriaLabel"
-                class="p-autocomplete-dropdown p-button-icon-only"
-                [disabled]="disabled"
-                pRipple
-                (click)="handleDropdownClick($event)"
-                *ngIf="dropdown"
-                [attr.tabindex]="tabindex"
-            >
+            <button #ddBtn type="button" pButton [attr.aria-label]="dropdownAriaLabel" class="p-autocomplete-dropdown p-button-icon-only" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
                 <ng-container *ngIf="!dropdownIcon">
-                    <ChevronDownIcon *ngIf="!dropdownIconTemplate"/>
+                    <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -252,225 +247,435 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     styleUrls: ['./autocomplete.css']
 })
 export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
+    /**
+     * Minimum number of characters to initiate a search.
+     * @group Props
+     */
     @Input() minLength: number = 1;
-
+    /**
+     * Delay between keystrokes to wait before sending a query.
+     * @group Props
+     */
     @Input() delay: number = 300;
-
-    @Input() style: any;
-
-    @Input() panelStyle: any;
-
-    @Input() styleClass: string;
-
-    @Input() panelStyleClass: string;
-
-    @Input() inputStyle: any;
-
-    @Input() inputId: string;
-
-    @Input() inputStyleClass: string;
-
-    @Input() placeholder: string;
-
-    @Input() readonly: boolean;
-
-    @Input() disabled: boolean;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
+    @Input() inputStyleClass: string | undefined;
+    /**
+     * Hint text for the input field.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * When present, it specifies that the input cannot be typed.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Maximum height of the suggestions panel.
+     * @group Props
+     */
     @Input() scrollHeight: string = '200px';
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
     @Input() lazy: boolean = false;
-
-    @Input() virtualScroll: boolean;
-
-    @Input() virtualScrollItemSize: number;
-
-    @Input() virtualScrollOptions: ScrollerOptions;
-
-    @Input() maxlength: number;
-
-    @Input() name: string;
-
-    @Input() required: boolean;
-
-    @Input() size: number;
-
-    @Input() appendTo: any;
-
-    @Input() autoHighlight: boolean;
-
-    @Input() forceSelection: boolean;
-
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Maximum number of character allows in the input field.
+     * @group Props
+     */
+    @Input() maxlength: number | undefined;
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * When present, it specifies that an input field must be filled out before submitting the form.
+     * @group Props
+     */
+    @Input() required: boolean | undefined;
+    /**
+     * Size of the input field.
+     * @group Props
+     */
+    @Input() size: number | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * When enabled, highlights the first item in the list by default.
+     * @group Props
+     */
+    @Input() autoHighlight: boolean | undefined;
+    /**
+     * When present, autocomplete clears the manual input if it does not match of the suggestions to force only accepting values from the suggestions.
+     * @group Props
+     */
+    @Input() forceSelection: boolean | undefined;
+    /**
+     * Type of the input, defaults to "text".
+     * @group Props
+     */
     @Input() type: string = 'text';
-
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
-    @Input() ariaLabel: string;
-
-    @Input() dropdownAriaLabel: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() dropdownIcon: string;
-
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Defines a string that labels the dropdown button for accessibility.
+     * @group Props
+     */
+    @Input() dropdownAriaLabel: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Icon class of the dropdown icon.
+     * @group Props
+     */
+    @Input() dropdownIcon: string | undefined;
+    /**
+     * Ensures uniqueness of selected items on multiple mode.
+     * @group Props
+     */
     @Input() unique: boolean = true;
-
-    @Input() group: boolean;
-
+    /**
+     * Whether to display options as grouped when nested options are provided.
+     * @group Props
+     */
+    @Input() group: boolean | undefined;
+    /**
+     * Whether to run a query when input receives focus.
+     * @group Props
+     */
     @Input() completeOnFocus: boolean = false;
-
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
-    @Input() field: string;
-
-    @Input() dropdown: boolean;
-
-    @Input() showEmptyMessage: boolean;
-
+    /**
+     * Field of a suggested object to resolve and display.
+     * @group Props
+     */
+    @Input() field: string | undefined;
+    /**
+     * Displays a button next to the input field when enabled.
+     * @group Props
+     */
+    @Input() dropdown: boolean | undefined;
+    /**
+     * Whether to show the empty message or not.
+     * @group Props
+     */
+    @Input() showEmptyMessage: boolean | undefined;
+    /**
+     * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
+     * @group Props
+     */
     @Input() dropdownMode: string = 'blank';
-
-    @Input() multiple: boolean;
-
-    @Input() tabindex: number;
-
-    @Input() dataKey: string;
-
-    @Input() emptyMessage: string;
-
+    /**
+     * Specifies if multiple values can be selected.
+     * @group Props
+     */
+    @Input() multiple: boolean | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
+    @Input() emptyMessage: string | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Input() autofocus: boolean;
-
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input() autofocus: boolean | undefined;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
     @Input() autocomplete: string = 'off';
-
-    @Input() optionGroupChildren: string;
-
-    @Input() optionGroupLabel: string;
-
-    @Input() overlayOptions: OverlayOptions;
-
-    @ViewChild('container') containerEL: ElementRef;
-
-    @ViewChild('in') inputEL: ElementRef;
-
-    @ViewChild('multiIn') multiInputEL: ElementRef;
-
-    @ViewChild('multiContainer') multiContainerEL: ElementRef;
-
-    @ViewChild('ddBtn') dropdownButton: ElementRef;
-
-    @ViewChild('items') itemsViewChild: ElementRef;
-
-    @ViewChild('scroller') scroller: Scroller;
-
-    @ViewChild('overlay') overlayViewChild: Overlay;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @Output() completeMethod: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onUnselect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onDropdownClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onKeyUp: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
-    /* @deprecated */
-    _itemSize: number;
+    /**
+     * Name of the options field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupChildren: string | undefined;
+    /**
+     * Name of the label field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupLabel: string | undefined;
+    /**
+     * Options for the overlay element.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * An array of suggestions to display.
+     * @group Props
+     */
+    @Input() get suggestions(): any[] {
+        return this._suggestions;
+    }
+    set suggestions(value: any[]) {
+        this._suggestions = value;
+        this.handleSuggestionsChange();
+    }
+    /**
+     * Element dimensions of option for virtual scrolling.
+     * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
+     */
     @Input() get itemSize(): number {
-        return this._itemSize;
+        return this._itemSize as number;
     }
     set itemSize(val: number) {
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
+    /**
+     * Callback to invoke to search for suggestions.
+     * @param {AutoCompleteCompleteEvent} event - Custom complete event.
+     * @group Emits
+     */
+    @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
+    /**
+     * Callback to invoke when a suggestion is selected.
+     * @param {*} value - selected value.
+     * @group Emits
+     */
+    @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when a selected value is removed.
+     * @param {*} value - removed value.
+     * @group Emits
+     */
+    @Output() onUnselect: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when the component receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    /**
+     * Callback to invoke to when dropdown button is clicked.
+     * @param {AutoCompleteDropdownClickEvent} event - custom dropdown click event.
+     * @group Emits
+     */
+    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
+    /**
+     * Callback to invoke when clear button is clicked.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
+    /**
+     * Callback to invoke on input key up.
+     * @param {KeyboardEvent} event - Keyboard event.
+     * @group Emits
+     */
+    @Output() onKeyUp: EventEmitter<KeyboardEvent> = new EventEmitter();
+    /**
+     * Callback to invoke on overlay is shown.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on overlay is hidden.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on lazy load data.
+     * @param {AutoCompleteLazyLoadEvent} event - Lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<AutoCompleteLazyLoadEvent> = new EventEmitter<AutoCompleteLazyLoadEvent>();
 
-    itemsWrapper: HTMLDivElement;
+    @ViewChild('container') containerEL: Nullable<ElementRef>;
 
-    itemTemplate: TemplateRef<any>;
+    @ViewChild('in') inputEL: Nullable<ElementRef>;
 
-    emptyTemplate: TemplateRef<any>;
+    @ViewChild('multiIn') multiInputEl: Nullable<ElementRef>;
 
-    headerTemplate: TemplateRef<any>;
+    @ViewChild('multiContainer') multiContainerEL: Nullable<ElementRef>;
 
-    footerTemplate: TemplateRef<any>;
+    @ViewChild('ddBtn') dropdownButton: Nullable<ElementRef>;
 
-    selectedItemTemplate: TemplateRef<any>;
+    @ViewChild('items') itemsViewChild: Nullable<ElementRef>;
 
-    groupTemplate: TemplateRef<any>;
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    loaderTemplate: TemplateRef<any>;
+    @ViewChild('overlay') overlayViewChild!: Overlay;
 
-    removeIconTemplate: TemplateRef<any>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    loadingIconTemplate: TemplateRef<any>;
+    _itemSize: Nullable<number>;
 
-    clearIconTemplate: TemplateRef<any>;
+    itemsWrapper: Nullable<HTMLDivElement>;
 
-    dropdownIconTemplate: TemplateRef<any>;
+    itemTemplate: Nullable<TemplateRef<any>>;
 
-    value: any;
+    emptyTemplate: Nullable<TemplateRef<any>>;
 
-    _suggestions: any[];
+    headerTemplate: Nullable<TemplateRef<any>>;
+
+    footerTemplate: Nullable<TemplateRef<any>>;
+
+    selectedItemTemplate: Nullable<TemplateRef<any>>;
+
+    groupTemplate: Nullable<TemplateRef<any>>;
+
+    loaderTemplate: Nullable<TemplateRef<any>>;
+
+    removeIconTemplate: Nullable<TemplateRef<any>>;
+
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearIconTemplate: Nullable<TemplateRef<any>>;
+
+    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+
+    value: string | any;
+
+    _suggestions: any;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    timeout: any;
+    timeout: Nullable<any>;
 
     overlayVisible: boolean = false;
 
-    suggestionsUpdated: boolean;
+    suggestionsUpdated: Nullable<boolean>;
 
     highlightOption: any;
 
-    highlightOptionChanged: boolean;
+    highlightOptionChanged: Nullable<boolean>;
 
     focus: boolean = false;
 
-    filled: boolean;
+    filled: number | boolean | undefined;
 
-    inputClick: boolean;
+    inputClick: Nullable<boolean>;
 
-    inputKeyDown: boolean;
+    inputKeyDown: Nullable<boolean>;
 
-    noResults: boolean;
+    noResults: Nullable<boolean>;
 
     differ: any;
 
-    inputFieldValue: string = null;
+    inputFieldValue: Nullable<string> = null;
 
-    loading: boolean;
+    loading: Nullable<boolean>;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: VoidFunction | null;
+    documentResizeListener: VoidListener;
 
     forceSelectionUpdateModelTimeout: any;
 
-    listId: string;
+    listId: string | undefined;
 
-    itemClicked: boolean;
+    itemClicked: boolean | undefined;
 
-    inputValue: string = null;
+    inputValue: Nullable<string> = null;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -482,17 +687,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         public overlayService: OverlayService,
         private zone: NgZone
     ) {
-        this.differ = differs.find([]).create(null);
+        this.differ = differs.find([]).create(undefined);
         this.listId = UniqueComponentId() + '_list';
-    }
-
-    @Input() get suggestions(): any[] {
-        return this._suggestions;
-    }
-
-    set suggestions(val: any[]) {
-        this._suggestions = val;
-        this.handleSuggestionsChange();
     }
 
     ngAfterViewChecked() {
@@ -512,7 +708,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
                     if (this.overlayViewChild && this.itemsWrapper) {
-                        let listItem = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, 'li.p-highlight');
+                        let listItem = DomHandler.findSingle((this.overlayViewChild.overlayViewChild as ElementRef).nativeElement, 'li.p-highlight');
 
                         if (listItem) {
                             DomHandler.scrollInView(this.itemsWrapper, listItem);
@@ -551,7 +747,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -606,7 +802,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value != '';
+        this.filled = this.value && this.value.length ? true : false;
         this.updateInputField();
         this.cd.markForCheck();
     }
@@ -691,14 +887,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         }
 
         if (this.multiple) {
-            this.multiInputEL.nativeElement.value = '';
+            (this.multiInputEl as ElementRef).nativeElement.value = '';
             this.value = this.value || [];
             if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value, option];
                 this.onModelChange(this.value);
             }
         } else {
-            this.inputEL.nativeElement.value = this.resolveFieldData(option);
+            (this.inputEL as ElementRef).nativeElement.value = this.resolveFieldData(option);
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -715,8 +911,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     show(event?: Event) {
-        if (this.multiInputEL || this.inputEL) {
-            let hasFocus = this.multiple ? this.multiInputEL.nativeElement.ownerDocument.activeElement == this.multiInputEL.nativeElement : this.inputEL.nativeElement.ownerDocument.activeElement == this.inputEL.nativeElement;
+        if (this.multiInputEl || this.inputEL) {
+            let hasFocus = this.multiple ? this.multiInputEl?.nativeElement.ownerDocument.activeElement == this.multiInputEl?.nativeElement : this.inputEL?.nativeElement.ownerDocument.activeElement == this.inputEL?.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
@@ -728,11 +924,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     clear() {
+        this.value = null;
+        this.inputValue = null;
         if (this.multiple) {
-            this.value = null;
+            (<ElementRef>this.multiInputEl).nativeElement.value = '';
         } else {
             this.inputValue = null;
-            this.inputEL.nativeElement.value = '';
+            (<ElementRef>this.inputEL).nativeElement.value = '';
         }
 
         this.updateFilledState();
@@ -742,12 +940,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild.nativeElement);
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
         }
     }
 
-    resolveFieldData(value) {
+    resolveFieldData(value: any) {
         let data = this.field ? ObjectUtils.resolveFieldData(value, this.field) : value;
         return data !== (null || undefined) ? data : '';
     }
@@ -759,10 +957,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.cd.markForCheck();
     }
 
-    handleDropdownClick(event) {
+    handleDropdownClick(event: MouseEvent) {
         if (!this.overlayVisible) {
             this.focusInput();
-            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+            let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
 
             if (this.dropdownMode === 'blank') this.search(event, '');
             else if (this.dropdownMode === 'current') this.search(event, queryValue);
@@ -777,8 +975,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     focusInput() {
-        if (this.multiple) this.multiInputEL.nativeElement.focus();
-        else this.inputEL.nativeElement.focus();
+        if (this.multiple) (this.multiInputEl as ElementRef).nativeElement.focus();
+        else this.inputEL?.nativeElement.focus();
     }
 
     get emptyMessageLabel(): string {
@@ -787,16 +985,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     removeItem(item: any) {
         let itemIndex = DomHandler.index(item);
-        let removedValue = this.value[itemIndex];
-        this.value = this.value.filter((val, i) => i != itemIndex);
+        let removedValue = (this.value as object[])[itemIndex];
+        this.value = (this.value as object[]).filter((val: any, i: number) => i != itemIndex);
         this.onModelChange(this.value);
         this.updateFilledState();
         this.onUnselect.emit(removedValue);
     }
 
-    onKeydown(event) {
+    onKeydown(event: Event) {
         if (this.overlayVisible) {
-            switch (event.which) {
+            switch ((<KeyboardEvent>event).which) {
                 //down
                 case 40:
                     if (this.group) {
@@ -883,25 +1081,25 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                     break;
             }
         } else {
-            if (event.which === 40 && this.suggestions) {
-                this.search(event, event.target.value);
-            } else if (event.ctrlKey && event.key === 'z' && !this.multiple) {
-                this.inputEL.nativeElement.value = this.resolveFieldData(null);
+            if ((<KeyboardEvent>event).which === 40 && this.suggestions) {
+                this.search(event, (<HTMLInputElement>event.target).value);
+            } else if ((<KeyboardEvent>event).ctrlKey && (<KeyboardEvent>event).key === 'z' && !this.multiple) {
+                (this.inputEL as ElementRef).nativeElement.value = this.resolveFieldData(null);
                 this.value = '';
                 this.onModelChange(this.value);
-            } else if (event.ctrlKey && event.key === 'z' && this.multiple) {
-                this.value.pop();
+            } else if ((<KeyboardEvent>event).ctrlKey && (<KeyboardEvent>event).key === 'z' && this.multiple) {
+                (this.value as object[]).pop();
                 this.onModelChange(this.value);
                 this.updateFilledState();
             }
         }
 
         if (this.multiple) {
-            switch (event.which) {
+            switch ((<KeyboardEvent>event).which) {
                 //backspace
                 case 8:
-                    if (this.value && this.value.length && !this.multiInputEL.nativeElement.value) {
-                        this.value = [...this.value];
+                    if (this.value && this.value.length && !this.multiInputEl?.nativeElement.value) {
+                        this.value = [...this.value] as object[];
                         const removedValue = this.value.pop();
                         this.onModelChange(this.value);
                         this.updateFilledState();
@@ -914,13 +1112,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.inputKeyDown = true;
     }
 
-    onKeyup(event) {
+    onKeyup(event: KeyboardEvent) {
         this.onKeyUp.emit(event);
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         if (!this.itemClicked && this.completeOnFocus) {
-            let queryValue = this.multiple ? this.multiInputEL.nativeElement.value : this.inputEL.nativeElement.value;
+            let queryValue = this.multiple ? this.multiInputEl?.nativeElement.value : this.inputEL?.nativeElement.value;
             this.search(event, queryValue);
         }
 
@@ -929,16 +1127,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.itemClicked = false;
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focus = false;
         this.onModelTouched();
         this.onBlur.emit(event);
     }
 
-    onInputChange(event) {
+    onInputChange(event: Event) {
         if (this.forceSelection) {
             let valid = false;
-            let inputValue = event.target.value.trim();
+            const target = event.target as HTMLTextAreaElement;
+            let inputValue = target.value.trim();
 
             if (this.suggestions) {
                 for (let suggestion of this.suggestions) {
@@ -955,10 +1154,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
             if (!valid) {
                 if (this.multiple) {
-                    this.multiInputEL.nativeElement.value = '';
+                    (<ElementRef>this.multiInputEl).nativeElement.value = '';
                 } else {
                     this.value = null;
-                    this.inputEL.nativeElement.value = '';
+                    (<ElementRef>this.inputEL).nativeElement.value = '';
                 }
 
                 this.onClear.emit(event);
@@ -985,7 +1184,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return selected;
     }
 
-    findOptionIndex(option, suggestions): number {
+    findOptionIndex(option: any, suggestions: any): number {
         let index: number = -1;
         if (suggestions) {
             for (let i = 0; i < suggestions.length; i++) {
@@ -1021,7 +1220,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateFilledState() {
-        if (this.multiple) this.filled = (this.value && this.value.length) || (this.multiInputEL && this.multiInputEL.nativeElement && this.multiInputEL.nativeElement.value != '');
+        if (this.multiple) this.filled = (this.value && this.value.length) || (this.multiInputEl && this.multiInputEl.nativeElement && this.multiInputEl.nativeElement.value != '');
         else this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
     }
 

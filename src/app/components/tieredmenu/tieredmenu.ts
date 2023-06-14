@@ -1,38 +1,39 @@
-import {
-    NgModule,
-    Component,
-    ElementRef,
-    Input,
-    Renderer2,
-    OnDestroy,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Output,
-    EventEmitter,
-    ViewRef,
-    ViewChild,
-    Inject,
-    ContentChildren,
-    QueryList,
-    AfterContentInit,
-    TemplateRef
-} from '@angular/core';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
-import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { ZIndexUtils } from 'primeng/utils';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { ZIndexUtils } from 'primeng/utils';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
         <ul #sublist [ngClass]="{ 'p-submenu-list': !root }">
-            <ng-template ngFor let-child [ngForOf]="root ? item : item.items">
+            <ng-template ngFor let-child [ngForOf]="root ? item : item?.items">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }"></li>
                 <li
                     *ngIf="!child.separator"
@@ -64,7 +65,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>
@@ -97,7 +98,7 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
                         <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'"/>
+                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
                             <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
                         </ng-container>
                     </a>
@@ -121,22 +122,22 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
     }
 })
 export class TieredMenuSub implements OnDestroy {
-    @Input() item: MenuItem;
+    @Input() item: MenuItem | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
-    @Input() autoDisplay: boolean;
+    @Input() autoDisplay: boolean | undefined;
 
     @Input() autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
 
-    @Input() mobileActive: boolean;
+    @Input() mobileActive: boolean | undefined;
 
-    @Input() popup: boolean;
+    @Input() popup: boolean | undefined;
 
     @Input() get parentActive(): boolean {
-        return this._parentActive;
+        return this._parentActive as boolean;
     }
     set parentActive(value) {
         if (!this.root) {
@@ -147,15 +148,15 @@ export class TieredMenuSub implements OnDestroy {
         }
     }
 
-    @ViewChild('sublist') sublistViewChild: ElementRef;
+    @ViewChild('sublist') sublistViewChild: ElementRef | undefined;
 
     @Output() leafClick: EventEmitter<any> = new EventEmitter();
 
     @Output() keydownItem: EventEmitter<any> = new EventEmitter();
 
-    _parentActive: boolean;
+    _parentActive: boolean | undefined;
 
-    documentClickListener: VoidFunction | null;
+    documentClickListener: VoidListener;
 
     menuHoverActive: boolean = false;
 
@@ -163,7 +164,7 @@ export class TieredMenuSub implements OnDestroy {
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
 
-    onItemClick(event, item) {
+    onItemClick(event: Event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -197,7 +198,7 @@ export class TieredMenuSub implements OnDestroy {
         }
     }
 
-    onItemMouseEnter(event, item) {
+    onItemMouseEnter(event: MouseEvent, item: MenuItem) {
         if (item.disabled || this.mobileActive) {
             event.preventDefault();
             return;
@@ -223,12 +224,12 @@ export class TieredMenuSub implements OnDestroy {
         this.leafClick.emit();
     }
 
-    onItemKeyDown(event, item: MenuItem) {
-        let listItem = event.currentTarget.parentElement;
+    onItemKeyDown(event: KeyboardEvent, item: MenuItem) {
+        let listItem = (event.currentTarget as HTMLElement).parentElement;
 
         switch (event.key) {
             case 'ArrowDown':
-                const nextItem = this.findNextItem(listItem);
+                const nextItem = this.findNextItem(listItem!);
                 if (nextItem) {
                     nextItem.children[0].focus();
                 }
@@ -237,7 +238,7 @@ export class TieredMenuSub implements OnDestroy {
                 break;
 
             case 'ArrowUp':
-                const prevItem = this.findPrevItem(listItem);
+                const prevItem = this.findPrevItem(listItem!);
                 if (prevItem) {
                     prevItem.children[0].focus();
                 }
@@ -254,7 +255,7 @@ export class TieredMenuSub implements OnDestroy {
                     }
 
                     setTimeout(() => {
-                        listItem.children[1].children[0].children[0].children[0].focus();
+                        (listItem?.children[1].children[0].children[0].children[0] as HTMLElement).focus();
                     }, 50);
                 }
 
@@ -294,29 +295,33 @@ export class TieredMenuSub implements OnDestroy {
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: Element): any {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: Element): any {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
         else return null;
     }
 
-    onChildItemKeyDown(event) {
-        if (event.originalEvent.key === 'ArrowLeft') {
+    onChildItemKeyDown(event: KeyboardEvent) {
+        if (event.key === 'ArrowLeft') {
             this.activeItem = null;
 
             if (this.root) {
                 this.unbindDocumentClickListener();
             }
-
-            event.element.parentElement.parentElement.parentElement.children[0].focus();
+            if (event.target) {
+                const parent = (event.target as HTMLElement).parentElement;
+                if (parent && parent.parentElement && parent.parentElement.parentElement) {
+                    (parent.parentElement.parentElement.children[0] as HTMLElement).focus();
+                }
+            }
         }
     }
 
@@ -343,7 +348,10 @@ export class TieredMenuSub implements OnDestroy {
         this.unbindDocumentClickListener();
     }
 }
-
+/**
+ * TieredMenu displays submenus in nested overlays.
+ * @group Components
+ */
 @Component({
     selector: 'p-tieredMenu',
     template: `
@@ -370,51 +378,88 @@ export class TieredMenuSub implements OnDestroy {
     }
 })
 export class TieredMenu implements AfterContentInit, OnDestroy {
-    @Input() model: MenuItem[];
-
-    @Input() popup: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() appendTo: any;
-
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Defines if menu would displayed as a popup.
+     * @group Props
+     */
+    @Input() popup: boolean | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
-    @Input() autoDisplay: boolean;
-
+    /**
+     * Whether to show a root submenu on mouse over.
+     * @group Props
+     */
+    @Input() autoDisplay: boolean | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    submenuIconTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    parentActive: boolean | undefined;
 
-    submenuIconTemplate: TemplateRef<any>;
+    container: HTMLDivElement | undefined;
 
-    parentActive: boolean;
+    documentClickListener: VoidListener;
 
-    container: HTMLDivElement;
+    documentResizeListener: VoidListener;
 
-    documentClickListener: VoidFunction | null;
+    preventDocumentDefault: boolean | undefined;
 
-    documentResizeListener: VoidFunction | null;
-
-    preventDocumentDefault: boolean;
-
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
     target: any;
 
-    visible: boolean;
+    visible: boolean | undefined;
 
-    relativeAlign: boolean;
+    relativeAlign: boolean | undefined;
 
     private window: Window;
 
@@ -423,7 +468,7 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
@@ -431,15 +476,24 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
             }
         });
     }
-
-    toggle(event) {
+    /**
+     * Toggles the visibility of the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    toggle(event: any) {
         if (this.visible) this.hide();
         else this.show(event);
 
         this.preventDocumentDefault = true;
     }
 
-    show(event) {
+    /**
+     * Displays the popup menu.
+     * @param {Event} even - Browser event.
+     * @group Method
+     */
+    show(event: any) {
         this.target = event.currentTarget;
         this.relativeAlign = event.relativeAlign;
         this.visible = true;
@@ -448,7 +502,7 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: MouseEvent) {
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
@@ -513,6 +567,10 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
         }
     }
 
+    /**
+     * Hides the popup menu.
+     * @group Method
+     */
     hide() {
         this.visible = false;
         this.relativeAlign = false;

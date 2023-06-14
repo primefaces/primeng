@@ -14,6 +14,10 @@ import { Code } from '../../domain/code';
 
             <h3>styles.css</h3>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
+
+            <h3>Font</h3>
+            <p>Each PrimeNG theme has its own font family so it is suggested to apply it to your application for a unified look.</p>
+            <app-code [code]="code3" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
     </section>`
 })
@@ -34,5 +38,11 @@ export class StylesDoc {
     code2: Code = {
         scss: `@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";`
+    };
+
+    code3: Code = {
+        scss: `body {
+    font-family: var(--font-family);
+}`
     };
 }

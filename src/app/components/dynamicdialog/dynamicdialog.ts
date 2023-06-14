@@ -12,8 +12,10 @@ import {
     NgModule,
     NgZone,
     OnDestroy,
+    Optional,
     PLATFORM_ID,
     Renderer2,
+    SkipSelf,
     Type,
     ViewChild,
     ViewEncapsulation,
@@ -21,13 +23,14 @@ import {
 } from '@angular/core';
 import { PrimeNGConfig, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { TimesIcon } from 'primeng/icons/times';
+import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -71,11 +74,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <div class="p-dialog-header-icons">
                         <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                            <WindowMaximizeIcon *ngIf="!maximized && !maximizeIcon" [styleClass]="'p-dialog-header-maximize-icon'"/>
-                            <WindowMinimizeIcon *ngIf="maximized && !minimizeIcon" [styleClass]="'p-dialog-header-maximize-icon'"/>
+                            <WindowMaximizeIcon *ngIf="!maximized && !maximizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
+                            <WindowMinimizeIcon *ngIf="maximized && !minimizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
                         </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
-                            <TimesIcon [styleClass]="'p-dialog-header-close-icon'"/>
+                            <TimesIcon [styleClass]="'p-dialog-header-close-icon'" />
                         </button>
                     </div>
                 </div>
@@ -99,53 +102,53 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     visible: boolean = true;
 
-    componentRef: ComponentRef<any>;
+    componentRef: Nullable<ComponentRef<any>>;
 
-    mask: HTMLDivElement;
+    mask: Nullable<HTMLDivElement>;
 
-    resizing: boolean;
+    resizing: boolean | undefined;
 
-    dragging: boolean;
+    dragging: boolean | undefined;
 
-    maximized: boolean;
+    maximized: boolean | undefined;
 
     _style: any = {};
 
     originalStyle: any;
 
-    lastPageX: number;
+    lastPageX: number | undefined;
 
-    lastPageY: number;
+    lastPageY: number | undefined;
 
-    @ViewChild(DynamicDialogContent) insertionPoint: DynamicDialogContent;
+    @ViewChild(DynamicDialogContent) insertionPoint: Nullable<DynamicDialogContent>;
 
-    @ViewChild('mask') maskViewChild: ElementRef;
+    @ViewChild('mask') maskViewChild: Nullable<ElementRef>;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @ViewChild('titlebar') headerViewChild: ElementRef;
+    @ViewChild('titlebar') headerViewChild: Nullable<ElementRef>;
 
-    childComponentType: Type<any>;
+    childComponentType: Nullable<Type<any>>;
 
-    container: HTMLDivElement;
+    container: Nullable<HTMLDivElement>;
 
-    wrapper: HTMLElement;
+    wrapper: Nullable<HTMLElement>;
 
-    documentKeydownListener: () => void | null;
+    documentKeydownListener: VoidListener;
 
-    documentEscapeListener: () => void | null;
+    documentEscapeListener: VoidListener;
 
-    maskClickListener: () => void | null;
+    maskClickListener: VoidListener;
 
     transformOptions: string = 'scale(0.7)';
 
-    documentResizeListener: () => void | null;
+    documentResizeListener: VoidListener;
 
-    documentResizeEndListener: () => void | null;
+    documentResizeEndListener: VoidListener;
 
-    documentDragListener: () => void | null;
+    documentDragListener: VoidListener;
 
-    documentDragEndListener: () => void | null;
+    documentDragEndListener: VoidListener;
 
     get minX(): number {
         return this.config.minX ? this.config.minX : 0;
@@ -156,19 +159,19 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get keepInViewport(): boolean {
-        return this.config.keepInViewport;
+        return this.config.keepInViewport!;
     }
 
     get maximizable(): boolean {
-        return this.config.maximizable;
+        return this.config.maximizable!;
     }
 
     get maximizeIcon(): string {
-        return this.config.maximizeIcon;
+        return this.config.maximizeIcon!;
     }
 
     get minimizeIcon(): string {
-        return this.config.minimizeIcon;
+        return this.config.minimizeIcon!;
     }
 
     get style(): any {
@@ -176,7 +179,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get position(): string {
-        return this.config.position;
+        return this.config.position!;
     }
 
     set style(value: any) {
@@ -202,11 +205,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public config: DynamicDialogConfig,
         private dialogRef: DynamicDialogRef,
         public zone: NgZone,
-        public primeNGConfig: PrimeNGConfig
+        public primeNGConfig: PrimeNGConfig,
+        @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
     ) {}
 
     ngAfterViewInit() {
-        this.loadChildComponent(this.childComponentType);
+        this.loadChildComponent(this.childComponentType!);
         this.cd.detectChanges();
     }
 
@@ -222,7 +226,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     moveOnTop() {
         if (this.config.autoZIndex !== false) {
             ZIndexUtils.set('modal', this.container, (this.config.baseZIndex || 0) + this.primeNGConfig.zIndex.modal);
-            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
         }
     }
 
@@ -230,7 +234,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.wrapper = this.container.parentElement;
+                this.wrapper = (this.container as HTMLDivElement).parentElement;
                 this.moveOnTop();
                 if (this.parent) {
                     this.unbindGlobalListeners();
@@ -313,27 +317,23 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (this.parent) {
-            return;
-        } else {
-            // tab
-            if (event.which === 9) {
-                event.preventDefault();
+        // tab
+        if (event.which === 9) {
+            event.preventDefault();
 
-                let focusableElements = DomHandler.getFocusableElements(this.container);
-                if (focusableElements && focusableElements.length > 0) {
-                    if (!focusableElements[0].ownerDocument.activeElement) {
-                        focusableElements[0].focus();
+            let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
+            if (focusableElements && focusableElements.length > 0) {
+                if (!focusableElements[0].ownerDocument.activeElement) {
+                    focusableElements[0].focus();
+                } else {
+                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
+
+                    if (event.shiftKey) {
+                        if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
+                        else focusableElements[focusedIndex - 1].focus();
                     } else {
-                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
-
-                        if (event.shiftKey) {
-                            if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
-                            else focusableElements[focusedIndex - 1].focus();
-                        } else {
-                            if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
-                            else focusableElements[focusedIndex + 1].focus();
-                        }
+                        if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
+                        else focusableElements[focusedIndex + 1].focus();
                     }
                 }
             }
@@ -341,7 +341,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus() {
-        const focusable = DomHandler.getFocusableElements(this.container);
+        const focusable = DomHandler.getFocusableElements(this.container as HTMLDivElement);
         if (focusable && focusable.length > 0) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable[0].focus(), 5);
@@ -373,18 +373,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     onResize(event: MouseEvent) {
         if (this.resizing) {
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
-            let contentHeight = DomHandler.getOuterHeight(this.contentViewChild.nativeElement);
+            let contentHeight = DomHandler.getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
-            let minWidth = this.container.style.minWidth;
-            let minHeight = this.container.style.minHeight;
-            let offset = this.container.getBoundingClientRect();
+            let minWidth = (this.container as HTMLDivElement).style.minWidth;
+            let minHeight = (this.container as HTMLDivElement).style.minHeight;
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt(this.container.style.top) || !parseInt(this.container.style.left);
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -393,15 +393,15 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
-                this.container.style.width = this._style.width;
+                (this.container as HTMLDivElement).style.width = this._style.width;
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
-                this.contentViewChild.nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
+                (<ElementRef>this.contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
-                    this.container.style.height = this._style.height;
+                    (this.container as HTMLDivElement).style.height = this._style.height;
                 }
             }
 
@@ -428,7 +428,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
 
-            this.container.style.margin = '0';
+            (this.container as HTMLDivElement).style.margin = '0';
             DomHandler.addClass(this.document.body, 'p-unselectable-text');
             this.dialogRef.dragStart(event);
         }
@@ -438,32 +438,32 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (this.dragging) {
             let containerWidth = DomHandler.getOuterWidth(this.container);
             let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - this.lastPageX;
-            let deltaY = event.pageY - this.lastPageY;
-            let offset = this.container.getBoundingClientRect();
+            let deltaX = event.pageX - (this.lastPageX as number);
+            let deltaY = event.pageY - (this.lastPageY as number);
+            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let leftPos = offset.left + deltaX;
             let topPos = offset.top + deltaY;
             let viewport = DomHandler.getViewport();
 
-            this.container.style.position = 'fixed';
+            (this.container as HTMLDivElement).style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
                     this._style.left = leftPos + 'px';
                     this.lastPageX = event.pageX;
-                    this.container.style.left = leftPos + 'px';
+                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
                     this._style.top = topPos + 'px';
                     this.lastPageY = event.pageY;
-                    this.container.style.top = topPos + 'px';
+                    (this.container as HTMLDivElement).style.top = topPos + 'px';
                 }
             } else {
                 this.lastPageX = event.pageX;
-                this.container.style.left = leftPos + 'px';
+                (this.container as HTMLDivElement).style.left = leftPos + 'px';
                 this.lastPageY = event.pageY;
-                this.container.style.top = topPos + 'px';
+                (this.container as HTMLDivElement).style.top = topPos + 'px';
             }
         }
     }
@@ -478,10 +478,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     resetPosition() {
-        this.container.style.position = '';
-        this.container.style.left = '';
-        this.container.style.top = '';
-        this.container.style.margin = '';
+        (this.container as HTMLDivElement).style.position = '';
+        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.top = '';
+        (this.container as HTMLDivElement).style.margin = '';
     }
 
     bindDocumentDragListener() {
@@ -533,6 +533,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindGlobalListeners() {
+        if (this.parentDialog) {
+            this.parentDialog.unbindDocumentKeydownListener();
+        }
         this.bindDocumentKeydownListener();
 
         if (this.config.closeOnEscape !== false && this.config.closable !== false) {
@@ -555,13 +558,21 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.unbindDocumentResizeListeners();
         this.unbindDocumentDragListener();
         this.unbindDocumentDragEndListener();
+
+        if (this.parentDialog) {
+            this.parentDialog.bindDocumentKeydownListener();
+        }
     }
 
     bindDocumentKeydownListener() {
         if (isPlatformBrowser(this.platformId)) {
-            this.zone.runOutsideAngular(() => {
-                this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
-            });
+            if (this.documentKeydownListener) {
+                return;
+            } else {
+                this.zone.runOutsideAngular(() => {
+                    this.documentKeydownListener = this.renderer.listen(this.document, 'keydown', this.onKeydown.bind(this));
+                });
+            }
         }
     }
 
@@ -577,7 +588,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt(this.container.style.zIndex) == ZIndexUtils.getCurrent()) {
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) == ZIndexUtils.getCurrent()) {
                     this.hide();
                 }
             }
@@ -610,7 +621,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 @NgModule({
     imports: [CommonModule, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, SharedModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent],
-    entryComponents: [DynamicDialogComponent],
     exports: [SharedModule]
 })
 export class DynamicDialogModule {}

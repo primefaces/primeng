@@ -2,15 +2,12 @@ import { Component } from '@angular/core';
 import { AccessibilityDoc } from '../../doc/speeddial/accessibilitydoc';
 import { CircleDoc } from '../../doc/speeddial/circledoc';
 import { CustomDoc } from '../../doc/speeddial/customdoc';
-import { EventsDoc } from '../../doc/speeddial/eventsdoc';
 import { ImportDoc } from '../../doc/speeddial/importdoc';
 import { LinearDoc } from '../../doc/speeddial/lineardoc';
 import { MaskDoc } from '../../doc/speeddial/maskdoc';
-import { PropsDoc } from '../../doc/speeddial/propsdoc';
 import { QuarterCircleDoc } from '../../doc/speeddial/quartercircledoc';
 import { SemiCircleDoc } from '../../doc/speeddial/semicircledoc';
 import { StyleDoc } from '../../doc/speeddial/styledoc';
-import { TemplatesDoc } from '../../doc/speeddial/templatesdoc';
 import { TooltipDoc } from '../../doc/speeddial/tooltipdoc';
 
 @Component({
@@ -68,24 +65,6 @@ export class SpeedDialDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

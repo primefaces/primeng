@@ -3,14 +3,14 @@
 
     <div class="flex flex-column xl:flex-row mb-5 gap-5">
         <div class="card xl:w-3 m-0 relative overflow-hidden">
-            <i class="pi pi-github absolute text-200" style="bottom: '-50px'; right: '-50px'; font-size: '200px'; transform: 'rotateX(45deg) rotateY(0deg) rotateZ(-45deg)'"></i>
+            <i class="pi pi-github absolute text-200" style="bottom: -50px; right: -50px; font-size: 200px; transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg)"></i>
             <div class="text-2xl text-900 font-semibold mb-3 relative">Community Versions</div>
             <p class="m-0 line-height-3 relative text-lg text-800">
                 Angular is a fast paced technology with a new major version every 6 months. PrimeNG release cycle is aligned with Angular and every 6 months a new major PrimeNG version is released as open source that is compatible with the latest Angular core.
                 The maintenance releases of the latest PrimeNG version are provided as free and open source for the following 6 months until the new major Angular version is ready.
             </p>
         </div>
-        <div class="card m-0 xl:w-9 text-white bg-cover" style="background-image: 'url(https://primefaces.org/cdn/primeng/images/lts/card-lts.jpg)'">
+        <div class="card m-0 xl:w-9 text-white bg-cover" style="background-image: url('https://primefaces.org/cdn/primeng/images/lts/card-lts.jpg')">
             <div class="text-2xl font-semibold mb-3">LTS Versions</div>
             <p class="m-0 line-height-3 text-lg">
                 Majority of the existing applications prefer to remain at a previous version due to stability requirements instead of upgrading to the latest version immediately.  
@@ -137,7 +137,7 @@
     <div class="card mb-5">
         <div class="text-2xl text-900 font-semibold mb-3">Usage</div>
         <p class="m-0 line-height-3 mb-5 text-secondary text-lg text-800">
-            LTS versions require a license key and a pass key to be verified at your main app component. The keys would be available at <a href="https://www.primefaces.org/store/lts.xhtml" class="font-semibold text-primary-500 no-underline hover:underline">PrimeStore</a> under LTS Licenses section.
+            LTS versions require a license key and a pass key to be verified at your main app component or main.ts. The keys would be available at <a href="https://www.primefaces.org/store/lts.xhtml" class="font-semibold text-primary-500 no-underline hover:underline">PrimeStore</a> under LTS Licenses section.
         </p>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </div>

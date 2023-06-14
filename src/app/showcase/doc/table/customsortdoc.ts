@@ -31,7 +31,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
                         <td>{{ product.name }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                     </tr>
                 </ng-template>
             </p-table>
