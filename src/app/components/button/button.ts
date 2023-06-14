@@ -393,7 +393,7 @@ export class Button implements AfterContentInit {
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left'
+            'p-button-loading-label-only': this.loading && !(this.icon || this.iconTemplate) && this.label && !this.loadingIcon && this.iconPos === 'left'
         };
     }
 

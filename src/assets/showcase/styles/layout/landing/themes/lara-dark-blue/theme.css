@@ -868,6 +868,7 @@
 .landing-themes .p-button.p-button-icon-only {
   width: 3rem;
   padding: 0.75rem 0;
+  height: 2.85rem;
 }
 .landing-themes .p-button.p-button-icon-only .p-button-icon-left,
 .landing-themes .p-button.p-button-icon-only .p-button-icon-right {

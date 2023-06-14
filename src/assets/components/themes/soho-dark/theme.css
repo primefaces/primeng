@@ -2023,6 +2023,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-button.p-button-icon-only {
   width: 3rem;
   padding: 0.75rem 0;
+  height: 2.85rem;
 }
 .p-button.p-button-icon-only .p-button-icon-left,
 .p-button.p-button-icon-only .p-button-icon-right {
