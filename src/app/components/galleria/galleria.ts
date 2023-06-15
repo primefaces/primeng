@@ -457,7 +457,7 @@ export class GalleriaContent implements DoCheck {
 
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
 
-    id: string = this.galleria.id || UniqueComponentId();
+    id: string;
 
     _activeIndex: number = 0;
 
@@ -467,9 +467,13 @@ export class GalleriaContent implements DoCheck {
 
     styleClass: string | undefined;
 
-    private differ = this.differs.find(this.galleria).create();
+    private differ :any;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers) {}
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers) {
+        this.id= this.galleria.id || UniqueComponentId();
+        this.differ = this.differs.find(this.galleria).create();
+
+    }
 
     ngDoCheck(): void {
         const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
