@@ -538,6 +538,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() overlayDirection: string = 'end';
+
+    @Input() keydownEnable: boolean = true;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
@@ -1218,7 +1220,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onKeydown(event: KeyboardEvent, search: boolean) {
-        if (this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null) {
+        if (this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null || !this.keydownEnable) {
             return;
         }
 
