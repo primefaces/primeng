@@ -1220,8 +1220,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onKeydown(event: KeyboardEvent, search: boolean) {
-        if (this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null || !this.keydownEnable) {
+        if (this.readonly || !this.optionsToDisplay || this.optionsToDisplay.length === null) {
             return;
+        }
+
+        if (!this.keydownEnable) {
+            const printableCharacters = /[a-zA-Z]/;
+            if (printableCharacters.test(event.key)) {
+                return;
+            }
         }
 
         switch (event.which) {
