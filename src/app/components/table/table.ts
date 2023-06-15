@@ -159,6 +159,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -265,6 +266,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -362,6 +364,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * @group Props
      */
     @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    /**
+     * Custom style class for paginator
+     * @group Props
+     */
+    @Input() paginatorStyleClass: string | undefined;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -2926,24 +2933,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         #${this.id}-table > .p-datatable-tfoot > tr > td {
             display: none !important;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td {
             display: flex;
             width: 100% !important;
             align-items: center;
             justify-content: space-between;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td:not(:last-child) {
             border: 0 none;
         }
-    
+
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
             border-top: 0;
             border-right: 0;
             border-left: 0;
         }
-    
+
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
             display: block;
         }
