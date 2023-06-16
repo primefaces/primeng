@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class InvalidDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-invalid-demo.html'
 })
 export class InputTextInvalidDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

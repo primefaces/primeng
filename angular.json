@@ -76,13 +76,6 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                }
-                            ],
                             "optimization": {
                                 "styles": {
                                     "inlineCritical": false

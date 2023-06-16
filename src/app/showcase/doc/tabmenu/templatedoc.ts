@@ -21,9 +21,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
@@ -63,9 +63,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-template-demo.html'
 })
 export class TabMenuTemplateDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [

@@ -1,28 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 
-export interface TooltipOptions {
-    tooltipLabel?: string;
-    tooltipPosition?: string;
-    tooltipEvent?: string;
-    appendTo?: any;
-    positionStyle?: string;
-    tooltipStyleClass?: string;
-    tooltipZIndex?: string;
-    escape?: boolean;
-    disabled?: boolean;
-    showDelay?: number;
-    hideDelay?: number;
-    positionTop?: number;
-    positionLeft?: number;
-    life?: number;
-    autoHide?: boolean;
-    hideOnEscape?: boolean;
-}
-
+/**
+ * Tooltip directive provides advisory information for a component.
+ * @group Components
+ */
 @Directive({
     selector: '[pTooltip]',
     host: {
@@ -30,65 +16,128 @@ export interface TooltipOptions {
     }
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
-    @Input() tooltipPosition: string;
-
-    @Input() tooltipEvent: string;
-
-    @Input() appendTo: any;
-
-    @Input() positionStyle: string;
-
-    @Input() tooltipStyleClass: string;
-
-    @Input() tooltipZIndex: string;
-
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
+    /**
+     * Event to show the tooltip.
+     * @group Props
+     */
+    @Input() tooltipEvent: 'hover' | 'focus' | string | any = 'hover';
+    /**
+     *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
+    @Input() positionStyle: string | undefined;
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Whether the z-index should be managed automatically to always go on top or have a fixed value.
+     * @group Props
+     */
+    @Input() tooltipZIndex: string | undefined;
+    /**
+     * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
+     * @group Props
+     */
     @Input() escape: boolean = true;
-
-    @Input() showDelay: number;
-
-    @Input() hideDelay: number;
-
-    @Input() life: number;
-
-    @Input() positionTop: number;
-
-    @Input() positionLeft: number;
-
+    /**
+     * Delay to show the tooltip in milliseconds.
+     * @group Props
+     */
+    @Input() showDelay: number | undefined;
+    /**
+     * Delay to hide the tooltip in milliseconds.
+     * @group Props
+     */
+    @Input() hideDelay: number | undefined;
+    /**
+     * Time to wait in milliseconds to hide the tooltip even it is active.
+     * @group Props
+     */
+    @Input() life: number | undefined;
+    /**
+     * Specifies the additional vertical offset of the tooltip from its default position.
+     * @group Props
+     */
+    @Input() positionTop: number | undefined;
+    /**
+     * Specifies the additional horizontal offset of the tooltip from its default position.
+     * @group Props
+     */
+    @Input() positionLeft: number | undefined;
+    /**
+     * Whether to hide tooltip when hovering over tooltip content.
+     * @group Props
+     */
     @Input() autoHide: boolean = true;
-
+    /**
+     * Automatically adjusts the element position when there is not enough space on the selected position.
+     * @group Props
+     */
     @Input() fitContent: boolean = true;
-
+    /**
+     * Whether to hide tooltip on escape key press.
+     * @group Props
+     */
     @Input() hideOnEscape: boolean = true;
-
-    @Input('pTooltip') content: string | TemplateRef<HTMLElement>;
-
+    /**
+     * Text of the tooltip.
+     * @group Props
+     */
+    @Input('pTooltip') text: string | TemplateRef<HTMLElement> | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @defaultValue false
+     * @group Props
+     */
     @Input('tooltipDisabled') get disabled(): boolean {
-        return this._disabled;
+        return this._disabled as boolean;
     }
     set disabled(val: boolean) {
         this._disabled = val;
         this.deactivate();
     }
+    /**
+     * Specifies the tooltip configuration options for the component.
+     * @group Props
+     */
+    @Input() tooltipOptions: TooltipOptions | undefined;
 
-    @Input() tooltipOptions: TooltipOptions;
-
-    _tooltipOptions: TooltipOptions = {
+    _tooltipOptions = {
+        tooltipLabel: null,
         tooltipPosition: 'right',
         tooltipEvent: 'hover',
         appendTo: 'body',
-        tooltipZIndex: 'auto',
+        positionStyle: null,
+        tooltipStyleClass: null,
+        tooltipZIndex: null,
         escape: true,
-        positionTop: 0,
-        positionLeft: 0,
+        disabled: null,
+        showDelay: null,
+        hideDelay: null,
+        positionTop: null,
+        positionLeft: null,
+        life: null,
         autoHide: true,
-        hideOnEscape: false
+        hideOnEscape: true
     };
 
-    _disabled: boolean;
+    _disabled: boolean | undefined;
 
     container: any;
 
-    styleClass: string;
+    styleClass: string | undefined;
 
     tooltipText: any;
 
@@ -96,19 +145,19 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     hideTimeout: any;
 
-    active: boolean;
+    active: boolean | undefined;
 
-    mouseEnterListener: Function;
+    mouseEnterListener: Nullable<Function>;
 
-    mouseLeaveListener: Function;
+    mouseLeaveListener: Nullable<Function>;
 
-    containerMouseleaveListener: Function;
+    containerMouseleaveListener: Nullable<Function>;
 
-    clickListener: Function;
+    clickListener: Nullable<Function>;
 
-    focusListener: Function;
+    focusListener: Nullable<Function>;
 
-    blurListener: Function;
+    blurListener: Nullable<Function>;
 
     scrollHandler: any;
 
@@ -241,9 +290,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
-    onMouseLeave(e) {
+    onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.toElement, 'p-tooltip') || DomHandler.hasClass(e.toElement, 'p-tooltip-arrow') || DomHandler.hasClass(e.toElement, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
+            const valid = DomHandler.hasClass(e.target, 'p-tooltip') || DomHandler.hasClass(e.target, 'p-tooltip-arrow') || DomHandler.hasClass(e.target, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -506,15 +555,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
-    setOption(option: TooltipOptions) {
+    setOption(option: any) {
         this._tooltipOptions = { ...this._tooltipOptions, ...option };
     }
 
     getOption(option: string) {
-        return this._tooltipOptions[option];
+        return this._tooltipOptions[option as keyof typeof this.tooltipOptions];
     }
 
-    getTarget(el) {
+    getTarget(el: Element) {
         return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
     }
 

@@ -3,11 +3,9 @@ import { ReactiveFormsDoc } from '../../doc/selectbutton/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/selectbutton/accessibilitydoc';
 import { BasicDoc } from '../../doc/selectbutton/basicdoc';
 import { DisabledDoc } from '../../doc/selectbutton/disableddoc';
-import { EventsDoc } from '../../doc/selectbutton/eventsdoc';
 import { ImportDoc } from '../../doc/selectbutton/importdoc';
 import { InvalidDoc } from '../../doc/selectbutton/invaliddoc';
 import { MultipleDoc } from '../../doc/selectbutton/multipledoc';
-import { PropsDoc } from '../../doc/selectbutton/propsdoc';
 import { TemplateDoc } from '../../doc/selectbutton/templatedoc';
 
 @Component({
@@ -54,19 +52,6 @@ export class SelectButtonDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

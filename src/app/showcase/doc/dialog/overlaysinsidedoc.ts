@@ -31,11 +31,11 @@ export class OverlaysInsideDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
-    visible: boolean;
+    visible: boolean = false;
 
     ngOnInit() {
         this.cities = [
@@ -83,11 +83,11 @@ interface City {
     templateUrl: './dialog-overlays-inside-demo.html'
 })
 export class DialogOverlaysInsideDemo implements OnInit {
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
-    visible: boolean;
+    visible: boolean = false;
 
     ngOnInit() { 
         this.cities = [

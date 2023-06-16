@@ -20,7 +20,7 @@ export class OpenDoc {
 
     constructor(public dialogService: DialogService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, { header: 'Select a Product' });
@@ -38,7 +38,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService) {}
 

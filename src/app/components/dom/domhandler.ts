@@ -100,7 +100,9 @@ export class DomHandler {
 
     public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
         if (overlay && target) {
-            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+            if (calculateMinWidth) {
+                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+            }
 
             if (appendTo === 'self') {
                 this.relativePosition(overlay, target);
@@ -476,7 +478,7 @@ export class DomHandler {
 
     public static appendChild(element: any, target: any) {
         if (this.isElement(target)) target.appendChild(element);
-        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 

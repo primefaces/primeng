@@ -37,7 +37,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -109,7 +109,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './orderlist-basic-demo.html'
 })
 export class OrderlistBasicDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

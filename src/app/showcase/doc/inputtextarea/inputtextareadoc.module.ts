@@ -10,17 +10,15 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { AutoResizeDoc } from './autoresizedoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
-import { EventsDoc } from './eventsdoc';
 import { FloatlabelDoc } from './floatlabeldoc';
 import { ImportDoc } from './importdoc';
 import { KeyfilterDoc } from './keyfilterdoc';
-import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, InputTextareaModule, AppDocModule, KeyFilterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, DisabledDoc, KeyfilterDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, AutoResizeDoc, FloatlabelDoc, DisabledDoc, KeyfilterDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class InputtextareaDocModule {}

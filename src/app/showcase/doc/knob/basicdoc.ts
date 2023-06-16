@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './knob-basic-demo.html'
 })
 export class KnobBasicDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

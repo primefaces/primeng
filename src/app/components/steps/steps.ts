@@ -1,10 +1,13 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { Subscription } from 'rxjs';
+/**
+ * Steps components is an indicator for the steps in a wizard workflow.
+ * @group Components
+ */
 @Component({
     selector: 'p-steps',
     template: `
@@ -75,21 +78,41 @@ import { TooltipModule } from 'primeng/tooltip';
     }
 })
 export class Steps implements OnInit, OnDestroy {
+    /**
+     * Index of the active item.
+     * @group Props
+     */
     @Input() activeIndex: number = 0;
-
-    @Input() model: MenuItem[];
-
+    /**
+     * An array of menu items.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Whether the items are clickable or not.
+     * @group Props
+     */
     @Input() readonly: boolean = true;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Callback to invoke when the new step is selected.
+     * @param {number} number - current index.
+     * @group Emits
+     */
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
-    subscription: Subscription;
+    subscription: Subscription | undefined;
 
     ngOnInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());

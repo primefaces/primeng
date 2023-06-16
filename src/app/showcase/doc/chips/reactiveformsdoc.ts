@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -21,7 +21,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
@@ -52,7 +52,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./chips-reactive-forms-demo.scss']
 })
 export class ChipsReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({

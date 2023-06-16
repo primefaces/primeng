@@ -1,4 +1,23 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    Inject,
+    forwardRef,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ViewRef,
+    PLATFORM_ID,
+    TemplateRef,
+    Pipe,
+    PipeTransform
+} from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -7,12 +26,29 @@ import { ZIndexUtils } from 'primeng/utils';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { VoidListener } from 'primeng/ts-helpers';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+@Pipe({
+    name: 'safeHtml'
+})
+class SafeHtmlPipe implements PipeTransform {
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
+
+    public transform(value: string): SafeHtml {
+        if (!value || !isPlatformBrowser(this.platformId)) {
+            return value;
+        }
+
+        return this.sanitizer.bypassSecurityTrustHtml(value);
+    }
+}
 
 @Component({
     selector: '[pMenuItemContent]',
     template: `
         <a
-            *ngIf="!item.routerLink"
+            *ngIf="!item?.routerLink"
             (keydown)="onItemKeyDown($event)"
             [attr.href]="item.url || null"
             class="p-menuitem-link"
@@ -24,20 +60,16 @@ import { TooltipModule } from 'primeng/tooltip';
             [ngClass]="{ 'p-disabled': item.disabled }"
             (click)="menu.itemClick($event, item)"
             role="menuitem"
-            [target]="item.target"
         >
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
-            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
         </a>
         <a
-            *ngIf="item.routerLink"
+            *ngIf="item?.routerLink"
             (keydown)="onItemKeyDown($event)"
             [routerLink]="item.routerLink"
             [attr.data-automationid]="item.automationId"
             [queryParams]="item.queryParams"
-            [routerLinkActive]="'p-menuitem-link-active'"
+            routerLinkActive="p-menuitem-link-active"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
             class="p-menuitem-link"
             [target]="item.target"
@@ -55,11 +87,15 @@ import { TooltipModule } from 'primeng/tooltip';
             [replaceUrl]="item.replaceUrl"
             [state]="item.state"
         >
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
         </a>
+
+        <ng-template #itemContent>
+            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
+            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+        </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -67,15 +103,15 @@ import { TooltipModule } from 'primeng/tooltip';
     }
 })
 export class MenuItemContent {
-    @Input('pMenuItemContent') item: MenuItem;
+    @Input('pMenuItemContent') item: MenuItem | undefined;
 
     menu: Menu;
 
-    constructor(@Inject(forwardRef(() => Menu)) menu) {
+    constructor(@Inject(forwardRef(() => Menu)) menu: Menu) {
         this.menu = menu as Menu;
     }
 
-    onItemKeyDown(event) {
+    onItemKeyDown(event: any) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.code) {
@@ -111,21 +147,24 @@ export class MenuItemContent {
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: any): any {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: any): any {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
         else return null;
     }
 }
-
+/**
+ * Menu is a navigation / command component that supports dynamic and static positioning.
+ * @group Components
+ */
 @Component({
     selector: 'p-menu',
     template: `
@@ -154,7 +193,7 @@ export class MenuItemContent {
                         role="none"
                     >
                         <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label"></span></ng-template>
+                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
                     </li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -197,45 +236,77 @@ export class MenuItemContent {
     }
 })
 export class Menu implements OnDestroy {
-    @Input() model: MenuItem[];
-
-    @Input() popup: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() appendTo: any;
-
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Defines if menu would displayed as a popup.
+     * @group Props
+     */
+    @Input() popup: boolean | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    container: HTMLDivElement | undefined;
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    scrollHandler: ConnectedOverlayScrollHandler | null | undefined;
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    documentClickListener: VoidListener;
 
-    container: HTMLDivElement;
+    documentResizeListener: VoidListener;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
-
-    documentClickListener: () => void | null;
-
-    documentResizeListener: () => void | null;
-
-    preventDocumentDefault: boolean;
+    preventDocumentDefault: boolean | undefined;
 
     target: any;
 
-    visible: boolean;
+    visible: boolean | undefined;
 
-    relativeAlign: boolean;
+    relativeAlign: boolean | undefined;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -246,15 +317,23 @@ export class Menu implements OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {}
-
-    toggle(event) {
+    /**
+     * Toggles the visibility of the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    public toggle(event: Event) {
         if (this.visible) this.hide();
         else this.show(event);
 
         this.preventDocumentDefault = true;
     }
-
-    show(event) {
+    /**
+     * Displays the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    public show(event: any) {
         this.target = event.currentTarget;
         this.relativeAlign = event.relativeAlign;
         this.visible = true;
@@ -317,8 +396,11 @@ export class Menu implements OnDestroy {
             ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
         }
     }
-
-    hide() {
+    /**
+     * Hides the popup menu.
+     * @group Method
+     */
+    public hide() {
         this.visible = false;
         this.relativeAlign = false;
         this.cd.markForCheck();
@@ -352,7 +434,7 @@ export class Menu implements OnDestroy {
         }
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: Event) {
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
@@ -407,7 +489,7 @@ export class Menu implements OnDestroy {
             });
         }
 
-        this.scrollHandler.bindScrollListener();
+        this.scrollHandler?.bindScrollListener();
     }
 
     unbindScrollListener() {
@@ -458,6 +540,6 @@ export class Menu implements OnDestroy {
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
     exports: [Menu, RouterModule, TooltipModule],
-    declarations: [Menu, MenuItemContent]
+    declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
 export class MenuModule {}

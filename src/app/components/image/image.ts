@@ -1,11 +1,21 @@
-import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild, Inject } from '@angular/core';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { EyeIcon } from 'primeng/icons/eye';
+import { RefreshIcon } from 'primeng/icons/refresh';
+import { SearchMinusIcon } from 'primeng/icons/searchminus';
+import { SearchPlusIcon } from 'primeng/icons/searchplus';
+import { TimesIcon } from 'primeng/icons/times';
+import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
-
+import { Nullable } from 'primeng/ts-helpers';
+/**
+ * Displays an image with preview and tranformation options. For multiple image, see Galleria.
+ * @group Components
+ */
 @Component({
     selector: 'p-image',
     template: `
@@ -16,25 +26,30 @@ import { ZIndexUtils } from 'primeng/utils';
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
                 <ng-template #defaultTemplate>
-                    <i class="p-image-preview-icon pi pi-eye"></i>
+                    <EyeIcon [styleClass]="'p-image-preview-icon'" />
                 </ng-template>
             </div>
             <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" (click)="onMaskClick()">
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
                     <button class="p-image-action p-link" (click)="rotateRight()" type="button">
-                        <i class="pi pi-refresh"></i>
+                        <RefreshIcon *ngIf="!rotateRightIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateRightIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="rotateLeft()" type="button">
-                        <i class="pi pi-undo"></i>
+                        <UndoIcon *ngIf="!rotateLeftIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateLeftIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled">
-                        <i class="pi pi-search-minus"></i>
+                        <SearchMinusIcon *ngIf="!zoomOutIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomOutIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled">
-                        <i class="pi pi-search-plus"></i>
+                        <SearchPlusIcon *ngIf="!zoomInIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomInIconTemplate"></ng-template>
                     </button>
                     <button class="p-image-action p-link" type="button" (click)="closePreview()">
-                        <i class="pi pi-times"></i>
+                        <TimesIcon *ngIf="!closeIconTemplate" />
+                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
                 </div>
                 <div
@@ -62,41 +77,98 @@ import { ZIndexUtils } from 'primeng/utils';
     }
 })
 export class Image implements AfterContentInit {
-    @Input() imageClass: string;
-
-    @Input() imageStyle: any;
-
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() src: string | SafeUrl;
-
-    @Input() alt: string;
-
-    @Input() width: string;
-
-    @Input() height: string;
-
-    @Input() appendTo: any;
-
+    /**
+     * Style class of the image element.
+     * @group Props
+     */
+    @Input() imageClass: string | undefined;
+    /**
+     * Inline style of the image element.
+     * @group Props
+     */
+    @Input() imageStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Attribute of the image element.
+     * @group Props
+     */
+    @Input() src: string | SafeUrl | undefined;
+    /**
+     * Attribute of the image element.
+     * @group Props
+     */
+    @Input() alt: string | undefined;
+    /**
+     * Attribute of the image element.
+     * @group Props
+     */
+    @Input() width: string | undefined;
+    /**
+     * Attribute of the image element.
+     * @group Props
+     */
+    @Input() height: string | undefined;
+    /**
+     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Controls the preview functionality.
+     * @group Props
+     */
     @Input() preview: boolean = false;
-
+    /**
+     * Transition options of the show animation
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Triggered when the preview overlay is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Triggered when the preview overlay is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @ViewChild('mask') mask: ElementRef | undefined;
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    indicatorTemplate: TemplateRef<any> | undefined;
 
-    @ViewChild('mask') mask: ElementRef;
+    rotateRightIconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    rotateLeftIconTemplate: TemplateRef<any> | undefined;
 
-    indicatorTemplate: TemplateRef<any>;
+    zoomOutIconTemplate: TemplateRef<any> | undefined;
+
+    zoomInIconTemplate: TemplateRef<any> | undefined;
+
+    closeIconTemplate: TemplateRef<any> | undefined;
 
     maskVisible: boolean = false;
 
@@ -108,9 +180,9 @@ export class Image implements AfterContentInit {
 
     previewClick: boolean = false;
 
-    container: HTMLElement;
+    container: Nullable<HTMLElement>;
 
-    wrapper: HTMLElement;
+    wrapper: Nullable<HTMLElement>;
 
     public get isZoomOutDisabled(): boolean {
         return this.scale - this.zoomSettings.step <= this.zoomSettings.min;
@@ -130,10 +202,30 @@ export class Image implements AfterContentInit {
     constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'indicator':
                     this.indicatorTemplate = item.template;
+                    break;
+
+                case 'rotaterighticon':
+                    this.rotateRightIconTemplate = item.template;
+                    break;
+
+                case 'rotatelefticon':
+                    this.rotateLeftIconTemplate = item.template;
+                    break;
+
+                case 'zoomouticon':
+                    this.zoomOutIconTemplate = item.template;
+                    break;
+
+                case 'zoominicon':
+                    this.zoomInIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
                     break;
 
                 default:
@@ -186,7 +278,7 @@ export class Image implements AfterContentInit {
         switch (event.toState) {
             case 'visible':
                 this.container = event.element;
-                this.wrapper = this.container.parentElement;
+                this.wrapper = this.container?.parentElement;
                 this.appendContainer();
                 this.moveOnTop();
                 break;
@@ -219,7 +311,7 @@ export class Image implements AfterContentInit {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper);
+            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
             else DomHandler.appendChild(this.wrapper, this.appendTo);
         }
     }
@@ -245,13 +337,13 @@ export class Image implements AfterContentInit {
         this.scale = this.zoomSettings.default;
     }
 
-    imageError(event) {
+    imageError(event: Event) {
         this.onImageError.emit(event);
     }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon],
     exports: [Image, SharedModule],
     declarations: [Image]
 })

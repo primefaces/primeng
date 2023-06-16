@@ -16,10 +16,6 @@ export class DownloadDoc {
     @Input() title: string;
 
     code: Code = {
-        command: `# with npm
-npm install primeng primeicons
-
-# with yarn
-yarn add primeng primeicons`
+        command: `npm install primeng`
     };
 }

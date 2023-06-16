@@ -25,11 +25,17 @@ import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { RippleModule } from 'primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-
-export interface OrderListFilterOptions {
-    filter?: (value?: any) => void;
-    reset?: () => void;
-}
+import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { SearchIcon } from 'primeng/icons/search';
+import { Nullable } from 'primeng/ts-helpers';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
+/**
+ * OrderList is used to managed the order of a collection.
+ * @group Components
+ */
 @Component({
     selector: 'p-orderList',
     template: `
@@ -39,10 +45,22 @@ export interface OrderListFilterOptions {
             [class]="styleClass"
         >
             <div class="p-orderlist-controls">
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-up" (click)="moveUp()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-up" (click)="moveTop()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-down" (click)="moveDown()"></button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple icon="pi pi-angle-double-down" (click)="moveBottom()"></button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()">
+                    <AngleUpIcon *ngIf="!moveUpIconTemplate" />
+                    <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()">
+                    <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" />
+                    <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()">
+                    <AngleDownIcon *ngIf="!moveDownIconTemplate" />
+                    <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
+                </button>
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()">
+                    <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" />
+                    <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
+                </button>
             </div>
             <div class="p-orderlist-list-container">
                 <div class="p-orderlist-header" *ngIf="header || headerTemplate">
@@ -65,7 +83,10 @@ export interface OrderListFilterOptions {
                                 [attr.placeholder]="filterPlaceholder"
                                 [attr.aria-label]="ariaFilterLabel"
                             />
-                            <span class="p-orderlist-filter-icon pi pi-search"></span>
+                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'" />
+                            <span class="p-orderlist-filter-icon" *ngIf="filterIconTemplate">
+                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                            </span>
                         </div>
                     </ng-template>
                 </div>
@@ -109,93 +130,186 @@ export interface OrderListFilterOptions {
     }
 })
 export class OrderList implements AfterViewChecked, AfterContentInit {
-    @Input() header: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() listStyle: any;
-
-    @Input() responsive: boolean;
-
-    @Input() filterBy: string;
-
-    @Input() filterPlaceholder: string;
-
-    @Input() filterLocale: string;
-
+    /**
+     * Text for the caption.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the list element.
+     * @group Props
+     */
+    @Input() listStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * A boolean value that indicates whether the component should be responsive.
+     * @group Props
+     */
+    @Input() responsive: boolean | undefined;
+    /**
+     * When specified displays an input field to filter the items on keyup and decides which fields to search against.
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * Placeholder of the filter input.
+     * @group Props
+     */
+    @Input() filterPlaceholder: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
+     * @group Props
+     */
     @Input() metaKeySelection: boolean = true;
-
+    /**
+     * Whether to enable dragdrop based reordering.
+     * @group Props
+     */
     @Input() dragdrop: boolean = false;
-
-    @Input() controlsPosition: string = 'left';
-
-    @Input() ariaFilterLabel: string;
-
-    @Input() filterMatchMode: string = 'contains';
-
+    /**
+     * Defines the location of the buttons with respect to the list.
+     * @group Props
+     */
+    @Input() controlsPosition: 'left' | 'right' = 'left';
+    /**
+     * Defines a string that labels the filter input.
+     * @group Props
+     */
+    @Input() ariaFilterLabel: string | undefined;
+    /**
+     * Defines how the items are filtered.
+     * @group Props
+     */
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    /**
+     * Indicates the width of the screen at which the component should change its behavior.
+     * @group Props
+     */
     @Input() breakpoint: string = '960px';
-
-    @Input() stripedRows: boolean;
-
+    /**
+     * Whether to displays rows with alternating colors.
+     * @group Props
+     */
+    @Input() stripedRows: boolean | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
     @Input() disabled: boolean = false;
-
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
+     * @group Props
+     */
     @Input() trackBy: Function = (index: number, item: any) => item;
-
+    /**
+     * A list of values that are currently selected.
+     * @group Props
+     */
+    @Input() set selection(val: any[]) {
+        this._selection = val;
+    }
+    get selection(): any[] {
+        return this._selection;
+    }
+    /**
+     * Value of the component.
+     * @group Props
+     */
+    @Input() set value(val: any[] | undefined) {
+        this._value = val;
+        if (this.filterValue) {
+            this.filter();
+        }
+    }
+    get value(): any[] | undefined {
+        return this._value;
+    }
+    /**
+     * Callback to invoke on selection change.
+     * @param {*} any - selection instance.
+     * @group Emits
+     */
+    @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when list is reordered.
+     * @param {*} any - list instance.
+     * @group Emits
+     */
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke when selection changes.
+     * @param {OrderListSelectionChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>();
+    /**
+     * Callback to invoke when filtering occurs.
+     * @param {OrderListFilterEvent} event - Custom filter event.
+     * @group Emits
+     */
+    @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>();
 
-    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+    @ViewChild('listelement') listViewChild: Nullable<ElementRef>;
 
-    @Output() onFilterEvent: EventEmitter<any> = new EventEmitter();
+    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
-    @ViewChild('listelement') listViewChild: ElementRef;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    @ViewChild('filter') filterViewChild: ElementRef;
+    public itemTemplate: Nullable<TemplateRef<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    public headerTemplate: Nullable<TemplateRef<any>>;
 
-    public itemTemplate: TemplateRef<any>;
+    public emptyMessageTemplate: Nullable<TemplateRef<any>>;
 
-    public headerTemplate: TemplateRef<any>;
+    public emptyFilterMessageTemplate: Nullable<TemplateRef<any>>;
 
-    public emptyMessageTemplate: TemplateRef<any>;
+    public filterTemplate: Nullable<TemplateRef<any>>;
 
-    public emptyFilterMessageTemplate: TemplateRef<any>;
+    moveUpIconTemplate: Nullable<TemplateRef<any>>;
 
-    public filterTemplate: TemplateRef<any>;
+    moveTopIconTemplate: Nullable<TemplateRef<any>>;
 
-    filterOptions: OrderListFilterOptions;
+    moveDownIconTemplate: Nullable<TemplateRef<any>>;
+
+    moveBottomIconTemplate: Nullable<TemplateRef<any>>;
+
+    filterIconTemplate: Nullable<TemplateRef<any>>;
+
+    filterOptions: Nullable<OrderListFilterOptions>;
 
     _selection: any[] = [];
 
-    movedUp: boolean;
+    movedUp: Nullable<boolean>;
 
-    movedDown: boolean;
+    movedDown: Nullable<boolean>;
 
-    itemTouched: boolean;
+    itemTouched: Nullable<boolean>;
 
     styleElement: any;
 
     id: string = UniqueComponentId();
 
-    public filterValue: string;
+    public filterValue: Nullable<string>;
 
-    public visibleOptions: any[];
+    public visibleOptions: Nullable<any[]>;
 
-    public _value: any[];
+    public _value: any[] | undefined;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
-
-    get selection(): any[] {
-        return this._selection;
-    }
-
-    @Input() set selection(val: any[]) {
-        this._selection = val;
-    }
 
     ngOnInit() {
         if (this.responsive) {
@@ -211,7 +325,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -233,6 +347,26 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                     this.headerTemplate = item.template;
                     break;
 
+                case 'moveupicon':
+                    this.moveUpIconTemplate = item.template;
+                    break;
+
+                case 'movetopicon':
+                    this.moveTopIconTemplate = item.template;
+                    break;
+
+                case 'movedownicon':
+                    this.moveDownIconTemplate = item.template;
+                    break;
+
+                case 'movebottomicon':
+                    this.moveBottomIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
@@ -242,52 +376,41 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.listViewChild.nativeElement, 'li.p-highlight');
+            let listItems = DomHandler.find(this.listViewChild?.nativeElement, 'li.p-highlight');
             let listItem;
 
             if (listItems.length > 0) {
                 if (this.movedUp) listItem = listItems[0];
                 else listItem = listItems[listItems.length - 1];
 
-                DomHandler.scrollInView(this.listViewChild.nativeElement, listItem);
+                DomHandler.scrollInView(this.listViewChild?.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
         }
     }
 
-    get value(): any[] {
-        return this._value;
-    }
-
-    @Input() set value(val: any[]) {
-        this._value = val;
-        if (this.filterValue) {
-            this.filter();
-        }
-    }
-
-    onItemClick(event, item, index) {
+    onItemClick(event: Event, item: any, index: number) {
         this.itemTouched = false;
         let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
         let selected = selectedIndex != -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
-        if (metaSelection) {
+        if (metaSelection && event instanceof KeyboardEvent) {
             let metaKey = event.metaKey || event.ctrlKey || event.shiftKey;
 
             if (selected && metaKey) {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);
             } else {
                 this._selection = metaKey ? (this._selection ? [...this._selection] : []) : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
             }
         } else {
             if (selected) {
                 this._selection = this._selection.filter((val, index) => index !== selectedIndex);
             } else {
                 this._selection = this._selection ? [...this._selection] : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value);
+                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
             }
         }
 
@@ -298,30 +421,34 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         this.onSelectionChange.emit({ originalEvent: event, value: this._selection });
     }
 
-    onFilterKeyup(event) {
+    onFilterKeyup(event: KeyboardEvent) {
         this.filterValue = ((<HTMLInputElement>event.target).value.trim() as any).toLocaleLowerCase(this.filterLocale);
         this.filter();
 
         this.onFilterEvent.emit({
             originalEvent: event,
-            value: this.visibleOptions
+            value: this.visibleOptions as any[]
         });
     }
 
     filter() {
-        let searchFields: string[] = this.filterBy.split(',');
-        this.visibleOptions = this.filterService.filter(this.value, searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+        let searchFields: string[] = (this.filterBy as string).split(',');
+        this.visibleOptions = this.filterService.filter(this.value as any[], searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
     }
 
-    resetFilter() {
+    /**
+     * Callback to invoke on filter reset.
+     * @group Method
+     */
+    public resetFilter() {
         this.filterValue = null;
         this.filterViewChild && ((<HTMLInputElement>this.filterViewChild.nativeElement).value = '');
     }
 
-    isItemVisible(item: any): boolean {
+    isItemVisible(item: any): boolean | undefined {
         if (this.filterValue && this.filterValue.trim().length) {
-            for (let i = 0; i < this.visibleOptions.length; i++) {
-                if (item == this.visibleOptions[i]) {
+            for (let i = 0; i < (this.visibleOptions as any[]).length; i++) {
+                if (item == (this.visibleOptions as any[])[i]) {
                     return true;
                 }
             }
@@ -348,7 +475,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex - 1];
                     this.value[selectedItemIndex - 1] = movedItem;
@@ -371,7 +498,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != 0) {
+                if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
                     this.value.unshift(movedItem);
                 } else {
@@ -382,7 +509,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             if (this.dragdrop && this.filterValue) this.filter();
 
             this.onReorder.emit(this.selection);
-            this.listViewChild.nativeElement.scrollTop = 0;
+            (this.listViewChild as ElementRef).nativeElement.scrollTop = 0;
         }
     }
 
@@ -392,7 +519,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != this.value.length - 1) {
+                if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex + 1];
                     this.value[selectedItemIndex + 1] = movedItem;
@@ -415,7 +542,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
-                if (selectedItemIndex != this.value.length - 1) {
+                if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
                     this.value.push(movedItem);
                 } else {
@@ -426,7 +553,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             if (this.dragdrop && this.filterValue) this.filter();
 
             this.onReorder.emit(this.selection);
-            this.listViewChild.nativeElement.scrollTop = this.listViewChild.nativeElement.scrollHeight;
+            (this.listViewChild as ElementRef).nativeElement.scrollTop = this.listViewChild?.nativeElement.scrollHeight;
         }
     }
 
@@ -444,12 +571,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
             }
 
-            moveItemInArray(this.value, previousIndex, currentIndex);
+            moveItemInArray(this.value as any[], previousIndex, currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
 
-    onItemKeydown(event: KeyboardEvent, item, index: Number) {
+    onItemKeydown(event: KeyboardEvent, item: any, index: number) {
         let listItem = <HTMLLIElement>event.currentTarget;
 
         switch (event.which) {
@@ -481,14 +608,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return !DomHandler.hasClass(nextItem, 'p-orderlist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return !DomHandler.hasClass(prevItem, 'p-orderlist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;
@@ -551,7 +678,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon],
     exports: [OrderList, SharedModule, DragDropModule],
     declarations: [OrderList]
 })

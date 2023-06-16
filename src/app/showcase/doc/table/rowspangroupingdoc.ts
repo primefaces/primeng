@@ -61,7 +61,7 @@ export class RowspanGroupingDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -72,12 +72,12 @@ export class RowspanGroupingDoc implements OnInit {
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -86,7 +86,7 @@ export class RowspanGroupingDoc implements OnInit {
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -196,7 +196,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-rowspan-grouping-demo.html'
 })
 export class TableRowspanGroupingDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -206,12 +206,12 @@ export class TableRowspanGroupingDemo implements OnInit{
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -220,7 +220,7 @@ export class TableRowspanGroupingDemo implements OnInit{
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

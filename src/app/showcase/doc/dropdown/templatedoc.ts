@@ -34,9 +34,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [
@@ -96,9 +96,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './dropdown-template-demo.html'
 })
 export class DropdownTemplateDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [

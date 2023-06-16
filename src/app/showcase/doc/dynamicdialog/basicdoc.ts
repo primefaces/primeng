@@ -30,7 +30,7 @@ export class BasicDoc implements OnDestroy {
 
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
@@ -85,7 +85,7 @@ export class DynamicDialogBasicDemo implements OnDestroy {
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {

@@ -1,6 +1,9 @@
-import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+/**
+ * ProgressSpinner is a process status indicator.
+ * @group Components
+ */
 @Component({
     selector: 'p-progressSpinner',
     template: `
@@ -18,14 +21,30 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class ProgressSpinner {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Width of the circle stroke.
+     * @group Props
+     */
     @Input() strokeWidth: string = '2';
-
+    /**
+     * Color for the background of the circle.
+     * @group Props
+     */
     @Input() fill: string = 'none';
-
+    /**
+     * Duration of the rotate animation.
+     * @group Props
+     */
     @Input() animationDuration: string = '2s';
 }
 

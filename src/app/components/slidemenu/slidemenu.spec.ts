@@ -85,7 +85,7 @@ describe('SlideMenu', () => {
         fixture.detectChanges();
 
         slidemenu.cd.detectChanges();
-        const backwardSpanEl = fixture.debugElement.query(By.css('.p-slidemenu-backward')).queryAll(By.css('span'))[1];
+        const backwardSpanEl = fixture.debugElement.query(By.css('.p-slidemenu-backward')).children[1];
         expect(backwardSpanEl.nativeElement.textContent).toEqual('ALWAYS BET ON PRIME');
     });
 

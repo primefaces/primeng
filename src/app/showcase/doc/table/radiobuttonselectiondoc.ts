@@ -45,9 +45,9 @@ export class RadioButtonSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -117,9 +117,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-radio-button-selection-demo.html'
 })
 export class TableRadioButtonSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService) {}
 

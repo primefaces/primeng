@@ -4,9 +4,16 @@ import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate } from 'primeng/api';
 import { BlockableUI } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
+import { PlusIcon } from 'primeng/icons/plus';
+import { MinusIcon } from 'primeng/icons/minus';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
-
+/**
+ * Fieldset is a grouping component with the optional content toggle feature.
+ * @group Components
+ */
 @Component({
     selector: 'p-fieldset',
     template: `
@@ -14,7 +21,18 @@ let idx: number = 0;
             <legend class="p-fieldset-legend">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
-                        <span class="p-fieldset-toggler pi" *ngIf="toggleable" [ngClass]="{ 'pi-minus': !collapsed, 'pi-plus': collapsed }"></span>
+                        <ng-container *ngIf="collapsed">
+                            <PlusIcon [styleClass]="'p-fieldset-toggler'" *ngIf="!expandIconTemplate" />
+                            <span *ngIf="expandIconTemplate" class="p-fieldset-toggler">
+                                <ng-container *ngTemplateOutlet="expandIconTemplate"></ng-container>
+                            </span>
+                        </ng-container>
+                        <ng-container *ngIf="!collapsed">
+                            <MinusIcon [styleClass]="'p-fieldset-toggler'" *ngIf="!collapseIconTemplate" />
+                            <span *ngIf="collapseIconTemplate" class="p-fieldset-toggler">
+                                <ng-container *ngTemplateOutlet="collapseIconTemplate"></ng-container>
+                            </span>
+                        </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
                     </a>
                 </ng-container>
@@ -66,31 +84,67 @@ let idx: number = 0;
     }
 })
 export class Fieldset implements AfterContentInit, BlockableUI {
-    @Input() legend: string;
-
-    @Input() toggleable: boolean;
-
-    @Input() collapsed: boolean = false;
-
-    @Output() collapsedChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBeforeToggle: EventEmitter<any> = new EventEmitter();
-
-    @Output() onAfterToggle: EventEmitter<any> = new EventEmitter();
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Header text of the fieldset.
+     * @group Props
+     */
+    @Input() legend: string | undefined;
+    /**
+     * When specified, content can toggled by clicking the legend.
+     * @group Props
+     * @defaultValue false
+     */
+    @Input() toggleable: boolean | undefined;
+    /**
+     * Defines the default visibility state of the content.
+     * * @group Props
+     */
+    @Input() collapsed: boolean | undefined = false;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Transition options of the panel animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Emits when the collapsed state changes.
+     * @param {boolean} value - New value.
+     * @group Emits
+     */
+    @Output() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Callback to invoke before panel toggle.
+     * @param {PanelBeforeToggleEvent} event - Custom toggle event
+     * @group Emits
+     */
+    @Output() onBeforeToggle: EventEmitter<FieldsetBeforeToggleEvent> = new EventEmitter<FieldsetBeforeToggleEvent>();
+    /**
+     * Callback to invoke after panel toggle.
+     * @param {PanelAfterToggleEvent} event - Custom toggle event
+     * @group Emits
+     */
+    @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    public animating: boolean;
+    public animating: Nullable<boolean>;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
+
+    collapseIconTemplate: Nullable<TemplateRef<any>>;
+
+    expandIconTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private el: ElementRef) {}
 
@@ -103,6 +157,14 @@ export class Fieldset implements AfterContentInit, BlockableUI {
                     this.headerTemplate = item.template;
                     break;
 
+                case 'expandicon':
+                    this.expandIconTemplate = item.template;
+                    break;
+
+                case 'collapseicon':
+                    this.collapseIconTemplate = item.template;
+                    break;
+
                 case 'content':
                     this.contentTemplate = item.template;
                     break;
@@ -110,7 +172,7 @@ export class Fieldset implements AfterContentInit, BlockableUI {
         });
     }
 
-    toggle(event) {
+    toggle(event: MouseEvent) {
         if (this.animating) {
             return false;
         }
@@ -118,19 +180,19 @@ export class Fieldset implements AfterContentInit, BlockableUI {
         this.animating = true;
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
-        if (this.collapsed) this.expand(event);
-        else this.collapse(event);
+        if (this.collapsed) this.expand();
+        else this.collapse();
 
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
     }
 
-    expand(event) {
+    expand() {
         this.collapsed = false;
         this.collapsedChange.emit(this.collapsed);
     }
 
-    collapse(event) {
+    collapse() {
         this.collapsed = true;
         this.collapsedChange.emit(this.collapsed);
     }
@@ -145,7 +207,7 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
+    imports: [CommonModule, RippleModule, MinusIcon, PlusIcon],
     exports: [Fieldset, SharedModule],
     declarations: [Fieldset]
 })

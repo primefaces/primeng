@@ -32,11 +32,11 @@ export class MaskDoc {
 
     @Input() title: string;
 
-    value1: string;
+    value1: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
-    value3: string;
+    value3: string | undefined;
 
     code: Code = {
         basic: `
@@ -75,11 +75,11 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-mask-demo.html'
 })
 export class InputMaskMaskDemo {
-    value1: string;
+    value1: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
-    value3: string;
+    value3: string | undefined;
 }`
     };
 }

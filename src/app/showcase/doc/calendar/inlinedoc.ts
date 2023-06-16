@@ -18,7 +18,7 @@ export class InlineDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-inline-demo.html'
 })
 export class CalendarInlineDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

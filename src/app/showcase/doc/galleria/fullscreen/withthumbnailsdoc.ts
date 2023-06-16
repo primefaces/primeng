@@ -32,9 +32,9 @@ export class WithThumbnailsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -97,9 +97,9 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-full-screen-with-thumbnails-demo.html'
 })
 export class GalleriaFullScreenWithThumbnailsDemo implements OnInit {
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

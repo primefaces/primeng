@@ -32,7 +32,7 @@ export class HoverDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -92,7 +92,7 @@ import { PhotoService } from '../../service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaNavigatorHoverDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

@@ -26,7 +26,7 @@ export class BasicDoc {
 
     confirm(event: Event) {
         this.confirmationService.confirm({
-            target: event.target,
+            target: event.target as EventTarget,
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -65,7 +65,7 @@ export class ConfirmPopupBasicDemo {
     
     confirm(event: Event) {
         this.confirmationService.confirm({
-            target: event.target,
+            target: event.target as EventTarget,
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

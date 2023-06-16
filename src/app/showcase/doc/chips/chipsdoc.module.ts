@@ -8,7 +8,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CommaSeperatorDoc } from './commaseperator.doc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { RegexpSeperatorDoc } from './regexpseperator.doc';
 import { StyleDoc } from './styledoc';
@@ -17,6 +16,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, ChipsModule, FormsModule, ReactiveFormsModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, PropsDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class ChipsDocModule {}

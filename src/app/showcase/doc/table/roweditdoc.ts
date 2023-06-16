@@ -73,7 +73,7 @@ import { ProductService } from '../../service/productservice';
                                     <input pInputText type="text" [(ngModel)]="product.price" />
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ product.price | currency: 'USD' }}
+                                    {{ product.price | currency : 'USD' }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -100,9 +100,9 @@ export class RowEditDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    statuses: SelectItem[];
+    statuses!: SelectItem[];
 
     clonedProducts: { [s: string]: Product } = {};
 
@@ -122,12 +122,12 @@ export class RowEditDoc implements OnInit {
     }
 
     onRowEditInit(product: Product) {
-        this.clonedProducts[product.id] = { ...product };
+        this.clonedProducts[product.id as string] = { ...product };
     }
 
     onRowEditSave(product: Product) {
         if (product.price > 0) {
-            delete this.clonedProducts[product.id];
+            delete this.clonedProducts[product.id as string];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
         } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
@@ -135,8 +135,8 @@ export class RowEditDoc implements OnInit {
     }
 
     onRowEditCancel(product: Product, index: number) {
-        this.products[index] = this.clonedProducts[product.id];
-        delete this.clonedProducts[product.id];
+        this.products[index] = this.clonedProducts[product.id as string];
+        delete this.clonedProducts[product.id as string];
     }
 
     code: Code = {
@@ -283,9 +283,9 @@ import { ProductService } from '../../service/productservice';
 })
 export class TableRowEditDemo implements OnInit{
 
-    products: Product[];
+    products!: Product[];
 
-    statuses: SelectItem[];
+    statuses!: SelectItem[];
 
     clonedProducts: { [s: string]: Product } = {};
 
@@ -304,12 +304,12 @@ export class TableRowEditDemo implements OnInit{
     }
 
     onRowEditInit(product: Product) {
-        this.clonedProducts[product.id] = { ...product };
+        this.clonedProducts[product.id as string] = { ...product };
     }
 
     onRowEditSave(product: Product) {
         if (product.price > 0) {
-            delete this.clonedProducts[product.id];
+            delete this.clonedProducts[product.id as string];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
         } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
@@ -317,8 +317,8 @@ export class TableRowEditDemo implements OnInit{
     }
 
     onRowEditCancel(product: Product, index: number) {
-        this.products[index] = this.clonedProducts[product.id];
-        delete this.clonedProducts[product.id];
+        this.products[index] = this.clonedProducts[product.id as string];
+        delete this.clonedProducts[product.id as string];
     }
 }`,
         data: `{

@@ -5,9 +5,6 @@ import { ImportDoc } from '../../doc/splitter/importdoc';
 import { VerticalDoc } from '../../doc/splitter/verticaldoc';
 import { NestedDoc } from '../../doc/splitter/nesteddoc';
 import { StyleDoc } from '../../doc/splitter/styledoc';
-import { PropsDoc } from '../../doc/splitter/propsdoc';
-import { EventsDoc } from '../../doc/splitter/eventsdoc';
-import { TemplatesDoc } from '../../doc/splitter/templatesdoc';
 import { AccessibilityDoc } from '../../doc/splitter/accessibilitydoc';
 
 @Component({
@@ -49,24 +46,6 @@ export class SplitterDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

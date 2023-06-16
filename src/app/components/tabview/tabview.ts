@@ -1,35 +1,42 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
     AfterContentInit,
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
     ContentChildren,
+    ElementRef,
+    EmbeddedViewRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
     QueryList,
     TemplateRef,
-    EmbeddedViewRef,
-    ViewContainerRef,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
     ViewChild,
-    AfterViewChecked,
-    forwardRef,
-    Inject,
-    PLATFORM_ID
+    ViewContainerRef,
+    ViewEncapsulation,
+    forwardRef
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { TimesIcon } from 'primeng/icons/times';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
+import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
-
+/**
+ * TabPanel is a helper component for TabView component.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabPanel',
     template: `
@@ -45,74 +52,54 @@ let idx: number = 0;
     }
 })
 export class TabPanel implements AfterContentInit, OnDestroy {
-    @Input() closable: boolean;
-
-    @Input() headerStyle: any;
-
-    @Input() headerStyleClass: string;
-
-    @Input() cache: boolean = true;
-
-    @Input() tooltip: any;
-
-    @Input() tooltipPosition: string = 'top';
-
-    @Input() tooltipPositionStyle: string = 'absolute';
-
-    @Input() tooltipStyleClass: string;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    closed: boolean;
-
-    view: EmbeddedViewRef<any>;
-
-    _selected: boolean;
-
-    _disabled: boolean;
-
-    _header: string;
-
-    _leftIcon: string;
-
-    _rightIcon: string;
-
-    loaded: boolean;
-
-    id: string = `p-tabpanel-${idx++}`;
-
-    contentTemplate: TemplateRef<any>;
-
-    headerTemplate: TemplateRef<any>;
-
-    tabView: TabView;
-
-    constructor(@Inject(forwardRef(() => TabView)) tabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
-        this.tabView = tabView as TabView;
-    }
-
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
+    /**
+     * Defines if tab can be removed.
+     * @group Props
+     */
+    @Input() closable: boolean | undefined = false;
+    /**
+     * Inline style of the tab header.
+     * @group Props
+     */
+    @Input() headerStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the tab header.
+     * @group Props
+     */
+    @Input() headerStyleClass: string | undefined;
+    /**
+     * Whether a lazy loaded panel should avoid getting loaded again on reselection.
+     * @group Props
+     */
+    @Input() cache: boolean | undefined = true;
+    /**
+     * Advisory information to display in a tooltip on hover.
+     * @group Props
+     */
+    @Input() tooltip: string | undefined;
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | undefined = 'top';
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
+    @Input() tooltipPositionStyle: string | undefined = 'absolute';
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Defines if tab is active.
+     * @defaultValue false
+     * @group Props
+     */
     @Input() get selected(): boolean {
-        return this._selected;
+        return !!this._selected;
     }
-
     set selected(val: boolean) {
         this._selected = val;
 
@@ -122,20 +109,25 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
         if (val) this.loaded = true;
     }
-
+    /**
+     * When true, tab cannot be activated.
+     * @defaultValue false
+     * @group Props
+     */
     @Input() get disabled(): boolean {
-        return this._disabled;
+        return !!this._disabled;
     }
-
     set disabled(disabled: boolean) {
         this._disabled = disabled;
         this.tabView.cd.markForCheck();
     }
-
+    /**
+     * Title of the tabPanel.
+     * @group Props
+     */
     @Input() get header(): string {
         return this._header;
     }
-
     set header(header: string) {
         this._header = header;
 
@@ -146,37 +138,113 @@ export class TabPanel implements AfterContentInit, OnDestroy {
             this.tabView.cd.markForCheck();
         });
     }
-
+    /**
+     * Left icon of the tabPanel.
+     * @group Props
+     * @deprecated since v15.4.2, use `lefticon` template instead.
+     */
     @Input() get leftIcon(): string {
         return this._leftIcon;
     }
-
     set leftIcon(leftIcon: string) {
         this._leftIcon = leftIcon;
         this.tabView.cd.markForCheck();
     }
-
-    @Input() get rightIcon(): string {
+    /**
+     * Left icon of the tabPanel.
+     * @group Props
+     * @deprecated since v15.4.2, use `righticon` template instead.
+     */
+    @Input() get rightIcon(): string | undefined {
         return this._rightIcon;
     }
-
-    set rightIcon(rightIcon: string) {
+    set rightIcon(rightIcon: string | undefined) {
         this._rightIcon = rightIcon;
         this.tabView.cd.markForCheck();
+    }
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    closed: boolean = false;
+
+    view: EmbeddedViewRef<any> | null = null;
+
+    _selected: boolean | undefined;
+
+    _disabled: boolean | undefined;
+
+    _header!: string;
+
+    _leftIcon!: string;
+
+    _rightIcon: string | undefined = undefined;
+
+    loaded: boolean = false;
+
+    id: string = `p-tabpanel-${idx++}`;
+
+    contentTemplate: TemplateRef<any> | undefined;
+
+    headerTemplate: TemplateRef<any> | undefined;
+
+    leftIconTemplate: TemplateRef<any> | undefined;
+
+    rightIconTemplate: TemplateRef<any> | undefined;
+
+    closeIconTemplate: TemplateRef<any> | undefined;
+
+    tabView: TabView;
+
+    constructor(@Inject(forwardRef(() => TabView)) tabView: TabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
+        this.tabView = tabView as TabView;
+    }
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+
+                case 'righticon':
+                    this.rightIconTemplate = item.template;
+                    break;
+
+                case 'lefticon':
+                    this.leftIconTemplate = item.template;
+                    break;
+
+                case 'closeicon':
+                    this.closeIconTemplate = item.template;
+                    break;
+
+                default:
+                    this.contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     ngOnDestroy() {
         this.view = null;
     }
 }
-
+/**
+ * TabView is a container component to group content with tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabView',
     template: `
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabview-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" type="button" pRipple>
-                    <span class="pi pi-chevron-left"></span>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" />
+                    <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
                     <ul #navbar class="p-tabview-nav" role="tablist">
@@ -199,12 +267,22 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     [attr.tabindex]="tab.disabled ? null : '0'"
                                 >
                                     <ng-container *ngIf="!tab.headerTemplate">
-                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon"></span>
+                                        <span class="p-tabview-left-icon" [ngClass]="tab.leftIcon" *ngIf="tab.leftIcon && !tab.leftIconTemplate"></span>
+                                        <span *ngIf="tab.leftIconTemplate" class="p-tabview-left-icon">
+                                            <ng-template *ngTemplateOutlet="tab.leftIconTemplate"></ng-template>
+                                        </span>
                                         <span class="p-tabview-title">{{ tab.header }}</span>
-                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon"></span>
+                                        <span class="p-tabview-right-icon" [ngClass]="tab.rightIcon" *ngIf="tab.rightIcon && !tab.rightIconTemplate"></span>
+                                        <span *ngIf="tab.rightIconTemplate" class="p-tabview-right-icon">
+                                            <ng-template *ngTemplateOutlet="tab.rightIconTemplate"></ng-template>
+                                        </span>
                                     </ng-container>
                                     <ng-container *ngTemplateOutlet="tab.headerTemplate"></ng-container>
-                                    <span *ngIf="tab.closable" class="p-tabview-close pi pi-times" (click)="close($event, tab)"></span>
+                                    <ng-container *ngIf="tab.closable">
+                                        <TimesIcon *ngIf="!tab.closeIconTemplate" [styleClass]="'p-tabview-close'" (click)="close($event, tab)" />
+                                        <span class="tab.closeIconTemplate" *ngIf="p - tabview - close"></span>
+                                        <ng-template *ngTemplateOutlet="tab.closeIconTemplate"></ng-template>
+                                    </ng-container>
                                 </a>
                             </li>
                         </ng-template>
@@ -212,7 +290,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
-                    <span class="pi pi-chevron-right"></span>
+                    <ChevronRightIcon *ngIf="!nextIconTemplate" />
+                    <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
             <div class="p-tabview-panels">
@@ -228,43 +307,92 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
 })
 export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
-    @Input() orientation: string = 'top';
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether tab close is controlled at onClose event or not.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() controlClose: boolean | undefined;
+    /**
+     * When enabled displays buttons at each side of the tab headers to scroll the tab list.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() scrollable: boolean | undefined;
+    /**
+     * Index of the active tab to change selected tab programmatically.
+     * @group Props
+     */
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
+    }
+    set activeIndex(val: number) {
+        this._activeIndex = val;
+        if (this.preventActiveIndexPropagation) {
+            this.preventActiveIndexPropagation = false;
+            return;
+        }
 
-    @Input() style: any;
+        if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
+            (this.findSelectedTab() as TabPanel).selected = false;
+            this.tabs[this._activeIndex].selected = true;
+            this.tabChanged = true;
 
-    @Input() styleClass: string;
+            this.updateScrollBar(val);
+        }
+    }
+    /**
+     * Callback to invoke on tab change.
+     * @param {TabViewChangeEvent} event - Custom tab change event
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<TabViewChangeEvent> = new EventEmitter<TabViewChangeEvent>();
+    /**
+     * Callback to invoke on tab close.
+     * @param {TabViewCloseEvent} event - Custom tab close event
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<TabViewCloseEvent> = new EventEmitter<TabViewCloseEvent>();
+    /**
+     * Callback to invoke on the active tab change.
+     * @param {number} index - New active index
+     * @group Emits
+     */
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Input() controlClose: boolean;
+    @ViewChild('content') content?: ElementRef<HTMLDivElement>;
 
-    @Input() scrollable: boolean;
+    @ViewChild('navbar') navbar?: ElementRef<HTMLUListElement>;
 
-    @ViewChild('content') content: ElementRef;
+    @ViewChild('prevBtn') prevBtn?: ElementRef;
 
-    @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('nextBtn') nextBtn?: ElementRef;
 
-    @ViewChild('prevBtn') prevBtn: ElementRef;
+    @ViewChild('inkbar') inkbar?: ElementRef;
 
-    @ViewChild('nextBtn') nextBtn: ElementRef;
+    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel> | undefined;
 
-    @ViewChild('inkbar') inkbar: ElementRef;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
+    initialized: boolean | undefined;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    tabs!: TabPanel[];
 
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
+    _activeIndex!: number;
 
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
+    preventActiveIndexPropagation!: boolean;
 
-    initialized: boolean;
-
-    tabs: TabPanel[];
-
-    _activeIndex: number;
-
-    preventActiveIndexPropagation: boolean;
-
-    tabChanged: boolean;
+    tabChanged: boolean | undefined;
 
     backwardIsDisabled: boolean = true;
 
@@ -272,13 +400,29 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     private tabChangesSubscription!: Subscription;
 
+    nextIconTemplate: TemplateRef<any> | undefined;
+
+    previousIconTemplate: TemplateRef<any> | undefined;
+
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabChangesSubscription = this.tabPanels.changes.subscribe((_) => {
+        this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
+        });
+
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
+                    break;
+            }
         });
     }
 
@@ -298,8 +442,8 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     initTabs(): void {
-        this.tabs = this.tabPanels.toArray();
-        let selectedTab: TabPanel = this.findSelectedTab();
+        this.tabs = (this.tabPanels as QueryList<TabPanel>).toArray();
+        let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
         if (!selectedTab && this.tabs.length) {
             if (this.activeIndex != null && this.tabs.length > this.activeIndex) this.tabs[this.activeIndex].selected = true;
             else this.tabs[0].selected = true;
@@ -319,7 +463,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         if (!tab.selected) {
-            let selectedTab: TabPanel = this.findSelectedTab();
+            let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
             if (selectedTab) {
                 selectedTab.selected = false;
             }
@@ -355,8 +499,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 index: this.findTabIndex(tab)
             });
         }
-
-        event.stopPropagation();
     }
 
     closeTab(tab: TabPanel) {
@@ -378,7 +520,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         tab.closed = true;
     }
 
-    findSelectedTab() {
+    findSelectedTab(): TabPanel | null {
         for (let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i].selected) {
                 return this.tabs[i];
@@ -402,26 +544,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         return this.el.nativeElement.children[0];
     }
 
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
-
-    set activeIndex(val: number) {
-        this._activeIndex = val;
-        if (this.preventActiveIndexPropagation) {
-            this.preventActiveIndexPropagation = false;
-            return;
-        }
-
-        if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
-            this.findSelectedTab().selected = false;
-            this.tabs[this._activeIndex].selected = true;
-            this.tabChanged = true;
-
-            this.updateScrollBar(val);
-        }
-    }
-
     updateInkBar() {
         if (this.navbar) {
             const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
@@ -430,26 +552,26 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 return;
             }
 
-            this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
     }
 
-    updateScrollBar(index) {
-        let tabHeader = this.navbar.nativeElement.children[index];
+    updateScrollBar(index: number) {
+        let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
         tabHeader.scrollIntoView({ block: 'nearest' });
     }
 
     updateButtonState() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const { scrollLeft, scrollWidth } = content;
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
+        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
     }
 
-    onScroll(event) {
+    onScroll(event: Event) {
         this.scrollable && this.updateButtonState();
 
         event.preventDefault();
@@ -460,14 +582,14 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     navBackward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
@@ -477,7 +599,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
     exports: [TabView, TabPanel, SharedModule],
     declarations: [TabView, TabPanel]
 })

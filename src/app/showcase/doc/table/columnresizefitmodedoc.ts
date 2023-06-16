@@ -41,7 +41,7 @@ export class ColumnResizeFitModeDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-column-resize-fit-mode-demo.html'
 })
 export class TableColumnResizeFitModeDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/scroller/basicdoc';
 import { DelayDoc } from '../../doc/scroller/delaydoc';
-import { EventsDoc } from '../../doc/scroller/eventsdoc';
 import { HorizontalDoc } from '../../doc/scroller/horizontaldoc';
 import { GridDoc } from '../../doc/scroller/griddoc';
 import { ImportDoc } from '../../doc/scroller/importdoc';
 import { LazyLoadDoc } from '../../doc/scroller/lazyloaddoc';
 import { LoaderDoc } from '../../doc/scroller/loaderdoc';
-import { MethodsDoc } from '../../doc/scroller/methodsdoc';
-import { PropsDoc } from '../../doc/scroller/propsdoc';
 import { ScrollOptionsDoc } from '../../doc/scroller/scrolloptionsdoc';
 import { StyleDoc } from '../../doc/scroller/styledoc';
 import { TemplateDoc } from '../../doc/scroller/templatedoc';
-import { TemplatesDoc } from '../../doc/scroller/templatesdoc';
 import { ProgrammaticDoc } from '../../doc/scroller/programmaticdoc';
 import { AccessibilityDoc } from '../../doc/scroller/accessibilitydoc';
 
@@ -81,29 +77,6 @@ export class ScrollerDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

@@ -1,11 +1,17 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
+import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
 
 let idx: number = 0;
-
+/**
+ * AccordionTab is a helper component for Accordion.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordionTab',
     template: `
@@ -23,7 +29,17 @@ let idx: number = 0;
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
                 >
-                    <span [class]="iconClass" [ngClass]="selected ? accordion.collapseIcon : accordion.expandIcon"></span>
+                    <ng-container *ngIf="!iconTemplate">
+                        <ng-container *ngIf="selected">
+                            <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass"></span>
+                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" />
+                        </ng-container>
+                        <ng-container *ngIf="!selected">
+                            <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass"></span>
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" />
+                        </ng-container>
+                    </ng-container>
+                    <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
                     <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
                         {{ header }}
                     </span>
@@ -74,41 +90,83 @@ let idx: number = 0;
     }
 })
 export class AccordionTab implements AfterContentInit, OnDestroy {
-    @Input() header: string;
-
-    @Input() headerStyle: any;
-
-    @Input() tabStyle: any;
-
-    @Input() contentStyle: any;
-
-    @Input() tabStyleClass: string;
-
-    @Input() headerStyleClass: string;
-
-    @Input() contentStyleClass: string;
-
-    @Input() disabled: boolean;
-
+    /**
+     * Used to define the header of the tab.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Inline style of the tab header.
+     * @group Props
+     */
+    @Input() headerStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the tab.
+     * @group Props
+     */
+    @Input() tabStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the tab content.
+     * @group Props
+     */
+    @Input() contentStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the tab.
+     * @group Props
+     */
+    @Input() tabStyleClass: string | undefined;
+    /**
+     * Style class of the tab header.
+     * @group Props
+     */
+    @Input() headerStyleClass: string | undefined;
+    /**
+     * Style class of the tab content.
+     * @group Props
+     */
+    @Input() contentStyleClass: string | undefined;
+    /**
+     * Whether the tab is disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Whether a lazy loaded panel should avoid getting loaded again on reselection.
+     * @group Props
+     */
     @Input() cache: boolean = true;
-
-    @Output() selectedChange: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: 'end' | 'start' = 'start';
+    /**
+     * Event triggered by changing the choice.
+     * @param {boolean} value - Boolean value indicates that the option is changed.
+     * @group Emits
+     */
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Input() iconPos: string = 'start';
+    @ContentChildren(Header) headerFacet!: QueryList<Header>;
 
-    @ContentChildren(Header) headerFacet: QueryList<Header>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    private _selected: boolean = false;
 
-    private _selected: boolean;
-
-    @Input() get selected(): any {
+    /**
+     * The value that returns the selection.
+     * @group Props
+     */
+    @Input() get selected(): boolean {
         return this._selected;
     }
 
-    set selected(val: any) {
+    set selected(val: boolean) {
         this._selected = val;
 
         if (!this.loaded) {
@@ -128,17 +186,19 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         }
     }
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
+
+    iconTemplate: TemplateRef<any> | undefined;
 
     id: string = `p-accordiontab-${idx++}`;
 
-    loaded: boolean;
+    loaded: boolean = false;
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion, public changeDetector: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
     }
 
@@ -153,6 +213,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
                     this.headerTemplate = item.template;
                     break;
 
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+
                 default:
                     this.contentTemplate = item.template;
                     break;
@@ -160,7 +224,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    toggle(event) {
+    toggle(event: MouseEvent | KeyboardEvent) {
         if (this.disabled) {
             return false;
         }
@@ -205,7 +269,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     get hasHeaderFacet(): boolean {
-        return this.headerFacet && this.headerFacet.length > 0;
+        return (this.headerFacet as QueryList<Header>) && (this.headerFacet as QueryList<Header>).length > 0;
     }
 
     onKeydown(event: KeyboardEvent) {
@@ -220,6 +284,10 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 }
 
+/**
+ * Accordion groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-accordion',
     template: `
@@ -233,57 +301,39 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 })
 export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
-    @Input() multiple: boolean;
-
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
-
-    @Output() onOpen: EventEmitter<any> = new EventEmitter();
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() expandIcon: string = 'pi pi-fw pi-chevron-right';
-
-    @Input() collapseIcon: string = 'pi pi-fw pi-chevron-down';
-
-    @Output() activeIndexChange: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab>;
-
-    tabListSubscription: Subscription;
-
-    private _activeIndex: any;
-
-    preventActiveIndexPropagation: boolean;
-
-    public tabs: AccordionTab[] = [];
-
-    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
-
-    ngAfterContentInit() {
-        this.initTabs();
-
-        this.tabListSubscription = this.tabList.changes.subscribe((_) => {
-            this.initTabs();
-        });
-    }
-
-    initTabs(): any {
-        this.tabs = this.tabList.toArray();
-        this.updateSelectionState();
-        this.changeDetector.markForCheck();
-    }
-
-    getBlockableElement(): HTMLElement {
-        return this.el.nativeElement.children[0];
-    }
-
-    @Input() get activeIndex(): any {
+    /**
+     * When enabled, multiple tabs can be activated at the same time.
+     * @group Props
+     */
+    @Input() multiple: boolean = false;
+    /**
+     * Inline style of the tab header and content.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Icon of a collapsed tab.
+     * @group Props
+     */
+    @Input() expandIcon: string | undefined;
+    /**
+     * Icon of an expanded tab.
+     * @group Props
+     */
+    @Input() collapseIcon: string | undefined;
+    /**
+     * Index of the active tab or an array of indexes in multiple mode.
+     * @group Props
+     */
+    @Input() get activeIndex(): number | number[] | null | undefined {
         return this._activeIndex;
     }
-
-    set activeIndex(val: any) {
+    set activeIndex(val: number | number[] | null | undefined) {
         this._activeIndex = val;
         if (this.preventActiveIndexPropagation) {
             this.preventActiveIndexPropagation = false;
@@ -292,11 +342,59 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
         this.updateSelectionState();
     }
+    /**
+     * Callback to invoke when an active tab is collapsed by clicking on the header.
+     * @param {AccordionTabCloseEvent} event - Custom tab close event.
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<AccordionTabCloseEvent> = new EventEmitter();
+    /**
+     * Callback to invoke when a tab gets expanded.
+     * @param {AccordionTabOpenEvent} event - Custom tab open event.
+     * @group Emits
+     */
+    @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
+    /**
+     * Returns the active index.
+     * @param {number | number[]} value - New index.
+     * @group Emits
+     */
+    @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
+
+    @ContentChildren(AccordionTab) tabList: QueryList<AccordionTab> | undefined;
+
+    tabListSubscription: Subscription | null = null;
+
+    private _activeIndex: number | number[] | null | undefined;
+
+    preventActiveIndexPropagation: boolean = false;
+
+    public tabs: AccordionTab[] = [];
+
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.initTabs();
+
+        this.tabListSubscription = (this.tabList as QueryList<AccordionTab>).changes.subscribe((_) => {
+            this.initTabs();
+        });
+    }
+
+    initTabs() {
+        this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
+        this.updateSelectionState();
+        this.changeDetector.markForCheck();
+    }
+
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
+    }
 
     updateSelectionState() {
         if (this.tabs && this.tabs.length && this._activeIndex != null) {
             for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                let selected = this.multiple ? (this._activeIndex as number[]).includes(i) : i === this._activeIndex;
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
@@ -309,11 +407,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     updateActiveIndex() {
-        let index: any = this.multiple ? [] : null;
+        let index: number | number[] | null = this.multiple ? [] : null;
         this.tabs.forEach((tab, i) => {
             if (tab.selected) {
                 if (this.multiple) {
-                    index.push(i);
+                    (index as number[]).push(i);
                 } else {
                     index = i;
                     return;
@@ -322,7 +420,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         });
 
         this.preventActiveIndexPropagation = true;
-        this.activeIndexChange.emit(index);
+        this.activeIndexChange.emit(index as number[] | number);
     }
 
     ngOnDestroy() {
@@ -333,7 +431,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
     exports: [Accordion, AccordionTab, SharedModule],
     declarations: [Accordion, AccordionTab]
 })

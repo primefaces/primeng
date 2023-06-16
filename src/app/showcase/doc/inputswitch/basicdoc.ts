@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    checked: boolean;
+    checked: boolean = false;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-switch-basic-demo.html'
 })
 export class InputSwitchBasicDemo {
-    checked: boolean;
+    checked: boolean = false;
 }`
     };
 }

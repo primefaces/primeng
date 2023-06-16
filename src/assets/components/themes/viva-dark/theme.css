@@ -52,28 +52,32 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 300;
-  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-300.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-300.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-300.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-300.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* poppins-regular - latin-ext_latin */
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-regular.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-regular.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-regular.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* poppins-600 - latin-ext_latin */
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-600.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-600.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-600.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-600.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 /* poppins-700 - latin-ext_latin */
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-700.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local(""), url("./fonts/poppins-v15-latin-ext_latin-700.woff2") format("woff2"), url("./fonts/poppins-v15-latin-ext_latin-700.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 * {
   box-sizing: border-box;
@@ -104,6 +108,11 @@
 
 .pi {
   font-size: 1rem;
+}
+
+.p-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .p-link {
@@ -663,6 +672,10 @@ p-calendar.p-calendar-clearable.p-calendar-w-btn .p-calendar-clear-icon {
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-group-icon {
   font-size: 0.875rem;
 }
+.p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 
 p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
   border-color: #f78c79;
@@ -712,6 +725,10 @@ p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-clear-icon {
   transition-duration: 0.3s;
   color: #121212;
   font-size: 14px;
+}
+.p-checkbox .p-checkbox-box .p-icon {
+  width: 14px;
+  height: 14px;
 }
 .p-checkbox .p-checkbox-box.p-highlight {
   border-color: #9eade6;
@@ -1221,6 +1238,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   color: #f78c79;
 }
 
+.p-input-icon-left > .p-icon-wrapper.p-icon,
 .p-input-icon-left > i:first-of-type {
   left: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
@@ -1234,6 +1252,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   left: 2.5rem;
 }
 
+.p-input-icon-right > .p-icon-wrapper,
 .p-input-icon-right > i:last-of-type {
   right: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
@@ -1370,12 +1389,14 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect .p-multiselect-label.p-placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
+.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  gap: 0.5rem;
+}
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.25rem 0.75rem;
   background: rgba(158, 173, 230, 0.16);
   color: #9eade6;
   border-radius: 6px;
-  margin-right: 0.5rem;
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   margin-left: 0.5rem;
@@ -1602,11 +1623,18 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
   margin-left: 0.5rem;
 }
 
+.p-rating {
+  gap: 0.5rem;
+}
 .p-rating .p-rating-icon {
   color: rgba(255, 255, 255, 0.87);
   margin-left: 0.5rem;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
   font-size: 1.143rem;
+}
+.p-rating .p-rating-icon.p-icon {
+  width: 1.143rem;
+  height: 1.143rem;
 }
 .p-rating .p-rating-icon.p-rating-cancel {
   color: #dF7E6C;
@@ -1619,7 +1647,7 @@ p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
 .p-rating .p-rating-icon:first-child {
   margin-left: 0;
 }
-.p-rating .p-rating-icon.pi-star-fill {
+.p-rating .p-rating-icon.p-rating-icon-active {
   color: #9eade6;
 }
 .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon:hover {
@@ -2364,6 +2392,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-speeddial-button.p-button.p-button-icon-only .p-button-icon {
   font-size: 1.3rem;
+}
+.p-speeddial-button.p-button.p-button-icon-only .p-icon {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 .p-speeddial-action {
@@ -3818,6 +3850,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-tree .p-tree-loading-icon {
   font-size: 2rem;
 }
+.p-tree .p-tree-loading-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-tree .p-treenode-droppoint.p-treenode-droppoint-active {
   background-color: rgba(96, 121, 214, 0.16);
 }
@@ -3964,6 +4000,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline-offset: 0;
   box-shadow: 0 0 0 1px #9eade6;
 }
+.p-treetable .p-treetable-tbody > tr > td .p-treetable-toggler.p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox {
   margin-right: 0.5rem;
 }
@@ -4000,6 +4040,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-treetable .p-treetable-loading-icon {
   font-size: 2rem;
+}
+.p-treetable .p-treetable-loading-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-treetable.p-treetable-gridlines .p-datatable-header {
   border-width: 1px 1px 0 1px;
@@ -4444,6 +4488,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-confirm-popup .p-confirm-popup-icon {
   font-size: 1.5rem;
 }
+.p-confirm-popup .p-confirm-popup-icon.p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .p-confirm-popup .p-confirm-popup-message {
   margin-left: 1rem;
 }
@@ -4512,6 +4560,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
   font-size: 2rem;
+}
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon.p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
   margin-left: 1rem;
@@ -4769,6 +4821,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-contextmenu .p-submenu-icon {
   font-size: 0.875rem;
+}
+.p-contextmenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
 }
 .p-contextmenu .p-menuitem-badge {
   background: #9eade6;
@@ -5184,6 +5240,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-menubar .p-submenu-list .p-submenu-icon {
   font-size: 0.875rem;
 }
+.p-menubar .p-submenu-list .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .p-menubar .p-submenu-list .p-menuitem {
   margin: 0 0 4px 0;
 }
@@ -5537,6 +5597,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-icon {
   font-size: 0.875rem;
 }
+.p-slidemenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.75rem 1rem;
   color: rgba(255, 255, 255, 0.87);
@@ -5746,6 +5810,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-tieredmenu .p-submenu-icon {
   font-size: 0.875rem;
 }
+.p-tieredmenu .p-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
 .p-tieredmenu .p-menuitem-badge {
   background: #9eade6;
   color: #121212;
@@ -5804,6 +5872,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-inline-message .p-inline-message-icon {
   font-size: 1rem;
   margin-right: 0.5rem;
+}
+.p-inline-message .p-icon {
+  width: 1rem;
+  height: 1rem;
 }
 .p-inline-message .p-inline-message-text {
   font-size: 1rem;
@@ -5890,6 +5962,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
 }
+.p-message .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .p-message .p-message-summary {
   font-weight: 700;
 }
@@ -5914,6 +5990,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
   font-size: 2rem;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
+  width: 2rem;
+  height: 2rem;
 }
 .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
   font-weight: 600;
@@ -5989,6 +6069,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-close .p-galleria-close-icon {
   font-size: 2rem;
 }
+.p-galleria .p-galleria-close .p-icon-wrapper .p-icon {
+  width: 2rem;
+  height: 2rem;
+}
 .p-galleria .p-galleria-close:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #f8f9fa;
@@ -6005,6 +6089,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-galleria .p-galleria-item-nav .p-galleria-item-prev-icon,
 .p-galleria .p-galleria-item-nav .p-galleria-item-next-icon {
   font-size: 2rem;
+}
+.p-galleria .p-galleria-item-nav .p-icon-wrapper .p-icon {
+  width: 2rem;
+  height: 2rem;
 }
 .p-galleria .p-galleria-item-nav:not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.1);
@@ -6070,11 +6158,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: rgba(255, 255, 255, 0.1);
   color: #f8f9fa;
 }
-.p-galleria .p-galleria-thumbnail-container .p-galleria-thumbnail-item-content:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: 0 0 0 1px #9eade6;
-}
 
 .p-galleria-mask {
   --maskbg: rgba(0, 0, 0, 0.9);
@@ -6116,6 +6199,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-image-action.p-link i {
   font-size: 1.5rem;
+}
+.p-image-action.p-link .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .p-avatar {
@@ -6266,6 +6353,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   font-size: 1.5rem;
   color: #9eade6;
 }
+.p-scrolltop .p-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 
 .p-skeleton {
   background-color: rgba(255, 255, 255, 0.06);
@@ -6302,6 +6393,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-tag .p-tag-icon {
   margin-right: 0.25rem;
   font-size: 0.75rem;
+}
+.p-tag .p-icon {
+  width: 0.75rem;
+  height: 0.75rem;
 }
 
 .p-terminal {

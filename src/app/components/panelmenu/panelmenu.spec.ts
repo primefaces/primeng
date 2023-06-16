@@ -241,12 +241,12 @@ describe('PanelMenu', () => {
         headerLinks[0].nativeElement.click();
         fixture.detectChanges();
 
-        const iconSpanEl = fixture.debugElement.query(By.css('.p-panelmenu-icon'));
+        const iconEl = fixture.debugElement.query(By.css('.p-panelmenu-icon'));
         const firstSubMenuComponent = fixture.debugElement.query(By.css('.p-panelmenu-root-submenu')).componentInstance as PanelMenuSub;
         expect(handleClickSpy).toHaveBeenCalled();
         expect(panelmenu.animating).toEqual(true);
         expect(panelmenu.model[0].expanded).toEqual(true);
-        expect(iconSpanEl.nativeElement.className).toContain('pi-chevron-down');
+        expect(iconEl.nativeElement.tagName.toLowerCase()).toContain('svg');
         expect(firstSubMenuComponent.expanded).toEqual(true);
     });
 

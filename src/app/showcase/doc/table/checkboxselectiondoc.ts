@@ -47,9 +47,9 @@ export class CheckboxSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -123,9 +123,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-checkbox-selection-demo.html'
 })
 export class TableCheckboxSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService) {}
 

@@ -20,6 +20,9 @@ import { CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { EditorInitEvent, EditorTextChangeEvent, EditorSelectionChangeEvent } from './editor.interface';
+import { Nullable } from 'primeng/ts-helpers';
+//@ts-ignore
 import Quill from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
@@ -27,7 +30,10 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Editor),
     multi: true
 };
-
+/**
+ * Editor groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-editor',
     template: `
@@ -89,37 +95,89 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     }
 })
 export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit, ControlValueAccessor {
-    @Output() onTextChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Inline style of the container.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the container.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Placeholder text to show when editor is empty.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * Whitelist of formats to display, see here for available options.
+     * @group Props
+     */
+    @Input() formats: string[] | undefined;
+    /**
+     * Modules configuration of Editor, see here for available options.
+     * @group Props
+     */
+    @Input() modules: object | undefined;
+    /**
+     * DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
+     * @group Props
+     */
+    @Input() bounds: HTMLElement | string | undefined;
+    /**
+     * DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling..
+     * @group Props
+     */
+    @Input() scrollingContainer: HTMLElement | string | undefined;
+    /**
+     * Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default.
+     * @group Props
+     */
+    @Input() debug: string | undefined;
+    /**
+     * Whether to instantiate the editor to read-only mode.
+     * @group Props
+     */
+    @Input() get readonly(): boolean {
+        return this._readonly;
+    }
+    set readonly(val: boolean) {
+        this._readonly = val;
 
-    @Output() onSelectionChange: EventEmitter<any> = new EventEmitter();
+        if (this.quill) {
+            if (this._readonly) this.quill.disable();
+            else this.quill.enable();
+        }
+    }
+    /**
+     * Callback to invoke when the quill modules are loaded.
+     * @param {EditorInitEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onInit: EventEmitter<EditorInitEvent> = new EventEmitter<EditorInitEvent>();
+    /**
+     * Callback to invoke when text of editor changes.
+     * @param {EditorTextChangeEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onTextChange: EventEmitter<EditorTextChangeEvent> = new EventEmitter<EditorTextChangeEvent>();
+    /**
+     * Callback to invoke when selection of the text changes.
+     * @param {EditorSelectionChangeEvent} event - custom event.
+     * @group Emits
+     */
+    @Output() onSelectionChange: EventEmitter<EditorSelectionChangeEvent> = new EventEmitter<EditorSelectionChangeEvent>();
 
-    @ContentChild(Header) toolbar;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Input() style: any;
+    @ContentChild(Header) toolbar: any;
 
-    @Input() styleClass: string;
-
-    @Input() placeholder: string;
-
-    @Input() formats: string[];
-
-    @Input() modules: any;
-
-    @Input() bounds: any;
-
-    @Input() scrollingContainer: any;
-
-    @Input() debug: string;
-
-    @Output() onInit: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    value: string;
+    value: Nullable<string>;
 
     delayedCommand: Function | null = null;
 
-    _readonly: boolean;
+    _readonly: boolean = false;
 
     onModelChange: Function = () => {};
 
@@ -127,13 +185,13 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     quill: any;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    private get isAttachedQuillEditorToDOM(): boolean {
+    private get isAttachedQuillEditorToDOM(): boolean | undefined {
         return this.quillElements?.editorElement?.isConnected;
     }
 
-    private quillElements: { editorElement: HTMLElement; toolbarElement: HTMLElement } | null = null;
+    private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
     constructor(public el: ElementRef) {}
 
@@ -211,19 +269,6 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
         return this.quill;
     }
 
-    @Input() get readonly(): boolean {
-        return this._readonly;
-    }
-
-    set readonly(val: boolean) {
-        this._readonly = val;
-
-        if (this.quill) {
-            if (this._readonly) this.quill.disable();
-            else this.quill.enable();
-        }
-    }
-
     private initQuillEditor(): void {
         this.initQuillElements();
 
@@ -245,7 +290,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
             this.quill.setContents(this.quill.clipboard.convert(this.value));
         }
 
-        this.quill.on('text-change', (delta, oldContents, source) => {
+        this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
                 let html = DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
@@ -265,7 +310,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
             }
         });
 
-        this.quill.on('selection-change', (range, oldRange, source) => {
+        this.quill.on('selection-change', (range: string, oldRange: string, source: string) => {
             this.onSelectionChange.emit({
                 range: range,
                 oldRange: oldRange,

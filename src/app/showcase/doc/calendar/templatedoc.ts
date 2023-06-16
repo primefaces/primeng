@@ -21,7 +21,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-template-demo.html'
 })
 export class CalendarTemplateDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

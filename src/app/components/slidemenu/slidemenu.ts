@@ -1,11 +1,37 @@
-import { NgModule, Component, ElementRef, AfterViewChecked, OnDestroy, Input, Renderer2, Inject, forwardRef, ViewChild, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID } from '@angular/core';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    ViewRef,
+    forwardRef
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { CaretLeftIcon } from 'primeng/icons/caretleft';
+import { CaretRightIcon } from 'primeng/icons/caretright';
 import { TooltipModule } from 'primeng/tooltip';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -19,7 +45,7 @@ import { TooltipModule } from 'primeng/tooltip';
             [style.transitionDuration]="effectDuration + 'ms'"
             [style.transitionTimingFunction]="easing"
         >
-            <ng-template ngFor let-child [ngForOf]="root ? item : item.items">
+            <ng-template ngFor let-child [ngForOf]="root ? item : item?.items">
                 <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }"></li>
                 <li
                     *ngIf="!child.separator"
@@ -46,7 +72,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-fw pi-angle-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
+                            <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <a
                         *ngIf="child.routerLink"
@@ -74,7 +103,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                         <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <span class="p-submenu-icon pi pi-fw pi-caret-right" *ngIf="child.items"></span>
+                        <ng-container *ngIf="child.items">
+                            <CaretRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
+                            <ng-template *ngTemplateOutlet="slideMenu.submenuIconTemplate"></ng-template>
+                        </ng-container>
                     </a>
                     <p-slideMenuSub class="p-submenu" [item]="child" [index]="index + 1" [menuWidth]="menuWidth" *ngIf="child.items"></p-slideMenuSub>
                 </li>
@@ -87,32 +119,32 @@ import { TooltipModule } from 'primeng/tooltip';
     }
 })
 export class SlideMenuSub implements OnDestroy {
-    @Input() item: MenuItem;
+    @Input() item: MenuItem | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
     @Input() backLabel: string = 'Back';
 
-    @Input() menuWidth: number;
+    @Input() menuWidth: number | undefined;
 
     @Input() effectDuration: any;
 
     @Input() easing: string = 'ease-out';
 
-    @Input() index: number;
+    @Input() index: number | undefined;
 
-    @ViewChild('sublist') sublistViewChild: ElementRef;
+    @ViewChild('sublist') sublistViewChild: ElementRef | undefined;
 
     slideMenu: SlideMenu;
 
-    transitionEndListener: VoidFunction | null;
+    transitionEndListener: VoidListener;
 
-    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2) {
+    constructor(@Inject(forwardRef(() => SlideMenu)) slideMenu: SlideMenu, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2) {
         this.slideMenu = slideMenu as SlideMenu;
     }
     activeItem: any;
 
-    itemClick(event, item: MenuItem, listitem: any) {
+    itemClick(event: MouseEvent, item: MenuItem, listitem: any) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -142,7 +174,7 @@ export class SlideMenuSub implements OnDestroy {
         }
     }
 
-    focusNextList(listitem) {
+    focusNextList(listitem: HTMLElement) {
         if (!this.slideMenu.animating) {
             let focusableElements = DomHandler.getFocusableElements(listitem);
 
@@ -154,15 +186,15 @@ export class SlideMenuSub implements OnDestroy {
         }
     }
 
-    onItemKeyDown(event) {
-        let listItem = event.currentTarget.parentElement;
+    onItemKeyDown(event: KeyboardEvent) {
+        let listItem = (event.target as HTMLElement).parentElement;
 
         switch (event.code) {
             case 'Space':
             case 'Enter':
                 if (listItem && !DomHandler.hasClass(listItem, 'p-disabled')) {
-                    listItem.children[0].click();
-                    this.transitionEndListener = this.renderer.listen(this.sublistViewChild.nativeElement, 'transitionend', this.focusNextList.bind(this, listItem));
+                    (listItem.children[0] as HTMLElement).click();
+                    this.transitionEndListener = this.renderer.listen(this.sublistViewChild?.nativeElement, 'transitionend', this.focusNextList.bind(this, listItem));
                 }
 
                 event.preventDefault();
@@ -186,10 +218,13 @@ export class SlideMenuSub implements OnDestroy {
     }
 
     get isActive() {
-        return -this.slideMenu.left == this.index * this.menuWidth;
+        return -this.slideMenu.left == (this.index as number) * (this.menuWidth as number);
     }
 }
-
+/**
+ * SlideMenu displays submenus with slide animation.
+ * @group Components
+ */
 @Component({
     selector: 'p-slideMenu',
     template: `
@@ -210,7 +245,9 @@ export class SlideMenuSub implements OnDestroy {
                     <p-slideMenuSub [item]="model" root="root" [index]="0" [menuWidth]="menuWidth" [effectDuration]="effectDuration" [easing]="easing"></p-slideMenuSub>
                 </div>
                 <a #backward (keydown.enter)="onBackwardKeydown($event)" (keydown.space)="onBackwardKeydown($event)" class="p-slidemenu-backward p-menuitem-link" tabindex="0" [style.display]="left ? 'block' : 'none'" (click)="goBack()">
-                    <span class="p-slidemenu-backward-icon pi pi-fw pi-caret-left"></span><span>{{ backLabel }}</span>
+                    <CaretLeftIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'" />
+                    <ng-template *ngTemplateOutlet="backIconTemplate"></ng-template>
+                    <span>{{ backLabel }}</span>
                 </a>
             </div>
         </div>
@@ -223,52 +260,103 @@ export class SlideMenuSub implements OnDestroy {
         class: 'p-element'
     }
 })
-export class SlideMenu implements AfterViewChecked, OnDestroy {
-    @Input() model: MenuItem[];
-
-    @Input() popup: boolean;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+export class SlideMenu implements AfterViewChecked, AfterContentInit, OnDestroy {
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Defines if menu would displayed as a popup.
+     * @group Props
+     */
+    @Input() popup: boolean | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Width of the submenus.
+     * @group Props
+     */
     @Input() menuWidth: number = 190;
-
+    /**
+     * Height of the scrollable area, a scrollbar appears if a menu height is longer than this value.
+     * @group Props
+     */
     @Input() viewportHeight: number = 180;
-
+    /**
+     * Duration of the sliding animation in milliseconds.
+     * @group Props
+     */
     @Input() effectDuration: any = 250;
-
+    /**
+     * Easing animation to use for sliding.
+     * @group Props
+     */
     @Input() easing: string = 'ease-out';
-
+    /**
+     * Label of element to navigate back.
+     * @group Props
+     */
     @Input() backLabel: string = 'Back';
-
-    @Input() appendTo: any;
-
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
     @Input() autoZIndex: boolean = true;
-
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
     @Input() baseZIndex: number = 0;
-
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    containerViewChild: ElementRef | undefined;
 
-    containerViewChild: ElementRef;
+    backwardViewChild: ElementRef | undefined;
 
-    backwardViewChild: ElementRef;
+    slideMenuContentViewChild: ElementRef | undefined;
 
-    slideMenuContentViewChild: ElementRef;
+    documentClickListener: VoidListener;
 
-    documentClickListener: VoidFunction | null;
+    documentResizeListener: VoidListener;
 
-    documentResizeListener: VoidFunction | null;
+    preventDocumentDefault: boolean | undefined;
 
-    preventDocumentDefault: boolean;
-
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
     left: number = 0;
 
@@ -276,11 +364,15 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     target: any;
 
-    visible: boolean;
+    visible: boolean | undefined;
 
-    viewportUpdated: boolean;
+    viewportUpdated: boolean | undefined;
 
     window: Window;
+
+    submenuIconTemplate: TemplateRef<any> | undefined;
+
+    backIconTemplate: TemplateRef<any> | undefined;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -301,6 +393,20 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         }
     }
 
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'backicon':
+                    this.backIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     @ViewChild('container') set container(element: ElementRef) {
         this.containerViewChild = element;
     }
@@ -314,24 +420,33 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
     }
 
     updateViewPort() {
-        this.renderer.setStyle(this.slideMenuContentViewChild.nativeElement, 'height', this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild.nativeElement) + 'px');
+        this.renderer.setStyle(this.slideMenuContentViewChild?.nativeElement, 'height', this.viewportHeight - DomHandler.getHiddenElementOuterHeight(this.backwardViewChild?.nativeElement) + 'px');
     }
 
-    toggle(event) {
+    /**
+     * Toggles the visibility of the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    toggle(event: Event) {
         if (this.visible) this.hide();
         else this.show(event);
 
         this.preventDocumentDefault = true;
     }
-
-    show(event) {
+    /**
+     * Displays the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    show(event: Event) {
         this.target = event.currentTarget;
         this.visible = true;
         this.preventDocumentDefault = true;
         this.cd.markForCheck();
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: MouseEvent) {
         if (this.popup) {
             this.overlayService.add({
                 originalEvent: event,
@@ -350,7 +465,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
                     this.moveOnTop();
                     this.onShow.emit({});
                     this.appendOverlay();
-                    DomHandler.absolutePosition(this.containerViewChild.nativeElement, this.target);
+                    DomHandler.absolutePosition(this.containerViewChild?.nativeElement, this.target);
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
@@ -374,23 +489,27 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 
     appendOverlay() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.containerViewChild?.nativeElement);
+            else DomHandler.appendChild(this.containerViewChild?.nativeElement, this.appendTo);
         }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild.nativeElement);
+            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
         }
     }
 
     moveOnTop() {
         if (this.autoZIndex) {
-            ZIndexUtils.set('menu', this.containerViewChild.nativeElement, this.baseZIndex + this.config.zIndex.menu);
+            ZIndexUtils.set('menu', this.containerViewChild?.nativeElement, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
+    /**
+     * Hides the popup menu.
+     * @group Method
+     */
     hide() {
         this.visible = false;
         this.cd.markForCheck();
@@ -406,7 +525,7 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
         this.left += this.menuWidth;
     }
 
-    onBackwardKeydown(event) {
+    onBackwardKeydown(event: KeyboardEvent) {
         this.goBack();
 
         if (!this.left) {
@@ -507,8 +626,8 @@ export class SlideMenu implements AfterViewChecked, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
-    exports: [SlideMenu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, CaretLeftIcon, CaretRightIcon, AngleRightIcon],
+    exports: [SlideMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [SlideMenu, SlideMenuSub]
 })
 export class SlideMenuModule {}

@@ -45,7 +45,7 @@ export class BasicDoc {
         Content is not loaded yet, scroll down to initialize it.
     </p>
     <p-toast></p-toast>
-    <div pDefer (onLoad)="initData()">
+    <div pDefer (onLoad)="onLoad()">
         <ng-template>
             <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
         </ng-template>
@@ -53,7 +53,7 @@ export class BasicDoc {
 </div>`,
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'src/app/components/api/messageservice';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'defer-basic-demo',

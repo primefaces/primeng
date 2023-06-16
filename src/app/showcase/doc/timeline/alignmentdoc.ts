@@ -1,6 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'alignment-doc',
     template: ` <section>
@@ -34,7 +42,7 @@ export class AlignmentDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [
@@ -87,12 +95,20 @@ export class AlignmentDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'timeline-alignment-demo',
     templateUrl: './timeline-alignment-demo.html'
 })
 export class TimelineAlignmentDemo {
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [

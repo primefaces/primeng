@@ -1,37 +1,42 @@
-import {
-    NgModule,
-    Component,
-    Input,
-    ElementRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    TemplateRef,
-    AfterContentInit,
-    ContentChildren,
-    QueryList,
-    Output,
-    EventEmitter,
-    ChangeDetectorRef,
-    ViewChild,
-    OnDestroy,
-    AfterViewInit,
-    Inject,
-    Renderer2,
-    PLATFORM_ID
-} from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { DomHandler } from 'primeng/dom';
+import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { DomHandler } from 'primeng/dom';
-import { RouterModule } from '@angular/router';
-
+/**
+ * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
+ * @group Components
+ */
 @Component({
     selector: 'p-speedDial',
     template: `
         <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
-            <button pRipple pButton [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+            <button pRipple pButton class="p-button-icon-only" [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+                <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
@@ -90,14 +95,25 @@ import { RouterModule } from '@angular/router';
     }
 })
 export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
-    @Input() id: string;
-
-    @Input() model: any[] = null;
-
-    @Input() get visible(): any {
+    /**
+     * List of items id.
+     * @group Props
+     */
+    @Input() id: string | undefined;
+    /**
+     * MenuModel instance to define the action items.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | null = null;
+    /**
+     * Specifies the visibility of the overlay.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() get visible(): boolean {
         return this._visible;
     }
-    set visible(value: any) {
+    set visible(value: boolean) {
         this._visible = value;
 
         if (this._visible) {
@@ -106,56 +122,124 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
             this.unbindDocumentClickListener();
         }
     }
-
-    @Input() style: any;
-
-    @Input() className: string;
-
-    @Input() direction: string = 'up';
-
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() className: string | undefined;
+    /**
+     * Specifies the opening direction of actions.
+     * @gruop Props
+     */
+    @Input() direction: 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right' | undefined = 'up';
+    /**
+     * Transition delay step for each action item.
+     * @group Props
+     */
     @Input() transitionDelay: number = 30;
-
-    @Input() type: string = 'linear';
-
+    /**
+     * Specifies the opening type of actions.
+     * @group Props
+     */
+    @Input() type: 'linear' | 'circle' | 'semi-circle' | 'quarter-circle' | undefined = 'linear';
+    /**
+     * Radius for *circle types.
+     * @group Props
+     */
     @Input() radius: number = 0;
-
+    /**
+     * Whether to show a mask element behind the speeddial.
+     * @group Props
+     */
     @Input() mask: boolean = false;
-
+    /**
+     * Whether the component is disabled.
+     * @group Props
+     */
     @Input() disabled: boolean = false;
-
+    /**
+     * Whether the actions close when clicked outside.
+     * @group Props
+     */
     @Input() hideOnClickOutside: boolean = true;
-
-    @Input() buttonStyle: any;
-
-    @Input() buttonClassName: string;
-
-    @Input() maskStyle: any;
-
-    @Input() maskClassName: string;
-
-    @Input() showIcon: string = 'pi pi-plus';
-
-    @Input() hideIcon: string;
-
+    /**
+     * Inline style of the button element.
+     * @group Props
+     */
+    @Input() buttonStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the button element.
+     * @group Props
+     */
+    @Input() buttonClassName: string | undefined;
+    /**
+     * Inline style of the mask element.
+     * @group Props
+     */
+    @Input() maskStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the mask element.
+     * @group Props
+     */
+    @Input() maskClassName: string | undefined;
+    /**
+     * Show icon of the button element.
+     * @group Props
+     */
+    @Input() showIcon: string | undefined;
+    /**
+     * Hide icon of the button element.
+     * @group Props
+     */
+    @Input() hideIcon: string | undefined;
+    /**
+     * Defined to rotate showIcon when hideIcon is not present.
+     * @group Props
+     */
     @Input() rotateAnimation: boolean = true;
+    /**
+     * Fired when the visibility of element changed.
+     * @param {boolean} boolean - Visibility value.
+     * @group Emits
+     */
+    @Output() onVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Fired when the visibility of element changed.
+     * @param {boolean} boolean - Visibility value.
+     * @group Emits
+     */
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    /**
+     * Fired when the button element clicked.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
+     * Fired when the actions are visible.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Fired when the actions are hidden.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Output() onVisibleChange: EventEmitter<any> = new EventEmitter();
+    @ViewChild('container') container: ElementRef | undefined;
 
-    @Output() visibleChange: EventEmitter<any> = new EventEmitter();
+    @ViewChild('list') list: ElementRef | undefined;
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('container') container: ElementRef;
-
-    @ViewChild('list') list: ElementRef;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    buttonTemplate: TemplateRef<any>;
+    buttonTemplate: TemplateRef<any> | undefined;
 
     isItemClicked: boolean = false;
 
@@ -168,21 +252,21 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
-                const button = DomHandler.findSingle(this.container.nativeElement, '.p-speeddial-button');
-                const firstItem = DomHandler.findSingle(this.list.nativeElement, '.p-speeddial-item');
+                const button = DomHandler.findSingle(this.container?.nativeElement, '.p-speeddial-button');
+                const firstItem = DomHandler.findSingle(this.list?.nativeElement, '.p-speeddial-item');
 
                 if (button && firstItem) {
                     const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
                     const hDiff = Math.abs(button.offsetHeight - firstItem.offsetHeight);
-                    this.list.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
-                    this.list.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
+                    this.list?.nativeElement.style.setProperty('--item-diff-x', `${wDiff / 2}px`);
+                    this.list?.nativeElement.style.setProperty('--item-diff-y', `${hDiff / 2}px`);
                 }
             }
         }
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
@@ -209,13 +293,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    onButtonClick(event) {
+    onButtonClick(event: MouseEvent) {
         this.visible ? this.hide() : this.show();
         this.onClick.emit(event);
         this.isItemClicked = true;
     }
 
-    onItemClick(e, item) {
+    onItemClick(e: MouseEvent, item: MenuItem) {
         if (item.command) {
             item.command({ originalEvent: e, item });
         }
@@ -225,11 +309,11 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this.isItemClicked = true;
     }
 
-    calculatePointStyle(index) {
+    calculatePointStyle(index: number) {
         const type = this.type;
 
         if (type !== 'linear') {
-            const length = this.model.length;
+            const length = (this.model as MenuItem[]).length;
             const radius = this.radius || length * 20;
 
             if (type === 'circle') {
@@ -273,8 +357,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return {};
     }
 
-    calculateTransitionDelay(index) {
-        const length = this.model.length;
+    calculateTransitionDelay(index: number) {
+        const length = (this.model as MenuItem[]).length;
 
         return (this.visible ? index : length - index - 1) * this.transitionDelay;
     }
@@ -292,7 +376,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return {
             'p-speeddial-button p-button-rounded': true,
             'p-speeddial-rotate': this.rotateAnimation && !this.hideIcon,
-            [this.buttonClassName]: true
+            [this.buttonClassName!]: true
         };
     }
 
@@ -300,7 +384,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return (!this.visible && this.showIcon) || !this.hideIcon ? this.showIcon : this.hideIcon;
     }
 
-    getItemStyle(index) {
+    getItemStyle(index: number) {
         const transitionDelay = this.calculateTransitionDelay(index);
         const pointStyle = this.calculatePointStyle(index);
         return {
@@ -313,7 +397,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return item.routerLink && !this.disabled && !item.disabled;
     }
 
-    isOutsideClicked(event) {
+    isOutsideClicked(event: Event) {
         return this.container && !(this.container.nativeElement.isSameNode(event.target) || this.container.nativeElement.contains(event.target) || this.isItemClicked);
     }
 
@@ -344,7 +428,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule],
+    imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule, PlusIcon],
     exports: [SpeedDial, SharedModule, ButtonModule, TooltipModule, RouterModule],
     declarations: [SpeedDial]
 })

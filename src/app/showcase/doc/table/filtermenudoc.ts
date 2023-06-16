@@ -131,10 +131,10 @@ import { CustomerService } from '../../service/customerservice';
                             <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                         </td>
                         <td>
-                            {{ customer.date | date: 'MM/dd/yyyy' }}
+                            {{ customer.date | date : 'MM/dd/yyyy' }}
                         </td>
                         <td>
-                            {{ customer.balance | currency: 'USD':'symbol' }}
+                            {{ customer.balance | currency : 'USD' : 'symbol' }}
                         </td>
                         <td>
                             <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
@@ -165,11 +165,11 @@ export class FilterMenuDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -182,7 +182,7 @@ export class FilterMenuDoc implements OnInit {
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
             this.cd.markForCheck();
         });
 
@@ -213,7 +213,7 @@ export class FilterMenuDoc implements OnInit {
         table.clear();
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -531,11 +531,11 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['table-filter-menu-demo.scss']
 })
 export class TableFilterMenuDemo implements OnInit {
-    customers: Customer[];
+    customers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -548,7 +548,7 @@ export class TableFilterMenuDemo implements OnInit {
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
         });
 
         this.representatives = [
@@ -578,7 +578,7 @@ export class TableFilterMenuDemo implements OnInit {
         table.clear();
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status.toLowerCase()) {
             case 'unqualified':
                 return 'danger';
