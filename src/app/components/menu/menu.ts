@@ -32,7 +32,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Pipe({
     name: 'safeHtml'
 })
-class SafeHtmlPipe implements PipeTransform {
+export class SafeHtmlPipe implements PipeTransform {
     constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
 
     public transform(value: string): SafeHtml {
