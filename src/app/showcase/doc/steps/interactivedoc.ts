@@ -21,13 +21,13 @@ export class InteractiveDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     activeIndex: number = 0;
 
     constructor(public messageService: MessageService) {}
 
-    onActiveIndexChange(event) {
+    onActiveIndexChange(event: number) {
         this.activeIndex = event;
     }
 
@@ -73,13 +73,13 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class StepsInteractiveDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     activeIndex: number = 0;
 
     constructor(public messageService: MessageService) {}
 
-    onActiveIndexChange(event) {
+    onActiveIndexChange(event: number) {
         this.activeIndex = event;
     }
 

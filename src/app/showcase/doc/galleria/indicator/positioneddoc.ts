@@ -43,7 +43,7 @@ export class PositionedDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 
@@ -129,7 +129,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-indicator-positioned-demo.html'
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 

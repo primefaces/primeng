@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 interface City {
     name: string;
@@ -26,9 +26,9 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.cities = [
@@ -71,9 +71,9 @@ interface City {
     templateUrl: './dropdown-reactive-forms-demo.html'
 })
 export class DropdownReactiveFormsDemo implements OnInit {
-    cities: City[];
+    cities: City[] | undefined;
     
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.cities = [

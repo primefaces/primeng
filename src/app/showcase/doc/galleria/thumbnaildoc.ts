@@ -31,7 +31,7 @@ export class ThumbnailDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'bottom';
 
@@ -112,7 +112,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-thumbnail-demo.html'
 })
 export class GalleriaThumbnailDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'bottom';
 

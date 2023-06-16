@@ -19,7 +19,7 @@ export class VerticalDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -158,7 +158,7 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-vertical-demo.html'
 })
 export class MegaMenuVerticalDemo implements OnInit {
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

@@ -37,7 +37,7 @@ export class DragDropDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -109,7 +109,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './orderlist-drag-drop-demo.html'
 })
 export class OrderlistDragDropDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

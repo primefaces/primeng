@@ -44,9 +44,9 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
     constructor(private carService: ProductService, private cdr: ChangeDetectorRef) {}
 
@@ -107,9 +107,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './picklist-basic-demo.html'
 })
 export class PicklistBasicDemo {
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
     constructor(
       private carService: ProductService,

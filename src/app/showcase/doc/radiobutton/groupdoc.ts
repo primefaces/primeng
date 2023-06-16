@@ -37,7 +37,7 @@ export class GroupDoc {
 
     @Input() title: string;
 
-    ingredient: string;
+    ingredient!: string;
 
     code: Code = {
         basic: `
@@ -96,7 +96,7 @@ import { Component } from '@angular/core';
     templateUrl: './radio-button-group-demo.html'
 })
 export class RadioButtonGroupDemo {
-    ingredient: string;
+    ingredient!: string;
 }`
     };
 }

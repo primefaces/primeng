@@ -19,7 +19,7 @@ export class CheckboxDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -45,7 +45,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-checkbox-demo.html'
 })
 export class TreeSelectCheckboxDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

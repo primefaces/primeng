@@ -164,17 +164,17 @@ export class ProductsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    productDialog: boolean;
+    productDialog: boolean = false;
 
-    products: Product[];
+    products!: Product[];
 
-    product: Product;
+    product!: Product;
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[] | null;
 
-    submitted: boolean;
+    submitted: boolean = false;
 
-    statuses: any[];
+    statuses!: any[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService, private cd: ChangeDetectorRef) {}
 
@@ -203,7 +203,7 @@ export class ProductsDoc implements OnInit {
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products = this.products.filter((val) => !this.selectedProducts.includes(val));
+                this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
             }
@@ -236,7 +236,7 @@ export class ProductsDoc implements OnInit {
     saveProduct() {
         this.submitted = true;
 
-        if (this.product.name.trim()) {
+        if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
@@ -513,17 +513,17 @@ import { ProductService } from '../../service/productservice';
     providers: [MessageService, ConfirmationService]
 })
 export class TableProductsDemo implements OnInit{
-    productDialog: boolean;
+    productDialog: boolean = false;
 
-    products: Product[];
+    products!: Product[];
 
-    product: Product;
+    product!: Product;
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[] | null;
 
-    submitted: boolean;
+    submitted: boolean = false;
 
-    statuses: any[];
+    statuses!: any[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
@@ -549,7 +549,7 @@ export class TableProductsDemo implements OnInit{
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products = this.products.filter((val) => !this.selectedProducts.includes(val));
+                this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
             }
@@ -582,7 +582,7 @@ export class TableProductsDemo implements OnInit{
     saveProduct() {
         this.submitted = true;
 
-        if (this.product.name.trim()) {
+        if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });

@@ -31,9 +31,9 @@ export class GroupDoc {
 
     @Input() title: string;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [
@@ -107,9 +107,9 @@ interface City {
     templateUrl: './multi-select-group-demo.html'
 })
 export class MultiSelectGroupDemo {
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [

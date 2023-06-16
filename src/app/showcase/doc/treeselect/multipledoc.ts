@@ -24,7 +24,7 @@ export class MultipleDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -58,7 +58,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-multiple-demo.html'
 })
 export class TreeSelectMultipleDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

@@ -35,7 +35,7 @@ export class DataTableDoc implements OnInit {
 
     @Input() title: string;
 
-    products: any[];
+    products: any[] | undefined;
 
     ngOnInit() {
         this.products = Array.from({ length: 5 }).map((_, i) => `Item #${i}`);
@@ -90,7 +90,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './skeleton-data-table-demo.html'
 })
 export class SkeletonDataTableDemo implements OnInit {
-    products: any[];
+    products: any[] | undefined;
 
     ngOnInit() {
         this.products = Array.from({ length: 5 }).map((_, i) => \`Item #\${i}\`);

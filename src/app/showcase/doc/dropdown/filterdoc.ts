@@ -31,9 +31,9 @@ export class FilterDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [
@@ -93,9 +93,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './dropdown-filter-demo.html'
 })
 export class DropdownFilterDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [

@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'template-doc',
     template: ` <section>
@@ -26,7 +31,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {
@@ -62,12 +67,17 @@ export class TemplateDoc implements OnInit {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'virtual-scroller-template-demo',
     templateUrl: './virtual-scroller-template-demo.html'
 })
 export class VirtualScrollerTemplateDemo implements OnInit {
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {

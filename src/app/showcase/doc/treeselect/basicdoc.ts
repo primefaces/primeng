@@ -20,7 +20,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -46,7 +46,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-basic-demo.html'
 })
 export class TreeSelectBasicDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    nodes: TreeNode[];
+    nodes!: TreeNode[];
 
     ngOnInit() {
         this.nodes = [
@@ -85,7 +85,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './tree-template-demo.html'
 })
 export class TreeTemplateDemo implements OnInit {
-    nodes: TreeNode[];
+    nodes!: TreeNode[];
 
     ngOnInit() {
         this.nodes = [

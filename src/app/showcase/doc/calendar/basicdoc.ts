@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date: Date | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-basic-demo.html'
 })
 export class CalendarBasicDemo {
-    date: Date;
+    date: Date | undefined;
 }`
     };
 }

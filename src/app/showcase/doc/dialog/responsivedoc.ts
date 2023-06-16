@@ -27,7 +27,7 @@ export class ResponsiveDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -62,7 +62,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-responsive-demo.html'
 })
 export class DialogResponsiveDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

@@ -26,9 +26,9 @@ export class FloatLabelDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -68,9 +68,9 @@ interface City {
     templateUrl: './multi-select-floatlabel-demo.html'
 })
 export class MultiSelectFloatlabelDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

@@ -43,9 +43,9 @@ export class ResponsiveDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
@@ -140,9 +140,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-responsive-demo.scss']
 })
 export class CarouselResponsiveDemo {
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

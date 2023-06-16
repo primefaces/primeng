@@ -21,7 +21,7 @@ export class FloatLabelDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-floatlabel-demo.html'
 })
 export class PasswordFloatlabelDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

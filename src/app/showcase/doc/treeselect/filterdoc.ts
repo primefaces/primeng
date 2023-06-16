@@ -23,7 +23,7 @@ export class FilterDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -49,7 +49,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-filter-demo.html'
 })
 export class TreeSelectFilterDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

@@ -18,7 +18,7 @@ export class MeterDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-meter-demo.html'
 })
 export class PasswordMeterDemo {
-    value: string;
+    value!: string;
 }`
     };
 }
