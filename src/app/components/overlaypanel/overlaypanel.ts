@@ -25,9 +25,9 @@ import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'prim
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
 /**
  * OverlayPanel is a container component positioned as connected to its target.
  * @group Components
@@ -115,7 +115,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      *  Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
     /**
      * Whether to automatically manage layering.
      * @group Props
