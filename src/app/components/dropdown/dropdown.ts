@@ -539,7 +539,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input() overlayDirection: string = 'end';
 
-    @Input() enableKeyboardSelection: boolean = true;
+    @Input() disableKeyboardSelection: boolean = false;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
@@ -1224,7 +1224,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             return;
         }
 
-        if (!this.enableKeyboardSelection) {
+        if (this.disableKeyboardSelection) {
             const printableCharacters = /[a-zA-Z]/;
             if (printableCharacters.test(event.key)) {
                 return;
