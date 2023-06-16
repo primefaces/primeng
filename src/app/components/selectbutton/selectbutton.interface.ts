@@ -3,6 +3,7 @@ import { SelectButton } from './selectbutton';
 /**
  * Custom click event.
  * @see {@link SelectButton.onOptionClick}
+ * @group Events
  */
 export interface SelectButtonOptionClickEvent {
     /**
@@ -21,6 +22,7 @@ export interface SelectButtonOptionClickEvent {
 /**
  * Custom change event.
  * @see {@link SelectButton.onChange}
+ * @group Events
  */
 export interface SelectButtonChangeEvent {
     /**
@@ -40,5 +42,5 @@ export interface SelectButtonTemplates {
     /**
      * Custom item template.
      */
-    item: TemplateRef<any> | null;
+    item(): TemplateRef<any>;
 }

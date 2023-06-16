@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
@@ -25,7 +25,7 @@ export class FilterDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -54,7 +54,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-filter-demo.html'
 })
 export class TreeFilterDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

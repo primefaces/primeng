@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 /**
  * Responsive options of the component.
+ * @group Interface
  */
 export interface GalleriaResponsiveOptions {
     /**
@@ -20,11 +21,11 @@ export interface GalleriaTemplates {
     /**
      * Custom template of header.
      */
-    header: TemplateRef<any> | null;
+    header(): TemplateRef<any>;
     /**
      * Custom template of footer.
      */
-    footer: TemplateRef<any> | null;
+    footer(): TemplateRef<any>;
     /**
      * Custom template of indicator.
      * @param {Object} context - indicator data.
@@ -38,23 +39,23 @@ export interface GalleriaTemplates {
     /**
      * Custom template of closeicon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
     /**
      * Custom template of itemnexticon.
      */
-    itemnexticon: TemplateRef<any> | null;
+    itemnexticon(): TemplateRef<any>;
     /**
      * Custom template of itempreviousicon.
      */
-    itempreviousicon: TemplateRef<any> | null;
+    itempreviousicon(): TemplateRef<any>;
     /**
      * Custom template of previousthumbnailicon.
      */
-    previousthumbnailicon: TemplateRef<any> | null;
+    previousthumbnailicon(): TemplateRef<any>;
     /**
      * Custom template of nextthumbnailicon.
      */
-    nextthumbnailicon: TemplateRef<any> | null;
+    nextthumbnailicon(): TemplateRef<any>;
     /**
      * Custom template of caption.
      * @param {Object} context - item data.

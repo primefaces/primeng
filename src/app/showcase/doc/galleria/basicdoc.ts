@@ -28,9 +28,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private photoService: PhotoService) {}
 
@@ -86,9 +86,9 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-basic-demo.html'
 })
 export class GalleriaBasicDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
     
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private photoService: PhotoService) {}
 

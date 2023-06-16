@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    values: string[];
+    values: string[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './chips-basic-demo.html'
 })
 export class ChipsBasicDemo {
-    values: string[];
+    values: string[] | undefined;
 }`
     };
 }

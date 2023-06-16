@@ -3,6 +3,7 @@ import { MenuItem } from './menuitem';
 
 /**
  * MegaMenuItem API provides the following properties.
+ * @group Interface
  */
 export interface MegaMenuItem {
     /**

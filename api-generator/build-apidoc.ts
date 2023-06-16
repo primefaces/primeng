@@ -1,20 +1,24 @@
+//@ts-ignore
 const TypeDoc = require('typedoc');
+//@ts-ignore
 const path = require('path');
+//@ts-ignore
 const fs = require('fs');
-
+//@ts-ignore
 const rootDir = path.resolve(__dirname, '../');
-const outputPath = path.resolve(rootDir, 'doc/common/apidoc');
+//@ts-ignore
+const outputPath = path.resolve(rootDir, 'src/app/showcase/doc/apidoc');
 
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
     emits: 'Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.',
-    slots: 'Defines the slots used by the component.',
-    functions: 'Defines the custom functions used by the module.',
-    events: "Defines the custom events used by the component's emit.",
+    templates: 'Defines the templates used by the component.',
+    events: "Defines the custom events used by the component's emitters.",
     interfaces: 'Defines the custom interfaces used by the module.',
-    types: 'Defines the custom types used by the module.'
+    types: 'Defines the custom types used by the module.',
+    props: 'Defines the input properties of the component.',
+    service: 'Defines the service used by the component'
 };
-
 const app = new TypeDoc.Application();
 
 // If you want TypeDoc to load tsconfig.json / typedoc.json files
@@ -24,467 +28,399 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 app.bootstrap({
     // typedoc options here
     name: 'PrimeNG',
-    entryPoints: [`src/app/components/panel`],
+    entryPoints: [`src/app/components/`],
     entryPointStrategy: 'expand',
     hideGenerator: true,
     excludeExternals: true,
     includeVersion: true,
     searchInComments: true,
-    disableSources: true,
+    disableSources: false,
     logLevel: 'Error',
     sort: ['source-order'],
     exclude: ['node_modules', 'src/app/components/**/*spec.ts', 'src/app/components/**/*public_api.ts']
 });
 
 const project = app.convert();
+app.generateJson(project, `./api-generator/typedoc.json`);
+
+function extractParameter(emitter) {
+    let { comment, type } = emitter;
+
+    if (type && type.typeArguments) {
+        if (type.toString()) {
+            return type.toString().replace(/^.*?<([^>]*)>.*$/, '$1');
+        } else {
+            if (!type.typeArguments[0].types && !type.typeArguments[0].type) {
+                return type.typeArguments.map((el) => ({ name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '') }));
+            }
+
+            if (type.typeArguments[0].types) {
+                return type.typeArguments[0].types.map((el) => {
+                    if (el.type && el.type === 'array') {
+                        return { name: 'value', type: el.elementType.name + '[]' };
+                    } else {
+                        return { name: el.name.includes('Event') ? 'event' : 'value', type: el.name.replace(/[^a-zA-Z]/g, '') };
+                    }
+                });
+            }
+        }
+    }
+}
+
+const isProcessable = (value) => {
+    return value && value.children && value.children.length;
+};
+
+const allowed = (name) => {
+    return !name.includes('ts-helpers') && !name.includes('icons');
+};
+
+const getTypesValue = (typeobj) => {
+    let { type } = typeobj;
+
+    if (typeobj.indexSignature) {
+        const signature = typeobj.getAllSignatures()[0];
+        const value = signature.parameters.map((param) => {
+            return {
+                [`[${param.name}:${param.type.toString()}]`]: signature.type.toString()
+            };
+        })[0];
+
+        return JSON.stringify(value);
+    }
+
+    if (type) {
+        if (type.type === 'union') {
+            return type.toString();
+        }
+        if (type.type === 'reflection' && type.declaration) {
+            let values = type.declaration.children.map((child) => ({
+                [child.name]: child.type.toString()
+            }));
+
+            return JSON.stringify(Object.assign({}, ...values), null, 4);
+        }
+    }
+};
 
 if (project) {
-    // const doc = {};
-
-    // const parseText = (text) => {
-    //     return text.replace(/&#123;/g, '{').replace(/&#125;/g, '}');
-    // };
-
-    // project.children.forEach((module) => {
-    //     const { name, comment } = module;
-
-    //     const description = comment && comment.summary.map((s) => s.text || '').join(' ');
-
-    //     doc[name] = {
-    //         description
-    //     };
-
-    //     const module_component_group = module.groups.find((g) => g.title === 'Component');
-    //     let methods = {
-    //         description: staticMessages['methods'],
-    //         values: []
-    //     };
-
-    //     module_component_group &&
-    //         module_component_group.children.forEach((component) => {
-    //             const description =
-    //                 component.comment &&
-    //                 component.comment.summary
-    //                     .map((s) => {
-    //                         const text = s.text || '';
-    //                         const splittedText = text.split('_');
-
-    //                         return splittedText[1] ? splittedText[1] : text;
-    //                     })
-    //                     .join(' ');
-
-    //             !doc[name]['components'] && (doc[name]['components'] = {});
-
-    //             const component_method_group = component.groups && component.groups.find((g) => g.title === 'Methods');
-
-    //             component_method_group &&
-    //                 component_method_group.children.forEach((method) => {
-    //                     const signature = method.getAllSignatures()[0];
-
-    //                     methods.values.push({
-    //                         name: signature.name,
-    //                         parameters: signature.parameters.map((param) => {
-    //                             return {
-    //                                 name: param.name,
-    //                                 type: param.type.toString(),
-    //                                 description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
-    //                             };
-    //                         }),
-    //                         returnType: signature.type.toString(),
-    //                         description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
-    //                     });
-    //                 });
-
-    //             const component_props_id = component.extendedTypes && component.extendedTypes[0].typeArguments && component.extendedTypes[0].typeArguments[0] && component.extendedTypes[0].typeArguments[0]._target;
-    //             const module_properties_group = module.groups.find((g) => g.title === 'Properties');
-    //             const component_props = module_properties_group && module_properties_group.children.find((c) => (component_props_id ? c.id === component_props_id : true));
-
-    //             const props = {
-    //                 description: '',
-    //                 values: []
-    //             };
-    //             const emit = {
-    //                 description: staticMessages['emit'],
-    //                 values: []
-    //             };
-
-    //             if (component_props) {
-    //                 props.description = component_props.comment ? component_props.comment.summary.map((s) => parseText(s.text || '')).join(' ') : '';
-
-    //                 const component_props_group = component_props.groups && component_props.groups.find((g) => g.title === 'Properties');
-
-    //                 component_props_group &&
-    //                     component_props_group.children.forEach((prop) => {
-    //                         if (!prop.inheritedFrom || (prop.inheritedFrom && !prop.inheritedFrom.toString().startsWith('Omit.data-pr-'))) {
-    //                             props.values.push({
-    //                                 name: prop.name,
-    //                                 optional: prop.flags.isOptional,
-    //                                 readonly: prop.flags.isReadonly,
-    //                                 type: prop.type.toString(),
-    //                                 default: prop.comment && prop.comment.getTag('@defaultValue') ? parseText(prop.comment.getTag('@defaultValue').content[0].text) : '', // TODO: Check
-    //                                 description: prop.comment && prop.comment.summary.map((s) => parseText(s.text || '')).join(' '),
-    //                                 deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
-    //                             });
-    //                         }
-    //                     });
-
-    //                 const component_props_methods_group = component_props.groups && component_props.groups.find((g) => g.title === 'Methods');
-
-    //                 component_props_methods_group &&
-    //                     component_props_methods_group.children.forEach((method) => {
-    //                         const signature = method.getAllSignatures()[0];
-
-    //                         methods.values.push({
-    //                             name: signature.name,
-    //                             parameters: signature.parameters.map((param) => {
-    //                                 return {
-    //                                     name: param.name,
-    //                                     optional: param.flags.isOptional,
-    //                                     type: param.type.toString(),
-    //                                     description: param.comment && param.comment.summary.map((s) => parseText(s.text || '')).join(' ')
-    //                                 };
-    //                             }),
-    //                             returnType: signature.type.toString(),
-    //                             description: signature.comment.summary.map((s) => parseText(s.text || '')).join(' ')
-    //                         });
-    //                     });
-    //             }
-
-    //             doc[name]['components'][component.name] = {
-    //                 description,
-    //                 methods
-    //             };
-    //         });
-
-    //     const module_model_group = module.groups.find((g) => g.title === 'Model');
-
-    //     module_model_group &&
-    //         module_model_group.children.forEach((model) => {
-    //             const event_props_description = model.comment && model.comment.summary.map((s) => s.text || '').join(' ');
-
-    //             !doc[name]['model'] && (doc[name]['model'] = {});
-
-    //             const props = {
-    //                 description: '',
-    //                 values: []
-    //             };
-
-    //             const methods = {
-    //                 description: '',
-    //                 values: []
-    //             };
-    //             const model_props_group = model.groups.find((g) => g.title === 'Properties');
-
-    //             model_props_group &&
-    //                 model_props_group.children.forEach((prop) => {
-    //                     props.values.push({
-    //                         name: prop.name,
-    //                         optional: prop.flags.isOptional,
-    //                         readonly: prop.flags.isReadonly,
-    //                         type: prop.type.toString(),
-    //                         default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
-    //                         description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' ')
-    //                     });
-    //                 });
-
-    //             const model_methods_group = model.groups.find((g) => g.title === 'Methods');
-
-    //             model_methods_group &&
-    //                 model_methods_group.children.forEach((method) => {
-    //                     const signature = method.getAllSignatures()[0];
-    //                     const isSlot = model.name.includes('Slots');
-
-    //                     methods.values.push({
-    //                         name: signature.name,
-    //                         parameters: signature.parameters.map((param) => {
-    //                             let type = param.type.toString();
-
-    //                             if (param.type.declaration && isSlot) {
-    //                                 type = '';
-
-    //                                 if (param.type.declaration.children) {
-    //                                     param.type.declaration.children.forEach((child) => {
-    //                                         if (child.signatures) {
-    //                                             const childSinature = child.signatures[0];
-    //                                             const parameters = childSinature.parameters.reduce((acc, { name, type }, index) => (index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`), '');
-
-    //                                             type += ` \t ${childSinature.name}(${parameters}): ${childSinature.type?.name}, // ${childSinature.comment?.summary[0]?.text}\n `;
-    //                                         } else {
-    //                                             const childType = child.type.elementType ? child.type.elementType.name : child.type.name;
-
-    //                                             type += ` \t ${child.name}: ${childType}, // ${child.comment?.summary[0]?.text}\n `;
-    //                                         }
-    //                                     });
-    //                                 }
-
-    //                                 type = `{\n ${type} }`;
-    //                             }
-
-    //                             return {
-    //                                 name: param.name,
-    //                                 optional: param.flags.isOptional,
-    //                                 type: type,
-    //                                 description: param.comment && param.comment.summary.map((s) => parseText(s.text || '')).join(' ')
-    //                             };
-    //                         }),
-    //                         returnType: signature.type.toString(),
-    //                         description: signature.comment && signature.comment.summary.map((s) => parseText(s.text || '')).join(' '),
-    //                         deprecated: signature.comment && signature.comment.getTag('@deprecated') ? parseText(signature.comment.getTag('@deprecated').content[0].text) : undefined
-    //                     });
-    //                 });
-
-    //             doc[name]['model'][model.name] = {
-    //                 description: event_props_description,
-    //                 props,
-    //                 methods
-    //             };
-    //         });
-
-    //     const module_functions_group = module.groups.find((g) => g.title === 'Functions');
-
-    //     module_functions_group &&
-    //         module_functions_group.children.forEach((method) => {
-    //             !doc[name]['functions'] &&
-    //                 (doc[name]['functions'] = {
-    //                     description: staticMessages['functions'],
-    //                     values: {}
-    //                 });
-
-    //             const signatures = method.getAllSignatures();
-
-    //             if (signatures && signatures.length > 0) {
-    //                 const signature = signatures[0];
-
-    //                 doc[name]['functions'].values[method.name] = {
-    //                     name: signature.name,
-    //                     parameters: signature.parameters.map((param) => {
-    //                         return {
-    //                             name: param.name,
-    //                             type: param.type.toString(),
-    //                             description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
-    //                         };
-    //                     }),
-    //                     returnType: signature.type.toString(),
-    //                     description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
-    //                 };
-    //             }
-    //         });
-
-    //     const module_events_group = module.groups.find((g) => g.title === 'Events');
-
-    //     module_events_group &&
-    //         module_events_group.children.forEach((event) => {
-    //             const event_props_description = event.comment && event.comment.summary.map((s) => s.text || '').join(' ');
-    //             const component_prop = event.comment && event.comment.getTag('@see') ? event.comment.getTag('@see').content[0].text : ''; // TODO: Check
-    //             const event_extendedBy = event.extendedBy && event.extendedBy.toString();
-
-    //             !doc[name]['events'] &&
-    //                 (doc[name]['events'] = {
-    //                     description: staticMessages['events'],
-    //                     values: {}
-    //                 });
-
-    //             const props = [];
-    //             const event_props_group = event.groups.find((g) => g.title === 'Properties');
-
-    //             event_props_group &&
-    //                 event_props_group.children.forEach((prop) => {
-    //                     props.push({
-    //                         name: prop.name,
-    //                         optional: prop.flags.isOptional,
-    //                         readonly: prop.flags.isReadonly,
-    //                         type: prop.type.toString(),
-    //                         //default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
-    //                         description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' ')
-    //                     });
-    //                 });
-
-    //             doc[name]['events'].values[event.name] = {
-    //                 description: event_props_description,
-    //                 relatedProp: component_prop,
-    //                 props,
-    //                 extendedBy: event_extendedBy
-    //             };
-    //         });
-
-    //     const module_interfaces_group = module.groups.find((g) => g.title === 'Interfaces');
-
-    //     module_interfaces_group &&
-    //         module_interfaces_group.children.forEach((event) => {
-    //             const event_props_description = event.comment && event.comment.summary.map((s) => s.text || '').join(' ');
-    //             let component_prop = '';
-
-    //             if (event.comment && event.comment.getTag('@see')) {
-    //                 const tag = event.comment.getTag('@see');
-    //                 const content = tag.content[0];
-
-    //                 if (content.text.includes("['")) {
-    //                     component_prop = `${content.target.name}${content.text}`;
-    //                 } else {
-    //                     component_prop = `${content.text === content.target?.name ? content.target.parent.name : content.target?.name}.${content.text}`;
-    //                 }
-    //             }
-
-    //             const event_extendedBy = event.extendedBy && event.extendedBy.toString();
-    //             const event_extendedTypes = event.extendedTypes && event.extendedTypes.toString();
-
-    //             !doc[name]['interfaces'] &&
-    //                 (doc[name]['interfaces'] = {
-    //                     description: staticMessages['interfaces'],
-    //                     eventDescription: staticMessages['events'],
-    //                     methodDescription: staticMessages['methods'],
-    //                     typeDescription: staticMessages['types'],
-
-    //                     values: {}
-    //                 });
-
-    //             const props = [];
-    //             const methods = [];
-
-    //             if (event.groups) {
-    //                 const event_props_group = event.groups.find((g) => g.title === 'Properties');
-
-    //                 event_props_group &&
-    //                     event_props_group.children.forEach((prop) => {
-    //                         props.push({
-    //                             name: prop.name,
-    //                             optional: prop.flags.isOptional,
-    //                             readonly: prop.flags.isReadonly,
-    //                             type: prop.type.toString(),
-    //                             default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
-    //                             description: prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
-    //                             deprecated: prop.comment && prop.comment.getTag('@deprecated') ? parseText(prop.comment.getTag('@deprecated').content[0].text) : undefined
-    //                         });
-    //                     });
-
-    //                 const event_methods_group = event.groups.find((g) => g.title === 'Methods');
-
-    //                 event_methods_group &&
-    //                     event_methods_group.children.forEach((method) => {
-    //                         const signature = method.getAllSignatures()[0];
-    //                         const isSlot = event.name.includes('Slots');
-
-    //                         methods.push({
-    //                             name: signature.name,
-    //                             parameters: signature.parameters.map((param) => {
-    //                                 let type = param.type.toString();
-
-    //                                 if (param.type.declaration && isSlot) {
-    //                                     type = '';
-
-    //                                     if (param.type.declaration.children) {
-    //                                         param.type.declaration.children.forEach((child) => {
-    //                                             if (child.signatures) {
-    //                                                 const childSinature = child.signatures[0];
-    //                                                 const parameters = childSinature.parameters.reduce((acc, { name, type }, index) => (index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`), '');
-
-    //                                                 type += ` \t <b>${childSinature.name}(${parameters})</b>: ${childSinature.type?.name}, // ${childSinature.comment?.summary[0]?.text}\n `;
-    //                                             } else {
-    //                                                 const childType = child.type.elementType ? child.type.elementType.name : child.type.name;
-
-    //                                                 type += ` \t <b>${child.name}</b>: ${childType}, // ${child.comment?.summary[0]?.text}\n `;
-    //                                             }
-    //                                         });
-    //                                     }
-
-    //                                     type = `{\n ${type} }`;
-    //                                 }
-
-    //                                 return {
-    //                                     name: param.name,
-    //                                     optional: param.flags.isOptional,
-    //                                     type: type,
-    //                                     description: param.comment && param.comment.summary.map((s) => parseText(s.text || '')).join(' ')
-    //                                 };
-    //                             }),
-    //                             returnType: signature.type.toString(),
-    //                             description: signature.comment && signature.comment.summary.map((s) => parseText(s.text || '')).join(' '),
-    //                             deprecated: signature.comment && signature.comment.getTag('@deprecated') ? parseText(signature.comment.getTag('@deprecated').content[0].text) : undefined
-    //                         });
-    //                     });
-    //             }
-
-    //             const signature = event.getAllSignatures();
-
-    //             if (signature && signature.length > 0) {
-    //                 const parameter = signature[0].parameters[0];
-
-    //                 props.push({
-    //                     name: `[${parameter.name}: ${parameter.type.toString()}]`,
-    //                     optional: parameter.flags.isOptional,
-    //                     readonly: parameter.flags.isReadonly,
-    //                     type: signature[0].type.toString(),
-    //                     //default: prop.comment && prop.comment.getTag('@defaultValue') ? prop.comment.getTag('@defaultValue').content[0].text : '', // TODO: Check
-    //                     description: signature[0].comment && signature[0].comment.summary.map((s) => s.text || '').join(' ')
-    //                 });
-    //             }
-
-    //             doc[name]['interfaces'].values[event.name] = {
-    //                 description: event_props_description,
-    //                 relatedProp: component_prop,
-    //                 props,
-    //                 methods,
-    //                 extendedBy: event_extendedBy,
-    //                 extendedTypes: event_extendedTypes
-    //             };
-    //         });
-
-    //     const module_types_group = module.groups.find((g) => g.title === 'Type Aliases');
-
-    //     module_types_group &&
-    //         module_types_group.children.forEach((event) => {
-    //             const event_props_description = event.comment && event.comment.summary.map((s) => s.text || '').join(' ');
-
-    //             !doc[name]['types'] &&
-    //                 (doc[name]['types'] = {
-    //                     description: staticMessages['types'],
-    //                     values: {}
-    //                 });
-
-    //             let values = event.type.toString();
-
-    //             if (values.includes('Function') && event.type.types) {
-    //                 values = '';
-
-    //                 for (const [i, type] of event.type.types.entries()) {
-    //                     if (type.declaration && type.declaration.signatures) {
-    //                         const signature = type.declaration.signatures[0];
-    //                         const parameters = signature.parameters.reduce((acc, { name, type }, index) => (index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`), '');
-
-    //                         values += i === 0 ? `(${parameters}) => ${signature.type?.name}` : ` | (${parameters}) => ${signature.type?.name}`;
-    //                     } else {
-    //                         const typeName = type.name || type.value;
-
-    //                         values += i === 0 ? `${typeName}` : ` | ${typeName}`;
-    //                     }
-    //                 }
-    //             }
-
-    //             const declaration = event.type.declaration;
-
-    //             if (declaration) {
-    //                 const groups = declaration.groups && declaration.groups.find((g) => g.title === 'Properties');
-
-    //                 const map = {};
-
-    //                 groups &&
-    //                     groups.children.forEach((prop) => {
-    //                         const description = prop.comment && prop.comment.summary.map((s) => s.text || '').join(' ');
-
-    //                         map[`${prop.name}${prop.flags.isOptional ? '?' : ''}`] = `${prop.type.toString()}, ${description ? '// ' + description : ''}`;
-    //                     });
-
-    //                 values = JSON.stringify(map, null, 4);
-    //             }
-
-    //             doc[name]['types'].values[event.name] = {
-    //                 values,
-    //                 description: event_props_description
-    //             };
-    //         });
-
-    //     // app.generateJson(module, `./api-generator/module-typedoc.json`);
-    // });
-
-    app.generateJson(project, `./api-generator/typedoc.json`);
+    let doc = {};
+
+    const parseText = (text) => {
+        return text.replace(/&#123;/g, '{').replace(/&#125;/g, '}');
+    };
+
+    const modules = project.groups.find((g) => g.title === 'Modules');
+
+    if (isProcessable(modules)) {
+        modules.children.forEach((module) => {
+            const name = module.name.replace(/.*\//, '');
+            if (allowed(name)) {
+                if (module.groups) {
+                    if (!doc[name]) {
+                        doc[name] = {
+                            components: {}
+                        };
+                    }
+                    const module_components_group = module.groups.find((g) => g.title === 'Components');
+                    const module_events_group = module.groups.find((g) => g.title === 'Events');
+                    const module_templates_group = module.groups.find((g) => g.title === 'Templates');
+                    const module_interface_group = module.groups.find((g) => g.title === 'Interface');
+                    const module_service_group = module.groups.find((g) => g.title === 'Service');
+                    const module_types_group = module.groups.find((g) => g.title === 'Types');
+
+                    if (isProcessable(module_components_group)) {
+                        module_components_group.children.forEach((component) => {
+                            const componentName = component.name;
+                            const comment = component.comment;
+
+                            doc[name]['components'][componentName] = {
+                                description: comment && comment.summary.map((s) => s.text || '').join(' ')
+                            };
+
+                            const component_props_group = component.groups.find((g) => g.title === 'Props');
+
+                            if (isProcessable(component_props_group)) {
+                                const props = {
+                                    description: staticMessages['props'],
+                                    values: []
+                                };
+
+                                component_props_group.children.forEach((prop) => {
+                                    props.values.push({
+                                        name: prop.name,
+                                        optional: prop.flags.isOptional,
+                                        readonly: prop.flags.isReadonly,
+                                        type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
+                                        default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined,
+                                        description: prop.getSignature && prop.getSignature.comment ? prop.getSignature.comment.summary.map((s) => s.text || '').join(' ') : prop.comment && prop.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated:
+                                            prop.getSignature && prop.getSignature.comment && prop.getSignature.comment.getTag('@deprecated')
+                                                ? parseText(prop.getSignature.comment.getTag('@deprecated').content[0].text)
+                                                : prop.comment && prop.comment.getTag('@deprecated')
+                                                ? parseText(prop.comment.getTag('@deprecated').content[0].text)
+                                                : undefined
+                                    });
+                                });
+                                doc[name]['components'][componentName]['props'] = props;
+                            }
+
+                            const component_emits_group = component.groups.find((g) => g.title === 'Emits');
+                            if (isProcessable(component_emits_group)) {
+                                const emits = {
+                                    description: staticMessages['emits'],
+                                    values: []
+                                };
+
+                                component_emits_group.children.forEach((emitter) => {
+                                    emits.values.push({
+                                        name: emitter.name,
+                                        parameters: [{ name: extractParameter(emitter) && extractParameter(emitter).includes('Event') ? 'event' : 'value', type: extractParameter(emitter) }],
+                                        description: emitter.comment && emitter.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated: emitter.comment && emitter.comment.getTag('@deprecated') ? parseText(emitter.comment.getTag('@deprecated').content[0].text) : undefined
+                                    });
+                                });
+
+                                doc[name]['components'][componentName]['emits'] = emits;
+                            }
+
+                            const component_methods_group = component.groups.find((g) => g.title === 'Method');
+                            if (isProcessable(component_methods_group)) {
+                                const methods = {
+                                    description: staticMessages['methods'],
+                                    values: []
+                                };
+
+                                component_methods_group.children.forEach((method) => {
+                                    const signature = method.getAllSignatures()[0];
+                                    methods.values.push({
+                                        name: signature.name,
+                                        parameters: signature.parameters.map((param) => {
+                                            return {
+                                                name: param.name,
+                                                type: param.type.toString(),
+                                                description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                            };
+                                        }),
+                                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                                    });
+                                });
+
+                                doc[name]['components'][componentName]['methods'] = methods;
+                            }
+
+                            const component_events_group = component.groups.find((g) => g.title === 'Events');
+                            if (isProcessable(component_events_group)) {
+                                const events = {
+                                    description: staticMessages['events'],
+                                    values: []
+                                };
+
+                                component_events_group.children.forEach((event) => {
+                                    events.values.push({
+                                        name: event.name,
+                                        description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
+                                        props:
+                                            event.children &&
+                                            event.children.map((child) => ({
+                                                name: child.name,
+                                                optional: child.flags.isOptional,
+                                                readonly: child.flags.isReadonly,
+                                                type: child.type && child.type.toString(),
+                                                description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                                                deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
+                                            }))
+                                    });
+                                });
+
+                                doc[name]['components'][componentName]['events'] = events;
+                            }
+                        });
+                    }
+
+                    if (isProcessable(module_events_group)) {
+                        const events = {
+                            description: staticMessages['events'],
+                            values: []
+                        };
+
+                        module_events_group.children.forEach((event) => {
+                            events.values.push({
+                                name: event.name,
+                                description: event.comment && event.comment.summary.map((s) => s.text || '').join(' '),
+                                props:
+                                    event.children &&
+                                    event.children.map((child) => ({
+                                        name: child.name,
+                                        optional: child.flags.isOptional,
+                                        readonly: child.flags.isReadonly,
+                                        type: child.type && child.type.toString(),
+                                        description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
+                                    }))
+                            });
+                        });
+
+                        doc[name]['events'] = events;
+                    }
+
+                    if (isProcessable(module_templates_group)) {
+                        const templates = {
+                            description: staticMessages['templates'],
+                            values: []
+                        };
+
+                        module_templates_group.children.forEach((template) => {
+                            const parent = template.parent.name.split(/[^a-zA-Z]+/)[1];
+                            template.children.forEach((child) => {
+                                const signature = child.getAllSignatures()[0];
+                                templates.values.push({
+                                    parent: parent,
+                                    name: signature ? signature.name : child.name,
+                                    parameters: signature.parameters.map((param) => {
+                                        let type = param.type.toString();
+
+                                        if (param.type.declaration) {
+                                            type = '';
+
+                                            if (param.type.declaration.children) {
+                                                param.type.declaration.children.forEach((child) => {
+                                                    if (child.signatures) {
+                                                        const childSignature = child.signatures[0];
+                                                        const parameters = childSignature.parameters.reduce((acc, { name, type }, index) => (index === 0 ? `${name}: ${type.name}` : `${acc}, ${name}: ${type.name}`), '');
+                                                        type += ` \t ${childSignature.name}(${parameters}): ${childSignature.type?.name}, // ${childSignature.comment?.summary[0]?.text}\n `;
+                                                    } else {
+                                                        const childType = child.type.elementType ? child.type.elementType.name : child.type.name;
+
+                                                        type += ` \t ${child.name}: ${childType}, // ${child.comment?.summary[0]?.text}\n `;
+                                                    }
+                                                });
+                                            }
+
+                                            type = `{\n ${type} }`;
+                                        }
+
+                                        return {
+                                            name: param.name,
+                                            type: type,
+                                            description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                        };
+                                    }),
+                                    description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' '),
+                                    deprecated: signature.comment && signature.comment.getTag('@deprecated') ? parseText(signature.comment.getTag('@deprecated').content[0].text) : undefined
+                                });
+                            });
+                        });
+
+                        doc[name]['templates'] = templates;
+                    }
+
+                    if (isProcessable(module_interface_group)) {
+                        const interfaces = {
+                            description: staticMessages['interfaces'],
+                            values: []
+                        };
+
+                        module_interface_group.children.forEach((int) => {
+                            interfaces.values.push({
+                                name: int.name,
+                                description: int.comment && int.comment.summary.map((s) => s.text || '').join(' '),
+                                props:
+                                    int.children &&
+                                    int.children.map((child) => ({
+                                        name: child.name,
+                                        optional: child.flags.isOptional,
+                                        readonly: child.flags.isReadonly,
+                                        type: child.type ? child.type.toString() : extractParameter(int),
+                                        description: child.comment && child.comment.summary.map((s) => s.text || '').join(' '),
+                                        deprecated: child.comment && child.comment.getTag('@deprecated') ? parseText(child.comment.getTag('@deprecated').content[0].text) : undefined
+                                    }))
+                            });
+                        });
+
+                        doc[name]['interfaces'] = interfaces;
+                    }
+
+                    if (isProcessable(module_service_group)) {
+                        doc[name] = {
+                            description: staticMessages['service']
+                        };
+
+                        module_service_group.children.forEach((service) => {
+                            const service_methods_group = service.groups.find((g) => g.title === 'Method');
+                            if (isProcessable(service_methods_group)) {
+                                const methods = {
+                                    description: 'Methods used in service.',
+                                    values: []
+                                };
+
+                                service_methods_group.children.forEach((method) => {
+                                    const signature = method.getAllSignatures()[0];
+                                    methods.values.push({
+                                        name: signature.name,
+                                        parameters: signature.parameters.map((param) => {
+                                            return {
+                                                name: param.name,
+                                                type: param.type.toString(),
+                                                description: param.comment && param.comment.summary.map((s) => s.text || '').join(' ')
+                                            };
+                                        }),
+                                        returnType: signature.type.toString(),
+                                        description: signature.comment && signature.comment.summary.map((s) => s.text || '').join(' ')
+                                    });
+                                });
+
+                                doc[name]['methods'] = methods;
+                            }
+                        });
+                    }
+
+                    if (isProcessable(module_types_group)) {
+                        const types = {
+                            description: staticMessages['types'],
+                            values: []
+                        };
+
+                        module_types_group.children.forEach((t) => {
+                            types.values.push({
+                                name: t.name,
+                                value: getTypesValue(t),
+                                description: t.comment.summary && t.comment.summary.map((s) => s.text || '').join(' ')
+                            });
+                        });
+
+                        doc[name]['types'] = types;
+                    }
+                }
+            }
+        });
+    }
+
+    let mergedDocs = {};
+
+    for (const key in doc) {
+        if (key.includes('.interface')) {
+            const parentKey = key.split('.')[0];
+            const interfaceDoc = doc[key];
+            if (!mergedDocs[parentKey]) {
+                mergedDocs[parentKey] = {
+                    ...doc[parentKey],
+                    interfaces: {
+                        ...interfaceDoc
+                    }
+                };
+            }
+        } else {
+            if (!mergedDocs[key]) {
+                mergedDocs[key] = {
+                    ...doc[key]
+                };
+            }
+        }
+    }
+
+    const typedocJSON = JSON.stringify(mergedDocs, null, 4);
+
+    !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
+    fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);
 }

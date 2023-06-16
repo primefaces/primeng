@@ -4,7 +4,10 @@ import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
-
+/**
+ * Terminal is a text based user interface.
+ * @group Components
+ */
 @Component({
     selector: 'p-terminal',
     template: `

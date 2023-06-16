@@ -18,7 +18,7 @@ export class RangeDoc {
 
     @Input() title: string;
 
-    rangeDates: Date[];
+    rangeDates: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core'
     templateUrl: './calendar-range-demo.html',
 })
 export class CalendarRangeDemo {
-    rangeDates: Date[];
+    rangeDates: Date[] | undefined;
 }`
     };
 }

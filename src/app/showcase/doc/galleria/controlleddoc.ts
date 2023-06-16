@@ -32,7 +32,7 @@ export class ControlledDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     get activeIndex(): number {
         return this._activeIndex;
@@ -117,7 +117,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-controlled-demo.html'
 })
 export class GalleriaControlledDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     get activeIndex(): number {
         return this._activeIndex;

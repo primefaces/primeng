@@ -8,7 +8,10 @@ export const KNOB_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Knob),
     multi: true
 };
-
+/**
+ * Knob is a form component to define number inputs with a dial.
+ * @group Components
+ */
 @Component({
     selector: 'p-knob',
     template: `

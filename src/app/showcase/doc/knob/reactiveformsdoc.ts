@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -21,7 +21,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
@@ -51,7 +51,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './knob-reactive-forms-demo.html'
 })
 export class KnobReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({

@@ -1,11 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { TooltipOptions } from './tooltip.interface';
 
+/**
+ * Tooltip directive provides advisory information for a component.
+ * @group Components
+ */
 @Directive({
     selector: '[pTooltip]',
     host: {
@@ -22,7 +25,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | undefined;
+    @Input() tooltipEvent: 'hover' | 'focus' | string | any = 'hover';
     /**
      *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -95,6 +98,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     @Input('pTooltip') text: string | undefined;
     /**
      * When present, it specifies that the component should be disabled.
+     * @defaultValue false
      * @group Props
      */
     @Input('tooltipDisabled') get disabled(): boolean {
@@ -110,16 +114,23 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
 
-    _tooltipOptions: TooltipOptions = {
+    _tooltipOptions = {
+        tooltipLabel: null,
         tooltipPosition: 'right',
         tooltipEvent: 'hover',
         appendTo: 'body',
-        tooltipZIndex: 'auto',
+        positionStyle: null,
+        tooltipStyleClass: null,
+        tooltipZIndex: null,
         escape: true,
-        positionTop: 0,
-        positionLeft: 0,
+        disabled: null,
+        showDelay: null,
+        hideDelay: null,
+        positionTop: null,
+        positionLeft: null,
+        life: null,
         autoHide: true,
-        hideOnEscape: false
+        hideOnEscape: true
     };
 
     _disabled: boolean | undefined;
@@ -539,7 +550,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
-    setOption(option: TooltipOptions) {
+    setOption(option: any) {
         this._tooltipOptions = { ...this._tooltipOptions, ...option };
     }
 

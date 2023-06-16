@@ -278,7 +278,10 @@ export class CascadeSelectSub implements OnInit {
         }
     }
 }
-
+/**
+ * CascadeSelect is a form component to select a value from a nested structure of options.
+ * @group Components
+ */
 @Component({
     selector: 'p-cascadeSelect',
     template: `
@@ -409,7 +412,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Property name or getter function to retrieve the items of a group.
      * @group Props
      */
-    @Input() optionGroupChildren: string | undefined;
+    @Input() optionGroupChildren: string | string[] | undefined;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -490,22 +493,22 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<Event> = new EventEmitter();
+    @Output() onChange: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when a group changes.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onGroupChange: EventEmitter<any> = new EventEmitter();
+    @Output() onGroupChange: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when the overlay is shown.
-     * @param {CascadeSelectShowEvent } - custom event.
+     * @param {CascadeSelectShowEvent} event - Custom overlay show event.
      * @group Emits
      */
     @Output() onShow: EventEmitter<CascadeSelectShowEvent> = new EventEmitter<CascadeSelectShowEvent>();
     /**
      * Callback to invoke when the overlay is hidden.
-     * @param {CascadeSelectHideEvent} - custom event.
+     * @param {CascadeSelectHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
     @Output() onHide: EventEmitter<CascadeSelectHideEvent> = new EventEmitter<CascadeSelectHideEvent>();
@@ -516,19 +519,20 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     @Output() onClear: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke before overlay is shown.
-     * @param {CascadeSelectBeforeShowEvent} - custom event.
+     * @param {CascadeSelectBeforeShowEvent} event - Custom overlay show event.
      * @group Emits
      */
     @Output() onBeforeShow: EventEmitter<CascadeSelectBeforeShowEvent> = new EventEmitter<CascadeSelectBeforeShowEvent>();
     /**
      * Callback to invoke before overlay is hidden.
+     * @param {CascadeSelectBeforeHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
     @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
     /**
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get showTransitionOptions(): string {
         return this._showTransitionOptions;
@@ -538,9 +542,9 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get hideTransitionOptions(): string {
         return this._hideTransitionOptions;

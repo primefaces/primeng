@@ -8,5 +8,5 @@ export interface ScrollPanelTemplates {
     /**
      * Custom content template.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
 }

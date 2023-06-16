@@ -26,7 +26,7 @@ export class ClickEventDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -75,7 +75,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-indicator-click-event-demo.html'
 })
 export class GalleriaIndicatorClickEventDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

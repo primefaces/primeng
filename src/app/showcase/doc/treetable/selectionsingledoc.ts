@@ -4,6 +4,11 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-single-doc',
     template: ` <section>
@@ -49,11 +54,11 @@ export class SelectionSingleDoc implements OnInit {
 
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -126,11 +131,11 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeTableSelectionSingleDemo implements OnInit {
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -45,7 +45,7 @@ export class ProductListDemoDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
     constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
 
@@ -134,7 +134,7 @@ import { ProductService } from '../../service/productservice';
 })
 export class ProductListDemo implements OnInit {
 
-    products: Product[];
+    products: Product[] | undefined;
 
     constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
 

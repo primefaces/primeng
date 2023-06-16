@@ -8,25 +8,25 @@ export interface ImageTemplates {
     /**
      * Custom template of indicator.
      */
-    indicator: TemplateRef<any> | null;
+    indicator(): TemplateRef<any>;
     /**
      * Custom template of rotaterighticon.
      */
-    rotaterighticon: TemplateRef<any> | null;
+    rotaterighticon(): TemplateRef<any>;
     /**
      * Custom template of rotatelefticon.
      */
-    rotatelefticon: TemplateRef<any> | null;
+    rotatelefticon(): TemplateRef<any>;
     /**
      * Custom template of zoomouticon.
      */
-    zoomouticon: TemplateRef<any> | null;
+    zoomouticon(): TemplateRef<any>;
     /**
      * Custom template of zoominicon.
      */
-    zoominicon: TemplateRef<any> | null;
+    zoominicon(): TemplateRef<any>;
     /**
      * Custom template of closeicon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
 }

@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class KeyFilterDoc {
-    value: number;
+    value: number | undefined;
 
     @Input() id: string;
 
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-key-filter-demo.html'
 })
 export class InputTextKeyFilterDemo {
-    value: number;
+    value: number | undefined;
 }`
     };
 }

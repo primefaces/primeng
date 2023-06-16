@@ -7,7 +7,6 @@ import { DirectiveDoc } from '../../doc/badge/directivedoc';
 import { PositionDoc } from '../../doc/badge/positiondoc';
 import { SeverityDoc } from '../../doc/badge/severitydoc';
 import { StyleDoc } from '../../doc/badge/styledoc';
-import { PropsDoc } from '../../doc/badge/propsdoc';
 import { AccessibilityDoc } from '../../doc/badge/accessibilitydoc';
 
 @Component({
@@ -59,14 +58,6 @@ export class BadgeDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

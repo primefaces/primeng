@@ -3,9 +3,6 @@ import { BasicDoc } from '../../doc/scrollpanel/basicdoc';
 import { ImportDoc } from '../../doc/scrollpanel/importdoc';
 import { CusstomDoc } from '../../doc/scrollpanel/customdoc';
 import { StyleDoc } from '../../doc/scrollpanel/styledoc';
-import { PropsDoc } from '../../doc/scrollpanel/propsdoc';
-import { MethodsDoc } from '../../doc/scrollpanel/methodsdoc';
-import { TemplatesDoc } from '../../doc/scrollpanel/templatesdoc';
 import { AccessibilityDoc } from '../../doc/scrollpanel/accessibilitydoc';
 
 @Component({
@@ -39,24 +36,6 @@ export class ScrollPanelDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

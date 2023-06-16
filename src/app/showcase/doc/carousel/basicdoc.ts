@@ -37,9 +37,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
@@ -130,9 +130,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-basic-demo.scss']
 })
 export class CarouselBasicDemo implements OnInit {
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

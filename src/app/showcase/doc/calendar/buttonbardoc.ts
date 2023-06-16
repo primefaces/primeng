@@ -18,7 +18,7 @@ export class ButtonBarDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-buttonbar-demo.html'
 })
 export class CalendarButtonbarDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

@@ -1,7 +1,10 @@
 import { QueryParamsHandling } from '@angular/router';
+import { TooltipOptions } from './tooltipoptions';
+import { MegaMenuItem } from './megamenuitem';
 
 /**
  * MenuItem provides the following properties. Note that not all of them may be utilized by the tabmenu component.
+ * @group Interface
  */
 export interface MenuItem {
     /**
@@ -15,7 +18,7 @@ export interface MenuItem {
     /**
      * Callback to execute when item is clicked.
      */
-    command?: (event?: any) => void;
+    command?(event: MenuItemCommandEvent): void;
     /**
      * External link to navigate when item is clicked.
      */
@@ -71,7 +74,7 @@ export interface MenuItem {
     /**
      * Inline style of the menuitem.
      */
-    style?: any;
+    style?: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the menuitem.
      */
@@ -125,34 +128,39 @@ export interface MenuItem {
     /**
      * Inline style of the item's icon.
      */
-    iconStyle?: any;
+    iconStyle?: { [klass: string]: any } | null | undefined;
     /**
      * Class of the item's icon.
      */
     iconClass?: string;
     /**
      * Developer-defined state that can be passed to any navigation.
+     * @see {MenuItemState}
      */
-    state?: {
-        [k: string]: any;
-    };
+    state?: { [k: string]: any };
     /**
      * Options of the item's tooltip.
+     * @see {TooltipOptions}
      */
-    tooltipOptions?: {
-        tooltipLabel?: string;
-        tooltipPosition?: string;
-        tooltipEvent?: string;
-        appendTo?: any;
-        positionStyle?: string;
-        tooltipStyleClass?: string;
-        tooltipZIndex?: string;
-        escape?: boolean;
-        disabled?: boolean;
-        positionTop?: number;
-        positionLeft?: number;
-        showDelay?: number;
-        hideDelay?: number;
-        life?: number;
-    };
+    tooltipOptions?: TooltipOptions;
+}
+
+/**
+ * Custom command event
+ * @see {@link MenuItem.command}
+ * @group Events
+ */
+export interface MenuItemCommandEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent?: Event;
+    /**
+     * Selected menu item.
+     */
+    item?: MenuItem | MegaMenuItem;
+    /**
+     * Index of the selected item.
+     */
+    index?: number;
 }

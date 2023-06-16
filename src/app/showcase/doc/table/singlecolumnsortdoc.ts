@@ -47,7 +47,7 @@ export class SingleColumnSortDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -113,7 +113,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-single-column-sort-demo.html'
 })
 export class TableSingleColumnSortDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

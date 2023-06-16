@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/scrolltop/importdoc';
 import { BasicDoc } from '../../doc/scrolltop/basicdoc';
-import { PropsDoc } from '../../doc/scrolltop/propsdoc';
 import { StyleDoc } from '../../doc/scrolltop/styledoc';
 import { ElementDoc } from '../../doc/scrolltop/elementdoc';
 import { AccessibilityDoc } from '../../doc/scrolltop/accessibilitydoc';
-import { TemplatesDoc } from '../../doc/scrolltop/templatesdoc';
 
 @Component({
     templateUrl: './scrolltopdemo.html',
@@ -37,19 +35,6 @@ export class ScrollTopDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

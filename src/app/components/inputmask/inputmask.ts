@@ -41,7 +41,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputMask),
     multi: true
 };
-
+/**
+ * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputMask',
     template: `
@@ -94,7 +97,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 })
 export class InputMask implements OnInit, ControlValueAccessor {
     /**
-     * HTML5 input type
+     * HTML5 input type.
      * @group Props
      */
     @Input() type: string = 'text';
@@ -226,7 +229,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Callback to invoke when the mask is completed.
      * @group Emits
      */
-    @Output() onComplete: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onComplete: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -255,7 +258,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Callback to invoke when input field is cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
 

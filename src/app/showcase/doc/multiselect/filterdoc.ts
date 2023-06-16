@@ -23,9 +23,9 @@ export class FilterDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './multi-select-filter-demo.html'
 })
 export class MultiSelectFilterDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

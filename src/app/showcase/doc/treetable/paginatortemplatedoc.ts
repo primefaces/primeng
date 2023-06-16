@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'paginator-template-doc',
     template: ` <section>
@@ -48,9 +53,9 @@ export class PaginatorTemplateDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     ngOnInit() {
         this.files = [];
@@ -139,14 +144,19 @@ export class PaginatorTemplateDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-paginator-template-demo',
     templateUrl: './tree-table-paginator-template-demo.html'
 })
 export class TreeTablePaginatorTemplateDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols: Column[];
 
     ngOnInit() {
         this.files = [];

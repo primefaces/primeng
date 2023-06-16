@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * pDraggable directive apply draggable behavior to any element.
+ * @group Components
+ */
 @Directive({
     selector: '[pDraggable]',
     host: {
@@ -154,7 +157,10 @@ export class Draggable implements AfterViewInit, OnDestroy {
         this.unbindMouseListeners();
     }
 }
-
+/**
+ * pDroppable directive apply droppable behavior to any element.
+ * @group Components
+ */
 @Directive({
     selector: '[pDroppable]',
     host: {
@@ -165,6 +171,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
     @Input('pDroppable') scope: string | string[] | undefined;
     /**
      * Whether the element is droppable, useful for conditional cases.
+     * @group Props
      */
     @Input() pDroppableDisabled: boolean = false;
     /**

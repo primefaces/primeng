@@ -42,11 +42,11 @@ export class FullScreenTemplateDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    displayCustom: boolean;
+    displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -130,11 +130,11 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-full-secreen-template-demo.html'
 })
 export class GalleriaFullScreenTemplateDemo implements OnInit {
-    displayCustom: boolean;
+    displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

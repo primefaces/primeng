@@ -29,7 +29,10 @@ import { ZIndexUtils } from 'primeng/utils';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * Sidebar is a panel component displayed as an overlay at the edges of the screen.
+ * @group Components
+ */
 @Component({
     selector: 'p-sidebar',
     template: `
@@ -94,7 +97,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
@@ -193,18 +196,18 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when dialog is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when dialog visibility is changed.
-     * @param {boolean} value - New value.
+     * @param {boolean} value - Visible value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     initialized: boolean | undefined;
 

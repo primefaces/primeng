@@ -8,5 +8,5 @@ export interface TagTemplates {
     /**
      * Custom icon template
      */
-    icon: TemplateRef<any> | undefined;
+    icon(): TemplateRef<any>;
 }

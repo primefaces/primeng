@@ -1,49 +1,25 @@
 import { TemplateRef } from '@angular/core';
 import { Scroller } from './scroller';
-
+/**
+ * Options of the scroll direction.
+ * @group Types
+ */
 export type ScrollerToType = 'to-start' | 'to-end' | undefined;
-
+/**
+ * Options of the scroller orientation.
+ * @group Types
+ */
 export type ScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
 /**
- * Options for the virtual scroller.
- */
-export interface ScrollerOptions {
-    id?: string | undefined;
-    style?: any;
-    styleClass?: string | undefined;
-    tabindex?: number | undefined;
-    items?: any[];
-    itemSize?: any;
-    scrollHeight?: string | undefined;
-    scrollWidth?: string | undefined;
-    orientation?: ScrollerOrientationType;
-    step?: number | undefined;
-    delay?: number | undefined;
-    resizeDelay?: number | undefined;
-    appendOnly?: boolean;
-    inline?: boolean;
-    lazy?: boolean;
-    disabled?: boolean;
-    loaderDisabled?: boolean;
-    columns?: any[] | undefined;
-    showSpacer?: boolean;
-    showLoader?: boolean;
-    numToleratedItems?: any;
-    loading?: boolean;
-    autoSize?: boolean;
-    trackBy?: any;
-    onLazyLoad?: Function | undefined;
-    onScroll?: Function | undefined;
-    onScrollIndexChange?: Function | undefined;
-}
-/**
  * Loader icon options.
+ * @group Types
  */
 export interface ScrollerLoaderIconOptions {
     [klass: string]: any;
 }
 /**
  * Scroller content options.
+ * @group Interface
  */
 export interface ScrollerContentOptions {
     contentStyleClass?: string;
@@ -62,18 +38,38 @@ export interface ScrollerContentOptions {
 }
 /**
  * Scroller item options.
+ * @group Interface
  */
 export interface ScrollerItemOptions {
+    /**
+     * Index of the item.
+     */
     index?: number;
+    /**
+     * Item count.
+     */
     count?: number;
+    /**
+     * Index of the first element in viewport.
+     */
     first?: boolean;
+    /**
+     * Index of the last element in viewport.
+     */
     last?: boolean;
+    /**
+     * Defines if index is even number.
+     */
     even?: boolean;
+    /**
+     * Defines if index is odd number.
+     */
     odd?: boolean;
 }
 /**
  * Loader settings.
  * @extends {ScrollerItemOptions}
+ * @group Interface
  */
 export interface ScrollerLoaderOptions extends ScrollerItemOptions {
     [klass: string]: any;
@@ -81,6 +77,7 @@ export interface ScrollerLoaderOptions extends ScrollerItemOptions {
 /**
  * Custom lazy load event.
  * @see {@link Scroller.onLazyLoad}
+ * @group Events
  */
 export interface ScrollerLazyLoadEvent {
     /**
@@ -96,11 +93,13 @@ export interface ScrollerLazyLoadEvent {
  * Custom scroll index change event.
  * @see {@link Scroller.onScrollIndexChange}
  * @extends {ScrollerLazyLoadEvent}
+ * @group Events
  */
 export interface ScrollerScrollIndexChangeEvent extends ScrollerLazyLoadEvent {}
 /**
  * Custom scroll event.
  * @see {@link Scroller.onScroll}
+ * @group Events
  */
 export interface ScrollerScrollEvent {
     /**
@@ -115,6 +114,7 @@ export interface ScrollerScrollEvent {
 export interface ScrollerTemplates {
     /**
      * Custom content template.
+     * @param {Object} context - Content data.
      */
     content(context: {
         /**
@@ -128,6 +128,7 @@ export interface ScrollerTemplates {
     }): TemplateRef<{ $implicit: any[] | any | null | undefined; options: ScrollerContentOptions }>;
     /**
      * Custom item template.
+     * @param {Object} context - Item data.
      */
     item(context: {
         /**
@@ -141,10 +142,22 @@ export interface ScrollerTemplates {
     }): TemplateRef<{ $implicit: any; options: ScrollerItemOptions }>;
     /**
      * Custom loader template.
+     * @param {Object} context - Options instance.
      */
-    loader(context: { options: ScrollerLoaderOptions }): TemplateRef<{ options: ScrollerLoaderOptions }>;
+    loader(context: {
+        /**
+         * Options.
+         */
+        options: ScrollerLoaderOptions;
+    }): TemplateRef<{ options: ScrollerLoaderOptions }>;
     /**
      * Custom loader icon template.
+     * @param {Object} context - Icon options.
      */
-    loadericon(context: { options: ScrollerLoaderIconOptions }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
+    loadericon(context: {
+        /**
+         * Options.
+         */
+        options: ScrollerLoaderIconOptions;
+    }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
 }

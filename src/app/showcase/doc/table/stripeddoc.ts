@@ -38,7 +38,7 @@ export class StripedDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -100,7 +100,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-striped-demo.html'
 })
 export class TableStripedDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

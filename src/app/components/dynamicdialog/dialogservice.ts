@@ -4,14 +4,23 @@ import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DOCUMENT } from '@angular/common';
-
+/**
+ * Dynamic Dialog component methods.
+ * @group Service
+ */
 @Injectable()
 export class DialogService {
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
-
-    public open(componentType: Type<any>, config: DynamicDialogConfig) {
+    /**
+     * Displays the dialog using the dynamic dialog object options.
+     * @param {*} componentType - Dynamic component for content template.
+     * @param {DynamicDialogConfig} config - DynamicDialog object.
+     * @returns {DynamicDialogRef} DynamicDialog instance.
+     * @group Method
+     */
+    public open(componentType: Type<any>, config: DynamicDialogConfig): DynamicDialogRef {
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;

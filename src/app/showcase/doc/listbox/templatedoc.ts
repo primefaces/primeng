@@ -30,9 +30,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     ngOnInit() {
         this.countries = [
@@ -85,9 +85,9 @@ interface Country {
     templateUrl: './listbox-template-demo.html'
 })
 export class ListboxTemplateDemo implements OnInit {
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     ngOnInit() {
         this.countries = [

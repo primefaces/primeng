@@ -51,13 +51,13 @@ export class SortingDoc {
 
     @Input() title: string;
 
-    sortOptions: SelectItem[];
+    sortOptions!: SelectItem[];
 
-    sortOrder: number;
+    sortOrder!: number;
 
-    sortField: string;
+    sortField!: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -70,7 +70,7 @@ export class SortingDoc {
         ];
     }
 
-    onSortChange(event) {
+    onSortChange(event: any) {
         let value = event.value;
 
         if (value.indexOf('!') === 0) {
@@ -82,7 +82,7 @@ export class SortingDoc {
         }
     }
 
-    getSeverity(product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -178,13 +178,13 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './data-view-sorting-demo.html'
 })
 export class DataViewSortingDemo {
-    sortOptions: SelectItem[];
+    sortOptions!: SelectItem[];
 
-    sortOrder: number;
+    sortOrder!: number;
 
-    sortField: string;
+    sortField!: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -197,7 +197,7 @@ export class DataViewSortingDemo {
         ];
     }
 
-    onSortChange(event) {
+    onSortChange(event: any) {
         let value = event.value;
 
         if (value.indexOf('!') === 0) {
@@ -209,7 +209,7 @@ export class DataViewSortingDemo {
         }
     }
 
-    getSeverity (product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';

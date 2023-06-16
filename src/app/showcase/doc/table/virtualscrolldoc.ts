@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CarService } from '../../service/carservice';
+
+interface Column {
+    field: string;
+    header: string;
+}
 
 @Component({
     selector: 'virtual-scroll-doc',
@@ -42,11 +47,11 @@ export class VirtualScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 
@@ -105,16 +110,21 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../../domain/car';
 import { CarService } from '../../service/carservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-virtual-scroll-demo',
     templateUrl: 'table-virtual-scroll-demo.html'
 })
 export class TableVirtualScrollDemo implements OnInit{
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 

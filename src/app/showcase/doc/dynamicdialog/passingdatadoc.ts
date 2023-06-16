@@ -21,7 +21,7 @@ export class PassingDataDoc {
 
     @Input() title: string;
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}
 
@@ -46,7 +46,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService) {}
 

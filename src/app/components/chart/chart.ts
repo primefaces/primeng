@@ -1,7 +1,10 @@
 import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
-
+/**
+ * Chart groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-chart',
     template: `
@@ -67,11 +70,11 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Callback to execute when an element on chart is clicked.
      * @group Emits
      */
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
+    @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
 
     isBrowser: boolean = false;
 
-    initialized: boolean;
+    initialized: boolean | undefined;
 
     _data: any;
 
@@ -86,7 +89,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         this.initialized = true;
     }
 
-    onCanvasClick(event) {
+    onCanvasClick(event: Event) {
         if (this.chart) {
             const element = this.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
             const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);

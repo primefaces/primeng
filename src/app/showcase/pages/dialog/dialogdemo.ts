@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/dialog/basicdoc';
-import { EventsDoc } from '../../doc/dialog/eventsdoc';
 import { ImportDoc } from '../../doc/dialog/importdoc';
 import { LongContentDoc } from '../../doc/dialog/longcontentdoc';
-import { PropsDoc } from '../../doc/dialog/propsdoc';
 import { StyleDoc } from '../../doc/dialog/styledoc';
 import { ResponsiveDoc } from '../../doc/dialog/responsivedoc';
 import { PositionDoc } from '../../doc/dialog/positiondoc';
@@ -72,19 +70,6 @@ export class DialogDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

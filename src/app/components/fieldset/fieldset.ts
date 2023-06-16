@@ -10,7 +10,10 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
 import { Nullable } from 'primeng/ts-helpers';
 
 let idx: number = 0;
-
+/**
+ * Fieldset is a grouping component with the optional content toggle feature.
+ * @group Components
+ */
 @Component({
     selector: 'p-fieldset',
     template: `
