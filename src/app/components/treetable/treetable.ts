@@ -576,10 +576,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @defaultValue null
      * @group Props
      */
-    @Input() get value(): TreeNode[] | undefined {
+    @Input() get value(): TreeNode<any>[] | undefined {
         return this._value;
     }
-    set value(val: TreeNode[] | undefined) {
+    set value(val: TreeNode<any>[] | undefined) {
         this._value = val;
     }
     /**
@@ -601,7 +601,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<TreeTableNode | null> = new EventEmitter<TreeTableNode | null>();
+    @Output() selectionChange: EventEmitter<TreeTableNode<any> | null> = new EventEmitter<TreeTableNode<any> | null>();
     /**
      * Callback to invoke on context menu selection change.
      * @param {TreeTableNode} object - Node instance.
@@ -721,7 +721,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _value: any[] = [];
+    _value: TreeNode<any>[] | undefined = [];
 
     serializedValue: any[] | undefined | null;
 

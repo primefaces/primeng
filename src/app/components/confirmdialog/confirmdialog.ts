@@ -143,7 +143,13 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() get style(): { [klass: string]: any } | null | undefined {
+        return this._style;
+    }
+    set style(value: { [klass: string]: any } | null | undefined) {
+        this._style = value;
+        this.cd.markForCheck();
+    }
     /**
      * Class of the element.
      * @group Props
@@ -363,6 +369,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     confirmation: Nullable<Confirmation>;
 
     _visible: boolean | undefined;
+
+    _style: { [klass: string]: any } | null | undefined;
 
     maskVisible: boolean | undefined;
 

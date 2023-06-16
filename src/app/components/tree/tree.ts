@@ -198,9 +198,9 @@ export class UITreeNode implements OnInit {
 
     @Input() rowNode: any;
 
-    @Input() node: TreeNode | undefined;
+    @Input() node: TreeNode<any> | undefined;
 
-    @Input() parentNode: TreeNode | undefined;
+    @Input() parentNode: TreeNode<any> | undefined;
 
     @Input() root: boolean | undefined;
 
@@ -233,12 +233,12 @@ export class UITreeNode implements OnInit {
     ngOnInit() {
         (<TreeNode>this.node).parent = this.parentNode;
         if (this.parentNode) {
-            this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode[]>this.tree.value));
+            this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
     }
 
     getIcon() {
-        let icon: string;
+        let icon: string | undefined;
 
         if ((<TreeNode>this.node).icon) icon = (<TreeNode>this.node).icon as string;
         else icon = (<TreeNode>this.node).expanded && (<TreeNode>this.node).children && (<TreeNode>this.node).children?.length ? (<TreeNode>this.node).expandedIcon : (<TreeNode>this.node).collapsedIcon;
@@ -729,7 +729,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * An array of treenodes.
      * @group Props
      */
-    @Input() value: TreeNode | TreeNode[] | any[] | any;
+    @Input() value: TreeNode<any> | TreeNode<any>[] | any[] | any;
     /**
      * Defines the selection mode.
      * @group Props
@@ -854,7 +854,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * No description available.
      * @group Props
      */
-    @Input() filteredNodes: TreeNode[] | undefined | null;
+    @Input() filteredNodes: TreeNode<any>[] | undefined | null;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
@@ -915,10 +915,10 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
     /**
      * Callback to invoke on selection change.
-     * @param {(TreeNode | TreeNode[] | null)} event - Custom selection change event.
+     * @param {(TreeNode<any> | TreeNode<any>[] | null)} event - Custom selection change event.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<TreeNode[] | TreeNode | null> = new EventEmitter<TreeNode[] | TreeNode | null>();
+    @Output() selectionChange: EventEmitter<TreeNode<any> | TreeNode<any>[] | null> = new EventEmitter<TreeNode<any> | TreeNode<any>[] | null>();
     /**
      * Callback to invoke when a node is selected.
      * @param {TreeNodeSelectEvent} event - Node select event.
@@ -988,7 +988,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
 
-    serializedValue: Nullable<TreeNode[]>;
+    serializedValue: Nullable<TreeNode<any>[]>;
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -1010,9 +1010,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragNodeTree: Tree | undefined | null;
 
-    public dragNode: TreeNode | undefined | null;
+    public dragNode: TreeNode<any> | undefined | null;
 
-    public dragNodeSubNodes: TreeNode[] | undefined | null;
+    public dragNodeSubNodes: TreeNode<any>[] | undefined | null;
 
     public dragNodeIndex: number | undefined | null;
 
@@ -1112,7 +1112,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         this.serializeNodes(null, this.getRootNode(), 0, true);
     }
 
-    serializeNodes(parent: TreeNode | null, nodes: TreeNode[] | any, level: number, visible: boolean) {
+    serializeNodes(parent: TreeNode<any> | null, nodes: TreeNode<any>[] | any, level: number, visible: boolean) {
         if (nodes && nodes.length) {
             for (let node of nodes) {
                 node.parent = parent;
@@ -1122,7 +1122,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                     level: level,
                     visible: visible && (parent ? parent.expanded : true)
                 };
-                (this.serializedValue as TreeNode[]).push(<TreeNode>rowNode);
+                (this.serializedValue as TreeNode<any>[]).push(<TreeNode>rowNode);
 
                 if (rowNode.visible && node.expanded) {
                     this.serializeNodes(node, node.children, level + 1, rowNode.visible);
@@ -1141,7 +1141,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode[]>this.value) as TreeNode;
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
 
                 if (!node) {
                     return;
@@ -1230,7 +1230,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         this.nodeTouched = true;
     }
 
-    onNodeRightClick(event: MouseEvent, node: TreeNode) {
+    onNodeRightClick(event: MouseEvent, node: TreeNode<any>) {
         if (this.contextMenu) {
             let eventTarget = <Element>event.target;
 
@@ -1273,7 +1273,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         return index;
     }
 
-    syncNodeOption(node: TreeNode, parentNodes: TreeNode[], option: any, value?: any) {
+    syncNodeOption(node: TreeNode, parentNodes: TreeNode<any>[], option: any, value?: any) {
         // to synchronize the node option between the filtered nodes and the original nodes(this.value)
         const _node = this.hasFilteredNodes() ? this.getNodeWithKey(<string>node.key, parentNodes) : null;
         if (_node) {
@@ -1285,7 +1285,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         return this.filter && this.filteredNodes && this.filteredNodes.length;
     }
 
-    getNodeWithKey(key: string, nodes: TreeNode[]): TreeNode | undefined {
+    getNodeWithKey(key: string, nodes: TreeNode<any>[]): TreeNode<any> | undefined {
         for (let node of nodes) {
             if (node.key === key) {
                 return node;
@@ -1327,7 +1327,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                 else node.partialSelected = false;
             }
 
-            this.syncNodeOption(node, <TreeNode[]>this.filteredNodes, 'partialSelected');
+            this.syncNodeOption(node, <TreeNode<any>[]>this.filteredNodes, 'partialSelected');
         }
 
         let parent = node.parent;
@@ -1347,7 +1347,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
         node.partialSelected = false;
 
-        this.syncNodeOption(node, <TreeNode[]>this.filteredNodes, 'partialSelected');
+        this.syncNodeOption(node, <TreeNode<any>[]>this.filteredNodes, 'partialSelected');
 
         if (node.children && node.children.length) {
             for (let child of node.children) {
@@ -1426,8 +1426,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     processTreeDrop(dragNode: TreeNode, dragNodeIndex: number) {
-        (<TreeNode[]>this.dragNodeSubNodes).splice(dragNodeIndex, 1);
-        (this.value as TreeNode[]).push(dragNode);
+        (<TreeNode<any>[]>this.dragNodeSubNodes).splice(dragNodeIndex, 1);
+        (this.value as TreeNode<any>[]).push(dragNode);
         this.dragDropService.stopDrag({
             node: dragNode
         });
@@ -1448,7 +1448,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         }
     }
 
-    allowDrop(dragNode: TreeNode, dropNode: TreeNode | null, dragNodeScope: any): boolean {
+    allowDrop(dragNode: TreeNode, dropNode: TreeNode<any> | null, dragNodeScope: any): boolean {
         if (!dragNode) {
             //prevent random html elements to be dragged
             return false;
@@ -1510,7 +1510,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             const searchFields: string[] = this.filterBy.split(',');
             const filterText = ObjectUtils.removeAccents(filterValue).toLocaleLowerCase(this.filterLocale);
             const isStrictMode = this.filterMode === 'strict';
-            for (let node of <TreeNode[]>this.value) {
+            for (let node of <TreeNode<any>[]>this.value) {
                 let copyNode = { ...node };
                 let paramsWithoutNode = { searchFields, filterText, isStrictMode };
                 if (

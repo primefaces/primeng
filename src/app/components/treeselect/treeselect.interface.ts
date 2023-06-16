@@ -35,12 +35,12 @@ export interface TreeSelectTemplates {
         /**
          * Value of the component.
          */
-        $implicit: TreeNode | null;
+        $implicit: TreeNode<any> | null;
         /**
          * Placeholder of the component.
          */
         placeholder: string;
-    }): TemplateRef<{ $implicit: TreeNode | null; placeholder: string }>;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null; placeholder: string }>;
     /**
      * Custom header template.
      * @param {Object} context - header data.
@@ -49,12 +49,12 @@ export interface TreeSelectTemplates {
         /**
          * Value of the component.
          */
-        $implicit: TreeNode | null | undefined;
+        $implicit: TreeNode<any> | null | undefined;
         /**
          * Placeholder of the component.
          */
-        options: TreeNode[] | undefined;
-    }): TemplateRef<{ $implicit: TreeNode | null; options: TreeNode[] | null | undefined }>;
+        options: TreeNode<any>[] | undefined;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null; options: TreeNode[] | null | undefined }>;
     /**
      * Custom empty template.
      */
@@ -88,7 +88,7 @@ export interface TreeSelectTemplates {
          * Expanded state of the node.
          */
         $implicit: boolean;
-    }): TemplateRef<{ $implicit: TreeNode | null }>;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null }>;
     /**
      * Custom node checkbox icon template.
      */

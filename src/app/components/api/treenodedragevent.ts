@@ -12,11 +12,11 @@ export interface TreeNodeDragEvent {
     /**
      * Node to be dragged.
      */
-    node?: TreeNode;
+    node?: TreeNode<any>;
     /**
      * Child nodes of dragged node.
      */
-    subNodes?: TreeNode[];
+    subNodes?: TreeNode<any>[];
     /**
      * Index of dragged node.
      */

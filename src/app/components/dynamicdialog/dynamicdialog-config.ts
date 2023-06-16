@@ -12,6 +12,10 @@ export class DynamicDialogConfig<T = any> {
      */
     header?: string;
     /**
+     * Identifies the element (or elements) that labels the element it is applied to.
+     */
+    ariaLabelledBy?: string;
+    /**
      * Footer text of the dialog.
      */
     footer?: string;

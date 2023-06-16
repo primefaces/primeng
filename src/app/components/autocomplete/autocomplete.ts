@@ -234,7 +234,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </p-overlay>
         </span>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -1140,7 +1139,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             let inputValue = target.value.trim();
 
             if (this.suggestions) {
-                for (let suggestion of this.suggestions) {
+                let suggestions = [...this.suggestions];
+                if (this.group) {
+                    let groupedSuggestions = this.suggestions.filter(s => s[this.optionGroupChildren])
+                        .flatMap(s => s[this.optionGroupChildren]);
+                    suggestions = suggestions.concat(groupedSuggestions);
+                }
+
+                for (let suggestion of suggestions) {
                     let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
                         valid = true;
