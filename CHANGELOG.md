@@ -1,4 +1,32 @@
 # Changelog
+## [16.0.1](https://github.com/primefaces/primeng/tree/16.0.1) (2023-06-16)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0...16.0.1)
+
+**Enhancements:**
+- Type for demos [\#13135](https://github.com/primefaces/primeng/issues/13135)
+- Update dynamicdialog-config.ts [\#13019](https://github.com/primefaces/primeng/issues/13019)
+
+**Fixed bugs:**
+- CascadeSelect: Wrong type definition for optionGroupChildren [\#13152](https://github.com/primefaces/primeng/issues/13152)
+- Checkbox: breaking change for value type [\#13182](https://github.com/primefaces/primeng/issues/13182)
+- Component: Dynamic Dialog resize change doesn't work [\#13158](https://github.com/primefaces/primeng/issues/13158)
+- AutoComplete: grouped options are not selected with enter key [\#12624](https://github.com/primefaces/primeng/issues/12624)
+- Galleria | cannot read properties of undefined error [\#13124](https://github.com/primefaces/primeng/issues/13124)
+- selectButton: Conditional template rendering is not working [\#13053](https://github.com/primefaces/primeng/issues/13053)
+- AccordionTab iconPos end not working [\#12988](https://github.com/primefaces/primeng/issues/12988)
+- OverlayPanel: Incorrect position when inside of dialog in 16.0.0 (did not happen in rc2) [\#13201](https://github.com/primefaces/primeng/issues/13201)
+- Button: loading style issue when already has an icon [\#13148](https://github.com/primefaces/primeng/issues/13148)
+- FileUpload | File limit does not fire error [\#13129](https://github.com/primefaces/primeng/issues/13129)
+- ConfirmDialog: style property not updated [\#13155](https://github.com/primefaces/primeng/issues/13155)
+- Can not install with angular@16.1.0 [\#13197](https://github.com/primefaces/primeng/issues/13197)
+- Button: loading state bugs [\#13098](https://github.com/primefaces/primeng/issues/13098)
+- Menu | iconStyle or inline styling does not work as expected [\#13128](https://github.com/primefaces/primeng/issues/13128)
+- TreeNode: data is no longer generic [\#13183](https://github.com/primefaces/primeng/issues/13183)
+- Documentation: picklist example is not rendering the data [\#13186](https://github.com/primefaces/primeng/issues/13186)
+- Tooltip: Doesn't work. Show console error [\#13190](https://github.com/primefaces/primeng/issues/13190)
+- Documentation: Bug: Table "Subheader" takes you nowhere [\#13184](https://github.com/primefaces/primeng/issues/13184)
+
 ## [16.0.0](https://github.com/primefaces/primeng/tree/16.0.0) (2023-06-12)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0-rc.2...16.0.0)
