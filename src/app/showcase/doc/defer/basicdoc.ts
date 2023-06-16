@@ -53,7 +53,7 @@ export class BasicDoc {
 </div>`,
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'src/app/components/api/messageservice';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'defer-basic-demo',

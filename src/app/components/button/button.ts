@@ -16,7 +16,10 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only'
 } as const;
-
+/**
+ * Button directive is an extension to button component.
+ * @group Components
+ */
 @Directive({
     selector: '[pButton]',
     host: {
@@ -218,7 +221,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
-
+/**
+ * Button is an extension to standard button element with icons and theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-button',
     template: `

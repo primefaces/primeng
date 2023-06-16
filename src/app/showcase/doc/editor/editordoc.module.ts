@@ -11,17 +11,13 @@ import { BasicDoc } from './basicdoc';
 import { EditorModule } from 'primeng/editor';
 import { ReadOnlyDoc } from './readonlydoc';
 import { CustomToolbarDoc } from './customtoolbardoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
-import { MethodsDoc } from './methodsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
-import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, EditorModule, FormsModule, DropdownModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, PropsDoc, EventsDoc, MethodsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, TemplatesDoc]
+    declarations: [ImportDoc, QuillDoc, BasicDoc, ReadOnlyDoc, CustomToolbarDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class EditorDocModule {}

@@ -6,8 +6,6 @@ import { ImportDoc } from '../../doc/timeline/importdoc';
 import { OppositeDoc } from '../../doc/timeline/oppositedoc';
 import { HorizontalDoc } from '../../doc/timeline/horizontaldoc';
 import { StyleDoc } from '../../doc/timeline/styledoc';
-import { PropsDoc } from '../../doc/timeline/propsdoc';
-import { TemplatesDoc } from '../../doc/timeline/templatesdoc';
 import { AccessibilityDoc } from '../../doc/timeline/accessibilitydoc';
 
 @Component({
@@ -54,19 +52,6 @@ export class TimelineDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

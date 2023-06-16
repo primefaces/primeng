@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "16.0.0-rc.2",
+    "version": "16.0.1-SNAPSHOT",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -51,7 +51,7 @@
         "@types/express": "^4.17.17",
         "@types/jasmine": "~4.3.1",
         "@types/jest": "^29.5.1",
-        "@types/node": "^12.11.1",
+        "@types/node": "^12.20.55",
         "chart.js": "3.3.2",
         "codelyzer": "^0.0.28",
         "del": "^7.0.0",

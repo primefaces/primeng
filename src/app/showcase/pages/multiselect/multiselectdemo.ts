@@ -4,16 +4,13 @@ import { AccessibilityDoc } from '../../doc/multiselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/multiselect/basicdoc';
 import { ChipsDoc } from '../../doc/multiselect/chipsdoc';
 import { DisabledDoc } from '../../doc/multiselect/disableddoc';
-import { EventsDoc } from '../../doc/multiselect/eventsdoc';
 import { FilterDoc } from '../../doc/multiselect/filterdoc';
 import { FloatLabelDoc } from '../../doc/multiselect/floatlabeldoc';
 import { GroupDoc } from '../../doc/multiselect/groupdoc';
 import { ImportDoc } from '../../doc/multiselect/importdoc';
 import { InvalidDoc } from '../../doc/multiselect/invaliddoc';
-import { PropsDoc } from '../../doc/multiselect/propsdoc';
 import { StyleDoc } from '../../doc/multiselect/styledoc';
 import { TemplateDoc } from '../../doc/multiselect/templatedoc';
-import { TemplatesDoc } from '../../doc/multiselect/templatesdoc';
 import { VirtualScrollDoc } from '../../doc/multiselect/virtualscrolldoc';
 
 @Component({
@@ -86,23 +83,6 @@ export class MultiSelectDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

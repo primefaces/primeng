@@ -14,14 +14,13 @@ import { IconsDoc } from './iconsdoc';
 import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { KeyFilterDoc } from './keyfilterdoc';
-import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, InputTextModule, FormsModule, ReactiveFormsModule, AppDocModule, KeyFilterModule],
-    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
+    declarations: [BasicDoc, DisabledDoc, FloatLabelDoc, HelpTextDoc, IconsDoc, InvalidDoc, KeyFilterDoc, SizesDoc, ImportDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc],
     exports: [AppDocModule]
 })
 export class InputtextDocModule {}

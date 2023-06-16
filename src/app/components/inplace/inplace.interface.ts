@@ -8,13 +8,13 @@ export interface InplaceTemplates {
     /**
      * Custom template of display.
      */
-    display: TemplateRef<any> | null;
+    display(): TemplateRef<any>;
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of close icon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
 }

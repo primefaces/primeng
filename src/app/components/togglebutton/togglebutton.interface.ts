@@ -2,6 +2,7 @@ import { ToggleButton } from './togglebutton';
 /**
  * Custom change event.
  * @see {@link ToggleButton.onChange}
+ * @group Events
  */
 export interface ToggleButtonChangeEvent {
     /**

@@ -33,7 +33,10 @@ import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
-
+/**
+ * TabPanel is a helper component for TabView component.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabPanel',
     template: `
@@ -137,8 +140,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Left icon of the tabPanel.
-     * @deprecated since v15.4.2, use `lefticon` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `lefticon` template instead.
      */
     @Input() get leftIcon(): string {
         return this._leftIcon;
@@ -149,8 +152,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
     /**
      * Left icon of the tabPanel.
-     * @deprecated since v15.4.2, use `righticon` template instead.
      * @group Props
+     * @deprecated since v15.4.2, use `righticon` template instead.
      */
     @Input() get rightIcon(): string | undefined {
         return this._rightIcon;
@@ -230,7 +233,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         this.view = null;
     }
 }
-
+/**
+ * TabView is a container component to group content with tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabView',
     template: `

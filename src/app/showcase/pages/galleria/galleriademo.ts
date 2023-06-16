@@ -17,11 +17,9 @@ import { HoverDoc } from '../../doc/galleria/navigator/hoverdoc';
 import { IndicatorsDoc } from '../../doc/galleria/navigator/indicatorsdoc';
 import { ItemThumbnailsDoc } from '../../doc/galleria/navigator/itemthumbnailsdoc';
 import { ItemWithoutThumbnailsDoc } from '../../doc/galleria/navigator/itemwithoutthumbnailsdoc';
-import { PropsDoc } from '../../doc/galleria/propsdoc';
 import { ResponsiveDoc } from '../../doc/galleria/responsivedoc';
 import { StyleDoc } from '../../doc/galleria/styledoc';
 import { ThumbnailDoc } from '../../doc/galleria/thumbnaildoc';
-import { TemplatesDoc } from '../../doc/galleria/templatesdoc';
 
 @Component({
     templateUrl: './galleriademo.html',
@@ -151,19 +149,6 @@ export class GalleriaDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

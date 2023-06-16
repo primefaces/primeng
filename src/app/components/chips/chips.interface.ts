@@ -3,6 +3,7 @@ import { Chips } from './chips';
 /**
  * Custom add event.
  * @see {@link Chips.onAdd}
+ * @group Events
  */
 export interface ChipsAddEvent {
     /**
@@ -18,12 +19,14 @@ export interface ChipsAddEvent {
  * Custom remove event.
  * @see {@link Chips.onRemove}
  * @extends {ChipsAddEvent}
+ * @group Events
  */
 export interface ChipsRemoveEvent extends ChipsAddEvent {}
 /**
  * Custom click event.
  * @see {@link Chips.onChipClick}
  * @extends {ChipsAddEvent}
+ * @group Events
  */
 export interface ChipsClickEvent extends ChipsAddEvent {}
 /**
@@ -40,13 +43,13 @@ export interface ChipsTemplates {
          * Value of the chip element.
          */
         $implicit: any;
-    }): TemplateRef<{ $implicit: any }> | null;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom remove icon template.
      */
-    removetokenicon: TemplateRef<any> | null;
+    removetokenicon(): TemplateRef<any>;
     /**
      * Custom clear icon template.
      */
-    clearicon: TemplateRef<any> | null;
+    clearicon(): TemplateRef<any>;
 }

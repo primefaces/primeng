@@ -3,12 +3,9 @@ import { ReactiveFormsDoc } from '../../doc/radiobutton/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/radiobutton/accessibilitydoc';
 import { DisabledDoc } from '../../doc/radiobutton/disableddoc';
 import { DynamicDoc } from '../../doc/radiobutton/dynamicdoc';
-import { EventsDoc } from '../../doc/radiobutton/eventsdoc';
 import { GroupDoc } from '../../doc/radiobutton/groupdoc';
 import { ImportDoc } from '../../doc/radiobutton/importdoc';
 import { InvalidDoc } from '../../doc/radiobutton/invaliddoc';
-import { MethodsDoc } from '../../doc/radiobutton/methodsdoc';
-import { PropsDoc } from '../../doc/radiobutton/propsdoc';
 import { StyleDoc } from '../../doc/radiobutton/styledoc';
 
 @Component({
@@ -55,24 +52,6 @@ export class RadioButtonDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }

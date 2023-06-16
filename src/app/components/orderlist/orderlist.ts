@@ -32,7 +32,10 @@ import { AngleDownIcon } from 'primeng/icons/angledown';
 import { SearchIcon } from 'primeng/icons/search';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
-
+/**
+ * OrderList is used to managed the order of a collection.
+ * @group Components
+ */
 @Component({
     selector: 'p-orderList',
     template: `
@@ -178,10 +181,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      */
     @Input() dragdrop: boolean = false;
     /**
-     * Defines the location of the buttons with respect to the list, valid values are "left" or "right".
+     * Defines the location of the buttons with respect to the list.
      * @group Props
      */
-    @Input() controlsPosition: string = 'left';
+    @Input() controlsPosition: 'left' | 'right' = 'left';
     /**
      * Defines a string that labels the filter input.
      * @group Props
@@ -249,13 +252,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when selection changes.
-     * @param {OrderListSelectionChangeEvent} event - custom change event.
+     * @param {OrderListSelectionChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>();
     /**
      * Callback to invoke when filtering occurs.
-     * @param {OrderListFilterEvent} event - custom filter event.
+     * @param {OrderListFilterEvent} event - Custom filter event.
      * @group Emits
      */
     @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>();
@@ -435,7 +438,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     /**
      * Callback to invoke on filter reset.
-     * @group Methods
+     * @group Method
      */
     public resetFilter() {
         this.filterValue = null;

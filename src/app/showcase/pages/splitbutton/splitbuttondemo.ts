@@ -11,9 +11,6 @@ import { OutlinedDoc } from '../../doc/splitbutton/outlineddoc';
 import { SizesDoc } from '../../doc/splitbutton/sizesdoc';
 import { DisabledDoc } from '../../doc/splitbutton/disableddoc';
 import { StyleDoc } from '../../doc/splitbutton/styledoc';
-import { PropsDoc } from '../../doc/splitbutton/propsdoc';
-import { EventsDoc } from '../../doc/splitbutton/eventsdoc';
-import { TemplatesDoc } from '../../doc/splitbutton/templatesdoc';
 import { AccessibilityDoc } from '../../doc/splitbutton/accessibilitydoc';
 
 @Component({
@@ -85,24 +82,6 @@ export class SplitButtonDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

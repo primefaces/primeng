@@ -2,7 +2,10 @@ import { DomHandler } from 'primeng/dom';
 
 import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, HostListener, Input, NgModule } from '@angular/core';
-
+/**
+ * Focus Trap keeps focus within a certain DOM element while tabbing.
+ * @group Components
+ */
 @Directive({
     selector: '[pFocusTrap]',
     host: {

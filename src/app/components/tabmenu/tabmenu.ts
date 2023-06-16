@@ -28,7 +28,10 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-
+/**
+ * TabMenu is a navigation component that displays items as tab headers.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabMenu',
     template: `
@@ -152,7 +155,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     @Input() styleClass: string | undefined;
     /**
      * Event fired when a tab is selected.
-     * @param {MenuItem} event - item instance.
+     * @param {MenuItem} item - Menu item.
      * @group Emits
      */
     @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();

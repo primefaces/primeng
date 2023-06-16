@@ -1,4 +1,23 @@
 # Changelog
+## [16.0.0](https://github.com/primefaces/primeng/tree/16.0.0) (2023-06-12)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0-rc.2...16.0.0)
+
+**Enhancements:**
+- Icons: clipPath improvements [\#13177](https://github.com/primefaces/primeng/issues/13177)
+
+**Fixed bugs:**
+- p-confirmPopup errors when setTimeout runs after onContainerDestroy [\#13034](https://github.com/primefaces/primeng/issues/13034)
+- FileUpload - when fileLimit is set, no previous error messages are displayed [\#13083](https://github.com/primefaces/primeng/issues/13083)
+- Broken Stackblitz demos [\#13088](https://github.com/primefaces/primeng/issues/13088)
+- PrimeNG Website - Documentation for Toast missing position feature in demo [\#13159](https://github.com/primefaces/primeng/issues/13159)
+- Component: KeyFilter [\#13076](https://github.com/primefaces/primeng/issues/13076)
+- Wrong type definition of ToastCloseEvent [\#13079](https://github.com/primefaces/primeng/issues/13079)
+- Table: ERROR TypeError: this.scroller is undefined [\#12880](https://github.com/primefaces/primeng/issues/12880)
+- Button is firing the click event even when it is disabled. [\#13042](https://github.com/primefaces/primeng/issues/13042)
+- Panel: Collapse icon of toggle button is not showing [\#13071](https://github.com/primefaces/primeng/issues/13071)
+- Panel custom expand Icon is never showing [\#13074](https://github.com/primefaces/primeng/issues/13074)
+
 ## [16.0.0-rc.2](https://github.com/primefaces/primeng/tree/16.0.0-rc.2) (2023-05-19)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0-rc.1...16.0.0-rc.2)

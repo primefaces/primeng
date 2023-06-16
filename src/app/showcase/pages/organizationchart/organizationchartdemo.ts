@@ -5,10 +5,7 @@ import { ImportDoc } from '../../doc/organizationchart/importdoc';
 import { SelectionDoc } from '../../doc/organizationchart/selectiondoc';
 import { ColoredDoc } from '../../doc/organizationchart/colored.doc';
 import { StyleDoc } from '../../doc/organizationchart/styledoc';
-import { PropsDoc } from '../../doc/organizationchart/propsdoc';
-import { EventsDoc } from '../../doc/organizationchart/eventsdoc';
 import { AccessibilityDoc } from '../../doc/organizationchart/accessibilitydoc';
-import { TemplatesDoc } from '../../doc/organizationchart/templatesdoc';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -50,24 +47,6 @@ export class OrganizationChartDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

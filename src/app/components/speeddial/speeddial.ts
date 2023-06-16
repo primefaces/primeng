@@ -27,7 +27,10 @@ import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-
+/**
+ * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
+ * @group Components
+ */
 @Component({
     selector: 'p-speedDial',
     template: `
@@ -104,12 +107,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     @Input() model: MenuItem[] | null = null;
     /**
      * Specifies the visibility of the overlay.
+     * @defaultValue false
      * @group Props
      */
-    @Input() get visible(): any {
+    @Input() get visible(): boolean {
         return this._visible;
     }
-    set visible(value: any) {
+    set visible(value: boolean) {
         this._visible = value;
 
         if (this._visible) {
@@ -177,7 +181,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Inline style of the mask element.
      * @group Props
      */
-    @Input() maskStyle: any;
+    @Input() maskStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the mask element.
      * @group Props
@@ -200,13 +204,13 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     @Input() rotateAnimation: boolean = true;
     /**
      * Fired when the visibility of element changed.
-     * @param {Boolean} boolean - Visibility value.
+     * @param {boolean} boolean - Visibility value.
      * @group Emits
      */
     @Output() onVisibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     /**
      * Fired when the visibility of element changed.
-     * @param {Boolean} boolean - Visibility value.
+     * @param {boolean} boolean - Visibility value.
      * @group Emits
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();

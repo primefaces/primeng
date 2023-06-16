@@ -8,5 +8,5 @@ export interface TieredMenuTemplates {
     /**
      * Custom template of submenuicon.
      */
-    submenuicon: TemplateRef<any> | null;
+    submenuicon(): TemplateRef<any>;
 }

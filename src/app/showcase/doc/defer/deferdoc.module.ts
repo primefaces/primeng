@@ -9,12 +9,11 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
-import { EventsDoc } from './eventsdoc';
 import { DataTableDoc } from './datatabledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, DeferModule, TableModule, ToastModule],
-    exports: [ImportDoc, BasicDoc, EventsDoc, DataTableDoc, AppDocModule],
-    declarations: [ImportDoc, BasicDoc, EventsDoc, DataTableDoc]
+    exports: [ImportDoc, BasicDoc, DataTableDoc, AppDocModule],
+    declarations: [ImportDoc, BasicDoc, DataTableDoc]
 })
 export class DeferDocModule {}

@@ -71,7 +71,7 @@ import { Nullable } from 'primeng/ts-helpers';
     }
 })
 export class OrganizationChartNode implements OnDestroy {
-    @Input() node: TreeNode | undefined;
+    @Input() node: TreeNode<any> | undefined;
 
     @Input() root: boolean | undefined;
 
@@ -122,7 +122,10 @@ export class OrganizationChartNode implements OnDestroy {
         this.subscription.unsubscribe();
     }
 }
-
+/**
+ * OrganizationChart visualizes hierarchical organization data.
+ * @group Components
+ */
 @Component({
     selector: 'p-organizationChart',
     template: `
@@ -220,7 +223,7 @@ export class OrganizationChart implements AfterContentInit {
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    get root(): TreeNode | null {
+    get root(): TreeNode<any> | null {
         return this.value && this.value.length ? this.value[0] : null;
     }
 

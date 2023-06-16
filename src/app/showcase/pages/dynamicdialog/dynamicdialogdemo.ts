@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { OpenDoc } from '../../doc/dynamicdialog/opendoc';
 import { ImportDoc } from '../../doc/dynamicdialog/importdoc';
-import { PropsDoc } from '../../doc/dynamicdialog/propsdoc';
 import { StyleDoc } from '../../doc/dynamicdialog/styledoc';
 import { BasicDoc } from '../../doc/dynamicdialog/basicdoc';
 import { UsageDoc } from '../../doc/dynamicdialog/usagedoc';
 import { PassingDataDoc } from '../../doc/dynamicdialog/passingdatadoc';
 import { CloseDoc } from '../../doc/dynamicdialog/closedoc';
 import { ProductListDemoDoc } from '../../doc/dynamicdialog/productlistdemodoc';
-import { EventsDoc } from '../../doc/dynamicdialog/eventsdoc';
 
 @Component({
     templateUrl: './dynamicdialogdemo.html'
@@ -54,19 +52,6 @@ export class DynamicDialogDemo {
             id: 'style',
             label: 'Style',
             component: StyleDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

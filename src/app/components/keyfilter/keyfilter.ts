@@ -72,7 +72,10 @@ const SAFARI_KEYS: SafariKeys = {
     63273: 36, // home
     63275: 35 // end
 };
-
+/**
+ * KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.
+ * @group Components
+ */
 @Directive({
     selector: '[pKeyFilter]',
     providers: [KEYFILTER_VALIDATOR],
@@ -90,23 +93,23 @@ export class KeyFilter implements Validator {
      * Sets the pattern for key filtering.
      * @group Props
      */
-    @Input('pKeyFilter') set pattern(_pattern: string) {
+    @Input('pKeyFilter') set pattern(_pattern: string | RegExp) {
         this._pattern = _pattern;
-        this.regex = (DEFAULT_MASKS as any)[this._pattern] || this._pattern;
+        this.regex = (DEFAULT_MASKS as any)[this._pattern as string] || this._pattern;
     }
-    get pattern(): any {
+    get pattern(): string | RegExp {
         return this._pattern;
     }
     /**
      * Emits a value whenever the ngModel of the component changes.
-     * @param {(string|number)} modelValue - Custom model change event.
+     * @param {(string | number)} modelValue - Custom model change event.
      * @group Emits
      */
     @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
     regex!: RegExp;
 
-    _pattern: string | null | undefined;
+    _pattern: string | RegExp;
 
     isAndroid: boolean;
 
@@ -155,7 +158,7 @@ export class KeyFilter implements Validator {
     }
 
     isValidChar(c: string) {
-        return this.regex.test(c);
+        return (<RegExp>this.regex).test(c);
     }
 
     isValidString(str: string) {
@@ -220,7 +223,7 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        ok = this.regex.test(cc);
+        ok = (<RegExp>this.regex).test(cc);
 
         if (!ok) {
             e.preventDefault();

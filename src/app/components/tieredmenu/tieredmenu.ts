@@ -348,7 +348,10 @@ export class TieredMenuSub implements OnDestroy {
         this.unbindDocumentClickListener();
     }
 }
-
+/**
+ * TieredMenu displays submenus in nested overlays.
+ * @group Components
+ */
 @Component({
     selector: 'p-tieredMenu',
     template: `
@@ -475,8 +478,8 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
     }
     /**
      * Toggles the visibility of the popup menu.
-     * @param event
-     * @group Methods
+     * @param {Event} event - Browser event.
+     * @group Method
      */
     toggle(event: any) {
         if (this.visible) this.hide();
@@ -487,8 +490,8 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
 
     /**
      * Displays the popup menu.
-     * @param event
-     * @group Methods
+     * @param {Event} even - Browser event.
+     * @group Method
      */
     show(event: any) {
         this.target = event.currentTarget;
@@ -566,7 +569,7 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
 
     /**
      * Hides the popup menu.
-     * @group Methods
+     * @group Method
      */
     hide() {
         this.visible = false;

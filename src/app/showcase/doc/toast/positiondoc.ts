@@ -41,19 +41,23 @@ export class PositionDoc {
 
     code: Code = {
         basic: `
-<p-toast></p-toast>
-<button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-<button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-<button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-<button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>`,
+<p-toast position="top-left" key="tl"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
+<button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>
+<button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"></button>
+<button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>`,
+
         html: `
 <div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-    <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-    <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-    <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
+    <p-toast position="top-left" key="tl"></p-toast>
+    <p-toast position="top-center" key="tc"></p-toast>
+    <p-toast position="bottom-center" key="bc"></p-toast>
+    <button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>
+    <button type="button" pButton pRipple (click)="showTopCenter()" label="Top Center" class="p-button-warning"></button>
+    <button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>
 </div>`,
+
         typescript: `
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

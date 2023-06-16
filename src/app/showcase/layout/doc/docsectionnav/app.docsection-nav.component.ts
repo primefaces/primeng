@@ -33,7 +33,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const hasHash = ObjectUtils.isNotEmpty(hash);
-            const id = hasHash ? hash : (this.docs[0] || {}).id;
+            const id = hasHash ? hash : ((this.docs && this.docs[0]) || {}).id;
 
             this.activeId = id;
             hasHash &&
@@ -79,6 +79,10 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         }
     }
 
+    onChildButtonClick(parent: Doc, isFirst: boolean, child: Doc): void {
+        this.onButtonClick(isFirst ? parent : child);
+    }
+
     onButtonClick(doc) {
         this.activeId = doc.id;
         setTimeout(() => {
@@ -105,6 +109,18 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             this.location.go(this.location.path().split('#')[0] + '#' + id);
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
+    }
+
+    isActiveChildId(isFirst: boolean, activeId: string, childId: string, parentId: string): boolean {
+        if (isFirst) {
+            return this.getActiveChildId(activeId, parentId);
+        }
+
+        return this.getActiveChildId(activeId, childId);
+    }
+
+    getActiveChildId(activeId, childId) {
+        return activeId.toLowerCase() === childId.toLowerCase();
     }
 
     ngOnDestroy() {

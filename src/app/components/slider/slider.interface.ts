@@ -2,6 +2,7 @@ import { Slider } from './slider';
 /**
  * Custom change event.
  * @see {@link Slider.onChange}
+ * @group Events
  */
 export interface SliderChangeEvent {
     /**
@@ -20,6 +21,7 @@ export interface SliderChangeEvent {
 /**
  * Custom slide end event.
  * @see {@link Slider.onSlideEnd}
+ * @group Events
  */
 export interface SliderSlideEndEvent {
     /**
