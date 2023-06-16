@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -95,7 +95,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Text of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') text: string | TemplateRef<HTMLElement> | undefined;
+    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
