@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate } from 'primeng/api';
-
+/**
+ * Toolbar is a grouping component for buttons and other content.
+ * @group Components
+ */
 @Component({
     selector: 'p-toolbar',
     template: `
@@ -26,17 +29,24 @@ import { BlockableUI, PrimeTemplate } from 'primeng/api';
     }
 })
 export class Toolbar implements AfterContentInit, BlockableUI {
-    @Input() style: any;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
-    @Input() styleClass: string;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    startTemplate: TemplateRef<any> | undefined;
 
-    startTemplate: TemplateRef<any>;
+    endTemplate: TemplateRef<any> | undefined;
 
-    endTemplate: TemplateRef<any>;
-
-    centerTemplate: TemplateRef<any>;
+    centerTemplate: TemplateRef<any> | undefined;
 
     constructor(private el: ElementRef) {}
 
@@ -45,7 +55,7 @@ export class Toolbar implements AfterContentInit, BlockableUI {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'left':
                     this.startTemplate = item.template;

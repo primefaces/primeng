@@ -1,19 +1,19 @@
-import { NgModule, Component, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { TooltipModule } from 'primeng/tooltip';
 
 export class BasePanelMenuItem {
     constructor(private ref: ChangeDetectorRef) {}
 
-    handleClick(event, item) {
+    handleClick(event: Event, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -39,7 +39,7 @@ export class BasePanelMenuItem {
     selector: 'p-panelMenuSub',
     template: `
         <ul [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-submenu': root, 'p-submenu-expanded': expanded }" [@submenu]="getAnimation()" role="tree">
-            <ng-template ngFor let-child [ngForOf]="item.items">
+            <ng-template ngFor let-child [ngForOf]="item?.items">
                 <li *ngIf="child.separator" class="p-menu-separator" role="separator"></li>
                 <li *ngIf="!child.separator" class="p-menuitem" [ngClass]="child.styleClass" [class.p-hidden]="child.visible === false" [ngStyle]="child.style" pTooltip [tooltipOptions]="child.tooltipOptions">
                     <a
@@ -132,22 +132,22 @@ export class BasePanelMenuItem {
     }
 })
 export class PanelMenuSub extends BasePanelMenuItem {
-    @Input() item: MenuItem;
+    @Input() item: MenuItem | undefined;
 
-    @Input() expanded: boolean;
+    @Input() expanded: boolean | undefined;
 
-    @Input() parentExpanded: boolean;
+    @Input() parentExpanded: boolean | undefined;
 
-    @Input() transitionOptions: string;
+    @Input() transitionOptions: string | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
     constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
         super(ref);
     }
 
-    onItemKeyDown(event) {
-        let listItem = event.currentTarget;
+    onItemKeyDown(event: KeyboardEvent) {
+        let listItem = event.currentTarget as HTMLElement;
 
         switch (event.code) {
             case 'Space':
@@ -168,7 +168,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
         return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 }
-
+/**
+ * PanelMenu is a hybrid of Accordion and Tree components.
+ * @group Components
+ */
 @Component({
     selector: 'p-panelMenu',
     template: `
@@ -276,28 +279,44 @@ export class PanelMenuSub extends BasePanelMenuItem {
     }
 })
 export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
-    @Input() model: MenuItem[];
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether multiple tabs can be activated at the same time or not.
+     * @group Props
+     */
     @Input() multiple: boolean = true;
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    submenuIconTemplate: TemplateRef<any>;
+    submenuIconTemplate: TemplateRef<any> | undefined;
 
-    public animating: boolean;
+    public animating: boolean | undefined;
 
     constructor(ref: ChangeDetectorRef) {
         super(ref);
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
@@ -307,16 +326,16 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     collapseAll() {
-        for (let item of this.model) {
+        for (let item of this.model!) {
             if (item.expanded) {
                 item.expanded = false;
             }
         }
     }
 
-    handleClick(event, item) {
+    handleClick(event: MouseEvent, item: MenuItem) {
         if (!this.multiple) {
-            for (let modelItem of this.model) {
+            for (let modelItem of this.model!) {
                 if (item !== modelItem && modelItem.expanded) {
                     modelItem.expanded = false;
                 }
@@ -331,8 +350,8 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         this.animating = false;
     }
 
-    onItemKeyDown(event) {
-        let listItem = event.currentTarget;
+    onItemKeyDown(event: KeyboardEvent) {
+        let listItem = event.currentTarget as HTMLElement;
 
         switch (event.code) {
             case 'Space':
@@ -349,11 +368,11 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         }
     }
 
-    visible(item) {
+    visible(item: MenuItem) {
         return item.visible !== false;
     }
 
-    getAnimation(item) {
+    getAnimation(item: MenuItem) {
         return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 }

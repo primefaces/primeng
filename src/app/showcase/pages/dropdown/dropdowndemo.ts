@@ -8,11 +8,7 @@ import { ImportDoc } from '../../doc/dropdown/importdoc';
 import { TemplateDoc } from '../../doc/dropdown/templatedoc';
 import { VirtualScrollDoc } from '../../doc/dropdown/virtualscrolldoc';
 import { FloatLabelDoc } from '../../doc/dropdown/floatlabeldoc';
-import { PropsDoc } from '../../doc/dropdown/propsdoc';
 import { StyleDoc } from '../../doc/dropdown/styledoc';
-import { EventsDoc } from '../../doc/dropdown/eventsdoc';
-import { MethodsDoc } from '../../doc/dropdown/methodsdoc';
-import { TemplatesDoc } from '../../doc/dropdown/templatesdoc';
 import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/dropdown/reactiveformsdoc';
 
@@ -81,29 +77,6 @@ export class DropdownDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

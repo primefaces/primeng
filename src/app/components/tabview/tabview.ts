@@ -1,38 +1,42 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter,
     AfterContentInit,
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
     ContentChildren,
+    ElementRef,
+    EmbeddedViewRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
     QueryList,
     TemplateRef,
-    EmbeddedViewRef,
-    ViewContainerRef,
-    ChangeDetectorRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
     ViewChild,
-    AfterViewChecked,
-    forwardRef,
-    Inject,
-    PLATFORM_ID
+    ViewContainerRef,
+    ViewEncapsulation,
+    forwardRef
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { TimesIcon } from 'primeng/icons/times';
+import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'primeng/tooltip';
+import { Subscription } from 'rxjs';
+import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 
 let idx: number = 0;
-
+/**
+ * TabPanel is a helper component for TabView component.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabPanel',
     template: `
@@ -48,60 +52,155 @@ let idx: number = 0;
     }
 })
 export class TabPanel implements AfterContentInit, OnDestroy {
-    @Input() closable: boolean;
+    /**
+     * Defines if tab can be removed.
+     * @group Props
+     */
+    @Input() closable: boolean | undefined = false;
+    /**
+     * Inline style of the tab header.
+     * @group Props
+     */
+    @Input() headerStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the tab header.
+     * @group Props
+     */
+    @Input() headerStyleClass: string | undefined;
+    /**
+     * Whether a lazy loaded panel should avoid getting loaded again on reselection.
+     * @group Props
+     */
+    @Input() cache: boolean | undefined = true;
+    /**
+     * Advisory information to display in a tooltip on hover.
+     * @group Props
+     */
+    @Input() tooltip: string | undefined;
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'top' | 'bottom' | 'left' | 'right' | undefined = 'top';
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
+    @Input() tooltipPositionStyle: string | undefined = 'absolute';
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Defines if tab is active.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() get selected(): boolean {
+        return !!this._selected;
+    }
+    set selected(val: boolean) {
+        this._selected = val;
 
-    @Input() headerStyle: any;
+        if (!this.loaded) {
+            this.cd.detectChanges();
+        }
 
-    @Input() headerStyleClass: string;
+        if (val) this.loaded = true;
+    }
+    /**
+     * When true, tab cannot be activated.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() get disabled(): boolean {
+        return !!this._disabled;
+    }
+    set disabled(disabled: boolean) {
+        this._disabled = disabled;
+        this.tabView.cd.markForCheck();
+    }
+    /**
+     * Title of the tabPanel.
+     * @group Props
+     */
+    @Input() get header(): string {
+        return this._header;
+    }
+    set header(header: string) {
+        this._header = header;
 
-    @Input() cache: boolean = true;
+        // We have to wait for the rendering and then retrieve the actual size element from the DOM.
+        // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
+        Promise.resolve().then(() => {
+            this.tabView.updateInkBar();
+            this.tabView.cd.markForCheck();
+        });
+    }
+    /**
+     * Left icon of the tabPanel.
+     * @group Props
+     * @deprecated since v15.4.2, use `lefticon` template instead.
+     */
+    @Input() get leftIcon(): string {
+        return this._leftIcon;
+    }
+    set leftIcon(leftIcon: string) {
+        this._leftIcon = leftIcon;
+        this.tabView.cd.markForCheck();
+    }
+    /**
+     * Left icon of the tabPanel.
+     * @group Props
+     * @deprecated since v15.4.2, use `righticon` template instead.
+     */
+    @Input() get rightIcon(): string | undefined {
+        return this._rightIcon;
+    }
+    set rightIcon(rightIcon: string | undefined) {
+        this._rightIcon = rightIcon;
+        this.tabView.cd.markForCheck();
+    }
 
-    @Input() tooltip: any;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() tooltipPosition: string = 'top';
+    closed: boolean = false;
 
-    @Input() tooltipPositionStyle: string = 'absolute';
+    view: EmbeddedViewRef<any> | null = null;
 
-    @Input() tooltipStyleClass: string;
+    _selected: boolean | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    _disabled: boolean | undefined;
 
-    closed: boolean;
+    _header!: string;
 
-    view: EmbeddedViewRef<any>;
+    _leftIcon!: string;
 
-    _selected: boolean;
+    _rightIcon: string | undefined = undefined;
 
-    _disabled: boolean;
-
-    _header: string;
-
-    _leftIcon: string;
-
-    _rightIcon: string;
-
-    loaded: boolean;
+    loaded: boolean = false;
 
     id: string = `p-tabpanel-${idx++}`;
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    leftIconTemplate: TemplateRef<any>;
+    leftIconTemplate: TemplateRef<any> | undefined;
 
-    rightIconTemplate: TemplateRef<any>;
+    rightIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any>;
+    closeIconTemplate: TemplateRef<any> | undefined;
 
     tabView: TabView;
 
-    constructor(@Inject(forwardRef(() => TabView)) tabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => TabView)) tabView: TabView, public viewContainer: ViewContainerRef, public cd: ChangeDetectorRef) {
         this.tabView = tabView as TabView;
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerTemplate = item.template;
@@ -130,67 +229,14 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         });
     }
 
-    @Input() get selected(): boolean {
-        return this._selected;
-    }
-
-    set selected(val: boolean) {
-        this._selected = val;
-
-        if (!this.loaded) {
-            this.cd.detectChanges();
-        }
-
-        if (val) this.loaded = true;
-    }
-
-    @Input() get disabled(): boolean {
-        return this._disabled;
-    }
-
-    set disabled(disabled: boolean) {
-        this._disabled = disabled;
-        this.tabView.cd.markForCheck();
-    }
-
-    @Input() get header(): string {
-        return this._header;
-    }
-
-    set header(header: string) {
-        this._header = header;
-
-        // We have to wait for the rendering and then retrieve the actual size element from the DOM.
-        // in future `Promise.resolve` can be changed to `queueMicrotask` (if ie11 support will be dropped)
-        Promise.resolve().then(() => {
-            this.tabView.updateInkBar();
-            this.tabView.cd.markForCheck();
-        });
-    }
-
-    @Input() get leftIcon(): string {
-        return this._leftIcon;
-    }
-
-    set leftIcon(leftIcon: string) {
-        this._leftIcon = leftIcon;
-        this.tabView.cd.markForCheck();
-    }
-
-    @Input() get rightIcon(): string {
-        return this._rightIcon;
-    }
-
-    set rightIcon(rightIcon: string) {
-        this._rightIcon = rightIcon;
-        this.tabView.cd.markForCheck();
-    }
-
     ngOnDestroy() {
         this.view = null;
     }
 }
-
+/**
+ * TabView is a container component to group content with tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-tabView',
     template: `
@@ -261,45 +307,92 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     }
 })
 export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
-    @Input() orientation: string = 'top';
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether tab close is controlled at onClose event or not.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() controlClose: boolean | undefined;
+    /**
+     * When enabled displays buttons at each side of the tab headers to scroll the tab list.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input() scrollable: boolean | undefined;
+    /**
+     * Index of the active tab to change selected tab programmatically.
+     * @group Props
+     */
+    @Input() get activeIndex(): number {
+        return this._activeIndex;
+    }
+    set activeIndex(val: number) {
+        this._activeIndex = val;
+        if (this.preventActiveIndexPropagation) {
+            this.preventActiveIndexPropagation = false;
+            return;
+        }
 
-    @Input() style: any;
+        if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
+            (this.findSelectedTab() as TabPanel).selected = false;
+            this.tabs[this._activeIndex].selected = true;
+            this.tabChanged = true;
 
-    @Input() styleClass: string;
+            this.updateScrollBar(val);
+        }
+    }
+    /**
+     * Callback to invoke on tab change.
+     * @param {TabViewChangeEvent} event - Custom tab change event
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<TabViewChangeEvent> = new EventEmitter<TabViewChangeEvent>();
+    /**
+     * Callback to invoke on tab close.
+     * @param {TabViewCloseEvent} event - Custom tab close event
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<TabViewCloseEvent> = new EventEmitter<TabViewCloseEvent>();
+    /**
+     * Callback to invoke on the active tab change.
+     * @param {number} index - New active index
+     * @group Emits
+     */
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
-    @Input() controlClose: boolean;
+    @ViewChild('content') content?: ElementRef<HTMLDivElement>;
 
-    @Input() scrollable: boolean;
+    @ViewChild('navbar') navbar?: ElementRef<HTMLUListElement>;
 
-    @ViewChild('content') content: ElementRef;
+    @ViewChild('prevBtn') prevBtn?: ElementRef;
 
-    @ViewChild('navbar') navbar: ElementRef;
+    @ViewChild('nextBtn') nextBtn?: ElementRef;
 
-    @ViewChild('prevBtn') prevBtn: ElementRef;
+    @ViewChild('inkbar') inkbar?: ElementRef;
 
-    @ViewChild('nextBtn') nextBtn: ElementRef;
+    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel> | undefined;
 
-    @ViewChild('inkbar') inkbar: ElementRef;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @ContentChildren(TabPanel) tabPanels: QueryList<TabPanel>;
+    initialized: boolean | undefined;
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    tabs!: TabPanel[];
 
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
+    _activeIndex!: number;
 
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
+    preventActiveIndexPropagation!: boolean;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    initialized: boolean;
-
-    tabs: TabPanel[];
-
-    _activeIndex: number;
-
-    preventActiveIndexPropagation: boolean;
-
-    tabChanged: boolean;
+    tabChanged: boolean | undefined;
 
     backwardIsDisabled: boolean = true;
 
@@ -307,20 +400,20 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     private tabChangesSubscription!: Subscription;
 
-    nextIconTemplate: TemplateRef<any>;
+    nextIconTemplate: TemplateRef<any> | undefined;
 
-    previousIconTemplate: TemplateRef<any>;
+    previousIconTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.initTabs();
 
-        this.tabChangesSubscription = this.tabPanels.changes.subscribe((_) => {
+        this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
         });
 
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'previousicon':
                     this.previousIconTemplate = item.template;
@@ -349,8 +442,8 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     initTabs(): void {
-        this.tabs = this.tabPanels.toArray();
-        let selectedTab: TabPanel = this.findSelectedTab();
+        this.tabs = (this.tabPanels as QueryList<TabPanel>).toArray();
+        let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
         if (!selectedTab && this.tabs.length) {
             if (this.activeIndex != null && this.tabs.length > this.activeIndex) this.tabs[this.activeIndex].selected = true;
             else this.tabs[0].selected = true;
@@ -370,7 +463,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         if (!tab.selected) {
-            let selectedTab: TabPanel = this.findSelectedTab();
+            let selectedTab: TabPanel = this.findSelectedTab() as TabPanel;
             if (selectedTab) {
                 selectedTab.selected = false;
             }
@@ -427,7 +520,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         tab.closed = true;
     }
 
-    findSelectedTab() {
+    findSelectedTab(): TabPanel | null {
         for (let i = 0; i < this.tabs.length; i++) {
             if (this.tabs[i].selected) {
                 return this.tabs[i];
@@ -451,26 +544,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         return this.el.nativeElement.children[0];
     }
 
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
-
-    set activeIndex(val: number) {
-        this._activeIndex = val;
-        if (this.preventActiveIndexPropagation) {
-            this.preventActiveIndexPropagation = false;
-            return;
-        }
-
-        if (this.tabs && this.tabs.length && this._activeIndex != null && this.tabs.length > this._activeIndex) {
-            this.findSelectedTab().selected = false;
-            this.tabs[this._activeIndex].selected = true;
-            this.tabChanged = true;
-
-            this.updateScrollBar(val);
-        }
-    }
-
     updateInkBar() {
         if (this.navbar) {
             const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
@@ -479,26 +552,26 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 return;
             }
 
-            this.inkbar.nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            this.inkbar.nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
     }
 
-    updateScrollBar(index) {
-        let tabHeader = this.navbar.nativeElement.children[index];
+    updateScrollBar(index: number) {
+        let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
         tabHeader.scrollIntoView({ block: 'nearest' });
     }
 
     updateButtonState() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const { scrollLeft, scrollWidth } = content;
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = parseInt(scrollLeft) === scrollWidth - width;
+        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
     }
 
-    onScroll(event) {
+    onScroll(event: Event) {
         this.scrollable && this.updateButtonState();
 
         event.preventDefault();
@@ -509,14 +582,14 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     navBackward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft - width;
         content.scrollLeft = pos <= 0 ? 0 : pos;
     }
 
     navForward() {
-        const content = this.content.nativeElement;
+        const content = (this.content as ElementRef).nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;

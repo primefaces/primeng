@@ -16,7 +16,7 @@ export class AppDoc implements OnInit, OnChanges {
 
     @Input() description!: string;
 
-    @Input() apiDocs!: Doc[];
+    @Input() apiDocs!: string[];
 
     activeTab!: number;
 

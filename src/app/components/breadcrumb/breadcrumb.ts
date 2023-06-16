@@ -1,11 +1,15 @@
-import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { HomeIcon } from 'primeng/icons/home';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
+/**
+ * Breadcrumb provides contextual information about page hierarchy.
+ * @group Components
+ */
 @Component({
     selector: 'p-breadcrumb',
     template: `
@@ -122,23 +126,43 @@ import { HomeIcon } from 'primeng/icons/home';
     }
 })
 export class Breadcrumb implements AfterContentInit {
-    @Input() model: MenuItem[];
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * MenuItem configuration for the home icon.
+     * @group Props
+     */
+    @Input() home: MenuItem | undefined;
+    /**
+     * Defines a string that labels the home icon for accessibility.
+     * @group Props
+     */
+    @Input() homeAriaLabel: string | undefined;
+    /**
+     * Fired when an item is selected.
+     * @param {BreadcrumbItemClickEvent} event - custom click event.
+     * @group Emits
+     */
+    @Output() onItemClick: EventEmitter<BreadcrumbItemClickEvent> = new EventEmitter<BreadcrumbItemClickEvent>();
 
-    @Input() style: any;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() styleClass: string;
+    separatorTemplate: TemplateRef<any> | undefined;
 
-    @Input() home: MenuItem;
-
-    @Input() homeAriaLabel: string;
-
-    @Output() onItemClick: EventEmitter<any> = new EventEmitter();
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    separatorTemplate: TemplateRef<any>;
-
-    itemClick(event, item: MenuItem) {
+    itemClick(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -161,14 +185,14 @@ export class Breadcrumb implements AfterContentInit {
         });
     }
 
-    onHomeClick(event) {
+    onHomeClick(event: MouseEvent | any) {
         if (this.home) {
             this.itemClick(event, this.home);
         }
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'separator':
                     this.separatorTemplate = item.template;

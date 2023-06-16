@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/messages/importdoc';
 import { BasicDoc } from '../../doc/messages/basicdoc';
-import { MessagesPropsDoc } from '../../doc/messages/messagespropsdoc';
-import { MessagePropsDoc } from '../../doc/messages/messagepropsdoc';
 import { MessagesStyleDoc } from '../../doc/messages/messagesstyledoc';
 import { MessageStyleDoc } from '../../doc/messages/messagestyledoc';
 import { ClosableDoc } from '../../doc/messages/closabledoc';
@@ -11,7 +9,6 @@ import { DynamicDoc } from '../../doc/messages/dynamicdoc';
 import { StaticDoc } from '../../doc/messages/staticdoc';
 import { ServiceDoc } from '../../doc/messages/servicedoc';
 import { AnimationDoc } from '../../doc/messages/animationdoc';
-import { TemplatesDoc } from '../../doc/messages/templatesdoc';
 import { SeverityDoc } from '../../doc/messages/severitydoc';
 import { AccessibilityDoc } from '../../doc/messages/accessibilitydoc';
 
@@ -79,24 +76,6 @@ export class MessagesDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'messagesprops',
-            label: 'Properties of Messages',
-            component: MessagesPropsDoc
-        },
-        {
-            id: 'messageprops',
-            label: 'Properties of Message',
-            component: MessagePropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

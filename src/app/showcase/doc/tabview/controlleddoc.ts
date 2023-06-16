@@ -9,8 +9,8 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="padding: .5em 0 1em 0">
-                <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
-                <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd"></p-button>
+                <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1st"></p-button>
+                <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2nd"></p-button>
                 <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd"></p-button>
             </div>
             <p-tabView [(activeIndex)]="activeIndex">
@@ -47,8 +47,8 @@ export class ControlledDoc {
     code: Code = {
         basic: `
 <div style="padding: .5em 0 1em 0">
-    <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
-    <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" style="{'margin-left': '.5em'}"></p-button>
+    <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1st"></p-button>
+    <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2nd" style="{'margin-left': '.5em'}"></p-button>
     <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" style="{'margin-left': '.5em'}"></p-button>
 </div>
 <p-tabView [(activeIndex)]="activeIndex">
@@ -75,8 +75,8 @@ export class ControlledDoc {
         html: `
 <div class="card">
     <div style="padding: .5em 0 1em 0">
-        <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1rd"></p-button>
-        <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2rd" style="{'margin-left': '.5em'}"></p-button>
+        <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1st"></p-button>
+        <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2nd" style="{'margin-left': '.5em'}"></p-button>
         <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" style="{'margin-left': '.5em'}"></p-button>
     </div>
     <p-tabView [(activeIndex)]="activeIndex">

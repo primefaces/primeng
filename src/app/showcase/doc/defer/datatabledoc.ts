@@ -37,7 +37,7 @@ import { CarService } from '../../service/carservice';
                 </ng-template>
             </div>
         </div>
-        <app-code [code]="code" selector="defer-data-table-demo"></app-code>
+        <app-code [code]="code" [extFiles]="extFiles" selector="defer-data-table-demo"></app-code>
     </section>`,
     providers: [MessageService, CarService]
 })
@@ -113,7 +113,6 @@ export class DataTableDoc {
 import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
@@ -130,6 +129,28 @@ export class DeferDataTableDemo {
         this.messageService.add({ severity: 'success', summary: 'Data Initialized', detail: 'Render Completed' });
         this.carService.getCarsSmall().then((cars) => (this.cars = cars));
     }
-}`
+}`,
+        data: `{
+            vin: 'ee8a89d8',
+            brand: 'Fiat',
+            year: 1987,
+            color: 'Maroon'
+}`,
+        service: ['CarService']
     };
+    extFiles = [
+        {
+            path: 'src/domain/car.ts',
+            content: `
+export interface Car {
+    id?;
+    vin?;
+    year?;
+    brand?;
+    color?;
+    price?;
+    saleDate?;
+}`
+        }
+    ];
 }

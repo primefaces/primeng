@@ -4,7 +4,10 @@ import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
-
+/**
+ * Terminal is a text based user interface.
+ * @group Components
+ */
 @Component({
     selector: 'p-terminal',
     template: `
@@ -31,21 +34,34 @@ import { Subscription } from 'rxjs';
     }
 })
 export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
-    @Input() welcomeMessage: string;
-
-    @Input() prompt: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
+    /**
+     * Initial text to display on terminal.
+     * @group Props
+     */
+    @Input() welcomeMessage: string | undefined;
+    /**
+     * Prompt text for each command.
+     * @group Props
+     */
+    @Input() prompt: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
     commands: any[] = [];
 
-    command: string;
+    command!: string;
 
-    container: Element;
+    container!: Element;
 
-    commandProcessed: boolean;
+    commandProcessed!: boolean;
 
     subscription: Subscription;
 

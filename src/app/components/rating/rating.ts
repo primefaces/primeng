@@ -5,13 +5,18 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { StarFillIcon } from 'primeng/icons/starfill';
 import { StarIcon } from 'primeng/icons/star';
 import { BanIcon } from 'primeng/icons/ban';
+import { RatingRateEvent } from './rating.interface';
+import { Nullable } from 'primeng/ts-helpers';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Rating),
     multi: true
 };
-
+/**
+ * RadioButton is an extension to standard radio button element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-rating',
     template: `
@@ -59,51 +64,86 @@ export const RATING_VALUE_ACCESSOR: any = {
     }
 })
 export class Rating implements OnInit, ControlValueAccessor {
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    onIconTemplate: TemplateRef<any>;
-
-    offIconTemplate: TemplateRef<any>;
-
-    cancelIconTemplate: TemplateRef<any>;
-
-    @Input() isCustomCancelIcon: boolean = true;
-
-    @Input() index: number;
-
-    @Input() disabled: boolean;
-
-    @Input() readonly: boolean;
-
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * When present, changing the value is not possible.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * Number of stars.
+     * @group Props
+     */
     @Input() stars: number = 5;
-
+    /**
+     * When specified a cancel icon is displayed to allow removing the value.
+     * @group Props
+     */
     @Input() cancel: boolean = true;
+    /**
+     * Style class of the on icon.
+     * @group Props
+     */
+    @Input() iconOnClass: string | undefined;
+    /**
+     * Inline style of the on icon.
+     * @group Props
+     */
+    @Input() iconOnStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the off icon.
+     * @group Props
+     */
+    @Input() iconOffClass: string | undefined;
+    /**
+     * Inline style of the off icon.
+     * @group Props
+     */
+    @Input() iconOffStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the cancel icon.
+     * @group Props
+     */
+    @Input() iconCancelClass: string | undefined;
+    /**
+     * Inline style of the cancel icon.
+     * @group Props
+     */
+    @Input() iconCancelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Emitted on value change.
+     * @param {RatingRateEvent} value - Custom rate event.
+     * @group Emits
+     */
+    @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>();
+    /**
+     * Emitted when the rating is cancelled.
+     * @param {Event} value - Browser event.
+     * @group Emits
+     */
+    @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Input() iconOnClass: string;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Input() iconOnStyle: any;
+    onIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() iconOffClass: string;
+    offIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() iconOffStyle: any;
-
-    @Input() iconCancelClass: string;
-
-    @Input() iconCancelStyle: any;
-
-    @Output() onRate: EventEmitter<any> = new EventEmitter();
-
-    @Output() onCancel: EventEmitter<any> = new EventEmitter();
+    cancelIconTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    value: number;
+    value: Nullable<number>;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    public starsArray: number[];
+    public starsArray: Nullable<number[]>;
 
     ngOnInit() {
         this.starsArray = [];
@@ -129,11 +169,11 @@ export class Rating implements OnInit, ControlValueAccessor {
         });
     }
 
-    getIconTemplate(i: number): TemplateRef<any> {
+    getIconTemplate(i: number): Nullable<TemplateRef<any>> {
         return !this.value || i >= this.value ? this.offIconTemplate : this.onIconTemplate;
     }
 
-    rate(event, i: number): void {
+    rate(event: Event, i: number): void {
         if (!this.readonly && !this.disabled) {
             this.value = i + 1;
             this.onModelChange(this.value);
@@ -146,7 +186,7 @@ export class Rating implements OnInit, ControlValueAccessor {
         event.preventDefault();
     }
 
-    clear(event): void {
+    clear(event: Event): void {
         if (!this.readonly && !this.disabled) {
             this.value = null;
             this.onModelChange(this.value);

@@ -2,14 +2,10 @@ import { Component } from '@angular/core';
 import { ControlledDoc } from '../../doc/tabmenu/controlleddoc';
 import { ActiveDoc } from '../../doc/tabmenu/activedoc';
 import { BasicDoc } from '../../doc/tabmenu/basicdoc';
-import { EventsDoc } from '../../doc/tabmenu/eventsdoc';
 import { ImportDoc } from '../../doc/tabmenu/importdoc';
-import { MenuItemDoc } from '../../doc/tabmenu/menuitemdoc';
-import { PropsDoc } from '../../doc/tabmenu/propsdoc';
 import { StyleDoc } from '../../doc/tabmenu/styledoc';
 import { ScrollableDoc } from '../../doc/tabmenu/scrollabledoc';
 import { TemplateDoc } from '../../doc/tabmenu/templatedoc';
-import { TemplatesDoc } from '../../doc/tabmenu/templatesdoc';
 import { AccessibilityDoc } from '../../doc/tabmenu/accessibilitydoc';
 
 @Component({
@@ -56,29 +52,6 @@ export class TabMenuDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'menuitem',
-            label: 'MenuItem API',
-            component: MenuItemDoc
         }
     ];
 }
