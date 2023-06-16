@@ -121,7 +121,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         appendTo: 'body',
         positionStyle: null,
         tooltipStyleClass: null,
-        tooltipZIndex: null,
+        tooltipZIndex: 'auto',
         escape: true,
         disabled: null,
         showDelay: null,
