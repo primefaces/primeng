@@ -5952,7 +5952,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | boolean | object",
+                            "type": "any",
                             "description": "Value of the checkbox."
                         },
                         {
@@ -9181,6 +9181,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Header text of the dialog."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifies the element (or elements) that labels the element it is applied to."
                         },
                         {
                             "name": "footer",
@@ -14865,6 +14872,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
+                            "default": "body",
                             "description": "Target element to attach the panel, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
