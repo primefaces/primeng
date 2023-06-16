@@ -2626,7 +2626,7 @@
                             "name": "children",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<T>[]",
                             "description": "An array of treenodes as children."
                         },
                         {
@@ -2654,7 +2654,7 @@
                             "name": "parent",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode",
+                            "type": "TreeNode<T>",
                             "description": "Parent of the node."
                         },
                         {
@@ -2731,14 +2731,14 @@
                             "name": "node",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode",
+                            "type": "TreeNode<any>",
                             "description": "Node to be dragged."
                         },
                         {
                             "name": "subNodes",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "Child nodes of dragged node."
                         },
                         {
@@ -2808,7 +2808,7 @@
                             "name": "children",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "An array of treenodes as children."
                         },
                         {
@@ -2829,7 +2829,7 @@
                             "name": "parent",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode",
+                            "type": "TreeNode<any>",
                             "description": "Parent of the node."
                         },
                         {
@@ -2899,7 +2899,7 @@
                             "name": "node",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode",
+                            "type": "TreeNode<any>",
                             "description": "Node instance."
                         },
                         {
@@ -14427,7 +14427,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "An array of nested TreeNodes."
                         },
                         {
@@ -14545,7 +14545,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -14565,7 +14565,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -14585,7 +14585,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -14605,7 +14605,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22379,7 +22379,7 @@
                             "name": "filteredNodes",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "No description available."
                         },
                         {
@@ -22467,7 +22467,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode | TreeNode[]"
+                                    "type": "TreeNode<any"
                                 }
                             ],
                             "description": "Callback to invoke on selection change."
@@ -22627,7 +22627,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22647,7 +22647,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22667,7 +22667,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22687,7 +22687,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22707,7 +22707,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -22727,14 +22727,14 @@
                                 "name": "dragNode",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Dragged node instance."
                             },
                             {
                                 "name": "dropNode",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Dropped node instance."
                             },
                             {
@@ -22821,7 +22821,7 @@
                                 "name": "filteredValue",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode[]",
+                                "type": "TreeNode<any>[]",
                                 "description": "Filtered nodes."
                             }
                         ]
@@ -23129,7 +23129,7 @@
                             "name": "options",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "An array of treenodes."
                         },
                         {
@@ -23218,7 +23218,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode"
+                                    "type": "TreeNode<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is unselected."
@@ -23228,7 +23228,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeNode"
+                                    "type": "TreeNode<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is selected."
@@ -23257,7 +23257,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -23277,7 +23277,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -23825,7 +23825,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "TreeNode[]",
+                            "type": "TreeNode<any>[]",
                             "description": "An array of objects to display."
                         },
                         {
@@ -23846,7 +23846,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeTableNode"
+                                    "type": "TreeTableNode<any"
                                 }
                             ],
                             "description": "Callback to invoke on selected node change."
@@ -23856,7 +23856,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeTableNode"
+                                    "type": "TreeTableNode<any"
                                 }
                             ],
                             "description": "Callback to invoke on context menu selection change."
@@ -23876,7 +23876,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeTableNode"
+                                    "type": "TreeTableNode<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is expanded."
@@ -23956,7 +23956,7 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "TreeTableNode"
+                                    "type": "TreeTableNode<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is selected."
@@ -24171,7 +24171,7 @@
                                 "name": "filteredValue",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode[]",
+                                "type": "TreeNode<any>[]",
                                 "description": "Value after filter."
                             }
                         ]
@@ -24191,7 +24191,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeTableNode",
+                                "type": "TreeTableNode<any>",
                                 "description": "Node instance."
                             }
                         ]
@@ -24211,7 +24211,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode[]",
+                                "type": "TreeNode<any>[]",
                                 "description": "Value to be sorted."
                             },
                             {
@@ -24321,7 +24321,7 @@
                                 "name": "children",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode[]",
+                                "type": "TreeNode<any>[]",
                                 "description": "An array of treenodes as children."
                             },
                             {
@@ -24342,7 +24342,7 @@
                                 "name": "parent",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Parent of the node."
                             },
                             {
@@ -24412,7 +24412,7 @@
                                 "name": "node",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode",
+                                "type": "TreeNode<any>",
                                 "description": "Node instance."
                             },
                             {
@@ -24460,7 +24460,7 @@
                                 "name": "node",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeTableNode",
+                                "type": "TreeTableNode<any>",
                                 "description": "Node instance."
                             },
                             {
@@ -24487,7 +24487,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeTableNode",
+                                "type": "TreeTableNode<any>",
                                 "description": "Node instance."
                             }
                         ]

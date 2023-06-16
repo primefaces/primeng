@@ -5,7 +5,7 @@ import { TreeNode } from './treenode';
  * @extends {TreeNode}
  * @group Interface
  */
-export interface TreeTableNode extends TreeNode {
+export interface TreeTableNode<T=any> extends TreeNode {
     /**
      * Browser event.
      */
@@ -17,7 +17,7 @@ export interface TreeTableNode extends TreeNode {
     /**
      * Node instance.
      */
-    node?: TreeNode;
+    node?: TreeNode<any>;
     /**
      * Selection type.
      */
