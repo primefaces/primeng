@@ -15,7 +15,6 @@ import { AutoHideDoc } from './autohidedoc';
 import { DelayDoc } from './delaydoc';
 import { OptionsDoc } from './optionsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TemplateDoc } from './templatedoc';
 
 @NgModule({

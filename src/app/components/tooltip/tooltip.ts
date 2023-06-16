@@ -92,7 +92,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() hideOnEscape: boolean = true;
     /**
-     * Text of the tooltip.
+     * Content of the tooltip.
      * @group Props
      */
     @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
