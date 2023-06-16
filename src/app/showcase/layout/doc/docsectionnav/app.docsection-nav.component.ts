@@ -110,7 +110,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
     }
-    
+
     isActiveChildId(isFirst: boolean, activeId: string, childId: string, parentId: string): boolean {
         if (isFirst) {
             return this.getActiveChildId(activeId, parentId);
