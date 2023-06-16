@@ -86,7 +86,7 @@ export interface TreeTableNodeCollapseEvent {
     /**
      * Node instance.
      */
-    node: TreeTableNode;
+    node: TreeTableNode<any>;
 }
 /**
  * Custom sort event.
@@ -163,7 +163,7 @@ export interface TreeTableNodeUnSelectEvent {
     /**
      * Node instance.
      */
-    node?: TreeTableNode;
+    node?: TreeTableNode<any>;
     /**
      * Selection type.
      */
@@ -182,7 +182,7 @@ export interface TreeTableContextMenuSelectEvent {
     /**
      * Node instance.
      */
-    node: TreeTableNode;
+    node: TreeTableNode<any>;
 }
 /**
  * Custom checkbox toggle event.
