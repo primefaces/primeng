@@ -1,4 +1,23 @@
-import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, ViewRef, PLATFORM_ID, TemplateRef } from '@angular/core';
+import {
+    NgModule,
+    Component,
+    ElementRef,
+    OnDestroy,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    Inject,
+    forwardRef,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    ViewRef,
+    PLATFORM_ID,
+    TemplateRef,
+    Pipe,
+    PipeTransform
+} from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -8,6 +27,22 @@ import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+@Pipe({
+    name: 'safeHtml'
+})
+class SafeHtmlPipe implements PipeTransform {
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
+
+    public transform(value: string): SafeHtml {
+        if (!value || !isPlatformBrowser(this.platformId)) {
+            return value;
+        }
+
+        return this.sanitizer.bypassSecurityTrustHtml(value);
+    }
+}
 
 @Component({
     selector: '[pMenuItemContent]',
@@ -25,12 +60,8 @@ import { VoidListener } from 'primeng/ts-helpers';
             [ngClass]="{ 'p-disabled': item.disabled }"
             (click)="menu.itemClick($event, item)"
             role="menuitem"
-            [target]="item.target"
         >
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
-            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
         </a>
         <a
             *ngIf="item?.routerLink"
@@ -38,7 +69,7 @@ import { VoidListener } from 'primeng/ts-helpers';
             [routerLink]="item.routerLink"
             [attr.data-automationid]="item.automationId"
             [queryParams]="item.queryParams"
-            [routerLinkActive]="'p-menuitem-link-active'"
+            routerLinkActive="p-menuitem-link-active"
             [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
             class="p-menuitem-link"
             [target]="item.target"
@@ -56,11 +87,15 @@ import { VoidListener } from 'primeng/ts-helpers';
             [replaceUrl]="item.replaceUrl"
             [state]="item.state"
         >
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
         </a>
+
+        <ng-template #itemContent>
+            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
+            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+        </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -158,7 +193,7 @@ export class MenuItemContent {
                         role="none"
                     >
                         <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label"></span></ng-template>
+                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
                     </li>
                     <ng-template ngFor let-item [ngForOf]="submenu.items">
                         <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -505,6 +540,6 @@ export class Menu implements OnDestroy {
 @NgModule({
     imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
     exports: [Menu, RouterModule, TooltipModule],
-    declarations: [Menu, MenuItemContent]
+    declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
 export class MenuModule {}
