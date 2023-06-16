@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -9,6 +9,8 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
+
+            <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
     </section>`
@@ -20,21 +22,26 @@ export class LoadingDoc {
 
     loading: boolean = false;
 
+    constructor(private readonly cdr: ChangeDetectorRef) {}
+
     load() {
         this.loading = true;
 
         setTimeout(() => {
             this.loading = false;
+            this.cdr.markForCheck();
         }, 2000);
     }
 
     code: Code = {
         basic: `
-<p-button label="Submit" [loading]="loading" (click)="load()"></p-button>`,
+<p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
+<p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
+    <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>
 </div>`,
 
         typescript: `
