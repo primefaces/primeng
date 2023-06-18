@@ -71,7 +71,7 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { FilterSlashIcon } from '../icons/filterslash/filterslash';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 
 @Injectable()
 export class TableService {
