@@ -72,4 +72,76 @@ describe('FilterService', () => {
         expect(notContains('Leandro Lo', 'Lo')).toBe(false)
     })
   })
+
+  describe('endsWith()', () => {
+    const endsWith = new FilterService().filters.endsWith
+
+    it('deve retornar true se o filtro for undefined, null ou uma string em branco', () => {
+      expect(endsWith('Leandro Lo', undefined)).toBe(true);
+      expect(endsWith('Leandro Lo', null)).toBe(true);
+      expect(endsWith('Leandro Lo', '')).toBe(true);
+      expect(endsWith('Leandro Lo', ' ')).toBe(true);
+    })
+
+    it('deve retornar false se o valor for undefined ou null', () => {
+      expect(endsWith(undefined, 'Jansen Gomes')).toBe(false)
+      expect(endsWith(undefined, 'Jansen Gomes')).toBe(false)
+    })
+
+    it('deve retornar true se o valor termina com o filtro', () => {
+        expect(endsWith('Leandro Lo', 'Lo')).toBe(true)
+      })
+
+      it('deve retornar false se o valor não termina com o filtro', () => {
+        expect(endsWith('Leandro Lo', 'Leandro')).toBe(false)
+    })
+  })
+
+  describe('equals()', () => {
+    const equals = new FilterService().filters.equals
+
+    it('deve retornar true se o filtro for undefined, null ou uma string em branco', () => {
+      expect(equals('Leandro Lo', undefined)).toBe(true);
+      expect(equals('Leandro Lo', null)).toBe(true);
+      expect(equals('Leandro Lo', '')).toBe(true);
+      expect(equals('Leandro Lo', ' ')).toBe(true);
+    })
+
+    it('deve retornar false se o valor for undefined ou null', () => {
+      expect(equals(undefined, 'Jansen Gomes')).toBe(false)
+      expect(equals(undefined, 'Jansen Gomes')).toBe(false)
+    })
+
+    it('deve retornar true se o valor é igual ao filtro', () => {
+        expect(equals('Leandro Lo', 'Leandro Lo')).toBe(true)
+      })
+
+    it('deve retornar false se o valor não é igual ao filtro', () => {
+        expect(equals('Leandro Lo', 'Leandro')).toBe(false)
+    })
+  })
+
+  describe('notEquals()', () => {
+    const notEquals = new FilterService().filters.notEquals
+
+    it('deve retornar false se o filtro for undefined, null ou uma string em branco', () => {
+      expect(notEquals('Leandro Lo', undefined)).toBe(false);
+      expect(notEquals('Leandro Lo', null)).toBe(false);
+      expect(notEquals('Leandro Lo', '')).toBe(false);
+      expect(notEquals('Leandro Lo', ' ')).toBe(false);
+    })
+
+    it('deve retornar true se o valor for undefined ou null', () => {
+      expect(notEquals(undefined, 'Jansen Gomes')).toBe(true)
+      expect(notEquals(undefined, 'Jansen Gomes')).toBe(true)
+    })
+
+    it('deve retornar true se o valor é diferente filtro', () => {
+      expect(notEquals('Leandro Lo', 'Mica Galvão')).toBe(true)
+    })
+
+    it('deve retornar false se o valor é igual ao filtro', () => {
+      expect(notEquals('Leandro Lo', 'Leandro Lo')).toBe(false)
+    })
+  })
 });
