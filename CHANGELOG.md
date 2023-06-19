@@ -85,6 +85,15 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.5-LTS](https://www.npmjs.com/package/primeng/v/15.4.5-lts) (2023-06-19)
+
+**Fixed bugs:**
+- Button: Loading icon [\#13098](https://github.com/primefaces/primeng/issues/13098)
+- FileUpload | File limit does not fire error [\#13129](https://github.com/primefaces/primeng/issues/13129)
+
+**Enhancements:**
+- Improve LicenseManager structure
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.4-LTS](https://www.npmjs.com/package/primeng/v/15.4.4-lts) (2023-05-29)
 
 **Fixed bugs:**
@@ -303,6 +312,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.9-LTS](https://www.npmjs.com/package/primeng/v/14.2.9-lts) (2023-06-19)
+
+**Fixed bugs:**
+- FileUpload | File limit does not fire error [\#13129](https://github.com/primefaces/primeng/issues/13129)
+
+**Enhancements:**
+- Improve LicenseManager structure
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.8-LTS](https://www.npmjs.com/package/primeng/v/14.2.8-lts) (2023-05-30)
 
@@ -583,6 +600,11 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.5-LTS](https://www.npmjs.com/package/primeng/v/13.4.5-lts) (2023-06-19)
+
+**Enhancements:**
+- Improve LicenseManager structure
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.4-LTS](https://www.npmjs.com/package/primeng/v/13.4.4-lts) (2023-05-05)
 
