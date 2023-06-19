@@ -8,14 +8,14 @@ import { Code } from '../../domain/code';
             <p>In this example you can add/remove dynamically panels.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3">
-            <p-button label="Add Panel" (onClick)="addPanel()"></p-button>  
+            <p-button label="Add Panel" (onClick)="addPanel()"></p-button>
             <p-button label="Remove Panel" (onClick)="removePanel()" styleClass="p-button-danger"></p-button>
         </div>
         <div class="card overflow-x-hidden">
             <p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
                 <ng-container *ngFor="let item of items">
                     <ng-template pTemplate>
-                        <div class="col flex align-items-center justify-content-center">{{item}}</div>
+                        <div class="col flex align-items-center justify-content-center">{{ item }}</div>
                     </ng-template>
                 </ng-container>
             </p-splitter>

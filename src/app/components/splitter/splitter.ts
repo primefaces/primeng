@@ -78,6 +78,16 @@ export class Splitter {
      */
     @Input() minSizes: number[] = [];
     /**
+     * Whether to keep the proportions of the elements when adding/removing panels.
+     * @group Props
+     */
+    @Input() keepProportions: boolean = true;
+    /**
+     * Size of the new panels relative to 100%.
+     * @group Props
+     */
+    @Input() newPanelsSize: number = 25;
+    /**
      * Size of the elements relative to 100%.
      * @group Props
      */
@@ -88,15 +98,7 @@ export class Splitter {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-            let _panelSizes = [];
-
-            this.panels.map((panel, i) => {
-                let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                let panelSize = panelInitialSize || 100 / this.panels.length;
-                _panelSizes[i] = panelSize;
-                children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
-            });
+            this.calculatePanelSizes();
         }
     }
     /**
@@ -161,10 +163,7 @@ export class Splitter {
     }
 
     ngAfterContentInit() {
-        this.templateChangesSubscription = this.templates.changes.pipe(
-            startWith(null)
-        ).
-            subscribe(_ => {
+        this.templateChangesSubscription = this.templates.changes.pipe(startWith(null)).subscribe((_) => {
             this.initPanels();
             this.cd.markForCheck();
         });
@@ -178,25 +177,21 @@ export class Splitter {
             }
 
             if (!initialized) {
-                let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-                let _panelSizes = [0, 0];
-
-                this.panels.map((panel, i) => {
-                    let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                    let panelSize = panelInitialSize || 100 / this.panels.length;
-                    _panelSizes[i] = panelSize;
-                    children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
-                });
-
-                this._panelSizes = _panelSizes;
+                this.calculatePanelSizes();
             }
+        }
+    }
+
+    ngAfterViewChecked() {
+        if (this.panelSizes.length !== this.panels.length) {
+            this.calculatePanelSizes(this.keepProportions, this.newPanelsSize);
         }
     }
 
     ngOnDestroy() {
         if (this.templateChangesSubscription) {
             this.templateChangesSubscription.unsubscribe();
-        }    
+        }
     }
 
     initPanels() {
@@ -204,13 +199,37 @@ export class Splitter {
             switch (item.getType()) {
                 case 'panel':
                     acc.push(item.template);
-                     break;
+                    break;
                 default:
                     acc.push(item.template);
-                     break;
-           }
-           return acc;
-       }, []);
+                    break;
+            }
+            return acc;
+        }, []);
+    }
+
+    calculatePanelSizes(keepProportions: boolean = true, newPanelsSize: number = 25) {
+        let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+
+        let _panelSizes = [];
+        let sum = 0;
+
+        // If the panelSizes property is not set, calculate the initial sizes
+        this.panels.map((panel, i) => {
+            let panelInitialSize = this.panelSizes.length - 1 >= i && keepProportions ? this.panelSizes[i] : null;
+            let panelSize = panelInitialSize || newPanelsSize;
+
+            _panelSizes[i] = panelSize;
+            sum += panelSize;
+        });
+
+        // Make sure the sum of the sizes is 100%
+        this._panelSizes = _panelSizes.map((panelSize, i) => {
+            let _panelSize = panelSize * (100 / sum);
+
+            children[i].style.flexBasis = 'calc(' + _panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
+            return _panelSize;
+        });
     }
 
     resizeStart(event: TouchEvent | MouseEvent, index: number) {
