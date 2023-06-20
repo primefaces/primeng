@@ -437,6 +437,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                     let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
                     
                     if(this.multiple) {
+                        if(!this._activeIndex){
+                            this._activeIndex = [];
+                        }
                         if(tab.id == element.id) {
                             tab.selected = !tab.selected;
                             if(!this._activeIndex.includes(i)) {
