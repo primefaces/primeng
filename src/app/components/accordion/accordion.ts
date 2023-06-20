@@ -1,7 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler} from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
@@ -198,7 +199,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public changeDetector: ChangeDetectorRef) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
     }
 
@@ -224,7 +225,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    toggle(event: MouseEvent | KeyboardEvent) {
+    toggle(event?: MouseEvent | KeyboardEvent) {
         if (this.disabled) {
             return false;
         }
@@ -273,12 +274,17 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.which === 32 || event.which === 13) {
-            this.toggle(event);
-            event.preventDefault();
+        switch(event.code) {
+            case 'Enter':
+            case 'Space':
+                this.toggle(event);
+                event.preventDefault(); // ???
+                break;
+            default:
+                break;
         }
     }
-
+    
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
@@ -343,6 +349,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         this.updateSelectionState();
     }
     /**
+     * When enabled, the focused tab is activated.
+     * @group Props
+     */
+    @Input() selectOnFocus: boolean = true;
+    /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
      * @group Emits
@@ -365,13 +376,126 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     tabListSubscription: Subscription | null = null;
 
-    private _activeIndex: number | number[] | null | undefined;
+    private _activeIndex: any;
 
     preventActiveIndexPropagation: boolean = false;
 
     public tabs: AccordionTab[] = [];
 
     constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
+
+    @HostListener('keydown', ['$event'])
+    onKeydown(event) {
+        switch(event.code) {
+            case 'ArrowDown':
+                this.onTabArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onTabArrowUpKey(event);
+                break;
+
+            case 'Home':
+                this.onTabHomeKey(event);
+                break;
+
+            case 'End':
+                this.onTabEndKey(event);
+                break;
+
+
+        }
+    }
+
+    onTabArrowDownKey(event) {
+        const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
+        nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
+
+        event.preventDefault();
+    
+    }
+
+    onTabArrowUpKey(event) {
+        const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
+        prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
+        
+        event.preventDefault();
+    }
+
+    onTabHomeKey(event) {
+        const firstHeaderAction = this.findFirstHeaderAction();
+        this.changeFocusedTab(firstHeaderAction);
+        event.preventDefault();
+    }
+
+    changeFocusedTab(element) {
+        if (element) {
+            DomHandler.focus(element);
+
+            if (this.selectOnFocus) {
+                this.tabs.forEach((tab, i) => {
+                    let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
+                    
+                    if(this.multiple) {
+                        if(tab.id == element.id) {
+                            tab.selected = !tab.selected;
+                            if(!this._activeIndex.includes(i)) {
+                                this._activeIndex.push(i);
+                            } else {
+                                this._activeIndex = this._activeIndex.filter(ind => ind !== i);
+                            }
+                        }
+                    }
+                    else {
+                        if(tab.id == element.id) {
+                            tab.selected = !tab.selected;
+                            this._activeIndex = i;
+                        }
+                        else {
+                            tab.selected = false;
+                        }
+                    }
+
+                    tab.selectedChange.emit(selected);
+                    this.activeIndexChange.emit(this._activeIndex)
+                    tab.changeDetector.markForCheck();
+                })
+            }
+            
+        }
+    }
+
+    findNextHeaderAction(tabElement, selfCheck = false) {
+        const nextTabElement = selfCheck ? DomHandler.findSingle(tabElement, '.p-accordion-tab') : DomHandler.findSingle(tabElement.nextElementSibling, '.p-accordion-tab');
+        const headerElement = DomHandler.findSingle(nextTabElement, '.p-accordion-header');
+
+        return headerElement ? (DomHandler.hasClass(headerElement, 'p-disabled') ? this.findNextHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '.p-accordion-header-link')) : null;
+    }
+
+    findPrevHeaderAction(tabElement, selfCheck = false) {
+        const prevTabElement = selfCheck ? DomHandler.findSingle(tabElement, '.p-accordion-tab') : DomHandler.findSingle(tabElement.previousElementSibling, '.p-accordion-tab');
+        const headerElement = DomHandler.findSingle(prevTabElement, '.p-accordion-header');
+
+        return headerElement ? (DomHandler.hasClass(headerElement, 'p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '.p-accordion-header-link')) : null;
+    }
+
+    findFirstHeaderAction() {
+        const firstEl = this.el.nativeElement.firstElementChild.childNodes[0];
+        return this.findNextHeaderAction(firstEl, true);
+    }
+
+    findLastHeaderAction() {
+        const childNodes = this.el.nativeElement.firstElementChild.childNodes;
+        const lastEl = childNodes[childNodes.length - 1];
+
+        return this.findPrevHeaderAction(lastEl, true);
+    }
+
+    onTabEndKey(event) {
+        const lastHeaderAction = this.findLastHeaderAction();
+        this.changeFocusedTab(lastHeaderAction);
+        event.preventDefault();
+    }
 
     ngAfterContentInit() {
         this.initTabs();
@@ -383,6 +507,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     initTabs() {
         this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
+
         this.updateSelectionState();
         this.changeDetector.markForCheck();
     }
@@ -394,7 +519,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     updateSelectionState() {
         if (this.tabs && this.tabs.length && this._activeIndex != null) {
             for (let i = 0; i < this.tabs.length; i++) {
-                let selected = this.multiple ? (this._activeIndex as number[]).includes(i) : i === this._activeIndex;
+                let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
                 let changed = selected !== this.tabs[i].selected;
 
                 if (changed) {
@@ -404,6 +529,14 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 }
             }
         }
+    }
+
+    isTabActive(index) {
+        return this.multiple ? this._activeIndex && (<number[]>this._activeIndex).includes(index) : this._activeIndex === index;
+    }
+
+    getTabProp(tab, name) {
+        return tab.props ? tab.props[name] : undefined;
     }
 
     updateActiveIndex() {
@@ -418,7 +551,6 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 }
             }
         });
-
         this.preventActiveIndexPropagation = true;
         this.activeIndexChange.emit(index as number[] | number);
     }
