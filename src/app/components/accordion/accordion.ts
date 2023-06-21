@@ -352,7 +352,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      * When enabled, the focused tab is activated.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = true;
+    @Input() selectOnFocus: boolean = false;
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
