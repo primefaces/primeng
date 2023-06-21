@@ -56,10 +56,10 @@ class TestDropdownComponent {
         }
     ];
 
-    groupedCarsAlternate = this.groupedCars.map(city => ({
-      label: city.label,
-      value: city.value,
-      children: city.items
+    groupedCarsAlternate = this.groupedCars.map((city) => ({
+        label: city.label,
+        value: city.value,
+        children: city.items
     }));
 
     disabled: boolean;
@@ -551,9 +551,9 @@ describe('Dropdown', () => {
     });
 
     it('should alternateGroup auto select with alternate children field', () => {
-      groupFixture.detectChanges();
+        groupFixture.detectChanges();
 
-      expect(alternateGroupDropdown.selectedOption.label).toEqual('Audi')
+        expect(alternateGroupDropdown.selectedOption.label).toEqual('Audi');
     });
 
     [null, undefined, ''].map((value) =>
