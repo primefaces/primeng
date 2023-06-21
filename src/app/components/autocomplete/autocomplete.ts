@@ -956,7 +956,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.cd.markForCheck();
     }
 
-    handleDropdownClick(event: MouseEvent) {
+    handleDropdownClick(event: Event) {
         if (!this.overlayVisible) {
             this.focusInput();
             let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
