@@ -1,4 +1,18 @@
 # Changelog
+## [16.0.2](https://github.com/primefaces/primeng/tree/16.0.2) (2023-06-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.1...16.0.2)
+
+**Fixed bugs:**
+- FileUploader: Choose button is missing icon spacing [\#13232](https://github.com/primefaces/primeng/issues/#13232)
+- Compiler error: p-autoComplete Argument of type 'Event' is not assignable to parameter of type 'MouseEvent' [\#13227](https://github.com/primefaces/primeng/issues/#13227)
+- p-dropdown unable to auto-select first item if group used [\#12637](https://github.com/primefaces/primeng/issues/#12637)
+- Component: Tooltip has no default zindex 16.0.1 [\#13220](https://github.com/primefaces/primeng/issues/#13220)
+- Clear filter Icon is not showing in p-columnfilter Component [\#12947](https://github.com/primefaces/primeng/issues/#12947)
+- Table Filter: Remove filter button is invisible [\#13134](https://github.com/primefaces/primeng/issues/#13134)
+- In table filter slash icon is not displaying when data is entered in the row filter. [\#13222](https://github.com/primefaces/primeng/issues/#13222)
+- Error: Cannot resolve type entity SafeHtmlPipe to symbol [\#13218](https://github.com/primefaces/primeng/issues/#13218)
+
 ## [16.0.1](https://github.com/primefaces/primeng/tree/16.0.1) (2023-06-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0...16.0.1)
