@@ -32,6 +32,7 @@ export interface TooltipOptions {
     tooltipStyleClass?: string;
     /**
      * Whether the z-index should be managed automatically to always go on top or have a fixed value.
+     * @defaultValue auto
      */
     tooltipZIndex?: string;
     /**

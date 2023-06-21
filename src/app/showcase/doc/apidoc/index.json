@@ -2232,6 +2232,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string",
+                            "default": "auto",
                             "description": "Whether the z-index should be managed automatically to always go on top or have a fixed value."
                         },
                         {
@@ -22094,6 +22095,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "auto",
                             "description": "Whether the z-index should be managed automatically to always go on top or have a fixed value."
                         },
                         {
