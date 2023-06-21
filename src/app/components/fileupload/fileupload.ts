@@ -177,7 +177,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() multiple: boolean | undefined;
     /**
-     * Pattern to restrict the allowed file types such as 'image/*'.
+     * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
      * @group Props
      */
     @Input() accept: string | undefined;
