@@ -29,6 +29,7 @@ let idx: number = 0;
                     [attr.id]="id"
                     [attr.aria-controls]="id + '-content'"
                     [attr.aria-expanded]="selected"
+                    [attr.data-pc-name]="'accordiontab'"
                 >
                     <ng-container *ngIf="!iconTemplate">
                         <ng-container *ngIf="selected">
