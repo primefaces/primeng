@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'p-divider',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [attr.aria-orientation]="layout">
             <div class="p-divider-content">
                 <ng-content></ng-content>
             </div>
