@@ -4129,7 +4129,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: none;
+  box-shadow: inset none;
 }
 .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
   background: #f6f6f6;
@@ -6423,7 +6423,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   transition: transform 0.2s;
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-header-link:focus {
-  background: #f6f6f6;
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset none;
 }
 .p-accordion .p-accordion-tab:not(.p-accordion-tab-active) .p-accordion-toggle-icon {
   transform: rotate(-270deg);
