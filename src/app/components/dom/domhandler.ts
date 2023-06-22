@@ -692,4 +692,22 @@ export class DomHandler {
     public static isClient() {
         return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
     }
+
+    getAttribute(element, name) {
+        if (element) {
+            const value = element.getAttribute(name);
+
+            if (!isNaN(value)) {
+                return +value;
+            }
+
+            if (value === 'true' || value === 'false') {
+                return value === 'true';
+            }
+
+            return value;
+        }
+
+        return undefined;
+    }
 }
