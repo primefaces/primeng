@@ -7,8 +7,8 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
+import { UniqueComponentId } from 'primeng/utils';
 
-let idx: number = 0;
 /**
  * AccordionTab is a helper component for Accordion.
  * @group Components
@@ -16,8 +16,8 @@ let idx: number = 0;
 @Component({
     selector: 'p-accordionTab',
     template: `
-        <div class="p-accordion-tab" [class.p-accordion-tab-active]="selected" [ngClass]="tabStyleClass" [ngStyle]="tabStyle">
-            <div class="p-accordion-header" [class.p-highlight]="selected" [class.p-disabled]="disabled">
+        <div class="p-accordion-tab" [class.p-accordion-tab-active]="selected" [ngClass]="tabStyleClass" [ngStyle]="tabStyle" [attr.data-pc-name]="'accordiontab'">
+            <div class="p-accordion-header" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
                 <a
                     [ngClass]="headerStyleClass"
                     [style]="headerStyle"
@@ -26,10 +26,11 @@ let idx: number = 0;
                     (click)="toggle($event)"
                     (keydown)="onKeydown($event)"
                     [attr.tabindex]="disabled ? null : 0"
-                    [attr.id]="id"
-                    [attr.aria-controls]="id + '-content'"
+                    [attr.id]="getTabHeaderActionId(id)"
+                    [attr.aria-controls]="getTabContentId(id)"
                     [attr.aria-expanded]="selected"
-                    [attr.data-pc-name]="'accordiontab'"
+                    [attr.aria-disabled]="disabled"
+                    [attr.data-pc-section]="'headeraction'"
                 >
                     <ng-container *ngIf="!iconTemplate">
                         <ng-container *ngIf="selected">
@@ -50,12 +51,13 @@ let idx: number = 0;
                 </a>
             </div>
             <div
-                [attr.id]="id + '-content'"
+                [attr.id]="getTabContentId(id)"
                 class="p-toggleable-content"
                 [@tabContent]="selected ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }"
                 role="region"
                 [attr.aria-hidden]="!selected"
-                [attr.aria-labelledby]="id"
+                [attr.aria-labelledby]="getTabHeaderActionId(id)"
+                [attr.data-pc-section]="'toggleablecontent'"
             >
                 <div class="p-accordion-content" [ngClass]="contentStyleClass" [ngStyle]="contentStyle">
                     <ng-content></ng-content>
@@ -194,7 +196,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     iconTemplate: TemplateRef<any> | undefined;
 
-    id: string = `p-accordiontab-${idx++}`;
+    public id: string | undefined;
 
     loaded: boolean = false;
 
@@ -202,6 +204,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
+        this.id = UniqueComponentId();
     }
 
     ngAfterContentInit() {
@@ -284,6 +287,14 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             default:
                 break;
         }
+    }
+
+    getTabHeaderActionId(tabId) {
+        return `${tabId}_header_action`;
+    }
+    
+    getTabContentId(tabId) {
+        return `${tabId}_content`;
     }
     
     ngOnDestroy() {
@@ -470,17 +481,17 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     findNextHeaderAction(tabElement, selfCheck = false) {
-        const nextTabElement = selfCheck ? DomHandler.findSingle(tabElement, '.p-accordion-tab') : DomHandler.findSingle(tabElement.nextElementSibling, '.p-accordion-tab');
-        const headerElement = DomHandler.findSingle(nextTabElement, '.p-accordion-header');
+        const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
+        const headerElement = DomHandler.findSingle(nextTabElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.hasClass(headerElement, 'p-disabled') ? this.findNextHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '.p-accordion-header-link')) : null;
+        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
     }
 
     findPrevHeaderAction(tabElement, selfCheck = false) {
-        const prevTabElement = selfCheck ? DomHandler.findSingle(tabElement, '.p-accordion-tab') : DomHandler.findSingle(tabElement.previousElementSibling, '.p-accordion-tab');
-        const headerElement = DomHandler.findSingle(prevTabElement, '.p-accordion-header');
+        const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
+        const headerElement = DomHandler.findSingle(prevTabElement, '[data-pc-section="header"]');
 
-        return headerElement ? (DomHandler.hasClass(headerElement, 'p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '.p-accordion-header-link')) : null;
+        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement.parentElement) : DomHandler.findSingle(headerElement, '[data-pc-section="headeraction"]')) : null;
     }
 
     findFirstHeaderAction() {
