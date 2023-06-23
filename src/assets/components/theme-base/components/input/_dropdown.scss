@@ -1,0 +1,135 @@
+.p-dropdown {
+    background: $inputBg;
+    border: $inputBorder;
+    transition: $formElementTransition;
+    border-radius: $borderRadius;
+
+    &:not(.p-disabled):hover {
+        border-color: $inputHoverBorderColor;
+    }
+
+    &:not(.p-disabled).p-focus {
+        @include focused-input();
+    }
+
+    &.p-dropdown-clearable {
+        .p-dropdown-label {
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+    }
+
+    .p-dropdown-label {
+        background: transparent;
+        border: 0 none;
+
+        &.p-placeholder {
+            color: $inputPlaceholderTextColor;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            box-shadow: none;
+        }
+    }
+
+    .p-dropdown-trigger {
+        background: transparent;
+        color: $inputIconColor;
+        width: $inputGroupAddOnMinWidth;
+        border-top-right-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+    }
+
+    .p-dropdown-clear-icon {
+        color: $inputIconColor;
+        right: $inputGroupAddOnMinWidth;
+    }
+}
+
+.p-dropdown-panel {
+    background: $inputOverlayBg;
+    color: $inputListTextColor;
+    border: $inputOverlayBorder;
+    border-radius: $borderRadius;
+    box-shadow: $inputOverlayShadow;
+
+    .p-dropdown-header {
+        padding: $inputListHeaderPadding;
+        border-bottom: $inputListHeaderBorder;
+        color: $inputListHeaderTextColor;
+        background: $inputOverlayHeaderBg;
+        margin: $inputListHeaderMargin;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-dropdown-filter {
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+            margin-right: -1 * (nth($inputPadding, 2) + $primeIconFontSize);
+        }
+
+        .p-dropdown-filter-icon {
+            right: nth($inputPadding, 2);
+            color: $inputIconColor;
+        }
+    }
+
+    .p-dropdown-items {
+        padding: $inputListPadding;
+
+        .p-dropdown-item {
+            margin: $inputListItemMargin;
+            padding: $inputListItemPadding;
+            border: $inputListItemBorder;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+            transition: $listItemTransition;
+            border-radius: $inputListItemBorderRadius;
+
+            &.p-highlight {
+                color: $highlightTextColor;
+                background: $highlightBg;
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                color: $inputListItemTextHoverColor;
+                background: $inputListItemHoverBg;
+            }
+        }
+
+        .p-dropdown-empty-message {
+            padding: $inputListItemPadding;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+        }
+
+        .p-dropdown-item-group {
+            margin: $submenuHeaderMargin;
+            padding: $submenuHeaderPadding;
+            color: $submenuHeaderTextColor;
+            background: $submenuHeaderBg;
+            font-weight: $submenuHeaderFontWeight;
+        }
+    }
+}
+
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    @include invalid-input();
+}
+
+.p-input-filled {
+    .p-dropdown {
+        background: $inputFilledBg;
+
+        &:not(.p-disabled):hover {
+            background-color: $inputFilledHoverBg;
+        }
+
+        &:not(.p-disabled).p-focus {
+            background-color: $inputFilledFocusBg;
+
+            .p-inputtext {
+                background-color: transparent;
+            }
+        }
+    }
+}

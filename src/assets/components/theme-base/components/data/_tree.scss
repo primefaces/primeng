@@ -1,0 +1,149 @@
+.p-tree {
+    border: $panelContentBorder;
+    background: $panelContentBg;
+    color: $panelContentTextColor;
+    padding: $panelContentPadding;
+    border-radius: $borderRadius;
+
+    .p-tree-container {
+        .p-treenode {
+            padding: $treeNodePadding;
+
+            .p-treenode-content {
+                border-radius: $borderRadius;
+                transition: $listItemTransition;
+                padding: $treeNodeContentPadding;
+
+                .p-tree-toggler {
+                    margin-right: $inlineSpacing;
+                    @include action-icon();
+                }
+
+                .p-treenode-icon {
+                    margin-right: $inlineSpacing;
+                    color: $treeNodeIconColor;
+                }
+
+                .p-checkbox {
+                    margin-right: $inlineSpacing;
+
+                    .p-indeterminate {
+                        .p-checkbox-icon {
+                            color: $textColor;
+                        }
+                    }
+                }
+
+                &:focus {
+                    @include focused-listitem();
+                }
+
+                &.p-highlight {
+                    background: $highlightBg;
+                    color: $highlightTextColor;
+
+                    .p-tree-toggler,
+                    .p-treenode-icon {
+                        color: $highlightTextColor;
+
+                        &:hover {
+                            color: $highlightTextColor;
+                        }
+                    }
+                }
+
+                &.p-treenode-selectable:not(.p-highlight):hover {
+                    background: $inputListItemHoverBg;
+                    color: $inputListItemTextHoverColor;
+                }
+
+                &.p-treenode-dragover {
+                    background: $inputListItemHoverBg;
+                    color: $inputListItemTextHoverColor;
+                }
+            }
+        }
+    }
+
+    .p-tree-filter-container {
+        margin-bottom: $inlineSpacing;
+
+        .p-tree-filter {
+            width: 100%;
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+
+        .p-tree-filter-icon {
+            right: nth($inputPadding, 2);
+            color: $inputIconColor;
+        }
+    }
+
+    .p-treenode-children {
+        padding: $treeNodeChildrenPadding;
+    }
+
+    .p-tree-loading-icon {
+        font-size: $loadingIconFontSize;
+
+        &.p-icon {
+            width: $loadingIconFontSize;
+            height: $loadingIconFontSize;
+        }
+    }
+
+    .p-treenode-droppoint {
+        &.p-treenode-droppoint-active {
+            background-color: scale-color($highlightBg, $lightness: -20%);
+        }
+    } 
+
+    &.p-tree-horizontal {
+        .p-treenode {
+            .p-treenode-content {
+                border-radius: $borderRadius;
+                border: $panelContentBorder;
+                background-color: $panelContentBg;
+                color: $panelContentTextColor;
+                padding: $treeNodeContentPadding;
+                transition: $listItemTransition;
+
+                &.p-highlight {
+                    background-color: $highlightBg;
+                    color: $highlightTextColor;
+
+                    .p-treenode-icon {
+                        color: $highlightTextColor;
+                    }
+                }
+
+                .p-tree-toggler {
+                    margin-right: $inlineSpacing;
+                }
+
+                .p-treenode-icon {
+                    color: $treeNodeIconColor;
+                    margin-right: $inlineSpacing;
+                }
+
+                .p-checkbox {
+                    margin-right: $inlineSpacing;
+                }
+
+                .p-treenode-label:not(.p-highlight):hover {
+                    background-color: inherit;
+                    color: inherit;
+                }
+
+                &.p-treenode-selectable:not(.p-highlight):hover {
+                    background: $inputListItemHoverBg;
+                    color: $inputListItemTextHoverColor;
+                }
+                
+                &:focus {
+                    @include focused();
+                }
+            }
+        }
+    }
+}

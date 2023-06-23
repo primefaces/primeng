@@ -1,0 +1,27 @@
+.p-sidebar {
+    background: $overlayContentBg;
+    color: $panelContentTextColor;
+    border: $overlayContentBorder;
+    box-shadow: $overlayContainerShadow;
+
+    .p-sidebar-header {
+        padding: $panelHeaderPadding;
+
+        .p-sidebar-close,
+        .p-sidebar-icon {
+            @include action-icon();
+        }
+
+        & + .p-sidebar-content {
+            padding-top: 0;
+        }
+    }
+
+    .p-sidebar-content {
+        padding: $panelContentPadding;
+    }
+
+    .p-sidebar-footer {
+        padding: $panelHeaderPadding;
+    }
+}

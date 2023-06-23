@@ -1,0 +1,28 @@
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
+    @include invalid-input();
+}
+
+p-inputnumber.p-inputnumber-clearable {
+    .p-inputnumber-input {
+        padding-right: nth($inputPadding, 2) * 2 + $primeIconFontSize;
+    }
+    
+    .p-inputnumber-clear-icon {
+        color: $inputIconColor;
+        right: nth($inputPadding, 2);
+    }
+}
+
+p-inputnumber.p-inputnumber-clearable {
+    .p-inputnumber-buttons-stacked{
+        .p-inputnumber-clear-icon {
+           right: $buttonIconOnlyWidth + nth($inputPadding, 2);
+        }
+    }
+    
+    .p-inputnumber-buttons-horizontal{
+        .p-inputnumber-clear-icon {
+           right: $buttonIconOnlyWidth + nth($inputPadding, 2);
+        }
+    }
+}

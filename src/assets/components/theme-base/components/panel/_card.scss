@@ -1,0 +1,30 @@
+.p-card {
+    background: $panelContentBg;
+    color: $panelContentTextColor;
+    box-shadow: $cardShadow;
+    border-radius: $borderRadius;
+
+    .p-card-body {
+        padding: $cardBodyPadding;
+    }
+
+    .p-card-title {
+        font-size: $cardTitleFontSize;
+        font-weight: $cardTitleFontWeight;
+        margin-bottom: $inlineSpacing;
+    }
+
+    .p-card-subtitle {
+        font-weight: $cardSubTitleFontWeight;
+        margin-bottom: $inlineSpacing;
+        color: $cardSubTitleColor;
+    }
+
+    .p-card-content {
+        padding: $cardContentPadding;
+    }
+
+    .p-card-footer {
+        padding: $cardFooterPadding;
+    }
+}

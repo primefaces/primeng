@@ -1,0 +1,48 @@
+.p-togglebutton.p-button {
+    background: $toggleButtonBg;
+    border: $toggleButtonBorder;
+    color: $toggleButtonTextColor;
+    transition: $formElementTransition;
+
+    .p-button-icon-left,
+    .p-button-icon-right {
+        color: $toggleButtonIconColor;
+    }
+
+    &:not(.p-disabled):not(.p-highlight):hover {
+        background: $toggleButtonHoverBg;
+        border-color: $toggleButtonHoverBorderColor;
+        color: $toggleButtonTextHoverColor;
+
+        .p-button-icon-left,
+        .p-button-icon-right {
+            color: $toggleButtonIconHoverColor;
+        }
+    }
+
+    &.p-highlight {
+        background: $toggleButtonActiveBg;
+        border-color: $toggleButtonActiveBorderColor;
+        color: $toggleButtonTextActiveColor;
+
+        .p-button-icon-left,
+        .p-button-icon-right {
+            color: $toggleButtonIconActiveColor;
+        }
+
+        &:hover {
+            background: $toggleButtonActiveHoverBg;
+            border-color: $toggleButtonActiveHoverBorderColor;
+            color: $toggleButtonTextActiveHoverColor;
+
+            .p-button-icon-left,
+            .p-button-icon-right {
+                color: $toggleButtonIconActiveHoverColor;
+            }
+        }
+    }
+}
+
+p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
+    @include invalid-input();
+}

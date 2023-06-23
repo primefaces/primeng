@@ -1,0 +1,49 @@
+.p-image-mask {
+    --maskbg: #{$imageMaskBg};
+}
+
+.p-image-preview-indicator {
+    background-color: transparent;
+    color: $imagePreviewIndicatorColor;
+    transition: $actionIconTransition;
+}
+
+.p-image-preview-container {
+    &:hover {
+        > .p-image-preview-indicator {
+            background-color: $imagePreviewIndicatorBg;
+        }
+    }
+}
+
+.p-image-toolbar {
+    padding: $imagePreviewToolbarPadding;
+}
+
+.p-image-action.p-link {
+    color: $imagePreviewActionIconColor;
+    background-color: $imagePreviewActionIconBg;
+    width: $imagePreviewActionIconWidth;
+    height: $imagePreviewActionIconHeight;
+    border-radius: $imagePreviewActionIconBorderRadius;
+    transition: $actionIconTransition;
+    margin-right: $inlineSpacing;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:hover {
+        color: $imagePreviewActionIconHoverColor;
+        background-color: $imagePreviewActionIconHoverBg;
+    }
+
+    i {
+        font-size: $imagePreviewActionIconFontSize;
+    }
+
+    .p-icon {
+        width: $imagePreviewActionIconFontSize;
+        height: $imagePreviewActionIconFontSize;
+    }
+}

@@ -1,0 +1,271 @@
+/// Background of a steps item
+/// @group menu
+$stepsItemBg: #ffffff;
+
+/// Border of a steps item
+/// @group menu
+$stepsItemBorder: 1px solid #c8c8c8;
+
+/// Text color of a steps item
+/// @group menu
+$stepsItemTextColor: $textSecondaryColor;
+
+/// Width of a steps itrem number
+/// @group menu
+$stepsItemNumberWidth: 2rem;
+
+/// Height of a steps itrem number
+/// @group menu
+$stepsItemNumberHeight: 2rem;
+
+/// Font size of a steps itrem number
+/// @group menu
+$stepsItemNumberFontSize: 1.143rem;
+
+/// Color of a steps itrem number
+/// @group menu
+$stepsItemNumberColor: $textColor;
+
+/// Border radius of a steps itrem number
+/// @group menu
+$stepsItemNumberBorderRadius: 50%;
+
+/// Font weight of an active steps itrem number
+/// @group menu
+$stepsItemActiveFontWeight: 600;
+
+/// Width of a vertical menu such as tieredmenu or context menu
+/// @group menu
+$menuWidth: 12.5rem;
+
+/// Background of a menu
+/// @group menu
+$menuBg: #ffffff;
+
+/// Border of a menu
+/// @group menu
+$menuBorder: 1px solid #dee2e6;
+
+/// Text color of a menu
+/// @group menu
+$menuTextColor: $textColor;
+
+/// Padding of a menuitem
+/// @group menu
+$menuitemPadding: .75rem 1rem;
+
+/// Border radius of a menuitem
+/// @group menu
+$menuitemBorderRadius: 0;
+
+/// Text color of a menuitem
+/// @group menu
+$menuitemTextColor: $textColor;
+
+/// Icon color of a menuitem
+/// @group menu
+$menuitemIconColor: $textSecondaryColor;
+
+/// Text color of a menuitrem in hover state
+/// @group menu
+$menuitemTextHoverColor: $textColor;
+
+/// Icon color of a menuitrem in hover state
+/// @group menu
+$menuitemIconHoverColor: $textSecondaryColor;
+
+/// Background of a menuitrem in hover state
+/// @group menu
+$menuitemHoverBg: #e9ecef;
+
+/// Text color of a menuitrem in active state
+/// @group menu
+$menuitemTextActiveColor: $textColor;
+
+/// Icon color of a menuitrem in active state
+/// @group menu
+$menuitemIconActiveColor: $textSecondaryColor;
+
+/// Background of a menuitrem in active state
+/// @group menu
+$menuitemActiveBg: #e9ecef;
+
+/// Font size of an icon indicating the itrem has a submenu
+/// @group menu
+$menuitemSubmenuIconFontSize: .875rem;
+
+/// Margin of a submenu header
+/// @group menu
+$submenuHeaderMargin: 0;
+
+/// Padding of a submenu header
+/// @group menu
+$submenuHeaderPadding: .75rem 1rem;
+
+/// Background of a submenu header
+/// @group menu
+$submenuHeaderBg: #ffffff;
+
+/// Text color of a submenu header
+/// @group menu
+$submenuHeaderTextColor: $textColor;
+
+/// Border radius of a submenu header
+/// @group menu
+$submenuHeaderBorderRadius: 0;
+
+/// Font weight of a submenu header
+/// @group menu
+$submenuHeaderFontWeight: 600;
+
+/// Background of an overlay menu
+/// @group menu
+$overlayMenuBg:$menuBg;
+
+/// Border of an overlay menu
+/// @group menu
+$overlayMenuBorder: 0 none;
+
+/// Box shadow of an overlay menu
+/// @group menu
+$overlayMenuShadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+
+/// Padding of a vertical menu e.g. tieredmenu, contextmenu
+/// @group menu
+$verticalMenuPadding: .25rem 0;
+
+/// Margin of a vertical menuitem
+/// @group menu
+$verticalMenuitemMargin:0;
+
+/// Margin of a menuitrem separator
+/// @group menu
+$menuSeparatorMargin: .25rem 0;
+
+/// Padding of a breadcrumb
+/// @group menu
+$breadcrumbPadding: 1rem;
+
+/// Background of a breadcrumb
+/// @group menu
+$breadcrumbBg: $menuBg;
+
+/// Border of a breadcrumb
+/// @group menu
+$breadcrumbBorder: $menuBorder;
+
+/// Text color of a breadcrumb item
+/// @group menu
+$breadcrumbItemTextColor: $menuitemTextColor;
+
+/// Icon color of a breadcrumb item
+/// @group menu
+$breadcrumbItemIconColor: $menuitemIconColor;
+
+/// Text color of the breadcrumb item
+/// @group menu
+$breadcrumbLastItemTextColor: $menuitemTextColor;
+
+/// Icon color of the breadcrumb item
+/// @group menu
+$breadcrumbLastItemIconColor: $menuitemIconColor;
+
+/// Color of a breadcrumb separator
+/// @group menu
+$breadcrumbSeparatorColor: $menuitemTextColor;
+
+/// Padding of a horizontal menu e.g. menubar
+/// @group menu
+$horizontalMenuPadding: .5rem;
+
+/// Background of a horizontal menu e.g. menubar
+/// @group menu
+$horizontalMenuBg: #f8f9fa;
+
+/// Border of a horizontal menu e.g. menubar
+/// @group menu
+$horizontalMenuBorder: $menuBorder;
+
+/// Text color of a horizontal menu e.g. menubar
+/// @group menu
+$horizontalMenuTextColor: $menuTextColor;
+
+/// Padding of a horizontal menu root item e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemPadding: $menuitemPadding;
+
+/// Border radius of a horizontal menu root item e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemBorderRadius: $borderRadius;
+
+/// Text color of a horizontal menu root item e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemTextColor: $menuitemTextColor;
+
+/// Icon color of a horizontal menu root item e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemIconColor: $menuitemIconColor;
+
+/// Text color of a horizontal menu root item in hover state e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemTextHoverColor: $menuitemTextHoverColor;
+
+/// Icon color of a horizontal menu root item in hover state e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemIconHoverColor: $menuitemIconHoverColor;
+
+/// Background of a horizontal menu root item in hover state e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemHoverBg: $menuitemHoverBg;
+
+/// Text color of a horizontal menu root item in hover active e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemTextActiveColor:$menuitemTextActiveColor;
+
+/// Icon color of a horizontal menu root item in hover active e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemIconActiveColor: $menuitemIconActiveColor;
+
+/// Background of a horizontal menu root item in active state e.g. menubar
+/// @group menu
+$horizontalMenuRootMenuitemActiveBg: $menuitemActiveBg;
+
+/// Width of an action item on dock
+/// @group menu
+$dockActionWidth: 4rem;
+
+/// Height of an action item on dock
+/// @group menu
+$dockActionHeight: 4rem;
+
+/// Padding of an action item on dock
+/// @group menu
+$dockItemPadding: .5rem;
+
+/// Margin of the current action item on dock
+/// @group menu
+$dockCurrentItemMargin: 1.5rem;
+
+/// Margin of the previous and next action item on dock
+/// @group menu
+$dockFirstItemsMargin: 1.3rem;
+
+/// Margin of the second previous and second next action item on dock
+/// @group menu
+$dockSecondItemsMargin: 0.9rem;
+
+/// Background of the list on dock
+/// @group menu
+$dockBg: rgba(255,255,255,.1);
+
+/// Border of the list on dock
+/// @group menu
+$dockBorder: 1px solid rgba(255,255,255,0.2);
+
+/// Padding of the list on dock
+/// @group menu
+$dockPadding: .5rem .5rem;
+
+/// Border Radius of the list on dock
+/// @group menu
+$dockBorderRadius: .5rem;

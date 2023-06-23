@@ -1,0 +1,107 @@
+.p-message {
+    margin: $messageMargin;
+    border-radius: $borderRadius;
+
+    .p-message-wrapper {
+        padding: $messagePadding;
+    }
+
+    .p-message-close {
+        width: $actionIconWidth;
+        height: $actionIconHeight;
+        border-radius: $actionIconBorderRadius;
+        background: transparent;
+        transition: $actionIconTransition;
+
+        &:hover {
+            background: rgba(255,255,255,.3);
+        }
+
+        &:focus {
+            @include focused();
+        }
+    }
+
+    &.p-message-info {
+        background: $infoMessageBg;
+        border: $infoMessageBorder;
+        border-width: $messageBorderWidth;
+        color: $infoMessageTextColor;
+
+        .p-message-icon {
+            color: $infoMessageIconColor;
+        }
+
+        .p-message-close {
+            color: $infoMessageIconColor;
+        }
+    }
+
+    &.p-message-success {
+        background: $successMessageBg;
+        border: $successMessageBorder;
+        border-width: $messageBorderWidth;
+        color: $successMessageTextColor;
+
+        .p-message-icon {
+            color: $successMessageIconColor;
+        }
+
+        .p-message-close {
+            color: $successMessageIconColor;
+        }
+    }
+
+    &.p-message-warn {
+        background: $warningMessageBg;
+        border: $warningMessageBorder;
+        border-width: $messageBorderWidth;
+        color: $warningMessageTextColor;
+
+        .p-message-icon {
+            color: $warningMessageIconColor;
+        }
+
+        .p-message-close {
+            color: $warningMessageIconColor;
+        }
+    }
+
+    &.p-message-error {
+        background: $errorMessageBg;
+        border: $errorMessageBorder;
+        border-width: $messageBorderWidth;
+        color: $errorMessageTextColor;
+
+        .p-message-icon {
+            color: $errorMessageIconColor;
+        }
+
+        .p-message-close {
+            color: $errorMessageIconColor;
+        }
+    }
+
+    .p-message-text {
+        font-size: $messageTextFontSize;
+        font-weight: $messageTextFontWeight;
+    }
+
+    .p-message-icon {
+        font-size: $messageIconFontSize;
+        margin-right: $inlineSpacing;
+    }
+
+    .p-icon {
+        width: $messageIconFontSize;
+        height: $messageIconFontSize;
+    }
+
+    .p-message-summary {
+        font-weight: 700;
+    }
+
+    .p-message-detail {
+        margin-left: $inlineSpacing;
+    }
+}

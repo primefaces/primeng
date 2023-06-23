@@ -1,0 +1,25 @@
+.p-scrolltop {
+    width: $scrollTopWidth;
+    height: $scrollTopHeight;
+    border-radius: $scrollTopBorderRadius;
+    box-shadow: $inputOverlayShadow;
+    transition: $actionIconTransition;
+
+    &.p-link {
+        background: $scrollTopBg;
+
+        &:hover {
+            background: $scrollTopHoverBg;
+        }
+    }
+
+    .p-scrolltop-icon {
+        font-size: $scrollTopFontSize;
+        color: $scrollTopTextColor;
+    }
+
+    .p-icon {
+        width: $scrollTopFontSize;
+        height: $scrollTopFontSize;
+    }
+}

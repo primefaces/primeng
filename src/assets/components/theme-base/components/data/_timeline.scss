@@ -1,0 +1,38 @@
+.p-timeline {
+    .p-timeline-event-marker {
+        border: $timelineEventMarkerBorder; 
+        border-radius: $timelineEventMarkerBorderRadius;
+        width: $timelineEventMarkerWidth;
+        height: $timelineEventMarkerHeight;
+        background-color: $timelineEventMarkerBackground;
+    }
+
+    .p-timeline-event-connector {
+        background-color: $timelineEventColor;
+    }
+
+    &.p-timeline-vertical {
+        .p-timeline-event-opposite,
+        .p-timeline-event-content  {
+            padding: $timelineVerticalEventContentPadding;
+        }
+
+        .p-timeline-event-connector {
+            width: $timelineEventConnectorSize;
+        }
+    }
+
+    &.p-timeline-horizontal {
+        .p-timeline-event-opposite,
+        .p-timeline-event-content  {
+            padding: $timelineHorizontalEventContentPadding;
+        }
+
+        .p-timeline-event-connector {
+            height: $timelineEventConnectorSize;
+        }
+    }
+}
+
+
+

@@ -1,0 +1,72 @@
+.p-confirm-popup {
+    background: $overlayContentBg;
+    color: $panelContentTextColor;
+    border: $overlayContentBorder;
+    border-radius: $borderRadius;
+    box-shadow: $overlayContainerShadow;
+
+    .p-confirm-popup-content {
+        padding: $panelContentPadding;
+    }
+
+    .p-confirm-popup-footer {
+        text-align: right;
+        padding: $panelFooterPadding;
+
+        button {
+            margin: 0 $inlineSpacing 0 0;
+            width: auto;
+
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+
+    &:after {
+        border: solid transparent;
+        border-color: rgba($overlayContentBg, 0);
+        border-bottom-color: $overlayContentBg;
+    }
+
+    &:before {
+        border: solid transparent;
+
+        @if (nth($overlayContentBorder, 2) == 'none') {
+            border-color: rgba($overlayContentBg, 0);
+            border-bottom-color: $overlayContentBg;
+        }
+        @else {
+            border-color: rgba(nth($overlayContentBorder, 3), 0);
+            border-bottom-color: nth($overlayContentBorder, 3);
+        }
+    }
+
+    &.p-confirm-popup-flipped {
+        &:after {
+            border-top-color: $overlayContentBg;
+        }
+
+        &:before {
+            @if (nth($overlayContentBorder, 2) == 'none') {
+                border-top-color: $overlayContentBg;
+            }
+            @else {
+                border-top-color: nth($overlayContentBorder, 3);
+            }
+        }
+    }
+
+    .p-confirm-popup-icon {
+        font-size: $primeIconFontSize * 1.5;
+        
+        &.p-icon {
+            width: $primeIconFontSize * 1.5;
+            height: $primeIconFontSize * 1.5;
+        }
+    }
+
+    .p-confirm-popup-message {
+        margin-left: $inlineSpacing * 2;
+    }
+}

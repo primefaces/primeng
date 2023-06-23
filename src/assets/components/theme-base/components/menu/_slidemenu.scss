@@ -1,0 +1,64 @@
+.p-slidemenu {
+    padding: $verticalMenuPadding;
+    background: $menuBg;
+    color: $menuTextColor;
+    border: $menuBorder;
+    border-radius: $borderRadius;
+    width: $menuWidth;
+
+    .p-menuitem-link {
+        @include menuitem-link();
+    }
+
+    &.p-slidemenu-overlay {
+        background: $overlayMenuBg;
+        border: $overlayMenuBorder;
+        box-shadow: $overlayMenuShadow;
+    }
+
+    .p-slidemenu-list {
+        padding: $verticalMenuPadding;
+        background: $overlayMenuBg;
+        border: $overlayMenuBorder;
+        box-shadow: $overlayMenuShadow;
+    }
+
+    .p-slidemenu {
+        &.p-slidemenu-active {
+            > .p-slidemenu-link {
+                background: $menuitemActiveBg;
+
+                .p-slidemenu-text {
+                    color: $menuitemTextActiveColor;
+                }
+
+                .p-slidemenu-icon, .p-slidemenu-icon {
+                    color: $menuitemIconActiveColor;
+                }
+            }
+        }
+    }
+
+    .p-slidemenu-separator {
+        border-top: $divider;
+        margin: $menuSeparatorMargin;
+    }
+
+    .p-slidemenu-icon {
+        font-size: $menuitemSubmenuIconFontSize;
+    }
+
+    .p-icon {
+        width: $menuitemSubmenuIconFontSize;
+        height: $menuitemSubmenuIconFontSize;
+    }
+
+    .p-slidemenu-backward {
+        padding: $menuitemPadding;
+	    color: $menuitemTextColor;
+    }
+
+    .p-menuitem-badge {
+        @include menuitem-badge();
+    }
+}

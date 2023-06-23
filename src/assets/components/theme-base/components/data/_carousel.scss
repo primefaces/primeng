@@ -1,0 +1,37 @@
+.p-carousel {
+    .p-carousel-content {
+        .p-carousel-prev,
+        .p-carousel-next {
+            @include action-icon();
+            margin: $inlineSpacing;
+        }
+    }
+
+    .p-carousel-indicators {
+        padding: $carouselIndicatorsPadding;
+
+        .p-carousel-indicator {
+            margin-right: $inlineSpacing;
+            margin-bottom: $inlineSpacing;
+           
+            button {
+                background-color: $carouselIndicatorBg;
+                width: $carouselIndicatorWidth;
+                height: $carouselIndicatorHeight;
+                transition: $actionIconTransition;
+                border-radius: $carouselIndicatorBorderRadius;
+
+                &:hover {
+                    background: $carouselIndicatorHoverBg;
+                }
+            }
+
+            &.p-highlight {
+                button {
+                    background: $highlightBg;
+                    color: $highlightTextColor;
+                }
+            }
+        }
+    }
+}

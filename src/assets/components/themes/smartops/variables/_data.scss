@@ -1,0 +1,354 @@
+/// Background of a paginator
+/// @group data
+$paginatorBg: #ffffff;
+
+/// Text color of a paginator
+/// @group data
+$paginatorTextColor: $textSecondaryColor;
+
+/// Border of a paginator
+/// @group data
+$paginatorBorder: solid #e9ecef;
+
+/// Border width of a paginator
+/// @group data
+$paginatorBorderWidth: 0;
+
+/// Padding of a paginator
+/// @group data
+$paginatorPadding: .5rem 1rem;
+
+/// Width of a paginator element
+/// @group data
+$paginatorElementWidth: $buttonIconOnlyWidth;
+
+/// Height of a paginator element
+/// @group data
+$paginatorElementHeight: $buttonIconOnlyWidth;
+
+/// Background of a paginator element
+/// @group data
+$paginatorElementBg: transparent;
+
+/// Border of a paginator element
+/// @group data
+$paginatorElementBorder: 0 none;
+
+/// Icon color of a paginator element
+/// @group data
+$paginatorElementIconColor: $textSecondaryColor;
+
+/// Background of a paginator element in hover state
+/// @group data
+$paginatorElementHoverBg: #e9ecef;
+
+/// Border color of a paginator element in hover state
+/// @group data
+$paginatorElementHoverBorderColor: transparent;
+
+/// Icon color of a paginator element in hover state
+/// @group data
+$paginatorElementIconHoverColor: $textSecondaryColor;
+
+/// Border radius of a paginator element
+/// @group data
+$paginatorElementBorderRadius: $borderRadius;
+
+/// Margin of a paginator element
+/// @group data
+$paginatorElementMargin: .143rem;
+
+/// Padding of a paginator element
+/// @group data
+$paginatorElementPadding: 0;
+
+/// Border of a table header
+/// @group data
+$tableHeaderBorder: 1px solid #e9ecef;
+
+/// Border width of a table header
+/// @group data
+$tableHeaderBorderWidth: 0 0 1px 0;
+
+/// Background of a table header
+/// @group data
+$tableHeaderBg: #f8f9fa;
+
+/// Text color of a table header
+/// @group data
+$tableHeaderTextColor: $textColor;
+
+/// Font weight of a table header
+/// @group data
+$tableHeaderFontWeight: 600;
+
+/// Padding of a table header, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group data
+$tableHeaderPadding: 1rem 1rem;
+
+/// Padding of a table header cell, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group data
+$tableHeaderCellPadding: 1rem 1rem;
+
+/// Background of a table header cell
+/// @group data
+$tableHeaderCellBg: #f8f9fa;
+
+/// Text color of a table header cell
+/// @group data
+$tableHeaderCellTextColor: $textColor;
+
+/// Font weight of a table header cell
+/// @group data
+$tableHeaderCellFontWeight: 600;
+
+/// Border of a table header cell
+/// @group data
+$tableHeaderCellBorder: 1px solid #e9ecef;
+
+/// Border width of a table header cell
+/// @group data
+$tableHeaderCellBorderWidth: 0 0 1px 0;
+
+/// Background of a table header cell in hover state
+/// @group data
+$tableHeaderCellHoverBg: #e9ecef;
+
+/// Text color of a table header cell in hover state
+/// @group data
+$tableHeaderCellTextHoverColor: $textColor;
+
+/// Icon color of a table header cell
+/// @group data
+$tableHeaderCellIconColor: $textSecondaryColor;
+
+/// Icon color of a table header cell in hover state
+/// @group data
+$tableHeaderCellIconHoverColor: $textSecondaryColor;
+
+/// Background of a table header cell in sorted state
+/// @group data
+$tableHeaderCellHighlightBg:#f8f9fa;
+
+/// Text color of a table header cell in sorted state
+/// @group data
+$tableHeaderCellHighlightTextColor:$primaryColor;
+
+/// Hover background of a table header cell in sorted state
+/// @group data
+$tableHeaderCellHighlightHoverBg:#e9ecef;
+
+/// Hover text color of a table header cell in sorted state
+/// @group data
+$tableHeaderCellHighlightTextHoverColor:$primaryColor;
+
+/// Size of a multiple column sorting order indicator
+/// @group data
+$tableSortableColumnBadgeSize: 1.143rem;
+
+/// Background of a table body row
+/// @group data
+$tableBodyRowBg: #ffffff;
+
+/// Text color of a table body row
+/// @group data
+$tableBodyRowTextColor: $textColor;
+
+/// Background of an even table body row
+/// @group data
+$tableBodyRowEvenBg: #ffffff;
+
+/// Background of a table body row in hover state
+/// @group data
+$tableBodyRowHoverBg: #e9ecef;
+
+/// Text color of a table body row in hover state
+/// @group data
+$tableBodyRowTextHoverColor: $textColor;
+
+/// Border for a cell of a table toby row
+/// @group data
+$tableBodyCellBorder: 1px solid rgba(0,0,0,0.08);
+
+/// Border width for a cell of a table toby row
+/// @group data
+$tableBodyCellBorderWidth: 0 0 1px 0;
+
+/// Padding for a cell of a table toby row, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group data
+$tableBodyCellPadding: 1rem 1rem;
+
+/// Padding of a table footer cell, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group data
+$tableFooterCellPadding: 1rem 1rem;
+
+/// Background of a table footer cell
+/// @group data
+$tableFooterCellBg: #f8f9fa;
+
+/// Text color of a table footer cell
+/// @group data
+$tableFooterCellTextColor: $textColor;
+
+/// Font weight of a table footer cell
+/// @group data
+$tableFooterCellFontWeight: 600;
+
+/// Border of a table footer cell
+/// @group data
+
+/// Border of a table footer cell
+/// @group data
+$tableFooterCellBorder: 1px solid #e9ecef;
+
+/// Border width of a table footer cell
+/// @group data
+$tableFooterCellBorderWidth: 0 0 1px 0;
+
+/// Backgground of a table column resize indicator bar
+/// @group data
+$tableResizerHelperBg: $primaryColor;
+
+/// Border of a table footer
+/// @group data
+$tableFooterBorder: 1px solid #e9ecef;
+
+/// Border width of a table footer
+/// @group data
+$tableFooterBorderWidth: 0 0 1px 0;
+
+/// Background of a table footer
+/// @group data
+$tableFooterBg: #f8f9fa;
+
+/// Text color of a table footer
+/// @group data
+$tableFooterTextColor: $textColor;
+
+/// Font weight of a table footer
+/// @group data
+$tableFooterFontWeight: 600;
+
+/// Padding of a table footer, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group data
+$tableFooterPadding: 1rem 1rem;
+
+/// Content alignment of a table cell
+/// @group data
+$tableCellContentAlignment: left;
+
+/// Border width of a table paginator positioned at top
+/// @group data
+$tableTopPaginatorBorderWidth: 1px 0 1px 0;
+
+/// Border width of a table paginator positioned at bottom
+/// @group data
+$tableBottomPaginatorBorderWidth: 0 0 1px 0;
+
+/// Scale factor of a small datatable
+/// @group data
+$tableScaleSM: 0.5;
+
+/// Scale factor of a large datatable
+/// @group data
+$tableScaleLG: 1.25;
+
+/// Padding for content section of a dataview
+/// @group data
+$dataViewContentPadding: 0;
+
+/// Border for content section of a dataview
+/// @group data
+$dataViewContentBorder: 0 none;
+
+/// Border for an item of a dataview in list orientation
+/// @group data
+$dataViewListItemBorder: solid #e9ecef;
+
+/// Border width for an item of a dataview in list orientation
+/// @group data
+$dataViewListItemBorderWidth: 0 0 1px 0;
+
+/// Breakpoint of orderlist to alternate between horizontal and vertical layout
+/// @group data
+$orderListBreakpoint: 769px;
+
+/// Breakpoint of picklist to alternate between horizontal and vertical layout
+/// @group data
+$pickListBreakpoint: 769px;
+
+/// Background of a full calendar event
+/// @group data
+$fullCalendarEventBg: $primaryDarkColor;
+
+/// Border color of a full calendar event
+/// @group data
+$fullCalendarEventBorderColor: $primaryDarkColor;
+
+/// Border of a full calendar event
+/// @group data
+$fullCalendarEventBorder: 1px solid $primaryDarkColor;
+
+/// Text color of a full calendar event
+/// @group data
+$fullCalendarEventTextColor: $primaryTextColor;
+
+/// Padding of a tree
+/// @group data
+$treeContainerPadding: 0.286rem;
+
+/// Padding of a tree node
+/// @group data
+$treeNodePadding: 0.143rem;
+
+/// Padding of a tree node content consists of toggler, icon and label
+/// @group data
+$treeNodeContentPadding: .5rem;
+
+/// Padding of a tree node children container
+/// @group data
+$treeNodeChildrenPadding: 0 0 0 1rem;
+
+/// Color of a treenode data icon, $dataActionIconColor for the toggler element
+/// @group data
+$treeNodeIconColor: $textSecondaryColor;
+
+/// Padding of a vertical timeline content element
+/// @group data
+$timelineVerticalEventContentPadding:0 1rem;
+
+/// Padding of a horizontal timeline content element
+/// @group data
+$timelineHorizontalEventContentPadding:1rem 0;
+
+/// Width of a timeline marker
+/// @group data
+$timelineEventMarkerWidth:1rem;
+
+/// Height of a timeline marker
+/// @group data
+$timelineEventMarkerHeight:1rem;
+
+/// Border radius of a timeline marker
+/// @group data
+$timelineEventMarkerBorderRadius:50%;
+
+/// Border of a timeline marker
+/// @group data
+$timelineEventMarkerBorder:2px solid $highlightBg;
+
+/// Background of a timeline marker
+/// @group data
+$timelineEventMarkerBackground:$highlightTextColor;
+
+/// Size of a timeline connector
+/// @group data
+$timelineEventConnectorSize:2px;
+
+/// Color of a timeline event
+/// @group data
+$timelineEventColor:#dee2e6;
+
+/// Color of a line to connect to organization chart nodes
+/// @group data
+$organizationChartConnectorColor: #dee2e6;

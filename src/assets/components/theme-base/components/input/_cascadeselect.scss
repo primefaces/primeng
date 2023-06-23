@@ -1,0 +1,130 @@
+@use 'sass:math';
+
+.p-cascadeselect {
+    background: $inputBg;
+    border: $inputBorder;
+    transition: $formElementTransition;
+    border-radius: $borderRadius;
+
+    &:not(.p-disabled):hover {
+        border-color: $inputHoverBorderColor;
+    }
+
+    &:not(.p-disabled).p-focus {
+        @include focused-input();
+    }
+
+    .p-cascadeselect-label {
+        background: transparent;
+        border: 0 none;
+        padding: $inputPadding;
+
+        &.p-placeholder {
+            color: $inputPlaceholderTextColor;
+        }
+
+        &:enabled:focus {
+            outline: 0 none;
+            box-shadow: none;
+        }
+    }
+
+    .p-cascadeselect-trigger {
+        background: transparent;
+        color: $inputIconColor;
+        width: $inputGroupAddOnMinWidth;
+        border-top-right-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+    }
+}
+
+.p-cascadeselect-panel {
+    background: $inputOverlayBg;
+    color: $inputListTextColor;
+    border: $inputOverlayBorder;
+    border-radius: $borderRadius;
+    box-shadow: $inputOverlayShadow;
+
+    .p-cascadeselect-items {
+        padding: $inputListPadding;
+
+        .p-cascadeselect-item {
+            margin: $inputListItemMargin;
+            border: $inputListItemBorder;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+            transition: $listItemTransition;
+            border-radius: $inputListItemBorderRadius;
+
+            .p-cascadeselect-item-content {
+                padding: $inputListItemPadding;
+
+                &:focus {
+                    @include focused-listitem();
+                }
+            }
+
+            &.p-highlight {
+                color: $highlightTextColor;
+                background: $highlightBg;
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                color: $inputListItemTextHoverColor;
+                background: $inputListItemHoverBg;
+            }
+
+            .p-cascadeselect-group-icon {
+                font-size: $menuitemSubmenuIconFontSize;
+            }
+
+            .p-icon {
+                width: $menuitemSubmenuIconFontSize;
+                height: $menuitemSubmenuIconFontSize;
+            }
+        }
+    }
+}
+
+p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
+    @include invalid-input();
+}
+
+.p-input-filled {
+    .p-cascadeselect {
+        background: $inputFilledBg;
+
+        &:not(.p-disabled):hover {
+            background-color: $inputFilledHoverBg;
+        }
+
+        &:not(.p-disabled).p-focus {
+            background-color: $inputFilledFocusBg;
+        }
+    }
+}
+
+p-cascadeselect.p-cascadeselect-clearable {
+    .p-cascadeselect-label {
+        padding-right: nth($inputPadding, 2);
+    }
+
+    .p-cascadeselect-clear-icon {
+        color: $inputIconColor;
+        right: $inputGroupAddOnMinWidth;
+    }
+}
+
+.p-overlay-modal {
+    .p-cascadeselect-sublist {
+        .p-cascadeselect-panel {
+            box-shadow: none;
+            border-radius: 0;
+            padding: math.div($inlineSpacing, 2) 0 math.div($inlineSpacing, 2) $inlineSpacing;
+        }
+    }
+
+    .p-cascadeselect-item-active > .p-cascadeselect-item-content .p-cascadeselect-group-icon {
+        transform: rotate(90deg);
+    }
+}

@@ -1,0 +1,33 @@
+.p-tooltip {
+    .p-tooltip-text {
+        background: $tooltipBg;
+        color: $tooltipTextColor;
+        padding: $tooltipPadding;
+        box-shadow: $inputOverlayShadow;
+        border-radius: $borderRadius;
+    }
+
+    &.p-tooltip-right {
+        .p-tooltip-arrow {
+            border-right-color: $tooltipBg;
+        }
+    }
+
+    &.p-tooltip-left {
+        .p-tooltip-arrow {
+            border-left-color: $tooltipBg;
+        }
+    }
+
+    &.p-tooltip-top {
+        .p-tooltip-arrow {
+            border-top-color: $tooltipBg;
+        }
+    }
+
+    &.p-tooltip-bottom {
+        .p-tooltip-arrow {
+            border-bottom-color: $tooltipBg;
+        }
+    }
+}

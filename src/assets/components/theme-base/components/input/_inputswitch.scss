@@ -1,0 +1,60 @@
+@use 'sass:math';
+
+.p-inputswitch {
+    width: $inputSwitchWidth;
+    height: $inputSwitchHeight;
+
+    .p-inputswitch-slider {
+        background: $inputSwitchSliderOffBg;
+        transition: $formElementTransition;
+        border-radius: $inputSwitchBorderRadius;
+
+        &:before {
+            background: $inputSwitchHandleOffBg;
+            width: $inputSwitchHandleWidth;
+            height: $inputSwitchHandleHeight;
+            left: $inputSwitchSliderPadding;
+            margin-top: math.div(-1 * $inputSwitchHandleHeight, 2);
+            border-radius: $inputSwitchHandleBorderRadius;
+            transition-duration: $transitionDuration;
+        }
+    }
+
+    &.p-inputswitch-checked {
+        .p-inputswitch-slider:before {
+            transform: translateX($inputSwitchHandleWidth);
+        }
+    }
+
+    &.p-focus {
+        .p-inputswitch-slider {
+            @include focused();
+        }
+    }
+
+    &:not(.p-disabled):hover {
+        .p-inputswitch-slider {
+            background: $inputSwitchSliderOffHoverBg;
+        }
+    }
+
+    &.p-inputswitch-checked {
+        .p-inputswitch-slider {
+            background: $inputSwitchSliderOnBg;
+
+            &:before {
+                background: $inputSwitchHandleOnBg;
+             }
+        }
+
+        &:not(.p-disabled):hover {
+            .p-inputswitch-slider {
+                background: $inputSwitchSliderOnHoverBg;
+            }
+        }
+    }
+}
+
+p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+    @include invalid-input();
+}

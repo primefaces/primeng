@@ -1,0 +1,381 @@
+.p-splitbutton {
+    border-radius: $borderRadius;
+
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $buttonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($buttonBg, $textButtonHoverBgOpacity);
+                    color: $buttonBg;
+                }
+
+                &:active {
+                    background: rgba($buttonBg, $textButtonActiveBgOpacity);
+                    color: $buttonBg;
+                }
+            }
+        }
+
+        &.p-button-plain {
+            > .p-button {
+                color: $plainButtonTextColor;
+                border-color: $plainButtonTextColor;
+
+                @include button-states {
+                    &:hover {
+                        background: $plainButtonHoverBgColor;
+                        color: $plainButtonTextColor;
+                    }
+
+                    &:active {
+                        background: $plainButtonActiveBgColor;
+                        color: $plainButtonTextColor;
+                    }
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $buttonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($buttonBg, $textButtonHoverBgOpacity);
+                    color: $buttonBg;
+                    border-color: transparent;
+                }
+
+                &:active {
+                    background: rgba($buttonBg, $textButtonActiveBgOpacity);
+                    color: $buttonBg;
+                    border-color: transparent;
+                }
+            }
+        }
+
+        &.p-button-plain {
+            > .p-button {
+                color: $plainButtonTextColor;
+
+                @include button-states {
+                    &:hover {
+                        background: $plainButtonHoverBgColor;
+                        color: $plainButtonTextColor;
+                    }
+
+                    &:active {
+                        background: $plainButtonActiveBgColor;
+                        color: $plainButtonTextColor;
+                    }
+                }
+            }
+        }
+    }
+
+
+    &.p-button-raised {
+        box-shadow: $raisedButtonShadow;
+    }
+
+    &.p-button-rounded {
+        border-radius: $roundedButtonBorderRadius;
+
+        > .p-button {
+            border-radius: $roundedButtonBorderRadius;
+        }
+    }
+
+    &.p-button-sm {
+        > .p-button {
+            @include scaledFontSize($fontSize, $scaleSM);
+            @include scaledPadding($buttonPadding, $scaleSM);
+
+            .p-button-icon {
+                @include scaledFontSize($primeIconFontSize, $scaleSM);
+            }
+        }
+    }
+
+    &.p-button-lg {
+        > .p-button {
+            @include scaledFontSize($fontSize, $scaleLG);
+            @include scaledPadding($buttonPadding, $scaleLG);
+
+            .p-button-icon {
+                @include scaledFontSize($primeIconFontSize, $scaleLG);
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-secondary {    
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $secondaryButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($secondaryButtonBg, $textButtonHoverBgOpacity);
+                    color: $secondaryButtonBg;
+                }
+
+                &:active {
+                    background: rgba($secondaryButtonBg, $textButtonActiveBgOpacity);
+                    color: $secondaryButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $secondaryButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($secondaryButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $secondaryButtonBg;
+                }
+
+                &:active {
+                    background: rgba($secondaryButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $secondaryButtonBg;
+                }
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-info {
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $infoButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($infoButtonBg, $textButtonHoverBgOpacity);
+                    color: $infoButtonBg;
+                }
+
+                &:active {
+                    background: rgba($infoButtonBg, $textButtonActiveBgOpacity);
+                    color: $infoButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $infoButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($infoButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $infoButtonBg;
+                }
+
+                &:active {
+                    background: rgba($infoButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $infoButtonBg;
+                }
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-success {
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $successButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($successButtonBg, $textButtonHoverBgOpacity);
+                    color: $successButtonBg;
+                }
+
+                &:active {
+                    background: rgba($successButtonBg, $textButtonActiveBgOpacity);
+                    color: $successButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $successButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($successButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $successButtonBg;
+                }
+
+                &:active {
+                    background: rgba($successButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $successButtonBg;
+                }
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-warning {
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $warningButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($warningButtonBg, $textButtonHoverBgOpacity);
+                    color: $warningButtonBg;
+                }
+
+                &:active {
+                    background: rgba($warningButtonBg, $textButtonActiveBgOpacity);
+                    color: $warningButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $warningButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($warningButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $warningButtonBg;
+                }
+
+                &:active {
+                    background: rgba($warningButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $warningButtonBg;
+                }
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-help {
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $helpButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($helpButtonBg, $textButtonHoverBgOpacity);
+                    color: $helpButtonBg;
+                }
+
+                &:active {
+                    background: rgba($helpButtonBg, $textButtonActiveBgOpacity);
+                    color: $helpButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $helpButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($helpButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $helpButtonBg;
+                }
+
+                &:active {
+                    background: rgba($helpButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $helpButtonBg;
+                }
+            }
+        }
+    }
+}
+
+.p-splitbutton.p-button-danger {
+    &.p-button-outlined {
+        > .p-button {
+            background-color: transparent;
+            color: $dangerButtonBg;
+            border: $outlinedButtonBorder;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($dangerButtonBg, $textButtonHoverBgOpacity);
+                    color: $dangerButtonBg;
+                }
+
+                &:active {
+                    background: rgba($dangerButtonBg, $textButtonActiveBgOpacity);
+                    color: $dangerButtonBg;
+                }
+            }
+        }
+    }
+
+    &.p-button-text {
+        > .p-button {
+            background-color: transparent;
+            color: $dangerButtonBg;
+            border-color: transparent;
+
+            @include button-states {
+                &:hover {
+                    background: rgba($dangerButtonBg, $textButtonHoverBgOpacity);
+                    border-color: transparent;
+                    color: $dangerButtonBg;
+                }
+
+                &:active {
+                    background: rgba($dangerButtonBg, $textButtonActiveBgOpacity);
+                    border-color: transparent;
+                    color: $dangerButtonBg;
+                }
+            }
+        }
+    }
+} 

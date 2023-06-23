@@ -1,0 +1,103 @@
+.p-picklist {
+    .p-picklist-buttons {
+        padding: $panelContentPadding;
+
+        .p-button {
+            margin-bottom: $inlineSpacing;
+        }
+    }
+
+    .p-picklist-header {
+        background: $panelHeaderBg;
+        color: $panelHeaderTextColor;
+        border: $panelHeaderBorder;
+        padding: $panelHeaderPadding;
+        border-bottom: 0 none;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-picklist-title {
+            font-weight: $panelHeaderFontWeight;
+        }
+    }
+
+    .p-picklist-filter-container {
+        padding: $panelHeaderPadding;
+        background: $panelContentBg;
+        border: $panelHeaderBorder;
+        border-bottom: 0 none;
+
+        .p-picklist-filter-input {
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+
+        .p-picklist-filter-icon {
+            right: nth($inputPadding, 2);
+            color: $inputIconColor;
+        }
+    }
+
+    .p-picklist-list {
+        border: $panelContentBorder;
+        background: $panelContentBg;
+        color: $panelContentTextColor;
+        padding: $inputListPadding;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+
+        .p-picklist-item {
+            padding: $inputListItemPadding;
+            margin: $inputListItemMargin;
+            border: $inputListItemBorder;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+            transition: $listItemTransition;
+
+            &:focus {
+                @include focused-listitem();
+            }
+
+            &.p-highlight {
+                color: $highlightTextColor;
+                background: $highlightBg;
+            }
+        }
+
+        .p-picklist-empty-message {
+            padding: $inputListItemPadding;
+            color: $inputListItemTextColor;
+        }
+
+        &:not(.cdk-drop-list-dragging) {
+            .p-picklist-item {
+                &:not(.p-highlight):hover {
+                    background: $inputListItemHoverBg;
+                    color: $inputListItemTextHoverColor;
+                }
+            }
+        }
+    }
+
+    &.p-picklist-striped {
+        .p-picklist-list {
+            .p-picklist-item:nth-child(even) {
+                background: $panelContentEvenRowBg;
+
+                &:hover {
+                    background: $inputListItemHoverBg;
+                }
+            }
+        }
+    }
+}
+
+.p-picklist-item {
+    &.cdk-drag-preview {
+        padding: $inputListItemPadding;
+        box-shadow: $inputOverlayShadow;
+        border: $inputListItemBorder;
+        color: $inputListItemTextColor;
+        background: $panelContentBg;
+        margin: 0;
+    }
+}

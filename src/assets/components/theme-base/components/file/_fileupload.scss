@@ -1,0 +1,58 @@
+.p-fileupload {
+    .p-fileupload-buttonbar {
+        background: $panelHeaderBg;
+        padding: $panelHeaderPadding;
+        border: $panelHeaderBorder;
+        color: $panelHeaderTextColor;
+        border-bottom: 0 none;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-button {
+            margin-right: $inlineSpacing;
+
+            &.p-fileupload-choose.p-focus {
+                @include focused();
+            }
+        }
+    }
+
+    .p-fileupload-content {
+        background: $panelContentBg;
+        padding: $fileUploadContentPadding;
+        border: $panelContentBorder;
+        color: $panelContentTextColor;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+    }
+
+    .p-progressbar {
+        height: $fileUploadProgressBarHeight;
+    }
+
+    .p-fileupload-row {
+        > div {
+            padding: $tableBodyCellPadding;
+        }
+    }
+
+    &.p-fileupload-advanced {
+        .p-message {
+            margin-top: 0;
+        }
+    }
+}
+
+.p-fileupload-choose {
+    &:not(.p-disabled):hover {
+        background: $buttonHoverBg;
+        color: $buttonTextHoverColor;
+        border-color: $buttonHoverBorderColor;
+    }
+
+    &:not(.p-disabled):active {
+        background: $buttonActiveBg;
+        color: $buttonTextActiveColor;
+        border-color: $buttonActiveBorderColor;
+    }
+}

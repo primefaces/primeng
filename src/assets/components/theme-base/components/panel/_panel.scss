@@ -1,0 +1,58 @@
+.p-panel {
+    .p-panel-header {
+        border: $panelHeaderBorder;
+        padding: $panelHeaderPadding;
+        background: $panelHeaderBg;
+        color: $panelHeaderTextColor;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-panel-title {
+            font-weight: $panelHeaderFontWeight;
+        }
+
+        .p-panel-header-icon {
+            @include action-icon();
+        }
+    }
+
+    &.p-panel-toggleable {
+        .p-panel-header {
+            padding: $panelToggleableHeaderPadding;
+        }
+    }
+
+    .p-panel-content {
+        padding: $panelContentPadding;
+        border: $panelContentBorder;
+        background: $panelContentBg;
+        color: $panelContentTextColor;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+        border-top: 0 none;
+    }
+
+    .p-panel-footer {
+        padding: $panelFooterPadding;
+        border: $panelFooterBorder;
+        background: $panelFooterBg;
+        color: $panelFooterTextColor;
+        border-top: 0 none;
+    }
+
+    .p-panel-icons-end {
+        order: 2;
+        margin-left: auto;
+    }    
+
+    .p-panel-icons-start {
+        order: 0;
+        margin-right: $inlineSpacing;
+    }
+
+    .p-panel-icons-center {
+        order: 2;
+        width:100%;
+        text-align:center;
+    }
+}

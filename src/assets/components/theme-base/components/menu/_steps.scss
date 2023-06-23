@@ -1,0 +1,56 @@
+@use 'sass:math';
+
+.p-steps {
+    .p-steps-item {
+        .p-menuitem-link {
+            background: transparent;
+            transition: $listItemTransition;
+            border-radius: $borderRadius;
+            background: $stepsItemBg;
+
+            .p-steps-number {
+                color: $stepsItemNumberColor;
+                border: $stepsItemBorder;
+                background: $stepsItemBg;
+                min-width: $stepsItemNumberWidth;
+                height: $stepsItemNumberHeight;
+                line-height: $stepsItemNumberHeight;
+                font-size: $stepsItemNumberFontSize;
+                z-index: 1;
+                border-radius: $stepsItemNumberBorderRadius;
+            }
+
+            .p-steps-title {
+                margin-top: $inlineSpacing;
+                color: $stepsItemTextColor;
+            }
+
+            &:not(.p-disabled):focus {
+                @include focused();
+            }
+        }
+
+        &.p-highlight {
+            .p-steps-number {
+                background: $highlightBg;
+                color: $highlightTextColor;
+            }
+
+            .p-steps-title {
+                font-weight: $stepsItemActiveFontWeight;
+                color: $textColor;
+            }
+        }
+
+        &:before {
+            content:' ';
+            border-top: $divider;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            display: block;
+            position: absolute;
+            margin-top: math.div(-1 * $stepsItemNumberHeight, 2);
+        }
+    }
+}

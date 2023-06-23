@@ -1,0 +1,71 @@
+@use 'sass:math';
+
+.p-slider {
+    background: $sliderBg;
+    border: $sliderBorder;
+    border-radius: $borderRadius;
+
+    &.p-slider-horizontal {
+        height: $sliderHorizontalHeight;
+
+        .p-slider-handle {
+            margin-top: math.div(-1 * $sliderHandleHeight, 2);
+            margin-left: math.div(-1 * $sliderHandleWidth, 2);
+        }
+    }
+
+    &.p-slider-vertical {
+        width: $sliderVerticalWidth;
+
+        .p-slider-handle {
+            margin-left: math.div(-1 * $sliderHandleWidth, 2);
+            margin-bottom: math.div(-1 * $sliderHandleHeight, 2);
+        }
+    }
+
+    .p-slider-handle {
+        height: $sliderHandleHeight;
+        width: $sliderHandleWidth;
+        background: $sliderHandleBg;
+        border: $sliderHandleBorder;
+        border-radius: $sliderHandleBorderRadius;
+        transition: $formElementTransition;
+
+        &:focus {
+            @include focused();
+        }
+    }
+
+    .p-slider-range {
+        background: $sliderRangeBg;
+    }
+
+    &:not(.p-disabled) {
+        .p-slider-handle:hover {
+            background: $sliderHandleHoverBg;
+            border-color: $sliderHandleHoverBorderColor;
+        }
+    }
+
+    &.p-slider-animate {
+        &.p-slider-horizontal {
+            .p-slider-handle {
+                transition: $formElementTransition, left $transitionDuration;
+            }
+
+            .p-slider-range {
+                transition: width $transitionDuration;
+            }
+        }
+
+        &.p-slider-vertical {
+            .p-slider-handle {
+                transition: $formElementTransition, bottom $transitionDuration;
+            }
+
+            .p-slider-range {
+                transition: height $transitionDuration;
+            }
+        }
+    }
+}

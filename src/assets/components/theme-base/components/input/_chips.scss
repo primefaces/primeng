@@ -1,0 +1,54 @@
+@use 'sass:math';
+
+.p-chips {
+    .p-chips-multiple-container {
+        padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+        gap: $inlineSpacing;
+
+        &:not(.p-disabled):hover {
+            border-color: $inputHoverBorderColor;
+        }
+
+        &:not(.p-disabled).p-focus {
+            @include focused-input();
+        }
+
+        .p-chips-token {
+            padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+            background: $highlightBg;
+            color: $highlightTextColor;
+            border-radius: $borderRadius;
+
+            .p-chips-token-icon {
+                margin-left: $inlineSpacing;
+            }
+        }
+
+        .p-chips-input-token {
+            padding: math.div(nth($inputPadding, 1), 2) 0;
+                
+            input {
+                font-family: $fontFamily;
+                font-size: $fontSize;
+                color: $textColor;
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+
+p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
+    @include invalid-input();
+}
+
+p-chips.p-chips-clearable {
+    .p-inputtext {
+        padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+    }
+
+    .p-chips-clear-icon {
+        color: $inputIconColor;
+        right: nth($inputPadding, 2);
+    } 
+}

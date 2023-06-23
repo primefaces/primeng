@@ -1,0 +1,28 @@
+.p-virtualscroller {
+    .p-virtualscroller-header {
+        background: $tableHeaderBg;
+        color: $tableHeaderTextColor;
+        border: $tableHeaderBorder;
+        border-width: $tableHeaderBorderWidth;
+        padding: $tableHeaderPadding;
+        font-weight: $tableHeaderFontWeight;
+    }
+
+    .p-virtualscroller-content {
+        background: $tableBodyRowBg;
+        color: $tableBodyRowTextColor;
+        border: $dataViewContentBorder;
+        padding: $dataViewContentPadding;
+    }
+
+    .p-virtualscroller-footer {
+        background: $tableFooterBg;
+        color: $tableFooterTextColor;
+        border: $tableFooterBorder;
+        border-width: $tableFooterBorderWidth;
+        padding: $tableFooterPadding;
+        font-weight: $tableFooterFontWeight;
+        border-bottom-left-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+    }
+}

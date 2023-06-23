@@ -1,0 +1,19 @@
+.p-splitter {
+    border: $panelContentBorder;
+    background: $panelContentBg;
+    border-radius: $borderRadius;
+    color: $panelContentTextColor;
+
+    .p-splitter-gutter {
+        transition: $actionIconTransition;
+        background: $splitterGutterBg;
+
+        .p-splitter-gutter-handle {
+            background: $splitterGutterHandleBg;
+        }
+    }
+
+    .p-splitter-gutter-resizing {
+        background: $splitterGutterHandleBg;
+    }
+}

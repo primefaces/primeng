@@ -1,0 +1,338 @@
+.p-datatable {
+    .p-paginator-top {
+        border-width: $tableTopPaginatorBorderWidth;
+        border-radius: 0;
+    }
+
+    .p-paginator-bottom {
+        border-width: $tableBottomPaginatorBorderWidth;
+        border-radius: 0;
+    }
+
+    .p-datatable-header {
+        background: $tableHeaderBg;
+        color: $tableHeaderTextColor;
+        border: $tableHeaderBorder;
+        border-width: $tableHeaderBorderWidth;
+        padding: $tableHeaderPadding;
+        font-weight: $tableHeaderFontWeight;
+    }
+
+    .p-datatable-footer {
+        background: $tableFooterBg;
+        color: $tableFooterTextColor;
+        border: $tableFooterBorder;
+        border-width: $tableFooterBorderWidth;
+        padding: $tableFooterPadding;
+        font-weight: $tableFooterFontWeight;
+    }
+
+    .p-datatable-thead > tr > th {
+        text-align: $tableCellContentAlignment;
+        padding: $tableHeaderCellPadding;
+        border: $tableHeaderCellBorder;
+        border-width: $tableHeaderCellBorderWidth;
+        font-weight: $tableHeaderCellFontWeight;
+        color: $tableHeaderCellTextColor;
+        background: $tableHeaderCellBg;
+        transition: $listItemTransition;
+    }
+
+    .p-datatable-tfoot > tr > td {
+        text-align: $tableCellContentAlignment;
+        padding: $tableFooterCellPadding;
+        border: $tableFooterCellBorder;
+        border-width: $tableFooterCellBorderWidth;
+        font-weight: $tableFooterCellFontWeight;
+        color: $tableFooterCellTextColor;
+        background: $tableFooterCellBg;
+    }
+
+    .p-sortable-column {
+        .p-sortable-column-icon {
+            color: $tableHeaderCellIconColor;
+            margin-left: $inlineSpacing;
+        }
+
+        .p-sortable-column-badge {
+            border-radius: 50%;
+            height: $tableSortableColumnBadgeSize;
+            min-width: $tableSortableColumnBadgeSize;
+            line-height: $tableSortableColumnBadgeSize;
+            color: $highlightTextColor;
+            background: $highlightBg;
+            margin-left: $inlineSpacing;
+        }
+
+        &:not(.p-highlight):hover {
+            background: $tableHeaderCellHoverBg;
+            color: $tableHeaderCellTextHoverColor;
+
+            .p-sortable-column-icon {
+                color: $tableHeaderCellIconHoverColor;
+            }
+        }
+
+        &.p-highlight {
+            background: $tableHeaderCellHighlightBg;
+            color: $tableHeaderCellHighlightTextColor;
+
+            .p-sortable-column-icon {
+                color: $tableHeaderCellHighlightTextColor;
+            }
+
+            &:hover {
+                background: $tableHeaderCellHighlightHoverBg;
+                color: $tableHeaderCellHighlightTextColor;
+
+                .p-sortable-column-icon {
+                    color: $tableHeaderCellHighlightTextColor;
+                }
+            }
+        }
+
+        &:focus {
+            box-shadow: $inputListItemFocusShadow;
+            outline: 0 none;
+        }
+    }
+
+    .p-datatable-tbody {
+        > tr {
+            background: $tableBodyRowBg;
+            color: $tableBodyRowTextColor;
+            transition: $listItemTransition;
+
+            > td {
+                text-align: $tableCellContentAlignment;
+                border: $tableBodyCellBorder;
+                border-width: $tableBodyCellBorderWidth;
+                padding: $tableBodyCellPadding;
+
+                .p-row-toggler,
+                .p-row-editor-init,
+                .p-row-editor-save,
+                .p-row-editor-cancel {
+                    @include action-icon();
+                }
+
+                .p-row-editor-save {
+                    margin-right: $inlineSpacing;
+                }
+            }
+
+            &:focus {
+                outline: 0.15rem solid $focusOutlineColor;
+                outline-offset: 0.15rem;
+            }
+
+            &.p-highlight {
+                background: $highlightBg;
+                color: $highlightTextColor;
+            }
+
+            &.p-datatable-dragpoint-top > td {
+                box-shadow: inset 0 2px 0 0 $highlightBg;
+            }
+
+            &.p-datatable-dragpoint-bottom > td {
+                box-shadow: inset 0 -2px 0 0 $highlightBg;
+            }
+        }
+    }
+
+    &.p-datatable-hoverable-rows {
+        .p-datatable-tbody > tr:not(.p-highlight):hover {
+            background: $tableBodyRowHoverBg;
+            color: $tableBodyRowTextHoverColor;
+        }
+    }
+
+    .p-column-resizer-helper {
+        background: $tableResizerHelperBg;
+    }
+
+    .p-datatable-scrollable-header,
+    .p-datatable-scrollable-footer {
+        background: $panelHeaderBg;
+    }
+
+    &.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table,
+    &.p-datatable-scrollable > .p-datatable-wrapper > .p-scroller-viewport > .p-scroller > .p-datatable-table {
+        > .p-datatable-thead,
+        > .p-datatable-tfoot {
+            background-color: $tableHeaderCellBg;
+        }
+    }
+
+    .p-datatable-loading-icon {
+        font-size: $loadingIconFontSize;
+    }
+
+    &.p-datatable-gridlines {
+        .p-datatable-header {
+            border-width: 1px 1px 0 1px;
+        }
+
+        .p-datatable-footer {
+            border-width: 0 1px 1px 1px;
+        }
+
+        .p-paginator-top {
+            border-width: 0 1px 0 1px;
+        }
+
+        .p-paginator-bottom {
+            border-width: 0 1px 1px 1px;
+        }
+
+        .p-datatable-thead {
+            > tr {
+                > th {
+                    border-width: 1px 0 1px 1px;
+
+                    &:last-child {
+                        border-width: 1px;
+                    }
+                }
+            }
+        }
+
+        .p-datatable-tbody {
+            > tr {
+                > td {
+                    border-width: 1px 0 0 1px;
+
+                    &:last-child {
+                        border-width: 1px 1px 0 1px;
+                    }
+                }
+
+                &:last-child {
+                    > td {
+                        border-width: 1px 0 1px 1px;
+
+                        &:last-child {
+                            border-width: 1px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .p-datatable-tfoot {
+            > tr {
+                > td {
+                    border-width: 1px 0 1px 1px;
+
+                    &:last-child {
+                        border-width: 1px 1px 1px 1px;
+                    }
+                }
+            }
+        }
+
+        .p-datatable-thead + .p-datatable-tfoot {
+            > tr {
+                > td {
+                    border-width: 0 0 1px 1px;
+
+                    &:last-child {
+                        border-width: 0 1px 1px 1px;
+                    }
+                }
+            }
+        }
+
+        &:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody {
+            > tr {
+                > td {
+                    border-width: 0 0 1px 1px;
+
+                    &:last-child {
+                        border-width: 0 1px 1px 1px;
+                    }
+                }
+            }
+        }
+
+        &:has(.p-datatable-tbody):has(.p-datatable-tfoot) .p-datatable-tbody {
+            > tr {
+                &:last-child {
+                    > td {
+                        border-width: 0 0 0 1px;
+
+                        &:last-child {
+                            border-width: 0 1px 0 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.p-datatable-striped {
+        .p-datatable-tbody {
+            > tr:nth-child(even) {
+                background: $tableBodyRowEvenBg;
+
+                &.p-highlight {
+                    background: $highlightBg;
+                    color: $highlightTextColor;
+
+                    .p-row-toggler {
+                        color: $highlightTextColor;
+
+                        &:hover {
+                            color: $highlightTextColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.p-datatable-sm {
+        .p-datatable-header {
+            @include scaledPadding($tableHeaderPadding, $tableScaleSM);
+        }
+
+        .p-datatable-thead > tr > th {
+            @include scaledPadding($tableHeaderCellPadding, $tableScaleSM);
+        }
+
+        .p-datatable-tbody > tr > td {
+            @include scaledPadding($tableBodyCellPadding, $tableScaleSM);
+        }
+
+        .p-datatable-tfoot > tr > td {
+            @include scaledPadding($tableFooterPadding, $tableScaleSM);
+        }
+
+        .p-datatable-footer {
+            @include scaledPadding($tableFooterPadding, $tableScaleSM);
+        }
+    }
+
+    &.p-datatable-lg {
+        .p-datatable-header {
+            @include scaledPadding($tableHeaderPadding, $tableScaleLG);
+        }
+
+        .p-datatable-thead > tr > th {
+            @include scaledPadding($tableHeaderCellPadding, $tableScaleLG);
+        }
+
+        .p-datatable-tbody > tr > td {
+            @include scaledPadding($tableBodyCellPadding, $tableScaleLG);
+        }
+
+        .p-datatable-tfoot > tr > td {
+            @include scaledPadding($tableFooterPadding, $tableScaleLG);
+        }
+
+        .p-datatable-footer {
+            @include scaledPadding($tableFooterPadding, $tableScaleLG);
+        }
+    }
+}

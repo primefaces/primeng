@@ -1,0 +1,86 @@
+@use 'sass:math';
+
+.p-speeddial-button {
+    &.p-button.p-button-icon-only {
+        width: $speedDialButtonWidth;
+        height: $speedDialButtonHeight;
+
+        .p-button-icon {
+            font-size: $speedDialButtonIconFontSize;
+        }
+
+        .p-icon {
+            width: $speedDialButtonIconFontSize;
+            height: $speedDialButtonIconFontSize;
+        }
+    }
+}
+
+.p-speeddial-action {
+    width: $speedDialActionWidth;
+    height: $speedDialActionHeight;
+    background: $speedDialActionBg;
+    color: $speedDialActionTextColor;
+
+    &:hover {
+        background: $speedDialActionHoverBg;
+        color: $speedDialActionTextHoverColor;
+    }
+}
+
+.p-speeddial-direction-up {
+    .p-speeddial-item {
+        margin: math.div($inlineSpacing, 2) 0;
+
+        &:first-child {
+            margin-bottom: $inlineSpacing;
+        }
+    }
+}
+
+.p-speeddial-direction-down {
+    .p-speeddial-item {
+        margin: math.div($inlineSpacing, 2) 0;
+
+        &:first-child {
+            margin-top: $inlineSpacing;
+        }
+    }
+}
+
+.p-speeddial-direction-left {
+    .p-speeddial-item {
+        margin: 0 math.div($inlineSpacing, 2);
+
+        &:first-child {
+            margin-right: $inlineSpacing;
+        }
+    }
+}
+
+.p-speeddial-direction-right {
+    .p-speeddial-item {
+        margin: 0 math.div($inlineSpacing, 2);
+
+        &:first-child {
+            margin-left: $inlineSpacing;
+        }
+    }
+}
+
+.p-speeddial-circle,
+.p-speeddial-semi-circle,
+.p-speeddial-quarter-circle {
+    .p-speeddial-item {
+        margin: 0;
+
+        &:first-child,
+        &:last-child {
+            margin: 0;
+        }
+    }
+}
+
+.p-speeddial-mask {
+    background-color: $maskBg;
+}

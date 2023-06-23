@@ -1,0 +1,78 @@
+.p-tabview {
+    .p-tabview-nav {
+        background: $tabviewNavBg;
+        border: $tabviewNavBorder;
+        border-width: $tabviewNavBorderWidth;
+
+        li {
+            margin-right: $tabviewHeaderSpacing;
+
+            .p-tabview-nav-link {
+                border: $tabviewHeaderBorder;
+                border-width: $tabviewHeaderBorderWidth;
+                border-color: $tabviewHeaderBorderColor;
+                background: $tabviewHeaderBg;
+                color: $tabviewHeaderTextColor;
+                padding: $tabviewHeaderPadding;
+                font-weight: $tabviewHeaderFontWeight;
+                border-top-right-radius: $borderRadius;
+                border-top-left-radius: $borderRadius;
+                transition: $listItemTransition;
+                margin: $tabviewHeaderMargin;
+
+                &:not(.p-disabled):focus {
+                    @include focused-inset();
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                .p-tabview-nav-link {
+                    background: $tabviewHeaderHoverBg;
+                    border-color: $tabviewHeaderHoverBorderColor;
+                    color: $tabviewHeaderTextHoverColor;
+                }
+            }
+
+            &.p-highlight {
+                .p-tabview-nav-link {
+                    background: $tabviewHeaderActiveBg;
+                    border-color: $tabviewHeaderActiveBorderColor;
+                    color: $tabviewHeaderTextActiveColor;
+                }
+            }
+        }
+    }
+
+    .p-tabview-left-icon {
+        margin-right: $inlineSpacing;
+    }
+
+    .p-tabview-right-icon {
+        margin-left: $inlineSpacing;
+    }
+
+    .p-tabview-close {
+        margin-left: $inlineSpacing;
+    }
+
+    .p-tabview-nav-btn.p-link {
+        background: $tabviewHeaderActiveBg;
+        color: $tabviewHeaderTextActiveColor;
+        width: $buttonIconOnlyWidth;
+        box-shadow: $raisedButtonShadow;
+        border-radius: 0;
+
+        &:focus {
+            @include focused-inset();
+        }
+    }
+
+    .p-tabview-panels {
+        background: $tabviewContentBg;
+        padding: $tabviewContentPadding;
+        border: $tabviewContentBorder;
+        color: $tabviewContentTextColor;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+    }
+}

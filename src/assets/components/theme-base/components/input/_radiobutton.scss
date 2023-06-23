@@ -1,0 +1,78 @@
+.p-radiobutton {
+    width: $radiobuttonWidth;
+    height: $radiobuttonHeight;
+
+    .p-radiobutton-box {
+        border: $radiobuttonBorder;
+        background: $inputBg;
+        width: $radiobuttonWidth;
+        height: $radiobuttonHeight;
+        color: $textColor;
+        border-radius: 50%;
+        transition: $formElementTransition;
+
+        &:not(.p-disabled):not(.p-highlight):hover {
+            border-color: $inputHoverBorderColor;
+        }
+
+        &:not(.p-disabled).p-focus {
+            @include focused-input();
+        }
+
+        .p-radiobutton-icon {
+            width: $radiobuttonIconSize;
+            height: $radiobuttonIconSize;
+            transition-duration: $transitionDuration;
+            background-color: $radiobuttonIconActiveColor;
+        }
+
+        &.p-highlight {
+            border-color: $radiobuttonActiveBorderColor;
+            background: $radiobuttonActiveBg;
+
+            &:not(.p-disabled):hover {
+                border-color: $radiobuttonActiveHoverBorderColor;
+                background: $radiobuttonActiveHoverBg;
+                color: $radiobuttonIconActiveHoverColor;
+            }
+        }
+    }
+}
+
+p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
+    @include invalid-input();
+}
+
+.p-input-filled {
+    .p-radiobutton {
+        .p-radiobutton-box {
+            background-color: $inputFilledBg;
+
+            &:not(.p-disabled):hover {
+                background-color: $inputFilledHoverBg;
+            }
+
+            &.p-highlight {
+                background: $radiobuttonActiveBg;
+    
+                &:not(.p-disabled):hover {
+                    background: $radiobuttonActiveHoverBg;
+                }
+            }
+        }
+    }
+}
+
+.p-radiobutton-label {
+    margin-left: $inlineSpacing;
+}
+
+@if ($highlightBg == $radiobuttonActiveBg) {
+    .p-highlight {
+        .p-radiobutton {
+            .p-radiobutton-box {
+                border-color: $radiobuttonIconActiveColor;
+            }
+        }
+    }
+}

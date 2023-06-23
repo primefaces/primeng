@@ -1,0 +1,74 @@
+.p-tabmenu {
+    .p-tabmenu-nav {
+        background: $tabviewNavBg;
+        border: $tabviewNavBorder;
+        border-width: $tabviewNavBorderWidth;
+        
+
+        .p-menuitem-badge {
+            @include menuitem-badge();
+        }
+
+        .p-tabmenuitem {
+            margin-right: $tabviewHeaderSpacing;
+
+            .p-menuitem-link {
+                border: $tabviewHeaderBorder;
+                border-width: $tabviewHeaderBorderWidth;
+                border-color: $tabviewHeaderBorderColor;
+                background: $tabviewHeaderBg;
+                color: $tabviewHeaderTextColor;
+                padding: $tabviewHeaderPadding;
+                font-weight: $tabviewHeaderFontWeight;
+                border-top-right-radius: $borderRadius;
+                border-top-left-radius: $borderRadius;
+                transition: $listItemTransition;
+                margin: $tabviewHeaderMargin;
+
+                .p-menuitem-icon {
+                    margin-right: $inlineSpacing;
+                }
+
+                &:not(.p-disabled):focus {
+                    @include focused-inset();
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                .p-menuitem-link {
+                    background: $tabviewHeaderHoverBg;
+                    border-color: $tabviewHeaderHoverBorderColor;
+                    color: $tabviewHeaderTextHoverColor;
+                }
+            }
+
+            &.p-highlight {
+                .p-menuitem-link {
+                    background: $tabviewHeaderActiveBg;
+                    border-color: $tabviewHeaderActiveBorderColor;
+                    color: $tabviewHeaderTextActiveColor;
+                }
+            }
+        }
+    }
+
+    .p-tabmenu-left-icon {
+        margin-right: $inlineSpacing;
+    }
+
+    .p-tabmenu-right-icon {
+        margin-left: $inlineSpacing;
+    }
+
+    .p-tabmenu-nav-btn.p-link {
+        background: $tabviewHeaderActiveBg;
+        color: $tabviewHeaderTextActiveColor;
+        width: $buttonIconOnlyWidth;
+        box-shadow: $raisedButtonShadow;
+        border-radius: 0;
+
+        &:focus {
+            @include focused-inset();
+        }
+    }
+}

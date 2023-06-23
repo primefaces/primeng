@@ -1,0 +1,42 @@
+.p-breadcrumb {
+    background: $breadcrumbBg;
+    border: $breadcrumbBorder;
+    border-radius: $borderRadius;
+    padding: $breadcrumbPadding;
+
+    ul {
+        li {
+            .p-menuitem-link {
+                transition: $listItemTransition;
+                border-radius: $borderRadius;
+
+                &:focus {
+                    @include focused();
+                }
+
+                .p-menuitem-text {
+                    color: $breadcrumbItemTextColor;
+                }
+
+                .p-menuitem-icon {
+                    color: $breadcrumbItemIconColor;
+                }
+            }
+
+            &.p-breadcrumb-chevron {
+                margin: 0 $inlineSpacing 0 $inlineSpacing;
+                color: $breadcrumbSeparatorColor;
+            }
+
+            &:last-child {
+                .p-menuitem-text {
+                    color: $breadcrumbLastItemTextColor;
+                }
+
+                .p-menuitem-icon {
+                    color: $breadcrumbLastItemIconColor;
+                }
+            }
+        }
+    }
+}

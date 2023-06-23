@@ -1,0 +1,122 @@
+.p-editor-container {
+    .p-editor-toolbar {
+        background: $editorToolbarBg;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        &.ql-snow {
+            border: $editorToolbarBorder;
+
+            .ql-stroke {
+                stroke: $editorToolbarIconColor;
+            }
+    
+            .ql-fill {
+                fill: $editorToolbarIconColor;
+            }
+    
+            .ql-picker {
+                .ql-picker-label {
+                    border: 0 none;
+                    color: $editorToolbarIconColor;
+
+                    &:hover {
+                        color: $editorToolbarIconHoverColor;
+
+                        .ql-stroke {
+                            stroke: $editorToolbarIconHoverColor;
+                        }
+                
+                        .ql-fill {
+                            fill: $editorToolbarIconHoverColor;
+                        }
+                    }
+                }
+
+                &.ql-expanded {
+                    .ql-picker-label {
+                        color: $editorToolbarIconHoverColor;
+
+                        .ql-stroke {
+                            stroke: $editorToolbarIconHoverColor;
+                        }
+                
+                        .ql-fill {
+                            fill: $editorToolbarIconHoverColor;
+                        }
+                    }
+
+                    .ql-picker-options {
+                        background: $inputOverlayBg;
+                        border:$inputOverlayBorder;
+                        box-shadow:$inputOverlayShadow;
+                        border-radius: $borderRadius;
+                        padding: $inputListPadding;
+
+                        .ql-picker-item {
+                            color: $inputListItemTextColor;
+                            
+                            &:hover {
+                                color: $inputListItemTextHoverColor;
+                                background: $inputListItemHoverBg;
+                            }
+                        }
+                    }
+
+                    &:not(.ql-icon-picker) {
+                        .ql-picker-item {
+                            padding: $inputListItemPadding;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-editor-content {
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+
+        &.ql-snow {
+            border: $editorContentBorder;
+        }
+
+        .ql-editor {
+            background: $inputBg;
+            color: $inputTextColor;
+            border-bottom-right-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+        }
+    }
+
+    .ql-snow.ql-toolbar button:hover,
+    .ql-snow.ql-toolbar button:focus {
+        color: $editorToolbarIconHoverColor;
+
+        .ql-stroke {
+            stroke: $editorToolbarIconHoverColor;
+        }
+
+        .ql-fill {
+            fill: $editorToolbarIconHoverColor;
+        }
+    }
+
+    .ql-snow.ql-toolbar button.ql-active,
+    .ql-snow.ql-toolbar .ql-picker-label.ql-active,
+    .ql-snow.ql-toolbar .ql-picker-item.ql-selected {
+        color: $editorIconActiveColor;
+
+        .ql-stroke {
+            stroke: $editorIconActiveColor;
+        }
+
+        .ql-fill {
+            fill: $editorIconActiveColor;
+        }
+
+        .ql-picker-label {
+            color: $editorIconActiveColor;
+        }
+    }
+}

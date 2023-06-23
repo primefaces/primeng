@@ -1,0 +1,329 @@
+.fc {
+    /* FullCalendar 4 */
+    &.fc-unthemed {
+        .fc-view-container {
+            th {
+                background: $panelHeaderBg;
+                border: $panelHeaderBorder;
+                color: $panelHeaderTextColor;
+            }
+
+            td {
+                &.fc-widget-content {
+                    background: $panelContentBg;
+                    border: $panelContentBorder;
+                    color: $panelContentTextColor;
+                }
+
+                &.fc-head-container {
+                    border: $panelHeaderBorder;
+                }
+            }
+
+            .fc-row {
+                border-right: $panelHeaderBorder;
+            }
+
+            .fc-event {
+                background: $fullCalendarEventBg;
+                border: $fullCalendarEventBorder;
+                color: $fullCalendarEventTextColor;
+            }
+
+            .fc-divider {
+                background: $panelHeaderBg;
+                border: $panelHeaderBorder;
+            }
+        }
+
+        .fc-toolbar {
+            .fc-button {
+                color: $buttonTextColor;
+                background: $buttonBg;
+                border: $buttonBorder;
+                font-size: $fontSize;
+                transition: $formElementTransition;
+                border-radius: $borderRadius;
+                display: flex;
+                align-items: center;
+
+                &:enabled:hover {
+                    background: $buttonHoverBg;
+                    color: $buttonTextHoverColor;
+                    border-color: $buttonHoverBorderColor;
+                }
+
+                &:enabled:active {
+                    background: $buttonActiveBg;
+                    color: $buttonTextActiveColor;
+                    border-color: $buttonActiveBorderColor;
+
+                    &:focus {
+                        @include focused();
+                    }
+                }
+
+                .fc-icon-chevron-left {
+                    font-family: "PrimeIcons" !important;
+                    text-indent: 0;
+                    @include icon_override("\e900");
+                    font-size: $primeIconFontSize;
+                }
+
+                .fc-icon-chevron-right {
+                    font-family: "PrimeIcons" !important;
+                    text-indent: 0;
+                    @include icon_override("\e901");
+                    font-size: $primeIconFontSize;
+                }
+
+                &:focus {
+                    @include focused();
+                }
+
+                &.fc-dayGridMonth-button,
+                &.fc-timeGridWeek-button,
+                &.fc-timeGridDay-button {
+                    background: $toggleButtonBg;
+                    border: $toggleButtonBorder;
+                    color: $toggleButtonTextColor;
+                    transition: $formElementTransition;
+
+                    &:hover {
+                        background: $toggleButtonHoverBg;
+                        border-color: $toggleButtonHoverBorderColor;
+                        color: $toggleButtonTextHoverColor;
+                    }
+
+                    &.fc-button-active {
+                        background: $toggleButtonActiveBg;
+                        border-color: $toggleButtonActiveBorderColor;
+                        color: $toggleButtonTextActiveColor;
+
+                        &:hover {
+                            background: $toggleButtonActiveHoverBg;
+                            border-color: $toggleButtonActiveHoverBorderColor;
+                            color: $toggleButtonTextActiveHoverColor;
+                        }
+                    }
+
+                    &:focus {
+                        @include focused();
+                        z-index: 1;
+                    }
+                }
+            }
+
+            .fc-button-group {
+                .fc-button {
+                    border-radius: 0;
+
+                    &:first-child {
+                        border-top-left-radius: $borderRadius;
+                        border-bottom-left-radius: $borderRadius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: $borderRadius;
+                        border-bottom-right-radius: $borderRadius;
+                    }
+                }
+            }
+        }
+    }
+
+    /* FullCalendar 5 */
+    &.fc-theme-standard {
+        .fc-view-harness {
+            .fc-scrollgrid {
+                border-color: $panelContentBorderColor;
+            }
+
+            th {
+                background: $panelHeaderBg;
+                border-color: $panelHeaderBorderColor;
+                color: $panelHeaderTextColor;
+            }
+
+            td {
+                color: $panelContentTextColor;
+                border-color: $panelContentBorderColor;
+            }
+
+            .fc-view {
+                background: $panelContentBg;
+            }
+
+            .fc-popover {
+                background: none;
+                border: 0 none;
+
+                .fc-popover-header {
+                    border: $panelHeaderBorder;
+                    padding: $panelHeaderPadding;
+                    background: $panelHeaderBg;
+                    color: $panelHeaderTextColor;
+
+                    .fc-popover-close {
+                        opacity: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                        font-family: "PrimeIcons" !important;
+                        @include icon_override("\e90b");
+                        font-size: $primeIconFontSize;
+                        @include action-icon(false);
+                    }
+                }
+
+                .fc-popover-body {
+                    padding: $panelContentPadding;
+                    border: $panelContentBorder;
+                    background: $panelContentBg;
+                    color: $panelContentTextColor;
+                    border-top: 0 none;
+                }
+            }
+
+            .fc-event {
+                &.fc-daygrid-block-event {
+                    color: $fullCalendarEventTextColor;
+                    background: $fullCalendarEventBg;
+                    border-color: $fullCalendarEventBorderColor;
+
+                    .fc-event-main {
+                        color: $fullCalendarEventTextColor;
+                    }
+                }
+
+                &.fc-daygrid-dot-event {
+                    .fc-daygrid-event-dot {
+                        background: $fullCalendarEventBg;
+                        border-color: $fullCalendarEventBorderColor;
+                    }
+
+                    &:hover {
+                        background: $inputListItemHoverBg;
+                        color: $inputListItemTextHoverColor;
+                    }
+                }
+            }
+
+            .fc-cell-shaded {
+                background: $panelHeaderBg;
+            }
+        }
+
+        .fc-toolbar {
+            .fc-button {
+                color: $buttonTextColor;
+                background: $buttonBg;
+                border: $buttonBorder;
+                font-size: $fontSize;
+                transition: $formElementTransition;
+                border-radius: $borderRadius;
+
+                &:enabled:hover {
+                    background: $buttonHoverBg;
+                    color: $buttonTextHoverColor;
+                    border-color: $buttonHoverBorderColor;
+                }
+
+                &:enabled:active {
+                    background: $buttonActiveBg;
+                    color: $buttonTextActiveColor;
+                    border-color: $buttonActiveBorderColor;
+
+                    &:focus {
+                        @include focused();
+                    }
+                }
+
+                &:disabled {
+                    opacity: $disabledOpacity;
+                    color: $buttonTextColor;
+                    background: $buttonBg;
+                    border: $buttonBorder;
+                }
+
+                .fc-icon-chevron-left {
+                    font-family: "PrimeIcons" !important;
+                    text-indent: 0;
+                    @include icon_override("\e900");
+                    font-size: $primeIconFontSize;
+                }
+
+                .fc-icon-chevron-right {
+                    font-family: "PrimeIcons" !important;
+                    text-indent: 0;
+                    @include icon_override("\e901");
+                    font-size: $primeIconFontSize;
+                }
+
+                &:focus {
+                    @include focused();
+                }
+
+                &.fc-dayGridMonth-button,
+                &.fc-timeGridWeek-button,
+                &.fc-timeGridDay-button {
+                    background: $toggleButtonBg;
+                    border: $toggleButtonBorder;
+                    color: $toggleButtonTextColor;
+                    transition: $formElementTransition;
+
+                    &:hover {
+                        background: $toggleButtonHoverBg;
+                        border-color: $toggleButtonHoverBorderColor;
+                        color: $toggleButtonTextHoverColor;
+                    }
+
+                    &.fc-button-active {
+                        background: $toggleButtonActiveBg;
+                        border-color: $toggleButtonActiveBorderColor;
+                        color: $toggleButtonTextActiveColor;
+
+                        &:hover {
+                            background: $toggleButtonActiveHoverBg;
+                            border-color: $toggleButtonActiveHoverBorderColor;
+                            color: $toggleButtonTextActiveHoverColor;
+                        }
+                    }
+
+                    &:not(:disabled) {
+                        &:focus {
+                            @include focused();
+                            z-index: 1;
+                        }
+                    }
+                }
+            }
+
+            .fc-button-group {
+                .fc-button {
+                    border-radius: 0;
+
+                    &:first-child {
+                        border-top-left-radius: $borderRadius;
+                        border-bottom-left-radius: $borderRadius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: $borderRadius;
+                        border-bottom-right-radius: $borderRadius;
+                    }
+                }
+            }
+        }
+
+        a {
+            color: $textColor;
+        }
+
+        .fc-highlight {
+            color: $highlightTextColor;
+            background: $highlightBg;
+        }
+    }
+}

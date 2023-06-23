@@ -1,0 +1,149 @@
+.p-galleria {
+    .p-galleria-close {
+        margin: $galleriaCloseIconMargin;
+        background: $galleriaCloseIconBg;
+        color: $galleriaCloseIconColor;
+        width: $galleriaCloseIconWidth;
+        height: $galleriaCloseIconHeight;
+        transition: $actionIconTransition;
+        border-radius: $galleriaCloseIconBorderRadius;
+
+        .p-galleria-close-icon {
+            font-size: $galleriaCloseIconFontSize;
+        }
+
+        .p-icon-wrapper {
+            .p-icon {
+                width: $galleriaCloseIconFontSize;
+                height: $galleriaCloseIconFontSize;
+            }
+        }
+
+        &:hover {
+            background: $galleriaCloseIconHoverBg;
+            color: $galleriaCloseIconHoverColor;
+        }
+    }
+
+    .p-galleria-item-nav {
+        background: $galleriaItemNavigatorBg;
+        color: $galleriaItemNavigatorColor;
+        width: $galleriaItemNavigatorWidth;
+        height: $galleriaItemNavigatorHeight;
+        transition: $actionIconTransition;
+        border-radius: $galleriaItemNavigatorBorderRadius;
+        margin: $galleriaItemNavigatorMargin;
+
+        .p-galleria-item-prev-icon,
+        .p-galleria-item-next-icon {
+            font-size: $galleriaItemNavigatorFontSize;
+        }
+
+        .p-icon-wrapper {
+            .p-icon {
+                width: $galleriaCloseIconFontSize;
+                height: $galleriaCloseIconFontSize;
+            }
+        }
+
+        &:not(.p-disabled) {
+            &:hover {
+                background: $galleriaItemNavigatorHoverBg;
+                color: $galleriaItemNavigatorHoverColor;
+            }
+        }
+    }
+
+    .p-galleria-caption {
+        background: $galleriaCaptionBg;
+        color: $galleriaCaptionTextColor;
+        padding: $galleriaCaptionPadding;
+    }
+
+    .p-galleria-indicators {
+        padding: $galleriaIndicatorsPadding;
+
+        .p-galleria-indicator {
+            button {
+                background-color: $galleriaIndicatorBg;
+                width: $galleriaIndicatorWidth;
+                height: $galleriaIndicatorHeight;
+                transition: $actionIconTransition;
+                border-radius: $galleriaIndicatorBorderRadius;
+
+                &:hover {
+                    background: $galleriaIndicatorHoverBg;
+                }
+            }
+
+            &.p-highlight {
+                button {
+                    background: $highlightBg;
+                    color: $highlightTextColor;
+                }
+            }
+        }
+    }
+
+    &.p-galleria-indicators-bottom,
+    &.p-galleria-indicators-top {
+        .p-galleria-indicator {
+            margin-right: $inlineSpacing;
+        }
+    }
+
+    &.p-galleria-indicators-left,
+    &.p-galleria-indicators-right {
+        .p-galleria-indicator {
+            margin-bottom: $inlineSpacing;
+        }
+    }
+
+    &.p-galleria-indicator-onitem {
+        .p-galleria-indicators {
+            background: $galleriaIndicatorsBgOnItem;
+
+            .p-galleria-indicator {
+                button {
+                    background: $galleriaIndicatorBgOnItem;
+
+                    &:hover {
+                        background: $galleriaIndicatorHoverBgOnItem;
+                    }
+                }
+
+                &.p-highlight {
+                    button {
+                        background: $highlightBg;
+                        color: $highlightTextColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-galleria-thumbnail-container {
+        background: $galleriaThumbnailContainerBg;
+        padding: $galleriaThumbnailContainerPadding;
+
+        .p-galleria-thumbnail-prev,
+        .p-galleria-thumbnail-next {
+            margin: $inlineSpacing;
+            background-color: $galleriaThumbnailNavigatorBg;
+            color: $galleriaThumbnailNavigatorColor;
+            width: $galleriaThumbnailNavigatorWidth;
+            height: $galleriaThumbnailNavigatorHeight;
+            transition: $actionIconTransition;
+            border-radius: $galleriaThumbnailNavigatorBorderRadius;
+
+            &:hover {
+                background: $galleriaThumbnailNavigatorHoverBg;
+                color: $galleriaThumbnailNavigatorHoverColor;
+            }
+        }
+    }
+}
+
+.p-galleria-mask {
+    --maskbg: #{$galleriaMaskBg};
+}

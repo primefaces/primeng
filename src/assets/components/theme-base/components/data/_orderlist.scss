@@ -1,0 +1,103 @@
+.p-orderlist {
+    .p-orderlist-controls {
+        padding: $panelContentPadding;
+
+        .p-button {
+            margin-bottom: $inlineSpacing;
+        }
+    }
+
+    .p-orderlist-header {
+        background: $panelHeaderBg;
+        color: $panelHeaderTextColor;
+        border: $panelHeaderBorder;
+        padding: $panelHeaderPadding;
+        border-bottom: 0 none;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-orderlist-title {
+            font-weight: $panelHeaderFontWeight;
+        }
+    }
+
+    .p-orderlist-filter-container {
+        padding: $panelHeaderPadding;
+        background: $panelContentBg;
+        border: $panelHeaderBorder;
+        border-bottom: 0 none;
+
+        .p-orderlist-filter-input {
+            padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+
+        .p-orderlist-filter-icon {
+            right: nth($inputPadding, 2);
+            color: $inputIconColor;
+        }
+    }      
+
+    .p-orderlist-list {
+        border: $panelContentBorder;
+        background: $panelContentBg;
+        color: $panelContentTextColor;
+        padding: $inputListPadding;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+
+        .p-orderlist-item {
+            padding: $inputListItemPadding;
+            margin: $inputListItemMargin;
+            border: $inputListItemBorder;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+            transition: $listItemTransition;
+
+            &:focus {
+                @include focused-listitem();
+            }
+
+            &.p-highlight {
+                color: $highlightTextColor;
+                background: $highlightBg;
+            }
+        }
+
+        .p-orderlist-empty-message {
+            padding: $inputListItemPadding;
+            color: $inputListItemTextColor;
+        }
+
+        &:not(.cdk-drop-list-dragging) {
+            .p-orderlist-item {
+                &:not(.p-highlight):hover {
+                    background: $inputListItemHoverBg;
+                    color: $inputListItemTextHoverColor;
+                }
+            }
+        }
+    }
+
+    &.p-orderlist-striped {
+        .p-orderlist-list {
+            .p-orderlist-item:nth-child(even) {
+                background: $panelContentEvenRowBg;
+
+                &:hover {
+                    background: $inputListItemHoverBg;
+                }
+            }
+        }
+    }
+}
+
+.p-orderlist-item {
+    &.cdk-drag-preview {
+        padding: $inputListItemPadding;
+        box-shadow: $inputOverlayShadow;
+        border: $inputListItemBorder;
+        color: $inputListItemTextColor;
+        background: $panelContentBg;
+        margin: 0;
+    }
+}

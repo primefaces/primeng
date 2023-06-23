@@ -1,0 +1,135 @@
+/// Font of the theme
+/// @group general
+$fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+/// Size of the font
+/// @group general
+$fontSize: 1rem;
+
+/// Thickness of the texts
+/// @group general
+$fontWeight: normal;
+
+/// Primary text color
+/// @group general
+$textColor: #495057;
+
+/// Secondary text color
+/// @group general
+$textSecondaryColor: #6c757d;
+
+/// Background of a highlighted item
+/// @group general
+$highlightBg: $primaryColor;
+
+/// Text color of a highlighted item
+/// @group general
+$highlightTextColor: $primaryTextColor;
+
+/// Radius of the corners
+/// @group general
+$borderRadius: 3px;
+
+/// Duration of the property transitions
+/// @group general
+$transitionDuration: .2s;
+
+/// Properties of a form element transition
+/// @group general
+$formElementTransition: background-color $transitionDuration, color $transitionDuration, border-color $transitionDuration, box-shadow $transitionDuration;
+
+/// Properties of a action icon transition
+/// @group general
+$actionIconTransition: background-color $transitionDuration, color $transitionDuration, box-shadow $transitionDuration;
+
+/// Properties of a list item transition
+/// @group general
+$listItemTransition: background-color $transitionDuration, border-color $transitionDuration, box-shadow $transitionDuration;
+
+/// Size of the Icons
+/// @group general
+$primeIconFontSize: 1rem;
+
+/// Separator border
+/// @group general
+$divider: 1px solid #dee2e6;
+
+/// Space between two inline items
+/// @group general
+$inlineSpacing: .5rem;
+
+/// Opacity of the disabled elements
+/// @group general
+$disabledOpacity: .8;
+
+/// Background of the modal layer
+/// @group general
+$maskBg: rgba(0, 0, 0, 0.4);
+
+/// Font size of the loading icons
+/// @group general
+$loadingIconFontSize: 2rem;
+
+/// Color to use on an invalid element e.g. invalid input
+/// @group general
+$errorColor: #e4677e;
+
+/// Outline color of a focused element
+/// @group general
+$focusOutlineColor: #bfd1f6;
+
+/// Outline of a focused element
+/// @group general
+$focusOutline: 0 none;
+
+/// Outline offset of a focused element
+/// @group general
+$focusOutlineOffset: 0;
+
+/// Box shadow of a focused element
+/// @group general
+$focusShadow: 0 0 0 0.2rem $focusOutlineColor;
+
+/// Width of an action icon
+/// @group general
+$actionIconWidth: 2rem;
+
+/// Height of an action icon
+/// @group general
+$actionIconHeight: 2rem;
+
+/// Background of an action icon
+/// @group general
+$actionIconBg: transparent;
+
+/// Border of an action icon
+/// @group general
+$actionIconBorder: 0 none;
+
+/// Color of an action icon
+/// @group general
+$actionIconColor: $textSecondaryColor;
+
+/// Backgroun of an action icon in hover state
+/// @group general
+$actionIconHoverBg: #e9ecef;
+
+/// Border of an action icon in hover state
+/// @group general
+$actionIconHoverBorderColor: transparent;
+
+/// Color of an action icon in hover state
+/// @group general
+$actionIconHoverColor: $textColor;
+
+/// Border radius of an action icon
+/// @group general
+$actionIconBorderRadius: 50%;
+
+/// Scale factor of small component size
+/// @group general
+$scaleSM:0.875;
+
+/// Scale factor of small large size
+/// @group general
+$scaleLG:1.25;

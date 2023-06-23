@@ -1,0 +1,55 @@
+.p-rating {
+    gap: $inlineSpacing;
+    
+    .p-rating-icon {
+        color: $ratingStarIconOffColor;
+        margin-left: $inlineSpacing;
+        transition: $formElementTransition;
+        font-size: $ratingIconFontSize;
+
+        &.p-icon {
+            width: $ratingIconFontSize;
+            height: $ratingIconFontSize;   
+        }
+
+        &.p-rating-cancel {
+            color: $ratingCancelIconColor;
+        }
+
+        &:focus {
+            @include focused();
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &.p-rating-icon-active {
+            color: $ratingStarIconOnColor;
+        }
+    }
+
+    &:not(.p-disabled):not(.p-readonly) {
+        .p-rating-icon {
+            &:hover {
+                color: $ratingStarIconHoverColor;
+            }
+
+            &.p-rating-cancel {
+                &:hover {
+                    color: $ratingCancelIconHoverColor;
+                }
+            }
+        }
+    }
+}
+
+@if ($highlightBg == $ratingStarIconOnColor) {
+    .p-highlight {
+        .p-rating {
+            .p-rating-icon {
+                color: $highlightTextColor;
+            }
+        }
+    }
+}

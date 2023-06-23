@@ -1,0 +1,139 @@
+@use 'sass:math';
+
+.p-treeselect {
+    background: $inputBg;
+    border: $inputBorder;
+    transition: $formElementTransition;
+    border-radius: $borderRadius;
+
+    &:not(.p-disabled):hover {
+        border-color: $inputHoverBorderColor;
+    }
+
+    &:not(.p-disabled).p-focus {
+        @include focused-input();
+    }
+
+    .p-treeselect-label {
+        padding: $inputPadding;
+        transition: $formElementTransition;
+
+        &.p-placeholder {
+            color: $inputPlaceholderTextColor;
+        }
+    }
+
+    &.p-treeselect-chip {
+        .p-treeselect-token {
+            padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+            margin-right: $inlineSpacing;
+            background: $chipBg;
+            color: $chipTextColor;
+            border-radius: $chipBorderRadius;
+        }
+    }
+
+    .p-treeselect-trigger {
+        background: transparent;
+        color: $inputIconColor;
+        width: $inputGroupAddOnMinWidth;
+        border-top-right-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+    }
+}
+
+p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
+    @include invalid-input();
+}
+
+.p-inputwrapper-filled {
+    .p-treeselect {
+        &.p-treeselect-chip {
+            .p-treeselect-label {
+                padding: math.div(nth($inputPadding, 1), 2) nth($inputPadding, 2);
+            }
+        }
+    }
+}
+
+.p-treeselect-panel {
+    background: $inputOverlayBg;
+    color: $inputListTextColor;
+    border: $inputOverlayBorder;
+    border-radius: $borderRadius;
+    box-shadow: $inputOverlayShadow;
+
+    .p-treeselect-header {
+        padding: $inputListHeaderPadding;
+        border-bottom: $inputListHeaderBorder;
+        color: $inputListHeaderTextColor;
+        background: $inputOverlayHeaderBg;
+        margin: $inputListHeaderMargin;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .p-treeselect-filter-container {
+            margin-right: $inlineSpacing;
+
+            .p-treeselect-filter {
+                padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+            }
+    
+            .p-treeselect-filter-icon {
+                right: nth($inputPadding, 2);
+                color: $inputIconColor;
+            }
+    
+            &.p-treeselect-clearable-filter {
+                .p-treeselect-filter {
+                    padding-right: 2 * (nth($inputPadding, 2) + $primeIconFontSize);
+                }
+        
+                .p-treeselect-filter-clear-icon {
+                    right: (2 * nth($inputPadding, 2)) + $primeIconFontSize;
+                }
+            }
+        }
+
+        .p-treeselect-close {
+            @include action-icon();
+        }
+    }
+    
+    .p-treeselect-items-wrapper {
+        .p-tree {
+            border: 0 none;
+        }
+
+        .p-treeselect-empty-message {
+            padding: $inputListItemPadding;
+            color: $inputListItemTextColor;
+            background: $inputListItemBg;
+        }
+    }
+}
+
+.p-input-filled {
+    .p-treeselect {
+        background: $inputFilledBg;
+
+        &:not(.p-disabled):hover {
+            background-color: $inputFilledHoverBg;
+        }
+
+        &:not(.p-disabled).p-focus {
+            background-color: $inputFilledFocusBg;
+        }
+    }
+}
+
+p-treeselect.p-treeselect-clearable {
+    .p-treeselect-label-container {
+        padding-right: nth($inputPadding, 2) + $primeIconFontSize;
+    }
+    
+    .p-treeselect-clear-icon {
+        color: $inputIconColor;
+        right: $buttonIconOnlyWidth;
+    }
+}

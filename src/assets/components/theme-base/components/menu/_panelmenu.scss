@@ -1,0 +1,140 @@
+.p-panelmenu {
+    .p-panelmenu-header {
+        > a {
+            padding: $accordionHeaderPadding;
+            border: $accordionHeaderBorder;
+            color: $accordionHeaderTextColor;
+            background: $accordionHeaderBg;
+            font-weight: $accordionHeaderFontWeight;
+            border-radius: $borderRadius;
+            transition: $listItemTransition;
+
+            .p-panelmenu-icon {
+                margin-right: $inlineSpacing;
+            }
+
+            .p-menuitem-icon {
+                margin-right: $inlineSpacing;
+            }
+
+            &:focus {
+                @include focused();
+            }
+        }
+
+        &:not(.p-highlight):not(.p-disabled) {
+            > a:hover {
+                background: $accordionHeaderHoverBg;
+                border-color: $accordionHeaderHoverBorderColor;
+                color: $accordionHeaderTextHoverColor;
+            }
+        }
+
+        &.p-highlight {
+            margin-bottom: 0;
+
+            > a {
+                background: $accordionHeaderActiveBg;
+                border-color: $accordionHeaderActiveBorderColor;
+                color: $accordionHeaderTextActiveColor;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            &:not(.p-disabled) {
+                > a {
+                    &:hover {
+                        border-color: $accordionHeaderActiveHoverBorderColor;
+                        background: $accordionHeaderActiveHoverBg;
+                        color: $accordionHeaderTextActiveHoverColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-panelmenu-content {
+        padding: $verticalMenuPadding;
+        border: $accordionContentBorder;
+        background: $accordionContentBg;
+        color: $accordionContentTextColor;
+        margin-bottom: $accordionSpacing;
+        border-top: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+
+        .p-menuitem {
+            .p-menuitem-link {
+                @include menuitem-link();
+
+                .p-panelmenu-icon {
+                    margin-right: $inlineSpacing;
+                }
+            }
+        }
+
+        .p-submenu-list:not(.p-panelmenu-root-submenu) {
+            padding: $treeNodeChildrenPadding;
+        }
+    }
+
+    .p-panelmenu-panel {
+        margin-bottom: $accordionSpacing;
+
+        @if $accordionSpacing == 0 {
+            .p-panelmenu-header {
+                > a {
+                    border-radius: 0;
+                }
+            }
+
+            .p-panelmenu-content {
+                border-radius: 0;
+            }
+
+            &:not(:first-child) {
+                .p-panelmenu-header {
+                    > a {
+                        border-top: 0 none;
+                    }
+
+                    &:not(.p-highlight):not(.p-disabled):hover,
+                    &:not(.p-disabled).p-highlight:hover {
+                        > a {
+                            border-top: 0 none;
+                        }
+                    }
+                }
+            }
+
+            &:first-child {
+                .p-panelmenu-header {
+                    > a {
+                        border-top-right-radius: $borderRadius;
+                        border-top-left-radius: $borderRadius;
+                    }
+                }
+            }
+
+            &:last-child {
+                .p-panelmenu-header:not(.p-highlight) {
+                    > a {
+                        border-bottom-right-radius: $borderRadius;
+                        border-bottom-left-radius: $borderRadius;
+                    }
+                }
+
+                .p-panelmenu-content {
+                    border-bottom-right-radius: $borderRadius;
+                    border-bottom-left-radius: $borderRadius;
+                }
+            }
+        } 
+    }
+
+    .p-menuitem-badge {
+        @include menuitem-badge();
+    }
+}

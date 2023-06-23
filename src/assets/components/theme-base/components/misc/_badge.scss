@@ -1,0 +1,48 @@
+.p-badge {
+    background: $badgeBg;
+    color: $badgeTextColor;
+    font-size: $badgeFontSize;
+    font-weight: $badgeFontWeight;
+    min-width: $badgeMinWidth;
+    height: $badgeHeight;
+    line-height: $badgeHeight;
+
+    &.p-badge-secondary {
+        background-color: $secondaryButtonBg;
+        color: $secondaryButtonTextColor;
+    }
+
+    &.p-badge-success {
+        background-color: $successButtonBg;
+        color: $successButtonTextColor;
+    }
+
+    &.p-badge-info {
+        background-color: $infoButtonBg;
+        color: $infoButtonTextColor;
+    }
+
+    &.p-badge-warning {
+        background-color: $warningButtonBg;
+        color: $warningButtonTextColor;
+    }
+
+    &.p-badge-danger {
+        background-color: $dangerButtonBg;
+        color: $dangerButtonTextColor;
+    }
+
+    &.p-badge-lg {
+        font-size: 1.5 * $badgeFontSize;
+        min-width: 1.5 * $badgeMinWidth;
+        height: 1.5 * $badgeHeight;
+        line-height: 1.5 * $badgeHeight;
+    }
+
+    &.p-badge-xl {
+        font-size: 2 * $badgeFontSize;
+        min-width: 2 * $badgeMinWidth;
+        height: 2 * $badgeHeight;
+        line-height: 2 * $badgeHeight;
+    }
+}

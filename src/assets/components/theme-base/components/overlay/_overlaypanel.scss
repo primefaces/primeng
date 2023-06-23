@@ -1,0 +1,64 @@
+@use 'sass:math';
+
+.p-overlaypanel {
+    background: $overlayContentBg;
+    color: $panelContentTextColor;
+    border: $overlayContentBorder;
+    border-radius: $borderRadius;
+    box-shadow: $overlayContainerShadow;
+
+    .p-overlaypanel-content {
+        padding: $panelContentPadding;
+    }
+
+    .p-overlaypanel-close {
+        background: $buttonBg;
+        color: $buttonTextColor;
+        width: $actionIconWidth;
+        height: $actionIconHeight;
+        transition: $actionIconTransition;
+        border-radius: $actionIconBorderRadius;
+        position: absolute;
+        top: math.div(-1 * $actionIconWidth, 2);
+        right: math.div(-1 * $actionIconWidth, 2);
+
+        &:enabled:hover {
+            background: $buttonHoverBg;
+            color: $buttonTextHoverColor;
+        }
+    }
+
+    &:after {
+        border: solid transparent;
+        border-color: rgba($overlayContentBg, 0);
+        border-bottom-color: $overlayContentBg;
+    }
+
+    &:before {
+        border: solid transparent;
+
+        @if (nth($overlayContentBorder, 2) == 'none') {
+            border-color: rgba($overlayContentBg, 0);
+            border-bottom-color: scale-color($overlayContentBg, $lightness: -5%);
+        }
+        @else {
+            border-color: rgba(nth($overlayContentBorder, 3), 0);
+            border-bottom-color: scale-color(nth($overlayContentBorder, 3), $lightness: -5%);
+        }
+    }
+
+    &.p-overlaypanel-flipped {
+        &:after {
+            border-top-color: $overlayContentBg;
+        }
+
+        &:before {
+            @if (nth($overlayContentBorder, 2) == 'none') {
+                border-top-color: $overlayContentBg;
+            }
+            @else {
+                border-top-color: nth($overlayContentBorder, 3);
+            }
+        }
+    }
+}

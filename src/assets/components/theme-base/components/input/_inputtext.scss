@@ -1,0 +1,99 @@
+.p-inputtext {
+    font-family: $fontFamily;
+    font-size: $inputTextFontSize;
+    color: $inputTextColor;
+    background: $inputBg;
+    padding: $inputPadding;
+    border: $inputBorder;
+    transition: $formElementTransition;
+    appearance: none;
+    border-radius: $borderRadius;
+
+    &:enabled:hover {
+        border-color: $inputHoverBorderColor;
+    }
+
+    &:enabled:focus {
+        @include focused-input();
+    }
+
+    &.ng-dirty.ng-invalid {
+        @include invalid-input();
+    }
+
+    &.p-inputtext-sm {
+        @include scaledFontSize($inputTextFontSize, $scaleSM);
+        @include scaledPadding($inputPadding, $scaleSM);
+    }
+
+    &.p-inputtext-lg {
+        @include scaledFontSize($inputTextFontSize, $scaleLG);
+        @include scaledPadding($inputPadding, $scaleLG);
+    }
+}
+
+.p-float-label > label {
+    left: nth($inputPadding, 2);
+    color: $inputPlaceholderTextColor;
+    transition-duration: $transitionDuration;
+}
+
+.p-float-label > .ng-invalid.ng-dirty + label {
+    color: $inputErrorBorderColor;
+}
+
+.p-input-icon-left > .p-icon-wrapper.p-icon,
+.p-input-icon-left > i:first-of-type {
+    left: nth($inputPadding, 2);
+    color: $inputIconColor;
+}
+
+.p-input-icon-left > .p-inputtext {
+    padding-left: nth($inputPadding, 2) * 2 + $primeIconFontSize;
+}
+
+.p-input-icon-left.p-float-label > label {
+    left: nth($inputPadding, 2) * 2 + $primeIconFontSize;
+}
+
+.p-input-icon-right > .p-icon-wrapper,
+.p-input-icon-right > i:last-of-type {
+    right: nth($inputPadding, 2);
+    color: $inputIconColor;
+}
+
+.p-input-icon-right > .p-inputtext {
+    padding-right: nth($inputPadding, 2) * 2 + $primeIconFontSize;
+}
+
+@include placeholder {
+    color: $inputPlaceholderTextColor
+};
+
+.p-input-filled {
+    .p-inputtext {
+        background-color: $inputFilledBg;
+
+        &:enabled:hover {
+            background-color: $inputFilledHoverBg;
+        }
+
+        &:enabled:focus {
+            background-color: $inputFilledFocusBg;
+        }
+    }
+}
+
+.p-inputtext-sm {
+    .p-inputtext {
+        @include scaledFontSize($inputTextFontSize, $scaleSM);
+        @include scaledPadding($inputPadding, $scaleSM);
+    }
+}
+
+.p-inputtext-lg {
+    .p-inputtext {
+        @include scaledFontSize($inputTextFontSize, $scaleLG);
+        @include scaledPadding($inputPadding, $scaleLG);
+    }
+}

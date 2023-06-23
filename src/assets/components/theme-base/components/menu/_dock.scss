@@ -1,0 +1,86 @@
+.p-dock {
+    .p-dock-list {
+        background: $dockBg;
+        border: $dockBorder;
+        padding: $dockPadding;
+        border-radius: $dockBorderRadius;
+    }
+
+    .p-dock-item {
+        padding: $dockItemPadding;
+    }
+
+    .p-dock-action {
+        width: $dockActionWidth;
+        height: $dockActionHeight;
+    }
+
+    &.p-dock-top,
+    &.p-dock-bottom {
+        .p-dock-item-second-prev,
+        .p-dock-item-second-next {
+            margin: 0 $dockSecondItemsMargin;
+        }
+
+        .p-dock-item-prev,
+        .p-dock-item-next {
+            margin: 0 $dockFirstItemsMargin;
+        }
+
+        .p-dock-item-current {
+            margin: 0 $dockCurrentItemMargin;
+        }
+    }
+
+    &.p-dock-left,
+    &.p-dock-right {
+        .p-dock-item-second-prev,
+        .p-dock-item-second-next {
+            margin: $dockSecondItemsMargin 0;
+        }
+
+        .p-dock-item-prev,
+        .p-dock-item-next {
+            margin: $dockFirstItemsMargin 0;
+        }
+
+        .p-dock-item-current {
+            margin: $dockCurrentItemMargin 0;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .p-dock {
+        &.p-dock-top,
+        &.p-dock-bottom {
+            .p-dock-list-container {
+                overflow-x: auto;
+                width: 100%;
+
+                .p-dock-list {
+                    margin: 0 auto;
+                }
+            }
+        }
+
+        &.p-dock-left,
+        &.p-dock-right {
+            .p-dock-list-container {
+                overflow-y: auto;
+                height: 100%;
+
+                .p-dock-list {
+                    margin: auto 0;
+                }
+            }
+        }
+
+        .p-dock-list {
+            .p-dock-item {
+                transform: none;
+                margin: 0;
+            }
+        }
+    }
+}

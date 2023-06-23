@@ -1,0 +1,552 @@
+/// Padding of an input field, must be defined with a shorthand for vertical and horizontal values e.g. ".5rem .5rem"
+/// @group form
+$inputPadding: .5rem .5rem;
+
+/// Background of an input field
+/// @group form
+$inputBg: #ffffff;
+
+/// Font size of an input field
+/// @group form
+$inputTextFontSize: 1rem;
+
+/// Text color of an input field
+/// @group form
+$inputTextColor: $textColor;
+
+/// Color of an icon inside an input field
+/// @group form
+$inputIconColor: $textColor;
+
+/// Border of an input field
+/// @group form
+$inputBorder: 1px solid #ced4da;
+
+/// Border of an input field in hover state
+/// @group form
+$inputHoverBorderColor: $primaryColor;
+
+/// Border of an input field in focus state
+/// @group form
+$inputFocusBorderColor: $primaryColor;
+
+/// Color of an input field in invalid state
+/// @group form
+$inputErrorBorderColor: #ced4da #ced4da #ced4da $errorColor;
+
+/// Text color of a placeholder
+/// @group form
+$inputPlaceholderTextColor: #6c757d;
+
+/// Background of a filled input
+/// @group form
+$inputFilledBg:#f8f9fa;
+
+/// Background of a filled input in hover state
+/// @group form
+$inputFilledHoverBg:#f8f9fa;
+
+/// Background of a filled input in focus state
+/// @group form
+$inputFilledFocusBg:#f8f9fa;
+
+/// Backgroud color of an input group addon
+/// @group form
+$inputGroupBg: #e9ecef;
+
+/// Text color of an input group addon
+/// @group form
+$inputGroupTextColor: $textSecondaryColor;
+
+/// Minimum width of an input group addon
+/// @group form
+$inputGroupAddOnMinWidth: 2.357rem;
+
+/// Background of an input list such as dropdown, listbox, multiselect
+/// @group form
+$inputListBg: #ffffff;
+
+/// Text color of an input list
+/// @group form
+$inputListTextColor: $textColor;
+
+/// Border of an input list
+/// @group form
+$inputListBorder: $inputBorder;
+
+/// Padding of an input list
+/// @group form
+$inputListPadding: .5rem 0;
+
+/// Padding for an individual itrem of an input list
+/// @group form
+$inputListItemPadding: .5rem 1rem;
+
+/// Background for an individual itrem of an input list
+/// @group form
+$inputListItemBg: transparent;
+
+/// Text color for an individual itrem of an input list
+/// @group form
+$inputListItemTextColor: $textColor;
+
+/// Hover state background for an individual itrem of an input list
+/// @group form
+$inputListItemHoverBg: #e9ecef;
+
+/// Hover state text color for an individual itrem of an input list
+/// @group form
+$inputListItemTextHoverColor: $textColor;
+
+/// Border for an individual itrem of an input list
+/// @group form
+$inputListItemBorder: 0 none;
+
+/// Border radius for an individual itrem of an input list
+/// @group form
+$inputListItemBorderRadius: 0;
+
+/// Margin for an individual itrem of an input list
+/// @group form
+$inputListItemMargin: 0;
+
+/// Box shadow for an individual itrem of an input list in focused state
+/// @group form
+$inputListItemFocusShadow: inset 0 0 0 0.15rem $focusOutlineColor;
+
+/// Padding for a header of an input list
+/// @group form
+$inputListHeaderPadding: .5rem 1rem;
+
+/// Margin for a header of an input list
+/// @group form
+$inputListHeaderMargin: 0;
+
+/// Background for a header of an input list
+/// @group form
+$inputListHeaderBg: #f8f9fa;
+
+/// Text color for a header of an input list
+/// @group form
+$inputListHeaderTextColor: $textColor;
+
+/// Border for a header of an input list
+/// @group form
+$inputListHeaderBorder: 0 none;
+
+
+/// Background for an overlay of an input such as autocomplete or dropdown
+/// @group form
+$inputOverlayBg:$inputListBg;
+
+/// Background for an overlay header of an input such as autocomplete or dropdown
+/// @group form
+$inputOverlayHeaderBg:$inputListHeaderBg;
+
+/// Border for an overlay of an input such as autocomplete or dropdown
+/// @group form
+$inputOverlayBorder: 0 none;
+
+/// Shadow for an overlay of an input such as autocomplete or dropdown
+/// @group form
+$inputOverlayShadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+
+/// Width of a checkbox
+/// @group form
+$checkboxWidth: 20px;
+
+/// Height of a checkbox
+/// @group form
+$checkboxHeight: 20px;
+
+/// Border of a checkbox
+/// @group form
+$checkboxBorder: 2px solid #ced4da;
+
+/// Size of a checkbox icon
+/// @group form
+$checkboxIconFontSize: 14px;
+
+/// Border color of a selected checkbox
+/// @group form
+$checkboxActiveBorderColor: $primaryColor;
+
+/// Background of a selected checkbox
+/// @group form
+$checkboxActiveBg: $primaryColor;
+
+/// Icon color of a selected checkbox
+/// @group form
+$checkboxIconActiveColor: $primaryTextColor;
+
+/// Background of a selected checkbox in hover state
+/// @group form
+$checkboxActiveHoverBg: $primaryDarkerColor;
+
+/// Icon color of a selected checkbox in hover state
+/// @group form
+$checkboxIconActiveHoverColor: $primaryTextColor;
+
+/// Border color of a selected checkbox in hover state
+/// @group form
+$checkboxActiveHoverBorderColor: $primaryDarkerColor;
+
+/// Width of a radiobutton
+/// @group form
+$radiobuttonWidth: 20px;
+
+/// Height of a radiobutton
+/// @group form
+$radiobuttonHeight: 20px;
+
+/// Border of a radiobutton
+/// @group form
+$radiobuttonBorder: 2px solid #ced4da;
+
+/// Font size of a radiobutton icon
+/// @group form
+$radiobuttonIconSize: 12px;
+
+/// Border color of a selected radiobutton
+/// @group form
+$radiobuttonActiveBorderColor: $primaryColor;
+
+/// Background of a selected radiobutton
+/// @group form
+$radiobuttonActiveBg: $primaryColor;
+
+/// Icon color of a selected radiobutton
+/// @group form
+$radiobuttonIconActiveColor: $primaryTextColor;
+
+/// Background of a selected radiobutton in hover state
+/// @group form
+$radiobuttonActiveHoverBg: $primaryDarkerColor;
+
+/// Icon color of a selected radiobutton in hover state
+/// @group form
+$radiobuttonIconActiveHoverColor: $primaryTextColor;
+
+/// Border color of a selected radiobutton in hover state
+/// @group form
+$radiobuttonActiveHoverBorderColor: $primaryDarkerColor;
+
+/// Width of a color picker preview element
+/// @group form
+$colorPickerPreviewWidth: 2rem;
+
+/// Height of a color picker preview element
+/// @group form
+$colorPickerPreviewHeight: 2rem;
+
+/// Background of a color picker
+/// @group form
+$colorPickerBg: #323232;
+
+/// Border color of a color picker
+/// @group form
+$colorPickerBorder:1px solid  #191919;
+
+/// Handle color of a color picker
+/// @group form
+$colorPickerHandleColor: #ffffff;
+
+/// Font size of a rating icon
+/// @group form
+$ratingIconFontSize: 1.143rem;
+
+/// Icon color for the cancel icon of a rating
+/// @group form
+$ratingCancelIconColor: #e74c3c;
+
+/// Hover icon color for the cancel icon of a rating
+/// @group form
+$ratingCancelIconHoverColor: #c0392b;
+
+/// Icon color for the star icon of a rating in unselected state
+/// @group form
+$ratingStarIconOffColor: $textColor;
+
+/// Icon color for the star icon of a rating in selected state
+/// @group form
+$ratingStarIconOnColor: $primaryColor;
+
+/// Icon color for the star icon of a rating in hover state
+/// @group form
+$ratingStarIconHoverColor: $primaryColor;
+
+/// Background of a slider
+/// @group form
+$sliderBg: #dee2e6;
+
+/// Border of a slider
+/// @group form
+$sliderBorder: 0 none;
+
+/// Height of a horizontal slider
+/// @group form
+$sliderHorizontalHeight: .286rem;
+
+/// Width of a vertical slider
+/// @group form
+$sliderVerticalWidth: 0.286rem;
+
+/// Width of a slider handle
+/// @group form
+$sliderHandleWidth: 1.143rem;
+
+/// Height of a slider handle
+/// @group form
+$sliderHandleHeight: 1.143rem;
+
+/// Background of a slider handle
+/// @group form
+$sliderHandleBg: #ffffff;
+
+/// Border of a slider handle
+/// @group form
+$sliderHandleBorder: 2px solid $primaryColor;
+
+/// Border radius of a slider handle
+/// @group form
+$sliderHandleBorderRadius: 50%;
+
+/// Border of a slider handle in hover state
+/// @group form
+$sliderHandleHoverBorderColor: $primaryColor;
+
+/// Background of a slider handle in hover state
+/// @group form
+$sliderHandleHoverBg: $primaryColor;
+
+/// Background color of a range slider
+/// @group form
+$sliderRangeBg: $primaryColor;
+
+/// Margin of a calendar table
+/// @group form
+$calendarTableMargin: .5rem 0;
+
+/// Margin of a calendar
+/// @group form
+$calendarPadding: .5rem;
+
+/// Background of a calendar
+/// @group form
+$calendarBg:#ffffff;
+
+/// Background of an inlime calendar
+/// @group form
+$calendarInlineBg:$calendarBg;
+
+/// Text color of a calendar
+/// @group form
+$calendarTextColor: $textColor;
+
+/// Border of an inline calendar
+/// @group form
+$calendarBorder: $inputListBorder;
+
+/// Border of an overlay calendar
+/// @group form
+$calendarOverlayBorder: $inputOverlayBorder;
+
+/// Padding of a calendar header
+/// @group form
+$calendarHeaderPadding: .5rem;
+
+/// Background of a calendar header
+/// @group form
+$calendarHeaderBg: #ffffff;
+
+/// Background of an inline calendar header
+/// @group form
+$calendarInlineHeaderBg:$calendarBg;
+
+/// Border of a calendar header
+/// @group form
+$calendarHeaderBorder: 1px solid #dee2e6;
+
+/// Text color of a calendar header
+/// @group form
+$calendarHeaderTextColor: $textColor;
+
+/// Font weight of a calendar header
+/// @group form
+$calendarHeaderFontWeight: 600;
+
+/// Padding of a calendar weekday cell
+/// @group form
+$calendarHeaderCellPadding: .5rem;
+
+/// Text color of current month and year text in hover state
+/// @group form
+$calendarMonthYearHeaderHoverTextColor: $primaryColor !default;
+
+/// Padding of a calendar date cell
+/// @group form
+$calendarCellDatePadding: .5rem;
+
+/// Width of a calendar date cell
+/// @group form
+$calendarCellDateWidth: 2.5rem;
+
+/// Height of a calendar date cell
+/// @group form
+$calendarCellDateHeight: 2.5rem;
+
+/// Border radius of a calendar date cell
+/// @group form
+$calendarCellDateBorderRadius: 50%;
+
+/// Border of a calendar date cell
+/// @group form
+$calendarCellDateBorder:1px solid transparent;
+
+/// Background of a calendar date cell in hover state
+/// @group form
+$calendarCellDateHoverBg: #e9ecef;
+
+/// Background of a calendar date cell indicating today
+/// @group form
+$calendarCellDateTodayBg: #ced4da;
+
+/// Border color of a calendar date cell indicating today
+/// @group form
+$calendarCellDateTodayBorderColor: transparent;
+
+/// Text color of a calendar date cell indicating today
+/// @group form
+$calendarCellDateTodayTextColor: $textColor;
+
+/// Padding of the calendar button bar
+/// @group form
+$calendarButtonBarPadding: 1rem 0;
+
+/// Padding of a time picker container of a calendar
+/// @group form
+$calendarTimePickerPadding: .5rem;
+
+/// Padding of a time picker element of a calendar
+/// @group form
+$calendarTimePickerElementPadding: 0 .429rem;
+
+/// Font size of a time picker element of a calendar
+/// @group form
+$calendarTimePickerTimeFontSize: 1.286rem;
+
+/// Breakpoint of calendar to apply styles for small screens like phones
+/// @group form
+$calendarBreakpoint: 769px;
+
+/// Padding of a calendar date cell on small screens like phones
+/// @group form
+$calendarCellDatePaddingSM: 0;
+
+/// Width of an inputswitch
+/// @group form
+$inputSwitchWidth: 3rem;
+
+/// Height of an inputswitch
+/// @group form
+$inputSwitchHeight: 1.75rem;
+
+/// Border radius of an inputswitch
+/// @group form
+$inputSwitchBorderRadius: 30px;
+
+/// Width of an inputswitch handle
+/// @group form
+$inputSwitchHandleWidth: 1.250rem;
+
+/// Height of an inputswitch handle
+/// @group form
+$inputSwitchHandleHeight: 1.250rem;
+
+/// Border radius of an inputswitch handle
+/// @group form
+$inputSwitchHandleBorderRadius: 50%;
+
+/// Padding of an inputswitch slider
+/// @group form
+$inputSwitchSliderPadding: .25rem;
+
+/// Background color of an inputswitch slider when unselected
+/// @group form
+$inputSwitchSliderOffBg: #ced4da;
+
+/// Background color of an inputswitch handle when unselected
+/// @group form
+$inputSwitchHandleOffBg: #ffffff;
+
+/// Hover background color of an inputswitch slider when unselected
+/// @group form
+$inputSwitchSliderOffHoverBg: #c3cad2;
+
+/// Background color of an inputswitch slider when selected
+/// @group form
+$inputSwitchSliderOnBg: $primaryColor;
+
+/// Hover background color of an inputswitch slider when selected
+/// @group form
+$inputSwitchSliderOnHoverBg: $primaryDarkColor;
+
+/// Background color of an inputswitch handle when selected
+/// @group form
+$inputSwitchHandleOnBg: #ffffff;
+
+/// Height for the progress bar of a fileupload
+/// @group input
+$fileUploadProgressBarHeight: .25rem;
+
+/// Padding of the fileupload content section
+/// @group input
+$fileUploadContentPadding: 2rem 1rem;
+
+/// Background of an editor toolbar
+/// @group input
+$editorToolbarBg:#f8f9fa;
+
+/// Border of an editor toolbar
+/// @group input
+$editorToolbarBorder:1px solid #dee2e6;
+
+/// Padding of an editor toolbar
+/// @group input
+$editorToolbarPadding:1rem;
+
+/// Icon color of an editor toolbar
+/// @group input
+$editorToolbarIconColor:#6c757d;
+
+/// Icon color of an editor toolbar in hover state
+/// @group input
+$editorToolbarIconHoverColor:#495057;
+
+/// Icon color of an editor toolbar in active state
+/// @group input
+$editorIconActiveColor:$primaryColor;
+
+/// Border of an editor content
+/// @group input
+$editorContentBorder: 1px solid #dee2e6;
+
+/// Background of an editor content
+/// @group input
+$editorContentBg:#ffffff;
+
+/// Background of a password meter
+/// @group form
+$passwordMeterBg:#dee2e6;
+
+/// Background of a week password
+/// @group form
+$passwordWeakBg:#E53935;
+
+/// Background of a medium password
+/// @group form
+$passwordMediumBg:#FFB300;
+
+/// Background of a strong password
+/// @group form
+$passwordStrongBg:#43A047;

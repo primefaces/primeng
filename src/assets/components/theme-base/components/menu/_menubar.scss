@@ -1,0 +1,188 @@
+.p-menubar {
+    padding: $horizontalMenuPadding;
+    background: $horizontalMenuBg;
+    color: $horizontalMenuTextColor;
+    border: $horizontalMenuBorder;
+    border-radius: $borderRadius;
+
+    .p-menuitem-link {
+        @include menuitem-link();
+    }
+
+    .p-menubar-root-list {
+        > .p-menuitem {
+            > .p-menuitem-link {
+                @include horizontal-rootmenuitem-link();
+            }
+
+            &.p-menuitem-active {
+                > .p-menuitem-link,
+                > .p-menuitem-link:not(.p-disabled):hover {
+                    background: $horizontalMenuRootMenuitemActiveBg;
+            
+                    .p-menuitem-text {
+                        color: $horizontalMenuRootMenuitemTextActiveColor;
+                    }
+            
+                    .p-menuitem-icon {
+                        color: $horizontalMenuRootMenuitemIconActiveColor;
+                    }
+                    
+                    .p-submenu-icon {
+                        color: $horizontalMenuRootMenuitemIconActiveColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-submenu-list {
+        padding: $verticalMenuPadding;
+        background: $overlayMenuBg;
+        border: $overlayMenuBorder;
+        box-shadow: $overlayMenuShadow;
+        width: $menuWidth;
+
+        .p-menu-separator {
+            border-top: $divider;
+            margin: $menuSeparatorMargin;
+        }
+
+        .p-submenu-icon {
+            font-size: $menuitemSubmenuIconFontSize;
+        }
+
+        .p-icon {
+            width: $menuitemSubmenuIconFontSize;
+            height: $menuitemSubmenuIconFontSize;
+        }
+
+        .p-menuitem {
+            margin: $verticalMenuitemMargin;
+    
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+
+    .p-menuitem {
+        &.p-menuitem-active {
+            > .p-menuitem-link {
+                background: $menuitemActiveBg;
+
+                .p-menuitem-text {
+                    color: $menuitemTextActiveColor;
+                }
+
+                .p-menuitem-icon, .p-submenu-icon {
+                    color: $menuitemIconActiveColor;
+                }
+            }
+        }
+    }
+
+    .p-menuitem-badge {
+        @include menuitem-badge();
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .p-menubar {
+        position: relative;
+
+        .p-menubar-button {
+            display: flex;
+            width: $actionIconWidth;
+            height: $actionIconHeight;
+            color: $horizontalMenuRootMenuitemIconColor;
+            border-radius: $actionIconBorderRadius;
+            transition: $actionIconTransition;
+        
+            &:hover {
+                color: $horizontalMenuRootMenuitemIconHoverColor;
+                background: $horizontalMenuRootMenuitemHoverBg;
+            }
+        
+            &:focus {
+                @include focused();
+            }
+        }
+
+        .p-menubar-root-list {
+            position: absolute;
+            display: none;
+            padding: $verticalMenuPadding;
+            background: $overlayMenuBg;
+            border: $overlayMenuBorder;
+            box-shadow: $overlayMenuShadow;
+            width: 100%;
+    
+            .p-menu-separator {
+                border-top: $divider;
+                margin: $menuSeparatorMargin;
+            }
+    
+            .p-submenu-icon {
+                font-size: $menuitemSubmenuIconFontSize;
+            }
+
+            > .p-menuitem {
+                width: 100%;
+                position: static;
+
+                > .p-menuitem-link {
+                    @include menuitem-link();
+
+                    > .p-submenu-icon {
+                        margin-left: auto;
+                        transition: transform $transitionDuration;
+                    }
+                }
+
+                &.p-menuitem-active {
+                    > .p-menuitem-link {
+                        > .p-submenu-icon {
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+            }
+
+            .p-submenu-list {
+                width: 100%;
+                position: static;
+                box-shadow: none;
+                border: 0 none;
+
+                .p-submenu-icon {
+                    transition: transform $transitionDuration;
+                    transform: rotate(90deg);
+                }
+
+                .p-menuitem-active {
+                    > .p-menuitem-link {
+                        > .p-submenu-icon {
+                            transform: rotate(-90deg);
+                        }
+                    }
+                }
+            }
+    
+            .p-menuitem {
+                width: 100%;
+                position: static;
+            }
+
+            @include nested-submenu-indents(nth($menuitemPadding, 1), 2, 10);
+        }
+
+        &.p-menubar-mobile-active .p-menubar-root-list {
+            display: flex;
+            flex-direction: column;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+        }
+    }
+}
