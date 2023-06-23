@@ -580,7 +580,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     set responsive(val: boolean | undefined | null) {
         this._responsive = val;
-        console.warn('responsive propery is deprecated as table is always responsive with scrollable behavior.');
+        console.warn('responsive property is deprecated as table is always responsive with scrollable behavior.');
     }
     _responsive: boolean | undefined | null;
     /**
