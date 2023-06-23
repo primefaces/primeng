@@ -31,9 +31,8 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { UniqueComponentId } from 'primeng/utils';
 
-let idx: number = 0;
 /**
  * TabPanel is a helper component for TabView component.
  * @group Components
