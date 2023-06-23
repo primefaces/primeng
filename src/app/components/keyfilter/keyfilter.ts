@@ -215,6 +215,11 @@ export class KeyFilter implements Validator {
             return;
         }
 
+        // Enter key
+        if (k == 13) {
+            return;
+        }
+
         let c = this.getCharCode(e);
         let cc = String.fromCharCode(c);
         let ok = true;
