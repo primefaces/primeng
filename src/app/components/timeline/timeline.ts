@@ -24,8 +24,8 @@ import { Nullable } from 'primeng/ts-helpers';
             }"
         >
             <div *ngFor="let event of value; let last = last" class="p-timeline-event">
-                <div class="p-timeline-event-opposite">
-                    <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
+            <div class="p-timeline-event-content">
+                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
                 </div>
                 <div class="p-timeline-event-separator">
                     <ng-container *ngIf="markerTemplate; else marker">
@@ -36,8 +36,8 @@ import { Nullable } from 'primeng/ts-helpers';
                     </ng-template>
                     <div *ngIf="!last" class="p-timeline-event-connector"></div>
                 </div>
-                <div class="p-timeline-event-content">
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
+                <div class="p-timeline-event-opposite">
+                    <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
                 </div>
             </div>
         </div>
@@ -66,10 +66,10 @@ export class Timeline implements AfterContentInit, BlockableUI {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout.
+     * Position of the timeline bar relative to the content. Valid values are "left", "right", "alternate" for vertical layout and "top", "bottom", "alternate" for horizontal layout.
      * @group Props
      */
-    @Input() align: string = 'left';
+    @Input() align: 'left' | 'right' | 'alternate' | 'top' | 'bottom' = 'left';
     /**
      * Orientation of the timeline.
      * @group Props
@@ -84,7 +84,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
     markerTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef) { }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
@@ -114,4 +114,4 @@ export class Timeline implements AfterContentInit, BlockableUI {
     exports: [Timeline, SharedModule],
     declarations: [Timeline]
 })
-export class TimelineModule {}
+export class TimelineModule { }

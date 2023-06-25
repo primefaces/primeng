@@ -5,11 +5,11 @@
 }
 
 .p-timeline-left .p-timeline-event-opposite {
-    text-align: right;
+    text-align: left;
 }
 
 .p-timeline-left .p-timeline-event-content {
-    text-align: left;
+    text-align: right;
 }
 
 .p-timeline-right .p-timeline-event {
@@ -17,11 +17,11 @@
 }
 
 .p-timeline-right .p-timeline-event-opposite {
-    text-align: left;
+    text-align: right;
 }
 
 .p-timeline-right .p-timeline-event-content {
-    text-align: right;
+    text-align: left;
 }
 
 .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
@@ -29,19 +29,19 @@
 }
 
 .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-opposite {
-    text-align: right;
+    text-align: left;
 }
 
 .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content {
-    text-align: left;
+    text-align: right;
 }
 
 .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite {
-    text-align: left;
+    text-align: right;
 }
 
 .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content {
-    text-align: right;
+    text-align: left;
 }
 
 .p-timeline-event {
@@ -97,7 +97,7 @@
     flex-direction: row;
 }
 
-.p-timeline-horizontal .p-timeline-event-connector  {
+.p-timeline-horizontal .p-timeline-event-connector {
     width: 100%;
 }
 

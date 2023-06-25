@@ -21638,7 +21638,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "left",
-                            "description": "Position of the timeline bar relative to the content. Valid values are \"left\", \"right\" for vertical layout and \"top\", \"bottom\" for horizontal layout."
+                            "description": "Position of the timeline bar relative to the content. Valid values are \"left\", \"right\", \"alternate\" for vertical layout and \"top\", \"bottom\", \"alternate\" for horizontal layout."
                         },
                         {
                             "name": "layout",
