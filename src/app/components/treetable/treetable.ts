@@ -601,7 +601,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<TreeTableNode<any> | null> = new EventEmitter<TreeTableNode<any> | null>();
+    @Output() selectionChange: EventEmitter<TreeTableNode<any>[] | null> = new EventEmitter<TreeTableNode<any>[] | null>();
     /**
      * Callback to invoke on context menu selection change.
      * @param {TreeTableNode} object - Node instance.
