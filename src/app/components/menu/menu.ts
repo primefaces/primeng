@@ -468,7 +468,6 @@ export class Menu implements OnDestroy {
     }
 
     activedescendant() {
-        console.log(this.focused, this.focusedOptionId)
         return this.focused ? this.focusedOptionId : undefined;
     }
 
