@@ -47,6 +47,195 @@ export class MenubarService {
     );
 }
 
+/**
+ * Menubar is a horizontal menu component.
+ * @group Components
+ */
+@Component({
+    selector: 'p-menubar',
+    template: `
+        <div [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile-active': mobileActive }" [class]="styleClass" [ngStyle]="style">
+            <div class="p-menubar-start" *ngIf="startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            </div>
+            <a #menubutton tabindex="0" *ngIf="model && model.length > 0" class="p-menubar-button" (click)="toggle($event)">
+                <BarsIcon *ngIf="!menuIconTemplate" />
+                <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
+            </a>
+            <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
+            <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            </div>
+            <ng-template #legacy>
+                <div class="p-menubar-end">
+                    <ng-content></ng-content>
+                </div>
+            </ng-template>
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./menubar.css'],
+    host: {
+        class: 'p-element'
+    },
+    providers: [MenubarService]
+})
+export class Menubar implements AfterContentInit, OnDestroy, OnInit {
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() model: MenuItem[] | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     */
+    @Input() autoZIndex: boolean = true;
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     */
+    @Input() baseZIndex: number = 0;
+    /**
+     * Whether to show a root submenu on mouse over.
+     * @group Props
+     */
+    @Input() autoDisplay: boolean | undefined;
+    /**
+     * Whether to hide a root submenu when mouse leaves.
+     * @group Props
+     */
+    @Input() autoHide: boolean | undefined;
+    /**
+     * Delay to hide the root submenu in milliseconds when mouse leaves.
+     * @group Props
+     */
+    @Input() autoHideDelay: number = 100;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    @ViewChild('menubutton') menubutton: ElementRef | undefined;
+
+    @ViewChild('rootmenu') rootmenu: MenubarSub | undefined;
+
+    startTemplate: TemplateRef<any> | undefined;
+
+    endTemplate: TemplateRef<any> | undefined;
+
+    menuIconTemplate: TemplateRef<any> | undefined;
+
+    submenuIconTemplate: TemplateRef<any> | undefined;
+
+    mobileActive: boolean | undefined;
+
+    outsideClickListener: VoidListener;
+
+    mouseLeaveSubscriber: Subscription | undefined;
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        private menubarService: MenubarService
+    ) {}
+
+    ngOnInit(): void {
+        this.menubarService.autoHide = this.autoHide;
+        this.menubarService.autoHideDelay = this.autoHideDelay;
+        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                    this.startTemplate = item.template;
+                    break;
+
+                case 'end':
+                    this.endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this.menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
+    toggle(event: MouseEvent) {
+        if (this.mobileActive) {
+            this.hide();
+            ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
+        } else {
+            this.mobileActive = true;
+            ZIndexUtils.set('menu', this.rootmenu?.el.nativeElement, this.config.zIndex.menu);
+        }
+
+        this.bindOutsideClickListener();
+        event.preventDefault();
+    }
+
+    bindOutsideClickListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.outsideClickListener) {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    if (
+                        this.mobileActive &&
+                        this.rootmenu?.el.nativeElement !== event.target &&
+                        !this.rootmenu?.el.nativeElement.contains(event.target) &&
+                        this.menubutton?.nativeElement !== event.target &&
+                        !this.menubutton?.nativeElement.contains(event.target)
+                    ) {
+                        this.hide();
+                    }
+                });
+            }
+        }
+    }
+
+    hide() {
+        this.mobileActive = false;
+        this.cd.markForCheck();
+        ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
+        this.unbindOutsideClickListener();
+    }
+
+    onLeafClick() {
+        this.hide();
+    }
+
+    unbindOutsideClickListener() {
+        if (this.outsideClickListener) {
+            this.outsideClickListener();
+            this.outsideClickListener = null;
+        }
+    }
+
+    ngOnDestroy() {
+        this.mouseLeaveSubscriber?.unsubscribe();
+        this.unbindOutsideClickListener();
+    }
+}
+
 @Component({
     selector: 'p-menubarSub',
     template: `
@@ -282,194 +471,6 @@ export class MenubarSub implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.mouseLeaveSubscriber?.unsubscribe();
         this.unbindDocumentClickListener();
-    }
-}
-/**
- * Menubar is a horizontal menu component.
- * @group Components
- */
-@Component({
-    selector: 'p-menubar',
-    template: `
-        <div [ngClass]="{ 'p-menubar p-component': true, 'p-menubar-mobile-active': mobileActive }" [class]="styleClass" [ngStyle]="style">
-            <div class="p-menubar-start" *ngIf="startTemplate">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
-            </div>
-            <a #menubutton tabindex="0" *ngIf="model && model.length > 0" class="p-menubar-button" (click)="toggle($event)">
-                <BarsIcon *ngIf="!menuIconTemplate" />
-                <ng-template *ngTemplateOutlet="menuIconTemplate"></ng-template>
-            </a>
-            <p-menubarSub #rootmenu [item]="model" root="root" [baseZIndex]="baseZIndex" (leafClick)="onLeafClick()" [autoZIndex]="autoZIndex" [mobileActive]="mobileActive" [autoDisplay]="autoDisplay"></p-menubarSub>
-            <div class="p-menubar-end" *ngIf="endTemplate; else legacy">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
-            </div>
-            <ng-template #legacy>
-                <div class="p-menubar-end">
-                    <ng-content></ng-content>
-                </div>
-            </ng-template>
-        </div>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./menubar.css'],
-    host: {
-        class: 'p-element'
-    },
-    providers: [MenubarService]
-})
-export class Menubar implements AfterContentInit, OnDestroy, OnInit {
-    /**
-     * An array of menuitems.
-     * @group Props
-     */
-    @Input() model: MenuItem[] | undefined;
-    /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
-     * Class of the element.
-     * @group Props
-     */
-    @Input() styleClass: string | undefined;
-    /**
-     * Whether to automatically manage layering.
-     * @group Props
-     */
-    @Input() autoZIndex: boolean = true;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input() baseZIndex: number = 0;
-    /**
-     * Whether to show a root submenu on mouse over.
-     * @group Props
-     */
-    @Input() autoDisplay: boolean | undefined;
-    /**
-     * Whether to hide a root submenu when mouse leaves.
-     * @group Props
-     */
-    @Input() autoHide: boolean | undefined;
-    /**
-     * Delay to hide the root submenu in milliseconds when mouse leaves.
-     * @group Props
-     */
-    @Input() autoHideDelay: number = 100;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    @ViewChild('menubutton') menubutton: ElementRef | undefined;
-
-    @ViewChild('rootmenu') rootmenu: MenubarSub | undefined;
-
-    startTemplate: TemplateRef<any> | undefined;
-
-    endTemplate: TemplateRef<any> | undefined;
-
-    menuIconTemplate: TemplateRef<any> | undefined;
-
-    submenuIconTemplate: TemplateRef<any> | undefined;
-
-    mobileActive: boolean | undefined;
-
-    outsideClickListener: VoidListener;
-
-    mouseLeaveSubscriber: Subscription | undefined;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        private menubarService: MenubarService
-    ) {}
-
-    ngOnInit(): void {
-        this.menubarService.autoHide = this.autoHide;
-        this.menubarService.autoHideDelay = this.autoHideDelay;
-        this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'start':
-                    this.startTemplate = item.template;
-                    break;
-
-                case 'end':
-                    this.endTemplate = item.template;
-                    break;
-
-                case 'menuicon':
-                    this.menuIconTemplate = item.template;
-                    break;
-
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    toggle(event: MouseEvent) {
-        if (this.mobileActive) {
-            this.hide();
-            ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
-        } else {
-            this.mobileActive = true;
-            ZIndexUtils.set('menu', this.rootmenu?.el.nativeElement, this.config.zIndex.menu);
-        }
-
-        this.bindOutsideClickListener();
-        event.preventDefault();
-    }
-
-    bindOutsideClickListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.outsideClickListener) {
-                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    if (
-                        this.mobileActive &&
-                        this.rootmenu?.el.nativeElement !== event.target &&
-                        !this.rootmenu?.el.nativeElement.contains(event.target) &&
-                        this.menubutton?.nativeElement !== event.target &&
-                        !this.menubutton?.nativeElement.contains(event.target)
-                    ) {
-                        this.hide();
-                    }
-                });
-            }
-        }
-    }
-
-    hide() {
-        this.mobileActive = false;
-        this.cd.markForCheck();
-        ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
-        this.unbindOutsideClickListener();
-    }
-
-    onLeafClick() {
-        this.hide();
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            this.outsideClickListener();
-            this.outsideClickListener = null;
-        }
-    }
-
-    ngOnDestroy() {
-        this.mouseLeaveSubscriber?.unsubscribe();
-        this.unbindOutsideClickListener();
     }
 }
 
