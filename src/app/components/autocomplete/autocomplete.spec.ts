@@ -11,9 +11,18 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
-    template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
+    template: `
+        <p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands"
+                        (completeMethod)="filterBrands($event)"></p-autoComplete>
         <a (click)="deleteLastEl()"></a>
-        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars" (completeMethod)="filterBrandsWithField($event)"></p-autoComplete> `
+        <p-autoComplete [(ngModel)]="car" [suggestions]="filteredCars"
+                        (completeMethod)="filterBrandsWithField($event)"></p-autoComplete>
+        <p-autoComplete [(ngModel)]="car2" [suggestions]="filteredCars"
+                        (completeMethod)="selectCustomCarOnComplete($event)">
+            <ng-template let-car pTemplate="selectedItem">
+                <span>Custom Text: {{ car.brand }}</span>
+            </ng-template>
+        </p-autoComplete>`
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
@@ -22,6 +31,7 @@ class TestAutocompleteComponent {
     filteredCars: any[];
     brand: string;
     car: any;
+    car2: any;
 
     filterBrands(event) {
         this.filteredBrands = [];
@@ -42,6 +52,12 @@ class TestAutocompleteComponent {
             }
         }
     }
+
+    selectCustomCarOnComplete(event) {
+        this.filterBrandsWithField(event);
+        this.car2 = this.cars[0];
+    }
+
     deleteLastEl() {
         this.brands.pop();
     }
@@ -50,6 +66,7 @@ class TestAutocompleteComponent {
 describe('AutoComplete', () => {
     let autocomplete: AutoComplete;
     let autocomplete2: AutoComplete;
+    let autocomplete3: AutoComplete;
     let testComponent: TestAutocompleteComponent;
     let fixture: ComponentFixture<TestAutocompleteComponent>;
 
@@ -62,6 +79,7 @@ describe('AutoComplete', () => {
         fixture = TestBed.createComponent(TestAutocompleteComponent);
         autocomplete = fixture.debugElement.children[0].componentInstance;
         autocomplete2 = fixture.debugElement.children[2].componentInstance;
+        autocomplete3 = fixture.debugElement.children[3].componentInstance;
         testComponent = fixture.debugElement.componentInstance;
     });
 
@@ -454,6 +472,64 @@ describe('AutoComplete', () => {
         flush();
     }));
 
+    it('should display custom selectedItem template element', fakeAsync(() => {
+        autocomplete3.field = 'brand';
+        fixture.detectChanges();
+
+        autocomplete3.selectItem({ brand: 'Volvo' });
+        fixture.detectChanges();
+        expect(autocomplete3.value.brand).toEqual('Volvo');
+
+        const singleContainerElement = fixture.debugElement.queryAll(By.css('p-autoComplete'))[2].query(
+            By.css('.p-component.p-inputtext.p-autocomplete-template-item'));
+        const templateItemDiv = singleContainerElement.query(By.css('.p-autocomplete-token'));
+        const selectedItemSpanElement = templateItemDiv.query(By.css('span'));
+
+        expect(selectedItemSpanElement).toBeTruthy();
+        expect(selectedItemSpanElement.childNodes[0].nativeNode.data).toEqual("Custom Text: Volvo");
+    }));
+
+    it('should change value of custom selectedItem template on keyEnter', fakeAsync(() => {
+        autocomplete3.field = 'brand';
+        autocomplete3.forceSelection = true;
+        fixture.detectChanges();
+
+        autocomplete3.selectItem({ brand: 'Volvo' });
+        fixture.detectChanges();
+        expect(autocomplete3.value.brand).toEqual('Volvo');
+
+        const inputEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[2].query(
+            By.css('.p-autocomplete-template-input-token'));
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
+        inputEl.nativeElement.focus();
+        inputEl.nativeElement.click();
+        fixture.detectChanges();
+
+        inputEl.nativeElement.value = 'VW';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const firstItemEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[2].query(
+            By.css('li')).nativeElement;
+        firstItemEl.click();
+        fixture.detectChanges();
+        expect(autocomplete3.value.brand).toEqual('VW');
+        expect(inputEl.nativeElement.value).toEqual('');
+        expect(testComponent.car2).toEqual(autocomplete3.value);
+
+        const singleContainerElement = fixture.debugElement.queryAll(By.css('p-autoComplete'))[2].query(
+            By.css('.p-component.p-inputtext.p-autocomplete-template-item'));
+        const templateItemDiv = singleContainerElement.query(By.css('.p-autocomplete-token'));
+        const selectedItemSpanElement = templateItemDiv.query(By.css('span'));
+
+        expect(selectedItemSpanElement).toBeTruthy();
+        expect(selectedItemSpanElement.childNodes[0].nativeNode.data).toEqual("Custom Text: VW");
+        flush();
+    }));
+
     it('should change minLength', fakeAsync(() => {
         autocomplete.minLength = 2;
         fixture.detectChanges();
@@ -470,7 +546,7 @@ describe('AutoComplete', () => {
         tick(300);
         fixture.detectChanges();
 
-        const panelEl = fixture.debugElement.query(By.css('div'));
+        const panelEl = fixture.debugElement.query(By.css('div:not(.p-autocomplete-template-item)'));
         expect(panelEl).toBeFalsy();
 
         inputEl.nativeElement.value = 'va';
@@ -480,7 +556,7 @@ describe('AutoComplete', () => {
         tick(300);
         fixture.detectChanges();
 
-        const updatedPanelEl = fixture.debugElement.query(By.css('div'));
+        const updatedPanelEl = fixture.debugElement.query(By.css('div:not(.p-autocomplete-template-item)'));
         expect(updatedPanelEl).toBeFalsy();
         flush();
     }));
@@ -618,6 +694,23 @@ describe('AutoComplete', () => {
         expect(autocomplete.value[0]).toEqual(undefined);
         expect(autocomplete.value.length).toEqual(0);
         flush();
+    }));
+
+    it('should delete selectedItem template with backspace', fakeAsync(() => {
+        autocomplete3.field = 'brand';
+        fixture.detectChanges();
+
+        autocomplete3.selectItem({ brand: 'Volvo' });
+        expect(autocomplete3.value.brand).toEqual('Volvo');
+        fixture.detectChanges();
+
+        let backspaceEvent = new Event('keydown');
+        Object.defineProperty(backspaceEvent, 'which', { value: 8 });
+        Object.defineProperty(backspaceEvent, 'preventDefault', { value: () => {} });
+        autocomplete3.onKeydown(backspaceEvent);
+        fixture.detectChanges();
+
+        expect(autocomplete3.value).toEqual(null);
     }));
 
     it('should navigate with arrow keys and select with enter', () => {

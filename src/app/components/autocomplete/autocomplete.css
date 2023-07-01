@@ -42,6 +42,10 @@
     overflow: hidden;
 }
 
+.p-autocomplete-template-item {
+    min-width: 145px;
+}
+
 .p-autocomplete-multiple-container {
     margin: 0;
     padding: 0;
@@ -78,6 +82,21 @@
     box-shadow: none;
     border-radius: 0;
     width: 100%;
+}
+
+.p-autocomplete-template-input-token {
+    border: 0 none;
+    outline: 0 none;
+    background-color: transparent;
+    margin: 0;
+    margin-left: .5rem;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    width: 2rem;
+
+    flex: 1 1 auto;
+    display: inline-flex;
 }
 
 .p-fluid .p-autocomplete {

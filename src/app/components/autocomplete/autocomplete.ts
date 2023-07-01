@@ -57,7 +57,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <input
                 pAutoFocus
                 [autofocus]="autofocus"
-                *ngIf="!multiple"
+                *ngIf="!multiple && selectedItemTemplate == null"
                 #in
                 [attr.type]="type"
                 [attr.id]="inputId"
@@ -95,6 +95,44 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
+            <div *ngIf="!multiple && selectedItemTemplate != null" #singleContainer class="p-component p-inputtext p-autocomplete-template-item p-autocomplete-multiple-container" [ngClass]="{ 'p-disabled': disabled, 'p-focus': focus }" (click)="templateItemIn.focus()">
+                <div *ngIf="value" class="p-autocomplete-token">
+                    <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: value, index: 0 }"></ng-container>
+                </div>
+                <input
+                    pAutoFocus
+                    [autofocus]="autofocus"
+                    #templateItemIn
+                    [attr.type]="type"
+                    [attr.id]="inputId"
+                    [disabled]="disabled"
+                    [attr.placeholder]="value && value.length ? null : placeholder"
+                    [attr.tabindex]="tabindex"
+                    [attr.maxlength]="maxlength"
+                    (input)="onInput($event)"
+                    (click)="onInputClick($event)"
+                    (keydown)="onKeydown($event)"
+                    [readonly]="readonly"
+                    (keyup)="onKeyup($event)"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
+                    (change)="onInputChange($event)"
+                    (paste)="onInputPaste($event)"
+                    [autocomplete]="autocomplete"
+                    [ngStyle]="inputStyle"
+                    class="p-autocomplete-template-input-token"
+                    [class]="inputStyleClass"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-required]="required"
+                    aria-autocomplete="list"
+                    [attr.aria-controls]="listId"
+                    role="searchbox"
+                    [attr.aria-expanded]="overlayVisible"
+                    aria-haspopup="true"
+                    [attr.aria-activedescendant]="'p-highlighted-option'"
+                />
+            </div>
             <ul *ngIf="multiple" #multiContainer class="p-autocomplete-multiple-container p-component p-inputtext" [ngClass]="{ 'p-disabled': disabled, 'p-focus': focus }" (click)="multiIn.focus()">
                 <li #token *ngFor="let val of value" class="p-autocomplete-token">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: val }"></ng-container>
@@ -592,6 +630,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @ViewChild('multiIn') multiInputEl: Nullable<ElementRef>;
 
+    @ViewChild('templateItemIn') templateItemInputEl: Nullable<ElementRef>;
+
     @ViewChild('multiContainer') multiContainerEL: Nullable<ElementRef>;
 
     @ViewChild('ddBtn') dropdownButton: Nullable<ElementRef>;
@@ -885,15 +925,15 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.forceSelectionUpdateModelTimeout = null;
         }
 
+        const value = (this.selectedItemTemplate == null && !this.multiple) ? this.resolveFieldData(option) : '';
+        this.inputElementRef.nativeElement.value = value;
         if (this.multiple) {
-            (this.multiInputEl as ElementRef).nativeElement.value = '';
             this.value = this.value || [];
             if (!this.isSelected(option) || !this.unique) {
                 this.value = [...this.value, option];
                 this.onModelChange(this.value);
             }
         } else {
-            (this.inputEL as ElementRef).nativeElement.value = this.resolveFieldData(option);
             this.value = option;
             this.onModelChange(this.value);
         }
@@ -910,8 +950,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     show(event?: Event) {
-        if (this.multiInputEl || this.inputEL) {
-            let hasFocus = this.multiple ? this.multiInputEl?.nativeElement.ownerDocument.activeElement == this.multiInputEl?.nativeElement : this.inputEL?.nativeElement.ownerDocument.activeElement == this.inputEL?.nativeElement;
+        if (this.multiInputEl || this.inputEL || this.templateItemInputEl) {
+            let hasFocus = this.inputElementRef?.nativeElement.ownerDocument.activeElement == this.inputElementRef?.nativeElement;
 
             if (!this.overlayVisible && hasFocus) {
                 this.overlayVisible = true;
@@ -925,12 +965,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     clear() {
         this.value = null;
         this.inputValue = null;
-        if (this.multiple) {
-            (<ElementRef>this.multiInputEl).nativeElement.value = '';
-        } else {
+
+        if (!this.multiple) {
             this.inputValue = null;
-            (<ElementRef>this.inputEL).nativeElement.value = '';
         }
+        this.inputElementRef.nativeElement.value = '';
 
         this.updateFilledState();
         this.onModelChange(this.value);
@@ -959,7 +998,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     handleDropdownClick(event: Event) {
         if (!this.overlayVisible) {
             this.focusInput();
-            let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
+            let queryValue = this.inputElementRef.nativeElement.value;
 
             if (this.dropdownMode === 'blank') this.search(event, '');
             else if (this.dropdownMode === 'current') this.search(event, queryValue);
@@ -974,8 +1013,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     focusInput() {
-        if (this.multiple) (this.multiInputEl as ElementRef).nativeElement.focus();
-        else this.inputEL?.nativeElement.focus();
+        this.inputElementRef?.nativeElement.focus();
     }
 
     get emptyMessageLabel(): string {
@@ -1093,6 +1131,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
         }
 
+        if (!this.multiple && this.selectedItemTemplate != null) {
+            switch ((<KeyboardEvent>event).which) {
+                //backspace
+                case 8:
+                    if (this.value && !this.templateItemInputEl?.nativeElement.value) {
+                        this.selectItem(null);
+                    }
+                    break;
+            }
+        }
+
         if (this.multiple) {
             switch ((<KeyboardEvent>event).which) {
                 //backspace
@@ -1117,7 +1166,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onInputFocus(event: Event) {
         if (!this.itemClicked && this.completeOnFocus) {
-            let queryValue = this.multiple ? this.multiInputEl?.nativeElement.value : this.inputEL?.nativeElement.value;
+            let queryValue = this.inputElementRef?.nativeElement.value;
             this.search(event, queryValue);
         }
 
@@ -1158,13 +1207,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             if (!valid) {
-                if (this.multiple) {
-                    (<ElementRef>this.multiInputEl).nativeElement.value = '';
-                } else {
-                    this.value = null;
-                    (<ElementRef>this.inputEL).nativeElement.value = '';
-                }
-
+                this.inputElementRef.nativeElement.value = '';
                 this.onClear.emit(event);
                 this.onModelChange(this.value);
                 this.updateFilledState();
@@ -1225,19 +1268,33 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateFilledState() {
-        if (this.multiple) this.filled = (this.value && this.value.length) || (this.multiInputEl && this.multiInputEl.nativeElement && this.multiInputEl.nativeElement.value != '');
-        else this.filled = (this.inputFieldValue && this.inputFieldValue != '') || (this.inputEL && this.inputEL.nativeElement && this.inputEL.nativeElement.value != '');
+        this.filled =
+            (this.multiple ? (this.value && this.value.length) : (this.inputFieldValue && this.inputFieldValue != ''))
+            || (this.inputElementRef?.nativeElement.value != '');
     }
 
     updateInputField() {
         let formattedValue = this.resolveFieldData(this.value);
         this.inputFieldValue = formattedValue;
 
-        if (this.inputEL && this.inputEL.nativeElement) {
+        if (this.inputEL && this.inputEL.nativeElement && this.selectedItemTemplate == null) {
             this.inputEL.nativeElement.value = formattedValue;
         }
 
         this.updateFilledState();
+    }
+
+    /**
+     * Returns ElementRef based on used input in HTML template
+     */
+    get inputElementRef(): ElementRef {
+        if (this.multiple) {
+            return <ElementRef>this.multiInputEl;
+        } else if (this.selectedItemTemplate != null) {
+            return <ElementRef>this.templateItemInputEl;
+        } else {
+            return <ElementRef>this.inputEL;
+        }
     }
 
     ngOnDestroy() {
