@@ -11232,7 +11232,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
                             "description": "Allows to prevent clicking."
                         },
                         {
