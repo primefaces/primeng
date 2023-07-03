@@ -207,4 +207,12 @@ export class ObjectUtils {
 
         return obj2 || obj1;
     }
+
+    public static isPrintableCharacter(char = '') {
+        return this.isNotEmpty(char) && char.length === 1 && char.match(/\S| /);
+    }
+
+    public static getItemValue(obj, ...params) {
+        return this.isFunction(obj) ? obj(...params) : obj;
+    }
 }
