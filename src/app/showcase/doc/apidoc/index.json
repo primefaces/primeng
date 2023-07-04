@@ -11232,7 +11232,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
                             "description": "Allows to prevent clicking."
                         },
                         {
@@ -22058,14 +22057,15 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"| string",
+                            "default": "right",
                             "description": "Position of the tooltip."
                         },
                         {
                             "name": "tooltipEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "\"hover\" | \"focus\" | string",
                             "default": "hover",
                             "description": "Event to show the tooltip."
                         },

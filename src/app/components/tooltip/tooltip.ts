@@ -20,7 +20,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
     /**
      * Event to show the tooltip.
      * @group Props
@@ -163,7 +163,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) { }
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -687,4 +687,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     exports: [Tooltip],
     declarations: [Tooltip]
 })
-export class TooltipModule {}
+export class TooltipModule { }
