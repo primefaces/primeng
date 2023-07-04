@@ -30,7 +30,10 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Editor),
     multi: true
 };
-
+/**
+ * Editor groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-editor',
     template: `

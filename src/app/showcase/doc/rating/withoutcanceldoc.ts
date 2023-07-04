@@ -18,7 +18,7 @@ export class WithoutCancelDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './rating-without-cancel-demo.html'
 })
 export class RatingWithoutCancelDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

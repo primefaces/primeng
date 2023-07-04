@@ -7,7 +7,10 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * MegaMenu is navigation component that displays submenus together.
+ * @group Components
+ */
 @Component({
     selector: 'p-megaMenu',
     template: `

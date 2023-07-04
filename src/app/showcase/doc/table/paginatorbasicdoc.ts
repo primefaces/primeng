@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
 import { Code } from '../../domain/code';
+import { Customer } from '../../domain/customer';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-basic-doc',
@@ -58,7 +58,7 @@ export class PaginatorBasicDoc {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -148,7 +148,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-paginator-basic-demo.html'
 })
 export class TablePaginatorBasicDemo {
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 

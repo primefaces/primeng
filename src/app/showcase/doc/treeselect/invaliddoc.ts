@@ -19,7 +19,7 @@ export class InvalidDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -45,7 +45,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-invalid-demo.html'
 })
 export class TreeSelectInvalidDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

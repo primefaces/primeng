@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-
+/**
+ * Tag component is used to categorize content.
+ * @group Components
+ */
 @Component({
     selector: 'p-tag',
     template: `
@@ -46,8 +49,8 @@ export class Tag {
     @Input() value: string | undefined;
     /**
      * Icon of the tag to display next to the value.
-     * @deprecated since 15.4.2. Use 'icon' template.
      * @group Props
+     * @deprecated since 15.4.2. Use 'icon' template.
      */
     @Input() icon: string | undefined;
     /**

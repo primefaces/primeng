@@ -41,7 +41,7 @@ export class BasicDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -104,7 +104,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-table-basic-demo.html'
 })
 export class TreeTableBasicDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

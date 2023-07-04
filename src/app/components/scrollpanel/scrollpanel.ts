@@ -21,7 +21,10 @@ import {
 } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-
+/**
+ * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollPanel',
     template: `
@@ -265,7 +268,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Scrolls the top location to the given value.
      * @param scrollTop
-     * @group Methods
+     * @group Method
      */
     scrollTop(scrollTop: number) {
         let scrollableHeight = (this.contentViewChild as ElementRef).nativeElement.scrollHeight - (this.contentViewChild as ElementRef).nativeElement.clientHeight;
@@ -322,7 +325,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     /**
      * Refreshes the position and size of the scrollbar.
-     * @group Methods
+     * @group Method
      */
     refresh() {
         this.moveBar();

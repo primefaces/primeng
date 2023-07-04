@@ -33,11 +33,11 @@ export class DropIndicatorDoc {
 
     @Input() title: string;
 
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     ngOnInit() {
         this.selectedProducts = [];
@@ -54,8 +54,8 @@ export class DropIndicatorDoc {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -66,8 +66,8 @@ export class DropIndicatorDoc {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }
@@ -120,11 +120,11 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-drop-indicator-demo.scss']
 })
 export class DragDropDropIndicatorDemo implements OnInit {
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     constructor(private productService: ProductService) {}
 
@@ -143,8 +143,8 @@ export class DragDropDropIndicatorDemo implements OnInit {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -155,8 +155,8 @@ export class DragDropDropIndicatorDemo implements OnInit {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }

@@ -33,7 +33,7 @@ export class HorizontalDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = ['2020', '2021', '2022', '2023'];
@@ -88,7 +88,7 @@ import { Component } from '@angular/core';
     templateUrl: './timeline-horizontal-demo.html'
 })
 export class TimelineHorizontalDemo {
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = [

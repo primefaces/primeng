@@ -3,6 +3,10 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
 @Component({
     selector: 'column-toggle-doc',
     template: ` <section>
@@ -41,11 +45,11 @@ export class ColumnToggleDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
-    _selectedColumns: any[];
+    _selectedColumns!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -127,16 +131,21 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-column-toggle-demo',
     templateUrl: 'table-column-toggle-demo.html'
 })
 export class TableColumnToggleDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
-    _selectedColumns: any[];
+    _selectedColumns!: Column[];
 
     constructor(private productService: ProductService) {}
 

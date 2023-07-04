@@ -8,9 +8,9 @@ export interface SplitButtonTemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of dropdownicon.
      */
-    dropdownicon: TemplateRef<any> | null;
+    dropdownicon(): TemplateRef<any>;
 }

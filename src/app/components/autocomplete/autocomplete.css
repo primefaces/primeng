@@ -6,7 +6,7 @@
 .p-autocomplete-loader {
     position: absolute;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
 }
 
 .p-autocomplete-dd .p-autocomplete-input {
@@ -16,13 +16,13 @@
 
 .p-autocomplete-dd .p-autocomplete-input,
 .p-autocomplete-dd .p-autocomplete-multiple-container {
-     border-top-right-radius: 0;
-     border-bottom-right-radius: 0;
- }
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 
 .p-autocomplete-dd .p-autocomplete-dropdown {
-     border-top-left-radius: 0;
-     border-bottom-left-radius: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0px;
 }
 
 .p-autocomplete-panel {
@@ -54,6 +54,7 @@
 }
 
 .p-autocomplete-token {
+    width: fit-content;
     cursor: default;
     display: inline-flex;
     align-items: center;
@@ -91,7 +92,7 @@
 .p-autocomplete-clear-icon {
     position: absolute;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
     cursor: pointer;
 }
 

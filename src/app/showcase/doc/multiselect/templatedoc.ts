@@ -37,9 +37,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     ngOnInit() {
         this.countries = [
@@ -106,9 +106,9 @@ interface Country {
     templateUrl: './multi-select-template-demo.html'
 })
 export class MultiSelectTemplateDemo implements OnInit {
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.countries = [

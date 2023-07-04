@@ -37,13 +37,13 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    sidebarVisible1: boolean;
+    sidebarVisible1: boolean = false;
 
-    sidebarVisible2: boolean;
+    sidebarVisible2: boolean = false;
 
-    sidebarVisible3: boolean;
+    sidebarVisible3: boolean = false;
 
-    sidebarVisible4: boolean;
+    sidebarVisible4: boolean = false;
 
     code: Code = {
         basic: `
@@ -100,13 +100,13 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-position-demo.html'
 })
 export class SidebarPositionDemo {
-    sidebarVisible1: boolean;
+    sidebarVisible1: boolean = false;
     
-    sidebarVisible2: boolean;
+    sidebarVisible2: boolean = false;
     
-    sidebarVisible3: boolean;
+    sidebarVisible3: boolean = false;
     
-    sidebarVisible4: boolean;
+    sidebarVisible4: boolean = false;
 }`
     };
 }

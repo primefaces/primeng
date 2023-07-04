@@ -12,7 +12,10 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => TriStateCheckbox),
     multi: true
 };
-
+/**
+ * TriStateCheckbox is used to select either 'true', 'false' or 'null' as the value.
+ * @group Components
+ */
 @Component({
     selector: 'p-triStateCheckbox',
     template: `

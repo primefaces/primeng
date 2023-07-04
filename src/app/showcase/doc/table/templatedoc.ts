@@ -3,6 +3,11 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'template-doc',
     template: ` <section>
@@ -53,9 +58,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -165,7 +170,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-template-demo.html'
 })
 export class TableTemplateDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

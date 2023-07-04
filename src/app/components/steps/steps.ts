@@ -4,7 +4,10 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
-
+/**
+ * Steps components is an indicator for the steps in a wizard workflow.
+ * @group Components
+ */
 @Component({
     selector: 'p-steps',
     template: `
@@ -81,7 +84,7 @@ export class Steps implements OnInit, OnDestroy {
      */
     @Input() activeIndex: number = 0;
     /**
-     * An array of menuitems.
+     * An array of menu items.
      * @group Props
      */
     @Input() model: MenuItem[] | undefined;

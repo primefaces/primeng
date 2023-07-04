@@ -4,7 +4,10 @@ import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-
+/**
+ * Dock is a navigation component consisting of menuitems.
+ * @group Components
+ */
 @Component({
     selector: 'p-dock',
     template: `
@@ -92,7 +95,7 @@ export class Dock implements AfterContentInit {
      */
     @Input() model: MenuItem[] | undefined | null = null;
     /**
-     * Position of element. Valid values are 'bottom', 'top', 'left' and 'right'.
+     * Position of element.
      * @group Props
      */
     @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';

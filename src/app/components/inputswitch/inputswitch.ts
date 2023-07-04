@@ -8,7 +8,10 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputSwitch),
     multi: true
 };
-
+/**
+ * InputSwitch is used to select a boolean value.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputSwitch',
     template: `

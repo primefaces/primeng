@@ -13,13 +13,11 @@ import { ButtonModule } from 'primeng/button';
 import { HorizontalDoc } from './horizontaldoc';
 import { StyleDoc } from './styledoc';
 import { RouterModule } from '@angular/router';
-import { PropsDoc } from './propsdoc';
-import { TemplatesDoc } from './templatesdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TimelineModule, CardModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, PropsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, AlignmentDoc, OppositeDoc, TemplateDoc, HorizontalDoc, StyleDoc, AccessibilityDoc]
 })
 export class TimelineDocModule {}

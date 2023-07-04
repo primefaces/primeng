@@ -8,9 +8,9 @@ export interface OverlayPanelTemplates {
     /**
      * Custom template of content.
      */
-    content: TemplateRef<any> | null;
+    content(): TemplateRef<any>;
     /**
      * Custom template of closeicon.
      */
-    closeicon: TemplateRef<any> | null;
+    closeicon(): TemplateRef<any>;
 }

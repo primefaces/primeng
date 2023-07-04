@@ -24,9 +24,9 @@ export class ProgrammaticDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('sc') sc: Scroller;
+    @ViewChild('sc') sc!: Scroller;
 
-    items = [];
+    items: string[] = [];
 
     ngOnInit(): void {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -64,9 +64,9 @@ import { Scroller } from 'primeng/scroller';
     templateUrl: './scroller-programmatic-demo.html'
 })
 export class ScrollerProgrammaticDemo implements OnInit {
-    @ViewChild('sc') sc: Scroller;
+    @ViewChild('sc') sc!: Scroller;
 
-    items = [];
+    items: string[] = [];
 
     ngOnInit(): void {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

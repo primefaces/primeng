@@ -37,7 +37,10 @@ import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-
+/**
+ * Galleria is an advanced content gallery component.
+ * @group Components
+ */
 @Component({
     selector: 'p-galleria',
     template: `
@@ -108,7 +111,7 @@ export class Galleria implements OnChanges, OnDestroy {
     @Input() numVisible: number = 3;
     /**
      * An array of options for responsive design.
-     * @see GalleriaResponsiveOptions
+     * @see {GalleriaResponsiveOptions}
      * @group Props
      */
     @Input() responsiveOptions: GalleriaResponsiveOptions[] | undefined;
@@ -223,16 +226,16 @@ export class Galleria implements OnChanges, OnDestroy {
     }
     /**
      * Callback to invoke on active index change.
-     * @param {number} number - active index.
+     * @param {number} number - Active index.
      * @group Emits
      */
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter();
+    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke on visiblity change.
-     * @param {boolean} boolean - visible value.
+     * @param {boolean} boolean - Visible value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
@@ -454,7 +457,7 @@ export class GalleriaContent implements DoCheck {
 
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
 
-    id: string = this.galleria.id || UniqueComponentId();
+    id: string;
 
     _activeIndex: number = 0;
 
@@ -464,9 +467,12 @@ export class GalleriaContent implements DoCheck {
 
     styleClass: string | undefined;
 
-    private differ = this.differs.find(this.galleria).create();
+    private differ: any;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers) {}
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers) {
+        this.id = this.galleria.id || UniqueComponentId();
+        this.differ = this.differs.find(this.galleria).create();
+    }
 
     ngDoCheck(): void {
         const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);

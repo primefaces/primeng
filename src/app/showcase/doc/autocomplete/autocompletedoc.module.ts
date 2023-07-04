@@ -12,18 +12,15 @@ import { GroupedDoc } from './groupeddoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { MultipleDoc } from './multipledoc';
 import { StyleDoc } from './styledoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { DropdownDoc } from './dropdowndoc';
 import { ForceSelectionDoc } from './forceselectiondoc';
 import { ObjectsDoc } from './objectsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
-import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, TemplatesDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc]
 })
 export class AutoCompleteDocModule {}

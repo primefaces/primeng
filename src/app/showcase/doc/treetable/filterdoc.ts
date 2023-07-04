@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'filter-doc',
     template: ` <section>
@@ -67,9 +72,9 @@ export class FilterDoc implements OnInit {
         { label: 'Strict', value: 'strict' }
     ];
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -169,6 +174,11 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-filter-demo',
     templateUrl: './tree-table-filter-demo.html'
@@ -181,9 +191,9 @@ export class TreeTableFilterDemo implements OnInit{
         { label: 'Strict', value: 'strict' }
     ];
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

@@ -168,7 +168,10 @@ export class PanelMenuSub extends BasePanelMenuItem {
         return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 }
-
+/**
+ * PanelMenu is a hybrid of Accordion and Tree components.
+ * @group Components
+ */
 @Component({
     selector: 'p-panelMenu',
     template: `
@@ -278,22 +281,27 @@ export class PanelMenuSub extends BasePanelMenuItem {
 export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     /**
      * An array of menuitems.
+     * @group Props
      */
     @Input() model: MenuItem[] | undefined;
     /**
      * Inline style of the component.
+     * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
+     * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Whether multiple tabs can be activated at the same time or not.
+     * @group Props
      */
     @Input() multiple: boolean = true;
     /**
      * Transition options of the animation.
+     * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 

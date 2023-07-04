@@ -55,7 +55,7 @@ export class FrozenColumnsDoc implements OnInit {
 
     balanceFrozen: boolean = false;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -66,7 +66,7 @@ export class FrozenColumnsDoc implements OnInit {
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
@@ -147,7 +147,7 @@ import { CustomerService } from '../../service/customerservice';
 export class TableFrozenColumnsDemo implements OnInit{
     balanceFrozen: boolean = false;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -157,7 +157,7 @@ export class TableFrozenColumnsDemo implements OnInit{
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     } 
 }`,

@@ -32,11 +32,11 @@ export class CheckboxDoc {
 
     @Input() title: string;
 
-    checkbox1: boolean;
+    checkbox1: boolean = false;
 
-    checkbox2: boolean;
+    checkbox2: boolean = false;
 
-    category: string;
+    category: string | undefined;
 
     code: Code = {
         basic: `
@@ -83,11 +83,11 @@ import { Component } from '@angular/core';
     templateUrl: './inputgroup-checkbox-demo.html'
 })
 export class InputgroupCheckboxDemo {
-    checkbox1: boolean;
+    checkbox1: boolean = false;
 
-    checkbox2: boolean;
+    checkbox2: boolean = false;
 
-    category: string;
+    category: string | undefined;
 }`
     };
 }

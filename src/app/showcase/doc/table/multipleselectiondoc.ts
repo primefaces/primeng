@@ -49,9 +49,9 @@ export class MultipleSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     metaKeySelection: boolean = true;
 
@@ -125,9 +125,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-multiple-selection-demo.html'
 })
 export class TableMultipleSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     metaKeySelection: boolean = true;
 

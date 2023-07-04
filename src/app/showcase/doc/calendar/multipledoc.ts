@@ -18,7 +18,7 @@ export class MultipleDoc {
 
     @Input() title: string;
 
-    dates: Date[];
+    dates: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-multiple-demo.html'
 })
 export class CalendarMultipleDemo {
-    dates: Date[];
+    dates: Date[] | undefined;
 }`
     };
 }

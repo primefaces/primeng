@@ -30,7 +30,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -77,7 +77,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-template-demo.html'
 })
 export class DialogTemplateDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

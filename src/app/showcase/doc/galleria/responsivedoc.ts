@@ -28,7 +28,7 @@ export class ResponsiveDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -85,7 +85,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-responsive-demo.html'
 })
 export class GalleriaResponsiveDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

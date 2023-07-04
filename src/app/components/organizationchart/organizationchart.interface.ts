@@ -5,6 +5,7 @@ import { OrganizationChart } from './organizationchart';
 /**
  * Custom node select event.
  * @see {@link OrganizationChart.onNodeSelect}
+ * @group Events
  */
 export interface OrganizationChartNodeSelectEvent {
     /**
@@ -19,18 +20,22 @@ export interface OrganizationChartNodeSelectEvent {
 /**
  * Custom node unselect event.
  * @see {@link OrganizationChart.onNodeUnSelect}
+ * @extends {OrganizationChartNodeSelectEvent}
+ * @group Events
  */
 export interface OrganizationChartNodeUnSelectEvent extends OrganizationChartNodeSelectEvent {}
 /**
  * Custom node expand event.
  * @see {@link OrganizationChart.onNodeExpand}
  * @extends {OrganizationChartNodeSelectEvent}
+ * @group Events
  */
 export interface OrganizationChartNodeExpandEvent extends OrganizationChartNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link OrganizationChart.onNodeCollapse}
  * @extends {OrganizationChartNodeSelectEvent}
+ * @group Events
  */
 export interface OrganizationChartNodeCollapseEvent extends OrganizationChartNodeSelectEvent {}
 /**

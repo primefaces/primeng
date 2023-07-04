@@ -39,7 +39,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -71,6 +71,7 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 
 @Injectable()
 export class TableService {
@@ -112,7 +113,10 @@ export class TableService {
         this.columnsSource.next(columns);
     }
 }
-
+/**
+ * Table displays data in tabular format.
+ * @group Components
+ */
 @Component({
     selector: 'p-table',
     template: `
@@ -526,9 +530,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() scrollable: boolean | undefined;
     /**
-     * @deprecated Property is obselete since v14.2.0.
      * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
      * @group Props
+     * @deprecated Property is obselete since v14.2.0.
      */
     @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
     /**
@@ -567,9 +571,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() frozenWidth: string | undefined;
     /**
-     * @deprecated table is always responsive with scrollable behavior.
      * Defines if the table is responsive.
      * @group Props
+     * @deprecated table is always responsive with scrollable behavior.
      */
     @Input() get responsive(): boolean | undefined | null {
         return this._responsive;
@@ -788,10 +792,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() selectAllChange: EventEmitter<TableSelectAllChangeEvent> = new EventEmitter<TableSelectAllChangeEvent>();
     /**
      * Callback to invoke on selection changed.
-     * @param {*} any - selected data.
+     * @param {any | null} value - selected data.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() selectionChange: EventEmitter<any | null> = new EventEmitter<any | null>();
     /**
      * Callback to invoke when a row is selected.
      * @param {TableRowSelectEvent} event - custom select event.
@@ -890,10 +894,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() onHeaderCheckboxToggle: EventEmitter<TableHeaderCheckboxToggleEvent> = new EventEmitter<TableHeaderCheckboxToggleEvent>();
     /**
      * A function to implement custom sorting, refer to sorting section for details.
-     * @param {*} any - sort meta.
+     * @param {any} any - sort meta.
      * @group Emits
      */
-    @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+    @Output() sortFunction: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke on pagination.
      * @param {number} number - first element.
@@ -902,10 +906,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke on rows change.
-     * @param {*} array - rows data.
+     * @param {number} number - Row count.
      * @group Emits
      */
-    @Output() rowsChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() rowsChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke table state is saved.
      * @param {TableState} object - table state.
@@ -939,9 +943,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Indicates the height of rows to be scrolled.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get virtualRowHeight(): number {
         return this._virtualRowHeight;
@@ -2212,8 +2216,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - export options.
-     * @group Methods
+     * @param {Object} object - Export options.
+     * @group Method
      */
     public exportCSV(options?: any) {
         let data;
@@ -2297,7 +2301,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Resets scroll to top.
-     * @group Methods
+     * @group Method
      */
     public resetScrollTop() {
         if (this.virtualScroll) this.scrollToVirtualIndex(0);
@@ -2306,7 +2310,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     /**
      * Scrolls to given index when using virtual scroll.
      * @param {number} index - index of the element.
-     * @group Methods
+     * @group Method
      */
     public scrollToVirtualIndex(index: number) {
         this.scroller && this.scroller.scrollToIndex(index);
@@ -2314,7 +2318,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     /**
      * Scrolls to given index.
      * @param {ScrollToOptions} options - scroll options.
-     * @group Methods
+     * @group Method
      */
     public scrollTo(options: any) {
         if (this.virtualScroll) {
@@ -5509,7 +5513,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountUpAltIcon,
         SortAmountDownIcon,
         CheckIcon,
-        FilterIcon
+        FilterIcon,
+        FilterSlashIcon
     ],
     exports: [
         Table,

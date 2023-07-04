@@ -16,7 +16,10 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only'
 } as const;
-
+/**
+ * Button directive is an extension to button component.
+ * @group Components
+ */
 @Directive({
     selector: '[pButton]',
     host: {
@@ -218,7 +221,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
-
+/**
+ * Button is an extension to standard button element with icons and theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-button',
     template: `
@@ -239,7 +245,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="iconClass() + ' p-button-loading-icon'" [spin]="true" />
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
                 <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
@@ -348,6 +354,12 @@ export class Button implements AfterContentInit {
     iconTemplate: TemplateRef<any> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    spinnerIconClass(): string {
+        return Object.entries(this.iconClass())
+            .filter(([, value]) => !!value)
+            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
+    }
 
     iconClass() {
         return {

@@ -1,6 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'images-doc',
     template: ` <section>
@@ -23,7 +30,7 @@ export class ImagesDoc {
 
     rows: number = 10;
 
-    onPageChange(event) {
+    onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
     }
@@ -42,6 +49,13 @@ export class ImagesDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'paginator-images-demo',
     templateUrl: './paginator-images-demo.html'
@@ -51,7 +65,7 @@ export class PaginatorImagesDemo {
 
     rows: number = 10;
 
-    onPageChange(event) {
+    onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
     }

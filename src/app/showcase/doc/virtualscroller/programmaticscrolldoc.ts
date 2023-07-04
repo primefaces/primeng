@@ -2,6 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { VirtualScroller } from 'primeng/virtualscroller';
 import { Code } from '../../domain/code';
 
+interface Item {
+    label: string;
+    index: number;
+}
 @Component({
     selector: 'programmatic-scroll-doc',
     template: ` <section>
@@ -26,9 +30,9 @@ export class ProgrammaticScrollDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('vs') vs: VirtualScroller;
+    @ViewChild('vs') vs!: VirtualScroller;
 
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {
@@ -67,14 +71,19 @@ export class ProgrammaticScrollDoc implements OnInit {
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VirtualScroller } from 'primeng/virtualscroller';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'virtual-scroller-programmatic-scroll-demo',
     templateUrl: './virtual-scroller-programmatic-scroll-demo.html'
 })
 export class VirtualScrollerProgrammaticScrollDemo implements OnInit {
-    @ViewChild('vs') vs: VirtualScroller;
+    @ViewChild('vs') vs!: VirtualScroller;
 
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {

@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
-
+/**
+ * Chip represents people using icons, labels and images.
+ * @group Components
+ */
 @Component({
     selector: 'p-chip',
     template: `
@@ -70,13 +73,13 @@ export class Chip implements AfterContentInit {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter();
+    @Output() onRemove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter();
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     visible: boolean = true;
 

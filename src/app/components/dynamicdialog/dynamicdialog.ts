@@ -363,6 +363,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     initResize(event: MouseEvent) {
         if (this.config.resizable) {
+            if (!this.documentResizeListener) {
+                this.bindDocumentResizeListeners();
+            }
+
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;

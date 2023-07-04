@@ -52,9 +52,9 @@ export class FlexibleScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    dialogVisible: boolean;
+    dialogVisible: boolean = false;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -135,9 +135,9 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-flexible-scroll-demo.html'
 })
 export class TableFlexibleScrollDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    dialogVisible: boolean;
+    dialogVisible: boolean = false;
 
     constructor(private customerService: CustomerService) {}
 

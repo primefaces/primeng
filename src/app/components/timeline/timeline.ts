@@ -2,7 +2,10 @@ import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEn
 import { CommonModule } from '@angular/common';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
-
+/**
+ * Timeline visualizes a series of chained events.
+ * @group Components
+ */
 @Component({
     selector: 'p-timeline',
     template: `
