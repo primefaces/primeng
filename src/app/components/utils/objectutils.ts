@@ -215,4 +215,19 @@ export class ObjectUtils {
     public static getItemValue(obj, ...params) {
         return this.isFunction(obj) ? obj(...params) : obj;
     }
+
+
+    public static findLastIndex(arr, callback) {
+        let index = -1;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                index = arr.findLastIndex(callback);
+            } catch {
+                index = arr.lastIndexOf([...arr].reverse().find(callback));
+            }
+        }
+
+        return index;
+    }
 }
