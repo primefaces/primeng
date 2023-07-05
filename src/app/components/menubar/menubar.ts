@@ -33,7 +33,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Observable, Subject, Subscription, interval } from 'rxjs';
+import { Subject, Subscription, interval } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
 
 @Injectable()
@@ -229,6 +229,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     onItemClick(event: any, processedItem: any) {
+        this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
@@ -262,8 +263,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menu-seperator': true,
-
+            'p-menuitem-separator': true,
         }
     }
 
@@ -302,9 +302,11 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     onItemMouseEnter(param: any) {
-        this.menubarService.mouseLeaves.next(false);
-        const { event, processedItem } = param;
-        this.itemMouseEnter.emit({originalEvent: event, processedItem})
+        if(this.autoDisplay){
+            this.menubarService.mouseLeaves.next(false);
+            const { event, processedItem } = param;
+            this.itemMouseEnter.emit({originalEvent: event, processedItem})
+        }
     }
 
     ngOnDestroy() {
@@ -328,7 +330,7 @@ export class MenubarSub implements OnInit, OnDestroy {
                [attr.aria-haspopup]="model.length && model.length > 0 ? true : false"
                [attr.aria-expanded]="mobileActive"
                [attr.aria-controls]="id"
-               [attr.aria-label]="config.aria.navigation"
+               [attr.aria-label]="config.translation.aria.navigation"
                [attr.data-pc-section]="'button'"
                *ngIf="model && model.length > 0" 
                class="p-menubar-button"
@@ -403,9 +405,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     @Input() baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
+     * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined;
+    @Input() autoDisplay: boolean | undefined = true;
     /**
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
