@@ -48,4 +48,28 @@ export interface Translation {
     passwordPrompt?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    pending: string;
+    chooseYear: string;
+    chooseMonth: string;
+    chooseDate: string;
+    prevDecade: string;
+    nextDecade: string;
+    prevYear: string;
+    nextYear: string;
+    prevMonth: string;
+    nextMonth: string;
+    prevHour: string;
+    nextHour: string;
+    prevMinute: string;
+    nextMinute: string;
+    prevSecond: string;
+    nextSecond: string;
+    am: string;
+    pm: string;
+    searchMessage: string;
+    selectionMessage: string;
+    emptySelectionMessage: string;
+    emptySearchMessage: string;
+    aria?: object;
+
 }
