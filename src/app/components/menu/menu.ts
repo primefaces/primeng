@@ -473,7 +473,6 @@ export class Menu implements OnDestroy {
 
     onListFocus(event: Event) {
         this.focused = true;
-        console.log('onListFocus',this.focused)
         if(!this.popup) {
             if(this.selectedOptionIndex !== -1) {
                 this.changeFocusedOptionIndex(this.selectedOptionIndex);
