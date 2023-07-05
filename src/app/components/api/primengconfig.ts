@@ -71,6 +71,58 @@ export class PrimeNGConfig {
         tooltip: 1100
     };
 
+    aria: any = {
+        trueLabel: 'True',
+        falseLabel: 'False',
+        nullLabel: 'Not Selected',
+        star: '1 star',
+        stars: '{star} stars',
+        selectAll: 'All items selected',
+        unselectAll: 'All items unselected',
+        close: 'Close',
+        previous: 'Previous',
+        next: 'Next',
+        navigation: 'Navigation',
+        scrollTop: 'Scroll Top',
+        moveTop: 'Move Top',
+        moveUp: 'Move Up',
+        moveDown: 'Move Down',
+        moveBottom: 'Move Bottom',
+        moveToTarget: 'Move to Target',
+        moveToSource: 'Move to Source',
+        moveAllToTarget: 'Move All to Target',
+        moveAllToSource: 'Move All to Source',
+        pageLabel: '{page}',
+        firstPageLabel: 'First Page',
+        lastPageLabel: 'Last Page',
+        nextPageLabel: 'Next Page',
+        prevPageLabel: 'Previous Page',
+        rowsPerPageLabel: 'Rows per page',
+        previousPageLabel: 'Previous Page',
+        jumpToPageDropdownLabel: 'Jump to Page Dropdown',
+        jumpToPageInputLabel: 'Jump to Page Input',
+        selectRow: 'Row Selected',
+        unselectRow: 'Row Unselected',
+        expandRow: 'Row Expanded',
+        collapseRow: 'Row Collapsed',
+        showFilterMenu: 'Show Filter Menu',
+        hideFilterMenu: 'Hide Filter Menu',
+        filterOperator: 'Filter Operator',
+        filterConstraint: 'Filter Constraint',
+        editRow: 'Row Edit',
+        saveEdit: 'Save Edit',
+        cancelEdit: 'Cancel Edit',
+        listView: 'List View',
+        gridView: 'Grid View',
+        slide: 'Slide',
+        slideNumber: '{slideNumber}',
+        zoomImage: 'Zoom Image',
+        zoomIn: 'Zoom In',
+        zoomOut: 'Zoom Out',
+        rotateRight: 'Rotate Right',
+        rotateLeft: 'Rotate Left'
+    }
+    
     private translationSource = new Subject<any>();
 
     translationObserver = this.translationSource.asObservable();
