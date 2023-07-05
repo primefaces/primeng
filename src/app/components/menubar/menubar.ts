@@ -57,7 +57,7 @@ export class MenubarService {
             #menubar 
             [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }" 
             [attr.data-pc-section]="'menu'" 
-            role="menubar" 
+            role="menu" 
             (focus)="menuFocus.emit($event)" 
             (blur)="menuBlur.emit($event)" 
             [tabindex]="0"
@@ -156,7 +156,6 @@ export class MenubarService {
                     </div>
                         <p-menubarSub
                             *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
-                            [attr.aria-hidden]="true"
                             [items]="processedItem.items"
                             [mobileActive]="mobileActive"
                             [autoDisplay]="autoDisplay"
@@ -341,7 +340,6 @@ export class MenubarSub implements OnInit, OnDestroy {
             </a>
             <p-menubarSub
                 #rootmenu
-                [attr.aria-hidden]="true"
                 [items]="processedItems"
                 [menuId]="id"
                 [root]="true"
