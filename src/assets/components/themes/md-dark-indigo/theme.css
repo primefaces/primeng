@@ -7288,7 +7288,10 @@ p-inputnumber.ng-dirty.ng-invalid .p-inputtext:enabled:focus {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.p-menubar .p-menuitem .p-menuitem-link:focus {
+.p-menubar .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: rgba(255, 255, 255, 0.12);
+}
+.p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
   background: rgba(255, 255, 255, 0.12);
 }
 
