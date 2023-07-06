@@ -4832,16 +4832,25 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding-right: 0.5rem;
 }
 
-.p-dock .p-dock-list {
+.p-dock .p-dock-list-container {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.5rem 0.5rem;
   border-radius: 0.5rem;
 }
+.p-dock .p-dock-list-container .p-dock-list {
+  outline: 0 none;
+}
 .p-dock .p-dock-item {
   padding: 0.5rem;
+  border-radius: 4px;
 }
-.p-dock .p-dock-action {
+.p-dock .p-dock-item.p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.p-dock .p-dock-link {
   width: 4rem;
   height: 4rem;
 }

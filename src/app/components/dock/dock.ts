@@ -19,7 +19,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
             <div class="p-dock-list-container">
                 <ul
                     #list
-                    [id]="listId"
+                    [id]="id"
                     class="p-dock-list"
                     role="menu"
                     [attr.aria-orientation]="position === 'bottom' || position === 'top' ? 'horizontal' : 'vertical'"
@@ -44,52 +44,50 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
                         [attr.data-p-focused]="isItemActive(getItemId(i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
-                        <a
-                            *ngIf="isClickableRouterLink(item); else elseBlock"
-                            pRipple
-                            [routerLink]="item.routerLink"
-                            [queryParams]="item.queryParams"
-                            [ngClass]="{ 'p-disabled': item.disabled }"
-                            class="p-dock-action"
-                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                            (click)="onItemClick($event, item)"
-                            (keydown.enter)="onItemClick($event, item, i)"
-                            [target]="item.target"
-                            [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
-                            pTooltip
-                            [tooltipOptions]="item.tooltipOptions"
-                            [fragment]="item.fragment"
-                            [queryParamsHandling]="item.queryParamsHandling"
-                            [preserveFragment]="item.preserveFragment"
-                            [skipLocationChange]="item.skipLocationChange"
-                            [replaceUrl]="item.replaceUrl"
-                            [state]="item.state"
-                            [attr.aria-hidden]="true"
-                        >
-                            <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                        </a>
-                        <ng-template #elseBlock>
+                        <div class="p-menuitem-content" [attr.data-pc-section]="'content'">
                             <a
-                                [tooltipPosition]="item.tooltipPosition"
-                                [attr.href]="item.url || null"
-                                class="p-dock-action"
+                                *ngIf="isClickableRouterLink(item); else elseBlock"
                                 pRipple
-                                (click)="onItemClick($event, item)"
-                                pTooltip
-                                [tooltipOptions]="item.tooltipOptions"
+                                [routerLink]="item.routerLink"
+                                [queryParams]="item.queryParams"
                                 [ngClass]="{ 'p-disabled': item.disabled }"
-                                (keydown.enter)="onItemClick($event, item, i)"
+                                class="p-dock-link"
+                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
                                 [attr.id]="item.id"
-                                [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                                [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
+                                pTooltip
+                                [tooltipOptions]="item.tooltipOptions"
+                                [fragment]="item.fragment"
+                                [queryParamsHandling]="item.queryParamsHandling"
+                                [preserveFragment]="item.preserveFragment"
+                                [skipLocationChange]="item.skipLocationChange"
+                                [replaceUrl]="item.replaceUrl"
+                                [state]="item.state"
                                 [attr.aria-hidden]="true"
                             >
                                 <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
-                        </ng-template>
+                            <ng-template #elseBlock>
+                                <a
+                                    [tooltipPosition]="item.tooltipPosition"
+                                    [attr.href]="item.url || null"
+                                    class="p-dock-link"
+                                    pRipple
+                                    pTooltip
+                                    [tooltipOptions]="item.tooltipOptions"
+                                    [ngClass]="{ 'p-disabled': item.disabled }"
+                                    [target]="item.target"
+                                    [attr.id]="item.id"
+                                    [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                                    [attr.aria-hidden]="true"
+                                >
+                                    <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                                </a>
+                            </ng-template>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -107,7 +105,7 @@ export class Dock implements AfterContentInit {
      * Current id state as a string.
      * @group Props
      */
-    @Input() id: string | undefined = null;
+    @Input() id: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -143,8 +141,6 @@ export class Dock implements AfterContentInit {
 
     itemTemplate: TemplateRef<any> | undefined;
 
-    listId = UniqueComponentId();
-
     currentIndex: number;
 
     tabindex: number = 0;
@@ -159,6 +155,10 @@ export class Dock implements AfterContentInit {
 
     constructor(private el: ElementRef, public cd: ChangeDetectorRef) {
         this.currentIndex = -3;
+    }
+
+    ngOnInit() {
+        this.id = this.id || UniqueComponentId();
     }
 
     ngAfterContentInit() {
