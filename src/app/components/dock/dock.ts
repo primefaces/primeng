@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Nullable } from 'primeng/ts-helpers';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { Nullable } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from '../dom/domhandler';
-import { ObjectUtils } from '../utils/objectutils';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components
@@ -27,6 +26,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
                     [tabindex]="tabindex"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.data-pc-section]="'menu'"
                     (focus)="onListFocus($event)"
                     (blur)="onListBlur($event)"
                     (keydown)="onListKeyDown($event)"
@@ -41,6 +41,7 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
                         [attr.aria-disabled]="disabled(item)"
                         (click)="onItemClick($event, item)"
                         (mouseenter)="onItemMouseEnter(i)"
+                        [attr.data-pc-section]="'menuitem'"
                         [attr.data-p-focused]="isItemActive(getItemId(i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
@@ -126,13 +127,27 @@ export class Dock implements AfterContentInit {
      * @group Props
      */
     @Input() position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
-
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
     @Input() ariaLabel: string | undefined;
-
+    /**
+     * Defines a string that labels the dropdown button for accessibility.
+     * @group Props
+     */
     @Input() ariaLabelledBy: string | undefined;
-
+    /**
+     * Callback to execute when button is focused.
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
     @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -290,7 +305,7 @@ export class Dock implements AfterContentInit {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, 'li[data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
@@ -301,14 +316,14 @@ export class Dock implements AfterContentInit {
     }
 
     findNextOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-p-disabled="false"]');
+        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-p-disabled="false"]');
+        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
@@ -318,7 +333,7 @@ export class Dock implements AfterContentInit {
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-p-disabled="false"]');
+        const menuitems = DomHandler.find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
