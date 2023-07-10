@@ -11,7 +11,7 @@ import { TimesIcon } from 'primeng/icons/times';
         class: 'p-element'
     }
 })
-export class InplaceDisplay {}
+export class InplaceDisplay { }
 
 @Component({
     selector: 'p-inplaceContent',
@@ -20,7 +20,7 @@ export class InplaceDisplay {}
         class: 'p-element'
     }
 })
-export class InplaceContent {}
+export class InplaceContent { }
 /**
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  * @group Components
@@ -38,8 +38,8 @@ export class InplaceContent {}
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
                 <ng-container *ngIf="closable">
-                    <button *ngIf="icon" type="button" [icon]="icon" pButton (click)="onDeactivateClick($event)"></button>
-                    <button *ngIf="!icon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
+                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)"></button>
+                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
                         <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
@@ -113,7 +113,7 @@ export class Inplace implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
-    constructor(public cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef) { }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -179,4 +179,4 @@ export class Inplace implements AfterContentInit {
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
-export class InplaceModule {}
+export class InplaceModule { }
