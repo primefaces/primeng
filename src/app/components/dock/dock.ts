@@ -328,8 +328,6 @@ export class Dock implements AfterContentInit {
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
         this.focusedOptionIndex = menuitems[order].getAttribute('id');
-
-        console.log(this.focusedOptionIndex);
     }
 
     findPrevOptionIndex(index) {
