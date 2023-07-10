@@ -33,7 +33,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     name: 'safeHtml'
 })
 export class SafeHtmlPipe implements PipeTransform {
-    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) { }
 
     public transform(value: string): SafeHtml {
         if (!value || !isPlatformBrowser(this.platformId)) {
@@ -181,49 +181,49 @@ export class MenuItemContent {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
         >
             <ul class="p-menu-list p-reset" role="menu">
-                <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
-                    <li
-                        class="p-submenu-header"
-                        [attr.data-automationid]="submenu.automationId"
-                        *ngIf="!submenu.separator"
-                        [ngClass]="{ 'p-hidden': submenu.visible === false, flex: submenu.visible }"
-                        pTooltip
-                        [tooltipOptions]="submenu.tooltipOptions"
-                        role="none"
-                    >
-                        <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
-                    </li>
-                    <ng-template ngFor let-item [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
-                        <li
-                            class="p-menuitem"
-                            *ngIf="!item.separator"
-                            [pMenuItemContent]="item"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }"
-                            [ngStyle]="item.style"
-                            [class]="item.styleClass"
-                            pTooltip
-                            [tooltipOptions]="item.tooltipOptions"
-                            role="none"
-                        ></li>
-                    </ng-template>
+            <ng-template ngFor let-item [ngForOf]="model">
+                <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                <li
+                class="p-menuitem"
+                *ngIf="!item.separator && !item.items"
+                [pMenuItemContent]="item"
+                [ngClass]="{ 'p-hidden': item.visible === false }"
+                [ngStyle]="item.style"
+                [class]="item.styleClass"
+                pTooltip
+                [tooltipOptions]="item.tooltipOptions"
+                role="none"
+                ></li>
+                <li class="p-menu-separator" *ngIf="item.items && item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                <li
+                class="p-submenu-header"
+                *ngIf="item.items && !item.separator"
+                [ngClass]="{ 'p-hidden': item.visible === false, flex: item.visible }"
+                pTooltip
+                [tooltipOptions]="item.tooltipOptions"
+                role="none"
+                >
+                <span *ngIf="item.escape !== false; else htmlSubmenuLabel">{{ item.label }}</span>
+                <ng-template #htmlSubmenuLabel>
+                    <span [innerHTML]="item.label | safeHtml"></span>
                 </ng-template>
-                <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
-                    <li
-                        class="p-menuitem"
-                        *ngIf="!item.separator"
-                        [pMenuItemContent]="item"
-                        [ngClass]="{ 'p-hidden': item.visible === false }"
-                        [ngStyle]="item.style"
-                        [class]="item.styleClass"
-                        pTooltip
-                        [tooltipOptions]="item.tooltipOptions"
-                        role="none"
-                    ></li>
+            </li>
+            <ul>
+                <ng-template ngFor let-subitem [ngForOf]="item.items">
+                <li
+                    class="p-menuitem"
+                    *ngIf="!subitem.separator"
+                    [pMenuItemContent]="subitem"
+                    [ngClass]="{ 'p-hidden': subitem.visible === false }"
+                    [ngStyle]="subitem.style"
+                    [class]="subitem.styleClass"
+                    pTooltip
+                    [tooltipOptions]="subitem.tooltipOptions"
+                    role="none"
+                ></li>
                 </ng-template>
+            </ul>
+            </ng-template>
             </ul>
         </div>
     `,
@@ -316,7 +316,7 @@ export class Menu implements OnDestroy {
         private cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
-    ) {}
+    ) { }
     /**
      * Toggles the visibility of the popup menu.
      * @param {Event} event - Browser event.
@@ -542,4 +542,4 @@ export class Menu implements OnDestroy {
     exports: [Menu, RouterModule, TooltipModule],
     declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
-export class MenuModule {}
+export class MenuModule { }
