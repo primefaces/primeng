@@ -74,6 +74,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [ngClass]="'p-inputtext p-component'"
                     autocomplete="off"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()" />
@@ -410,6 +411,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Used to define a string that labels the input element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Defines a string that labels the icon button for accessibility.
      * @group Props

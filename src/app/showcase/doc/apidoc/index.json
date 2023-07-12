@@ -4268,6 +4268,13 @@
                             "description": "Placeholder text for the input."
                         },
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
                             "name": "ariaLabelledBy",
                             "optional": false,
                             "readonly": false,
