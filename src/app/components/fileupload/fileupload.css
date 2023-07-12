@@ -23,16 +23,23 @@
     left: 0;
 }
 
+.p-fileupload-content.p-fileupload-highlight {
+    border-color: var(--primary-color);
+    border-width: 2px;
+    border-style: dashed;
+    background-color: var(--primary-100);
+}
+
 .p-button.p-fileupload-choose {
     position: relative;
     overflow: hidden;
 }
 
-.p-button.p-fileupload-choose input[type=file] {
+.p-button.p-fileupload-choose input[type='file'] {
     display: none;
 }
 
-.p-fileupload-choose.p-fileupload-choose-selected input[type=file] {
+.p-fileupload-choose.p-fileupload-choose-selected input[type='file'] {
     display: none;
 }
 
