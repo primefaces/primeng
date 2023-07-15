@@ -226,7 +226,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         return this._selection;
     }
     /**
-     * Value of the component.
+     * Array of values to be displayed in the component.
+     * It represents the data source for the list of items.
      * @group Props
      */
     @Input() set value(val: any[] | undefined) {
@@ -309,7 +310,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) { }
 
     ngOnInit() {
         if (this.responsive) {
@@ -682,4 +683,4 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     exports: [OrderList, SharedModule, DragDropModule],
     declarations: [OrderList]
 })
-export class OrderListModule {}
+export class OrderListModule { }
