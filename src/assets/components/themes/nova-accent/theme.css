@@ -5374,39 +5374,64 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 3px;
   width: 12.5rem;
 }
-.p-slidemenu .p-menuitem-link {
-  padding: 0.857rem;
+.p-slidemenu .p-slidemenu-root-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-submenu-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content {
   color: #333333;
-  border-radius: 0;
   transition: background-color 0.2s, box-shadow 0.2s;
+  border-radius: 0;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: #333333;
+  padding: 0.857rem;
   user-select: none;
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-text {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: #333333;
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
   color: #333333;
   margin-right: 0.5rem;
 }
-.p-slidemenu .p-menuitem-link .p-submenu-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
   color: #333333;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content {
+  color: #333333;
   background: #eaeaea;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: #333333;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
   color: #333333;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
+.p-slidemenu .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: #eaeaea;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+  color: #333333;
+  background: #d6d6d6;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: #333333;
 }
-.p-slidemenu .p-menuitem-link:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 0.15rem #8dcdff;
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
+  color: #333333;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+  color: #333333;
+  background: #eaeaea;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-text {
+  color: #333333;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-submenu-icon {
+  color: #333333;
 }
 .p-slidemenu.p-slidemenu-overlay {
   background: #ffffff;
@@ -5419,16 +5444,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid #c8c8c8;
   box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
 }
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
-  background: #eaeaea;
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
-  color: #333333;
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon, .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon {
-  color: #333333;
-}
-.p-slidemenu .p-slidemenu-separator {
+.p-slidemenu .p-menuitem-separator {
   border-top: 1px solid #d8dae2;
   margin: 0;
 }
@@ -5442,6 +5458,11 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.857rem;
   color: #333333;
+}
+.p-slidemenu .p-slidemenu-backward:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 0.2rem #8dcdff;
 }
 .p-slidemenu .p-menuitem-badge {
   background: #007ad9;

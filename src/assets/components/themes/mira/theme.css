@@ -5450,39 +5450,64 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 4px;
   width: 12.5rem;
 }
-.p-slidemenu .p-menuitem-link {
-  padding: 0.75rem 1rem;
+.p-slidemenu .p-slidemenu-root-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-submenu-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content {
   color: #4C566A;
-  border-radius: 0;
   transition: none;
+  border-radius: 0;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: #4C566A;
+  padding: 0.75rem 1rem;
   user-select: none;
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-text {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: #4C566A;
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
   color: #81A1C1;
   margin-right: 0.5rem;
 }
-.p-slidemenu .p-menuitem-link .p-submenu-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
   color: #81A1C1;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content {
+  color: #4C566A;
   background: #ffffff;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: #4C566A;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
   color: #81A1C1;
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
-  color: #81A1C1;
+.p-slidemenu .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: #ffffff;
 }
-.p-slidemenu .p-menuitem-link:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 0.15rem #C0D0E0;
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+  color: #4C566A;
+  background: #E5E9F0;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: #4C566A;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
+  color: #4C566A;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+  color: #4C566A;
+  background: #ffffff;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-text {
+  color: #4C566A;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-submenu-icon {
+  color: #81A1C1;
 }
 .p-slidemenu.p-slidemenu-overlay {
   background: #ffffff;
@@ -5495,16 +5520,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 0 none;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
-  background: #ffffff;
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
-  color: #4C566A;
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon, .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon {
-  color: #81A1C1;
-}
-.p-slidemenu .p-slidemenu-separator {
+.p-slidemenu .p-menuitem-separator {
   border-top: 1px solid #E5E9F0;
   margin: 0.25rem 0;
 }
@@ -5518,6 +5534,11 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.75rem 1rem;
   color: #4C566A;
+}
+.p-slidemenu .p-slidemenu-backward:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 0.2rem #C0D0E0;
 }
 .p-slidemenu .p-menuitem-badge {
   background: #5E81AC;

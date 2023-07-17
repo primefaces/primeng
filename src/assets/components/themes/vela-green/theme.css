@@ -5422,39 +5422,64 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 3px;
   width: 12.5rem;
 }
-.p-slidemenu .p-menuitem-link {
-  padding: 0.75rem 1rem;
+.p-slidemenu .p-slidemenu-root-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-submenu-list {
+  outline: 0 none;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content {
   color: rgba(255, 255, 255, 0.87);
-  border-radius: 0;
   transition: box-shadow 0.2s;
+  border-radius: 0;
+}
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: rgba(255, 255, 255, 0.87);
+  padding: 0.75rem 1rem;
   user-select: none;
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-text {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
   color: rgba(255, 255, 255, 0.87);
 }
-.p-slidemenu .p-menuitem-link .p-menuitem-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon {
   color: rgba(255, 255, 255, 0.6);
   margin-right: 0.5rem;
 }
-.p-slidemenu .p-menuitem-link .p-submenu-icon {
+.p-slidemenu .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
   color: rgba(255, 255, 255, 0.6);
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content {
+  color: rgba(255, 255, 255, 0.87);
+  background: #17212f;
+}
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem.p-highlight > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-slidemenu .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: #17212f;
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+  color: rgba(255, 255, 255, 0.87);
+  background: rgba(255, 255, 255, 0.09);
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content .p-menuitem-link .p-submenu-icon {
+  color: rgba(255, 255, 255, 0.87);
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover {
+  color: rgba(255, 255, 255, 0.87);
   background: rgba(255, 255, 255, 0.03);
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-text {
   color: rgba(255, 255, 255, 0.87);
 }
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon {
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-menuitem-icon, .p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover .p-menuitem-link .p-submenu-icon {
   color: rgba(255, 255, 255, 0.87);
-}
-.p-slidemenu .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
-  color: rgba(255, 255, 255, 0.87);
-}
-.p-slidemenu .p-menuitem-link:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 0.15rem #a7d8a9;
 }
 .p-slidemenu.p-slidemenu-overlay {
   background: #1f2d40;
@@ -5467,16 +5492,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border: 1px solid #304562;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
-  background: #17212f;
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
-  color: rgba(255, 255, 255, 0.87);
-}
-.p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon, .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-icon {
-  color: rgba(255, 255, 255, 0.87);
-}
-.p-slidemenu .p-slidemenu-separator {
+.p-slidemenu .p-menuitem-separator {
   border-top: 1px solid #304562;
   margin: 0.25rem 0;
 }
@@ -5490,6 +5506,11 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-slidemenu .p-slidemenu-backward {
   padding: 0.75rem 1rem;
   color: rgba(255, 255, 255, 0.87);
+}
+.p-slidemenu .p-slidemenu-backward:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 1px #a7d8a9;
 }
 .p-slidemenu .p-menuitem-badge {
   background: #81C784;
