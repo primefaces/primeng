@@ -416,6 +416,16 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean = false;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number = 0;
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -443,10 +453,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     @ViewChild('rootmenu') rootmenu: TieredMenuSub | undefined;
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
-    @Input() disabled: boolean = false;
-
-    @Input() tabindex: number = 0;
 
     submenuIconTemplate: Nullable<TemplateRef<any>>;
 
@@ -1080,7 +1086,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
                     const isOutsideContainer = this.containerViewChild && !this.containerViewChild.nativeElement.contains(event.target);
                     const isOutsideTarget = this.popup ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
-
                     if (isOutsideContainer && isOutsideTarget) {
                         this.hide();
                     }
