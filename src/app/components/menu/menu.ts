@@ -142,10 +142,10 @@ export class MenuItemContent {
             [attr.data-pc-name]="'menu'"
             [id]="id"
         >
-            <ul 
+            <ul
                 #list
-                class="p-menu-list p-reset" 
-                role="menu" 
+                class="p-menu-list p-reset"
+                role="menu"
                 [id]="id + '_list'"
                 [tabindex]="tabindex"
                 [attr.data-pc-section]="'menu'"
@@ -284,6 +284,16 @@ export class Menu implements OnDestroy {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Current id state as a string.
+     * @group Props
+     */
+    @Input() id: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number = 0;
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -306,8 +316,6 @@ export class Menu implements OnDestroy {
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Input() tabindex: number = 0;
-
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
@@ -326,15 +334,13 @@ export class Menu implements OnDestroy {
 
     visible: boolean | undefined;
 
-    public id: string | undefined;
-
     get focusedOptionId(): number | null {
         return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
 
     public focusedOptionIndex: any = -1;
 
-    public selectedOptionIndex: any = -1
+    public selectedOptionIndex: any = -1;
 
     public focused: boolean | undefined = false;
 
@@ -351,7 +357,7 @@ export class Menu implements OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
-        this.id = UniqueComponentId();
+        this.id = this.id || UniqueComponentId();
     }
     /**
      * Toggles the visibility of the popup menu.
@@ -451,8 +457,8 @@ export class Menu implements OnDestroy {
         }
     }
 
-    menuitemId(id: string, index?:string, childIndex?:string) {
-        return `${id}_${index}${typeof childIndex !== 'undefined' ? '_' + childIndex : ''}`
+    menuitemId(id: string, index?: string, childIndex?: string) {
+        return `${id}_${index}${typeof childIndex !== 'undefined' ? '_' + childIndex : ''}`;
     }
 
     isItemFocused(id) {
@@ -462,7 +468,7 @@ export class Menu implements OnDestroy {
     label(label: any) {
         return typeof label === 'function' ? label() : label;
     }
-    
+
     disabled(disabled: any) {
         return typeof disabled === 'function' ? disabled() : typeof disabled === 'undefined' ? false : disabled;
     }
@@ -473,19 +479,21 @@ export class Menu implements OnDestroy {
 
     onListFocus(event: Event) {
         this.focused = true;
-        if(!this.popup) {
-            if(this.selectedOptionIndex !== -1) {
+        if (!this.popup) {
+            if (this.selectedOptionIndex !== -1) {
                 this.changeFocusedOptionIndex(this.selectedOptionIndex);
                 this.selectedOptionIndex = -1;
             } else {
                 this.changeFocusedOptionIndex(0);
             }
         }
-        this.onFocus.emit(event)
+        this.onFocus.emit(event);
     }
 
     onListBlur(event) {
         this.focused = false;
+        this.changeFocusedOptionIndex(-1);
+        this.selectedOptionIndex = -1;
         this.focusedOptionIndex = -1;
         this.onBlur.emit(event);
     }
@@ -590,13 +598,13 @@ export class Menu implements OnDestroy {
 
     changeFocusedOptionIndex(index) {
         const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-        
+
         let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
         order > -1 && (this.focusedOptionIndex = links[order].getAttribute('id'));
     }
 
     itemClick(event: any) {
-        const {originalEvent, item} = event;
+        const { originalEvent, item } = event;
 
         if (item.disabled) {
             originalEvent.preventDefault();
@@ -618,8 +626,8 @@ export class Menu implements OnDestroy {
             this.hide();
         }
 
-        if(!this.popup && this.focusedOptionIndex !== item.id){
-            this.focusedOptionIndex = item.id
+        if (!this.popup && this.focusedOptionIndex !== item.id) {
+            this.focusedOptionIndex = item.id;
         }
     }
 
