@@ -309,7 +309,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) { }
 
     ngOnInit() {
         if (this.responsive) {
@@ -393,25 +393,19 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     onItemClick(event: Event, item: any, index: number) {
         this.itemTouched = false;
         let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
-        let selected = selectedIndex != -1;
+        let selected = selectedIndex !== -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
-        if (metaSelection && event instanceof KeyboardEvent) {
+        if (metaSelection && event instanceof MouseEvent) {
             let metaKey = event.metaKey || event.ctrlKey || event.shiftKey;
 
             if (selected && metaKey) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
+                this._selection = this._selection.filter((val) => val !== item);
             } else {
-                this._selection = metaKey ? (this._selection ? [...this._selection] : []) : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
+                this._selection = metaKey ? [...this._selection, item] : [item];
             }
         } else {
-            if (selected) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
-            } else {
-                this._selection = this._selection ? [...this._selection] : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
-            }
+            this._selection = [item];
         }
 
         //binding
@@ -462,7 +456,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     isSelected(item: any) {
-        return ObjectUtils.findIndexInList(item, this.selection) != -1;
+        return ObjectUtils.findIndexInList(item, this.selection) !== -1;
     }
 
     isEmpty() {
@@ -682,4 +676,4 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     exports: [OrderList, SharedModule, DragDropModule],
     declarations: [OrderList]
 })
-export class OrderListModule {}
+export class OrderListModule { }
