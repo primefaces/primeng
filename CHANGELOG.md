@@ -1,4 +1,18 @@
 # Changelog
+## [16.0.2](https://github.com/primefaces/primeng/tree/16.0.2) (2023-06-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.1...16.0.2)
+
+**Fixed bugs:**
+- FileUploader: Choose button is missing icon spacing [\#13232](https://github.com/primefaces/primeng/issues/#13232)
+- Compiler error: p-autoComplete Argument of type 'Event' is not assignable to parameter of type 'MouseEvent' [\#13227](https://github.com/primefaces/primeng/issues/#13227)
+- p-dropdown unable to auto-select first item if group used [\#12637](https://github.com/primefaces/primeng/issues/#12637)
+- Component: Tooltip has no default zindex 16.0.1 [\#13220](https://github.com/primefaces/primeng/issues/#13220)
+- Clear filter Icon is not showing in p-columnfilter Component [\#12947](https://github.com/primefaces/primeng/issues/#12947)
+- Table Filter: Remove filter button is invisible [\#13134](https://github.com/primefaces/primeng/issues/#13134)
+- In table filter slash icon is not displaying when data is entered in the row filter. [\#13222](https://github.com/primefaces/primeng/issues/#13222)
+- Error: Cannot resolve type entity SafeHtmlPipe to symbol [\#13218](https://github.com/primefaces/primeng/issues/#13218)
+
 ## [16.0.1](https://github.com/primefaces/primeng/tree/16.0.1) (2023-06-16)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.0...16.0.1)
@@ -84,6 +98,15 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.5-LTS](https://www.npmjs.com/package/primeng/v/15.4.5-lts) (2023-06-19)
+
+**Fixed bugs:**
+- Button: Loading icon [\#13098](https://github.com/primefaces/primeng/issues/13098)
+- FileUpload | File limit does not fire error [\#13129](https://github.com/primefaces/primeng/issues/13129)
+
+**Enhancements:**
+- Improve LicenseManager structure
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.4-LTS](https://www.npmjs.com/package/primeng/v/15.4.4-lts) (2023-05-29)
 
@@ -303,6 +326,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.9-LTS](https://www.npmjs.com/package/primeng/v/14.2.9-lts) (2023-06-19)
+
+**Fixed bugs:**
+- FileUpload | File limit does not fire error [\#13129](https://github.com/primefaces/primeng/issues/13129)
+
+**Enhancements:**
+- Improve LicenseManager structure
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.8-LTS](https://www.npmjs.com/package/primeng/v/14.2.8-lts) (2023-05-30)
 
@@ -583,6 +614,11 @@
 - ng-template won't load, missing internal SharedModule export inside p-menubar component [\#11538](https://github.com/primefaces/primeng/issues/11538)
 - Image | Zoom in and out buttons do not work properly (Firefox & Chrome) [\#11527](https://github.com/primefaces/primeng/issues/11527)
 - Splitbutton commands not triggered when using keyboard [\#11514](https://github.com/primefaces/primeng/issues/11514)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.5-LTS](https://www.npmjs.com/package/primeng/v/13.4.5-lts) (2023-06-19)
+
+**Enhancements:**
+- Improve LicenseManager structure
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [13.4.4-LTS](https://www.npmjs.com/package/primeng/v/13.4.4-lts) (2023-05-05)
 

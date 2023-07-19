@@ -2232,6 +2232,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string",
+                            "default": "auto",
                             "description": "Whether the z-index should be managed automatically to always go on top or have a fixed value."
                         },
                         {
@@ -2598,7 +2599,7 @@
                             "name": "data",
                             "optional": true,
                             "readonly": false,
-                            "type": "any",
+                            "type": "T",
                             "description": "Data represented by the node."
                         },
                         {
@@ -9907,7 +9908,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Pattern to restrict the allowed file types such as 'image/*'."
+                            "description": "Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as \"image/*\") or the file extensions (such as \".jpg\")."
                         },
                         {
                             "name": "disabled",
@@ -14202,13 +14203,15 @@
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "A list of values that are currently selected."
                         },
                         {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "Array of values to be displayed in the component. It represents the data source for the list of items."
                         }
                     ]
                 },
@@ -22057,7 +22060,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "string",
                             "description": "Position of the tooltip."
                         },
                         {

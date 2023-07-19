@@ -71,6 +71,7 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 
 @Injectable()
 export class TableService {
@@ -1383,6 +1384,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this.filteredValue || this.value || [];
     }
 
+    private _initialColWidths: number[];
+
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
@@ -2473,7 +2476,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
+               this._initialColWidths = this._totalTableWidth();
                 let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+                
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
@@ -2492,18 +2497,25 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
     }
 
-    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
-        let widths: any[] = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datatable-thead');
+    private _totalTableWidth(): number[] {
+        let widths = [];
+        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+
+        return widths;
+    }
+
+   resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
 
         this.destroyStyleElement();
         this.createStyleElement();
 
+
         let innerHTML = '';
-        widths.forEach((width, index) => {
+        width.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
@@ -2514,7 +2526,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-
         this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
@@ -5502,7 +5513,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountUpAltIcon,
         SortAmountDownIcon,
         CheckIcon,
-        FilterIcon
+        FilterIcon,
+        FilterSlashIcon
     ],
     exports: [
         Table,

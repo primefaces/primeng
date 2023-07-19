@@ -20,7 +20,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
     /**
      * Event to show the tooltip.
      * @group Props
@@ -121,7 +121,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         appendTo: 'body',
         positionStyle: null,
         tooltipStyleClass: null,
-        tooltipZIndex: null,
+        tooltipZIndex: 'auto',
         escape: true,
         disabled: null,
         showDelay: null,

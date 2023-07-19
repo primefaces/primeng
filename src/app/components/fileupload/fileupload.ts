@@ -59,7 +59,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" />
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
                     <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon *ngIf="!chooseIconTemplate" />
+                        <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                         <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
@@ -177,7 +177,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() multiple: boolean | undefined;
     /**
-     * Pattern to restrict the allowed file types such as 'image/*'.
+     * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
      * @group Props
      */
     @Input() accept: string | undefined;
