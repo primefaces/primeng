@@ -914,9 +914,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlayVisible: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -1026,6 +1026,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.yearOptions = [this.currentYear, this.currentYear + 1, this.currentYear + 2];
         this.currentView = this.view;
 
         if (this.view === 'date') {
@@ -2898,12 +2899,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         let iFormat!: any;
         const lookAhead = (match: string) => {
-                const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
-                if (matches) {
-                    iFormat++;
-                }
-                return matches;
-            },
+            const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        },
             formatNumber = (match: string, value: any, len: any) => {
                 let num = '' + value;
                 if (lookAhead(match)) {
@@ -3390,4 +3391,4 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })
-export class CalendarModule {}
+export class CalendarModule { }
