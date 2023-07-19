@@ -634,9 +634,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     _suggestions: any;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     timeout: Nullable<any>;
 
@@ -675,6 +675,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     itemClicked: boolean | undefined;
 
     inputValue: Nullable<string> = null;
+
+    isSearching: boolean = false;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -742,6 +744,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             this.loading = false;
+            this.isSearching = false;
         }
     }
 
@@ -866,17 +869,19 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     search(event: any, query: string) {
-        //allow empty string but not undefined or null
-        if (query === undefined || query === null) {
-            return;
+        if (!this.isSearching) {
+            this.isSearching = true;
+            this.loading = true;
+
+            this.completeMethod.emit({
+                originalEvent: event,
+                query: query
+            });
+
+            setTimeout(() => {
+                this.isSearching = false;
+            }, 100);
         }
-
-        this.loading = true;
-
-        this.completeMethod.emit({
-            originalEvent: event,
-            query: query
-        });
     }
 
     selectItem(option: any, focus: boolean = true) {
@@ -961,15 +966,21 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.focusInput();
             let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
 
-            if (this.dropdownMode === 'blank') this.search(event, '');
-            else if (this.dropdownMode === 'current') this.search(event, queryValue);
-
-            this.onDropdownClick.emit({
-                originalEvent: event,
-                query: queryValue
-            });
+            if (this.dropdownMode === 'blank') {
+                this.onDropdownClick.emit({
+                    originalEvent: event,
+                    query: ''
+                });
+                this.search(event, '');
+            } else if (this.dropdownMode === 'current') {
+                this.onDropdownClick.emit({
+                    originalEvent: event,
+                    query: queryValue
+                });
+                this.search(event, queryValue);
+            }
         } else {
-            this.hide();
+            this.hide(event);
         }
     }
 
@@ -1258,4 +1269,4 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
-export class AutoCompleteModule {}
+export class AutoCompleteModule { }
