@@ -140,12 +140,14 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
+        const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
+        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
             left = (targetOffset.left - relativeElementOffset.left) * -1;
-        } else if (targetOffset.left - relativeElementOffset.left + elementDimensions.width > viewport.width) {
+        } else if (horizontalOverflow > 0) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
+            left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
         } else {
             // element fits on screen (align with target)
             left = targetOffset.left - relativeElementOffset.left;
@@ -478,7 +480,7 @@ export class DomHandler {
 
     public static appendChild(element: any, target: any) {
         if (this.isElement(target)) target.appendChild(element);
-        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 

@@ -32,7 +32,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { SpinnerIcon } from 'primeng/icons/spinner';
@@ -46,7 +46,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
-
+/**
+ * AutoComplete is an input component that provides real-time suggestions when being typed.
+ * @group Components
+ */
 @Component({
     selector: 'p-autoComplete',
     template: `
@@ -233,7 +236,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </p-overlay>
         </span>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -523,9 +525,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.handleSuggestionsChange();
     }
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Element dimensions of option for virtual scrolling.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get itemSize(): number {
         return this._itemSize as number;
@@ -941,10 +943,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.value = null;
         this.inputValue = null;
         if (this.multiple) {
-            this.multiInputEl.nativeElement.value = '';
+            (<ElementRef>this.multiInputEl).nativeElement.value = '';
         } else {
             this.inputValue = null;
-            (this.inputEL as ElementRef).nativeElement.value = '';
+            (<ElementRef>this.inputEL).nativeElement.value = '';
         }
 
         this.updateFilledState();
@@ -971,7 +973,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.cd.markForCheck();
     }
 
-    handleDropdownClick(event: MouseEvent) {
+    handleDropdownClick(event: Event) {
         if (!this.overlayVisible) {
             this.focusInput();
             let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
@@ -1154,7 +1156,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             let inputValue = target.value.trim();
 
             if (this.suggestions) {
-                for (let suggestion of this.suggestions) {
+                let suggestions = [...this.suggestions];
+                if (this.group) {
+                    let groupedSuggestions = this.suggestions.filter((s) => s[this.optionGroupChildren]).flatMap((s) => s[this.optionGroupChildren]);
+                    suggestions = suggestions.concat(groupedSuggestions);
+                }
+
+                for (let suggestion of suggestions) {
                     let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
                         valid = true;

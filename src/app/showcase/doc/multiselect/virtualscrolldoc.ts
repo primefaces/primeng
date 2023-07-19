@@ -33,9 +33,9 @@ export class VirtualScrollDoc {
 
     @Input() title: string;
 
-    virtualCountries: Country[];
+    virtualCountries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.virtualCountries = [];
@@ -80,9 +80,9 @@ interface Country {
     templateUrl: './multi-select-virtual-scroll-demo.html'
 })
 export class MultiSelectVirtualScrollDemo {
-    virtualCountries: Country[];
+    virtualCountries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.virtualCountries = []

@@ -5,6 +5,7 @@ import { TemplateRef } from '@angular/core';
  * Custom select event.
  * @see {@link Table.onRowSelect}
  * @extends {LazyLoadMeta}
+ * @group Events
  */
 export interface TableRowSelectEvent {
     /**
@@ -28,6 +29,7 @@ export interface TableRowSelectEvent {
  * Custom unselect event.
  * @see {@link Table.onRowUnselect}
  * @extends {TableRowSelectEvent}
+ * @group Events
  */
 export interface TableRowUnSelectEvent extends TableRowSelectEvent {}
 /**
@@ -47,6 +49,7 @@ export interface TablePageEvent {
 /**
  * Custom filter event.
  * @see {@link Table.onFilter}
+ * @group Events
  */
 export interface TableFilterEvent {
     /**
@@ -62,6 +65,7 @@ export interface TableFilterEvent {
  * Custom lazy load event.
  * @see {@link Table.onLazyLoad}
  * @extends {LazyLoadMeta}
+ * @group Events
  */
 export interface TableLazyLoadEvent extends LazyLoadMeta {
     /**
@@ -76,6 +80,7 @@ export interface TableLazyLoadEvent extends LazyLoadMeta {
 /**
  * Custom row expand event.
  * @see {@link Table.onRowExpand}
+ * @group Events
  */
 export interface TableRowExpandEvent {
     /**
@@ -91,11 +96,13 @@ export interface TableRowExpandEvent {
  * Custom row collapse event.
  * @see {@link Table.onRowCollapse}
  * @extends {TableRowExpandEvent}
+ * @group Events
  */
 export interface TableRowCollapseEvent extends TableRowExpandEvent {}
 /**
  * Custom context menu select event.
  * @see {@link Table.onContextMenuSelect}
+ * @group Events
  */
 export interface TableContextMenuSelectEvent {
     /**
@@ -114,6 +121,7 @@ export interface TableContextMenuSelectEvent {
 /**
  * Custom context menu selection change event.
  * @see {@link Table.contextMenuSelectionChange}
+ * @group Events
  */
 export interface TableContextMenuSelectionChangeEvent {
     /**
@@ -124,6 +132,7 @@ export interface TableContextMenuSelectionChangeEvent {
 /**
  * Custom column resize event.
  * @see {@link Table.onColResize}
+ * @group Events
  */
 export interface TableColResizeEvent {
     /**
@@ -138,6 +147,7 @@ export interface TableColResizeEvent {
 /**
  * Custom column reorder event.
  * @see {@link Table.onColReorder}
+ * @group Events
  */
 export interface TableColumnReorderEvent {
     /**
@@ -156,6 +166,7 @@ export interface TableColumnReorderEvent {
 /**
  * Custom row reorder event.
  * @see {@link Table.onRowReorder}
+ * @group Events
  */
 export interface TableRowReorderEvent {
     /**
@@ -169,6 +180,7 @@ export interface TableRowReorderEvent {
 }
 /**
  * Custom edit event.
+ * @group Events
  */
 export interface TableEditEvent {
     /**
@@ -183,6 +195,7 @@ export interface TableEditEvent {
 /**
  * Custom edit init event.
  * @see {@link Table.onEditInit}
+ * @group Events
  */
 export interface TableEditInitEvent extends TableEditEvent {
     /**
@@ -193,6 +206,7 @@ export interface TableEditInitEvent extends TableEditEvent {
 /**
  * Custom edit cancel event.
  * @see {@link Table.onEditCancel}
+ * @group Events
  */
 export interface TableEditCancelEvent extends TableEditEvent {
     /**
@@ -207,11 +221,13 @@ export interface TableEditCancelEvent extends TableEditEvent {
 /**
  * Custom edit complete event.
  * @see {@link Table.onEditComplete}
+ * @group Events
  */
 export interface TableEditCompleteEvent extends TableEditCancelEvent {}
 /**
  * Custom checkbox toggle event.
  * @see {@link Table.onHeaderCheckboxToggle}
+ * @group Events
  */
 export interface TableHeaderCheckboxToggleEvent {
     /**
@@ -226,6 +242,7 @@ export interface TableHeaderCheckboxToggleEvent {
 /**
  * Custom all selection change event.
  * @see {@link Table.selectAllChange}
+ * @group Events
  */
 export interface TableSelectAllChangeEvent {
     /**
@@ -245,12 +262,33 @@ export interface TableTemplates {
     /**
      * Custom caption template.
      */
-    caption: TemplateRef<any>;
+    caption(): TemplateRef<any>;
     /**
      * Custom grouped header template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    headergrouped: TemplateRef<TableRowContext>;
+    headergrouped(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom grouped header template.
      * @param {Object} context - header data.
@@ -277,9 +315,18 @@ export interface TableTemplates {
     }): TemplateRef<{ $implicit: any; frozen: boolean }>;
     /**
      * Custom loading body template.
-     * @param {TableLoadingBodyContext} context - loading body data.
+     * @param {Object} context - loading body data.
      */
-    loadingbody: TemplateRef<TableLoadingBodyContext>;
+    loadingbody(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+    }): TemplateRef<any>;
     /**
      * Custom footer template.
      * @param {Object} context - footer data.
@@ -313,47 +360,136 @@ export interface TableTemplates {
     /**
      * Custom summary template.
      */
-    summary: TemplateRef<any>;
+    summary(): TemplateRef<any>;
     /**
      * Custom expanded row template.
-     * @param {TableExpandedRowContext} context - expanded row data.
+     * @param {Object} context - expanded row data.
      */
-    rowexpansion: TemplateRef<TableExpandedRowContext>;
+    rowexpansion(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+        /**
+         * Expanded state.
+         */
+        expanded: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom group header template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    groupheader: TemplateRef<TableRowContext>;
+    groupheader(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom group footer template.
      * @param {TableRowContext} context - row data.
      */
-    groupfooter: TemplateRef<TableRowContext>;
+    groupfooter(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom frozen header template.
      * @param {*} context - columns.
      */
-    frozenheader: TemplateRef<{ $implicit: any[] }>;
+    frozenheader(): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen body template.
-     * @param {TableRowContext} context - row data.
+     * @param {Object} context - row data.
      */
-    frozenbody: TemplateRef<TableRowContext>;
+    frozenbody(context: {
+        /**
+         * Row data.
+         */
+        $implicit?: any;
+        /**
+         * Row index.
+         */
+        rowIndex?: number;
+        /**
+         * Columns.
+         */
+        columns?: any[];
+        /**
+         * Editing state.
+         */
+        editing?: boolean;
+        /**
+         * Frozen state.
+         */
+        frozen?: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom frozen footer template.
      * @param {*} context - columns.
      */
-    frozenfooter: TemplateRef<{ $implicit: any[] }>;
+    frozenfooter(): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen column group template.
      * @param {*} context - columns.
      */
-    frozencolgroup: TemplateRef<{ $implicit: any[] }>;
+    frozencolgroup(): TemplateRef<{ $implicit: any[] }>;
     /**
      * Custom frozen expanded row template.
-     * @param {*} context - row data.
+     * @param {Object} context - row data.
      */
-    frozenrowexpansion: TemplateRef<TableExpandedRowContext>;
+    frozenrowexpansion(context: {
+        /**
+         * Row span.
+         */
+        rowspan?: number;
+        /**
+         * Row group.
+         */
+        rowgroup?: number;
+        /**
+         * Expanded state.
+         */
+        expanded: boolean;
+    }): TemplateRef<any>;
     /**
      * Custom empty message template.
      */
@@ -370,43 +506,43 @@ export interface TableTemplates {
     /**
      * Custom paginator left template.
      */
-    paginatorleft: TemplateRef<any>;
+    paginatorleft(): TemplateRef<any>;
     /**
      * Custom paginator right template.
      */
-    paginatorright: TemplateRef<any>;
+    paginatorright(): TemplateRef<any>;
     /**
      * Custom paginator dropdown item template.
      */
-    paginatordropdownitem: TemplateRef<any>;
+    paginatordropdownitem(): TemplateRef<any>;
     /**
      * Custom paginator first page link icon template.
      */
-    paginatorfirstpagelinkicon: TemplateRef<any>;
+    paginatorfirstpagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginator last page link icon template.
      */
-    paginatorlastpagelinkicon: TemplateRef<any>;
+    paginatorlastpagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginator previous page link icon template.
      */
-    paginatorpreviouspagelinkicon: TemplateRef<any>;
+    paginatorpreviouspagelinkicon(): TemplateRef<any>;
     /**
      * Custom paginator next page link icon template.
      */
-    paginatornextpagelinkicon: TemplateRef<any>;
+    paginatornextpagelinkicon(): TemplateRef<any>;
     /**
      * Custom loading icon template.
      */
-    loadingicon: TemplateRef<any>;
+    loadingicon(): TemplateRef<any>;
     /**
      * Custom reorder indicator up icon template.
      */
-    reorderindicatorupicon: TemplateRef<any>;
+    reorderindicatorupicon(): TemplateRef<any>;
     /**
      * Custom reorder indicator down icon template.
      */
-    reorderindicatordownicon: TemplateRef<any>;
+    reorderindicatordownicon(): TemplateRef<any>;
     /**
      * Custom sort icon template.
      */
@@ -440,49 +576,4 @@ export interface TableTemplates {
          */
         $implicit: boolean;
     }): TemplateRef<{ $implicit: boolean }>;
-}
-/**
- * Data of the header template.
- */
-export interface TableRowContext {
-    /**
-     * Row data.
-     */
-    $implicit?: any;
-    /**
-     * Row index.
-     */
-    rowIndex?: number;
-    /**
-     * Columns.
-     */
-    columns?: any[];
-    /**
-     * Editing state.
-     */
-    editing?: boolean;
-    /**
-     * Frozen state.
-     */
-    frozen?: boolean;
-}
-/**
- * Data of the loading body template.
- */
-export interface TableLoadingBodyContext extends TableRowContext {
-    /**
-     * Row span.
-     */
-    rowspan?: number;
-    /**
-     * Row group.
-     */
-    rowgroup?: number;
-}
-
-export interface TableExpandedRowContext extends TableRowContext {
-    /**
-     * Expanded state.
-     */
-    expanded: boolean;
 }

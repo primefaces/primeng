@@ -10,9 +10,6 @@ import { ShapeDoc } from '../../doc/avatar/shapedoc';
 import { SizeDoc } from '../../doc/avatar/sizedoc';
 import { BadgeDoc } from '../../doc/avatar/badgedoc';
 import { TemplateDoc } from '../../doc/avatar/templatedoc';
-import { AvatarPropsDoc } from '../../doc/avatar/avatarpropsdoc';
-import { AvatarGroupPropsDoc } from '../../doc/avatar/avatargrouppropsdoc';
-import { EventsDoc } from '../../doc/avatar/eventsdoc';
 import { AccessibilityDoc } from '../../doc/avatar/accessibilitydoc';
 
 @Component({
@@ -79,24 +76,6 @@ export class AvatarDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'avatarprops',
-            label: 'Properties of Avatar',
-            component: AvatarPropsDoc
-        },
-        {
-            id: 'avatargroupprops',
-            label: 'Properties of AvatarGroup',
-            component: AvatarGroupPropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

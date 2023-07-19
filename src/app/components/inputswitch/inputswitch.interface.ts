@@ -2,6 +2,7 @@ import { InputSwitch } from './inputswitch';
 /**
  * Custom change event.
  * @see {@link InputSwitch.onChange}
+ * @group Events
  */
 export interface InputSwitchOnChangeEvent {
     /**

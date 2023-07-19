@@ -26,9 +26,9 @@ export class MultipleDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -64,9 +64,9 @@ interface City {
     templateUrl: './listbox-multiple-demo.html'
 })
 export class ListboxMultipleDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
     
     ngOnInit() {
         this.cities = [

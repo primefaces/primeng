@@ -3,7 +3,6 @@ import { ImportDoc } from '../../doc/progressspinner/importdoc';
 import { BasicDoc } from '../../doc/progressspinner/basicdoc';
 import { StyleDoc } from '../../doc/progressspinner/styledoc';
 import { TemplateDoc } from '../../doc/progressspinner/templatedoc';
-import { PropsDoc } from '../../doc/progressspinner/propsdoc';
 import { AccessibilityDoc } from '../../doc/progressspinner/accessibilitydoc';
 
 @Component({
@@ -36,14 +35,6 @@ export class ProgressSpinnerDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

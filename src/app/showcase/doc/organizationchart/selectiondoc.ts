@@ -29,7 +29,7 @@ export class SelectionDoc {
 
     @Input() title: string;
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
     data: TreeNode[] = [
         {
@@ -113,7 +113,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './organization-chart-selection-demo.html',
 })
 export class OrganizationChartSelectionDemo {
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
     data: TreeNode[] = [
         {

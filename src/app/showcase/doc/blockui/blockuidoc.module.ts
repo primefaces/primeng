@@ -10,12 +10,11 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DocumentDoc } from './documentdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, PanelModule, ButtonModule, BlockUIModule],
-    declarations: [ImportDoc, BasicDoc, DocumentDoc, StyleDoc, PropsDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, DocumentDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class BlockUIDocModule {}

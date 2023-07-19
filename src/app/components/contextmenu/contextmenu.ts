@@ -241,6 +241,10 @@ export class ContextMenuSub {
     }
 }
 
+/**
+ * ContextMenu displays an overlay menu on right click of its target. Note that components like Table has special integration with ContextMenu.
+ * @group Components
+ */
 @Component({
     selector: 'p-contextMenu',
     template: `
@@ -305,12 +309,12 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
      * Displays the popup menu.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Hides the popup menu.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
@@ -342,7 +346,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
         if (this.global) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
             this.triggerEventListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
-                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                if (this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
                     this.hide();
                 }
                 this.show(event);
@@ -350,7 +354,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
             });
         } else if (this.target) {
             this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
-                if(this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
+                if (this.containerViewChild && this.containerViewChild.nativeElement.style.display !== 'none') {
                     this.hide();
                 }
                 this.show(event);

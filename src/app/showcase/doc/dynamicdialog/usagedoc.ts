@@ -17,7 +17,7 @@ export class UsageDoc {
 
     @Input() title: string;
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}
 
@@ -34,7 +34,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo implements OnDestroy {
     
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}
 }`

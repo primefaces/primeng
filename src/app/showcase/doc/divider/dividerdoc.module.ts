@@ -11,7 +11,6 @@ import { BasicDoc } from './basicdoc';
 import { ContentDoc } from './contentdoc';
 import { ImportDoc } from './importdoc';
 import { LoginDoc } from './logindoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { TypeDoc } from './typedoc';
 import { VerticalDoc } from './verticaldoc';
@@ -19,6 +18,6 @@ import { VerticalDoc } from './verticaldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, DividerModule, ButtonModule, InputTextModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TypeDoc, ContentDoc, VerticalDoc, LoginDoc, StyleDoc, PropsDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, TypeDoc, ContentDoc, VerticalDoc, LoginDoc, StyleDoc, AccessibilityDoc]
 })
 export class DividerDocModule {}

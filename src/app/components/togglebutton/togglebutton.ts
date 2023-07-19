@@ -11,7 +11,10 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ToggleButton),
     multi: true
 };
-
+/**
+ * ToggleButton is used to select a boolean value using a button.
+ * @group Components
+ */
 @Component({
     selector: 'p-toggleButton',
     template: `
@@ -95,7 +98,7 @@ export class ToggleButton implements ControlValueAccessor {
     @Input() iconPos: 'left' | 'right' = 'left';
     /**
      * Callback to invoke on value change.
-     * @param {ToggleButtonChangeEvent} event - Browser event.
+     * @param {ToggleButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();

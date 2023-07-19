@@ -37,6 +37,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputNumber),
     multi: true
 };
+/**
+ * InputNumber is an input component to provide numerical input.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputNumber',
     template: `

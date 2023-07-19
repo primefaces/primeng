@@ -12,7 +12,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Checkbox),
     multi: true
 };
-
+/**
+ * Checkbox is an extension to standard checkbox element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-checkbox',
     template: `
@@ -71,7 +74,7 @@ export class Checkbox implements ControlValueAccessor {
      * Value of the checkbox.
      * @group Props
      */
-    @Input() value: string | object | boolean | undefined | null;
+    @Input() value: any;
     /**
      * Name of the checkbox group.
      * @group Props
@@ -159,7 +162,7 @@ export class Checkbox implements ControlValueAccessor {
     @Input() falseValue: any = false;
     /**
      * Callback to invoke on value change.
-     * @param {CheckboxChangeEvent} event - Browser event.
+     * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();

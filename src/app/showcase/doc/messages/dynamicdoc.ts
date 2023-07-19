@@ -21,7 +21,7 @@ export class DynamicDoc {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     addMessages() {
         this.messages = [
@@ -56,7 +56,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-dynamic-demo.html'
 })
 export class MessagesDynamicDemo {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     addMessages() {
         this.messages = [

@@ -8,5 +8,5 @@ export interface SpeedDialTemplates {
     /**
      * Custom template of button.
      */
-    button: TemplateRef<any> | null;
+    button(): TemplateRef<any>;
 }

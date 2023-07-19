@@ -1,7 +1,7 @@
 {
-    "id": 55,
-    "content": "Summer Sale - Up to 50% Off at PrimeStore",
-    "linkText": "Buy Now",
+    "id": 56,
+    "content": "PrimeNG v16.0.1 is out now!",
+    "linkText": "Learn More",
     "linkHref": "https://www.primefaces.org/store",
     "backgroundStyle": "background-color:#3B82F6",
     "textStyle": "color:#ffffff;font-weight:500",

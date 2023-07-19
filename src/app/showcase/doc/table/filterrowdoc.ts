@@ -117,11 +117,11 @@ export class FilterRowDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -134,7 +134,7 @@ export class FilterRowDoc implements OnInit {
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
 
             this.cd.markForCheck();
         });
@@ -166,7 +166,7 @@ export class FilterRowDoc implements OnInit {
         table.clear();
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -387,11 +387,11 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-filter-row-demo.html'
 })
 export class TableFilterRowDemo implements OnInit {
-    customers: Customer[];
+    customers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -404,7 +404,7 @@ export class TableFilterRowDemo implements OnInit {
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
         });
 
         this.representatives = [
@@ -434,7 +434,7 @@ export class TableFilterRowDemo implements OnInit {
         table.clear();
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

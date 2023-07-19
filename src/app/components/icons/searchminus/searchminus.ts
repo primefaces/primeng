@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseIcon } from 'primeng/baseicon';
+import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
     selector: 'SearchMinusIcon',
@@ -7,7 +8,7 @@ import { BaseIcon } from 'primeng/baseicon';
     imports: [BaseIcon],
     template: `
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" [attr.aria-label]="ariaLabel" [attr.aria-hidden]="ariaHidden" [attr.role]="role" [class]="getClassNames()">
-            <g clip-path="url(#clip0_417_21152)">
+            <g [attr.clip-path]="pathId">
                 <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -16,11 +17,17 @@ import { BaseIcon } from 'primeng/baseicon';
                 />
             </g>
             <defs>
-                <clipPath id="clip0_417_21152">
+                <clipPath [id]="pathId">
                     <rect width="14" height="14" fill="white" />
                 </clipPath>
             </defs>
         </svg>
     `
 })
-export class SearchMinusIcon extends BaseIcon {}
+export class SearchMinusIcon extends BaseIcon {
+    pathId: string;
+
+    ngOnInit() {
+        this.pathId = 'url(#' + UniqueComponentId() + ')';
+    }
+}

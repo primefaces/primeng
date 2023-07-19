@@ -52,11 +52,11 @@ export class ColumnGroupDoc {
 
     @Input() title: string;
 
-    sales: any[];
+    sales!: any[];
 
-    lastYearTotal: number;
+    lastYearTotal!: number;
 
-    thisYearTotal: number;
+    thisYearTotal!: number;
 
     constructor(private cd: ChangeDetectorRef) {}
 
@@ -179,11 +179,11 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: 'table-column-group-demo.html'
 })
 export class TableColumnGroupDemo implements OnInit {
-    sales: any[];
+    sales!: any[];
 
-    lastYearTotal: number;
+    lastYearTotal!: number;
 
-    thisYearTotal: number;
+    thisYearTotal!: number;
 
     ngOnInit() {
         this.sales = [

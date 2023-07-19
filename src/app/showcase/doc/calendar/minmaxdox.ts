@@ -18,11 +18,11 @@ export class MinMaxDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date: Date | undefined;
 
-    minDate: Date;
+    minDate: Date | undefined;
 
-    maxDate: Date;
+    maxDate: Date | undefined;
 
     ngOnInit() {
         let today = new Date();
@@ -57,11 +57,11 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './calendar-minmax-demo.html'
 })
 export class CalendarMinmaxDemo implements OnInit {        
-    date: Date;
+    date: Date | undefined;
     
-    minDate: Date;
+    minDate: Date | undefined;
 
-    maxDate: Date;
+    maxDate: Date | undefined;
 
     ngOnInit() {
         let today = new Date();

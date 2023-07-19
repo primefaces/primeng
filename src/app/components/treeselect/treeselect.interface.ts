@@ -4,6 +4,7 @@ import { TreeSelect } from './treeselect';
 /**
  * Custom node collapse event.
  * @see {@link TreeSelect.onNodeCollapse}
+ * @group Events
  */
 export interface TreeSelectNodeCollapseEvent {
     /**
@@ -18,6 +19,7 @@ export interface TreeSelectNodeCollapseEvent {
 /**
  * Custom node expand event.
  * @see {@link TreeSelect.onNodeExpand}
+ * @group Events
  */
 export interface TreeSelectNodeExpandEvent extends TreeSelectNodeCollapseEvent {}
 /**
@@ -33,12 +35,12 @@ export interface TreeSelectTemplates {
         /**
          * Value of the component.
          */
-        $implicit: TreeNode | null;
+        $implicit: TreeNode<any> | null;
         /**
          * Placeholder of the component.
          */
         placeholder: string;
-    }): TemplateRef<{ $implicit: TreeNode | null; placeholder: string }>;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null; placeholder: string }>;
     /**
      * Custom header template.
      * @param {Object} context - header data.
@@ -47,36 +49,36 @@ export interface TreeSelectTemplates {
         /**
          * Value of the component.
          */
-        $implicit: TreeNode | null | undefined;
+        $implicit: TreeNode<any> | null | undefined;
         /**
          * Placeholder of the component.
          */
-        options: TreeNode[] | undefined;
-    }): TemplateRef<{ $implicit: TreeNode | null; options: TreeNode[] | null | undefined }>;
+        options: TreeNode<any>[] | undefined;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null; options: TreeNode[] | null | undefined }>;
     /**
      * Custom empty template.
      */
-    empty: TemplateRef<any>;
+    empty(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom clear icon template.
      */
-    clearicon: TemplateRef<any>;
+    clearicon(): TemplateRef<any>;
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon: TemplateRef<any>;
+    triggericon(): TemplateRef<any>;
     /**
      * Custom filter icon template.
      */
-    filtericon: TemplateRef<any>;
+    filtericon(): TemplateRef<any>;
     /**
      * Custom close icon template.
      */
-    closeicon: TemplateRef<any>;
+    closeicon(): TemplateRef<any>;
     /**
      * Custom node toggler template.
      * @param {Object} context - toggler icon data.
@@ -86,13 +88,13 @@ export interface TreeSelectTemplates {
          * Expanded state of the node.
          */
         $implicit: boolean;
-    }): TemplateRef<{ $implicit: TreeNode | null }>;
+    }): TemplateRef<{ $implicit: TreeNode<any> | null }>;
     /**
      * Custom node checkbox icon template.
      */
-    itemcheckboxicon: TemplateRef<any>;
+    itemcheckboxicon(): TemplateRef<any>;
     /**
      * Custom loading icon template.
      */
-    itemloadingicon: TemplateRef<any>;
+    itemloadingicon(): TemplateRef<any>;
 }

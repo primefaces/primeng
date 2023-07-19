@@ -31,9 +31,9 @@ export class GroupDoc {
 
     @Input() title: string;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     constructor() {
         this.groupedCities = [
@@ -107,9 +107,9 @@ interface Country {
     templateUrl: './listbox-group-demo.html'
 })
 export class ListboxGroupDemo {
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     constructor() {
         this.groupedCities = [

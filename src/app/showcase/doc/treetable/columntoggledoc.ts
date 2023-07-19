@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'column-toggle-doc',
     template: ` <section>
@@ -41,11 +46,11 @@ export class ColumnToggleDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -117,16 +122,21 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-column-toggle-demo',
     templateUrl: './tree-table-column-toggle-demo.html'
 })
 export class TreeTableColumnToggleDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

@@ -8,9 +8,9 @@ export interface SlideMenuTemplates {
     /**
      * Custom template of backicon.
      */
-    backicon: TemplateRef<any> | null;
+    backicon(): TemplateRef<any>;
     /**
      * Custom template of submenuicon.
      */
-    submenuicon: TemplateRef<any> | null;
+    submenuicon(): TemplateRef<any>;
 }

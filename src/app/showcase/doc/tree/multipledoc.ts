@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'multiple-doc',
@@ -33,9 +33,9 @@ export class MultipleDoc implements OnInit {
 
     metaKeySelection: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFiles: TreeNode[];
+    selectedFiles!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -72,9 +72,9 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeMultipleDemo implements OnInit {
     metaKeySelection: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFiles: TreeNode[];
+    selectedFiles!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
