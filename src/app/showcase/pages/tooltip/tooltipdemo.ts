@@ -27,7 +27,7 @@ export class TooltipDemo {
         },
         {
             id: 'template',
-            label: 'Tooltip Template',
+            label: 'Template',
             component: TemplateDoc
         },
         {
