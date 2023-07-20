@@ -214,9 +214,6 @@ export class PanelMenuSub extends BasePanelMenuItem {
     }
 
     isItemFocused(processedItem) {
-        if(processedItem.label === 'New' ) {
-            console.log(ObjectUtils.equals(processedItem, this.focusedItem), processedItem, this.focusedItem)
-        }
         return ObjectUtils.equals(processedItem, this.focusedItem);
     }
 
