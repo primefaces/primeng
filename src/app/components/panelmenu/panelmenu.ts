@@ -32,13 +32,23 @@ export class BasePanelMenuItem {
         if (item.expanded) {
             activeItemPath.push(item);
             this.activeItem.set(item);
+            let visibleItems;
 
-            const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-            console.log(visibleItems);
+            // if(item.level === 0) {
+            //     visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
+            // }
+            // if(item.level !== 0) {
+                if(!this.visibleItems()) {
+                    this.visibleItems.set(this.activeItem().items)
+                }
+                const itemIndex = this.visibleItems().findIndex(item => item.key === this.activeItem().key);
+                visibleItems = [...this.visibleItems().slice(0, itemIndex +1 ), ...this.activeItem().items, ...this.visibleItems().slice(itemIndex + 1)];
+            // }
             this.visibleItems.set(visibleItems);
         } else {
             this.activeItem.set(null);
-            this.visibleItems.set(null);
+            // this.visibleItems.set(null);
+
         }
         // this.focusedItem.set(item);
         // console.log('visibleItems', this.visibleItems())
@@ -78,7 +88,7 @@ export class BasePanelMenuItem {
                     class="p-menuitem"
                     role="treeitem"
                     [attr.aria-label]="getItemProp(child, 'label')"
-                    [attr.aria-expanded]="isItemGroup(child) ? isItemActive(child) : undefined"
+                    [attr.aria-expanded]="child.expanded"
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
@@ -89,7 +99,7 @@ export class BasePanelMenuItem {
                     pTooltip
                     [tooltipOptions]="child.tooltipOptions"
                 >
-                    <div class="p-menuitem-content" (click)="handleClick($event, child)" (keydown)="onItemKeyDown($event)">
+                    <div class="p-menuitem-content" (click)="handleClick($event, child)" (keydown.enter)="onItemKeyDown($event, child)" (keydown.space)="onItemKeyDown($event, child)">
                         <a
                             *ngIf="!getItemProp(child, 'routerLink')"
                             [attr.href]="getItemProp(child, 'url')"
@@ -101,8 +111,8 @@ export class BasePanelMenuItem {
                         >
                             <ng-container *ngIf="isItemGroup(child)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(child)" [ngStyle]="getItemProp(child, 'iconStyle')" />
-                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(child)" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="child.expanded" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!child.expanded" [ngStyle]="getItemProp(child, 'iconStyle')" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
@@ -132,8 +142,8 @@ export class BasePanelMenuItem {
                         >
                             <ng-container *ngIf="isItemGroup(child)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                    <AngleDownIcon *ngIf="isItemActive(child)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
-                                    <AngleRightIcon *ngIf="!isItemActive(child)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
@@ -204,6 +214,9 @@ export class PanelMenuSub extends BasePanelMenuItem {
     }
 
     isItemFocused(processedItem) {
+        if(processedItem.label === 'New' ) {
+            console.log(ObjectUtils.equals(processedItem, this.focusedItem), processedItem, this.focusedItem)
+        }
         return ObjectUtils.equals(processedItem, this.focusedItem);
     }
 
@@ -243,24 +256,6 @@ export class PanelMenuSub extends BasePanelMenuItem {
 
     constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
         super(ref);
-    }
-
-    onItemKeyDown(event: KeyboardEvent) {
-        let listItem = event.currentTarget as HTMLElement;
-
-        switch (event.code) {
-            case 'Space':
-            case 'Enter':
-                if (listItem && !DomHandler.hasClass(listItem, 'p-disabled')) {
-                    listItem.click();
-                }
-
-                event.preventDefault();
-                break;
-
-            default:
-                break;
-        }
     }
 
     getAnimation() {
@@ -410,22 +405,22 @@ export class PanelMenuSub extends BasePanelMenuItem {
 export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     onHeaderFocus(event, item, index) {
         // const visibleItems = this.visibleItems();
-        let visibleItems = this.visibleItems();
+        // let visibleItems = this.visibleItems();
 
-        if (visibleItems && visibleItems.length > 0 && item.expanded) {
-            this.visibleItems.set(item.items);
-        }
+        // if (visibleItems && visibleItems.length > 0 && item.expanded) {
+        //     this.visibleItems.set(item.items);
+        // }
         this.focusedItem.set(null);
     }
 
     onHeaderBlur(event, item, index) {
         // console.log(event)
-        if (!this.isElementInPanel(event, event.relatedTarget)) {
-            const prevActivePanel = this.findPreviousExpandedPanel(index);
-            if (index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length) {
-                this.visibleItems.set(prevActivePanel.items);
-            }
-        }
+        // if (!this.isElementInPanel(event, event.relatedTarget)) {
+        //     const prevActivePanel = this.findPreviousExpandedPanel(index);
+        //     if (index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length) {
+        //         this.visibleItems.set(prevActivePanel.items);
+        //     }
+        // }
     }
 
     findPreviousExpandedPanel(index) {
@@ -444,6 +439,56 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         }
     }
 
+    searchValue: string = '';
+    searchTimeout: any;
+    
+    isItemMatched(processedItem) {
+        return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+    }
+
+    searchItems(event, char) {
+        this.searchValue = (this.searchValue || '') + char;
+
+        let matchedItem = null;
+        let matched = false;
+
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
+
+            matchedItem = this.visibleItems().slice(focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = ObjectUtils.isEmpty(matchedItem) ? this.visibleItems().slice(0, focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem)) : matchedItem;
+        } else {
+            matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
+        }
+
+        if (ObjectUtils.isNotEmpty(matchedItem)) {
+            matched = true;
+        }
+
+        if (ObjectUtils.isEmpty(matchedItem) && ObjectUtils.isEmpty(this.focusedItem)) {
+            matchedItem = this.findFirstMenuItem();
+        }
+
+        if (ObjectUtils.isNotEmpty(matchedItem)) {
+            this.changeFocusedMenuItem({
+                originalEvent: event,
+                processedItem: matchedItem,
+                allowHeaderFocus: false
+            });
+        }
+
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        this.searchTimeout = setTimeout(() => {
+            this.searchValue = '';
+            this.searchTimeout = null;
+        }, 500);
+
+        return matched;
+    }
+
     onMenuKeyDown(event) {
         // console.log('menukeydown')
         const metaKey = event.metaKey || event.ctrlKey;
@@ -460,13 +505,67 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
             case 'ArrowRight':
                 this.onMenuArrowRighKey(event);
                 break;
+
+            case 'Home':
+                this.onMenuHomeKey(event);
+                break;
+
+            case 'End':
+                this.onMenuEndKey(event);
+                break;
+
+            case 'Space':
+                this.onMenuSpaceKey(event);
+                break;
+
+            case 'Enter':
+                this.onMenuEnterKey(event);
+                break;
+
+            
+            case 'Escape':
+            case 'Tab':
+            case 'PageDown':
+            case 'PageUp':
+            case 'Backspace':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+                //NOOP
+                break;
+
+            default:
+                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                    this.searchItems(event, event.key);
+                }
+
+                break;
         }
     }
 
+    onMenuEnterKey(event) {
+        super.handleClick(event, this.focusedItem())
+
+        event.preventDefault();
+    }  
+
+    onMenuSpaceKey(event) {
+        this.onMenuEnterKey(event);
+    }
+
+    onMenuHomeKey(event) {
+        this.changeFocusedMenuItem({ originalEvent: event, processedItem: this.findFirstMenuItem(), allowHeaderFocus: false });
+        event.preventDefault();
+    }
+
+    onMenuEndKey(event) {
+        this.changeFocusedMenuItem({ originalEvent: event, processedItem: this.findLastMenuItem(), focusOnNext: true, allowHeaderFocus: false });
+        event.preventDefault();
+    }
+
     onMenuArrowUpKey(event) {
-        console.log(event);
 
         const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
+        // console.log(processedItem)
         this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
         event.preventDefault();
     }
@@ -483,9 +582,8 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
             const grouped = this.isItemGroup(this.focusedItem());
 
             if (grouped) {
-                super.handleClick(event, this.focusedItem());
+                
                 const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
-
                 if (matched) {
                     this.onMenuArrowDownKey(event);
                 } else {
@@ -496,6 +594,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                 }
             }
 
+            super.handleClick(event, this.focusedItem());
             event.preventDefault();
         }
     }
@@ -508,19 +607,16 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                       .slice(index + 1)
                       .find((pItem) => this.isValidItem(pItem))
                 : undefined;
-
         return matchedItem || processedItem;
     }
 
     findPrevMenuItem(processedItem) {
         const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
         const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
-
         return matchedItem || processedItem;
     }
 
     findFirstMenuItem() {
-        // console.log('findFirstMenu', this.visibleItems())
         return this.visibleItems().find((processedItem) => this.isValidItem(processedItem));
     }
 
@@ -529,7 +625,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
         if (ObjectUtils.isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
             this.focusedItem.set(processedItem);
-
             // this.scrollInView();
         } else if (allowHeaderFocus) {
             this.updateFocusedHeader({ originalEvent, focusOnNext, selfCheck });
@@ -558,12 +653,34 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     focusedItem = signal<any>(null);
 
-    onMenuFocus(event, items) {
-        this.visibleItems.set(items);
 
+    onMenuFocus(event, items) {
+        let newItems = this.changeVisibleItems(items);
+
+        this.visibleItems.set(newItems)
         const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstMenuItem() : this.findLastMenuItem());
 
         this.focusedItem.set(focusedItem);
+    }
+
+    changeVisibleItems(items) {
+        let updated = [];
+
+        items.forEach(item => {
+            if (!item.expanded) {
+                updated.push(item);
+            } 
+            else {
+                let itemCopy = {...item};
+                delete itemCopy.items;
+                updated.push(itemCopy);
+                if (Array.isArray(item.items)) {
+                    updated.push(...this.changeVisibleItems(item.items));
+                }
+            }
+        });
+    
+        return updated;
     }
 
     findLastMenuItem() {
@@ -580,7 +697,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         if (!this.isElementInPanel(event, event.relatedTarget)) {
             // console.log(this.focusedItem())
         }
-        this.focusedItem.set(null);
+        // this.focusedItem.set(null);
     }
 
     _processedItems: any[];
