@@ -28,17 +28,16 @@ export class BasePanelMenuItem {
 
         item.expanded = !item.expanded;
 
-        const activeItemPath = this.activeItemPath().filter(p => p.parentKey !== item.parentKey);
-        if(item.expanded) {
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
+        if (item.expanded) {
             activeItemPath.push(item);
             this.activeItem.set(item);
 
-            // const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-            // this.visibleItems.set(visibleItems);
-
-        }
-        else {
-            this.activeItem.set(null)
+            const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
+            console.log(visibleItems);
+            this.visibleItems.set(visibleItems);
+        } else {
+            this.activeItem.set(null);
             this.visibleItems.set(null);
         }
         // this.focusedItem.set(item);
@@ -62,9 +61,9 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul 
-            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root, 'p-submenu-expanded': expanded }" 
-            [@submenu]="getAnimation()" 
+        <ul
+            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root, 'p-submenu-expanded': expanded }"
+            [@submenu]="getAnimation()"
             role="tree"
             [tabindex]="-1"
             [attr.data-pc-section]="'menu'"
@@ -74,8 +73,8 @@ export class BasePanelMenuItem {
         >
             <ng-template ngFor let-child let-index="index" [ngForOf]="item?.items">
                 <li *ngIf="child.separator" class="p-menu-separator" role="separator"></li>
-                <li 
-                    *ngIf="!child.separator" 
+                <li
+                    *ngIf="!child.separator"
                     class="p-menuitem"
                     role="treeitem"
                     [attr.aria-label]="getItemProp(child, 'label')"
@@ -83,18 +82,14 @@ export class BasePanelMenuItem {
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngClass]="child.styleClass" 
-                    [class.p-hidden]="child.visible === false" 
+                    [ngClass]="child.styleClass"
+                    [class.p-hidden]="child.visible === false"
                     [class.p-focus]="isItemFocused(child)"
-                    [ngStyle]="child.style" 
-                    pTooltip 
+                    [ngStyle]="child.style"
+                    pTooltip
                     [tooltipOptions]="child.tooltipOptions"
                 >
-                    <div 
-                        class="p-menuitem-content"
-                        (click)="handleClick($event, child)" 
-                        (keydown)="onItemKeyDown($event)"
-                    >
+                    <div class="p-menuitem-content" (click)="handleClick($event, child)" (keydown)="onItemKeyDown($event)">
                         <a
                             *ngIf="!getItemProp(child, 'routerLink')"
                             [attr.href]="getItemProp(child, 'url')"
@@ -148,12 +143,12 @@ export class BasePanelMenuItem {
                             <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="getItemProp(child, 'badgeStyleClass')">{{ getItemProp(child, 'badge') }}</span>
                         </a>
                     </div>
-                    <p-panelMenuSub 
+                    <p-panelMenuSub
                         *ngIf="isItemGroup(child)"
-                        [item]="child" 
+                        [item]="child"
                         [parentExpanded]="expanded && parentExpanded"
-                        [expanded]="child.expanded" 
-                        [transitionOptions]="transitionOptions" 
+                        [expanded]="child.expanded"
+                        [transitionOptions]="transitionOptions"
                         [focusedItem]="focusedItem"
                         [level]="level + 1"
                         [panelId]="panelId"
@@ -243,7 +238,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() level: number = 0;
 
     @Input() tabindex: number;
-    
+
     focusedItemId: string | undefined;
 
     constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
@@ -377,7 +372,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [focusedItem]="this.focusedItem()"
-                                (menuFocus)="onMenuFocus($event)"
+                                (menuFocus)="onMenuFocus($event, item.items)"
                                 (menuBlur)="onMenuBlur($event)"
                                 (menuKeyDown)="onMenuKeyDown($event)"
                             ></p-panelMenuSub>
@@ -420,17 +415,15 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         if (visibleItems && visibleItems.length > 0 && item.expanded) {
             this.visibleItems.set(item.items);
         }
-        this.focusedItem.set(null)
+        this.focusedItem.set(null);
     }
 
     onHeaderBlur(event, item, index) {
         // console.log(event)
-        if(!this.isElementInPanel(event, event.relatedTarget)) {
+        if (!this.isElementInPanel(event, event.relatedTarget)) {
             const prevActivePanel = this.findPreviousExpandedPanel(index);
-            if(index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length){
-
+            if (index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length) {
                 this.visibleItems.set(prevActivePanel.items);
-
             }
         }
     }
@@ -444,7 +437,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     findNextExpandedPanel(index) {
-        for (let i = index +1; i >= 0; i++) {
+        for (let i = index + 1; i >= 0; i++) {
             if (this.processedItems[i].expanded === true) {
                 return this.processedItems[i];
             }
@@ -467,12 +460,12 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
             case 'ArrowRight':
                 this.onMenuArrowRighKey(event);
                 break;
-
         }
     }
 
     onMenuArrowUpKey(event) {
-        console.log(event)
+        console.log(event);
+
         const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
         this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
         event.preventDefault();
@@ -490,7 +483,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
             const grouped = this.isItemGroup(this.focusedItem());
 
             if (grouped) {
-                super.handleClick(event, this.focusedItem())
+                super.handleClick(event, this.focusedItem());
                 const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
 
                 if (matched) {
@@ -499,7 +492,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                     const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItem().parentKey);
                     activeItemPath.push(this.focusedItem);
 
-                    this.activeItemPath.set(activeItemPath)
+                    this.activeItemPath.set(activeItemPath);
                 }
             }
 
@@ -565,11 +558,12 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     focusedItem = signal<any>(null);
 
-    onMenuFocus(event) {
+    onMenuFocus(event, items) {
+        this.visibleItems.set(items);
 
         const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstMenuItem() : this.findLastMenuItem());
-        this.focusedItem.set(focusedItem);
 
+        this.focusedItem.set(focusedItem);
     }
 
     findLastMenuItem() {
@@ -644,9 +638,8 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         effect(() => {
             const activeItem = this.activeItem();
 
-            this._visibleItems = this.flatItems(this.processedItems)
-
-        })
+            this._visibleItems = this.flatItems(this.processedItems);
+        });
     }
 
     ngOnInit() {
