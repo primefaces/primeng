@@ -18,9 +18,11 @@ export class BasePanelMenuItem {
 
     visibleItems = signal<any>(null);
 
+    currentItems = signal<any>(null);
+
     constructor(private ref: ChangeDetectorRef) {}
 
-    handleClick(event: Event, item: any) {
+    handleClick(event: Event, item: any, flatItems?: any) {
         if (item.disabled) {
             event.preventDefault();
             return;
@@ -32,23 +34,14 @@ export class BasePanelMenuItem {
         if (item.expanded) {
             activeItemPath.push(item);
             this.activeItem.set(item);
-            let visibleItems;
+            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
+            this.visibleItems.set(flatItems(this.currentItems()?.items));
+            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
 
-            // if(item.level === 0) {
-            //     visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-            // }
-            // if(item.level !== 0) {
-                if(!this.visibleItems()) {
-                    this.visibleItems.set(this.activeItem().items)
-                }
-                const itemIndex = this.visibleItems().findIndex(item => item.key === this.activeItem().key);
-                visibleItems = [...this.visibleItems().slice(0, itemIndex +1 ), ...this.activeItem().items, ...this.visibleItems().slice(itemIndex + 1)];
-            // }
-            this.visibleItems.set(visibleItems);
+            //this.visibleItems.set(visibleItems);
         } else {
             this.activeItem.set(null);
             // this.visibleItems.set(null);
-
         }
         // this.focusedItem.set(item);
         // console.log('visibleItems', this.visibleItems())
@@ -99,7 +92,7 @@ export class BasePanelMenuItem {
                     pTooltip
                     [tooltipOptions]="child.tooltipOptions"
                 >
-                    <div class="p-menuitem-content" (click)="handleClick($event, child)" (keydown.enter)="onItemKeyDown($event, child)" (keydown.space)="onItemKeyDown($event, child)">
+                    <div class="p-menuitem-content" (click)="handleClick($event, child, panelMenu.flatItems.bind(this))" (keydown)="onItemKeyDown($event)">
                         <a
                             *ngIf="!getItemProp(child, 'routerLink')"
                             [attr.href]="getItemProp(child, 'url')"
@@ -190,7 +183,7 @@ export class BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenuSub extends BasePanelMenuItem {
+export class PanelMenuSub {
     @Output() menuFocus: EventEmitter<any> = new EventEmitter<any>();
     @Output() menuBlur: EventEmitter<any> = new EventEmitter<any>();
     @Output() menuKeyDown: EventEmitter<any> = new EventEmitter<any>();
@@ -251,12 +244,55 @@ export class PanelMenuSub extends BasePanelMenuItem {
 
     focusedItemId: string | undefined;
 
-    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
-        super(ref);
-    }
+    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {}
 
     getAnimation() {
         return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
+    }
+
+    activeItemPath = signal<any[]>([]);
+
+    activeItem = signal<any>(null);
+
+    visibleItems = signal<any>(null);
+
+    currentItems = signal<any>(null);
+
+    handleClick(event: Event, item: any, flatItems: any) {
+        if (item.disabled) {
+            event.preventDefault();
+            return;
+        }
+
+        item.expanded = !item.expanded;
+
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
+        if (item.expanded) {
+            activeItemPath.push(item);
+            this.activeItem.set(item);
+            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
+            this.visibleItems.set(flatItems(this.currentItems()?.items));
+            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
+
+            //this.visibleItems.set(visibleItems);
+        } else {
+            this.activeItem.set(null);
+            // this.visibleItems.set(null);
+        }
+        // this.focusedItem.set(item);
+        // console.log('visibleItems', this.visibleItems())
+        this.activeItemPath.set(activeItemPath);
+
+        if (!item.url && !item.routerLink) {
+            event.preventDefault();
+        }
+
+        if (item.command) {
+            item.command({
+                originalEvent: event,
+                item: item
+            });
+        }
     }
 }
 /**
@@ -285,7 +321,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         [attr.data-p-highlight]="isItemActive(item)"
                         [attr.data-p-disabled]="isItemDisabled(item)"
                         [attr.data-pc-section]="'header'"
-                        (click)="handleClick($event, item)"
+                        (click)="handleClick($event, item, flatItems.bind(this))"
                         (keydown)="onHeaderKeyDown($event)"
                         (focus)="onHeaderFocus($event, item, i)"
                         (blur)="onHeaderBlur($event, item, i)"
@@ -364,7 +400,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [focusedItem]="this.focusedItem()"
-                                (menuFocus)="onMenuFocus($event, item.items)"
+                                (menuFocus)="onMenuFocus($event, item)"
                                 (menuBlur)="onMenuBlur($event)"
                                 (menuKeyDown)="onMenuKeyDown($event)"
                             ></p-panelMenuSub>
@@ -399,7 +435,62 @@ export class PanelMenuSub extends BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
+export class PanelMenu implements AfterContentInit {
+    activeItemPath = signal<any[]>([]);
+
+    activeItem = signal<any>(null);
+
+    visibleItems = signal<any>(null);
+
+    currentItems = signal<any>(null);
+
+    handleClick(event: Event, item: any, flatItems?: any) {
+        if (!this.multiple) {
+            for (let modelItem of this.processedItems!) {
+                if (item !== modelItem && modelItem.expanded) {
+                    modelItem.expanded = false;
+                }
+            }
+        }
+        this.animating = true;
+        DomHandler.focus(event.currentTarget as HTMLElement);
+
+        if (item.disabled) {
+            event.preventDefault();
+            return;
+        }
+
+        item.expanded = !item.expanded;
+
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
+        if (item.expanded) {
+            activeItemPath.push(item);
+            this.activeItem.set(item);
+            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
+            this.visibleItems.set(flatItems(this.currentItems()?.items));
+            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
+
+            //this.visibleItems.set(visibleItems);
+        } else {
+            this.activeItem.set(null);
+            // this.visibleItems.set(null);
+        }
+        // this.focusedItem.set(item);
+        // console.log('visibleItems', this.visibleItems())
+        this.activeItemPath.set(activeItemPath);
+
+        if (!item.url && !item.routerLink) {
+            event.preventDefault();
+        }
+
+        if (item.command) {
+            item.command({
+                originalEvent: event,
+                item: item
+            });
+        }
+    }
+
     onHeaderFocus(event, item, index) {
         // const visibleItems = this.visibleItems();
         // let visibleItems = this.visibleItems();
@@ -438,7 +529,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     searchValue: string = '';
     searchTimeout: any;
-    
+
     isItemMatched(processedItem) {
         return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
     }
@@ -452,8 +543,14 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         if (ObjectUtils.isNotEmpty(this.focusedItem())) {
             const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
 
-            matchedItem = this.visibleItems().slice(focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem));
-            matchedItem = ObjectUtils.isEmpty(matchedItem) ? this.visibleItems().slice(0, focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem)) : matchedItem;
+            matchedItem = this.visibleItems()
+                .slice(focusedItemIndex)
+                .find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = ObjectUtils.isEmpty(matchedItem)
+                ? this.visibleItems()
+                      .slice(0, focusedItemIndex)
+                      .find((processedItem) => this.isItemMatched(processedItem))
+                : matchedItem;
         } else {
             matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
         }
@@ -519,7 +616,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                 this.onMenuEnterKey(event);
                 break;
 
-            
             case 'Escape':
             case 'Tab':
             case 'PageDown':
@@ -540,10 +636,10 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     onMenuEnterKey(event) {
-        super.handleClick(event, this.focusedItem())
+        this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
 
         event.preventDefault();
-    }  
+    }
 
     onMenuSpaceKey(event) {
         this.onMenuEnterKey(event);
@@ -560,7 +656,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     onMenuArrowUpKey(event) {
-
         const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
         // console.log(processedItem)
         this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
@@ -579,7 +674,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
             const grouped = this.isItemGroup(this.focusedItem());
 
             if (grouped) {
-                
+                this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
                 const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
                 if (matched) {
                     this.onMenuArrowDownKey(event);
@@ -591,7 +686,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                 }
             }
 
-            super.handleClick(event, this.focusedItem());
+            this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
             event.preventDefault();
         }
     }
@@ -629,7 +724,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     isVisibleItem(processedItem) {
-        return !!processedItem && (processedItem.level === 0 || this.isItemActive(processedItem)) && this.isItemVisible(processedItem);
+        return !!processedItem && (processedItem.level === 1 || this.isItemActive(processedItem)) && this.isItemVisible(processedItem);
     }
 
     isValidItem(processedItem) {
@@ -650,11 +745,10 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     focusedItem = signal<any>(null);
 
+    onMenuFocus(event, item) {
+        this.visibleItems.set(this.flatItems(item.items));
+        this.currentItems.set(item);
 
-    onMenuFocus(event, items) {
-        let newItems = this.changeVisibleItems(items);
-
-        this.visibleItems.set(newItems)
         const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstMenuItem() : this.findLastMenuItem());
 
         this.focusedItem.set(focusedItem);
@@ -663,12 +757,11 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     changeVisibleItems(items) {
         let updated = [];
 
-        items.forEach(item => {
+        items.forEach((item) => {
             if (!item.expanded) {
                 updated.push(item);
-            } 
-            else {
-                let itemCopy = {...item};
+            } else {
+                let itemCopy = { ...item };
                 delete itemCopy.items;
                 updated.push(itemCopy);
                 if (Array.isArray(item.items)) {
@@ -676,7 +769,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                 }
             }
         });
-    
+
         return updated;
     }
 
@@ -747,8 +840,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     _visibleItems: any[];
 
     constructor(ref: ChangeDetectorRef, public el: ElementRef) {
-        super(ref);
-
         effect(() => {
             const activeItem = this.activeItem();
 
@@ -834,19 +925,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
                 item.expanded = false;
             }
         }
-    }
-
-    handleClick(event: MouseEvent, item: MenuItem) {
-        if (!this.multiple) {
-            for (let modelItem of this.processedItems!) {
-                if (item !== modelItem && modelItem.expanded) {
-                    modelItem.expanded = false;
-                }
-            }
-        }
-        this.animating = true;
-        super.handleClick(event, item);
-        DomHandler.focus(event.currentTarget as HTMLElement);
     }
 
     onToggleDone() {
@@ -948,7 +1026,7 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     }
 
     isItemActive(item) {
-        return item.expanded;
+        return item.expanded || item?.parent?.expanded;
     }
 
     getAnimation(item: MenuItem) {
