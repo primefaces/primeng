@@ -230,4 +230,18 @@ export class ObjectUtils {
 
         return index;
     }
+
+    public static findLast(arr, callback) {
+        let item;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                item = arr.findLast(callback);
+            } catch {
+                item = [...arr].reverse().find(callback);
+            }
+        }
+
+        return item;
+    }
 }

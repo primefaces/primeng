@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, effect, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -9,17 +9,41 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TooltipModule } from 'primeng/tooltip';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
 export class BasePanelMenuItem {
+    activeItemPath = signal<any[]>([]);
+
+    activeItem = signal<any>(null);
+
+    visibleItems = signal<any>(null);
+
     constructor(private ref: ChangeDetectorRef) {}
 
-    handleClick(event: Event, item: MenuItem) {
+    handleClick(event: Event, item: any) {
         if (item.disabled) {
             event.preventDefault();
             return;
         }
 
         item.expanded = !item.expanded;
+
+        const activeItemPath = this.activeItemPath().filter(p => p.parentKey !== item.parentKey);
+        if(item.expanded) {
+            activeItemPath.push(item);
+            this.activeItem.set(item);
+
+            // const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
+            // this.visibleItems.set(visibleItems);
+
+        }
+        else {
+            this.activeItem.set(null)
+            this.visibleItems.set(null);
+        }
+        // this.focusedItem.set(item);
+        // console.log('visibleItems', this.visibleItems())
+        this.activeItemPath.set(activeItemPath);
         this.ref.detectChanges();
 
         if (!item.url && !item.routerLink) {
@@ -38,72 +62,102 @@ export class BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenuSub',
     template: `
-        <ul [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-submenu': root, 'p-submenu-expanded': expanded }" [@submenu]="getAnimation()" role="tree">
-            <ng-template ngFor let-child [ngForOf]="item?.items">
+        <ul 
+            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root, 'p-submenu-expanded': expanded }" 
+            [@submenu]="getAnimation()" 
+            role="tree"
+            [tabindex]="-1"
+            [attr.data-pc-section]="'menu'"
+            (focus)="menuFocus.emit($event)"
+            (blur)="menuBlur.emit($event)"
+            (keydown)="menuKeyDown.emit($event)"
+        >
+            <ng-template ngFor let-child let-index="index" [ngForOf]="item?.items">
                 <li *ngIf="child.separator" class="p-menu-separator" role="separator"></li>
-                <li *ngIf="!child.separator" class="p-menuitem" [ngClass]="child.styleClass" [class.p-hidden]="child.visible === false" [ngStyle]="child.style" pTooltip [tooltipOptions]="child.tooltipOptions">
-                    <a
-                        *ngIf="!child.routerLink"
+                <li 
+                    *ngIf="!child.separator" 
+                    class="p-menuitem"
+                    role="treeitem"
+                    [attr.aria-label]="getItemProp(child, 'label')"
+                    [attr.aria-expanded]="isItemGroup(child) ? isItemActive(child) : undefined"
+                    [attr.aria-level]="level + 1"
+                    [attr.aria-setsize]="getAriaSetSize()"
+                    [attr.aria-posinset]="getAriaPosInset(index)"
+                    [ngClass]="child.styleClass" 
+                    [class.p-hidden]="child.visible === false" 
+                    [class.p-focus]="isItemFocused(child)"
+                    [ngStyle]="child.style" 
+                    pTooltip 
+                    [tooltipOptions]="child.tooltipOptions"
+                >
+                    <div 
+                        class="p-menuitem-content"
+                        (click)="handleClick($event, child)" 
                         (keydown)="onItemKeyDown($event)"
-                        [attr.href]="child.url"
-                        class="p-menuitem-link"
-                        [attr.tabindex]="!item.expanded || !parentExpanded ? null : child.disabled ? null : '0'"
-                        [attr.id]="child.id"
-                        [ngClass]="{ 'p-disabled': child.disabled }"
-                        role="treeitem"
-                        [attr.aria-expanded]="child.expanded"
-                        (click)="handleClick($event, child)"
-                        [target]="child.target"
-                        [attr.title]="child.title"
                     >
-                        <ng-container *ngIf="child.items">
-                            <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="child.expanded" [ngStyle]="child.iconStyle" />
-                                <AngleRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!child.expanded" [ngStyle]="child.iconStyle" />
+                        <a
+                            *ngIf="!getItemProp(child, 'routerLink')"
+                            [attr.href]="getItemProp(child, 'url')"
+                            class="p-menuitem-link"
+                            [attr.tabindex]="-1"
+                            [ngClass]="{ 'p-disabled': getItemProp(child, 'disabled') }"
+                            [target]="getItemProp(child, 'target')"
+                            [attr.data-pc-section]="'action'"
+                        >
+                            <ng-container *ngIf="isItemGroup(child)">
+                                <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(child)" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(child)" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
-                        </ng-container>
-                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
-                        <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                    </a>
-                    <a
-                        *ngIf="child.routerLink"
-                        (keydown)="onItemKeyDown($event)"
-                        [routerLink]="child.routerLink"
-                        [queryParams]="child.queryParams"
-                        [routerLinkActive]="'p-menuitem-link-active'"
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions || { exact: false }"
-                        class="p-menuitem-link"
-                        [ngClass]="{ 'p-disabled': child.disabled }"
-                        [attr.tabindex]="!item.expanded || !parentExpanded ? null : child.disabled ? null : '0'"
-                        [attr.id]="child.id"
-                        role="treeitem"
-                        [attr.aria-expanded]="child.expanded"
-                        (click)="handleClick($event, child)"
-                        [target]="child.target"
-                        [attr.title]="child.title"
-                        [fragment]="child.fragment"
-                        [queryParamsHandling]="child.queryParamsHandling"
-                        [preserveFragment]="child.preserveFragment"
-                        [skipLocationChange]="child.skipLocationChange"
-                        [replaceUrl]="child.replaceUrl"
-                        [state]="child.state"
-                    >
-                        <ng-container *ngIf="child.items">
-                            <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle" />
-                                <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-panelmenu-icon'" [ngStyle]="child.iconStyle" />
+                            <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="getItemProp(child, 'iconStyle')"></span>
+                            <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ getItemProp(child, 'label') }}</span>
+                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(child, 'label')"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
+                        </a>
+                        <a
+                            *ngIf="getItemProp(child, 'routerLink')"
+                            [routerLink]="getItemProp(child, 'routerLink')"
+                            [queryParams]="getItemProp(child, 'queryParams')"
+                            [routerLinkActive]="'p-menuitem-link-active'"
+                            [routerLinkActiveOptions]="getItemProp(child, 'routerLinkActiveOptions') || { exact: false }"
+                            class="p-menuitem-link"
+                            [ngClass]="{ 'p-disabled': getItemProp(child, 'disabled') }"
+                            [attr.tabindex]="-1"
+                            [target]="getItemProp(child, 'target')"
+                            [attr.title]="getItemProp(child, 'title')"
+                            [fragment]="getItemProp(child, 'fragment')"
+                            [queryParamsHandling]="getItemProp(child, 'queryParamsHandling')"
+                            [preserveFragment]="getItemProp(child, 'preserveFragment')"
+                            [skipLocationChange]="getItemProp(child, 'skipLocationChange')"
+                            [replaceUrl]="getItemProp(child, 'replaceUrl')"
+                            [state]="getItemProp(child, 'state')"
+                            [attr.data-pc-section]="'action'"
+                        >
+                            <ng-container *ngIf="isItemGroup(child)">
+                                <ng-container *ngIf="!panelMenu.submenuIconTemplate">
+                                    <AngleDownIcon *ngIf="isItemActive(child)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleRightIcon *ngIf="!isItemActive(child)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
-                        </ng-container>
-                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
-                        <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                    </a>
-                    <p-panelMenuSub [item]="child" [parentExpanded]="expanded && parentExpanded" [expanded]="child.expanded" [transitionOptions]="transitionOptions" *ngIf="child.items"></p-panelMenuSub>
+                            <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="getItemProp(child, 'iconStyle')"></span>
+                            <span class="p-menuitem-text" *ngIf="getItemProp(child, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(child, 'label') }}</span>
+                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(child, 'label')"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="getItemProp(child, 'badgeStyleClass')">{{ getItemProp(child, 'badge') }}</span>
+                        </a>
+                    </div>
+                    <p-panelMenuSub 
+                        *ngIf="isItemGroup(child)"
+                        [item]="child" 
+                        [parentExpanded]="expanded && parentExpanded"
+                        [expanded]="child.expanded" 
+                        [transitionOptions]="transitionOptions" 
+                        [focusedItem]="focusedItem"
+                        [level]="level + 1"
+                        [panelId]="panelId"
+                    ></p-panelMenuSub>
                 </li>
             </ng-template>
         </ul>
@@ -132,7 +186,45 @@ export class BasePanelMenuItem {
     }
 })
 export class PanelMenuSub extends BasePanelMenuItem {
-    @Input() item: MenuItem | undefined;
+    @Output() menuFocus: EventEmitter<any> = new EventEmitter<any>();
+    @Output() menuBlur: EventEmitter<any> = new EventEmitter<any>();
+    @Output() menuKeyDown: EventEmitter<any> = new EventEmitter<any>();
+
+    @Input() focusedItem: any;
+
+    getItemProp(item, name) {
+        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    }
+
+    isItemGroup(item) {
+        return ObjectUtils.isNotEmpty(item.items);
+    }
+
+    isItemVisible(processedItem) {
+        return this.getItemProp(processedItem, 'visible') !== false;
+    }
+
+    isItemActive(processedItem) {
+        return this.activeItemPath().some((path) => path.key === processedItem.key);
+    }
+
+    isItemFocused(processedItem) {
+        return ObjectUtils.equals(processedItem, this.focusedItem);
+    }
+
+    getItemId(processedItem) {
+        return `${this.panelId}_${processedItem.key}`;
+    }
+
+    getAriaSetSize() {
+        return this.item?.items.filter((item) => this.isItemVisible(item) && !this.getItemProp(item, 'separator')).length;
+    }
+
+    getAriaPosInset(index) {
+        return index - this.item?.items.slice(0, index).filter((item) => this.isItemVisible(item) && this.getItemProp(item, 'separator')).length + 1;
+    }
+
+    @Input() item: any;
 
     @Input() expanded: boolean | undefined;
 
@@ -141,6 +233,18 @@ export class PanelMenuSub extends BasePanelMenuItem {
     @Input() transitionOptions: string | undefined;
 
     @Input() root: boolean | undefined;
+
+    @Input() panelId: string | undefined;
+
+    @Input() id: string | undefined;
+
+    @Input() focused: boolean | undefined;
+
+    @Input() level: number = 0;
+
+    @Input() tabindex: number;
+    
+    focusedItemId: string | undefined;
 
     constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
         super(ref);
@@ -175,78 +279,108 @@ export class PanelMenuSub extends BasePanelMenuItem {
 @Component({
     selector: 'p-panelMenu',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'">
-            <ng-container *ngFor="let item of model; let f = first; let l = last">
-                <div class="p-panelmenu-panel" *ngIf="visible(item)">
-                    <div [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-highlight': item.expanded, 'p-disabled': item.disabled }" [class]="item.styleClass" [ngStyle]="item.style" pTooltip [tooltipOptions]="item.tooltipOptions">
-                        <a
-                            *ngIf="!item.routerLink"
-                            [attr.href]="item.url"
-                            (click)="handleClick($event, item)"
-                            (keydown)="onItemKeyDown($event)"
-                            [attr.tabindex]="item.disabled ? null : '0'"
-                            [attr.id]="item.id"
-                            [target]="item.target"
-                            [attr.title]="item.title"
-                            class="p-panelmenu-header-link"
-                            [attr.aria-expanded]="item.expanded"
-                            [attr.id]="item.id + '_header'"
-                            [attr.aria-controls]="item.id + '_content'"
-                        >
-                            <!--
-                                <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
-                             -->
-                            <ng-container *ngIf="item.items">
-                                <ng-container *ngIf="!submenuIconTemplate">
-                                    <ChevronDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="item.expanded" />
-                                    <ChevronRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!item.expanded" />
+        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
+            <ng-container *ngFor="let item of processedItems; let f = first; let l = last; let i = index">
+                <div *ngIf="isItemVisible(item)" class="p-panelmenu-panel" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
+                    <div
+                        [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-highlight': isItemActive(item), 'p-disabled': isItemDisabled(item) }"
+                        [class]="getItemProp(item, 'styleClass')"
+                        [ngStyle]="getItemProp(item, 'style')"
+                        pTooltip
+                        [id]="getHeaderId(i)"
+                        [tabindex]="0"
+                        role="button"
+                        [tooltipOptions]="getItemProp(item, tooltipOptions)"
+                        [attr.aria-expanded]="isItemActive(item)"
+                        [attr.arial-label]="getItemProp(item, 'label')"
+                        [attr.aria-controls]="getContentId(i)"
+                        [attr.aria-disabled]="isItemDisabled(item)"
+                        [attr.data-p-highlight]="isItemActive(item)"
+                        [attr.data-p-disabled]="isItemDisabled(item)"
+                        [attr.data-pc-section]="'header'"
+                        (click)="handleClick($event, item)"
+                        (keydown)="onHeaderKeyDown($event)"
+                        (focus)="onHeaderFocus($event, item, i)"
+                        (blur)="onHeaderBlur($event, item, i)"
+                    >
+                        <div class="p-panelmenu-header-content">
+                            <a
+                                *ngIf="!getItemProp(item, 'routerLink')"
+                                [attr.href]="getItemProp(item, 'url')"
+                                [attr.tabindex]="-1"
+                                [target]="getItemProp(item, 'target')"
+                                [attr.title]="getItemProp(item, 'title')"
+                                class="p-panelmenu-header-action"
+                                [attr.data-pc-section]="'headeraction'"
+                            >
+                                <ng-container *ngIf="isItemGroup(item)">
+                                    <ng-container *ngIf="!submenuIconTemplate">
+                                        <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
+                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                    </ng-container>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
-                            </ng-container>
-                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
-                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
-                        </a>
-                        <a
-                            *ngIf="item.routerLink"
-                            [routerLink]="item.routerLink"
-                            [queryParams]="item.queryParams"
-                            [routerLinkActive]="'p-menuitem-link-active'"
-                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                            (click)="handleClick($event, item)"
-                            (keydown)="onItemKeyDown($event)"
-                            [target]="item.target"
-                            [attr.title]="item.title"
-                            class="p-panelmenu-header-link"
-                            [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled ? null : '0'"
-                            [fragment]="item.fragment"
-                            [queryParamsHandling]="item.queryParamsHandling"
-                            [preserveFragment]="item.preserveFragment"
-                            [skipLocationChange]="item.skipLocationChange"
-                            [replaceUrl]="item.replaceUrl"
-                            [state]="item.state"
-                        >
-                            <!-- 
-                                <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{ 'pi-chevron-right': !item.expanded, 'pi-chevron-down': item.expanded }"></span>
-                            -->
-                            <ng-container *ngIf="item.items">
-                                <ng-container *ngIf="!submenuIconTemplate">
-                                    <ChevronDownIcon [styleClass]="'p-panelmenu-icon'" *ngIf="item.expanded" />
-                                    <ChevronRightIcon [styleClass]="'p-panelmenu-icon'" *ngIf="!item.expanded" />
+                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="getItemProp(item, 'icon')" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
+                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                            </a>
+                            <a
+                                *ngIf="getItemProp(item, 'routerLink')"
+                                [routerLink]="getItemProp(item, 'routerLink')"
+                                [queryParams]="getItemProp(item, 'queryParams')"
+                                [routerLinkActive]="'p-menuitem-link-active'"
+                                [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
+                                [target]="getItemProp(item, 'target')"
+                                class="p-panelmenu-header-action"
+                                [attr.tabindex]="-1"
+                                [fragment]="getItemProp(item, 'fragment')"
+                                [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
+                                [preserveFragment]="getItemProp(item, 'preserveFragment')"
+                                [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
+                                [replaceUrl]="getItemProp(item, 'replaceUrl')"
+                                [state]="getItemProp(item, 'state')"
+                                [attr.data-pc-section]="'headeraction'"
+                            >
+                                <ng-container *ngIf="isItemGroup(item)">
+                                    <ng-container *ngIf="!submenuIconTemplate">
+                                        <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
+                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                    </ng-container>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
-                            </ng-container>
-                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
-                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
-                        </a>
+                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="getItemProp(item, 'icon')" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                            </a>
+                        </div>
                     </div>
-                    <div *ngIf="item.items" class="p-toggleable-content" [ngClass]="{ 'p-panelmenu-expanded': item.expanded }" [@rootItem]="getAnimation(item)" (@rootItem.done)="onToggleDone()">
-                        <div class="p-panelmenu-content" role="region" [attr.id]="item.id + '_content'" [attr.aria-labelledby]="item.id + '_header'">
-                            <p-panelMenuSub [item]="item" [parentExpanded]="item.expanded" [expanded]="true" [transitionOptions]="transitionOptions" [root]="true"></p-panelMenuSub>
+                    <div
+                        *ngIf="isItemGroup(item)"
+                        class="p-toggleable-content"
+                        [ngClass]="{ 'p-panelmenu-expanded': item.expanded }"
+                        [@rootItem]="getAnimation(item)"
+                        (@rootItem.done)="onToggleDone()"
+                        role="region"
+                        [id]="getContentId(i)"
+                        [attr.aria-labelledby]="getHeaderId(i)"
+                        [attr.data-pc-section]="'toggleablecontent'"
+                    >
+                        <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
+                            <p-panelMenuSub
+                                [id]="getPanelId(i) + '_list'"
+                                [panelId]="getPanelId(i)"
+                                [item]="item"
+                                [parentExpanded]="item.expanded"
+                                [expanded]="true"
+                                [transitionOptions]="transitionOptions"
+                                [root]="true"
+                                [focusedItem]="this.focusedItem()"
+                                (menuFocus)="onMenuFocus($event)"
+                                (menuBlur)="onMenuBlur($event)"
+                                (menuKeyDown)="onMenuKeyDown($event)"
+                            ></p-panelMenuSub>
                         </div>
                     </div>
                 </div>
@@ -279,6 +413,191 @@ export class PanelMenuSub extends BasePanelMenuItem {
     }
 })
 export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
+    onHeaderFocus(event, item, index) {
+        // const visibleItems = this.visibleItems();
+        let visibleItems = this.visibleItems();
+
+        if (visibleItems && visibleItems.length > 0 && item.expanded) {
+            this.visibleItems.set(item.items);
+        }
+        this.focusedItem.set(null)
+    }
+
+    onHeaderBlur(event, item, index) {
+        // console.log(event)
+        if(!this.isElementInPanel(event, event.relatedTarget)) {
+            const prevActivePanel = this.findPreviousExpandedPanel(index);
+            if(index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length){
+
+                this.visibleItems.set(prevActivePanel.items);
+
+            }
+        }
+    }
+
+    findPreviousExpandedPanel(index) {
+        for (let i = index - 1; i >= 0; i--) {
+            if (this.processedItems[i].expanded === true) {
+                return this.processedItems[i];
+            }
+        }
+    }
+
+    findNextExpandedPanel(index) {
+        for (let i = index +1; i >= 0; i++) {
+            if (this.processedItems[i].expanded === true) {
+                return this.processedItems[i];
+            }
+        }
+    }
+
+    onMenuKeyDown(event) {
+        // console.log('menukeydown')
+        const metaKey = event.metaKey || event.ctrlKey;
+
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onMenuArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onMenuArrowUpKey(event);
+                break;
+
+            case 'ArrowRight':
+                this.onMenuArrowRighKey(event);
+                break;
+
+        }
+    }
+
+    onMenuArrowUpKey(event) {
+        console.log(event)
+        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
+        this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
+        event.preventDefault();
+    }
+
+    onMenuArrowDownKey(event) {
+        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findNextMenuItem(this.focusedItem()) : this.findFirstMenuItem();
+
+        this.changeFocusedMenuItem({ originalEvent: event, processedItem, focusOnNext: true });
+        event.preventDefault();
+    }
+
+    onMenuArrowRighKey(event) {
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const grouped = this.isItemGroup(this.focusedItem());
+
+            if (grouped) {
+                super.handleClick(event, this.focusedItem())
+                const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
+
+                if (matched) {
+                    this.onMenuArrowDownKey(event);
+                } else {
+                    const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItem().parentKey);
+                    activeItemPath.push(this.focusedItem);
+
+                    this.activeItemPath.set(activeItemPath)
+                }
+            }
+
+            event.preventDefault();
+        }
+    }
+
+    findNextMenuItem(processedItem) {
+        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const matchedItem =
+            index < this.visibleItems().length - 1
+                ? this.visibleItems()
+                      .slice(index + 1)
+                      .find((pItem) => this.isValidItem(pItem))
+                : undefined;
+
+        return matchedItem || processedItem;
+    }
+
+    findPrevMenuItem(processedItem) {
+        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
+
+        return matchedItem || processedItem;
+    }
+
+    findFirstMenuItem() {
+        // console.log('findFirstMenu', this.visibleItems())
+        return this.visibleItems().find((processedItem) => this.isValidItem(processedItem));
+    }
+
+    changeFocusedMenuItem(event) {
+        const { originalEvent, processedItem, focusOnNext, selfCheck, allowHeaderFocus = true } = event;
+
+        if (ObjectUtils.isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
+            this.focusedItem.set(processedItem);
+
+            // this.scrollInView();
+        } else if (allowHeaderFocus) {
+            this.updateFocusedHeader({ originalEvent, focusOnNext, selfCheck });
+        }
+    }
+
+    isVisibleItem(processedItem) {
+        return !!processedItem && (processedItem.level === 0 || this.isItemActive(processedItem)) && this.isItemVisible(processedItem);
+    }
+
+    isValidItem(processedItem) {
+        return !!processedItem && !this.isItemDisabled(processedItem);
+    }
+
+    flatItems(processedItems, processedFlattenItems = []) {
+        processedItems &&
+            processedItems.forEach((processedItem) => {
+                if (this.isVisibleItem(processedItem)) {
+                    processedFlattenItems.push(processedItem);
+                    this.flatItems(processedItem.items, processedFlattenItems);
+                }
+            });
+
+        return processedFlattenItems;
+    }
+
+    focusedItem = signal<any>(null);
+
+    onMenuFocus(event) {
+
+        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstMenuItem() : this.findLastMenuItem());
+        this.focusedItem.set(focusedItem);
+
+    }
+
+    findLastMenuItem() {
+        return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
+    }
+
+    isElementInPanel(event, element) {
+        const panel = event.currentTarget.closest('[data-pc-section="panel"]');
+
+        return panel && panel.contains(element);
+    }
+
+    onMenuBlur(event) {
+        if (!this.isElementInPanel(event, event.relatedTarget)) {
+            // console.log(this.focusedItem())
+        }
+        this.focusedItem.set(null);
+    }
+
+    _processedItems: any[];
+
+    get processedItems() {
+        if (!this._processedItems || !this._processedItems.length) {
+            this._processedItems = this.createProcessedItems(this.model || []);
+        }
+        return this._processedItems;
+    }
+
     /**
      * An array of menuitems.
      * @group Props
@@ -298,21 +617,98 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
      * Whether multiple tabs can be activated at the same time or not.
      * @group Props
      */
-    @Input() multiple: boolean = true;
+    @Input() multiple: boolean = false;
     /**
      * Transition options of the animation.
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
+    @Input() id: string | undefined;
+
+    @Input() tabindex: number;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     submenuIconTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
 
-    constructor(ref: ChangeDetectorRef) {
+    _visibleItems: any[];
+
+    constructor(ref: ChangeDetectorRef, public el: ElementRef) {
         super(ref);
+
+        effect(() => {
+            const activeItem = this.activeItem();
+
+            this._visibleItems = this.flatItems(this.processedItems)
+
+        })
+    }
+
+    ngOnInit() {
+        this.id = this.id || UniqueComponentId();
+    }
+
+    getItemProp(item, name) {
+        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    }
+
+    getItemLabel(item) {
+        return this.getItemProp(item, 'label');
+    }
+
+    isItemVisible(item) {
+        return this.getItemProp(item, 'visible') !== false;
+    }
+
+    isItemDisabled(item) {
+        return this.getItemProp(item, 'disabled');
+    }
+
+    isItemGroup(item) {
+        return ObjectUtils.isNotEmpty(item.items);
+    }
+
+    getPanelId(index) {
+        return `${this.id}_${index}`;
+    }
+
+    getPanelKey(index) {
+        return this.getPanelId(index);
+    }
+
+    getHeaderId(index) {
+        return `${this.getPanelId(index)}_header`;
+    }
+
+    getContentId(index) {
+        return `${this.getPanelId(index)}_content`;
+    }
+
+    createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
+        const processedItems = [];
+
+        items &&
+            items.forEach((item, index) => {
+                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
+                const newItem = {
+                    ...item,
+                    index,
+                    level,
+                    key,
+                    parent,
+                    parentKey
+                };
+
+                newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
+                processedItems.push(newItem);
+            });
+
+        return processedItems;
     }
 
     ngAfterContentInit() {
@@ -335,32 +731,42 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     handleClick(event: MouseEvent, item: MenuItem) {
         if (!this.multiple) {
-            for (let modelItem of this.model!) {
+            for (let modelItem of this.processedItems!) {
                 if (item !== modelItem && modelItem.expanded) {
                     modelItem.expanded = false;
                 }
             }
         }
-
         this.animating = true;
         super.handleClick(event, item);
+        DomHandler.focus(event.currentTarget as HTMLElement);
     }
 
     onToggleDone() {
         this.animating = false;
     }
 
-    onItemKeyDown(event: KeyboardEvent) {
-        let listItem = event.currentTarget as HTMLElement;
-
+    onHeaderKeyDown(event: KeyboardEvent, item: any): void {
         switch (event.code) {
-            case 'Space':
-            case 'Enter':
-                if (listItem && !DomHandler.hasClass(listItem, 'p-disabled')) {
-                    listItem.click();
-                }
+            case 'ArrowDown':
+                this.onHeaderArrowDownKey(event);
+                break;
 
-                event.preventDefault();
+            case 'ArrowUp':
+                this.onHeaderArrowUpKey(event);
+                break;
+
+            case 'Home':
+                this.onHeaderHomeKey(event);
+                break;
+
+            case 'End':
+                this.onHeaderEndKey(event);
+                break;
+
+            case 'Enter':
+            case 'Space':
+                this.onHeaderEnterKey(event, item);
                 break;
 
             default:
@@ -368,8 +774,74 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         }
     }
 
-    visible(item: MenuItem) {
-        return item.visible !== false;
+    onHeaderEnterKey(event, item) {
+        const headerAction = DomHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
+
+        headerAction ? headerAction.click() : this.handleClick(event, item);
+        event.preventDefault();
+    }
+
+    onHeaderArrowDownKey(event) {
+        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+
+        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
+        event.preventDefault();
+    }
+
+    onHeaderArrowUpKey(event) {
+        let prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
+        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+
+        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
+        event.preventDefault();
+    }
+
+    updateFocusedHeader(event) {
+        const { originalEvent, focusOnNext, selfCheck } = event;
+        const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
+        const header = selfCheck ? DomHandler.findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+
+        header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
+    }
+
+    onHeaderHomeKey(event) {
+        this.changeFocusedHeader(event, this.findFirstHeader());
+        event.preventDefault();
+    }
+
+    onHeaderEndKey(event) {
+        this.changeFocusedHeader(event, this.findLastHeader());
+        event.preventDefault();
+    }
+
+    findNextHeader(panelElement, selfCheck = false) {
+        const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
+        const headerElement = DomHandler.findSingle(nextPanelElement, '[data-pc-section="header"]');
+
+        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
+    }
+
+    findPrevHeader(panelElement, selfCheck = false) {
+        const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
+        const headerElement = DomHandler.findSingle(prevPanelElement, '[data-pc-section="header"]');
+
+        return headerElement ? (DomHandler.getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
+    }
+
+    findFirstHeader() {
+        return this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true);
+    }
+
+    findLastHeader() {
+        return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
+    }
+
+    changeFocusedHeader(event, element) {
+        element && DomHandler.focus(element);
+    }
+
+    isItemActive(item) {
+        return item.expanded;
     }
 
     getAnimation(item: MenuItem) {
