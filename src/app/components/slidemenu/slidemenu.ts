@@ -778,6 +778,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.onArrowLeftKey(event);
+                this.focusedItemInfo.mutate(value => value.index = -1)
                 break;
             default:
                 break;
@@ -961,9 +962,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     onMenuBlur() {
         this.focused = false;
         this.popup && this.focusedItemInfo.set({index: -1, level: 0, parentKey: ''});
-        
         if(!this.popup) {
-            this.focusedItemInfo.mutate(value => value.index = -1);
+            this.focusedItemInfo.mutate(value => {
+                value.index = -1
+            });
         }
         this.searchValue = '';
         this.onBlur.emit();
@@ -996,7 +998,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                     if(this.focusedItemInfo().level > this.activeLevel()) {
                         let newActiveItemPath = this.activeItemPath().slice(0, this.activeItemPath().length -1);
                         let lastActiveParent = newActiveItemPath[newActiveItemPath.length -1];
-                        this.focusedItemInfo.set({index: 0, level: this.activeLevel(), parentKey: lastActiveParent.key});
+                        this.focusedItemInfo.set({index: -1, level: this.activeLevel(), parentKey: lastActiveParent.key});
                         this.activeItemPath.set(newActiveItemPath);
                     }
 
