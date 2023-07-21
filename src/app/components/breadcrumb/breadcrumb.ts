@@ -14,7 +14,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
     selector: 'p-breadcrumb',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
-            <ul [attr.data-pc-section]="'menu'">
+            <ul [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
                 <li [class]="home.styleClass" [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }" [ngStyle]="home.style" *ngIf="home" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
                     <a
                         [href]="home.url ? home.url : null"
@@ -64,7 +64,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         </ng-container>
                     </a>
                 </li>
-                <li *ngIf="model && home" class="p-breadcrumb-chevron" [attr.data-pc-section]="'separator'">
+                <li *ngIf="model && home" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
                     <ChevronRightIcon *ngIf="!separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
@@ -114,7 +114,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             </ng-container>
                         </a>
                     </li>
-                    <li *ngIf="!end" class="p-breadcrumb-chevron" [attr.data-pc-section]="'separator'">
+                    <li *ngIf="!end" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
                         <ChevronRightIcon *ngIf="!separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>

@@ -10,55 +10,14 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-
 export class BasePanelMenuItem {
-    activeItemPath = signal<any[]>([]);
-
-    activeItem = signal<any>(null);
-
-    visibleItems = signal<any>(null);
-
-    currentItems = signal<any>(null);
-
-    constructor(private ref: ChangeDetectorRef) {}
-
-    handleClick(event: Event, item: any, flatItems?: any) {
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        item.expanded = !item.expanded;
-
-        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
-        if (item.expanded) {
-            activeItemPath.push(item);
-            this.activeItem.set(item);
-            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
-            this.visibleItems.set(flatItems(this.currentItems()?.items));
-            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-
-            //this.visibleItems.set(visibleItems);
-        } else {
-            this.activeItem.set(null);
-            // this.visibleItems.set(null);
-        }
-        // this.focusedItem.set(item);
-        // console.log('visibleItems', this.visibleItems())
-        this.activeItemPath.set(activeItemPath);
-        this.ref.detectChanges();
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
-        }
-
-        if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
+    constructor(private ref: ChangeDetectorRef) {
     }
+
+
+    // handleClick(event: Event, item: any, flatItems?: any) {
+
+    // }
 }
 
 @Component({
@@ -71,7 +30,6 @@ export class BasePanelMenuItem {
             [tabindex]="-1"
             [attr.data-pc-section]="'menu'"
             (focus)="menuFocus.emit($event)"
-            (blur)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
             <ng-template ngFor let-child let-index="index" [ngForOf]="item?.items">
@@ -92,7 +50,7 @@ export class BasePanelMenuItem {
                     pTooltip
                     [tooltipOptions]="child.tooltipOptions"
                 >
-                    <div class="p-menuitem-content" (click)="handleClick($event, child, panelMenu.flatItems.bind(this))" (keydown)="onItemKeyDown($event)">
+                    <div class="p-menuitem-content" (click)="handleClick($event, child, panelMenu.flatItems.bind(this))">
                         <a
                             *ngIf="!getItemProp(child, 'routerLink')"
                             [attr.href]="getItemProp(child, 'url')"
@@ -183,12 +141,13 @@ export class BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenuSub {
+export class PanelMenuSub extends BasePanelMenuItem {
     @Output() menuFocus: EventEmitter<any> = new EventEmitter<any>();
-    @Output() menuBlur: EventEmitter<any> = new EventEmitter<any>();
     @Output() menuKeyDown: EventEmitter<any> = new EventEmitter<any>();
 
     @Input() focusedItem: any;
+
+
 
     getItemProp(item, name) {
         return item ? ObjectUtils.getItemValue(item[name]) : undefined;
@@ -244,7 +203,9 @@ export class PanelMenuSub {
 
     focusedItemId: string | undefined;
 
-    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {}
+    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
+        super(ref);
+    }
 
     getAnimation() {
         return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
@@ -252,8 +213,7 @@ export class PanelMenuSub {
 
     activeItemPath = signal<any[]>([]);
 
-    activeItem = signal<any>(null);
-
+    activeItem = signal<any>(null);0
     visibleItems = signal<any>(null);
 
     currentItems = signal<any>(null);
@@ -270,17 +230,10 @@ export class PanelMenuSub {
         if (item.expanded) {
             activeItemPath.push(item);
             this.activeItem.set(item);
-            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
             this.visibleItems.set(flatItems(this.currentItems()?.items));
-            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-
-            //this.visibleItems.set(visibleItems);
         } else {
             this.activeItem.set(null);
-            // this.visibleItems.set(null);
         }
-        // this.focusedItem.set(item);
-        // console.log('visibleItems', this.visibleItems())
         this.activeItemPath.set(activeItemPath);
 
         if (!item.url && !item.routerLink) {
@@ -293,6 +246,8 @@ export class PanelMenuSub {
                 item: item
             });
         }
+
+        event.stopPropagation();
     }
 }
 /**
@@ -323,8 +278,7 @@ export class PanelMenuSub {
                         [attr.data-pc-section]="'header'"
                         (click)="handleClick($event, item, flatItems.bind(this))"
                         (keydown)="onHeaderKeyDown($event)"
-                        (focus)="onHeaderFocus($event, item, i)"
-                        (blur)="onHeaderBlur($event, item, i)"
+                        (focus)="onHeaderFocus($event)"
                     >
                         <div class="p-panelmenu-header-content">
                             <a
@@ -401,7 +355,6 @@ export class PanelMenuSub {
                                 [root]="true"
                                 [focusedItem]="this.focusedItem()"
                                 (menuFocus)="onMenuFocus($event, item)"
-                                (menuBlur)="onMenuBlur($event)"
                                 (menuKeyDown)="onMenuKeyDown($event)"
                             ></p-panelMenuSub>
                         </div>
@@ -435,7 +388,7 @@ export class PanelMenuSub {
         class: 'p-element'
     }
 })
-export class PanelMenu implements AfterContentInit {
+export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
     activeItemPath = signal<any[]>([]);
 
     activeItem = signal<any>(null);
@@ -466,17 +419,10 @@ export class PanelMenu implements AfterContentInit {
         if (item.expanded) {
             activeItemPath.push(item);
             this.activeItem.set(item);
-            console.log('new', this.currentItems()?.items, flatItems(this.currentItems()?.items));
             this.visibleItems.set(flatItems(this.currentItems()?.items));
-            //const visibleItems = this.activeItem() && ObjectUtils.isNotEmpty(this.activeItem().items) ? this.activeItem().items : this.visibleItems();
-
-            //this.visibleItems.set(visibleItems);
         } else {
             this.activeItem.set(null);
-            // this.visibleItems.set(null);
         }
-        // this.focusedItem.set(item);
-        // console.log('visibleItems', this.visibleItems())
         this.activeItemPath.set(activeItemPath);
 
         if (!item.url && !item.routerLink) {
@@ -491,40 +437,9 @@ export class PanelMenu implements AfterContentInit {
         }
     }
 
-    onHeaderFocus(event, item, index) {
-        // const visibleItems = this.visibleItems();
-        // let visibleItems = this.visibleItems();
-
-        // if (visibleItems && visibleItems.length > 0 && item.expanded) {
-        //     this.visibleItems.set(item.items);
-        // }
+    onHeaderFocus(event: any) {
         this.focusedItem.set(null);
-    }
-
-    onHeaderBlur(event, item, index) {
-        // console.log(event)
-        // if (!this.isElementInPanel(event, event.relatedTarget)) {
-        //     const prevActivePanel = this.findPreviousExpandedPanel(index);
-        //     if (index !== 0 && ObjectUtils.isNotEmpty(prevActivePanel) && prevActivePanel.items && prevActivePanel.items.length) {
-        //         this.visibleItems.set(prevActivePanel.items);
-        //     }
-        // }
-    }
-
-    findPreviousExpandedPanel(index) {
-        for (let i = index - 1; i >= 0; i--) {
-            if (this.processedItems[i].expanded === true) {
-                return this.processedItems[i];
-            }
-        }
-    }
-
-    findNextExpandedPanel(index) {
-        for (let i = index + 1; i >= 0; i++) {
-            if (this.processedItems[i].expanded === true) {
-                return this.processedItems[i];
-            }
-        }
+        event.preventDefault();
     }
 
     searchValue: string = '';
@@ -584,7 +499,6 @@ export class PanelMenu implements AfterContentInit {
     }
 
     onMenuKeyDown(event) {
-        // console.log('menukeydown')
         const metaKey = event.metaKey || event.ctrlKey;
 
         switch (event.code) {
@@ -657,7 +571,6 @@ export class PanelMenu implements AfterContentInit {
 
     onMenuArrowUpKey(event) {
         const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
-        // console.log(processedItem)
         this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
         event.preventDefault();
     }
@@ -783,13 +696,6 @@ export class PanelMenu implements AfterContentInit {
         return panel && panel.contains(element);
     }
 
-    onMenuBlur(event) {
-        if (!this.isElementInPanel(event, event.relatedTarget)) {
-            // console.log(this.focusedItem())
-        }
-        // this.focusedItem.set(null);
-    }
-
     _processedItems: any[];
 
     get processedItems() {
@@ -840,9 +746,10 @@ export class PanelMenu implements AfterContentInit {
     _visibleItems: any[];
 
     constructor(ref: ChangeDetectorRef, public el: ElementRef) {
+        super(ref);
+        
         effect(() => {
             const activeItem = this.activeItem();
-
             this._visibleItems = this.flatItems(this.processedItems);
         });
     }
@@ -920,7 +827,7 @@ export class PanelMenu implements AfterContentInit {
     }
 
     collapseAll() {
-        for (let item of this.model!) {
+        for (let item of this.processedItems!) {
             if (item.expanded) {
                 item.expanded = false;
             }
