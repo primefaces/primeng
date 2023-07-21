@@ -1,8 +1,8 @@
 {
     "id": 56,
-    "content": "PrimeNG v16.0.1 is out now!",
+    "content": "v15.4.6-lts released as LTS",
     "linkText": "Learn More",
-    "linkHref": "https://www.primefaces.org/store",
+    "linkHref": "https://primeng.org/lts",
     "backgroundStyle": "background-color:#3B82F6",
     "textStyle": "color:#ffffff;font-weight:500",
     "linkStyle": "color:#ffffff;font-weight:700",
