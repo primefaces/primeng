@@ -4704,29 +4704,29 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 4px;
   padding: 1rem;
 }
-.p-breadcrumb ul li .p-menuitem-link {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
   transition: box-shadow 0.15s;
   border-radius: 4px;
 }
-.p-breadcrumb ul li .p-menuitem-link:focus {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
   color: #007bff;
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
   color: #007bff;
 }
-.p-breadcrumb ul li.p-breadcrumb-chevron {
+.p-breadcrumb .p-breadcrumb-list li.p-menuitem-separator {
   margin: 0 0.5rem 0 0.5rem;
   color: #6c757d;
 }
-.p-breadcrumb ul li:last-child .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
   color: #6c757d;
 }
-.p-breadcrumb ul li:last-child .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-icon {
   color: #6c757d;
 }
 
@@ -6340,15 +6340,4 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 /* Vendor extensions to the designer enhanced bootstrap compatibility */
-.p-breadcrumb .p-breadcrumb-chevron {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-.p-breadcrumb .p-breadcrumb-chevron:before {
-  content: "/";
-}
-
-.fc.fc-theme-standard .fc-highlight {
-  background: #cce5ff;
-}
-
 /* Customizations to the designer theme should be defined here */

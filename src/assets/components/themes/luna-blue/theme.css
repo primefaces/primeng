@@ -4680,29 +4680,29 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 3px;
   padding: 0.571rem 1rem;
 }
-.p-breadcrumb ul li .p-menuitem-link {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
   transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 3px;
 }
-.p-breadcrumb ul li .p-menuitem-link:focus {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.1rem white;
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
   color: #dedede;
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
   color: #dedede;
 }
-.p-breadcrumb ul li.p-breadcrumb-chevron {
+.p-breadcrumb .p-breadcrumb-list li.p-menuitem-separator {
   margin: 0 0.5rem 0 0.5rem;
   color: #dedede;
 }
-.p-breadcrumb ul li:last-child .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
   color: #dedede;
 }
-.p-breadcrumb ul li:last-child .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-icon {
   color: #dedede;
 }
 

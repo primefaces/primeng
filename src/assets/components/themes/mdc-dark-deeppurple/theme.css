@@ -4716,29 +4716,29 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 4px;
   padding: 0.75rem;
 }
-.p-breadcrumb ul li .p-menuitem-link {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
   transition: none;
   border-radius: 4px;
 }
-.p-breadcrumb ul li .p-menuitem-link:focus {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link:focus {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: none;
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
   color: rgba(255, 255, 255, 0.87);
 }
-.p-breadcrumb ul li .p-menuitem-link .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
   color: rgba(255, 255, 255, 0.6);
 }
-.p-breadcrumb ul li.p-breadcrumb-chevron {
+.p-breadcrumb .p-breadcrumb-list li.p-menuitem-separator {
   margin: 0 0.5rem 0 0.5rem;
   color: rgba(255, 255, 255, 0.6);
 }
-.p-breadcrumb ul li:last-child .p-menuitem-text {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
   color: rgba(255, 255, 255, 0.87);
 }
-.p-breadcrumb ul li:last-child .p-menuitem-icon {
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-icon {
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -7465,13 +7465,16 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
 .p-panelmenu .p-panelmenu-panel .p-panelmenu-header.p-disabled {
   opacity: 1;
 }
-.p-panelmenu .p-panelmenu-panel .p-panelmenu-header.p-disabled .p-panelmenu-header-link > * {
+.p-panelmenu .p-panelmenu-panel .p-panelmenu-header.p-disabled .p-panelmenu-header-action > * {
   opacity: 0.38;
 }
-.p-panelmenu .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-header-link:focus {
+.p-panelmenu .p-panelmenu-panel .p-panelmenu-header .p-panelmenu-header-action:focus {
   background: rgba(255, 255, 255, 0.04);
 }
-.p-panelmenu .p-panelmenu-panel .p-menuitem .p-menuitem-link:focus {
+.p-panelmenu .p-panelmenu-panel .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: rgba(255, 255, 255, 0.12);
+}
+.p-panelmenu .p-panelmenu-panel .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
   background: rgba(255, 255, 255, 0.12);
 }
 
@@ -7553,7 +7556,10 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-.p-slidemenu .p-menuitem-link:focus {
+.p-slidemenu .p-menuitem.p-highlight.p-focus > .p-menuitem-content {
+  background: rgba(255, 255, 255, 0.12);
+}
+.p-slidemenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
   background: rgba(255, 255, 255, 0.12);
 }
 
