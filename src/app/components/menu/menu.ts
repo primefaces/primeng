@@ -17,7 +17,9 @@ import {
     TemplateRef,
     Pipe,
     PipeTransform,
-    ViewChild
+    ViewChild,
+    signal,
+    computed
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -177,7 +179,7 @@ export class MenuItemContent {
                             class="p-menuitem"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': menuitemId(id, i, j) === focusedOptionId, 'p-disabled': disabled(item.disabled) }"
+                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && (menuitemId(id, i, j) === focusedOptionId()), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
                             (onMenuItemClick)="itemClick($event)"
@@ -200,7 +202,7 @@ export class MenuItemContent {
                         class="p-menuitem"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
-                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': menuitemId(id, i) === focusedOptionId, 'p-disabled': disabled(item.disabled) }"
+                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && (menuitemId(id, i) === focusedOptionId()), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
                         (onMenuItemClick)="itemClick($event)"
@@ -334,13 +336,27 @@ export class Menu implements OnDestroy {
 
     visible: boolean | undefined;
 
-    get focusedOptionId(): number | null {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
-    }
+    // _focusedOptionId: number | undefined | null;
 
-    public focusedOptionIndex: any = -1;
+    // get focusedOptionId(): number | null {
+    //     this._focusedOptionId = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
+    //     return this._focusedOptionId;
+    // }
 
-    public selectedOptionIndex: any = -1;
+    // set focusedOptionId(value: number | undefined | null) {
+    //     this._focusedOptionId = value;
+    // }
+
+    // focusedOptionId = signal<number | undefined | null>(null);
+    focusedOptionId = computed(() => {
+        console.log(this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null)
+        return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
+    })
+
+
+    public focusedOptionIndex: any = signal<any>(-1);
+
+    public selectedOptionIndex: any = signal<any>(-1);
 
     public focused: boolean | undefined = false;
 
@@ -380,7 +396,15 @@ export class Menu implements OnDestroy {
         this.relativeAlign = event.relativeAlign;
         this.visible = true;
         this.preventDocumentDefault = true;
+        this.overlayVisible = true;
         this.cd.markForCheck();
+    }
+
+    ngOnInit() {
+        if(!this.popup) {
+            this.bindDocumentClickListener();
+        }
+        // this.focusedOptionId.set(this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -395,7 +419,6 @@ export class Menu implements OnDestroy {
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
-
                     DomHandler.focus(this.listViewChild.nativeElement);
                     this.changeFocusedOptionIndex(0);
                 }
@@ -462,7 +485,7 @@ export class Menu implements OnDestroy {
     }
 
     isItemFocused(id) {
-        return this.focusedOptionId === id;
+        return this.focusedOptionId() === id;
     }
 
     label(label: any) {
@@ -474,15 +497,15 @@ export class Menu implements OnDestroy {
     }
 
     activedescendant() {
-        return this.focused ? this.focusedOptionId : undefined;
+        return this.focused ? this.focusedOptionId() : undefined;
     }
 
     onListFocus(event: Event) {
         this.focused = true;
         if (!this.popup) {
-            if (this.selectedOptionIndex !== -1) {
-                this.changeFocusedOptionIndex(this.selectedOptionIndex);
-                this.selectedOptionIndex = -1;
+            if (this.selectedOptionIndex() !== -1) {
+                this.changeFocusedOptionIndex(this.selectedOptionIndex());
+                this.selectedOptionIndex.set(-1);
             } else {
                 this.changeFocusedOptionIndex(0);
             }
@@ -490,11 +513,11 @@ export class Menu implements OnDestroy {
         this.onFocus.emit(event);
     }
 
-    onListBlur(event) {
+    onListBlur(event: FocusEvent | MouseEvent) {
         this.focused = false;
         this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex = -1;
-        this.focusedOptionIndex = -1;
+        this.selectedOptionIndex.set(null);
+        this.focusedOptionIndex.set(null);
         this.onBlur.emit(event);
     }
 
@@ -540,7 +563,7 @@ export class Menu implements OnDestroy {
     }
 
     onArrowDownKey(event) {
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex);
+        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex());
         this.changeFocusedOptionIndex(optionIndex);
         event.preventDefault();
     }
@@ -551,7 +574,7 @@ export class Menu implements OnDestroy {
             this.hide();
             event.preventDefault();
         } else {
-            const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex);
+            const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex());
 
             this.changeFocusedOptionIndex(optionIndex);
             event.preventDefault();
@@ -569,7 +592,7 @@ export class Menu implements OnDestroy {
     }
 
     onEnterKey(event) {
-        const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
         const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
         this.popup && DomHandler.focus(this.target);
@@ -600,7 +623,7 @@ export class Menu implements OnDestroy {
         const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
-        order > -1 && (this.focusedOptionIndex = links[order].getAttribute('id'));
+        order > -1 && (this.focusedOptionIndex.set(links[order].getAttribute('id')));
     }
 
     itemClick(event: any) {
@@ -626,9 +649,11 @@ export class Menu implements OnDestroy {
             this.hide();
         }
 
-        if (!this.popup && this.focusedOptionIndex !== item.id) {
-            this.focusedOptionIndex = item.id;
+        if (!this.popup && this.focusedOptionIndex() !== item.id) {
+            this.focusedOptionIndex.set(item.id);
         }
+
+        console.log(this.focusedOptionId())
     }
 
     onOverlayClick(event: Event) {
@@ -646,12 +671,16 @@ export class Menu implements OnDestroy {
         if (!this.documentClickListener && isPlatformBrowser(this.platformId)) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
-                if (!this.preventDocumentDefault) {
-                    this.hide();
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+                const isOutsideContainer = this.containerViewChild.nativeElement && !this.containerViewChild.nativeElement.contains(event.target);
+                const isOutsideTarget = !(this.target && (this.target === event.target || this.target.contains(event.target)));
+                if (!this.popup && isOutsideContainer && isOutsideTarget) {
+                    this.onListBlur(event);
                 }
-
-                this.preventDocumentDefault = false;
+                if (this.preventDocumentDefault && this.overlayVisible && isOutsideContainer && isOutsideTarget) {
+                    this.hide();
+                    this.preventDocumentDefault = false;
+                }
             });
         }
     }
@@ -719,6 +748,10 @@ export class Menu implements OnDestroy {
 
             this.restoreOverlayAppend();
             this.onOverlayHide();
+        }
+
+        if(!this.popup) {
+            this.unbindDocumentClickListener();
         }
     }
 
