@@ -336,23 +336,9 @@ export class Menu implements OnDestroy {
 
     visible: boolean | undefined;
 
-    // _focusedOptionId: number | undefined | null;
-
-    // get focusedOptionId(): number | null {
-    //     this._focusedOptionId = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
-    //     return this._focusedOptionId;
-    // }
-
-    // set focusedOptionId(value: number | undefined | null) {
-    //     this._focusedOptionId = value;
-    // }
-
-    // focusedOptionId = signal<number | undefined | null>(null);
     focusedOptionId = computed(() => {
-        console.log(this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null)
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
     })
-
 
     public focusedOptionIndex: any = signal<any>(-1);
 
@@ -404,7 +390,6 @@ export class Menu implements OnDestroy {
         if(!this.popup) {
             this.bindDocumentClickListener();
         }
-        // this.focusedOptionId.set(this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -652,8 +637,6 @@ export class Menu implements OnDestroy {
         if (!this.popup && this.focusedOptionIndex() !== item.id) {
             this.focusedOptionIndex.set(item.id);
         }
-
-        console.log(this.focusedOptionId())
     }
 
     onOverlayClick(event: Event) {
