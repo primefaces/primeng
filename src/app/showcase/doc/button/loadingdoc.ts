@@ -8,9 +8,9 @@ import { Code } from '../../domain/code';
             <p>Busy state is controlled with the <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
+            <p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
 
-            <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>
+            <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
     </section>`
@@ -22,7 +22,7 @@ export class LoadingDoc {
 
     loading: boolean = false;
 
-    constructor(private readonly cdr: ChangeDetectorRef) {}
+    constructor(private readonly cdr: ChangeDetectorRef) { }
 
     load() {
         this.loading = true;
@@ -35,13 +35,13 @@ export class LoadingDoc {
 
     code: Code = {
         basic: `
-<p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
-<p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>`,
+<p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
+<p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-button label="Submit" [loading]="loading" (click)="load()"></p-button>
-    <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (click)="load()"></p-button>
+    <p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
+    <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>
 </div>`,
 
         typescript: `
