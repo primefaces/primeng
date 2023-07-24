@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-panelMenu [model]="items" [style]="{ width: '300px' }"></p-panelMenu>
+            <p-panelMenuNew [model]="items" [style]="{ width: '300px' }"></p-panelMenuNew>
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
     </section>`
@@ -26,6 +26,7 @@ export class BasicDoc implements OnInit {
             {
                 label: 'File',
                 icon: 'pi pi-fw pi-file',
+                expanded: true,
                 items: [
                     {
                         label: 'New',
