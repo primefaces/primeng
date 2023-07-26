@@ -20,11 +20,11 @@ export class PanelMenuDemo {
             label: 'Basic',
             component: BasicDoc
         },
-        // {
-        //     id: 'multiple',
-        //     label: 'Multiple',
-        //     component: MultipleDoc
-        // },
+        {
+            id: 'multiple',
+            label: 'Multiple',
+            component: MultipleDoc
+        },
         {
             id: 'style',
             label: 'Style',
