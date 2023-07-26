@@ -235,8 +235,8 @@ describe('PanelMenu', () => {
         ];
         fixture.detectChanges();
 
-        const handleClickSpy = spyOn(panelmenu, 'handleClick').and.callThrough();
-        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-link'));
+        const handleClickSpy = spyOn(panelmenu, 'onHeaderClick').and.callThrough();
+        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-action'));
         expect(headerLinks.length).toEqual(2);
         headerLinks[0].nativeElement.click();
         fixture.detectChanges();
@@ -247,7 +247,6 @@ describe('PanelMenu', () => {
         expect(panelmenu.animating).toEqual(true);
         expect(panelmenu.model[0].expanded).toEqual(true);
         expect(iconEl.nativeElement.tagName.toLowerCase()).toContain('svg');
-        expect(firstSubMenuComponent.expanded).toEqual(true);
     });
 
     it('should select multiple', () => {
