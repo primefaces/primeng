@@ -337,7 +337,7 @@ export class MegaMenuSub {
     }
 }
 /**
- * Menubar is a horizontal menu component.
+ * MegaMenu is navigation component that displays submenus together.
  * @group Components
  */
 @Component({
