@@ -437,18 +437,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * @group Props
      */
     @Input() tabindex: number = 0;
-    /**
-     * Callback to execute when button is focused.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-    /**
-     * Callback to execute when button loses focus.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -651,7 +639,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
             this.focusedItemInfo.set({ index, key: processedItem.key, parentKey: processedItem.parentKey });
         }
-        this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
@@ -659,7 +646,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
         this.searchValue = '';
         this.dirty = false;
-        this.onBlur.emit(event);
     }
 
     onKeyDown(event: KeyboardEvent) {
