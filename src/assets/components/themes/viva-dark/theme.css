@@ -4371,6 +4371,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   background: #263238;
 }
 
+.p-tabview .p-tabview-nav-content {
+  scroll-padding-inline: 2.857rem;
+}
 .p-tabview .p-tabview-nav {
   background: transparent;
   border: 1px solid #263238;
