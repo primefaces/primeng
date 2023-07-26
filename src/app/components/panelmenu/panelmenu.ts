@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, effect, signal } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation, computed, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -10,110 +10,105 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-export class BasePanelMenuItem {
-    constructor(private ref: ChangeDetectorRef) {
-    }
-
-
-    // handleClick(event: Event, item: any, flatItems?: any) {
-
-    // }
-}
 
 @Component({
     selector: 'p-panelMenuSub',
     template: `
         <ul
-            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root, 'p-submenu-expanded': expanded }"
-            [@submenu]="getAnimation()"
+            #list
+            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root}"
             role="tree"
             [tabindex]="-1"
+            [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
-            (focus)="menuFocus.emit($event)"
+            (focusin)="menuFocus.emit($event)"
+            (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
-            <ng-template ngFor let-child let-index="index" [ngForOf]="item?.items">
-                <li *ngIf="child.separator" class="p-menu-separator" role="separator"></li>
+            <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
+                <li *ngIf="processedItem.separator" class="p-menu-separator" role="separator"></li>
                 <li
-                    *ngIf="!child.separator"
+                    *ngIf="!processedItem.separator"
                     class="p-menuitem"
                     role="treeitem"
-                    [attr.aria-label]="getItemProp(child, 'label')"
-                    [attr.aria-expanded]="child.expanded"
+                    [id]="getItemId(processedItem)"
+                    [attr.aria-label]="getItemProp(processedItem, 'label')"
+                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngClass]="child.styleClass"
-                    [class.p-hidden]="child.visible === false"
-                    [class.p-focus]="isItemFocused(child)"
-                    [ngStyle]="child.style"
+                    [ngClass]="processedItem.styleClass"
+                    [class.p-hidden]="processedItem.visible === false"
+                    [class.p-focus]="isItemFocused(processedItem)"
+                    [ngStyle]="processedItem.style"
                     pTooltip
-                    [tooltipOptions]="child.tooltipOptions"
+                    [tooltipOptions]="processedItem.tooltipOptions"
                 >
-                    <div class="p-menuitem-content" (click)="handleClick($event, child, panelMenu.flatItems.bind(this))">
+                    <div class="p-menuitem-content" (click)="onItemClick($event, processedItem)">
                         <a
-                            *ngIf="!getItemProp(child, 'routerLink')"
-                            [attr.href]="getItemProp(child, 'url')"
+                            *ngIf="!getItemProp(processedItem, 'routerLink')"
+                            [attr.href]="getItemProp(processedItem, 'url')"
                             class="p-menuitem-link"
-                            [attr.tabindex]="-1"
-                            [ngClass]="{ 'p-disabled': getItemProp(child, 'disabled') }"
-                            [target]="getItemProp(child, 'target')"
+                            [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [target]="getItemProp(processedItem, 'target')"
                             [attr.data-pc-section]="'action'"
                         >
-                            <ng-container *ngIf="isItemGroup(child)">
+                            <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="child.expanded" [ngStyle]="getItemProp(child, 'iconStyle')" />
-                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!child.expanded" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="getItemProp(child, 'iconStyle')"></span>
-                            <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ getItemProp(child, 'label') }}</span>
-                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(child, 'label')"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
+                            <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                            <span class="p-menuitem-text" *ngIf="processedItem.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
+                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
                         </a>
                         <a
-                            *ngIf="getItemProp(child, 'routerLink')"
-                            [routerLink]="getItemProp(child, 'routerLink')"
-                            [queryParams]="getItemProp(child, 'queryParams')"
+                            *ngIf="getItemProp(processedItem, 'routerLink')"
+                            [routerLink]="getItemProp(processedItem, 'routerLink')"
+                            [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menuitem-link-active'"
-                            [routerLinkActiveOptions]="getItemProp(child, 'routerLinkActiveOptions') || { exact: false }"
+                            [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                             class="p-menuitem-link"
-                            [ngClass]="{ 'p-disabled': getItemProp(child, 'disabled') }"
-                            [attr.tabindex]="-1"
-                            [target]="getItemProp(child, 'target')"
-                            [attr.title]="getItemProp(child, 'title')"
-                            [fragment]="getItemProp(child, 'fragment')"
-                            [queryParamsHandling]="getItemProp(child, 'queryParamsHandling')"
-                            [preserveFragment]="getItemProp(child, 'preserveFragment')"
-                            [skipLocationChange]="getItemProp(child, 'skipLocationChange')"
-                            [replaceUrl]="getItemProp(child, 'replaceUrl')"
-                            [state]="getItemProp(child, 'state')"
+                            [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
+                            [fragment]="getItemProp(processedItem, 'fragment')"
+                            [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                            [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                            [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                            [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                            [state]="getItemProp(processedItem, 'state')"
                             [attr.data-pc-section]="'action'"
                         >
-                            <ng-container *ngIf="isItemGroup(child)">
+                            <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
-                                    <AngleDownIcon *ngIf="child.expanded" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
-                                    <AngleRightIcon *ngIf="!child.expanded" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(child, 'iconStyle')" />
+                                    <AngleDownIcon *ngIf="isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
+                                    <AngleRightIcon *ngIf="!isItemActive(processedItem)" [styleClass]="'p-submenu-icon'" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="getItemProp(child, 'iconStyle')"></span>
-                            <span class="p-menuitem-text" *ngIf="getItemProp(child, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(child, 'label') }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(child, 'label')"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="getItemProp(child, 'badgeStyleClass')">{{ getItemProp(child, 'badge') }}</span>
+                            <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                            <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
+                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                         </a>
                     </div>
-                    <p-panelMenuSub
-                        *ngIf="isItemGroup(child)"
-                        [item]="child"
-                        [parentExpanded]="expanded && parentExpanded"
-                        [expanded]="child.expanded"
-                        [transitionOptions]="transitionOptions"
-                        [focusedItem]="focusedItem"
-                        [level]="level + 1"
-                        [panelId]="panelId"
-                    ></p-panelMenuSub>
+                    <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
+                        <p-panelMenuSub
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            [id]="getItemId(processedItem) + '_list'"
+                            [panelId]="panelId"
+                            [items]="processedItem.items"
+                            [transitionOptions]="transitionOptions"
+                            [focusedItemId]="focusedItemId"
+                            [activeItemPath]="activeItemPath"
+                            [level]="level + 1"
+                            (itemToggle)="onItemToggle($event)"
+                        ></p-panelMenuSub>
+                    </div>
                 </li>
             </ng-template>
         </ul>
@@ -141,115 +136,503 @@ export class BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenuSub extends BasePanelMenuItem {
+export class PanelMenuSub {
+    @Input() panelId: string | undefined;
+
+    @Input() focusedItemId: string | undefined;
+
+    @Input() items: any[];
+
+    @Input() level: number = 0;
+
+    @Input() activeItemPath: any[];
+
+    @Input() root: boolean | undefined;
+
+    @Input() tabindex: number | undefined;
+
+    @Input() transitionOptions: string | undefined;
+
+    @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
+
     @Output() menuFocus: EventEmitter<any> = new EventEmitter<any>();
+
+    @Output() menuBlur: EventEmitter<any> = new EventEmitter<any>();
+
     @Output() menuKeyDown: EventEmitter<any> = new EventEmitter<any>();
 
-    @Input() focusedItem: any;
+    @ViewChild('list') listViewChild: ElementRef;
 
-
-
-    getItemProp(item, name) {
-        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    constructor(public panelMenu: PanelMenu, public el: ElementRef) {}
+    
+    getItemId(processedItem) {
+        return `${this.panelId}_${processedItem.key}`;
     }
 
-    isItemGroup(item) {
-        return ObjectUtils.isNotEmpty(item.items);
+    getItemKey(processedItem) {
+        return this.getItemId(processedItem);
+    }
+
+    getItemProp(processedItem, name?, params?) {
+        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+    }
+
+    getItemLabel(processedItem) {
+        return this.getItemProp(processedItem, 'label');
+    }
+
+    isItemActive(processedItem) {
+        return processedItem.expanded || this.activeItemPath.some((path) => path && (path.key === processedItem.key));
     }
 
     isItemVisible(processedItem) {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
 
-    isItemActive(processedItem) {
-        return this.activeItemPath().some((path) => path.key === processedItem.key);
+    isItemDisabled(processedItem) {
+        return this.getItemProp(processedItem, 'disabled');
     }
 
     isItemFocused(processedItem) {
-        return ObjectUtils.equals(processedItem, this.focusedItem);
+        return this.focusedItemId === this.getItemId(processedItem);
     }
 
-    getItemId(processedItem) {
-        return `${this.panelId}_${processedItem.key}`;
+    isItemGroup(processedItem) {
+        return ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    getAnimation(processedItem) {
+        return this.isItemActive(processedItem) ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getAriaSetSize() {
-        return this.item?.items.filter((item) => this.isItemVisible(item) && !this.getItemProp(item, 'separator')).length;
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
     }
 
     getAriaPosInset(index) {
-        return index - this.item?.items.slice(0, index).filter((item) => this.isItemVisible(item) && this.getItemProp(item, 'separator')).length + 1;
+        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
     }
 
-    @Input() item: any;
+    onItemClick(event, processedItem) {
+        this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
+        this.itemToggle.emit({ processedItem, expanded: !this.isItemActive(processedItem) });
+    }
 
-    @Input() expanded: boolean | undefined;
+    onItemToggle(event) {
+        this.itemToggle.emit(event);
+    }
+}
+
+@Component({
+    selector: 'p-panelMenuList',
+    template: `
+        <p-panelMenuSub
+            #submenu
+            [root]="true"
+            [id]="panelId + '_list'"
+            [panelId]="panelId"
+            [tabindex]="tabindex"
+            [focusedItemId]="focused ? focusedItemId : undefined"
+            [activeItemPath]="activeItemPath()"
+            [transitionOptions]="transitionOptions"
+            [items]="processedItems()"
+            [activeItemPath]="activeItemPath()"
+            (itemToggle)="onItemToggle($event)"
+            (keydown)="onKeyDown($event)"
+            (menuFocus)="onFocus($event)"
+            (menuBlur)="onBlur($event)"
+        ></p-panelMenuSub>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./panelmenu.css'],
+    host: {
+        class: 'p-element'
+    }
+})
+export class PanelMenuList implements OnChanges {
+    @Input() panelId: string | undefined;
+
+    @Input() id: string | undefined;
+
+    @Input() items: any[];
 
     @Input() parentExpanded: boolean | undefined;
+
+    @Input() expanded: boolean | undefined;
 
     @Input() transitionOptions: string | undefined;
 
     @Input() root: boolean | undefined;
 
-    @Input() panelId: string | undefined;
+    @Input() tabindex: number | undefined;
 
-    @Input() id: string | undefined;
+    @Input() activeItem: any;
 
-    @Input() focused: boolean | undefined;
+    @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
+    
+    @Output() headerFocus: EventEmitter<any> = new EventEmitter<any>();
 
-    @Input() level: number = 0;
+    @ViewChild('submenu') subMenuViewChild: PanelMenuSub;
 
-    @Input() tabindex: number;
+    searchTimeout: any;
 
-    focusedItemId: string | undefined;
+    searchValue: any;
 
-    constructor(ref: ChangeDetectorRef, public panelMenu: PanelMenu) {
-        super(ref);
+    focused: boolean | undefined;
+
+    focusedItem = signal<any>(null);
+
+    activeItemPath = signal<any[]> ([]);
+
+    processedItems = signal<any[]>([]);
+
+    visibleItems = computed(() => {
+        const processedItems = this.processedItems();
+        return this.flatItems(processedItems);
+    })
+
+    get focusedItemId() {
+        return ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    getAnimation() {
-        return this.expanded ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
+    ngOnChanges(changes: SimpleChanges) {
+        if(changes && changes.items && changes.items.currentValue) {
+            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []))
+        }
     }
 
-    activeItemPath = signal<any[]>([]);
+    getItemProp(processedItem, name) {
+        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
+    }
 
-    activeItem = signal<any>(null);0
-    visibleItems = signal<any>(null);
+    getItemLabel(processedItem) {
+        return this.getItemProp(processedItem, 'label');
+    }
+    
+    isItemVisible(processedItem) {
+        return this.getItemProp(processedItem, 'visible') !== false;
+    }
+    
+    isItemDisabled(processedItem) {
+        return this.getItemProp(processedItem, 'disabled');
+    }
+    
+    isItemActive(processedItem) {
+        return this.activeItemPath().some((path) => path.key === processedItem.parentKey);
+    }
+    
+    isItemGroup(processedItem) {
+        return ObjectUtils.isNotEmpty(processedItem.items);
+    }
 
-    currentItems = signal<any>(null);
 
-    handleClick(event: Event, item: any, flatItems: any) {
-        if (item.disabled) {
+    isElementInPanel(event, element) {
+        const panel = event.currentTarget.closest('[data-pc-section="panel"]');
+
+        return panel && panel.contains(element);
+    }
+    
+    isItemMatched(processedItem) {
+        return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+    }
+
+    isVisibleItem(processedItem) {
+        return !!processedItem && (processedItem.level === 0 || this.isItemActive(processedItem)) && this.isItemVisible(processedItem);
+    }
+
+    isValidItem(processedItem) {
+        return !!processedItem && !this.isItemDisabled(processedItem);
+    }
+
+    findFirstItem() {
+        return this.visibleItems().find((processedItem) => this.isValidItem(processedItem));
+    }
+
+    findLastItem() {
+        return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
+    }
+
+    createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
+        const processedItems = [];
+        items &&
+            items.forEach((item, index) => {
+                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
+                const newItem = {
+                    icon: item.icon,
+                    expanded: item.expanded,
+                    item,
+                    index,
+                    level,
+                    key,
+                    parent,
+                    parentKey
+                };
+
+                newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
+                processedItems.push(newItem);
+            });
+        return processedItems;
+    }
+
+    findProcessedItemByItemKey(key, processedItems?, level = 0) {
+        processedItems = processedItems || this.processedItems();
+        if (processedItems && processedItems.length) {
+            
+            for (let i = 0; i < processedItems.length; i++) {
+                const processedItem = processedItems[i];
+    
+                if (this.getItemProp(processedItem, 'key') === key) return processedItem;
+                const matchedItem = this.findProcessedItemByItemKey(key, processedItem.items, level + 1);
+                if (matchedItem) return matchedItem;
+    
+            }
+        }
+    }
+
+    flatItems(processedItems, processedFlattenItems = []) {
+        processedItems &&
+            processedItems.forEach((processedItem) => {
+                if (this.isVisibleItem(processedItem)) {
+                    processedFlattenItems.push(processedItem);
+                    this.flatItems(processedItem.items, processedFlattenItems);
+                }
+            });
+
+        return processedFlattenItems;
+    }
+
+    changeFocusedItem(event) {
+        const { originalEvent, processedItem, focusOnNext, selfCheck, allowHeaderFocus = true } = event;
+
+        if (ObjectUtils.isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
+            this.focusedItem.set(processedItem);
+            this.scrollInView();
+        } else if (allowHeaderFocus) {
+            this.headerFocus.emit({ originalEvent, focusOnNext, selfCheck });
+        }
+    }
+
+    scrollInView() {
+        const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+
+        if (element) {
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+        }
+    }
+    
+    onFocus(event) {
+        this.focused = true;
+        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
+        if(event.relatedTarget !== null) this.focusedItem.set(focusedItem)
+    }
+
+    onBlur(event) {
+        this.focused = false;
+        this.focusedItem.set(null);
+        this.searchValue = '';
+    }
+
+    onItemToggle(event) {
+        const { processedItem, expanded } = event;
+        processedItem.expanded = !processedItem.expanded;
+
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);
+        expanded && activeItemPath.push(processedItem);
+
+        this.activeItemPath.set(activeItemPath)
+        this.processedItems.mutate(value => value.map(i => i === processedItem ? processedItem : i ));
+        this.focusedItem.set(processedItem);
+    }
+
+    onKeyDown(event) {
+        const metaKey = event.metaKey || event.ctrlKey;
+
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUpKey(event);
+                break;
+
+            case 'ArrowLeft':
+                this.onArrowLeftKey(event);
+                break;
+
+            case 'ArrowRight':
+                this.onArrowRightKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            case 'Space':
+                this.onSpaceKey(event);
+                break;
+
+            case 'Enter':
+                this.onEnterKey(event);
+                break;
+
+            case 'Escape':
+            case 'Tab':
+            case 'PageDown':
+            case 'PageUp':
+            case 'Backspace':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+                //NOOP
+                break;
+
+            default:
+                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                    this.searchItems(event, event.key);
+                }
+
+                break;
+        }
+    }
+
+    onArrowDownKey(event) {
+        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findNextItem(this.focusedItem()) : this.findFirstItem();
+
+        this.changeFocusedItem({ originalEvent: event, processedItem, focusOnNext: true });
+        event.preventDefault();
+    }
+    onArrowUpKey(event) {
+        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevItem(this.focusedItem()) : this.findLastItem();
+
+        this.changeFocusedItem({ originalEvent: event, processedItem, selfCheck: true });
+        event.preventDefault();
+    }
+
+    onArrowLeftKey(event) {
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
+
+            if (matched) {
+                const activeItemPath = this.activeItemPath().filter((p) => p.key !== this.focusedItem().key);
+                this.activeItemPath.set(activeItemPath);
+            } else {
+                const focusedItem = ObjectUtils.isNotEmpty(this.focusedItem().parent) ? this.focusedItem().parent : this.focusedItem();
+                this.focusedItem.set(focusedItem);
+            }
+
             event.preventDefault();
-            return;
+        }
+    }
+
+    onArrowRightKey(event) {
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const grouped = this.isItemGroup(this.focusedItem());
+
+            if (grouped) {
+                const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
+                
+                if (matched) {
+                    this.onArrowDownKey(event);
+                } else {
+                    const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItem().parentKey);
+                    activeItemPath.push(this.focusedItem());
+
+                    this.activeItemPath.set(activeItemPath);
+                }
+            }
+
+            event.preventDefault();
+        }
+    }
+
+    onHomeKey(event) {
+        this.changeFocusedItem({ originalEvent: event, processedItem: this.findFirstItem(), allowHeaderFocus: false });
+        event.preventDefault();
+    }
+
+    onEndKey(event) {
+        this.changeFocusedItem({ originalEvent: event, processedItem: this.findLastItem(), focusOnNext: true, allowHeaderFocus: false });
+        event.preventDefault();
+    }
+
+    onEnterKey(event) {
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
+
+            anchorElement ? anchorElement.click() : element && element.click();
         }
 
-        item.expanded = !item.expanded;
+        event.preventDefault();
+    }
 
-        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
-        if (item.expanded) {
-            activeItemPath.push(item);
-            this.activeItem.set(item);
-            this.visibleItems.set(flatItems(this.currentItems()?.items));
+    onSpaceKey(event) {
+        this.onEnterKey(event);
+    }
+
+    findNextItem(processedItem) {
+        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const matchedItem = index < this.visibleItems().length - 1 ? this.visibleItems().slice(index + 1).find((pItem) => this.isValidItem(pItem)) : undefined;
+
+        return matchedItem || processedItem;
+    }
+
+    findPrevItem(processedItem) {
+        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
+
+        return matchedItem || processedItem;
+    }
+
+    searchItems(event, char) {
+        this.searchValue = (this.searchValue || '') + char;
+
+        let matchedItem = null;
+        let matched = false;
+
+        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
+            const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
+
+            matchedItem = this.visibleItems().slice(focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = ObjectUtils.isEmpty(matchedItem) ? this.visibleItems().slice(0, focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem)) : matchedItem;
         } else {
-            this.activeItem.set(null);
-        }
-        this.activeItemPath.set(activeItemPath);
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
+            matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
         }
 
-        if (item.command) {
-            item.command({
+        if (ObjectUtils.isNotEmpty(matchedItem)) {
+            matched = true;
+        }
+
+        if (ObjectUtils.isEmpty(matchedItem) && ObjectUtils.isEmpty(this.focusedItem())) {
+            matchedItem = this.findFirstItem();
+        }
+
+        if (ObjectUtils.isNotEmpty(matchedItem)) {
+            this.changeFocusedItem({
                 originalEvent: event,
-                item: item
+                processedItem: matchedItem,
+                allowHeaderFocus: false
             });
         }
 
-        event.stopPropagation();
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        this.searchTimeout = setTimeout(() => {
+            this.searchValue = '';
+            this.searchTimeout = null;
+        }, 500);
+
+        return matched;
     }
 }
+
 /**
  * PanelMenu is a hybrid of Accordion and Tree components.
  * @group Components
@@ -258,7 +641,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
     selector: 'p-panelMenu',
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'" #container>
-            <ng-container *ngFor="let item of processedItems; let f = first; let l = last; let i = index">
+            <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
                 <div *ngIf="isItemVisible(item)" class="p-panelmenu-panel" [ngClass]="getItemProp(item, 'headerClass')" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
                     <div
                         [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-highlight': isItemActive(item), 'p-disabled': isItemDisabled(item) }"
@@ -276,9 +659,8 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         [attr.data-p-highlight]="isItemActive(item)"
                         [attr.data-p-disabled]="isItemDisabled(item)"
                         [attr.data-pc-section]="'header'"
-                        (click)="handleClick($event, item, flatItems.bind(this))"
-                        (keydown)="onHeaderKeyDown($event)"
-                        (focus)="onHeaderFocus($event)"
+                        (click)="onHeaderClick($event, item, i)"
+                        (keydown)="onHeaderKeyDown($event, item, i)"
                     >
                         <div class="p-panelmenu-header-content">
                             <a
@@ -297,7 +679,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="getItemProp(item, 'icon')" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
                                 <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
@@ -326,7 +708,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="getItemProp(item, 'icon')" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
                                 <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
@@ -336,7 +718,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
                     <div
                         *ngIf="isItemGroup(item)"
                         class="p-toggleable-content"
-                        [ngClass]="{ 'p-panelmenu-expanded': item.expanded }"
+                        [ngClass]="{ 'p-panelmenu-expanded': isItemActive(item) }"
                         [@rootItem]="getAnimation(item)"
                         (@rootItem.done)="onToggleDone()"
                         role="region"
@@ -345,18 +727,16 @@ export class PanelMenuSub extends BasePanelMenuItem {
                         [attr.data-pc-section]="'toggleablecontent'"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panelMenuSub
-                                [id]="getPanelId(i) + '_list'"
-                                [panelId]="getPanelId(i)"
-                                [item]="item"
-                                [parentExpanded]="item.expanded"
-                                [expanded]="true"
-                                [transitionOptions]="transitionOptions"
+                            <p-panelMenuList 
+                                [panelId]="getPanelId(i)" 
+                                [items]="getItemProp(item, 'items')" 
+                                [transitionOptions]="transitionOptions" 
                                 [root]="true"
-                                [focusedItem]="this.focusedItem()"
-                                (menuFocus)="onMenuFocus($event, item)"
-                                (menuKeyDown)="onMenuKeyDown($event)"
-                            ></p-panelMenuSub>
+                                [activeItem]="activeItem()"
+                                [tabindex]="tabindex"
+                                (itemToggle)="changeExpandedKeys($event)"
+                                (headerFocus)="updateFocusedHeader($event)"
+                            ></p-panelMenuList>
                         </div>
                     </div>
                 </div>
@@ -388,323 +768,7 @@ export class PanelMenuSub extends BasePanelMenuItem {
         class: 'p-element'
     }
 })
-export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
-    activeItemPath = signal<any[]>([]);
-
-    activeItem = signal<any>(null);
-
-    visibleItems = signal<any>(null);
-
-    currentItems = signal<any>(null);
-
-    handleClick(event: Event, item: any, flatItems?: any) {
-        if (!this.multiple) {
-            for (let modelItem of this.processedItems!) {
-                if (item !== modelItem && modelItem.expanded) {
-                    modelItem.expanded = false;
-                }
-            }
-        }
-        this.animating = true;
-        DomHandler.focus(event.currentTarget as HTMLElement);
-
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        item.expanded = !item.expanded;
-
-        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== item.parentKey);
-        if (item.expanded) {
-            activeItemPath.push(item);
-            this.activeItem.set(item);
-            this.visibleItems.set(flatItems(this.currentItems()?.items));
-        } else {
-            this.activeItem.set(null);
-        }
-        this.activeItemPath.set(activeItemPath);
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
-        }
-
-        if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-    }
-
-    onHeaderFocus(event: any) {
-        this.focusedItem.set(null);
-        event.preventDefault();
-    }
-
-    searchValue: string = '';
-    searchTimeout: any;
-
-    isItemMatched(processedItem) {
-        return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
-    }
-
-    searchItems(event, char) {
-        this.searchValue = (this.searchValue || '') + char;
-
-        let matchedItem = null;
-        let matched = false;
-
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
-            const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
-
-            matchedItem = this.visibleItems()
-                .slice(focusedItemIndex)
-                .find((processedItem) => this.isItemMatched(processedItem));
-            matchedItem = ObjectUtils.isEmpty(matchedItem)
-                ? this.visibleItems()
-                      .slice(0, focusedItemIndex)
-                      .find((processedItem) => this.isItemMatched(processedItem))
-                : matchedItem;
-        } else {
-            matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
-        }
-
-        if (ObjectUtils.isNotEmpty(matchedItem)) {
-            matched = true;
-        }
-
-        if (ObjectUtils.isEmpty(matchedItem) && ObjectUtils.isEmpty(this.focusedItem)) {
-            matchedItem = this.findFirstMenuItem();
-        }
-
-        if (ObjectUtils.isNotEmpty(matchedItem)) {
-            this.changeFocusedMenuItem({
-                originalEvent: event,
-                processedItem: matchedItem,
-                allowHeaderFocus: false
-            });
-        }
-
-        if (this.searchTimeout) {
-            clearTimeout(this.searchTimeout);
-        }
-
-        this.searchTimeout = setTimeout(() => {
-            this.searchValue = '';
-            this.searchTimeout = null;
-        }, 500);
-
-        return matched;
-    }
-
-    onMenuKeyDown(event) {
-        const metaKey = event.metaKey || event.ctrlKey;
-
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onMenuArrowDownKey(event);
-                break;
-
-            case 'ArrowUp':
-                this.onMenuArrowUpKey(event);
-                break;
-
-            case 'ArrowRight':
-                this.onMenuArrowRighKey(event);
-                break;
-
-            case 'Home':
-                this.onMenuHomeKey(event);
-                break;
-
-            case 'End':
-                this.onMenuEndKey(event);
-                break;
-
-            case 'Space':
-                this.onMenuSpaceKey(event);
-                break;
-
-            case 'Enter':
-                this.onMenuEnterKey(event);
-                break;
-
-            case 'Escape':
-            case 'Tab':
-            case 'PageDown':
-            case 'PageUp':
-            case 'Backspace':
-            case 'ShiftLeft':
-            case 'ShiftRight':
-                //NOOP
-                break;
-
-            default:
-                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
-                    this.searchItems(event, event.key);
-                }
-
-                break;
-        }
-    }
-
-    onMenuEnterKey(event) {
-        this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
-
-        event.preventDefault();
-    }
-
-    onMenuSpaceKey(event) {
-        this.onMenuEnterKey(event);
-    }
-
-    onMenuHomeKey(event) {
-        this.changeFocusedMenuItem({ originalEvent: event, processedItem: this.findFirstMenuItem(), allowHeaderFocus: false });
-        event.preventDefault();
-    }
-
-    onMenuEndKey(event) {
-        this.changeFocusedMenuItem({ originalEvent: event, processedItem: this.findLastMenuItem(), focusOnNext: true, allowHeaderFocus: false });
-        event.preventDefault();
-    }
-
-    onMenuArrowUpKey(event) {
-        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findPrevMenuItem(this.focusedItem()) : this.findLastMenuItem();
-        this.changeFocusedMenuItem({ originalEvent: event, processedItem, selfCheck: true });
-        event.preventDefault();
-    }
-
-    onMenuArrowDownKey(event) {
-        const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findNextMenuItem(this.focusedItem()) : this.findFirstMenuItem();
-
-        this.changeFocusedMenuItem({ originalEvent: event, processedItem, focusOnNext: true });
-        event.preventDefault();
-    }
-
-    onMenuArrowRighKey(event) {
-        if (ObjectUtils.isNotEmpty(this.focusedItem())) {
-            const grouped = this.isItemGroup(this.focusedItem());
-
-            if (grouped) {
-                this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
-                const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
-                if (matched) {
-                    this.onMenuArrowDownKey(event);
-                } else {
-                    const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItem().parentKey);
-                    activeItemPath.push(this.focusedItem);
-
-                    this.activeItemPath.set(activeItemPath);
-                }
-            }
-
-            this.handleClick(event, this.focusedItem(), this.flatItems.bind(this));
-            event.preventDefault();
-        }
-    }
-
-    findNextMenuItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
-        const matchedItem =
-            index < this.visibleItems().length - 1
-                ? this.visibleItems()
-                      .slice(index + 1)
-                      .find((pItem) => this.isValidItem(pItem))
-                : undefined;
-        return matchedItem || processedItem;
-    }
-
-    findPrevMenuItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
-        const matchedItem = index > 0 ? ObjectUtils.findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
-        return matchedItem || processedItem;
-    }
-
-    findFirstMenuItem() {
-        return this.visibleItems().find((processedItem) => this.isValidItem(processedItem));
-    }
-
-    changeFocusedMenuItem(event) {
-        const { originalEvent, processedItem, focusOnNext, selfCheck, allowHeaderFocus = true } = event;
-
-        if (ObjectUtils.isNotEmpty(this.focusedItem()) && this.focusedItem().key !== processedItem.key) {
-            this.focusedItem.set(processedItem);
-            // this.scrollInView();
-        } else if (allowHeaderFocus) {
-            this.updateFocusedHeader({ originalEvent, focusOnNext, selfCheck });
-        }
-    }
-
-    isVisibleItem(processedItem) {
-        return !!processedItem && (processedItem.level === 1 || this.isItemActive(processedItem)) && this.isItemVisible(processedItem);
-    }
-
-    isValidItem(processedItem) {
-        return !!processedItem && !this.isItemDisabled(processedItem);
-    }
-
-    flatItems(processedItems, processedFlattenItems = []) {
-        processedItems &&
-            processedItems.forEach((processedItem) => {
-                if (this.isVisibleItem(processedItem)) {
-                    processedFlattenItems.push(processedItem);
-                    this.flatItems(processedItem.items, processedFlattenItems);
-                }
-            });
-
-        return processedFlattenItems;
-    }
-
-    focusedItem = signal<any>(null);
-
-    onMenuFocus(event, item) {
-        this.visibleItems.set(this.flatItems(item.items));
-        this.currentItems.set(item);
-
-        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstMenuItem() : this.findLastMenuItem());
-
-        this.focusedItem.set(focusedItem);
-    }
-
-    changeVisibleItems(items) {
-        let updated = [];
-
-        items.forEach((item) => {
-            if (!item.expanded) {
-                updated.push(item);
-            } else {
-                let itemCopy = { ...item };
-                delete itemCopy.items;
-                updated.push(itemCopy);
-                if (Array.isArray(item.items)) {
-                    updated.push(...this.changeVisibleItems(item.items));
-                }
-            }
-        });
-
-        return updated;
-    }
-
-    findLastMenuItem() {
-        return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
-    }
-
-    isElementInPanel(event, element) {
-        const panel = event.currentTarget.closest('[data-pc-section="panel"]');
-
-        return panel && panel.contains(element);
-    }
-
-    _processedItems: any[];
-
-    get processedItems() {
-        if (!this._processedItems || !this._processedItems.length) {
-            this._processedItems = this.createProcessedItems(this.model || []);
-        }
-        return this._processedItems;
-    }
-
+export class PanelMenu implements AfterContentInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -730,10 +794,16 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-
+    /**
+     * Current id state as a string.
+     * @group Props
+     */
     @Input() id: string | undefined;
-
-    @Input() tabindex: number;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -743,19 +813,51 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     public animating: boolean | undefined;
 
-    _visibleItems: any[];
-
-    constructor(ref: ChangeDetectorRef, public el: ElementRef) {
-        super(ref);
-        
-        effect(() => {
-            const activeItem = this.activeItem();
-            this._visibleItems = this.flatItems(this.processedItems);
-        });
-    }
+    activeItem = signal<any>(null);
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    /**
+     * Collapses open panels.
+     * @group Method
+     */
+    collapseAll() {
+        for (let item of this.model!) {
+            if (item.expanded) {
+                item.expanded = false;
+            }
+        }
+
+        this.cd.detectChanges()
+    }
+
+    onToggleDone() {
+        this.animating = false;
+    }
+
+    changeActiveItem(event, item, index?: number, selfActive = false) {
+        if(!this.isItemDisabled(item)) {
+            const activeItem = selfActive ? item : this.activeItem && ObjectUtils.equals(item, this.activeItem) ? null : item;
+            this.activeItem.set(activeItem);
+        }
+    }
+
+    getAnimation(item: MenuItem) {
+        return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getItemProp(item, name) {
@@ -764,6 +866,10 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
 
     getItemLabel(item) {
         return this.getItemProp(item, 'label');
+    }
+
+    isItemActive(item) {
+        return item.expanded;
     }
 
     isItemVisible(item) {
@@ -794,100 +900,6 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         return `${this.getPanelId(index)}_content`;
     }
 
-    createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
-        const processedItems = [];
-
-        items &&
-            items.forEach((item, index) => {
-                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
-                const newItem = {
-                    ...item,
-                    index,
-                    level,
-                    key,
-                    parent,
-                    parentKey
-                };
-
-                newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
-                processedItems.push(newItem);
-            });
-
-        return processedItems;
-    }
-
-    ngAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this.submenuIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    collapseAll() {
-        for (let item of this.processedItems!) {
-            if (item.expanded) {
-                item.expanded = false;
-            }
-        }
-    }
-
-    onToggleDone() {
-        this.animating = false;
-    }
-
-    onHeaderKeyDown(event: KeyboardEvent, item: any): void {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onHeaderArrowDownKey(event);
-                break;
-
-            case 'ArrowUp':
-                this.onHeaderArrowUpKey(event);
-                break;
-
-            case 'Home':
-                this.onHeaderHomeKey(event);
-                break;
-
-            case 'End':
-                this.onHeaderEndKey(event);
-                break;
-
-            case 'Enter':
-            case 'Space':
-                this.onHeaderEnterKey(event, item);
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    onHeaderEnterKey(event, item) {
-        const headerAction = DomHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
-
-        headerAction ? headerAction.click() : this.handleClick(event, item);
-        event.preventDefault();
-    }
-
-    onHeaderArrowDownKey(event) {
-        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
-
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
-        event.preventDefault();
-    }
-
-    onHeaderArrowUpKey(event) {
-        let prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
-
-        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
-        event.preventDefault();
-    }
-
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
         const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
@@ -896,14 +908,8 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
 
-    onHeaderHomeKey(event) {
-        this.changeFocusedHeader(event, this.findFirstHeader());
-        event.preventDefault();
-    }
-
-    onHeaderEndKey(event) {
-        this.changeFocusedHeader(event, this.findLastHeader());
-        event.preventDefault();
+    changeFocusedHeader(event, element) {
+        element && DomHandler.focus(element);
     }
 
     findNextHeader(panelElement, selfCheck = false) {
@@ -928,22 +934,95 @@ export class PanelMenu extends BasePanelMenuItem implements AfterContentInit {
         return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
     }
 
-    changeFocusedHeader(event, element) {
-        element && DomHandler.focus(element);
+    onHeaderClick(event, item, index) {
+        if (this.isItemDisabled(item)) {
+            event.preventDefault();
+
+            return;
+        }
+
+        if (item.command) {
+            item.command({ originalEvent: event, item });
+        }
+
+        if (!this.multiple) {
+            for (let modelItem of this.model!) {
+                if (item !== modelItem && modelItem.expanded) {
+                    modelItem.expanded = false;
+                }
+            }
+        }
+        
+        item.expanded = !item.expanded;
+        this.changeActiveItem(event, item, index);
+        this.animating = true;
+        DomHandler.focus(event.currentTarget as HTMLElement);
     }
 
-    isItemActive(item) {
-        return item.expanded || item?.parent?.expanded;
+    onHeaderKeyDown(event, item, index) {
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onHeaderArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onHeaderArrowUpKey(event);
+                break;
+
+            case 'Home':
+                this.onHeaderHomeKey(event);
+                break;
+
+            case 'End':
+                this.onHeaderEndKey(event);
+                break;
+
+            case 'Enter':
+            case 'Space':
+                this.onHeaderEnterKey(event, item, index);
+                break;
+
+            default:
+                break;
+        }
     }
 
-    getAnimation(item: MenuItem) {
-        return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
+    onHeaderArrowDownKey(event) {
+        const rootList = DomHandler.getAttribute(event.currentTarget, 'data-p-highlight') === true ? DomHandler.findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+
+        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
+        event.preventDefault();
     }
+
+    onHeaderArrowUpKey(event) {
+        const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
+        const rootList = DomHandler.getAttribute(prevHeader, 'data-p-highlight') === true ? DomHandler.findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+
+        rootList ? DomHandler.focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
+        event.preventDefault();
+    }
+
+    onHeaderHomeKey(event) {
+        this.changeFocusedHeader(event, this.findFirstHeader());
+        event.preventDefault();
+    }
+
+    onHeaderEndKey(event) {
+        this.changeFocusedHeader(event, this.findLastHeader());
+        event.preventDefault();
+    }
+
+    onHeaderEnterKey(event, item, index) {
+        const headerAction = DomHandler.findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
+
+        headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
+        event.preventDefault();
+    }
+
 }
-
 @NgModule({
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
     exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [PanelMenu, PanelMenuSub]
+    declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
 })
 export class PanelMenuModule {}
