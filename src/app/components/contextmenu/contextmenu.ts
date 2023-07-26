@@ -48,7 +48,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
-            [attr.aria-aria-activedescendant]="focusedItemId"
+            [attr.aria-activedescendant]="focusedItemId"
             [attr.aria-orientation]="'vertical'"
             [attr.data-pc-section]="'menu'"
             (keydown)="menuKeydown.emit($event)"
