@@ -1,8 +1,26 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef, signal } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    forwardRef
+} from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler} from 'primeng/dom';
+import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
@@ -35,11 +53,11 @@ import { UniqueComponentId } from 'primeng/utils';
                     <ng-container *ngIf="!iconTemplate">
                         <ng-container *ngIf="selected">
                             <span *ngIf="accordion.collapseIcon" [class]="accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"/>
+                            <ChevronDownIcon *ngIf="!accordion.collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
                         </ng-container>
                         <ng-container *ngIf="!selected">
                             <span *ngIf="accordion.expandIcon" [class]="accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"/>
+                            <ChevronRightIcon *ngIf="!accordion.expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
                         </ng-container>
                     </ng-container>
                     <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
@@ -94,6 +112,11 @@ import { UniqueComponentId } from 'primeng/utils';
     }
 })
 export class AccordionTab implements AfterContentInit, OnDestroy {
+    /**
+     * Current id state as a string.
+     * @group Props
+     */
+    @Input() id: string | undefined;
     /**
      * Used to define the header of the tab.
      * @group Props
@@ -150,26 +173,12 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      */
     @Input() iconPos: 'end' | 'start' = 'start';
     /**
-     * Event triggered by changing the choice.
-     * @param {boolean} value - Boolean value indicates that the option is changed.
-     * @group Emits
-     */
-    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    @ContentChildren(Header) headerFacet!: QueryList<Header>;
-
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    private _selected: boolean = false;
-
-    /**
      * The value that returns the selection.
      * @group Props
      */
     @Input() get selected(): boolean {
         return this._selected;
     }
-
     set selected(val: boolean) {
         this._selected = val;
 
@@ -181,6 +190,18 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             this.changeDetector.detectChanges();
         }
     }
+    /**
+     * Event triggered by changing the choice.
+     * @param {boolean} value - Boolean value indicates that the option is changed.
+     * @group Emits
+     */
+    @Output() selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ContentChildren(Header) headerFacet!: QueryList<Header>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    private _selected: boolean = false;
 
     get iconClass() {
         if (this.iconPos === 'end') {
@@ -195,8 +216,6 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     headerTemplate: TemplateRef<any> | undefined;
 
     iconTemplate: TemplateRef<any> | undefined;
-
-    public id: string | undefined;
 
     loaded: boolean = false;
 
@@ -278,7 +297,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     onKeydown(event: KeyboardEvent) {
-        switch(event.code) {
+        switch (event.code) {
             case 'Enter':
             case 'Space':
                 this.toggle(event);
@@ -292,11 +311,11 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     getTabHeaderActionId(tabId) {
         return `${tabId}_header_action`;
     }
-    
+
     getTabContentId(tabId) {
         return `${tabId}_content`;
     }
-    
+
     ngOnDestroy() {
         this.accordion.tabs.splice(this.findTabIndex(), 1);
     }
@@ -398,7 +417,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
-        switch(event.code) {
+        switch (event.code) {
             case 'ArrowDown':
                 this.onTabArrowDownKey(event);
                 break;
@@ -414,8 +433,6 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
             case 'End':
                 this.onTabEndKey(event);
                 break;
-
-
         }
     }
 
@@ -424,13 +441,12 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
 
         event.preventDefault();
-    
     }
 
     onTabArrowUpKey(event) {
         const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
         prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
-        
+
         event.preventDefault();
     }
 
@@ -447,36 +463,33 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
             if (this.selectOnFocus) {
                 this.tabs.forEach((tab, i) => {
                     let selected = this.multiple ? this._activeIndex.includes(i) : i === this._activeIndex;
-                    
-                    if(this.multiple) {
-                        if(!this._activeIndex){
+
+                    if (this.multiple) {
+                        if (!this._activeIndex) {
                             this._activeIndex = [];
                         }
-                        if(tab.id == element.id) {
+                        if (tab.id == element.id) {
                             tab.selected = !tab.selected;
-                            if(!this._activeIndex.includes(i)) {
+                            if (!this._activeIndex.includes(i)) {
                                 this._activeIndex.push(i);
                             } else {
-                                this._activeIndex = this._activeIndex.filter(ind => ind !== i);
+                                this._activeIndex = this._activeIndex.filter((ind) => ind !== i);
                             }
                         }
-                    }
-                    else {
-                        if(tab.id == element.id) {
+                    } else {
+                        if (tab.id == element.id) {
                             tab.selected = !tab.selected;
                             this._activeIndex = i;
-                        }
-                        else {
+                        } else {
                             tab.selected = false;
                         }
                     }
 
                     tab.selectedChange.emit(selected);
-                    this.activeIndexChange.emit(this._activeIndex)
+                    this.activeIndexChange.emit(this._activeIndex);
                     tab.changeDetector.markForCheck();
-                })
+                });
             }
-            
         }
     }
 
