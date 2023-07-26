@@ -47,7 +47,7 @@ export class ResponsiveDoc implements OnInit {
 
     responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) { }
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {

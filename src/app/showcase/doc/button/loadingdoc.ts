@@ -22,7 +22,7 @@ export class LoadingDoc {
 
     loading: boolean = false;
 
-    constructor(private readonly cdr: ChangeDetectorRef) { }
+    constructor(private readonly cdr: ChangeDetectorRef) {}
 
     load() {
         this.loading = true;

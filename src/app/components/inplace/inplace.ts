@@ -11,7 +11,7 @@ import { TimesIcon } from 'primeng/icons/times';
         class: 'p-element'
     }
 })
-export class InplaceDisplay { }
+export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplaceContent',
@@ -20,7 +20,7 @@ export class InplaceDisplay { }
         class: 'p-element'
     }
 })
-export class InplaceContent { }
+export class InplaceContent {}
 /**
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  * @group Components
@@ -118,7 +118,7 @@ export class Inplace implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
-    constructor(public cd: ChangeDetectorRef) { }
+    constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -184,4 +184,4 @@ export class Inplace implements AfterContentInit {
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
-export class InplaceModule { }
+export class InplaceModule {}

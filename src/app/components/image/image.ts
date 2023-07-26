@@ -199,7 +199,7 @@ export class Image implements AfterContentInit {
         min: 0.5
     };
 
-    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -353,4 +353,4 @@ export class Image implements AfterContentInit {
     exports: [Image, SharedModule],
     declarations: [Image]
 })
-export class ImageModule { }
+export class ImageModule {}

@@ -2476,9 +2476,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
-               this._initialColWidths = this._totalTableWidth();
+                this._initialColWidths = this._totalTableWidth();
                 let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
-                
+
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
@@ -2506,13 +2506,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return widths;
     }
 
-   resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
+    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
         let colIndex = DomHandler.index(this.resizeColumnElement);
         let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
 
         this.destroyStyleElement();
         this.createStyleElement();
-
 
         let innerHTML = '';
         width.forEach((width, index) => {

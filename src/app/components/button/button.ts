@@ -112,7 +112,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </defs>
     </svg>`;
 
-    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -329,7 +329,7 @@ export class Button implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
-     * Callback to execute when button is clicked. 
+     * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -420,4 +420,4 @@ export class Button implements AfterContentInit {
     exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })
-export class ButtonModule { }
+export class ButtonModule {}
