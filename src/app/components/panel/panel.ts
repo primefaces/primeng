@@ -6,7 +6,7 @@ import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 
 /**
