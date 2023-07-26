@@ -2,6 +2,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -22,7 +23,7 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MegaMenuItem, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -395,7 +396,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() model: MegaMenuItem[] | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -508,7 +509,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         return ObjectUtils.isNotEmpty(this.focusedItemInfo().key) ? `${this.id}_${this.focusedItemInfo().key}` : null;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public config: PrimeNGConfig) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public config: PrimeNGConfig, public cd: ChangeDetectorRef) {
         effect(() => {
             const activeItem = this.activeItem();
             if (ObjectUtils.isNotEmpty(activeItem)) {

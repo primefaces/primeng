@@ -949,7 +949,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
     }
 
-    toggle(event: any) {
+    toggle(event?: any) {
         this.visible() ? this.hide() : this.show(event);
     }
 
