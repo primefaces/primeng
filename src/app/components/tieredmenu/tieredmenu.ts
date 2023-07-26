@@ -454,18 +454,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-    /**
-     * Callback to execute when button is focused.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-    /**
-     * Callback to execute when button loses focus.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -863,7 +851,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' };
 
         this.focusedItemInfo.set(focusedItemInfo);
-        this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
@@ -871,7 +858,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
         this.searchValue = '';
         this.dirty = false;
-        this.onBlur.emit(event);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
