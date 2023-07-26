@@ -50,56 +50,56 @@ class SafeHtmlPipe implements PipeTransform {
 @Component({
     selector: '[pMenuItemContent]',
     template: `
-    <div [attr.data-pc-section]="'content'" class="p-menuitem-content">
-        <a
-            *ngIf="!item?.routerLink"
-            [attr.title]="item.title"
-            [attr.href]="item.url || null"
-            [attr.data-automationid]="item.automationId"
-            [attr.tabindex]="-1"
-            [attr.data-pc-section]="'action'"
-            [attr.aria-hidden]="true"
-            class="p-menuitem-link"
-            [target]="item.target"
-            [ngClass]="{ 'p-disabled': item.disabled }"
-            (click)="onItemClick($event, item)"
-            pRipple
-        >
-            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
-        </a>
-        <a
-            *ngIf="item?.routerLink"
-            [routerLink]="item.routerLink"
-            [attr.data-automationid]="item.automationId"
-            [attr.tabindex]="-1"
-            [attr.data-pc-section]="'action'"
-            [attr.aria-hidden]="true"
-            [attr.title]="item.title"
-            [queryParams]="item.queryParams"
-            routerLinkActive="p-menuitem-link-active"
-            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-            class="p-menuitem-link"
-            [target]="item.target"
-            [ngClass]="{ 'p-disabled': item.disabled }"
-            (click)="onItemClick($event, item)"
-            [fragment]="item.fragment"
-            [queryParamsHandling]="item.queryParamsHandling"
-            [preserveFragment]="item.preserveFragment"
-            [skipLocationChange]="item.skipLocationChange"
-            [replaceUrl]="item.replaceUrl"
-            [state]="item.state"
-            pRipple
-        >
-            <ng-container *ngTemplateOutlet="itemContent"></ng-container>
-        </a>
+        <div [attr.data-pc-section]="'content'" class="p-menuitem-content">
+            <a
+                *ngIf="!item?.routerLink"
+                [attr.title]="item.title"
+                [attr.href]="item.url || null"
+                [attr.data-automationid]="item.automationId"
+                [attr.tabindex]="-1"
+                [attr.data-pc-section]="'action'"
+                [attr.aria-hidden]="true"
+                class="p-menuitem-link"
+                [target]="item.target"
+                [ngClass]="{ 'p-disabled': item.disabled }"
+                (click)="onItemClick($event, item)"
+                pRipple
+            >
+                <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+            </a>
+            <a
+                *ngIf="item?.routerLink"
+                [routerLink]="item.routerLink"
+                [attr.data-automationid]="item.automationId"
+                [attr.tabindex]="-1"
+                [attr.data-pc-section]="'action'"
+                [attr.aria-hidden]="true"
+                [attr.title]="item.title"
+                [queryParams]="item.queryParams"
+                routerLinkActive="p-menuitem-link-active"
+                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                class="p-menuitem-link"
+                [target]="item.target"
+                [ngClass]="{ 'p-disabled': item.disabled }"
+                (click)="onItemClick($event, item)"
+                [fragment]="item.fragment"
+                [queryParamsHandling]="item.queryParamsHandling"
+                [preserveFragment]="item.preserveFragment"
+                [skipLocationChange]="item.skipLocationChange"
+                [replaceUrl]="item.replaceUrl"
+                [state]="item.state"
+                pRipple
+            >
+                <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+            </a>
 
-        <ng-template #itemContent>
-            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
-            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
-            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
-        </ng-template>
-    </div>
+            <ng-template #itemContent>
+                <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
+                <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+            </ng-template>
+        </div>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -109,7 +109,7 @@ class SafeHtmlPipe implements PipeTransform {
 export class MenuItemContent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
 
-    @Input ('id') id: string;
+    @Input('id') id: string;
 
     @Output() onMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
@@ -120,7 +120,7 @@ export class MenuItemContent {
     }
 
     onItemClick(event, item) {
-        this.onMenuItemClick.emit({originalEvent: event, item: {...item, id: this.id}})
+        this.onMenuItemClick.emit({ originalEvent: event, item: { ...item, id: this.id } });
     }
 }
 /**
@@ -179,7 +179,7 @@ export class MenuItemContent {
                             class="p-menuitem"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && (menuitemId(id, i, j) === focusedOptionId()), 'p-disabled': disabled(item.disabled) }"
+                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
                             (onMenuItemClick)="itemClick($event)"
@@ -202,7 +202,7 @@ export class MenuItemContent {
                         class="p-menuitem"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
-                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && (menuitemId(id, i) === focusedOptionId()), 'p-disabled': disabled(item.disabled) }"
+                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
                         (onMenuItemClick)="itemClick($event)"
@@ -338,7 +338,7 @@ export class Menu implements OnDestroy {
 
     focusedOptionId = computed(() => {
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
-    })
+    });
 
     public focusedOptionIndex: any = signal<any>(-1);
 
@@ -387,7 +387,7 @@ export class Menu implements OnDestroy {
     }
 
     ngOnInit() {
-        if(!this.popup) {
+        if (!this.popup) {
             this.bindDocumentClickListener();
         }
     }
@@ -608,7 +608,7 @@ export class Menu implements OnDestroy {
         const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
-        order > -1 && (this.focusedOptionIndex.set(links[order].getAttribute('id')));
+        order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
     }
 
     itemClick(event: any) {
@@ -733,7 +733,7 @@ export class Menu implements OnDestroy {
             this.onOverlayHide();
         }
 
-        if(!this.popup) {
+        if (!this.popup) {
             this.unbindDocumentClickListener();
         }
     }

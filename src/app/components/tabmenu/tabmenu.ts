@@ -44,7 +44,7 @@ import { ObjectUtils } from 'primeng/utils';
         <div [ngClass]="{ 'p-tabmenu p-component': true, 'p-tabmenu-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-tabmenu-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabmenu-nav-prev p-tabmenu-nav-btn p-link" (click)="navBackward()" type="button" role="navigation" pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true"/>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabmenu-nav-content" (scroll)="onScroll($event)">
@@ -60,7 +60,6 @@ import { ObjectUtils } from 'primeng/utils';
                             [ngClass]="{ 'p-tabmenuitem': true, 'p-disabled': getItemProp(item, 'disabled'), 'p-highlight': isActive(item), 'p-hidden': item.visible === false }"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
-                            
                         >
                             <a
                                 #tabLink
@@ -124,7 +123,7 @@ import { ObjectUtils } from 'primeng/utils';
                     </ul>
                 </div>
                 <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn class="p-tabmenu-nav-next p-tabmenu-nav-btn p-link" (click)="navForward()" type="button" role="navigation" pRipple>
-                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true"/>
+                    <ChevronRightIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -213,13 +212,12 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     focusedItemInfo = signal<any>(null);
 
     get focusableItems() {
-        if(!this._focusableItems || !this._focusableItems.length) {
+        if (!this._focusableItems || !this._focusableItems.length) {
             this._focusableItems = (this.model || []).reduce((result, item) => {
                 !item.disabled && result.push(item);
 
                 return result;
             }, []);
-
         }
         return this._focusableItems;
     }
@@ -323,9 +321,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         const tabLinks = this.tabLink.toArray();
         const tabs = this.tab.toArray();
 
-
-        switch(event.code) {
-            case 'ArrowRight': 
+        switch (event.code) {
+            case 'ArrowRight':
                 foundElement = this.findNextItem(tabs, i);
                 i = foundElement['i'];
                 break;
@@ -334,35 +331,35 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
                 foundElement = this.findPrevItem(tabs, i);
                 i = foundElement['i'];
                 break;
-            
-            case 'End': 
+
+            case 'End':
                 foundElement = this.findPrevItem(tabs, this.model.length);
                 i = foundElement['i'];
 
                 event.preventDefault();
                 break;
-            
-            case 'Home': 
+
+            case 'Home':
                 foundElement = this.findNextItem(tabs, -1);
                 i = foundElement['i'];
 
                 event.preventDefault();
                 break;
-            
+
             case 'Space':
             case 'Enter':
                 this.itemClick(event, item);
-            break;
+                break;
 
             case 'Tab':
                 this.onTabKeyDown(tabLinks);
-            break;
+                break;
 
             default:
                 break;
         }
 
-        if(tabLinks[i] && tabLinks[index]){
+        if (tabLinks[i] && tabLinks[index]) {
             tabLinks[index].nativeElement.tabIndex = '-1';
             tabLinks[i].nativeElement.tabIndex = '0';
             tabLinks[i].nativeElement.focus();

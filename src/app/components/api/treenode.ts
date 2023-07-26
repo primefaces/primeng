@@ -2,7 +2,7 @@
  * Represents a node in a tree data structure.
  * @group Interface
  */
-export interface TreeNode <T=any> {
+export interface TreeNode<T = any> {
     /**
      * Label of the node.
      */

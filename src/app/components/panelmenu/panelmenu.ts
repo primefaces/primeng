@@ -1,6 +1,25 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation, computed, signal } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnChanges,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    computed,
+    signal
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -16,7 +35,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
     template: `
         <ul
             #list
-            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root}"
+            [ngClass]="{ 'p-submenu-list': true, 'p-panelmenu-root-list': root }"
             role="tree"
             [tabindex]="-1"
             [attr.aria-activedescendant]="focusedItemId"
@@ -164,7 +183,7 @@ export class PanelMenuSub {
     @ViewChild('list') listViewChild: ElementRef;
 
     constructor(public panelMenu: PanelMenu, public el: ElementRef) {}
-    
+
     getItemId(processedItem) {
         return `${this.panelId}_${processedItem.key}`;
     }
@@ -182,7 +201,7 @@ export class PanelMenuSub {
     }
 
     isItemActive(processedItem) {
-        return processedItem.expanded || this.activeItemPath.some((path) => path && (path.key === processedItem.key));
+        return processedItem.expanded || this.activeItemPath.some((path) => path && path.key === processedItem.key);
     }
 
     isItemVisible(processedItem) {
@@ -270,7 +289,7 @@ export class PanelMenuList implements OnChanges {
     @Input() activeItem: any;
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
-    
+
     @Output() headerFocus: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('submenu') subMenuViewChild: PanelMenuSub;
@@ -283,22 +302,22 @@ export class PanelMenuList implements OnChanges {
 
     focusedItem = signal<any>(null);
 
-    activeItemPath = signal<any[]> ([]);
+    activeItemPath = signal<any[]>([]);
 
     processedItems = signal<any[]>([]);
 
     visibleItems = computed(() => {
         const processedItems = this.processedItems();
         return this.flatItems(processedItems);
-    })
+    });
 
     get focusedItemId() {
         return ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if(changes && changes.items && changes.items.currentValue) {
-            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []))
+        if (changes && changes.items && changes.items.currentValue) {
+            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
         }
     }
 
@@ -309,30 +328,29 @@ export class PanelMenuList implements OnChanges {
     getItemLabel(processedItem) {
         return this.getItemProp(processedItem, 'label');
     }
-    
+
     isItemVisible(processedItem) {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
-    
+
     isItemDisabled(processedItem) {
         return this.getItemProp(processedItem, 'disabled');
     }
-    
+
     isItemActive(processedItem) {
         return this.activeItemPath().some((path) => path.key === processedItem.parentKey);
     }
-    
+
     isItemGroup(processedItem) {
         return ObjectUtils.isNotEmpty(processedItem.items);
     }
-
 
     isElementInPanel(event, element) {
         const panel = event.currentTarget.closest('[data-pc-section="panel"]');
 
         return panel && panel.contains(element);
     }
-    
+
     isItemMatched(processedItem) {
         return this.isValidItem(processedItem) && this.getItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
     }
@@ -378,14 +396,12 @@ export class PanelMenuList implements OnChanges {
     findProcessedItemByItemKey(key, processedItems?, level = 0) {
         processedItems = processedItems || this.processedItems();
         if (processedItems && processedItems.length) {
-            
             for (let i = 0; i < processedItems.length; i++) {
                 const processedItem = processedItems[i];
-    
+
                 if (this.getItemProp(processedItem, 'key') === key) return processedItem;
                 const matchedItem = this.findProcessedItemByItemKey(key, processedItem.items, level + 1);
                 if (matchedItem) return matchedItem;
-    
             }
         }
     }
@@ -420,11 +436,11 @@ export class PanelMenuList implements OnChanges {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
         }
     }
-    
+
     onFocus(event) {
         this.focused = true;
         const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
-        if(event.relatedTarget !== null) this.focusedItem.set(focusedItem)
+        if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
     }
 
     onBlur(event) {
@@ -440,8 +456,8 @@ export class PanelMenuList implements OnChanges {
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);
         expanded && activeItemPath.push(processedItem);
 
-        this.activeItemPath.set(activeItemPath)
-        this.processedItems.mutate(value => value.map(i => i === processedItem ? processedItem : i ));
+        this.activeItemPath.set(activeItemPath);
+        this.processedItems.mutate((value) => value.map((i) => (i === processedItem ? processedItem : i)));
         this.focusedItem.set(processedItem);
     }
 
@@ -535,7 +551,7 @@ export class PanelMenuList implements OnChanges {
 
             if (grouped) {
                 const matched = this.activeItemPath().some((p) => p.key === this.focusedItem().key);
-                
+
                 if (matched) {
                     this.onArrowDownKey(event);
                 } else {
@@ -577,7 +593,12 @@ export class PanelMenuList implements OnChanges {
 
     findNextItem(processedItem) {
         const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
-        const matchedItem = index < this.visibleItems().length - 1 ? this.visibleItems().slice(index + 1).find((pItem) => this.isValidItem(pItem)) : undefined;
+        const matchedItem =
+            index < this.visibleItems().length - 1
+                ? this.visibleItems()
+                      .slice(index + 1)
+                      .find((pItem) => this.isValidItem(pItem))
+                : undefined;
 
         return matchedItem || processedItem;
     }
@@ -598,8 +619,14 @@ export class PanelMenuList implements OnChanges {
         if (ObjectUtils.isNotEmpty(this.focusedItem())) {
             const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
 
-            matchedItem = this.visibleItems().slice(focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem));
-            matchedItem = ObjectUtils.isEmpty(matchedItem) ? this.visibleItems().slice(0, focusedItemIndex).find((processedItem) => this.isItemMatched(processedItem)) : matchedItem;
+            matchedItem = this.visibleItems()
+                .slice(focusedItemIndex)
+                .find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = ObjectUtils.isEmpty(matchedItem)
+                ? this.visibleItems()
+                      .slice(0, focusedItemIndex)
+                      .find((processedItem) => this.isItemMatched(processedItem))
+                : matchedItem;
         } else {
             matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
         }
@@ -727,10 +754,10 @@ export class PanelMenuList implements OnChanges {
                         [attr.data-pc-section]="'toggleablecontent'"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
-                            <p-panelMenuList 
-                                [panelId]="getPanelId(i)" 
-                                [items]="getItemProp(item, 'items')" 
-                                [transitionOptions]="transitionOptions" 
+                            <p-panelMenuList
+                                [panelId]="getPanelId(i)"
+                                [items]="getItemProp(item, 'items')"
+                                [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [activeItem]="activeItem()"
                                 [tabindex]="tabindex"
@@ -842,7 +869,7 @@ export class PanelMenu implements AfterContentInit {
             }
         }
 
-        this.cd.detectChanges()
+        this.cd.detectChanges();
     }
 
     onToggleDone() {
@@ -850,7 +877,7 @@ export class PanelMenu implements AfterContentInit {
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {
-        if(!this.isItemDisabled(item)) {
+        if (!this.isItemDisabled(item)) {
             const activeItem = selfActive ? item : this.activeItem && ObjectUtils.equals(item, this.activeItem) ? null : item;
             this.activeItem.set(activeItem);
         }
@@ -952,7 +979,7 @@ export class PanelMenu implements AfterContentInit {
                 }
             }
         }
-        
+
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
         this.animating = true;
@@ -1018,7 +1045,6 @@ export class PanelMenu implements AfterContentInit {
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();
     }
-
 }
 @NgModule({
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],

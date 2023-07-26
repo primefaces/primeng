@@ -56,7 +56,14 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             (blur)="menuBlur.emit($event)"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
-                <li *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')" [id]="getItemId(processedItem)" [style]="getItemProp(processedItem, 'style')" [ngClass]="getSeparatorItemClass(processedItem)" role="separator" [attr.data-pc-section]="'separator'"></li>
+                <li
+                    *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
+                    [id]="getItemId(processedItem)"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [ngClass]="getSeparatorItemClass(processedItem)"
+                    role="separator"
+                    [attr.data-pc-section]="'separator'"
+                ></li>
                 <li
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
@@ -79,12 +86,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div 
-                        [attr.data-pc-section]="'content'" 
-                        class="p-menuitem-content" 
-                        (click)="onItemClick($event, processedItem)" 
-                        (mouseenter)="onItemMouseEnter({$event, processedItem})"
-                    >
+                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
                         <a
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
@@ -96,7 +98,16 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span *ngIf="getItemProp(processedItem, 'icon')" class="p-menuitem-icon" [ngClass]="getItemProp(processedItem, 'icon')" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"> </span>
+                            <span
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                class="p-menuitem-icon"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            >
+                            </span>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -104,9 +115,9 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
-                            
+
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"/>
+                                <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
@@ -130,7 +141,16 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span *ngIf="getItemProp(processedItem, 'icon')" class="p-menuitem-icon" [ngClass]="getItemProp(processedItem, 'icon')" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"> </span>
+                            <span
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                class="p-menuitem-icon"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            >
+                            </span>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -138,15 +158,15 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
-                            
+
                             <ng-container *ngIf="isItemGroup(processedItem)">
-                                <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"/>
+                                <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                 <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                             </ng-container>
                         </a>
                     </div>
 
-                    <p-contextMenuSub 
+                    <p-contextMenuSub
                         *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
                         [items]="processedItem.items"
                         [menuId]="menuId"
@@ -161,7 +181,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             </ng-template>
         </ul>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0})]), transition(':leave', [style({ opacity: 0 })])])],
+    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 })]), transition(':leave', [style({ opacity: 0 })])])],
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
@@ -283,9 +303,9 @@ export class ContextMenuSub {
     }
 
     onEnter(event, sublist) {
-        if(event.fromState === 'void' && event.toState) {
+        if (event.fromState === 'void' && event.toState) {
             const sublist = event.element;
-            this.position(sublist)
+            this.position(sublist);
         }
     }
 
@@ -304,7 +324,6 @@ export class ContextMenuSub {
             sublist.style.left = itemOuterWidth + 'px';
         }
     }
-
 }
 /**
  * ContextMenu displays an overlay menu on right click of its target. Note that components like Table has special integration with ContextMenu.
@@ -321,7 +340,7 @@ export class ContextMenuSub {
             [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-overlay': true }"
             [class]="styleClass"
             [ngStyle]="style"
-            [@overlayAnimation]="{ value: 'visible'}"
+            [@overlayAnimation]="{ value: 'visible' }"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="visible()"
@@ -347,7 +366,7 @@ export class ContextMenuSub {
             ></p-contextMenuSub>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0}), animate('250ms')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
+    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 }), animate('250ms')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./contextmenu.css'],
@@ -365,7 +384,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * Event for which the menu must be displayed.
      * @group Props
      */
-    @Input() triggerEvent: string = 'contextmenu'
+    @Input() triggerEvent: string = 'contextmenu';
     /**
      * Local template variable name of the element to attach the context menu.
      * @group Props
@@ -454,13 +473,13 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     resizeListener: VoidListener;
 
     triggerEventListener: VoidListener;
-    
+
     documentClickListener: VoidListener;
-    
+
     documentTriggerListener: VoidListener;
 
     pageX: number;
-    
+
     pageY: number;
 
     visible = signal(false);
@@ -516,7 +535,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
             if (ObjectUtils.isNotEmpty(path)) {
                 this.bindGlobalListeners();
-            } else if (!this.visible()){
+            } else if (!this.visible()) {
                 this.unbindGlobalListeners();
             }
         });
@@ -525,17 +544,16 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
         this.bindTriggerEventListener();
-
     }
 
     bindTriggerEventListener() {
-        if(isPlatformBrowser(this.platformId)){
-            if(!this.triggerEventListener){
-                if(this.global) {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.triggerEventListener) {
+                if (this.global) {
                     this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
                         this.show(event);
                     });
-                } else if(this.target) {
+                } else if (this.target) {
                     this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
                         this.show(event);
                     });
@@ -545,22 +563,21 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     bindGlobalListeners() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener) {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-    
+
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
                     if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
                         this.hide();
                     }
                 });
-    
+
                 this.documentTriggerListener = this.renderer.listen(documentTarget, this.triggerEvent, (event) => {
                     if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event)) {
                         this.hide();
                     }
                 });
-    
             }
             if (!this.resizeListener) {
                 this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
@@ -568,7 +585,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
                 });
             }
         }
-
     }
 
     ngAfterContentInit() {
@@ -652,12 +668,12 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const grouped = this.isProcessedItemGroup(processedItem);
         const selected = this.isSelected(processedItem);
 
-        if(selected) {
+        if (selected) {
             const { index, key, level, parentKey } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey });
-            
+
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             grouped ? this.onItemChange(event) : this.hide();
@@ -803,7 +819,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
         this.focusedItemInfo.mutate((value) => {
-            value.index = this.findFirstFocusedItemIndex();;
+            value.index = this.findFirstFocusedItemIndex();
         });
 
         event.preventDefault();
@@ -830,10 +846,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             const processedItem = this.visibleItems[this.focusedItemInfo().index];
             const grouped = this.isProccessedItemGroup(processedItem);
 
-            if(!grouped) {
+            if (!grouped) {
                 this.focusedItemInfo.mutate((value) => {
-                    value.index = this.findFirstFocusedItemIndex()
-                })
+                    value.index = this.findFirstFocusedItemIndex();
+                });
             }
         }
 
@@ -842,17 +858,17 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onItemChange(event: any) {
         const { processedItem, isFocus } = event;
-        if(ObjectUtils.isEmpty(processedItem)) return;
+        if (ObjectUtils.isEmpty(processedItem)) return;
 
         const { index, key, level, parentKey, items } = processedItem;
         const grouped = ObjectUtils.isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
-        if(grouped) {
+        if (grouped) {
             activeItemPath.push(processedItem);
             this.submenuVisible.set(true);
         }
-        this.focusedItemInfo.set({index, level, parentKey});
+        this.focusedItemInfo.set({ index, level, parentKey });
         this.activeItemPath.set(activeItemPath);
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -868,14 +884,13 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({index: -1, level: 0, parentKey: ''});
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
         this.searchValue = '';
         this.onBlur.emit(event);
     }
 
-
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.container = event.element;
                 this.position();
@@ -941,11 +956,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     show(event: any) {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
-        
+
         this.pageX = event.pageX;
         this.pageY = event.pageY;
 
-        this.visible() ? this.position() : (this.visible.set(true));
+        this.visible() ? this.position() : this.visible.set(true);
 
         event.stopPropagation();
         event.preventDefault();
@@ -1111,8 +1126,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     unbindTriggerEventListener() {
-        if(this.triggerEventListener) {
-            this.triggerEventListener() ;
+        if (this.triggerEventListener) {
+            this.triggerEventListener();
             this.triggerEventListener = null;
         }
     }

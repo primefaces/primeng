@@ -40,15 +40,16 @@ import { UniqueComponentId } from 'primeng/utils';
 @Component({
     selector: 'p-tabPanel',
     template: `
-        <div 
+        <div
             *ngIf="!closed"
-            class="p-tabview-panel" 
-            role="tabpanel" 
-            [hidden]="!selected" 
+            class="p-tabview-panel"
+            role="tabpanel"
+            [hidden]="!selected"
             [attr.id]="tabView.getTabContentId(id)"
-            [attr.aria-hidden]="!selected" 
-            [attr.aria-labelledby]="tabView.getTabHeaderActionId(id)" 
-            [attr.data-pc-name]="'tabpanel'">
+            [attr.aria-hidden]="!selected"
+            [attr.aria-labelledby]="tabView.getTabHeaderActionId(id)"
+            [attr.data-pc-name]="'tabpanel'"
+        >
             <ng-content></ng-content>
             <ng-container *ngIf="contentTemplate && (cache ? loaded : selected)">
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -251,16 +252,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     template: `
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
             <div class="p-tabview-nav-container">
-                <button 
-                    *ngIf="scrollable && !backwardIsDisabled" 
-                    #prevBtn 
-                    class="p-tabview-nav-prev p-tabview-nav-btn p-link"
-                    (click)="navBackward()"
-                    [attr.tabindex]="tabindex"
-                    [attr.aria-label]="prevButtonAriaLabel"
-                    type="button" 
-                    pRipple>
-                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true"/>
+                <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" [attr.tabindex]="tabindex" [attr.aria-label]="prevButtonAriaLabel" type="button" pRipple>
+                    <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
                 <div #content class="p-tabview-nav-content" (scroll)="onScroll($event)">
@@ -309,16 +302,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                         <li #inkbar class="p-tabview-ink-bar" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
-                <button 
-                    *ngIf="scrollable && !forwardIsDisabled" 
-                    #nextBtn
-                    [attr.tabindex]="tabindex"
-                    [attr.aria-label]="nextButtonAriaLabel"
-                    class="p-tabview-nav-next p-tabview-nav-btn p-link"
-                    (click)="navForward()"
-                    type="button"
-                    pRipple>
-                    <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true"/>
+                <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn [attr.tabindex]="tabindex" [attr.aria-label]="nextButtonAriaLabel" class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
+                    <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
             </div>
@@ -482,7 +467,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     getTabHeaderActionId(tabId) {
         return `${tabId}_header_action`;
     }
-    
+
     getTabContentId(tabId) {
         return `${tabId}_content`;
     }
@@ -501,7 +486,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     onTabKeyDown(event: KeyboardEvent, tab: TabPanel): void {
-        switch(event.code) {
+        switch (event.code) {
             case 'ArrowLeft':
                 this.onTabArrowLeftKey(event);
                 break;
@@ -539,43 +524,43 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     onTabArrowLeftKey(event: KeyboardEvent) {
         const prevHeaderAction = this.findPrevHeaderAction((<HTMLElement>event.target).parentElement);
         const index = DomHandler.getAttribute(prevHeaderAction, 'data-pc-index');
-        
+
         prevHeaderAction ? this.changeFocusedTab(event, prevHeaderAction, index) : this.onTabEndKey(event);
-        event.preventDefault()
+        event.preventDefault();
     }
-    
+
     onTabArrowRightKey(event: KeyboardEvent) {
         const nextHeaderAction = this.findNextHeaderAction((<HTMLElement>event.target).parentElement);
         const index = DomHandler.getAttribute(nextHeaderAction, 'data-pc-index');
 
         nextHeaderAction ? this.changeFocusedTab(event, nextHeaderAction, index) : this.onTabHomeKey(event);
-        event.preventDefault()
+        event.preventDefault();
     }
 
     onTabHomeKey(event: KeyboardEvent) {
         const firstHeaderAction = this.findFirstHeaderAction();
         const index = DomHandler.getAttribute(firstHeaderAction, 'data-pc-index');
 
-        this.changeFocusedTab(event, firstHeaderAction, index)
+        this.changeFocusedTab(event, firstHeaderAction, index);
         event.preventDefault();
     }
-    
+
     onTabEndKey(event: KeyboardEvent) {
         const lastHeaderAction = this.findLastHeaderAction();
         const index = DomHandler.getAttribute(lastHeaderAction, 'data-pc-index');
 
-        this.changeFocusedTab(event, lastHeaderAction, index)
+        this.changeFocusedTab(event, lastHeaderAction, index);
         event.preventDefault();
     }
 
     changeFocusedTab(event: KeyboardEvent, element: any, index: number) {
-        if(element) {
+        if (element) {
             DomHandler.focus(element);
-            element.scrollIntoView({block: 'nearest'});
+            element.scrollIntoView({ block: 'nearest' });
 
-            if(this.selectOnFocus) {
+            if (this.selectOnFocus) {
                 const tab = this.tabs[index];
-                this.open(event, tab)
+                this.open(event, tab);
             }
         }
     }
@@ -611,7 +596,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     open(event: Event, tab: TabPanel) {
-
         if (tab.disabled) {
             if (event) {
                 event.preventDefault();

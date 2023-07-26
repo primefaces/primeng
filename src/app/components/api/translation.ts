@@ -71,5 +71,4 @@ export interface Translation {
     emptySelectionMessage: string;
     emptySearchMessage: string;
     aria?: object;
-
 }

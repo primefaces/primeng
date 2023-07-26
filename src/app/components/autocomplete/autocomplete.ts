@@ -1141,8 +1141,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             if (this.suggestions) {
                 let suggestions = [...this.suggestions];
                 if (this.group) {
-                    let groupedSuggestions = this.suggestions.filter(s => s[this.optionGroupChildren])
-                        .flatMap(s => s[this.optionGroupChildren]);
+                    let groupedSuggestions = this.suggestions.filter((s) => s[this.optionGroupChildren]).flatMap((s) => s[this.optionGroupChildren]);
                     suggestions = suggestions.concat(groupedSuggestions);
                 }
 

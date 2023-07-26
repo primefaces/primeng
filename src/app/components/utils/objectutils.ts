@@ -216,7 +216,6 @@ export class ObjectUtils {
         return this.isFunction(obj) ? obj(...params) : obj;
     }
 
-
     public static findLastIndex(arr, callback) {
         let index = -1;
 
