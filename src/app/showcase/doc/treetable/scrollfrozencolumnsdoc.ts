@@ -4,6 +4,11 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'scroll-frozen-columns-doc',
     template: ` <section>
@@ -51,13 +56,13 @@ export class FrozenColumnsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    frozenCols: any[];
+    frozenCols!: Column[];
 
-    scrollableCols: any[];
+    scrollableCols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -151,18 +156,23 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-scroll-frozen-columns-demo',
     templateUrl: './tree-table-scroll-frozen-columns-demo.html'
 })
 export class TreeTableScrollFrozenColumnsDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    frozenCols: any[];
+    frozenCols!: Column[];
 
-    scrollableCols: any[];
+    scrollableCols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

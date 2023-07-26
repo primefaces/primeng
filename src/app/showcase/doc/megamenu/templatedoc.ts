@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -179,7 +179,7 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-template-demo.html'
 })
 export class MegaMenuTemplateDemo implements OnInit {
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

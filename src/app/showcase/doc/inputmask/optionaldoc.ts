@@ -18,7 +18,7 @@ export class OptionalDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-optional-demo.html'
 })
 export class InputMaskOptionalDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

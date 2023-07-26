@@ -24,7 +24,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-basic-demo.html'
 })
 export class DialogBasicDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

@@ -75,9 +75,9 @@ export class StatefulDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer;
+    selectedCustomers!: Customer;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -88,7 +88,7 @@ export class StatefulDoc implements OnInit {
         });
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -227,9 +227,9 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['table-stateful-demo.scss']
 })
 export class TableStatefulDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer;
+    selectedCustomers!: Customer;
 
     constructor(private customerService: CustomerService) {}
 
@@ -237,7 +237,7 @@ export class TableStatefulDemo implements OnInit{
         this.customerService.getCustomersMini().then((data) => (this.customers = data));
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

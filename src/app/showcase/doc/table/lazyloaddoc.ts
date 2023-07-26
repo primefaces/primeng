@@ -90,17 +90,17 @@ export class LazyLoadDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
     selectAll: boolean = false;
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -139,7 +139,7 @@ export class LazyLoadDoc implements OnInit {
         this.selectedCustomers = value;
     }
 
-    onSelectAllChange(event) {
+    onSelectAllChange(event: any) {
         const checked = event.checked;
 
         if (checked) {
@@ -299,17 +299,17 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-lazy-load-demo.html'
 })
 export class TableLazyLoadDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
     selectAll: boolean = false;
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -347,7 +347,7 @@ export class TableLazyLoadDemo implements OnInit{
         this.selectedCustomers = value;
     }
 
-    onSelectAllChange(event) {
+    onSelectAllChange(event: any) {
         const checked = event.checked;
 
         if (checked) {

@@ -28,7 +28,7 @@ export class AutoPlayDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -85,7 +85,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-autoplay-demo.html'
 })
 export class GalleriaAutoplayDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

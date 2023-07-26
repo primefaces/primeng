@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -35,7 +35,7 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    position: string;
+    position: string = 'center';
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -49,7 +49,7 @@ export class PositionDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
@@ -112,7 +112,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPositionDoc {
-    position: string;
+    position: string = 'center';
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -126,7 +126,7 @@ export class ConfirmPositionDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });

@@ -2,6 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'force-selection-doc',
     template: ` <section>
@@ -19,11 +24,11 @@ export class ForceSelectionDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -33,12 +38,12 @@ export class ForceSelectionDoc implements OnInit {
         });
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -60,16 +65,21 @@ export class ForceSelectionDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-force-selection-demo',
     templateUrl: './autocomplete-force-selection-demo.html'
 })
 export class ForceSelectionDoc implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -79,12 +89,12 @@ export class ForceSelectionDoc implements OnInit {
         });
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }

@@ -28,7 +28,7 @@ export class GroupDoc {
 
     groupedCities: SelectItemGroup[];
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     constructor() {
         this.groupedCities = [
@@ -99,7 +99,7 @@ import { Component } from '@angular/core';
 export class DropdownGroupDemo {
     groupedCities: SelectItemGroup[];
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     constructor() {
         this.groupedCities = [

@@ -45,7 +45,7 @@ export class PaginationDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -53,7 +53,7 @@ export class PaginationDoc {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
-    getSeverity(product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -138,7 +138,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './data-view-pagination-demo.html'
 })
 export class DataViewPaginationDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -146,7 +146,7 @@ export class DataViewPaginationDemo {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
-    getSeverity (product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';

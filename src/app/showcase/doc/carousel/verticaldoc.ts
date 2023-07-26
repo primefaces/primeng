@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -40,13 +40,14 @@ export class VerticalDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
     }
 
@@ -119,7 +120,7 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-vertical-demo.scss']
 })
 export class CarouselVerticalDemo implements OnInit {
-    products: Product[];
+    products: Product[] | undefined;
 
     responsiveOptions: any[];
 

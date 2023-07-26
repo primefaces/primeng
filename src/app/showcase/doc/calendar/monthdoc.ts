@@ -18,7 +18,7 @@ export class MonthDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-month-demo.html'
 })
 export class CalendarMonthDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

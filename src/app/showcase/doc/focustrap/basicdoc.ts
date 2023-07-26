@@ -44,7 +44,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     cities = [
         { name: 'New York', code: 'NY' },
@@ -107,7 +107,7 @@ import { Component } from '@angular/core';
     templateUrl: './focus-trap-basic-demo.html'
 })
 export class FocusTrapBasicDemo {
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     cities = [
         { name: 'New York', code: 'NY' },

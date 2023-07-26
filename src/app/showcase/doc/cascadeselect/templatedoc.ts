@@ -30,7 +30,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
 
@@ -146,7 +146,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './cascade-select-template-demo.html'
 })
 export class CascadeselectTemplateDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
     

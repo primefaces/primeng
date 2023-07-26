@@ -24,7 +24,7 @@ export class VirtualScrollDoc {
 
     items: SelectItem[];
 
-    selectedItem: string;
+    selectedItem: string | undefined;
 
     constructor() {
         this.items = [];
@@ -54,7 +54,7 @@ import { Component } from '@angular/core';
 export class DropdownVirtualscrollDemo {
     items: SelectItem[];
     
-    selectedItem: string;
+    selectedItem: string | undefined;
 
     constructor() {
         this.items = [];

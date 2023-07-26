@@ -10,7 +10,7 @@ export interface TreeNode<T = any> {
     /**
      * Data represented by the node.
      */
-    data?: any;
+    data?: T;
     /**
      * Icon of the node to display next to content.
      */
