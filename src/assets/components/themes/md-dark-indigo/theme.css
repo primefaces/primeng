@@ -6644,6 +6644,9 @@ p-autocomplete.ng-dirty.ng-invalid .p-autocomplete .p-autocomplete-multiple-cont
 .p-calendar-w-btn .p-datepicker-trigger.p-button span {
   color: rgba(255, 255, 255, 0.6);
 }
+.p-calendar-w-btn .p-datepicker-trigger.p-button .p-icon {
+  color: rgba(255, 255, 255, 0.6);
+}
 .p-calendar-w-btn .p-datepicker-trigger.p-button:enabled:hover {
   background: rgba(255, 255, 255, 0.04);
 }
