@@ -142,81 +142,30 @@ export class MenuItemContent {
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             [attr.data-pc-name]="'menu'"
-            [id]="id"
-        >
-            <ul
-                #list
-                class="p-menu-list p-reset"
-                role="menu"
-                [id]="id + '_list'"
-                [tabindex]="tabindex"
-                [attr.data-pc-section]="'menu'"
-                [attr.aria-activedescendant]="activedescendant()"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledBy]="ariaLabelledBy"
-                (focus)="onListFocus($event)"
-                (blur)="onListBlur($event)"
-                (keydown)="onListKeyDown($event)"
-            >
-                <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
-                    <li
-                        class="p-submenu-header"
-                        [attr.data-automationid]="submenu.automationId"
-                        *ngIf="!submenu.separator"
-                        [ngClass]="{ 'p-hidden': submenu.visible === false, flex: submenu.visible }"
-                        pTooltip
-                        [tooltipOptions]="submenu.tooltipOptions"
-                        role="none"
-                        [attr.id]="menuitemId(id, i)"
-                    >
-                        <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+            [id]="id">
+            <ul #list class="p-menu-list p-reset" role="menu" [id]="id + '_list'" [tabindex]="tabindex" [attr.data-pc-section]="'menu'" [attr.aria-activedescendant]="activedescendant()" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy" (focus)="onListFocus($event)" (blur)="onListBlur($event)" (keydown)="onListKeyDown($event)">
+                <ng-template ngFor let-item let-i="index" [ngForOf]="model">
+                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': isItemHidden(item) }" role="separator"></li>
+                    <li class="p-submenu-header" *ngIf="!item.separator && item.items" [attr.data-automationid]="item.automationId" [ngClass]="{ 'p-hidden': item.visible === false }" pTooltip [tooltipOptions]="item.tooltipOptions" role="none" [attr.id]="menuitemId(id, i)">
+                        <span *ngIf="item.escape !== false; else htmlMenuItemLabel">{{ item.label }}</span>
+                        <ng-template #htmlMenuItemLabel>
+                            <span [innerHTML]="item.label | safeHtml"></span>
+                        </ng-template>
                     </li>
-                    <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
-                        <li
-                            class="p-menuitem"
-                            *ngIf="!item.separator"
-                            [pMenuItemContent]="item"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
-                            [ngStyle]="item.style"
-                            [class]="item.styleClass"
-                            (onMenuItemClick)="itemClick($event)"
-                            pTooltip
-                            [tooltipOptions]="item.tooltipOptions"
-                            role="menuitem"
-                            [attr.data-pc-section]="'menuitem'"
-                            [attr.aria-label]="label(item.label)"
-                            [attr.data-p-focused]="isItemFocused(menuitemId(id, i, j))"
-                            [attr.data-p-disabled]="disabled(item.disabled)"
-                            [attr.aria-disabled]="disabled(item.disabled)"
-                            [attr.id]="menuitemId(id, i, j)"
-                            [id]="menuitemId(id, i, j)"
-                        ></li>
-                    </ng-template>
-                </ng-template>
-                <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
-                    <li
-                        class="p-menuitem"
-                        *ngIf="!item.separator"
-                        [pMenuItemContent]="item"
-                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
-                        [ngStyle]="item.style"
-                        [class]="item.styleClass"
-                        (onMenuItemClick)="itemClick($event)"
-                        pTooltip
-                        [tooltipOptions]="item.tooltipOptions"
-                        role="menuitem"
-                        [attr.data-pc-section]="'menuitem'"
-                        [attr.aria-label]="label(item.label)"
-                        [attr.data-p-focused]="isItemFocused(menuitemId(id, i))"
-                        [attr.data-p-disabled]="disabled(item.disabled)"
-                        [attr.aria-disabled]="disabled(item.disabled)"
-                        [attr.id]="menuitemId(id, i)"
-                        [id]="menuitemId(id, i)"
-                    ></li>
+                    <li class="p-menuitem" *ngIf="!item.separator && !item.items" [pMenuItemContent]="item" [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
+                        [ngStyle]="item.style" [class]="item.styleClass" (onMenuItemClick)="itemClick($event)" pTooltip [tooltipOptions]="item.tooltipOptions"
+                        role="menuitem" [attr.data-pc-section]="'menuitem'" [attr.aria-label]="label(item.label)" [attr.data-p-focused]="isItemFocused(menuitemId(id, i))"
+                        [attr.data-p-disabled]="disabled(item.disabled)" [attr.aria-disabled]="disabled(item.disabled)" [attr.id]="menuitemId(id, i)">
+                    </li>
+                    <ng-container *ngIf="item.items">
+                        <ng-template ngFor let-subitem let-j="index" [ngForOf]="item.items">
+                            <li class="p-menuitem" *ngIf="!subitem.separator" [pMenuItemContent]="subitem" [ngClass]="{ 'p-hidden': subitem.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i, j) === focusedOptionId(), 'p-disabled': disabled(subitem.disabled) }"
+                                [ngStyle]="subitem.style" [class]="subitem.styleClass" (onMenuItemClick)="itemClick($event)" pTooltip [tooltipOptions]="subitem.tooltipOptions"
+                                role="menuitem" [attr.data-pc-section]="'menuitem'" [attr.aria-label]="label(subitem.label)" [attr.data-p-focused]="isItemFocused(menuitemId(id, i, j))"
+                                [attr.data-p-disabled]="disabled(subitem.disabled)" [attr.aria-disabled]="disabled(subitem.disabled)" [attr.id]="menuitemId(id, i, j)">
+                            </li>
+                        </ng-template>
+                    </ng-container>
                 </ng-template>
             </ul>
         </div>
@@ -747,6 +696,13 @@ export class Menu implements OnDestroy {
             }
         }
         return false;
+    }
+
+    isItemHidden(item: any): boolean {
+        if (item.separator) {
+            return item.visible === false || (item.items && item.items.some(subitem => subitem.visible !== false));
+        }
+        return item.visible === false;
     }
 }
 
