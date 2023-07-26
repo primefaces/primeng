@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-panelMenuNew [model]="items" [style]="{ width: '300px' }"></p-panelMenuNew>
+            <p-panelMenu [model]="items" [style]="{ width: '300px' }"></p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
     </section>`
