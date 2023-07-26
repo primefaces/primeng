@@ -8,7 +8,7 @@ import { Title, Meta } from '@angular/platform-browser';
     templateUrl: './app.doc.component.html'
 })
 export class AppDoc implements OnInit, OnChanges {
-    @Input() title!: string;
+    @Input() docTitle!: string;
 
     @Input() docs!: Doc[];
 
@@ -31,8 +31,8 @@ export class AppDoc implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.title && changes.title.currentValue) {
-            this.titleService.setTitle(changes.title.currentValue);
+        if (changes.docTitle && changes.docTitle.currentValue) {
+            this.titleService.setTitle(changes.docTitle.currentValue);
         }
 
         if (changes.description && changes.description.currentValue) {
