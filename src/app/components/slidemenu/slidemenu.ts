@@ -490,11 +490,6 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-    /**
-     * Callback to execute when button loses focus.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -979,7 +974,6 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             });
         }
         this.searchValue = '';
-        this.onBlur.emit();
         !this.popup && this.unbindOutsideClickListener();
     }
 
