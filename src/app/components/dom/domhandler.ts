@@ -66,10 +66,7 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        if (element) {
-            return element.querySelector(selector);
-        }
-        return null;
+        return this.isElement(element) ? element.querySelector(selector) : null;
     }
 
     public static index(element: any): number {
@@ -693,5 +690,23 @@ export class DomHandler {
 
     public static isClient() {
         return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+    }
+
+    public static getAttribute(element, name) {
+        if (element) {
+            const value = element.getAttribute(name);
+
+            if (!isNaN(value)) {
+                return +value;
+            }
+
+            if (value === 'true' || value === 'false') {
+                return value === 'true';
+            }
+
+            return value;
+        }
+
+        return undefined;
     }
 }

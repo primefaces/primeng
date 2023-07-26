@@ -10,7 +10,15 @@ import { ZIndexUtils } from 'primeng/utils';
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }" [ngStyle]="{ display: blocked ? 'flex' : 'none' }">
+        <div
+            #mask
+            [class]="styleClass"
+            [attr.aria-busy]="blocked"
+            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }"
+            [ngStyle]="{ display: blocked ? 'flex' : 'none' }"
+            [attr.data-pc-name]="'blockui'"
+            [attr.data-pc-section]="'root'"
+        >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </div>

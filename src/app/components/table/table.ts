@@ -664,7 +664,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() editMode: 'cell' | 'row' = 'cell';
     /**
-     * One or more field names to use in row grouping.
+     * Field name to use in row grouping.
      * @group Props
      */
     @Input() groupRowsBy: any;

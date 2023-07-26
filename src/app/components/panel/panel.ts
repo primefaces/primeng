@@ -1,15 +1,14 @@
-import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, ViewContainerRef, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
+import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 
-let idx: number = 0;
 /**
  * Panel is a container with the optional content toggle feature.
  * @group Components
@@ -17,25 +16,25 @@ let idx: number = 0;
 @Component({
     selector: 'p-panel',
     template: `
-        <div [attr.id]="id" [ngClass]="{ 'p-panel p-component': true, 'p-panel-toggleable': toggleable, 'p-panel-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
+        <div [attr.id]="id" [attr.data-pc-name]="'panel'" [ngClass]="{ 'p-panel p-component': true, 'p-panel-toggleable': toggleable, 'p-panel-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{ header }}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div role="tablist" class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
+                <div class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <button
                         *ngIf="toggleable"
-                        type="button"
-                        [attr.aria-label]="'collapse button'"
-                        [attr.id]="id + '-label'"
-                        class="p-panel-header-icon p-panel-toggler p-link"
+                        [attr.id]="id + '_header'"
                         pRipple
-                        (click)="onIconClick($event)"
-                        (keydown.enter)="onIconClick($event)"
-                        [attr.aria-controls]="id + '-content'"
-                        role="tab"
+                        type="button"
+                        role="button"
+                        class="p-panel-header-icon p-panel-toggler p-link"
+                        [attr.aria-label]="buttonAriaLabel"
+                        [attr.aria-controls]="id + '_content'"
                         [attr.aria-expanded]="!collapsed"
+                        (click)="onIconClick($event)"
+                        (keydown)="onKeyDown($event)"
                     >
                         <ng-container *ngIf="!headerIconTemplate">
                             <ng-container *ngIf="!collapsed">
@@ -54,17 +53,17 @@ let idx: number = 0;
                 </div>
             </div>
             <div
-                [attr.id]="id + '-content'"
                 class="p-toggleable-content"
+                [id]="id + '_content'"
+                role="region"
+                [attr.aria-labelledby]="id + '_header'"
+                [attr.aria-hidden]="collapsed"
                 [@panelContent]="
                     collapsed
                         ? { value: 'hidden', params: { transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity: '0' } }
                         : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1' } }
                 "
                 (@panelContent.done)="onToggleDone($event)"
-                role="region"
-                [attr.aria-hidden]="collapsed"
-                [attr.aria-labelledby]="id + '-titlebar'"
             >
                 <div class="p-panel-content">
                     <ng-content></ng-content>
@@ -205,7 +204,13 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     headerIconTemplate: Nullable<TemplateRef<any>>;
 
-    id: string = `p-panel-${idx++}`;
+    get id() {
+        return UniqueComponentId();
+    }
+
+    get buttonAriaLabel() {
+        return this.header;
+    }
 
     constructor(private el: ElementRef) {}
 
@@ -279,6 +284,13 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
+    }
+
+    onKeyDown(event) {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            this.toggle(event);
+            event.preventDefault();
+        }
     }
 
     onToggleDone(event: Event) {
