@@ -167,15 +167,21 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      */
     @Input() styleClass: string | undefined;
     /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
      * Event fired when a tab is selected.
      * @param {MenuItem} item - Menu item.
      * @group Emits
      */
     @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
-
-    @Input() ariaLabel: string | undefined;
-
-    @Input() ariaLabelledBy: string | undefined;
 
     @ViewChild('content') content: Nullable<ElementRef>;
 
