@@ -11,7 +11,7 @@ import { TimesIcon } from 'primeng/icons/times';
         class: 'p-element'
     }
 })
-export class InplaceDisplay { }
+export class InplaceDisplay {}
 
 @Component({
     selector: 'p-inplaceContent',
@@ -20,7 +20,7 @@ export class InplaceDisplay { }
         class: 'p-element'
     }
 })
-export class InplaceContent { }
+export class InplaceContent {}
 /**
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  * @group Components
@@ -28,8 +28,8 @@ export class InplaceContent { }
 @Component({
     selector: 'p-inplace',
     template: `
-        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass" [attr.aria-live]="'polite'">
+            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate"></ng-container>
             </div>
@@ -38,8 +38,8 @@ export class InplaceContent { }
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
                 <ng-container *ngIf="closable">
-                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)"></button>
-                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)">
+                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
+                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
                         <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
@@ -91,6 +91,11 @@ export class Inplace implements AfterContentInit {
      */
     @Input() closeIcon: string | undefined;
     /**
+     * Establishes a string value that labels the close button.
+     * @group Props
+     */
+    @Input() closeAriaLabel: string | undefined;
+    /**
      * Callback to invoke when inplace is opened.
      * @param {Event} event - Browser event.
      * @group Emits
@@ -113,7 +118,7 @@ export class Inplace implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
-    constructor(public cd: ChangeDetectorRef) { }
+    constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -167,7 +172,7 @@ export class Inplace implements AfterContentInit {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.which === 13) {
+        if (event.code === 'Enter') {
             this.activate(event);
             event.preventDefault();
         }
@@ -179,4 +184,4 @@ export class Inplace implements AfterContentInit {
     exports: [Inplace, InplaceDisplay, InplaceContent, ButtonModule, SharedModule],
     declarations: [Inplace, InplaceDisplay, InplaceContent]
 })
-export class InplaceModule { }
+export class InplaceModule {}

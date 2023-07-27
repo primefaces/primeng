@@ -197,7 +197,7 @@ describe('MegaMenu', () => {
                 ]
             }
         ];
-        const itemClickSpy = spyOn(megamenu, 'itemClick').and.callThrough();
+        const itemClickSpy = spyOn(megamenu, 'onItemClick').and.callThrough();
         fixture.detectChanges();
 
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
@@ -250,7 +250,7 @@ describe('MegaMenu', () => {
                 ]
             }
         ];
-        const itemClickSpy = spyOn(megamenu, 'itemClick').and.callThrough();
+        const itemClickSpy = spyOn(megamenu, 'onItemClick').and.callThrough();
         fixture.detectChanges();
 
         const tvEl = fixture.debugElement.query(By.css('ul')).children[0].nativeElement;
@@ -374,26 +374,22 @@ describe('MegaMenu', () => {
                 items: [
                     [
                         {
-                            label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                            label: 'Video 1',
+                            items: [{ label: 'Video 1.1' }, { label: 'Video 1.2' }]
+                        },
+                        {
+                            label: 'Video 2',
+                            items: [{ label: 'Video 2.1' }, { label: 'Video 2.2' }]
                         }
                     ],
                     [
                         {
-                            label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ],
-                    [
+                            label: 'Video 3',
+                            items: [{ label: 'Video 3.1' }, { label: 'Video 3.2' }]
+                        },
                         {
-                            label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
+                            label: 'Video 4',
+                            items: [{ label: 'Video 4.1' }, { label: 'Video 4.2' }]
                         }
                     ]
                 ]

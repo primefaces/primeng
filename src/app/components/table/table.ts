@@ -580,7 +580,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     set responsive(val: boolean | undefined | null) {
         this._responsive = val;
-        console.warn('responsive propery is deprecated as table is always responsive with scrollable behavior.');
+        console.warn('responsive property is deprecated as table is always responsive with scrollable behavior.');
     }
     _responsive: boolean | undefined | null;
     /**
@@ -664,7 +664,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() editMode: 'cell' | 'row' = 'cell';
     /**
-     * One or more field names to use in row grouping.
+     * Field name to use in row grouping.
      * @group Props
      */
     @Input() groupRowsBy: any;

@@ -26,6 +26,7 @@ export class BasicDoc implements OnInit {
             {
                 label: 'File',
                 icon: 'pi pi-fw pi-file',
+                expanded: true,
                 items: [
                     {
                         label: 'New',

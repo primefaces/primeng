@@ -1,4 +1,39 @@
 # Changelog
+## [16.1.0](https://github.com/primefaces/primeng/tree/16.1.0) (2023-07-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.0.2...16.1.0)
+
+**New Features:**
+- TabMenu | Add ariaLabel and ariaLabelledBy props [\#13376](https://github.com/primefaces/primeng/issues/#13376)
+- ContextMenu | Add id, ariaLabel, ariaLabelledBy props [\#13373](https://github.com/primefaces/primeng/issues/#13373)
+- Toolbar | Add aria-labelledby [\#13235](https://github.com/primefaces/primeng/issues/#13235)
+
+**Enhancements:**
+- Accessibility | Panel section [\#13229](https://github.com/primefaces/primeng/issues/#13229)
+- Accessibility | Misc section [\#13237](https://github.com/primefaces/primeng/issues/#13237)
+- Accessibility | Menu section [\#13264](https://github.com/primefaces/primeng/issues/#13264)
+- ContextMenu | Add ariaLabel, ariaLabelledBy, id properties & show/hide emitters (accessibility) [\#13310](https://github.com/primefaces/primeng/issues/#13310)
+- Menu | Add ariaLabelledBy and ariaLabel and onFocus, onBlur emitters  [\#13253](https://github.com/primefaces/primeng/issues/#13253)
+
+**Fixed bugs:**
+- Calendar | Icon is not visible (material compact theme) [\#13123](https://github.com/primefaces/primeng/issues/#13123)
+- DynamicDialogRef - onClose Observable never completes [\#9732](https://github.com/primefaces/primeng/issues/#9732)
+- Component: OrderList [\#13322](https://github.com/primefaces/primeng/issues/#13322)
+- TabView | Last element is not visible when scrolling=true [\#13371](https://github.com/primefaces/primeng/issues/#13371)
+- Breadcrumb | Chevron and slash icon is visible at the same time (bootstrap themes) [\#13359](https://github.com/primefaces/primeng/issues/#13359)
+- Tree: Partially selected checkbox rendered incorrectly [\#13131](https://github.com/primefaces/primeng/issues/#13131)
+- TreeTable: previous and next button icons not visible when using paginator [\#13258](https://github.com/primefaces/primeng/issues/#13258)
+- Component: ToolTip [\#13238](https://github.com/primefaces/primeng/issues/#13238)
+- Component: p-overlay overflows the viewport [\#13273](https://github.com/primefaces/primeng/issues/#13273)
+- Slidemenu: Separator class mismatch [\#13279](https://github.com/primefaces/primeng/issues/#13279)
+- TreeNode: data is no longer generic [\#13183](https://github.com/primefaces/primeng/issues/#13183)
+- Component: Avatar [\#13292](https://github.com/primefaces/primeng/issues/#13292)
+- P-Table - Column resize not working as expected [\#12183](https://github.com/primefaces/primeng/issues/#12183)
+- Inplace: Close icon customization variabe + input mismatch [\#13277](https://github.com/primefaces/primeng/issues/#13277)
+- Component: Autocomplete component [\#13271](https://github.com/primefaces/primeng/issues/#13271)
+- Carousel: The documentation doesn't show the examples [\#13286](https://github.com/primefaces/primeng/issues/#13286)
+- Image Component: esc button doesn't close the preview [\#13305](https://github.com/primefaces/primeng/issues/#13305)
+
 ## [16.0.2](https://github.com/primefaces/primeng/tree/16.0.2) (2023-06-21)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.1...16.0.2)
@@ -98,6 +133,13 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.6-LTS](https://www.npmjs.com/package/primeng/v/15.4.6-lts) (2023-07-19)
+
+**Fixed bugs:**
+- Slidemenu: Separator class mismatch [\#13279](https://github.com/primefaces/primeng/issues/13279)
+- FileUploader: Choose button is missing icon spacing [\#13232](https://github.com/primefaces/primeng/issues/13232)
+- In table filter slash icon is not displaying when data is entered in the row filter [\#13222](https://github.com/primefaces/primeng/issues/13222)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.5-LTS](https://www.npmjs.com/package/primeng/v/15.4.5-lts) (2023-06-19)
 

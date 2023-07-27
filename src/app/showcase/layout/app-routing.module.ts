@@ -14,6 +14,7 @@ const routes: Routes = [
             { path: 'configuration', loadChildren: () => import('../pages/configuration/configurationdemo.module').then((m) => m.ConfigurationDemoModule) },
             { path: 'roadmap', loadChildren: () => import('../pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
             { path: 'team', loadChildren: () => import('../pages/team/team.module').then((m) => m.TeamModule) },
+            { path: 'partners', loadChildren: () => import('../pages/partners/partners.module').then((m) => m.PartnersModule) },
             { path: 'theming', loadChildren: () => import('../pages/theming/theming.module').then((m) => m.ThemingModule) },
             { path: 'icons', loadChildren: () => import('../pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
             { path: 'customicons', loadChildren: () => import('../pages/customicons/customiconsdemo.module').then((m) => m.CustomIconsDemoModule) },
