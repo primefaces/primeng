@@ -201,7 +201,8 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                 </tbody>
             </table>
         </div>
-    </section>`
+    </section>
+    `
 })
 export class ApiDoc {
     @Input() id: string;
