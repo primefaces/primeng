@@ -256,11 +256,11 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                     </tr>
                     <tr>
                         <td>searchMessage</td>
-                        <td>{0} results are available</td>
+                        <td>&#123;0&#125; results are available</td>
                     </tr>
                     <tr>
                         <td>selectionMessage</td>
-                        <td>{0} items selected</td>
+                        <td>&#123;0&#125; items selected</td>
                     </tr>
                     <tr>
                         <td>emptySelectionMessage</td>
@@ -292,7 +292,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                     </tr>
                     <tr>
                         <td>aria.stars</td>
-                        <td>{star} stars</td>
+                        <td>&#123;star&#125; stars</td>
                     </tr>
                     <tr>
                         <td>aria.selectAll</td>
@@ -356,7 +356,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                     </tr>
                     <tr>
                         <td>aria.pageLabel</td>
-                        <td>{page}</td>
+                        <td>&#123;page&#125;</td>
                     </tr>
                     <tr>
                         <td>aria.firstPageLabel</td>
@@ -444,7 +444,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                     </tr>
                     <tr>
                         <td>aria.slideNumber</td>
-                        <td>{slideNumber}</td>
+                        <td>&#123;slideNumber&#125;</td>
                     </tr>
                     <tr>
                         <td>aria.zoomImage</td>
