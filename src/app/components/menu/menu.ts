@@ -317,6 +317,14 @@ export class Menu implements OnDestroy {
      * @group Emits
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Defines if the menu should be closed when a menuitem is clicked.
+     * @group Props
+     * @default true
+     * @param {boolean} closeOnClick - true or false.
+     * @param {Event} event - click event.
+     */
+    @Input() closeOnClick: boolean = true;
 
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
@@ -630,7 +638,7 @@ export class Menu implements OnDestroy {
             });
         }
 
-        if (this.popup) {
+        if (this.popup && this.closeOnClick) {
             this.hide();
         }
 
