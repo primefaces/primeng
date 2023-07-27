@@ -240,6 +240,11 @@ export class Menu implements OnDestroy {
      * @group Props
      */
     @Input() popup: boolean | undefined;
+     /**
+     * Defines if the menu should be closed when a menuitem is clicked.
+     * @group Props
+     */
+     @Input() closeOnClick: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -317,14 +322,6 @@ export class Menu implements OnDestroy {
      * @group Emits
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
-    /**
-     * Defines if the menu should be closed when a menuitem is clicked.
-     * @group Props
-     * @default true
-     * @param {boolean} closeOnClick - true or false.
-     * @param {Event} event - click event.
-     */
-    @Input() closeOnClick: boolean = true;
 
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
@@ -640,6 +637,9 @@ export class Menu implements OnDestroy {
 
         if (this.popup && this.closeOnClick) {
             this.hide();
+        } else if (this.popup && !this.closeOnClick) {
+            originalEvent.preventDefault();
+            originalEvent.stopPropagation();
         }
 
         if (!this.popup && this.focusedOptionIndex() !== item.id) {
