@@ -951,6 +951,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
+            this.relativeAlign = event?.relativeAlign || null;
         }
 
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
