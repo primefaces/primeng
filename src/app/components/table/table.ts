@@ -3325,7 +3325,7 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        if (this.isEnabled() && !this.isFilterElement(<HTMLElement>event.target)) {
+        if (this.isEnabled()) {
             this.updateSortState();
             this.dt.sort({
                 originalEvent: event,
@@ -3343,10 +3343,6 @@ export class SortableColumn implements OnInit, OnDestroy {
 
     isEnabled() {
         return this.pSortableColumnDisabled !== true;
-    }
-
-    isFilterElement(element: HTMLElement) {
-        return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
     }
 
     ngOnDestroy() {
@@ -4768,7 +4764,7 @@ export class ReorderableRow implements AfterViewInit {
                 aria-haspopup="true"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
-                (click)="toggleMenu()"
+                (click)="toggleMenu($event)"
                 (keydown)="onToggleButtonKeyDown($event)"
             >
                 <FilterIcon [styleClass]="'pi-filter-icon'" *ngIf="!filterIconTemplate" />
@@ -5099,8 +5095,9 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    toggleMenu() {
+    toggleMenu(event : any) {
         this.overlayVisible = !this.overlayVisible;
+        event.stopPropagation();
     }
 
     onToggleButtonKeyDown(event: KeyboardEvent) {
