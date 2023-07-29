@@ -197,6 +197,13 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() withCredentials: boolean | undefined;
     /**
+     * Custom file sizes to display.
+     * By default: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']. 
+     * For example in french units: ['o', 'ko', 'Mo', 'Go', 'To', 'Po', 'Eo', 'Zo', 'Yo'].
+     * @group Props
+    */
+    @Input() customSizes: string[] | undefined;
+    /**
      * Maximum file size allowed in bytes.
      * @group Props
      */
@@ -465,7 +472,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -825,13 +832,14 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     formatSize(bytes: number) {
-        if (bytes == 0) {
+        if (bytes === 0) {
             return '0 B';
         }
-        let k = 1000,
-            dm = 3,
-            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
+
+        const k = 1000;
+        const dm = 3;
+        const sizes = this.customSizes || ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
 
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
@@ -891,4 +899,4 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
-export class FileUploadModule {}
+export class FileUploadModule { }
