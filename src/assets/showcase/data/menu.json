@@ -525,7 +525,7 @@
         {
             "name": "PrimeFlex CSS",
             "icon": "pi pi-table",
-            "href": "https://www.primefaces.org/primeflex"
+            "href": "https://primeflex.org"
         },
         {
             "name": "Support",
@@ -580,6 +580,10 @@
                 {
                     "name": "Twitter",
                     "href": "https://twitter.com/prime_ng"
+                },
+                {
+                    "name": "Partners",
+                    "routerLink": "/partners"
                 },
                 {
                     "name": "Newsletter",

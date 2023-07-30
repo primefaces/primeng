@@ -48,7 +48,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -56,7 +56,7 @@ export class BasicDoc {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
     }
 
-    getSeverity(product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -141,7 +141,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './data-view-basic-demo.html'
 })
 export class DataViewBasicDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -149,7 +149,7 @@ export class DataViewBasicDemo {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 5)));
     }
 
-    getSeverity (product) {
+    getSeverity (product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';

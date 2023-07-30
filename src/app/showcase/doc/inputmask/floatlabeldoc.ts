@@ -21,7 +21,7 @@ export class FloatlabelDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-floatlabel-demo.html'
 })
 export class InputMaskFloatlabelDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

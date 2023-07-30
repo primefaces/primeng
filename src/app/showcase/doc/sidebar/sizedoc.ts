@@ -24,7 +24,7 @@ export class SizeDoc {
 
     @Input() title: string;
 
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 
     code: Code = {
         basic: `
@@ -55,7 +55,7 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-size-demo.html'
 })
 export class SidebarSizeDemo {
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 }`
     };
 }

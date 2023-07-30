@@ -8,7 +8,6 @@ import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { PositionDoc } from './positiondoc';
 import { EventDoc } from './eventdoc';
@@ -19,7 +18,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, PropsDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, OptionsDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TooltipDocModule {}

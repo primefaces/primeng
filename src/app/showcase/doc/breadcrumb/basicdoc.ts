@@ -19,9 +19,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    home: MenuItem;
+    home: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [{ label: 'Computer' }, { label: 'Notebook' }, { label: 'Accessories' }, { label: 'Backpacks' }, { label: 'Item' }];
@@ -47,9 +47,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './breadcrumb-basic-demo.html'
 })
 export class BreadcrumbBasicDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    home: MenuItem;
+    home: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [{ label: 'Computer' }, { label: 'Notebook' }, { label: 'Accessories' }, { label: 'Backpacks' }, { label: 'Item' }];

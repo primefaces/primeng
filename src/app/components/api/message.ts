@@ -1,3 +1,7 @@
+/**
+ * Deines valid options for the message.
+ * @group Interface
+ */
 export interface Message {
     severity?: string;
     summary?: string;

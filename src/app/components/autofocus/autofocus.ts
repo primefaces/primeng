@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, Input, NgModule } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-
+/**
+ * AutoFocus manages focus on focusable element on load.
+ * @group Components
+ */
 @Directive({
     selector: '[pAutoFocus]',
     host: {
@@ -10,8 +13,11 @@ import { DomHandler } from 'primeng/dom';
 })
 export class AutoFocus {
     constructor(private host: ElementRef) {}
-
-    @Input() autofocus: boolean;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input() autofocus: boolean | undefined;
 
     focused: boolean = false;
 

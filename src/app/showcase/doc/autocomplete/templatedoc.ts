@@ -3,6 +3,11 @@ import { SelectItemGroup } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-template-demo',
     template: ` <section>
@@ -27,15 +32,15 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
-    items: any[];
+    items: any[] | undefined;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities: SelectItemGroup[] | undefined;
 
-    selectedCountryAdvanced: any[];
+    selectedCountryAdvanced: any[] | undefined;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -83,12 +88,12 @@ export class TemplateDoc {
         }
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -126,21 +131,26 @@ import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
 import { CountryService } from 'src/service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-template-demo',
     templateUrl: './autocomplete-template-demo.html',
     styleUrls: ['./autocomplete-template-demo.scss']
 })
 export class AutocompleteTemplateDemo {
-    countries: any[];
+    countries: any[] | undefined;
 
-    items: any[];
+    items: any[] | undefined;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities: SelectItemGroup[] | undefined;
 
-    selectedCountryAdvanced: any[];
+    selectedCountryAdvanced: any[] | undefined;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined; 
 
     constructor(private countryService: CountryService) {}
 
@@ -188,12 +198,12 @@ export class AutocompleteTemplateDemo {
         }
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }

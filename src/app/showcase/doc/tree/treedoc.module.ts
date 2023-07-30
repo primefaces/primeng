@@ -15,21 +15,17 @@ import { ContextMenuDoc } from './contextmenudoc';
 import { ControlledDoc } from './controlleddoc';
 import { DragDropDoc } from './dragdropdoc';
 import { EventDoc } from './eventdoc';
-import { EventsDoc } from './eventsdoc';
 import { FilterDoc } from './filterdoc';
 import { ImportDoc } from './importdoc';
 import { LazyDoc } from './lazydoc';
-import { MethodsDoc } from './methodsdoc';
 import { MultipleDoc } from './multipledoc';
-import { PropsDoc } from './propsdoc';
 import { SingleDoc } from './singledoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
-import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeModule, ButtonModule, InputSwitchModule, FormsModule, ToastModule, ContextMenuModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, StyleDoc, PropsDoc, EventsDoc, MethodsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, SingleDoc, MultipleDoc, CheckboxDoc, EventDoc, LazyDoc, TemplateDoc, DragDropDoc, ContextMenuDoc, FilterDoc, StyleDoc, AccessibilityDoc]
 })
 export class TreeDocModule {}

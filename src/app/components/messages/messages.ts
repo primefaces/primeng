@@ -1,15 +1,18 @@
-import { NgModule, Component, OnDestroy, Input, Output, EventEmitter, AfterContentInit, Optional, ElementRef, ChangeDetectionStrategy, ContentChildren, QueryList, TemplateRef, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { trigger, style, transition, animate } from '@angular/animations';
-import { Message, PrimeTemplate, MessageService } from 'primeng/api';
-import { Subscription, timer } from 'rxjs';
-import { RippleModule } from 'primeng/ripple';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Message, MessageService, PrimeTemplate } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesIcon } from 'primeng/icons/times';
-
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { RippleModule } from 'primeng/ripple';
+import { Subscription, timer } from 'rxjs';
+/**
+ * Messages is used to display alerts inline.
+ * @group Components
+ */
 @Component({
     selector: 'p-messages',
     template: `
@@ -68,47 +71,82 @@ import { TimesIcon } from 'primeng/icons/times';
     }
 })
 export class Messages implements AfterContentInit, OnDestroy {
+    /**
+     * An array of messages to display.
+     * @group Props
+     */
     @Input() set value(messages: Message[]) {
         this.messages = messages;
         this.startMessageLifes(this.messages);
     }
-
+    /**
+     * Defines if message box can be closed by the click icon.
+     * @group Props
+     */
     @Input() closable: boolean = true;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Whether displaying services messages are enabled.
+     * @group Props
+     */
     @Input() enableService: boolean = true;
-
-    @Input() key: string;
-
+    /**
+     * Id to match the key of the message to enable scoping in service based messaging.
+     * @group Props
+     */
+    @Input() key: string | undefined;
+    /**
+     * Whether displaying messages would be escaped or not.
+     * @group Props
+     */
     @Input() escape: boolean = true;
-
-    @Input() severity: string;
-
+    /**
+     * Severity level of the message.
+     * @group Props
+     */
+    @Input() severity: string | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '300ms ease-out';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
+    /**
+     * This function is executed when the value changes.
+     * @param {Message[]} value - messages value.
+     * @group Emits
+     */
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
 
-    messages: Message[];
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    messageSubscription: Subscription;
+    messages: Message[] | null | undefined;
 
-    clearSubscription: Subscription;
+    messageSubscription: Subscription | undefined;
+
+    clearSubscription: Subscription | undefined;
 
     timerSubscriptions: Subscription[] = [];
 
-    contentTemplate: TemplateRef<any>;
+    contentTemplate: TemplateRef<any> | undefined;
 
     constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -163,12 +201,12 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     removeMessage(i: number) {
-        this.messages = this.messages.filter((msg, index) => index !== i);
+        this.messages = this.messages?.filter((msg, index) => index !== i);
         this.valueChange.emit(this.messages);
     }
 
-    get icon(): string {
-        const severity = this.severity || (this.hasMessages() ? this.messages[0].severity : null);
+    get icon(): string | null {
+        const severity = this.severity || (this.hasMessages() ? this.messages![0].severity : null);
 
         if (this.hasMessages()) {
             switch (severity) {
@@ -209,7 +247,7 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     private startMessageLife(message: Message): void {
-        const timerSubsctiption = timer(message.life).subscribe(() => {
+        const timerSubsctiption = timer(message.life!).subscribe(() => {
             this.messages = this.messages?.filter((msgEl) => msgEl !== message);
             this.timerSubscriptions = this.timerSubscriptions?.filter((timerEl) => timerEl !== timerSubsctiption);
             this.valueChange.emit(this.messages);

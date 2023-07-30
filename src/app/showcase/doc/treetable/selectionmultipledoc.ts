@@ -4,6 +4,11 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-multiple-doc',
     template: ` <section>
@@ -49,11 +54,11 @@ export class SelectionMultipleDoc implements OnInit {
 
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -118,6 +123,11 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-selection-multiple-demo',
     templateUrl: './tree-table-selection-multiple-demo.html'
@@ -125,11 +135,11 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeTableSelectionMultipleDemo implements OnInit {
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

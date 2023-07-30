@@ -23,9 +23,9 @@ export class ClosableDoc implements OnInit {
 
     @Input() title: string;
 
-    messages1: Message[];
+    messages1: Message[] | undefined;
 
-    messages2: Message[];
+    messages2: Message[] | undefined;
 
     ngOnInit() {
         this.messages1 = [
@@ -57,9 +57,9 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-closable-demo.html'
 })
 export class MessagesClosableDemo implements OnInit {
-    messages1: Message[];
+    messages1: Message[] | undefined;
 
-    messages2: Message[];
+    messages2: Message[] | undefined;
 
     ngOnInit() {
         this.messages1 = [

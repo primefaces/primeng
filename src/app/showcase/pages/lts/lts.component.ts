@@ -12,20 +12,17 @@ export class LTSComponent {
     }
 
     code: Code = {
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { LicenseManager } from 'primeng/api';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-    constructor(private licenseManager: LicenseManager) {}
-
-    ngOnInit() {
-        this.licenseManager.verify('LICENSE_KEY', 'PASS_KEY');
-    }
+    LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');
+    
 }`
     };
 }

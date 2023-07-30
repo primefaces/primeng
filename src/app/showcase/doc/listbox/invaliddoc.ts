@@ -23,9 +23,9 @@ export class InvalidDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './listbox-invalid-demo.html'
 })
 export class ListboxInvalidDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
     
     ngOnInit() {
         this.cities = [

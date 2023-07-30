@@ -18,7 +18,7 @@ export class VerticalDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './slider-vertical-demo.html'
 })
 export class SliderVerticalDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

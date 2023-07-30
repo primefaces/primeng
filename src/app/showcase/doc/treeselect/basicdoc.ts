@@ -6,7 +6,7 @@ import { NodeService } from '../../service/nodeservice';
     selector: 'basic-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>TreeSelect is used as a controlled component with <i>v-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
+            <p>TreeSelect is used as a controlled component with <i>ng-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
             <p>In single selection mode, value binding should be the <i>key</i> value of a node.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -20,7 +20,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -46,7 +46,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-basic-demo.html'
 })
 export class TreeSelectBasicDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/carousel/importdoc';
 import { BasicDoc } from '../../doc/carousel/basicdoc';
-import { PropsDoc } from '../../doc/carousel/propsdoc';
 import { StyleDoc } from '../../doc/carousel/styledoc';
 import { CircularDoc } from '../../doc/carousel/circulardoc';
 import { NumScrollDoc } from '../../doc/carousel/numscrolldoc';
@@ -9,7 +8,6 @@ import { ResponsiveDoc } from '../../doc/carousel/responsivedoc';
 import { VerticalDoc } from '../../doc/carousel/verticaldoc';
 import { TemplateDoc } from '../../doc/carousel/templatedoc';
 import { AccessibilityDoc } from '../../doc/carousel/accessibilitydoc';
-import { TemplatesDoc } from '../../doc/carousel/templatesdoc';
 
 @Component({
     templateUrl: './carouseldemo.html',
@@ -61,19 +59,6 @@ export class CarouselDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

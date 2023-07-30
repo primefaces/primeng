@@ -89,7 +89,7 @@ export class RowExpandDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -268,7 +268,7 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['table-row-expand-demo.scss']
 })
 export class TableRowExpandDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

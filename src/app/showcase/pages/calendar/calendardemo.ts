@@ -130,27 +130,4 @@ export class CalendarDemo {
             component: AccessibilityDoc
         }
     ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        }
-    ];
 }

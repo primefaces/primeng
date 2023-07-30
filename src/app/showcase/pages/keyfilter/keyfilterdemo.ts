@@ -3,7 +3,6 @@ import { ReactiveFormsDoc } from '../../doc/keyfilter/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/keyfilter/accessibilitydoc';
 import { ImportDoc } from '../../doc/keyfilter/importdoc';
 import { PresetsDoc } from '../../doc/keyfilter/presetsdoc';
-import { PropsDoc } from '../../doc/keyfilter/propsdoc';
 import { RegexDoc } from '../../doc/keyfilter/regexdoc';
 
 @Component({
@@ -35,14 +34,6 @@ export class KeyFilterDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

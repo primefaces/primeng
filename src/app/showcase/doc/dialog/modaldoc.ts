@@ -24,7 +24,7 @@ export class ModalDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-modal-demo.html'
 })
 export class DialogModalDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

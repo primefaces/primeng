@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -44,14 +44,17 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(private carService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 
@@ -95,7 +98,7 @@ export class BasicDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -104,14 +107,20 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './picklist-basic-demo.html'
 })
 export class PicklistBasicDemo {
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(
+      private carService: ProductService,
+      private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then(products => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 }`,

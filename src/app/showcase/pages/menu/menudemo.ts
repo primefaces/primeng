@@ -2,14 +2,10 @@ import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/menu/basicdoc';
 import { CustomContentDoc } from '../../doc/menu/customdoc';
 import { CommandDoc } from '../../doc/menu/commanddoc';
-import { EventsDoc } from '../../doc/menu/eventsdoc';
-import { MethodsDoc } from '../../doc/menu/methodsdoc';
 import { GroupDoc } from '../../doc/menu/groupdoc';
 import { ImportDoc } from '../../doc/menu/importdoc';
-import { MenuItemDoc } from '../../doc/menu/menuitemdoc';
 import { NavigationDoc } from '../../doc/menu/navigationdoc';
 import { PopupDoc } from '../../doc/menu/popupdoc';
-import { PropsDoc } from '../../doc/menu/propsdoc';
 import { StyleDoc } from '../../doc/menu/styledoc';
 import { AccessibilityDoc } from '../../doc/menu/accessibilitydoc';
 
@@ -62,29 +58,6 @@ export class MenuDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'menuitem',
-            label: 'MenuItem API',
-            component: MenuItemDoc
         }
     ];
 }

@@ -1,10 +1,10 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, Inject } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { SpinnerIcon } from 'primeng/icons/spinner';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { SpinnerIcon } from 'primeng/icons/spinner';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -16,7 +16,10 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only'
 } as const;
-
+/**
+ * Button directive is an extension to button component.
+ * @group Components
+ */
 @Directive({
     selector: '[pButton]',
     host: {
@@ -24,14 +27,23 @@ const INTERNAL_BUTTON_CLASSES = {
     }
 })
 export class ButtonDirective implements AfterViewInit, OnDestroy {
+    /**
+     * Position of the icon.
+     * @group Props
+     */
     @Input() iconPos: ButtonIconPosition = 'left';
-
-    @Input() loadingIcon: string;
-
+    /**
+     * Uses to pass attributes to the loading icon's DOM element.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
+     * Text of the button.
+     * @group Props
+     */
     @Input() get label(): string {
-        return this._label;
+        return this._label as string;
     }
-
     set label(val: string) {
         this._label = val;
 
@@ -41,11 +53,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
-
+    /**
+     * Name of the icon.
+     * @group Props
+     */
     @Input() get icon(): string {
-        return this._icon;
+        return this._icon as string;
     }
-
     set icon(val: string) {
         this._icon = val;
 
@@ -54,11 +68,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
-
+    /**
+     * Whether the button is in loading state.
+     * @group Props
+     */
     @Input() get loading(): boolean {
         return this._loading;
     }
-
     set loading(val: boolean) {
         this._loading = val;
 
@@ -68,13 +84,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         }
     }
 
-    public _label: string;
+    public _label: string | undefined;
 
-    public _icon: string;
+    public _icon: string | undefined;
 
     public _loading: boolean = false;
 
-    public initialized: boolean;
+    public initialized: boolean | undefined;
 
     private get htmlElement(): HTMLElement {
         return this.el.nativeElement as HTMLElement;
@@ -205,7 +221,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
-
+/**
+ * Button is an extension to standard button element with icons and theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-button',
     template: `
@@ -226,7 +245,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="iconClass() + ' p-button-loading-icon'" [spin]="true" />
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
                 <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
@@ -249,6 +268,102 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 })
 export class Button implements AfterContentInit {
+    /**
+     * Type of the button.
+     * @group Props
+     */
+    @Input() type: string = 'button';
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: ButtonIconPosition = 'left';
+    /**
+     * Name of the icon.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Value of the badge.
+     * @group Props
+     */
+    @Input() badge: string | undefined;
+    /**
+     * Uses to pass attributes to the label's DOM element.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Whether the button is in loading state.
+     * @group Props
+     */
+    @Input() loading: boolean = false;
+    /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the badge.
+     * @group Props
+     */
+    @Input() badgeClass: string | undefined;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Callback to execute when button is clicked.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+    /**
+     * Callback to execute when button is focused.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus).
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    /**
+     * Callback to execute when button loses focus.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur).
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
+    contentTemplate: TemplateRef<any> | undefined;
+
+    loadingIconTemplate: TemplateRef<any> | undefined;
+
+    iconTemplate: TemplateRef<any> | undefined;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    spinnerIconClass(): string {
+        return Object.entries(this.iconClass())
+            .filter(([, value]) => !!value)
+            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
+    }
+
     iconClass() {
         return {
             'p-button-icon': true,
@@ -270,46 +385,8 @@ export class Button implements AfterContentInit {
         };
     }
 
-    @Input() type: string = 'button';
-
-    @Input() iconPos: ButtonIconPosition = 'left';
-
-    @Input() icon: string;
-
-    @Input() badge: string;
-
-    @Input() label: string;
-
-    @Input() disabled: boolean;
-
-    @Input() loading: boolean = false;
-
-    @Input() loadingIcon: string;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() badgeClass: string;
-
-    @Input() ariaLabel: string;
-
-    contentTemplate: TemplateRef<any>;
-
-    loadingIconTemplate: TemplateRef<any>;
-
-    iconTemplate: TemplateRef<any>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;

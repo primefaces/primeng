@@ -35,12 +35,24 @@ import { AngleRightIcon } from 'primeng/icons/angleright';
 import { AngleUpIcon } from 'primeng/icons/angleup';
 import { SearchIcon } from 'primeng/icons/search';
 import { HomeIcon } from 'primeng/icons/home';
-
-export interface PickListFilterOptions {
-    filter?: (value?: any) => void;
-    reset?: () => void;
-}
-
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import {
+    PickListMoveAllToSourceEvent,
+    PickListMoveAllToTargetEvent,
+    PickListMoveToSourceEvent,
+    PickListMoveToTargetEvent,
+    PickListSourceFilterEvent,
+    PickListSourceReorderEvent,
+    PickListSourceSelectEvent,
+    PickListTargetFilterEvent,
+    PickListTargetReorderEvent,
+    PickListTargetSelectEvent,
+    PickListFilterOptions
+} from './picklist.interface';
+/**
+ * PickList is used to reorder items between different lists.
+ * @group Components
+ */
 @Component({
     selector: 'p-pickList',
     template: `
@@ -238,78 +250,193 @@ export interface PickListFilterOptions {
     }
 })
 export class PickList implements AfterViewChecked, AfterContentInit {
-    @Input() source: any[];
-
-    @Input() target: any[];
-
-    @Input() sourceHeader: string;
-
-    @Input() rightButtonAriaLabel: string;
-
-    @Input() leftButtonAriaLabel: string;
-
-    @Input() allRightButtonAriaLabel: string;
-
-    @Input() allLeftButtonAriaLabel: string;
-
-    @Input() upButtonAriaLabel: string;
-
-    @Input() downButtonAriaLabel: string;
-
-    @Input() topButtonAriaLabel: string;
-
-    @Input() bottomButtonAriaLabel: string;
-
-    @Input() targetHeader: string;
-
-    @Input() responsive: boolean;
-
-    @Input() filterBy: string;
-
-    @Input() filterLocale: string;
-
+    /**
+     * An array of objects for the source list.
+     * @group Props
+     */
+    @Input() source: any[] | undefined;
+    /**
+     * An array of objects for the target list.
+     * @group Props
+     */
+    @Input() target: any[] | undefined;
+    /**
+     * Text for the source list caption
+     * @group Props
+     */
+    @Input() sourceHeader: string | undefined;
+    /**
+     * Defines a string that labels the move to right button for accessibility.
+     * @group Props
+     */
+    @Input() rightButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to left button for accessibility.
+     * @group Props
+     */
+    @Input() leftButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to all right button for accessibility.
+     * @group Props
+     */
+    @Input() allRightButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to all left button for accessibility.
+     * @group Props
+     */
+    @Input() allLeftButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to up button for accessibility.
+     * @group Props
+     */
+    @Input() upButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to down button for accessibility.
+     * @group Props
+     */
+    @Input() downButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to top button for accessibility.
+     * @group Props
+     */
+    @Input() topButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the move to bottom button for accessibility.
+     * @group Props
+     */
+    @Input() bottomButtonAriaLabel: string | undefined;
+    /**
+     * Text for the target list caption
+     * @group Props
+     */
+    @Input() targetHeader: string | undefined;
+    /**
+     * When enabled orderlist adjusts its controls based on screen size.
+     * @group Props
+     */
+    @Input() responsive: boolean | undefined;
+    /**
+     * When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. Use sourceTrackBy or targetTrackBy in case different algorithms are needed per list.
+     * @group Props
+     */
     @Input() trackBy: Function = (index: number, item: any) => item;
-
-    @Input() sourceTrackBy: Function;
-
-    @Input() targetTrackBy: Function;
-
+    /**
+     * Function to optimize the dom operations by delegating to ngForTrackBy in source list, default algorithm checks for object identity.
+     * @group Props
+     */
+    @Input() sourceTrackBy: Function | undefined;
+    /**
+     * Function to optimize the dom operations by delegating to ngForTrackBy in target list, default algorithm checks for object identity.
+     * @group Props
+     */
+    @Input() targetTrackBy: Function | undefined;
+    /**
+     * Whether to show filter input for source list when filterBy is enabled.
+     * @group Props
+     */
     @Input() showSourceFilter: boolean = true;
-
+    /**
+     * Whether to show filter input for target list when filterBy is enabled.
+     * @group Props
+     */
     @Input() showTargetFilter: boolean = true;
-
+    /**
+     * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
+     * @group Props
+     */
     @Input() metaKeySelection: boolean = true;
-
+    /**
+     * Whether to enable dragdrop based reordering.
+     * @group Props
+     */
     @Input() dragdrop: boolean = false;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the source list element.
+     * @group Props
+     */
     @Input() sourceStyle: any;
-
+    /**
+     * Inline style of the target list element.
+     * @group Props
+     */
     @Input() targetStyle: any;
-
+    /**
+     * Whether to show buttons of source list.
+     * @group Props
+     */
     @Input() showSourceControls: boolean = true;
-
+    /**
+     * Whether to show buttons of target list.
+     * @group Props
+     */
     @Input() showTargetControls: boolean = true;
-
-    @Input() sourceFilterPlaceholder: string;
-
-    @Input() targetFilterPlaceholder: string;
-
+    /**
+     * Placeholder text on source filter input.
+     * @group Props
+     */
+    @Input() sourceFilterPlaceholder: string | undefined;
+    /**
+     * Placeholder text on target filter input.
+     * @group Props
+     */
+    @Input() targetFilterPlaceholder: string | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
     @Input() disabled: boolean = false;
-
-    @Input() ariaSourceFilterLabel: string;
-
-    @Input() ariaTargetFilterLabel: string;
-
-    @Input() filterMatchMode: string = 'contains';
-
+    /**
+     * Defines a string that labels the filter input of source list.
+     * @group Props
+     */
+    @Input() ariaSourceFilterLabel: string | undefined;
+    /**
+     * Defines a string that labels the filter input of target list.
+     * @group Props
+     */
+    @Input() ariaTargetFilterLabel: string | undefined;
+    /**
+     * Defines how the items are filtered.
+     * @group Props
+     */
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    /**
+     * Whether to displays rows with alternating colors.
+     * @group Props
+     */
+    @Input() stripedRows: boolean | undefined;
+    /**
+     * Keeps selection on the transfer list.
+     * @group Props
+     */
+    @Input() keepSelection: boolean = false;
+    /**
+     * Indicates the width of the screen at which the component should change its behavior.
+     * @group Props
+     */
     @Input() get breakpoint(): string {
         return this._breakpoint;
     }
-
     set breakpoint(value: string) {
         if (value !== this._breakpoint) {
             this._breakpoint = value;
@@ -319,68 +446,104 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
         }
     }
+    /**
+     * Callback to invoke when items are moved from target to source.
+     * @param {PickListMoveToSourceEvent} event - Custom move to source event.
+     * @group Emits
+     */
+    @Output() onMoveToSource: EventEmitter<PickListMoveToSourceEvent> = new EventEmitter<PickListMoveToSourceEvent>();
+    /**
+     * Callback to invoke when all items are moved from target to source.
+     * @param {PickListMoveAllToSourceEvent} event - Custom move all to source event.
+     * @group Emits
+     */
+    @Output() onMoveAllToSource: EventEmitter<PickListMoveAllToSourceEvent> = new EventEmitter<PickListMoveAllToSourceEvent>();
+    /**
+     * Callback to invoke when all items are moved from source to target.
+     * @param {PickListMoveAllToTargetEvent} event - Custom move all to target event.
+     * @group Emits
+     */
+    @Output() onMoveAllToTarget: EventEmitter<PickListMoveAllToTargetEvent> = new EventEmitter<PickListMoveAllToTargetEvent>();
+    /**
+     * Callback to invoke when items are moved from source to target.
+     * @param {PickListMoveToTargetEvent} event - Custom move to target event.
+     * @group Emits
+     */
+    @Output() onMoveToTarget: EventEmitter<PickListMoveToTargetEvent> = new EventEmitter<PickListMoveToTargetEvent>();
+    /**
+     * Callback to invoke when items are reordered within source list.
+     * @param {PickListSourceReorderEvent} event - Custom source reorder event.
+     * @group Emits
+     */
+    @Output() onSourceReorder: EventEmitter<PickListSourceReorderEvent> = new EventEmitter<PickListSourceReorderEvent>();
+    /**
+     * Callback to invoke when items are reordered within target list.
+     * @param {PickListTargetReorderEvent} event - Custom target reorder event.
+     * @group Emits
+     */
+    @Output() onTargetReorder: EventEmitter<PickListTargetReorderEvent> = new EventEmitter<PickListTargetReorderEvent>();
+    /**
+     * Callback to invoke when items are selected within source list.
+     * @param {PickListSourceSelectEvent} event - Custom source select event.
+     * @group Emits
+     */
+    @Output() onSourceSelect: EventEmitter<PickListSourceSelectEvent> = new EventEmitter<PickListSourceSelectEvent>();
+    /**
+     * Callback to invoke when items are selected within target list.
+     * @param {PickListTargetSelectEvent} event - Custom target select event.
+     * @group Emits
+     */
+    @Output() onTargetSelect: EventEmitter<PickListTargetSelectEvent> = new EventEmitter<PickListTargetSelectEvent>();
+    /**
+     * Callback to invoke when the source list is filtered
+     * @param {PickListSourceFilterEvent} event - Custom source filter event.
+     * @group Emits
+     */
+    @Output() onSourceFilter: EventEmitter<PickListSourceFilterEvent> = new EventEmitter<PickListSourceFilterEvent>();
+    /**
+     * Callback to invoke when the target list is filtered
+     * @param {PickListTargetFilterEvent} event - Custom target filter event.
+     * @group Emits
+     */
+    @Output() onTargetFilter: EventEmitter<PickListTargetFilterEvent> = new EventEmitter<PickListTargetFilterEvent>();
 
-    @Input() stripedRows: boolean;
+    @ViewChild('sourcelist') listViewSourceChild: Nullable<ElementRef>;
 
-    @Input() keepSelection: boolean = false;
+    @ViewChild('targetlist') listViewTargetChild: Nullable<ElementRef>;
 
-    @Output() onMoveToSource: EventEmitter<any> = new EventEmitter();
+    @ViewChild('sourceFilter') sourceFilterViewChild: Nullable<ElementRef>;
 
-    @Output() onMoveAllToSource: EventEmitter<any> = new EventEmitter();
+    @ViewChild('targetFilter') targetFilterViewChild: Nullable<ElementRef>;
 
-    @Output() onMoveAllToTarget: EventEmitter<any> = new EventEmitter();
-
-    @Output() onMoveToTarget: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSourceReorder: EventEmitter<any> = new EventEmitter();
-
-    @Output() onTargetReorder: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSourceSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onTargetSelect: EventEmitter<any> = new EventEmitter();
-
-    @Output() onSourceFilter: EventEmitter<any> = new EventEmitter();
-
-    @Output() onTargetFilter: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('sourcelist') listViewSourceChild: ElementRef;
-
-    @ViewChild('targetlist') listViewTargetChild: ElementRef;
-
-    @ViewChild('sourceFilter') sourceFilterViewChild: ElementRef;
-
-    @ViewChild('targetFilter') targetFilterViewChild: ElementRef;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _breakpoint: string = '960px';
 
-    public itemTemplate: TemplateRef<any>;
+    public itemTemplate: TemplateRef<any> | undefined;
 
-    moveTopIconTemplate: TemplateRef<any>;
+    moveTopIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveUpIconTemplate: TemplateRef<any>;
+    moveUpIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveDownIconTemplate: TemplateRef<any>;
+    moveDownIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveBottomIconTemplate: TemplateRef<any>;
+    moveBottomIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveToTargetIconTemplate: TemplateRef<any>;
+    moveToTargetIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveAllToTargetIconTemplate: TemplateRef<any>;
+    moveAllToTargetIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveToSourceIconTemplate: TemplateRef<any>;
+    moveToSourceIconTemplate: Nullable<TemplateRef<any>>;
 
-    moveAllToSourceIconTemplate: TemplateRef<any>;
+    moveAllToSourceIconTemplate: Nullable<TemplateRef<any>>;
 
-    targetFilterIconTemplate: TemplateRef<any>;
+    targetFilterIconTemplate: Nullable<TemplateRef<any>>;
 
-    sourceFilterIconTemplate: TemplateRef<any>;
+    sourceFilterIconTemplate: Nullable<TemplateRef<any>>;
 
-    public visibleOptionsSource: any[];
+    public visibleOptionsSource: any[] | undefined | null;
 
-    public visibleOptionsTarget: any[];
+    public visibleOptionsTarget: any[] | undefined | null;
 
     selectedItemsSource: any[] = [];
 
@@ -388,53 +551,53 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     reorderedListElement: any;
 
-    movedUp: boolean;
+    movedUp: Nullable<boolean>;
 
-    movedDown: boolean;
+    movedDown: Nullable<boolean>;
 
-    itemTouched: boolean;
+    itemTouched: Nullable<boolean>;
 
     styleElement: any;
 
     id: string = UniqueComponentId();
 
-    filterValueSource: string;
+    filterValueSource: Nullable<string>;
 
-    filterValueTarget: string;
+    filterValueTarget: Nullable<string>;
 
-    fromListType: number;
+    fromListType: Nullable<number>;
 
-    emptyMessageSourceTemplate: TemplateRef<any>;
+    emptyMessageSourceTemplate: Nullable<TemplateRef<any>>;
 
-    emptyFilterMessageSourceTemplate: TemplateRef<any>;
+    emptyFilterMessageSourceTemplate: Nullable<TemplateRef<any>>;
 
-    emptyMessageTargetTemplate: TemplateRef<any>;
+    emptyMessageTargetTemplate: Nullable<TemplateRef<any>>;
 
-    emptyFilterMessageTargetTemplate: TemplateRef<any>;
+    emptyFilterMessageTargetTemplate: Nullable<TemplateRef<any>>;
 
-    sourceHeaderTemplate: TemplateRef<any>;
+    sourceHeaderTemplate: Nullable<TemplateRef<any>>;
 
-    targetHeaderTemplate: TemplateRef<any>;
+    targetHeaderTemplate: Nullable<TemplateRef<any>>;
 
-    sourceFilterTemplate: TemplateRef<any>;
+    sourceFilterTemplate: Nullable<TemplateRef<any>>;
 
-    targetFilterTemplate: TemplateRef<any>;
+    targetFilterTemplate: Nullable<TemplateRef<any>>;
 
-    sourceFilterOptions: PickListFilterOptions;
+    sourceFilterOptions: Nullable<PickListFilterOptions>;
 
-    targetFilterOptions: PickListFilterOptions;
+    targetFilterOptions: Nullable<PickListFilterOptions>;
 
-    readonly SOURCE_LIST = -1;
+    readonly SOURCE_LIST: number = -1;
 
-    readonly TARGET_LIST = 1;
+    readonly TARGET_LIST: number = 1;
 
     window: Window;
 
-    media: MediaQueryList | null;
+    media: MediaQueryList | null | undefined;
 
-    viewChanged: boolean;
+    viewChanged: boolean | undefined;
 
-    mediaChangeListener: VoidFunction | null;
+    mediaChangeListener: VoidListener;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {
         this.window = this.document.defaultView as Window;
@@ -460,7 +623,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -560,7 +723,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    onItemClick(event, item: any, selectedItems: any[], callback: EventEmitter<any>) {
+    onItemClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>) {
         if (this.disabled) {
             return;
         }
@@ -570,7 +733,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
-            let metaKey = event.metaKey || event.ctrlKey || event.shiftKey;
+            let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
 
             if (selected && metaKey) {
                 selectedItems.splice(index, 1);
@@ -614,16 +777,16 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     filterSource(value: any = '') {
         this.filterValueSource = value.trim().toLocaleLowerCase(this.filterLocale);
-        this.filter(this.source, this.SOURCE_LIST);
+        this.filter(<any[]>this.source, this.SOURCE_LIST);
     }
 
     filterTarget(value: any = '') {
         this.filterValueTarget = value.trim().toLocaleLowerCase(this.filterLocale);
-        this.filter(this.target, this.TARGET_LIST);
+        this.filter(<any[]>this.target, this.TARGET_LIST);
     }
 
     filter(data: any[], listType: number) {
-        let searchFields = this.filterBy.split(',');
+        let searchFields = (<string>this.filterBy).split(',');
 
         if (listType === this.SOURCE_LIST) {
             this.visibleOptionsSource = this.filterService.filter(data, searchFields, this.filterValueSource, this.filterMatchMode, this.filterLocale);
@@ -634,9 +797,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    isItemVisible(item: any, listType: number): boolean {
-        if (listType == this.SOURCE_LIST) return this.isVisibleInList(this.visibleOptionsSource, item, this.filterValueSource);
-        else return this.isVisibleInList(this.visibleOptionsTarget, item, this.filterValueTarget);
+    isItemVisible(item: any, listType: number): boolean | undefined {
+        if (listType == this.SOURCE_LIST) return this.isVisibleInList(<any[]>this.visibleOptionsSource, item, <string>this.filterValueSource);
+        else return this.isVisibleInList(<any[]>this.visibleOptionsTarget, item, <string>this.filterValueTarget);
     }
 
     isEmpty(listType: number) {
@@ -644,7 +807,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         else return this.filterValueTarget ? !this.visibleOptionsTarget || this.visibleOptionsTarget.length === 0 : !this.target || this.target.length === 0;
     }
 
-    isVisibleInList(data: any[], item: any, filterValue: string): boolean {
+    isVisibleInList(data: any[], item: any, filterValue: string): boolean | undefined {
         if (filterValue && filterValue.trim().length) {
             for (let i = 0; i < data.length; i++) {
                 if (item == data[i]) {
@@ -668,7 +831,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         return items.sort((item1, item2) => ObjectUtils.findIndexInList(item1, list) - ObjectUtils.findIndexInList(item2, list));
     }
 
-    moveUp(listElement, list, selectedItems, callback, listType) {
+    moveUp(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
@@ -693,7 +856,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    moveTop(listElement, list, selectedItems, callback, listType) {
+    moveTop(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = 0; i < selectedItems.length; i++) {
@@ -715,7 +878,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    moveDown(listElement, list, selectedItems, callback, listType) {
+    moveDown(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
@@ -740,7 +903,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    moveBottom(listElement, list, selectedItems, callback, listType) {
+    moveBottom(listElement: HTMLElement, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
         if (selectedItems && selectedItems.length) {
             selectedItems = this.sortByIndexInList(selectedItems, list);
             for (let i = selectedItems.length - 1; i >= 0; i--) {
@@ -767,7 +930,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             for (let i = 0; i < this.selectedItemsSource.length; i++) {
                 let selectedItem = this.selectedItemsSource[i];
                 if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
-                    this.target.push(this.source.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
+                    this.target?.push(this.source?.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
 
                     if (this.visibleOptionsSource) this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
                 }
@@ -784,7 +947,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target, this.TARGET_LIST);
             }
         }
     }
@@ -796,7 +959,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             for (let i = 0; i < this.source.length; i++) {
                 if (this.isItemVisible(this.source[i], this.SOURCE_LIST)) {
                     let removedItem = this.source.splice(i, 1)[0];
-                    this.target.push(removedItem);
+                    this.target?.push(removedItem);
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -813,7 +976,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.selectedItemsSource = [];
 
             if (this.filterValueTarget) {
-                this.filter(this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target, this.TARGET_LIST);
             }
 
             this.visibleOptionsSource = [];
@@ -825,7 +988,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             for (let i = 0; i < this.selectedItemsTarget.length; i++) {
                 let selectedItem = this.selectedItemsTarget[i];
                 if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
-                    this.source.push(this.target.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
+                    this.source?.push(this.target?.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
 
                     if (this.visibleOptionsTarget) this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
                 }
@@ -842,7 +1005,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source, this.SOURCE_LIST);
             }
         }
     }
@@ -854,7 +1017,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             for (let i = 0; i < this.target.length; i++) {
                 if (this.isItemVisible(this.target[i], this.TARGET_LIST)) {
                     let removedItem = this.target.splice(i, 1)[0];
-                    this.source.push(removedItem);
+                    this.source?.push(removedItem);
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -871,7 +1034,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             this.selectedItemsTarget = [];
 
             if (this.filterValueSource) {
-                this.filter(this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source, this.SOURCE_LIST);
             }
 
             this.visibleOptionsTarget = [];
@@ -912,7 +1075,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
 
             if (this.filterValueSource) {
-                this.filter(this.source, this.SOURCE_LIST);
+                this.filter(<any[]>this.source, this.SOURCE_LIST);
             }
         } else {
             if (isTransfer) {
@@ -937,26 +1100,26 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
 
             if (this.filterValueTarget) {
-                this.filter(this.target, this.TARGET_LIST);
+                this.filter(<any[]>this.target, this.TARGET_LIST);
             }
         }
     }
 
-    getDropIndexes(fromIndex, toIndex, droppedList, isTransfer, data) {
+    getDropIndexes(fromIndex: number, toIndex: number, droppedList: number, isTransfer: boolean, data: any[] | any) {
         let previousIndex, currentIndex;
 
         if (droppedList === this.SOURCE_LIST) {
             previousIndex = isTransfer ? (this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex;
-            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(this.visibleOptionsSource, toIndex, this.source) : toIndex;
+            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source) : toIndex;
         } else {
             previousIndex = isTransfer ? (this.filterValueSource ? ObjectUtils.findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? ObjectUtils.findIndexInList(data, this.target) : fromIndex;
-            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(this.visibleOptionsTarget, toIndex, this.target) : toIndex;
+            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target) : toIndex;
         }
 
         return { previousIndex, currentIndex };
     }
 
-    findFilteredCurrentIndex(visibleOptions, index, options) {
+    findFilteredCurrentIndex(visibleOptions: any[], index: number, options: any) {
         if (visibleOptions.length === index) {
             let toIndex = ObjectUtils.findIndexInList(visibleOptions[index - 1], options);
 
@@ -1015,14 +1178,14 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    findNextItem(item) {
+    findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
         if (nextItem) return !DomHandler.hasClass(nextItem, 'p-picklist-item') || DomHandler.isHidden(nextItem) ? this.findNextItem(nextItem) : nextItem;
         else return null;
     }
 
-    findPrevItem(item) {
+    findPrevItem(item: any): HTMLElement | null {
         let prevItem = item.previousElementSibling;
 
         if (prevItem) return !DomHandler.hasClass(prevItem, 'p-picklist-item') || DomHandler.isHidden(prevItem) ? this.findPrevItem(prevItem) : prevItem;

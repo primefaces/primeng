@@ -20,7 +20,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    values: string[];
+    values: string[] | undefined;
 
     code: Code = {
         basic: `
@@ -43,7 +43,7 @@ import { Component } from '@angular/core';
     templateUrl: './chips-template-demo.html'
 })
 export class ChipsTemplateDemo {
-    values: string[];
+    values: string[] | undefined;
 }`
     };
 }

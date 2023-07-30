@@ -1,6 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'opposite-doc',
     template: ` <section>
@@ -25,7 +33,7 @@ export class OppositeDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [
@@ -62,12 +70,20 @@ export class OppositeDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'timeline-opposite-demo',
     templateUrl: './timeline-opposite-demo.html'
 })
 export class TimelineOppositeDemo {
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [

@@ -32,7 +32,7 @@ export class CaptionDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -94,7 +94,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-caption-demo.html'
 })
 export class GalleriaCaptionDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

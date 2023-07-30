@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -45,11 +45,11 @@ export class ContextMenuDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -130,11 +130,11 @@ import { ProductService } from '../../service/productservice';
     providers: [MessageService]
 })
 export class TableContextMenuDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 

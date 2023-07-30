@@ -3,19 +3,17 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
-        <div>
-            <app-docsectiontext [title]="title" [id]="id">
-                <h3>Screen Reader</h3>
-                <p>ProgressSpinner components uses <i>progressbar</i> role. Value to describe the component can be defined using <i>aria-labelledby</i> and <i>aria-label</i> props.</p>
-            </app-docsectiontext>
+    template: ` <div>
+        <app-docsectiontext [title]="title" [id]="id">
+            <h3>Screen Reader</h3>
+            <p>ProgressSpinner components uses <i>progressbar</i> role. Value to describe the component can be defined using <i>aria-labelledby</i> and <i>aria-label</i> props.</p>
+        </app-docsectiontext>
 
-            <app-code [code]="code" [hideToggleCode]="true"></app-code>
+        <app-code [code]="code" [hideToggleCode]="true"></app-code>
 
-            <h3>Keyboard Support</h3>
-            <p>Component does not include any interactive elements.</p>
-        </div>
-    </app-developmentsection>`
+        <h3>Keyboard Support</h3>
+        <p>Component does not include any interactive elements.</p>
+    </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

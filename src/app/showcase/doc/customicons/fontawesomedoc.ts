@@ -20,6 +20,6 @@ export class FontAwesomeDoc {
     <ng-template pTemplate="dropdownicon">
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>
-</p-dropdown`
+</p-dropdown>`
     };
 }

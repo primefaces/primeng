@@ -37,7 +37,17 @@ import { Subscription } from 'rxjs';
 import { TimesIcon } from 'primeng/icons/times';
 import { EyeSlashIcon } from 'primeng/icons/eyeslash';
 import { EyeIcon } from 'primeng/icons/eye';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { AnimationEvent } from '@angular/animations';
 
+type Meter = {
+    strength: string;
+    width: string;
+};
+/**
+ * Password directive.
+ * @group Components
+ */
 @Directive({
     selector: '[pPassword]',
     host: {
@@ -46,31 +56,50 @@ import { EyeIcon } from 'primeng/icons/eye';
     }
 })
 export class PasswordDirective implements OnDestroy, DoCheck {
+    /**
+     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() promptLabel: string = 'Enter a password';
-
+    /**
+     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() weakLabel: string = 'Weak';
-
+    /**
+     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() mediumLabel: string = 'Medium';
-
+    /**
+     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
     @Input() strongLabel: string = 'Strong';
-
+    /**
+     * Whether to show the strength indicator or not.
+     * @group Props
+     */
     @Input() feedback: boolean = true;
-
+    /**
+     * Sets the visibility of the password field.
+     * @group Props
+     */
     @Input() set showPassword(show: boolean) {
         this.el.nativeElement.type = show ? 'text' : 'password';
     }
 
-    panel: HTMLDivElement;
+    panel: Nullable<HTMLDivElement>;
 
-    meter: any;
+    meter: Nullable<Meter>;
 
-    info: any;
+    info: Nullable<HTMLDivElement>;
 
-    filled: boolean;
+    filled: Nullable<boolean>;
 
-    scrollHandler: ConnectedOverlayScrollHandler;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    documentResizeListener: () => void | null;
+    documentResizeListener: VoidListener;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
 
@@ -79,7 +108,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e) {
+    onInput(e: Event) {
         this.updateFilledState();
     }
 
@@ -154,9 +183,9 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     }
 
     @HostListener('keyup', ['$event'])
-    onKeyup(e) {
+    onKeyup(e: Event) {
         if (this.feedback) {
-            let value = e.target.value,
+            let value = (e.target as HTMLInputElement).value,
                 label = null,
                 meterPos = null;
 
@@ -183,13 +212,13 @@ export class PasswordDirective implements OnDestroy, DoCheck {
             }
 
             this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
-            this.info.textContent = label;
+            (this.info as HTMLDivElement).textContent = label;
         }
     }
 
     testStrength(str: string) {
         let grade: number = 0;
-        let val: RegExpMatchArray;
+        let val: Nullable<RegExpMatchArray>;
 
         val = str.match('[0-9]');
         grade += this.normalize(val ? val.length : 1 / 4, 1) * 25;
@@ -208,7 +237,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
         return grade > 100 ? 100 : grade;
     }
 
-    normalize(x, y) {
+    normalize(x: number, y: number) {
         let diff = x - y;
 
         if (diff <= 0) return x / y;
@@ -293,6 +322,10 @@ export const Password_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Password),
     multi: true
 };
+/**
+ * Password displays strength indicator for password fields.
+ * @group Components
+ */
 @Component({
     selector: 'p-password',
     template: `
@@ -376,105 +409,182 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None
 })
 export class Password implements AfterContentInit, OnInit {
-    @Input() ariaLabel: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() label: string;
-
-    @Input() disabled: boolean;
-
-    @Input() promptLabel: string;
-
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Label of the input for accessibility.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Indicates whether the component is disabled or not.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() promptLabel: string | undefined;
+    /**
+     * Regex value for medium regex.
+     * @group Props
+     */
     @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
-
+    /**
+     * Regex value for strong regex.
+     * @group Props
+     */
     @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
-
-    @Input() weakLabel: string;
-
-    @Input() mediumLabel: string;
-
-    @Input() maxLength: number;
-
-    @Input() strongLabel: string;
-
-    @Input() inputId: string;
-
+    /**
+     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() weakLabel: string | undefined;
+    /**
+     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() mediumLabel: string | undefined;
+    /**
+     * specifies the maximum number of characters allowed in the input element.
+     * @group Props
+     */
+    @Input() maxLength: number | undefined;
+    /**
+     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * @group Props
+     */
+    @Input() strongLabel: string | undefined;
+    /**
+     * Identifier of the accessible input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Whether to show the strength indicator or not.
+     * @group Props
+     */
     @Input() feedback: boolean = true;
-
-    @Input() appendTo: any;
-
-    @Input() toggleMask: boolean;
-
-    @Input() inputStyleClass: string;
-
-    @Input() panelStyle: any;
-
-    @Input() panelStyleClass: string;
-
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() inputStyle: any;
-
+    /**
+     * Id of the element or "body" for document where the overlay should be appended to.
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Whether to show an icon to display the password as plain text.
+     * @group Props
+     */
+    @Input() toggleMask: boolean | undefined;
+    /**
+     * Style class of the input field.
+     * @group Props
+     */
+    @Input() inputStyleClass: string | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.1s linear';
-
-    @Input() placeholder: string;
-
+    /**
+     * Advisory information to display on input.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
+    /**
+     * Callback to invoke when the component receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when clear button is clicked.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('input') input: ElementRef;
+    @ViewChild('input') input!: ElementRef;
 
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
+    hideIconTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    showIconTemplate: Nullable<TemplateRef<any>>;
 
-    clearIconTemplate: TemplateRef<any>;
-
-    hideIconTemplate: TemplateRef<any>;
-
-    showIconTemplate: TemplateRef<any>;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     overlayVisible: boolean = false;
 
-    meter: any;
+    meter: Nullable<Meter>;
 
-    infoText: string;
+    infoText: Nullable<string>;
 
     focused: boolean = false;
 
     unmasked: boolean = false;
 
-    mediumCheckRegExp: any;
+    mediumCheckRegExp!: RegExp;
 
-    strongCheckRegExp: any;
+    strongCheckRegExp!: RegExp;
 
-    resizeListener: VoidFunction | null;
+    resizeListener: VoidListener;
 
-    scrollHandler: ConnectedOverlayScrollHandler | null;
+    scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    overlay: any;
+    overlay: HTMLElement | ElementRef | null | undefined;
 
-    value: string = null;
+    value: Nullable<string> = null;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    translationSubscription: Subscription;
+    translationSubscription: Nullable<Subscription>;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -529,7 +639,7 @@ export class Password implements AfterContentInit, OnInit {
         });
     }
 
-    onAnimationStart(event) {
+    onAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
                 this.overlay = event.element;
@@ -548,7 +658,7 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    onAnimationEnd(event) {
+    onAnimationEnd(event: AnimationEvent) {
         switch (event.toState) {
             case 'void':
                 ZIndexUtils.clear(event.element);
@@ -559,21 +669,21 @@ export class Password implements AfterContentInit, OnInit {
     appendContainer() {
         if (this.appendTo) {
             if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else this.document.getElementById(this.appendTo).appendChild(this.overlay);
+            else (this.document as any).getElementById(this.appendTo).appendChild(this.overlay as HTMLElement);
         }
     }
 
     alignOverlay() {
         if (this.appendTo) {
-            this.overlay.style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
+            (this.overlay as HTMLElement).style.minWidth = DomHandler.getOuterWidth(this.input.nativeElement) + 'px';
             DomHandler.absolutePosition(this.overlay, this.input.nativeElement);
         } else {
             DomHandler.relativePosition(this.overlay, this.input.nativeElement);
         }
     }
 
-    onInput(event) {
-        this.value = event.target.value;
+    onInput(event: Event) {
+        this.value = (event.target as HTMLInputElement).value;
         this.onModelChange(this.value);
     }
 
@@ -602,9 +712,9 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    onKeyUp(event) {
+    onKeyUp(event: Event) {
         if (this.feedback) {
-            let value = event.target.value;
+            let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
 
             if (!this.overlayVisible) {
@@ -613,7 +723,7 @@ export class Password implements AfterContentInit, OnInit {
         }
     }
 
-    updateUI(value) {
+    updateUI(value: string) {
         let label = null;
         let meter = null;
 
@@ -656,14 +766,14 @@ export class Password implements AfterContentInit, OnInit {
         this.unmasked = !this.unmasked;
     }
 
-    onOverlayClick(event) {
+    onOverlayClick(event: Event) {
         this.overlayService.add({
             originalEvent: event,
             target: this.el.nativeElement
         });
     }
 
-    testStrength(str) {
+    testStrength(str: string) {
         let level = 0;
 
         if (this.strongCheckRegExp.test(str)) level = 3;
@@ -770,7 +880,7 @@ export class Password implements AfterContentInit, OnInit {
     restoreAppend() {
         if (this.overlay && this.appendTo) {
             if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
-            else this.document.getElementById(this.appendTo).removeChild(this.overlay);
+            else (this.document as any).getElementById(this.appendTo).removeChild(this.overlay);
         }
     }
 

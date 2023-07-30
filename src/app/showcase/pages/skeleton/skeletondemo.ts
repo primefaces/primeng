@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PropsDoc } from '../../doc/skeleton/propsdoc';
 import { StyleDoc } from '../../doc/skeleton/styledoc';
 import { CardDoc } from '../../doc/skeleton/carddoc';
 import { DataTableDoc } from '../../doc/skeleton/datatabledoc';
@@ -48,14 +47,6 @@ export class SkeletonDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

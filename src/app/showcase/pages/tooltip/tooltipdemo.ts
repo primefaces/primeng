@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/tooltip/basicdoc';
 import { ImportDoc } from '../../doc/tooltip/importdoc';
-import { PropsDoc } from '../../doc/tooltip/propsdoc';
 import { StyleDoc } from '../../doc/tooltip/styledoc';
 import { PositionDoc } from '../../doc/tooltip/positiondoc';
 import { EventDoc } from '../../doc/tooltip/eventdoc';
@@ -59,14 +58,6 @@ export class TooltipDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }
