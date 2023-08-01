@@ -68,7 +68,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 </span>
 
                 <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
-                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon"></span>
+                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!uploadIcon">
                         <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                         <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
@@ -77,7 +77,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </ng-container>
                 </p-button>
                 <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
-                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!cancelIcon">
                         <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                         <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
