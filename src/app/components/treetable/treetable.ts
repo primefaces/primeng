@@ -58,8 +58,10 @@ import {
     TreeTableNodeUnSelectEvent,
     TreeTablePaginatorState,
     TreeTableSortEvent,
-    TreeTableColumnReorderEvent
+    TreeTableColumnReorderEvent,
+    TreeTableNodeExpandEvent
 } from './treetable.interface';
+import { TreeNodeExpandEvent } from 'primeng/tree';
 
 @Injectable()
 export class TreeTableService {
@@ -619,7 +621,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
-    @Output() onNodeExpand: EventEmitter<TreeTableNode> = new EventEmitter<TreeTableNode>();
+    @Output() onNodeExpand: EventEmitter<TreeTableNodeExpandEvent> = new EventEmitter<TreeTableNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
      * @param {TreeTableNodeCollapseEvent} event - Node collapse event.
