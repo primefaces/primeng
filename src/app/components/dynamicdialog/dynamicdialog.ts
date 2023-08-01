@@ -68,6 +68,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [style.width]="config.width"
                 [style.height]="config.height"
                 [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
