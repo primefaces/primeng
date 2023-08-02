@@ -1,5 +1,6 @@
 .p-inputtext {
     margin: 0;
+    width: inherit;
 }
 
 .p-fluid .p-inputtext {
@@ -43,7 +44,7 @@
     position: absolute;
     pointer-events: none;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
     transition-property: all;
     transition-timing-function: ease;
     line-height: 1;
@@ -59,7 +60,7 @@
 .p-float-label textarea.p-filled ~ label,
 .p-float-label .p-inputwrapper-focus ~ label,
 .p-float-label .p-inputwrapper-filled ~ label {
-    top: -.75rem;
+    top: -0.75rem;
     font-size: 12px;
 }
 
@@ -95,7 +96,7 @@
 .p-input-icon-right > .p-icon-wrapper {
     position: absolute;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
 }
 
 .p-fluid .p-input-icon-left,
