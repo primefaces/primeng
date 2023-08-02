@@ -37,6 +37,7 @@ import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
+import { FocusTrapModule } from 'primeng/focustrap';
 /**
  * Galleria is an advanced content gallery component.
  * @group Components
@@ -44,7 +45,7 @@ import { GalleriaResponsiveOptions } from './galleria.interface';
 @Component({
     selector: 'p-galleria',
     template: `
-        <div *ngIf="fullScreen; else windowed">
+        <div *ngIf="fullScreen; else windowed" #container>
             <div *ngIf="maskVisible" #mask [ngClass]="{ 'p-galleria-mask p-component-overlay p-component-overlay-enter': true, 'p-galleria-visible': this.visible }" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
                 <p-galleriaContent
                     *ngIf="visible"
@@ -239,6 +240,8 @@ export class Galleria implements OnChanges, OnDestroy {
 
     @ViewChild('mask') mask: ElementRef | undefined;
 
+    @ViewChild('container') container: ElementRef | undefined;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _visible: boolean = false;
@@ -331,6 +334,9 @@ export class Galleria implements OnChanges, OnDestroy {
         switch (event.toState) {
             case 'visible':
                 this.enableModality();
+                setTimeout(() => {
+                    DomHandler.focus(DomHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'))
+                }, 25);
                 break;
 
             case 'void':
@@ -391,8 +397,9 @@ export class Galleria implements OnChanges, OnDestroy {
             }"
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}"
             [class]="galleriaClass()"
+            pFocusTrap
         >
-            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple [attr.aria-label]="closeAriaLabel()">
+            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
                 <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
@@ -457,6 +464,8 @@ export class GalleriaContent implements DoCheck {
     @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
 
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
+
+    @ViewChild('closeButton') closeButton: ElementRef | undefined;
 
     id: string;
 
@@ -622,7 +631,7 @@ export class GalleriaItemSlot {
                     <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
                 </button>
-                <div [id]="id + '_item' + activeIndex" role="group" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
+                <div [id]="id + '_item_' + activeIndex" role="group" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()" [style.width]="'100%'">
                     <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" class="p-galleria-item"></p-galleriaItemSlot>
                 </div>
                 <button
@@ -651,7 +660,7 @@ export class GalleriaItemSlot {
                     [ngClass]="{ 'p-galleria-indicator': true, 'p-highlight': isIndicatorItemActive(index) }"
                     [attr.aria-label]="ariaPageLabel(index + 1)"
                     [attr.aria-selected]="activeIndex === index"
-                    [attr.aria-controls]="id + '_item' + index"
+                    [attr.aria-controls]="id + '_item_' + index"
                 >
                     <button type="button" tabIndex="-1" class="p-link" *ngIf="!indicatorFacet"></button>
                     <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
@@ -1340,7 +1349,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon],
+    imports: [CommonModule, SharedModule, RippleModule, TimesIcon, ChevronRightIcon, ChevronLeftIcon, WindowMaximizeIcon, WindowMinimizeIcon, FocusTrapModule],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })
