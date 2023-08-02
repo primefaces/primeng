@@ -16,7 +16,7 @@ export class PrimeNGConfig {
         date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
     };
 
-    private translation: Translation = {
+    public translation: Translation = {
         startsWith: 'Starts with',
         contains: 'Contains',
         notContains: 'Not contains',
