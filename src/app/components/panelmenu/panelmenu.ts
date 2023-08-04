@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnChanges,
@@ -18,6 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     computed,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -182,7 +184,7 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(public panelMenu: PanelMenu, public el: ElementRef) {}
+    constructor(@Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu, public el: ElementRef) {}
 
     getItemId(processedItem) {
         return `${this.panelId}_${processedItem.key}`;
