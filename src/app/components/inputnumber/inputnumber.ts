@@ -780,36 +780,35 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if (event.altKey) {
             event.preventDefault();
         }
-
-        switch (event.which) {
+        switch (event.key) {
             //up
-            case 38:
+            case 'ArrowUp':
                 this.spin(event, 1);
                 event.preventDefault();
                 break;
 
             //down
-            case 40:
+            case 'ArrowDown':
                 this.spin(event, -1);
                 event.preventDefault();
                 break;
 
             //left
-            case 37:
+            case 'ArrowLeft':
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart - 1))) {
                     event.preventDefault();
                 }
                 break;
 
             //right
-            case 39:
+            case 'ArrowRight':
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart))) {
                     event.preventDefault();
                 }
                 break;
 
             //enter
-            case 13:
+            case 'Enter':
                 newValueStr = this.validateValue(this.parseValue(this.input.nativeElement.value));
                 this.input.nativeElement.value = this.formatValue(newValueStr);
                 this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
@@ -817,7 +816,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
 
             //backspace
-            case 8: {
+            case 'Backspace': {
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
@@ -859,7 +858,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             }
 
             // del
-            case 46:
+            case 'Delete':
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
@@ -910,17 +909,18 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             return;
         }
 
-        let code = event.which || event.keyCode;
-        let char = String.fromCharCode(code);
-        const isDecimalSign = this.isDecimalSign(char);
-        const isMinusSign = this.isMinusSign(char);
+        let code = event.key;
+        // let char = String.fromCharCode(code);
+        
+        const isDecimalSign = (event.key === '.')? true : false;
+        const isMinusSign = (event.key === '-')? true: false;
 
-        if (code != 13) {
+        if (code != 'Enter') {
             event.preventDefault();
         }
 
-        if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
-            this.insert(event, char, { isDecimalSign, isMinusSign });
+        if ((event.key >= '0' && event.key <= '9') || isMinusSign || isDecimalSign) {
+            this.insert(event, code, { isDecimalSign, isMinusSign });
         }
     }
 
