@@ -440,9 +440,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     focused: Nullable<boolean>;
 
@@ -482,7 +482,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) { }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -919,6 +919,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
+        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const newValueStr = newValue != null ? newValue.toString() : '';
+        if (this.maxlength && newValueStr.length > this.maxlength) {
+            return;
+        }
+
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
@@ -1214,6 +1220,13 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
+
+            if (this.maxlength && newValue.length > this.maxlength) {
+                newValue = newValue.slice(0, this.maxlength);
+                selectionStart = Math.min(selectionStart, this.maxlength);
+                selectionEnd = Math.min(selectionEnd, this.maxlength);
+            }
+
             if (this.maxlength && this.maxlength < newValue.length) {
                 return;
             }
@@ -1368,4 +1381,4 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule {}
+export class InputNumberModule { }
