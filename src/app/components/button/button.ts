@@ -172,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(iconElement, iconPosClass);
             }
 
-            let iconClass = this.getIconClass();
+            let iconClass = this.loadingIcon && this.getIconClass();
 
             if (iconClass) {
                 DomHandler.addMultipleClasses(iconElement, iconClass);
@@ -240,19 +240,16 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
-            [ngStyle]="isIconPosRight ? { display: 'flex', flexDirection: 'row-reverse' } : null"
             pRipple
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
+                    <span *ngIf="loadingIcon" [class]="'pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
-                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
-                </span>
+
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
@@ -270,7 +267,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         class: 'p-element'
     }
 })
-export class Button implements AfterContentInit, AfterViewInit {
+export class Button implements AfterContentInit {
     /**
      * Type of the button.
      * @group Props
@@ -364,16 +361,6 @@ export class Button implements AfterContentInit, AfterViewInit {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     constructor(public el: ElementRef) { }
-
-    ngAfterViewInit() {
-        const buttonElement = this.el.nativeElement.querySelector('button.p-button');
-
-        if (buttonElement && buttonElement.parentElement.nodeName === 'P-BUTTON' && this.iconPos === 'right' && !this.loadingIcon) {
-            this.isIconPosRight = true;
-        } else {
-            this.isIconPosRight = false;
-        }
-    }
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
