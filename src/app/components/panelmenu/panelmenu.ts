@@ -40,6 +40,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             [tabindex]="-1"
             [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
+            [attr.aria-hidden]="!parentExpanded"
             (focusin)="menuFocus.emit($event)"
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
