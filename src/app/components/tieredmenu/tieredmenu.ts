@@ -221,7 +221,7 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) { }
 
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
@@ -633,7 +633,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const root = ObjectUtils.isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
 
-        if (selected) {
+        if (selected && !grouped) {
             const { index, key, level, parentKey } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
@@ -641,16 +641,14 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
             this.dirty = !root;
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        } else if (grouped) {
+            this.onItemChange(event);
         } else {
-            if (grouped) {
-                this.onItemChange(event);
-            } else {
-                const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
-                this.hide(originalEvent);
-                this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+            const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
+            this.hide(originalEvent);
+            this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
-            }
+            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         }
     }
 
@@ -1143,4 +1141,4 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })
-export class TieredMenuModule {}
+export class TieredMenuModule { }
