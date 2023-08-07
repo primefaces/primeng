@@ -2,7 +2,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
-    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -319,7 +318,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
         class: 'p-element'
     }
 })
-export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy, BlockableUI {
+export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, BlockableUI {
     /**
      * Inline style of the component.
      * @group Props
@@ -428,12 +427,6 @@ export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecke
     previousIconTemplate: TemplateRef<any> | undefined;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
-
-    ngAfterViewInit(): void {
-        if (this.scrollable) {
-            this.updateButtonState();
-        }
-    }
 
     ngAfterContentInit() {
         this.initTabs();
@@ -715,7 +708,7 @@ export class TabView implements AfterContentInit, AfterViewInit, AfterViewChecke
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
+        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
     }
 
     onScroll(event: Event) {
