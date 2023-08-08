@@ -249,7 +249,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                     <span *ngIf="loadingIcon" [class]="'pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
-
+                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
+                </span>
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>

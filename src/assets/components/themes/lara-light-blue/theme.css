@@ -1961,7 +1961,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #BFDBFE;
 }
-.p-button .p-button-label {
+.p-button .p-button-label:not([iconPos=right]) {
   transition-duration: 0.2s;
 }
 .p-button .p-button-icon-left {
@@ -2034,6 +2034,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-fluid .p-buttonset .p-button {
   flex: 1;
+}
+
+.p-button:not([iconpos=right]).p-button-loading-label-only .p-button-label {
+  margin-left: 0;
 }
 
 .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
@@ -2340,7 +2344,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #1D4ED8;
   border-color: transparent;
 }
-.p-button.p-button-link:enabled:hover .p-button-label {
+.p-button.p-button-link:enabled:hover .p-button-label:not([iconPos=right]) {
   text-decoration: underline;
 }
 .p-button.p-button-link:enabled:focus {
@@ -2364,6 +2368,16 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-speeddial-button.p-button.p-button-icon-only .p-icon {
   width: 1.3rem;
   height: 1.3rem;
+}
+
+.p-speeddial-list {
+  outline: 0 none;
+}
+
+.p-speeddial-item.p-focus > .p-speeddial-action {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #BFDBFE;
 }
 
 .p-speeddial-action {
