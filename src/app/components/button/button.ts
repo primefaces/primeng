@@ -172,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(iconElement, iconPosClass);
             }
 
-            let iconClass = this.getIconClass();
+            let iconClass = this.loadingIcon && this.getIconClass();
 
             if (iconClass) {
                 DomHandler.addMultipleClasses(iconElement, iconClass);
@@ -214,7 +214,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this._icon;
+        return this.loading
+            ? 'p-button-loading-icon ' + (this.loadingIcon ? 'pi-spin ' + this.loadingIcon : 'pi pi-spin pi-spinner')
+            : this.icon;
     }
 
     ngOnDestroy() {
@@ -244,12 +246,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
+                    <span *ngIf="loadingIcon" [class]="'pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
-                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
-                </span>
+
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
@@ -356,7 +356,11 @@ export class Button implements AfterContentInit {
 
     iconTemplate: TemplateRef<any> | undefined;
 
+    isIconPosRight: boolean = false;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    constructor(public el: ElementRef) { }
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
