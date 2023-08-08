@@ -2036,10 +2036,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   flex: 1;
 }
 
-.p-button:not([iconpos=right]).p-button-loading-label-only .p-button-label {
-  margin-left: 0;
-}
-
 .p-button.p-button-secondary, .p-buttonset.p-button-secondary > .p-button, .p-splitbutton.p-button-secondary > .p-button {
   color: #ffffff;
   background: #a3897b;

@@ -136,6 +136,11 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             if (!this.icon && this.label) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.labelOnly);
             }
+
+            if(this.icon && !this.label && !ObjectUtils.isEmpty(this.htmlElement.textContent)){
+                styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
+            }
+
         }
 
         return styleClass;
@@ -172,7 +177,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 DomHandler.addClass(iconElement, iconPosClass);
             }
 
-            let iconClass = this.loadingIcon && this.getIconClass();
+            let iconClass = this.getIconClass();
 
             if (iconClass) {
                 DomHandler.addMultipleClasses(iconElement, iconClass);
@@ -199,24 +204,32 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     updateIcon() {
         let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
 
         if (!this.icon && !this.loading) {
             iconElement && this.htmlElement.removeChild(iconElement);
             return;
         }
 
+        if(this.loading && !this.loadingIcon && iconElement) {
+            iconElement.innerHTML = this.spinnerIcon;
+        }
+
         if (iconElement) {
-            if (this.iconPos) iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
-            else iconElement.className = 'p-button-icon ' + this.getIconClass();
+            if (this.iconPos) {
+                iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '' )+ ' ' + this.getIconClass();
+            }
+            else {
+                iconElement.className = 'p-button-icon ' + this.getIconClass();
+            } 
         } else {
             this.createIcon();
         }
     }
 
+
     getIconClass() {
-        return this.loading
-            ? 'p-button-loading-icon ' + (this.loadingIcon ? 'pi-spin ' + this.loadingIcon : 'pi pi-spin pi-spinner')
-            : this.icon;
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
     }
 
     ngOnDestroy() {
@@ -246,10 +259,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
+                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon pi-spin ' + loadingIcon" [ngClass]="iconClass()"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
+                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon" [ngClass]="iconClass()">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -358,11 +371,7 @@ export class Button implements AfterContentInit {
 
     iconTemplate: TemplateRef<any> | undefined;
 
-    isIconPosRight: boolean = false;
-
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    constructor(public el: ElementRef) { }
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
@@ -383,11 +392,11 @@ export class Button implements AfterContentInit {
     buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': this.icon && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left'
         };
     }
 
