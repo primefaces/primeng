@@ -220,7 +220,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     get focusableItems() {
         if (!this._focusableItems || !this._focusableItems.length) {
             this._focusableItems = (this.model || []).reduce((result, item) => {
-                !item.disabled && result.push(item);
+                result.push(item);
 
                 return result;
             }, []);
