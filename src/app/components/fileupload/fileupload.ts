@@ -828,7 +828,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         if (bytes == 0) {
             return '0 B';
         }
-        let k = 1000,
+        let k = 1024,
             dm = 3,
             sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
             i = Math.floor(Math.log(bytes) / Math.log(k));
