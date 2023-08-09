@@ -47,7 +47,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
                 <li *ngIf="processedItem.separator" class="p-menu-separator" role="separator"></li>
                 <li
-                    *ngIf="!processedItem.separator"
+                    *ngIf="!processedItem.separator && isItemVisible(processedItem)"
                     class="p-menuitem"
                     role="treeitem"
                     [id]="getItemId(processedItem)"
