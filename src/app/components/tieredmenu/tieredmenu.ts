@@ -639,7 +639,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey });
 
-            this.dirty = !root;
+            this.dirty = true;
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else if (grouped) {
             this.onItemChange(event);
@@ -958,6 +958,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         }
         this.cd.markForCheck();
+        this.dirty = true;
     }
 
     searchItems(event: any, char: string) {
