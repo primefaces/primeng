@@ -917,10 +917,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             this.target = null;
         }
 
-        if (this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
-        }
-
         if (this.container && this.autoZIndex) {
             ZIndexUtils.clear(this.container);
         }
