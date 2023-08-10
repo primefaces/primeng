@@ -159,7 +159,7 @@ export class MenuItemContent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
+                    <li class="p-menuitem-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
                     <li
                         class="p-submenu-header"
                         [attr.data-automationid]="submenu.automationId"
@@ -174,7 +174,7 @@ export class MenuItemContent {
                         <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
+                        <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
                         <li
                             class="p-menuitem"
                             *ngIf="!item.separator"
@@ -197,7 +197,7 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                    <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
                     <li
                         class="p-menuitem"
                         *ngIf="!item.separator"

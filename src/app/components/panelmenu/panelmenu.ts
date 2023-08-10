@@ -46,7 +46,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             (keydown)="menuKeyDown.emit($event)"
         >
             <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" class="p-menu-separator" role="separator"></li>
+                <li *ngIf="processedItem.separator" class="p-menuitem-separator" role="separator"></li>
                 <li
                     *ngIf="!processedItem.separator"
                     class="p-menuitem"
@@ -57,12 +57,12 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngClass]="processedItem.styleClass"
+                    [class]="getItemProp(processedItem, 'styleClass')"
                     [class.p-hidden]="processedItem.visible === false"
                     [class.p-focus]="isItemFocused(processedItem)"
-                    [ngStyle]="processedItem.style"
-                    pTooltip
-                    [tooltipOptions]="processedItem.tooltipOptions"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
+                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
                     <div class="p-menuitem-content" (click)="onItemClick($event, processedItem)">
                         <a
@@ -390,6 +390,7 @@ export class PanelMenuList implements OnChanges {
                 const newItem = {
                     icon: item.icon,
                     expanded: item.expanded,
+                    separator: item.separator,
                     item,
                     index,
                     level,
@@ -685,13 +686,13 @@ export class PanelMenuList implements OnChanges {
                         [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-highlight': isItemActive(item), 'p-disabled': isItemDisabled(item) }"
                         [class]="getItemProp(item, 'styleClass')"
                         [ngStyle]="getItemProp(item, 'style')"
-                        pTooltip
+                        [pTooltip]="getItemProp(item, 'tooltip')"
                         [id]="getHeaderId(i)"
                         [tabindex]="0"
                         role="button"
-                        [tooltipOptions]="getItemProp(item, tooltipOptions)"
+                        [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
                         [attr.aria-expanded]="isItemActive(item)"
-                        [attr.arial-label]="getItemProp(item, 'label')"
+                        [attr.aria-label]="getItemProp(item, 'label')"
                         [attr.aria-controls]="getContentId(i)"
                         [attr.aria-disabled]="isItemDisabled(item)"
                         [attr.data-p-highlight]="isItemActive(item)"

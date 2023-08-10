@@ -401,7 +401,13 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Inline style of the element.
      * @group Props
@@ -503,6 +509,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -636,8 +644,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     onItemMouseEnter(event: any) {
-        if (!this.mobileActive && this.dirty) {
-            this.onItemChange(event);
+        if(!DomHandler.isTouchDevice()) {
+            if (!this.mobileActive && this.dirty) {
+                this.onItemChange(event);
+            }
         }
     }
 

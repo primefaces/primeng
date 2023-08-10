@@ -11,12 +11,14 @@ import {
     Inject,
     Input,
     NgModule,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewContainerRef,
@@ -379,7 +381,13 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Event for which the menu must be displayed.
      * @group Props
@@ -489,6 +497,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -915,10 +925,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
-        }
-
-        if (this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
         }
 
         if (this.container && this.autoZIndex) {
