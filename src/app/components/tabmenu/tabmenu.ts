@@ -141,7 +141,17 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._focusableItems = (this._model || []).reduce((result, item) => {
+            result.push(item);
+
+            return result;
+        }, []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Defines the default active menuitem
      * @group Props
@@ -214,6 +224,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     private timerIdForInitialAutoScroll: any = null;
 
     _focusableItems: MenuItem[] | undefined;
+
+    _model: MenuItem[] | undefined;
 
     focusedItemInfo = signal<any>(null);
 

@@ -372,7 +372,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
@@ -496,6 +502,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);

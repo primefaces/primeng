@@ -396,7 +396,13 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MegaMenuItem[] | undefined;
+    @Input() set model(value: MegaMenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MegaMenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Inline style of the element.
      * @group Props
@@ -469,6 +475,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MegaMenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
