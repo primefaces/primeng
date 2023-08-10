@@ -1088,6 +1088,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateFilledState();
         this.updateLabel();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     checkAll() {
