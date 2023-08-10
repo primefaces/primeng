@@ -9,7 +9,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
         </app-docsectiontext>
-        <div class="card">
+         <div class="card md:flex md:justify-content-center">
             <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -69,7 +69,7 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />

@@ -8,7 +8,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
-        <div class="card">
+         <div class="card md:flex md:justify-content-center">
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -73,7 +73,7 @@ export class CaptionDoc implements OnInit {
 </p-galleria>
 `,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />

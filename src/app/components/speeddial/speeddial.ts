@@ -18,7 +18,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -27,6 +28,7 @@ import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { UniqueComponentId } from 'primeng/utils';
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
  * @group Components
@@ -34,15 +36,53 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'p-speedDial',
     template: `
-        <div #container [attr.id]="id" [ngClass]="containerClass()" [class]="className" [ngStyle]="style">
-            <button pRipple pButton class="p-button-icon-only" [style]="buttonStyle" [icon]="buttonIconClass" [ngClass]="buttonClass()" (click)="onButtonClick($event)">
+        <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="style" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+            <button 
+                pRipple 
+                pButton 
+                class="p-button-icon-only" 
+                [style]="buttonStyle" 
+                [icon]="buttonIconClass" 
+                [ngClass]="buttonClass()" 
+                [disabled]="disabled"
+                [attr.aria-expanded]="visible"
+                [attr.aria-haspopup]="true"
+                [attr.aria-controls]="id + '_list'"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                (click)="onButtonClick($event)"
+                (keydown)="onTogglerKeydown($event)"
+                [attr.data-pc-name]="'button'"
+            >
                 <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
             </button>
-            <ul #list class="p-speeddial-list" role="menu">
-                <li *ngFor="let item of model; let i = index" [ngStyle]="getItemStyle(i)" class="p-speeddial-item" pTooltip [tooltipOptions]="item.tooltipOptions" [ngClass]="{ 'p-hidden': item.visible === false }">
+            <ul 
+                #list 
+                class="p-speeddial-list" 
+                role="menu" 
+                [id]="id + '_list'" 
+                (focus)="onFocus($event)" 
+                (focusout)="onBlur($event)" 
+                (keydown)="onKeyDown($event)"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [tabindex]="-1"
+                [attr.data-pc-section]="'menu'"
+            >
+                <li 
+                    *ngFor="let item of model; let i = index" 
+                    [ngStyle]="getItemStyle(i)" 
+                    class="p-speeddial-item" 
+                    pTooltip 
+                    [tooltipOptions]="item.tooltipOptions" 
+                    [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i}"
+                    [id]="id + '_' + i"
+                    [attr.aria-controls]="id + '_item'"
+                    role="menuitem"
+                    [attr.data-pc-section]="'menuitem'"
+                >
                     <a
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         pRipple
@@ -55,7 +95,6 @@ import { TooltipModule } from 'primeng/tooltip';
                         (click)="onItemClick($event, item)"
                         (keydown.enter)="onItemClick($event, item, i)"
                         [attr.target]="item.target"
-                        [attr.id]="item.id"
                         [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
@@ -63,6 +102,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
+                        [attr.aria-label]="item.label"
+                        [attr.data-pc-section]="'action'"
                     >
                         <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
@@ -76,7 +117,8 @@ import { TooltipModule } from 'primeng/tooltip';
                             [ngClass]="{ 'p-disabled': item.disabled }"
                             (keydown.enter)="onItemClick($event, item, i)"
                             [attr.target]="item.target"
-                            [attr.id]="item.id"
+                            [attr.data-pc-section]="'action'"
+                            [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
                         >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
@@ -203,6 +245,16 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      */
     @Input() rotateAnimation: boolean = true;
     /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
      * Fired when the visibility of element changed.
      * @param {boolean} boolean - Visibility value.
      * @group Emits
@@ -247,7 +299,19 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentClickListener: any;
 
+    focusedOptionIndex = signal<any>(null);
+
+    focused: boolean = false;
+
+    get focusedOptionId(){
+        return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
+    }
+
     constructor(@Inject(PLATFORM_ID) private platformId: any, private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
+
+    ngOnInit() {
+        this.id = this.id || UniqueComponentId();
+    }
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -307,6 +371,227 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         this.hide();
 
         this.isItemClicked = true;
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onArrowDown(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUp(event);
+                break;
+
+            case 'ArrowLeft':
+                this.onArrowLeft(event);
+                break;
+
+            case 'ArrowRight':
+                this.onArrowRight(event);
+                break;
+
+            case 'Enter':
+            case 'Space':
+                this.onEnterKey(event);
+                break;
+
+            case 'Escape':
+                this.onEscapeKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    onFocus(event) {
+        this.focused = true;
+    }
+
+    onBlur(event) {
+        this.focused = false;
+        this.focusedOptionIndex.set(-1);
+    }
+
+    onArrowUp(event) {
+        if (this.direction === 'up') {
+            this.navigateNextItem(event);
+        } else if (this.direction === 'down') {
+            this.navigatePrevItem(event);
+        } else {
+            this.navigateNextItem(event);
+        }
+    }
+
+    onArrowDown(event) {
+        if (this.direction === 'up') {
+            this.navigatePrevItem(event);
+        } else if (this.direction === 'down') {
+            this.navigateNextItem(event);
+        } else {
+            this.navigatePrevItem(event);
+        }
+    }
+
+    onArrowLeft(event) {
+        const leftValidDirections = ['left', 'up-right', 'down-left'];
+        const rightValidDirections = ['right', 'up-left', 'down-right'];
+
+        if (leftValidDirections.includes(this.direction)) {
+            this.navigateNextItem(event);
+        } else if (rightValidDirections.includes(this.direction)) {
+            this.navigatePrevItem(event);
+        } else {
+            this.navigatePrevItem(event);
+        }
+    }
+
+    onArrowRight(event) {
+        const leftValidDirections = ['left', 'up-right', 'down-left'];
+        const rightValidDirections = ['right', 'up-left', 'down-right'];
+
+        if (leftValidDirections.includes(this.direction)) {
+            this.navigatePrevItem(event);
+        } else if (rightValidDirections.includes(this.direction)) {
+            this.navigateNextItem(event);
+        } else {
+            this.navigateNextItem(event);
+        }
+    }
+
+    onEndKey(event: any) {
+        event.preventDefault();
+
+        this.focusedOptionIndex.set(-1);
+        this.navigatePrevItem(event);
+    }
+
+    onHomeKey(event: any) {
+        event.preventDefault();
+
+        this.focusedOptionIndex.set(-1);
+        this.navigateNextItem(event);
+    }
+
+    onEnterKey(event: any) {
+        const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex);
+
+        this.onItemClick(event, this.model[itemIndex]);
+        this.onBlur(event);
+
+        const buttonEl = DomHandler.findSingle(this.container.nativeElement, 'button');
+
+        buttonEl && DomHandler.focus(buttonEl);
+    }
+
+    onEscapeKey(event: KeyboardEvent) {
+        this.hide();
+
+        const buttonEl = DomHandler.findSingle(this.container.nativeElement, 'button');
+
+        buttonEl && DomHandler.focus(buttonEl);
+    }
+
+    onTogglerKeydown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowDown':
+            case 'ArrowLeft':
+                this.onTogglerArrowDown(event);
+
+                break;
+
+            case 'ArrowUp':
+            case 'ArrowRight':
+                this.onTogglerArrowUp(event);
+
+                break;
+
+            case 'Escape':
+                this.onEscapeKey(event);
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    onTogglerArrowUp(event) {
+        this.focused = true;
+        DomHandler.focus(this.list.nativeElement);
+
+        this.show();
+        this.navigatePrevItem(event);
+
+        event.preventDefault();
+    }
+
+    onTogglerArrowDown(event) {
+        this.focused = true;
+        DomHandler.focus(this.list.nativeElement);
+
+        this.show();
+        this.navigateNextItem(event);
+
+        event.preventDefault();
+    }
+
+    navigateNextItem(event) {
+        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex());
+
+        this.changeFocusedOptionIndex(optionIndex);
+
+        event.preventDefault();
+    }
+
+    navigatePrevItem(event) {
+        const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex());
+
+        this.changeFocusedOptionIndex(optionIndex);
+
+        event.preventDefault();
+    }
+
+    findPrevOptionIndex(index) {
+        const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+        const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
+        let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
+
+        matchedOptionIndex = index === -1 ? filteredItems.length - 1 : matchedOptionIndex - 1;
+
+        return matchedOptionIndex;
+    }
+
+    findNextOptionIndex(index) {
+        const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+        const newIndex = index === -1 ? filteredItems[0].id : index;
+        let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
+
+        matchedOptionIndex = index === -1 ? 0 : matchedOptionIndex + 1;
+
+        return matchedOptionIndex;
+    }
+
+    changeFocusedOptionIndex(index) {
+        const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+
+        if (filteredItems[index]) {
+            this.focusedOptionIndex.set(filteredItems[index].getAttribute('id'));
+        }
     }
 
     calculatePointStyle(index: number) {

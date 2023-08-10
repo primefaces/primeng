@@ -8,7 +8,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+         <div class="card flex flex-column md:align-items-center">
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
@@ -88,7 +88,7 @@ export class ThumbnailDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>

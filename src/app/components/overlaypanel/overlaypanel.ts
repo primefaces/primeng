@@ -44,6 +44,8 @@ import { Subscription } from 'rxjs';
             [@animation]="{ value: overlayVisible ? 'open' : 'close', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
+            role="dialog"
+            [attr.aria-modal]="overlayVisible"
         >
             <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
                 <ng-content></ng-content>
