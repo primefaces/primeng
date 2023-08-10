@@ -5068,7 +5068,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-.p-menu .p-menu-separator {
+.p-menu .p-menuitem-separator {
   border-top: 1px solid #4b4b4b;
   margin: 0;
 }

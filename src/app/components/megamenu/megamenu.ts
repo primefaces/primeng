@@ -396,7 +396,13 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MegaMenuItem[] | undefined;
+    @Input() set model(value: MegaMenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MegaMenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Inline style of the element.
      * @group Props
@@ -469,6 +475,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MegaMenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
@@ -592,11 +600,13 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     }
 
     onItemMouseEnter(event: any) {
-        if (this.dirty) {
-            this.onItemChange(event);
+        if(!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
         }
     }
-
+    
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);

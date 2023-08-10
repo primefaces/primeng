@@ -134,6 +134,13 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.7-LTS](https://www.npmjs.com/package/primeng/v/15.4.7-lts) (2023-08-03)
+
+**Fixed bugs:**
+- TabView | Last element is not visible when scrolling=true [\#13371](https://github.com/primefaces/primeng/issues/13371)
+- Calendar | Icon is not visible (material compact theme) [\#13123](https://github.com/primefaces/primeng/issues/13123)
+- DynamicDialogRef - onClose Observable never completes [\#9732](https://github.com/primefaces/primeng/issues/9732)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.6-LTS](https://www.npmjs.com/package/primeng/v/15.4.6-lts) (2023-07-19)
 
 **Fixed bugs:**
@@ -368,6 +375,13 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.10-LTS](https://www.npmjs.com/package/primeng/v/14.2.10-lts) (2023-08-03)
+
+**Fixed bugs:**
+- Slidemenu: Separator class mismatch [\#13279](https://github.com/primefaces/primeng/issues/13279)
+- TabView | Last element is not visible when scrolling=true [\#13371](https://github.com/primefaces/primeng/issues/13371)
+- DynamicDialogRef - onClose Observable never completes [\#9732](https://github.com/primefaces/primeng/issues/9732)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.9-LTS](https://www.npmjs.com/package/primeng/v/14.2.9-lts) (2023-06-19)
 

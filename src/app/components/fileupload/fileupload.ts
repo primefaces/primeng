@@ -69,7 +69,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 </span>
 
                 <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
-                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
+                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!uploadIcon">
                         <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
                         <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
@@ -78,7 +78,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </ng-container>
                 </p-button>
                 <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
-                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!cancelIcon">
                         <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-hidden]="true" />
                         <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
@@ -467,7 +467,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -585,7 +585,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     validate(file: File): boolean {
-        this.msgs = [];
+        this.msgs = this.msgs || [];
         if (this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
@@ -827,15 +827,18 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     formatSize(bytes: number) {
-        if (bytes == 0) {
+        const k = 1024;
+        const dm = 3;
+        const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        if (bytes === 0) {
             return '0 B';
         }
-        let k = 1000,
-            dm = 3,
-            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
 
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
+
+        return `${formattedSize} ${sizes[i]}`;
     }
 
     onBasicUploaderClick() {
@@ -893,4 +896,4 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
-export class FileUploadModule {}
+export class FileUploadModule { }

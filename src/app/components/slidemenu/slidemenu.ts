@@ -380,6 +380,17 @@ export class SlideMenuSub {
 })
 export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
+    /**
      * Width of the submenus.
      * @group Props
      */
@@ -414,11 +425,6 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() tabindex: number = 0;
-    /**
-     * An array of menuitems.
-     * @group Props
-     */
-    @Input() model: MenuItem[] | undefined;
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
@@ -542,6 +548,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     container: any;
 
