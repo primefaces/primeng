@@ -239,26 +239,28 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
+            [attr.data-pc-name]="'button'"
+            [attr.data-pc-section]="'root'"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
+                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
+                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
-                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()">
+                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'">
                     <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
-            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge" [attr.data-pc-section]="'badge'">{{ badge }}</span>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
