@@ -600,11 +600,13 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     }
 
     onItemMouseEnter(event: any) {
-        if (this.dirty) {
-            this.onItemChange(event);
+        if(!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
         }
     }
-
+    
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
