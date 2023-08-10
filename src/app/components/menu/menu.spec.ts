@@ -128,7 +128,7 @@ describe('Menu', () => {
         ];
         fixture.detectChanges();
 
-        const seperatorEl = fixture.debugElement.query(By.css('.p-menu-separator'));
+        const seperatorEl = fixture.debugElement.query(By.css('.p-menuitem-separator'));
         const menuItemsEl = fixture.debugElement.queryAll(By.css('li'));
         expect(seperatorEl).toBeTruthy();
         expect(menuItemsEl.length).toEqual(4);

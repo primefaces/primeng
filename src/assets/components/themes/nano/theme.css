@@ -1961,7 +1961,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #90c9f5;
 }
-.p-button .p-button-label:not([iconPos=right]) {
+.p-button .p-button-label {
   transition-duration: 0.2s;
 }
 .p-button .p-button-icon-left {
@@ -2340,7 +2340,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #0e5d9a;
   border-color: transparent;
 }
-.p-button.p-button-link:enabled:hover .p-button-label:not([iconPos=right]) {
+.p-button.p-button-link:enabled:hover .p-button-label {
   text-decoration: underline;
 }
 .p-button.p-button-link:enabled:focus {
@@ -5080,7 +5080,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
-.p-menu .p-menu-separator {
+.p-menu .p-menuitem-separator {
   border-top: 1px solid #dee2e6;
   margin: 0.25rem 0;
 }
@@ -5271,19 +5271,19 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
     width: 100%;
     position: static;
   }
-  .p-menubar .p-menubar-root-list ul li a {
+  .p-menubar .p-menubar-root-list .p-submenu-list .p-menuitem .p-menuitem-content .p-menuitem-link {
     padding-left: 1.5rem;
   }
-  .p-menubar .p-menubar-root-list ul li ul li a {
+  .p-menubar .p-menubar-root-list .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-menuitem-content .p-menuitem-link {
     padding-left: 2.5rem;
   }
-  .p-menubar .p-menubar-root-list ul li ul li ul li a {
+  .p-menubar .p-menubar-root-list .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-menuitem-content .p-menuitem-link {
     padding-left: 3.5rem;
   }
-  .p-menubar .p-menubar-root-list ul li ul li ul li ul li a {
+  .p-menubar .p-menubar-root-list .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-menuitem-content .p-menuitem-link {
     padding-left: 4.5rem;
   }
-  .p-menubar .p-menubar-root-list ul li ul li ul li ul li ul li a {
+  .p-menubar .p-menubar-root-list .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-submenu-list .p-menuitem .p-menuitem-content .p-menuitem-link {
     padding-left: 5.5rem;
   }
   .p-menubar.p-menubar-mobile-active .p-menubar-root-list {

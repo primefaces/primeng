@@ -45,7 +45,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             (keydown)="menuKeyDown.emit($event)"
         >
             <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" class="p-menu-separator" role="separator"></li>
+                <li *ngIf="processedItem.separator" class="p-menuitem-separator" role="separator"></li>
                 <li
                     *ngIf="!processedItem.separator"
                     class="p-menuitem"
@@ -379,6 +379,7 @@ export class PanelMenuList implements OnChanges {
                 const newItem = {
                     icon: item.icon,
                     expanded: item.expanded,
+                    separator: item.separator,
                     item,
                     index,
                     level,
