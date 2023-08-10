@@ -70,5 +70,60 @@ export interface Translation {
     selectionMessage?: string;
     emptySelectionMessage?: string;
     emptySearchMessage?: string;
-    aria?: object;
+    aria?: Aria;
+}
+/**
+ * Represents a set of translated HTML attributes used in a component or application.
+ * @group Interface
+ */
+export interface Aria {
+    trueLabel?: string;
+    falseLabel?: string;
+    nullLabel?: string;
+    star?: string;
+    stars?: string;
+    selectAll?: string;
+    unselectAll?: string;
+    close?: string;
+    previous?: string;
+    next?: string;
+    navigation?: string;
+    scrollTop?: string;
+    moveTop?: string;
+    moveUp?: string;
+    moveDown?: string;
+    moveBottom?: string;
+    moveToTarget?: string;
+    moveToSource?: string;
+    moveAllToTarget?: string;
+    moveAllToSource?: string;
+    pageLabel?: string;
+    firstPageLabel?: string;
+    lastPageLabel?: string;
+    nextPageLabel?: string;
+    prevPageLabel?: string;
+    rowsPerPageLabel?: string;
+    previousPageLabel?: string;
+    jumpToPageDropdownLabel?: string;
+    jumpToPageInputLabel?: string;
+    selectRow?: string;
+    unselectRow?: string;
+    expandRow?: string;
+    collapseRow?: string;
+    showFilterMenu?: string;
+    hideFilterMenu?: string;
+    filterOperator?: string;
+    filterConstraint?: string;
+    editRow?: string;
+    saveEdit?: string;
+    cancelEdit?: string;
+    listView?: string;
+    gridView?: string;
+    slide?: string;
+    slideNumber?: string;
+    zoomImage?: string;
+    zoomIn?: string;
+    zoomOut?: string;
+    rotateRight?: string;
+    rotateLeft?: string;
 }

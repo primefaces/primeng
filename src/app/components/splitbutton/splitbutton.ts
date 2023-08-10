@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, signal } from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
+import { UniqueComponentId } from 'primeng/utils';
 
 type SplitButtonIconPosition = 'left' | 'right';
 /**
@@ -15,18 +16,29 @@ type SplitButtonIconPosition = 'left' | 'right';
     template: `
         <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="contentTemplate; else defaultButton">
-                <button class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
+                <button class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-label]="label">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
             </ng-container>
             <ng-template #defaultButton>
                 <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex"></button>
             </ng-template>
-            <button type="button" pButton class="p-splitbutton-menubutton p-button-icon-only" (click)="onDropdownButtonClick($event)" [disabled]="disabled" [attr.aria-label]="expandAriaLabel">
+            <button 
+                type="button" 
+                pButton 
+                class="p-splitbutton-menubutton p-button-icon-only" 
+                (click)="onDropdownButtonClick($event)" 
+                (keydown)="onDropdownButtonKeydown($event)"
+                [disabled]="disabled" 
+                [attr.aria-label]="expandAriaLabel" 
+                [attr.aria-aria-haspopup]="true"
+                [attr.aria-expanded]="isExpanded()" 
+                [attr.aria-controls]="ariaId"
+            >
                 <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
             </button>
-            <p-tieredMenu #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
+            <p-tieredMenu [id]="ariaId" #menu [popup]="true" [model]="model" [style]="menuStyle" [styleClass]="menuStyleClass" [appendTo]="appendTo" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-tieredMenu>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -137,6 +149,14 @@ export class SplitButton {
 
     dropdownIconTemplate: TemplateRef<any> | undefined;
 
+    ariaId: string | undefined;
+
+    isExpanded = signal<boolean>(false);
+
+    ngOnInit() {
+        this.ariaId = UniqueComponentId()
+    }
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -159,9 +179,17 @@ export class SplitButton {
         this.onClick.emit(event);
     }
 
-    onDropdownButtonClick(event: MouseEvent) {
+    onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
         this.menu?.toggle({ currentTarget: this.containerViewChild?.nativeElement, relativeAlign: this.appendTo == null });
+        this.isExpanded.set(this.menu.visible);
+    }
+
+    onDropdownButtonKeydown(event: KeyboardEvent) {
+        if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+            this.onDropdownButtonClick();
+            event.preventDefault();
+        }
     }
 }
 

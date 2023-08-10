@@ -44,27 +44,41 @@ import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
             [@messageState]="{ value: 'visible', params: { showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            [attr.data-pc-name]="'toast'"
+            [attr.data-pc-section]="'root'"
         >
-            <div class="p-toast-message-content" role="alert" aria-live="assertive" aria-atomic="true" [ngClass]="message?.contentStyleClass">
+            <div class="p-toast-message-content" [ngClass]="message?.contentStyleClass" [attr.data-pc-section]="'content'">
                 <ng-container *ngIf="!template">
                     <span *ngIf="message.icon" [class]="'p-toast-message-icon pi ' + message.icon"></span>
-                    <span class="p-toast-message-icon" *ngIf="!message.icon">
+                    <span class="p-toast-message-icon" *ngIf="!message.icon" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'">
                         <ng-container>
-                            <CheckIcon *ngIf="message.severity === 'success'" />
-                            <InfoCircleIcon *ngIf="message.severity === 'info'" />
-                            <TimesCircleIcon *ngIf="message.severity === 'error'" />
-                            <ExclamationTriangleIcon *ngIf="message.severity === 'warn'" />
+                            <CheckIcon *ngIf="message.severity === 'success'" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                            <InfoCircleIcon *ngIf="message.severity === 'info'" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                            <TimesCircleIcon *ngIf="message.severity === 'error'" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                            <ExclamationTriangleIcon *ngIf="message.severity === 'warn'" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
                         </ng-container>
                     </span>
-                    <div class="p-toast-message-text">
-                        <div class="p-toast-summary">{{ message.summary }}</div>
-                        <div class="p-toast-detail">{{ message.detail }}</div>
+                    <div class="p-toast-message-text" [attr.data-pc-section]="'text'">
+                        <div class="p-toast-summary" [attr.data-pc-section]="'summary'">{{ message.summary }}</div>
+                        <div class="p-toast-detail" [attr.data-pc-section]="'detail'">{{ message.detail }}</div>
                     </div>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
-                <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message?.closable !== false" pRipple>
-                    <span *ngIf="message.closeIcon" [class]="'p-toast-message-icon pi ' + message.closeIcon"></span>
-                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'" />
+                <span *ngIf="message.closeIcon" [class]="'p-toast-message-icon pi ' + message.closeIcon"></span>
+                <button
+                    type="button"
+                    class="p-toast-icon-close p-link"
+                    (click)="onCloseIconClick($event)"
+                    (keydown.enter)="onCloseIconClick($event)"
+                    *ngIf="message?.closable !== false"
+                    pRipple
+                    [attr.aria-label]="'Close'"
+                    [attr.data-pc-section]="'closebutton'"
+                >
+                    <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
                 </button>
             </div>
         </div>
