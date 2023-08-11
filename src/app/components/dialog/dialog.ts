@@ -78,7 +78,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate" >{{ header }}</span>
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
                     <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
@@ -554,8 +554,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
-
-    getAriaLabelledBy(){
+    getAriaLabelledBy() {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 

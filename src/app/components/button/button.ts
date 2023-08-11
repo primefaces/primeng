@@ -137,10 +137,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.labelOnly);
             }
 
-            if(this.icon && !this.label && !ObjectUtils.isEmpty(this.htmlElement.textContent)){
+            if (this.icon && !this.label && !ObjectUtils.isEmpty(this.htmlElement.textContent)) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
             }
-
         }
 
         return styleClass;
@@ -211,22 +210,20 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             return;
         }
 
-        if(this.loading && !this.loadingIcon && iconElement) {
+        if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
         }
 
         if (iconElement) {
             if (this.iconPos) {
-                iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '' )+ ' ' + this.getIconClass();
-            }
-            else {
+                iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
+            } else {
                 iconElement.className = 'p-button-icon ' + this.getIconClass();
-            } 
+            }
         } else {
             this.createIcon();
         }
     }
-
 
     getIconClass() {
         return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
@@ -262,7 +259,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
                     <span *ngIf="loadingIcon" [class]="'p-button-loading-icon pi-spin ' + loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"/>
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
                 <span *ngIf="loadingIconTemplate" class="p-button-loading-icon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>

@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Accordion header elements have a <i>button</i> role and use <i>aria-controls</i> to define the id of the content section along with <i>aria-expanded</i> for the visibility state. The value to read a header element defaults to the
-                value of the <i>header</i> property and can be customized by defining an <i>aria-label</i> or <i>aria-labelledby</i> property. Each header has a <i>heading</i> role, for which the level is customized by <i>headerAriaLevel</i> and has a default level of 2 as per W3C specifications.
+                value of the <i>header</i> property and can be customized by defining an <i>aria-label</i> or <i>aria-labelledby</i> property. Each header has a <i>heading</i> role, for which the level is customized by <i>headerAriaLevel</i> and has
+                a default level of 2 as per W3C specifications.
             </p>
             <p>The content uses <i>region</i> role, defines an id that matches the <i>aria-controls</i> of the header and <i>aria-labelledby</i> referring to the id of the header.</p>
             <h3>Header Keyboard Support</h3>

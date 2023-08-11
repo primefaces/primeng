@@ -37,13 +37,13 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'p-speedDial',
     template: `
         <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="style" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
-            <button 
-                pRipple 
-                pButton 
-                class="p-button-icon-only" 
-                [style]="buttonStyle" 
-                [icon]="buttonIconClass" 
-                [ngClass]="buttonClass()" 
+            <button
+                pRipple
+                pButton
+                class="p-button-icon-only"
+                [style]="buttonStyle"
+                [icon]="buttonIconClass"
+                [ngClass]="buttonClass()"
                 [disabled]="disabled"
                 [attr.aria-expanded]="visible"
                 [attr.aria-haspopup]="true"
@@ -59,25 +59,25 @@ import { UniqueComponentId } from 'primeng/utils';
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
             </button>
-            <ul 
-                #list 
-                class="p-speeddial-list" 
-                role="menu" 
-                [id]="id + '_list'" 
-                (focus)="onFocus($event)" 
-                (focusout)="onBlur($event)" 
+            <ul
+                #list
+                class="p-speeddial-list"
+                role="menu"
+                [id]="id + '_list'"
+                (focus)="onFocus($event)"
+                (focusout)="onBlur($event)"
                 (keydown)="onKeyDown($event)"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
                 [attr.data-pc-section]="'menu'"
             >
-                <li 
-                    *ngFor="let item of model; let i = index" 
-                    [ngStyle]="getItemStyle(i)" 
-                    class="p-speeddial-item" 
-                    pTooltip 
-                    [tooltipOptions]="item.tooltipOptions" 
-                    [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i}"
+                <li
+                    *ngFor="let item of model; let i = index"
+                    [ngStyle]="getItemStyle(i)"
+                    class="p-speeddial-item"
+                    pTooltip
+                    [tooltipOptions]="item.tooltipOptions"
+                    [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId == id + '_' + i }"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
                     role="menuitem"
@@ -303,7 +303,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     focused: boolean = false;
 
-    get focusedOptionId(){
+    get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
     }
 

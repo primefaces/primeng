@@ -220,7 +220,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         this.cd.detectChanges();
     }
 
-    getAriaLabelledBy(){
+    getAriaLabelledBy() {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 

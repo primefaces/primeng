@@ -46,7 +46,14 @@ import { FocusTrapModule } from 'primeng/focustrap';
     selector: 'p-galleria',
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [ngClass]="{ 'p-galleria-mask p-component-overlay p-component-overlay-enter': true, 'p-galleria-visible': this.visible }" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined">
+            <div
+                *ngIf="maskVisible"
+                #mask
+                [ngClass]="{ 'p-galleria-mask p-component-overlay p-component-overlay-enter': true, 'p-galleria-visible': this.visible }"
+                [class]="maskClass"
+                [attr.role]="fullScreen ? 'dialog' : 'region'"
+                [attr.aria-modal]="fullScreen ? 'true' : undefined"
+            >
                 <p-galleriaContent
                     *ngIf="visible"
                     [@animation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
@@ -335,7 +342,7 @@ export class Galleria implements OnChanges, OnDestroy {
             case 'visible':
                 this.enableModality();
                 setTimeout(() => {
-                    DomHandler.focus(DomHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'))
+                    DomHandler.focus(DomHandler.findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
                 }, 25);
                 break;
 
@@ -540,7 +547,7 @@ export class GalleriaContent implements DoCheck {
     }
 
     closeAriaLabel() {
-        return this.config.translation.aria ? this.config.translation.aria.close : undefined
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 }
 
@@ -774,14 +781,14 @@ export class GalleriaItem implements OnChanges {
     }
 
     onIndicatorKeyDown(event, index: number) {
-        switch(event.code) {
+        switch (event.code) {
             case 'Enter':
             case 'Space':
                 this.stopTheSlideShow();
                 this.onActiveIndexChange.emit(index);
                 event.preventDefault();
                 break;
-            
+
             case 'ArrowDown':
             case 'ArrowUp':
                 event.preventDefault();
@@ -789,7 +796,6 @@ export class GalleriaItem implements OnChanges {
 
             default:
                 break;
-            
         }
     }
 
@@ -823,7 +829,15 @@ export class GalleriaItem implements OnChanges {
     template: `
         <div class="p-galleria-thumbnail-wrapper">
             <div class="p-galleria-thumbnail-container">
-                <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-prev p-link': true, 'p-disabled': this.isNavBackwardDisabled() }" (click)="navBackward($event)" [disabled]="isNavBackwardDisabled()" pRipple [attr.aria-label]="ariaPrevButtonLabel()">
+                <button
+                    *ngIf="showThumbnailNavigators"
+                    type="button"
+                    [ngClass]="{ 'p-galleria-thumbnail-prev p-link': true, 'p-disabled': this.isNavBackwardDisabled() }"
+                    (click)="navBackward($event)"
+                    [disabled]="isNavBackwardDisabled()"
+                    pRipple
+                    [attr.aria-label]="ariaPrevButtonLabel()"
+                >
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate">
                         <ChevronLeftIcon *ngIf="!isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
                         <ChevronUpIcon *ngIf="isVertical" [styleClass]="'p-galleria-thumbnail-prev-icon'" />
@@ -847,20 +861,29 @@ export class GalleriaItem implements OnChanges {
                             [attr.data-p-active]="activeIndex === index"
                             (keydown)="onThumbnailKeydown($event, index)"
                         >
-                            <div 
-                                class="p-galleria-thumbnail-item-content" 
-                                [attr.tabindex]="activeIndex === index ? 0 : -1" 
+                            <div
+                                class="p-galleria-thumbnail-item-content"
+                                [attr.tabindex]="activeIndex === index ? 0 : -1"
                                 [attr.aria-current]="activeIndex === index ? 'page' : undefined"
                                 [attr.aria-label]="ariaPageLabel(index + 1)"
-                                (click)="onItemClick(index)" 
-                                (touchend)="onItemClick(index)" 
-                                (keydown.enter)="onItemClick(index)">
+                                (click)="onItemClick(index)"
+                                (touchend)="onItemClick(index)"
+                                (keydown.enter)="onItemClick(index)"
+                            >
                                 <p-galleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></p-galleriaItemSlot>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button *ngIf="showThumbnailNavigators" type="button" [ngClass]="{ 'p-galleria-thumbnail-next p-link': true, 'p-disabled': this.isNavForwardDisabled() }" (click)="navForward($event)" [disabled]="isNavForwardDisabled()" pRipple [attr.aria-label]="ariaNextButtonLabel()">
+                <button
+                    *ngIf="showThumbnailNavigators"
+                    type="button"
+                    [ngClass]="{ 'p-galleria-thumbnail-next p-link': true, 'p-disabled': this.isNavForwardDisabled() }"
+                    (click)="navForward($event)"
+                    [disabled]="isNavForwardDisabled()"
+                    pRipple
+                    [attr.aria-label]="ariaNextButtonLabel()"
+                >
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate">
                         <ChevronRightIcon *ngIf="!isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />
                         <ChevronDownIcon *ngIf="isVertical" [ngClass]="'p-galleria-thumbnail-next-icon'" />

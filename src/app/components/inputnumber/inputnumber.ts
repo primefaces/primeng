@@ -440,9 +440,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     focused: Nullable<boolean>;
 
@@ -482,7 +482,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) { }
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -1381,4 +1381,4 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule { }
+export class InputNumberModule {}

@@ -46,8 +46,8 @@ export class BasicDoc implements OnInit {
                         label: 'Delete',
                         icon: 'pi pi-fw pi-trash'
                     },
-                    { 
-                        separator: true 
+                    {
+                        separator: true
                     },
                     {
                         label: 'Export',

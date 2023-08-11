@@ -304,7 +304,16 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                         <li #inkbar class="p-tabview-ink-bar" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
-                <button *ngIf="scrollable && !forwardIsDisabled && shouldVisible" #nextBtn [attr.tabindex]="tabindex" [attr.aria-label]="nextButtonAriaLabel" class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
+                <button
+                    *ngIf="scrollable && !forwardIsDisabled && shouldVisible"
+                    #nextBtn
+                    [attr.tabindex]="tabindex"
+                    [attr.aria-label]="nextButtonAriaLabel"
+                    class="p-tabview-nav-next p-tabview-nav-btn p-link"
+                    (click)="navForward()"
+                    type="button"
+                    pRipple
+                >
                     <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
@@ -458,22 +467,22 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     ngAfterViewInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             this.bindResizeObserver();
         }
     }
 
     bindResizeObserver() {
-        if(!this.resizeObserver) {
-            this.resizeObserver = new ResizeObserver(entries => {
-                for(let entry of entries) {
+        if (!this.resizeObserver) {
+            this.resizeObserver = new ResizeObserver((entries) => {
+                for (let entry of entries) {
                     const navbarWidth = parseFloat(getComputedStyle(this.navbar.nativeElement).width);
                     const rect = entry.contentRect;
                     this.shouldVisible = rect.width < navbarWidth;
                     this.cd.detectChanges();
                 }
             });
-    
+
             this.resizeObserver.observe(this.elementToObserve.nativeElement);
         }
     }
@@ -497,7 +506,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
             this.tabChangesSubscription.unsubscribe();
         }
 
-        if(this.resizeObserver) {
+        if (this.resizeObserver) {
             this.unbindResizeObserver();
         }
     }

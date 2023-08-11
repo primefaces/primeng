@@ -159,7 +159,7 @@ export class Image implements AfterContentInit {
     @ViewChild('mask') mask: ElementRef | undefined;
 
     @ViewChild('previewButton') previewButton: ElementRef | undefined;
-    
+
     @ViewChild('closeButton') closeButton: ElementRef | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -306,7 +306,7 @@ export class Image implements AfterContentInit {
 
                 setTimeout(() => {
                     DomHandler.focus(this.closeButton.nativeElement);
-                }, 25)
+                }, 25);
                 break;
 
             case 'void':
