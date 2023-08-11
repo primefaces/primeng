@@ -1,4 +1,47 @@
 # Changelog
+## [16.2.0](https://github.com/primefaces/primeng/tree/16.2.0) (2023-08-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.1.0...16.2.0)
+
+**New Features:**
+- DynamicDialog | Add closeAriaLabel for acessibility [\#13410](https://github.com/primefaces/primeng/issues/#13410)
+- ConfirmDialog | Add closeAriaLabel for accessibility [\#13408](https://github.com/primefaces/primeng/issues/#13408)
+- SpeedDial | Add ariaLabel and ariaLabelledBy inputs (accessibility) [\#13404](https://github.com/primefaces/primeng/issues/#13404)
+- Accordion | wrong aria roles and add headerAriaLevel property (accessibility) [\#13431](https://github.com/primefaces/primeng/issues/#13431)
+
+**Enhancements:**
+- Accessibility | Messages Section [\#13411](https://github.com/primefaces/primeng/issues/#13411)
+- Accessibility | Overlay Section [\#13409](https://github.com/primefaces/primeng/issues/#13409)
+- Accessibility | Button Section [\#13402](https://github.com/primefaces/primeng/issues/#13402)
+- Accessibility | TabView - TabIndex order doesn't follow the W3C recommended pattern [\#13421](https://github.com/primefaces/primeng/issues/#13421)
+- Accessibility | Media Section [\#13420](https://github.com/primefaces/primeng/issues/#13420)
+- Multiselect: Overlay should not be closed when toggle on unSelectAll icon [\#13384](https://github.com/primefaces/primeng/issues/#13384)
+- Accordion | wrong aria roles and add headerAriaLevel property (accessibility) [\#13431](https://github.com/primefaces/primeng/issues/#13431)
+
+**Fixed bugs:**
+- Tooltip | Auto Hide Not Working [\#13482](https://github.com/primefaces/primeng/issues/#13482)
+- TabView | Arrow button stays visible even there is no overflow [\#13478](https://github.com/primefaces/primeng/issues/#13478)
+- p-panelMenu: visible:false don’t work for submenus [\#13469](https://github.com/primefaces/primeng/issues/#13469)
+- fileUpload: conversion uses 1000 instead of 1024 for file size formatting [\#13467](https://github.com/primefaces/primeng/issues/#13467)
+- Accessibility | PanelMenu - collapsed region are still reachable via tab navigation when at least an item has a link [\#13435](https://github.com/primefaces/primeng/issues/#13435)
+- MenuBar and MegaMenu: On mobile menubar and megamenu both requires double tap to open submenu [\#13447](https://github.com/primefaces/primeng/issues/#13447)
+- TieredMenu: On mobile tieredmenu requires double tap to open submenu [\#13433](https://github.com/primefaces/primeng/issues/#13433)
+- Menu and PanelMenu | Separator is not visible [\#13476](https://github.com/primefaces/primeng/issues/#13476)
+- Menu Components | Cannot override model value [\#13471](https://github.com/primefaces/primeng/issues/#13471)
+- Component: PanelMenu - styleClass and tooltip not applied [\#13401](https://github.com/primefaces/primeng/issues/#13401)
+- TieredMenu: SubMenus are not uncovered on mouse hover anymore [\#13455](https://github.com/primefaces/primeng/issues/#13455)
+- TabMenu: Disabled items are no longer rendered [\#13454](https://github.com/primefaces/primeng/issues/#13454)
+- Component: ContextMenu [\#13456](https://github.com/primefaces/primeng/issues/#13456)
+- Button: Loading icon not showing when used by pButton directive [\#13345](https://github.com/primefaces/primeng/issues/#13345)
+- pButton: When changing the loading property of the pButton the spinner is not shown [\#13195](https://github.com/primefaces/primeng/issues/#13195)
+- Button: custom loading icon is not displayed [\#13250](https://github.com/primefaces/primeng/issues/#13250)
+- Component: InputNumber - maxlength input param doesn't limit number of numbers that user can type [\#13426](https://github.com/primefaces/primeng/issues/#13426)
+- FileUpload: when multiple files are selected and more than one has errors only only one message is shown [\#13426](https://github.com/primefaces/primeng/issues/#13426)
+- FileUpload | Incorrect margin between label and icon [\#13414](https://github.com/primefaces/primeng/issues/#13414)
+- OrganizationChart not refreshing view after new TreeNode is added [\#13368](https://github.com/primefaces/primeng/issues/#13368)
+- SplitButton menu options not working correctly in v16.1.0 [\#13389](https://github.com/primefaces/primeng/issues/#13389)
+- New required undocumented locale options in PrimeNG 16.1.0 [\#13380](https://github.com/primefaces/primeng/issues/#13380)
+
 ## [16.1.0](https://github.com/primefaces/primeng/tree/16.1.0) (2023-07-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.2...16.1.0)
