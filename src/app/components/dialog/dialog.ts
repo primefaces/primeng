@@ -692,34 +692,40 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - (this.lastPageX as number);
-            let deltaY = event.pageY - (this.lastPageY as number);
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let leftPos = offset.left + deltaX;
-            let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            const containerWidth = DomHandler.getOuterWidth(this.container);
+            const containerHeight = DomHandler.getOuterHeight(this.container);
+            const deltaX = event.pageX - (this.lastPageX as number);
+            const deltaY = event.pageY - (this.lastPageY as number);
+            const offset = this.container.getBoundingClientRect();
 
-            (this.container as HTMLDivElement).style.position = 'fixed';
+            const containerComputedStyle = getComputedStyle(this.container);
+
+            const leftMargin = parseFloat(containerComputedStyle.marginLeft);
+            const topMargin = parseFloat(containerComputedStyle.marginTop);
+
+            const leftPos = offset.left + deltaX - leftMargin;
+            const topPos = offset.top + deltaY - topMargin;
+            const viewport = DomHandler.getViewport();
+
+            this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = leftPos + 'px';
+                    this._style.left = `${leftPos}px`;
                     this.lastPageX = event.pageX;
-                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                    this.container.style.left = `${leftPos}px`;
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
-                    this._style.top = topPos + 'px';
+                    this._style.top = `${topPos}px`;
                     this.lastPageY = event.pageY;
-                    (this.container as HTMLDivElement).style.top = topPos + 'px';
+                    this.container.style.top = `${topPos}px`;
                 }
             } else {
                 this.lastPageX = event.pageX;
-                (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                this.container.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                (this.container as HTMLDivElement).style.top = topPos + 'px';
+                this.container.style.top = `${leftPos}px`;
             }
         }
     }
