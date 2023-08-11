@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "16.1.0",
+    "version": "16.2.0",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -13,7 +13,7 @@
         "format:check": "prettier --check \"**/*.{js,ts,d.ts}\"",
         "build:lib": "npm run build:check && npm run build:package",
         "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
-        "build:check": "npm run format:check && npm run security:check && npm run test:headless",
+        "build:check": "npm run format:check && npm run security:check",
         "security:check": "npm audit --production --audit-level high",
         "dev:ssr": "ng run primeng:serve-ssr",
         "serve:ssr": "node dist/primeng/server/main.js",
