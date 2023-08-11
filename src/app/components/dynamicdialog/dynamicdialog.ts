@@ -255,7 +255,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                     this.enableModality();
                 }
 
-                if (this.config.focusOnShow) {
+                if (!this.config.disableFocusOnShow) {
                     this.focus();
                 }
                 break;
