@@ -10,6 +10,7 @@
 - Accordion | wrong aria roles and add headerAriaLevel property (accessibility) [\#13431](https://github.com/primefaces/primeng/issues/#13431)
 
 **Enhancements:**
+- Update Angular packages [\#13444](https://github.com/primefaces/primeng/issues/#13444)
 - Accessibility | Messages Section [\#13411](https://github.com/primefaces/primeng/issues/#13411)
 - Accessibility | Overlay Section [\#13409](https://github.com/primefaces/primeng/issues/#13409)
 - Accessibility | Button Section [\#13402](https://github.com/primefaces/primeng/issues/#13402)
