@@ -94,7 +94,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         </div>
     `,
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css'],
     host: {
@@ -213,7 +213,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public zone: NgZone,
         public primeNGConfig: PrimeNGConfig,
         @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
-    ) {}
+    ) { }
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
@@ -637,4 +637,4 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     declarations: [DynamicDialogComponent, DynamicDialogContent],
     exports: [SharedModule]
 })
-export class DynamicDialogModule {}
+export class DynamicDialogModule { }
