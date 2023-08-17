@@ -108,7 +108,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate">
