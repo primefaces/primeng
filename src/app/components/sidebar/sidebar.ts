@@ -250,7 +250,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     closeIconTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     ngAfterViewInit() {
         this.initialized = true;
@@ -279,7 +279,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         });
     }
 
-    onKeydown(event: KeyboardEvent) {
+    onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
             this.hide();
         }
@@ -452,4 +452,4 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     exports: [Sidebar, SharedModule],
     declarations: [Sidebar]
 })
-export class SidebarModule {}
+export class SidebarModule { }
