@@ -278,7 +278,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[class.p-disabled]': 'disabled' || 'loading'
     }
 })
 export class Button implements AfterContentInit {
