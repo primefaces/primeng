@@ -1,6 +1,5 @@
 .p-contextmenu {
     position: absolute;
-    display: none;
 }
 
 .p-contextmenu ul {
@@ -13,7 +12,6 @@
     position: absolute;
     min-width: 100%;
     z-index: 1;
-    display: none;
 }
 
 .p-contextmenu .p-menuitem-link {
@@ -33,10 +31,10 @@
     position: relative;
 }
 
-.p-contextmenu .p-menuitem-link .p-submenu-icon {
+.p-contextmenu .p-menuitem-link .p-submenu-icon:not(svg) {
     margin-left: auto;
 }
 
-.p-contextmenu .p-menuitem-active > p-contextmenusub > .p-submenu-list.p-submenu-list-active {
-    display: block !important;
+.p-contextmenu .p-menuitem-link .p-icon-wrapper {
+    margin-left: auto;
 }

@@ -26,10 +26,6 @@
     text-overflow: ellipsis;
 }
 
-.p-multiselect-chip .p-multiselect-label {
-    display: flex;
-}
-
 .p-multiselect-label-empty {
     overflow: hidden;
     visibility: hidden;
@@ -44,16 +40,6 @@
 
 .p-multiselect-token-icon {
     cursor: pointer;
-}
-
-.p-multiselect .p-multiselect-panel {
-    min-width: 100%;
-}
-
-.p-multiselect-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .p-multiselect-items-wrapper {

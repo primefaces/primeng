@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Tooltip, TooltipModule } from './tooltip';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputText } from 'primeng/inputtext';
+import { Tooltip, TooltipModule } from './tooltip';
 
 @Component({
     template: `

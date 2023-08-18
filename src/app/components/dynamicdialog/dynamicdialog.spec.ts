@@ -1,12 +1,12 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { DynamicDialogModule } from './dynamicdialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer } from 'primeng/api';
 import { DialogService } from './dialogservice';
-import { DynamicDialogRef } from './dynamicdialog-ref';
+import { DynamicDialogModule } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
-import { CommonModule } from '@angular/common';
+import { DynamicDialogRef } from './dynamicdialog-ref';
 
 @Component({
     template: ` <h2>PrimeNG ROCKS!</h2> `
@@ -34,7 +34,6 @@ export class TestDynamicDialogComponent {
 @NgModule({
     imports: [CommonModule, DynamicDialogModule],
     declarations: [TestComponent, TestDynamicDialogComponent],
-    entryComponents: [TestComponent],
     exports: [TestComponent],
     providers: [DialogService]
 })
@@ -73,5 +72,6 @@ describe('DynamicDialog', () => {
 
         dynamicDialogEl = document.getElementsByClassName('p-dynamic-dialog')[0];
         expect(dynamicDialogEl).toBeUndefined();
+        flush();
     }));
 });

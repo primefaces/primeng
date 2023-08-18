@@ -1,28 +1,27 @@
 {
     "name": "primeng",
-    "version": "14.1.2",
+    "version": "16.2.0",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/primefaces/primeng"
+        "type": "git",
+        "url": "https://github.com/primefaces/primeng"
     },
     "keywords": [
-      "angular"
+        "angular"
     ],
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/primefaces/primeng/issues"
     },
     "exports": {
-      "./resources/": "./resources/"
+        "./resources/": "./resources/"
     },
     "module": "primeng.js",
     "typings": "primeng.d.ts",
     "peerDependencies": {
-      "@angular/core": "^14.0.0",
-      "@angular/common": "^14.0.0",
-      "@angular/forms": "^14.0.0",
-      "rxjs": "^6.0.0 || ^7.0.0",
-      "zone.js": "^0.10.2 || ^0.11.0",
-      "primeicons": "^6.0.1"
+        "@angular/core": "^16.2.0",
+        "@angular/common": "^16.2.0",
+        "@angular/forms": "^16.2.0",
+        "rxjs": "^6.0.0 || ^7.8.1",
+        "zone.js": "~0.13.0"
     }
-  }
+}

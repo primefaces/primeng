@@ -23,8 +23,8 @@ export class ObjectUtils {
 
             if (arrA != arrB) return false;
 
-            var dateA = obj1 instanceof Date,
-                dateB = obj2 instanceof Date;
+            var dateA = this.isDate(obj1),
+                dateB = this.isDate(obj2);
             if (dateA != dateB) return false;
             if (dateA && dateB) return obj1.getTime() == obj2.getTime();
 
@@ -162,11 +162,85 @@ export class ObjectUtils {
         return str;
     }
 
+    public static isDate(input: any) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     public static isEmpty(value) {
-        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!(value instanceof Date) && typeof value === 'object' && Object.keys(value).length === 0);
+        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!this.isDate(value) && typeof value === 'object' && Object.keys(value).length === 0);
     }
 
     public static isNotEmpty(value) {
         return !this.isEmpty(value);
+    }
+
+    public static compare(value1, value2, locale, order = 1) {
+        let result = -1;
+        const emptyValue1 = this.isEmpty(value1);
+        const emptyValue2 = this.isEmpty(value2);
+
+        if (emptyValue1 && emptyValue2) result = 0;
+        else if (emptyValue1) result = order;
+        else if (emptyValue2) result = -order;
+        else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2, locale, { numeric: true });
+        else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+
+        return result;
+    }
+
+    public static sort(value1, value2, order = 1, locale, nullSortOrder = 1) {
+        const result = ObjectUtils.compare(value1, value2, locale, order);
+        // nullSortOrder == 1 means Excel like sort nulls at bottom
+        const finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+
+        return finalSortOrder * result;
+    }
+
+    public static merge(obj1?: any, obj2?: any): any {
+        if (obj1 == undefined && obj2 == undefined) {
+            return undefined;
+        } else if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
+            return { ...(obj1 || {}), ...(obj2 || {}) };
+        } else if ((obj1 == undefined || typeof obj1 === 'string') && (obj2 == undefined || typeof obj2 === 'string')) {
+            return [obj1 || '', obj2 || ''].join(' ');
+        }
+
+        return obj2 || obj1;
+    }
+
+    public static isPrintableCharacter(char = '') {
+        return this.isNotEmpty(char) && char.length === 1 && char.match(/\S| /);
+    }
+
+    public static getItemValue(obj, ...params) {
+        return this.isFunction(obj) ? obj(...params) : obj;
+    }
+
+    public static findLastIndex(arr, callback) {
+        let index = -1;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                index = arr.findLastIndex(callback);
+            } catch {
+                index = arr.lastIndexOf([...arr].reverse().find(callback));
+            }
+        }
+
+        return index;
+    }
+
+    public static findLast(arr, callback) {
+        let item;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                item = arr.findLast(callback);
+            } catch {
+                item = [...arr].reverse().find(callback);
+            }
+        }
+
+        return item;
     }
 }

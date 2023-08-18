@@ -1,13 +1,17 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter, Renderer2, Inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { VoidListener } from 'primeng/ts-helpers';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Knob),
     multi: true
 };
-
+/**
+ * Knob is a form component to define number inputs with a dial.
+ * @group Components
+ */
 @Component({
     selector: 'p-knob',
     template: `
@@ -37,39 +41,87 @@ export const KNOB_VALUE_ACCESSOR: any = {
     }
 })
 export class Knob {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() severity: string;
-
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Background of the value.
+     * @group Props
+     */
     @Input() valueColor: string = 'var(--primary-color, Black)';
-
+    /**
+     * Background color of the range.
+     * @group Props
+     */
     @Input() rangeColor: string = 'var(--surface-border, LightGray)';
-
+    /**
+     * Color of the value text.
+     * @group Props
+     */
     @Input() textColor: string = 'var(--text-color-secondary, Black)';
-
+    /**
+     * Template string of the value.
+     * @group Props
+     */
     @Input() valueTemplate: string = '{value}';
-
-    @Input() name: string;
-
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * Size of the component in pixels.
+     * @group Props
+     */
     @Input() size: number = 100;
-
+    /**
+     * Step factor to increment/decrement the value.
+     * @group Props
+     */
     @Input() step: number = 1;
-
+    /**
+     * Mininum boundary value.
+     * @group Props
+     */
     @Input() min: number = 0;
-
+    /**
+     * Maximum boundary value.
+     * @group Props
+     */
     @Input() max: number = 100;
-
+    /**
+     * Width of the knob stroke.
+     * @group Props
+     */
     @Input() strokeWidth: number = 14;
-
-    @Input() disabled: boolean;
-
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Whether the show the value inside the knob.
+     * @group Props
+     */
     @Input() showValue: boolean = true;
-
+    /**
+     * When present, it specifies that the component value cannot be edited.
+     * @group Props
+     */
     @Input() readonly: boolean = false;
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke on value change.
+     * @param {number} value - New value.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<number> = new EventEmitter<number>();
 
     radius: number = 40;
 
@@ -81,33 +133,33 @@ export class Knob {
 
     maxRadians: number = -Math.PI / 3;
 
-    value: number = null;
+    value: number = 0;
 
-    windowMouseMoveListener: any;
+    windowMouseMoveListener: VoidListener;
 
-    windowMouseUpListener: any;
+    windowMouseUpListener: VoidListener;
 
-    windowTouchMoveListener: any;
+    windowTouchMoveListener: VoidListener;
 
-    windowTouchEndListener: any;
+    windowTouchEndListener: VoidListener;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef, private el: ElementRef) {}
 
-    mapRange(x, inMin, inMax, outMin, outMax) {
+    mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
         return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
     }
 
-    onClick(event) {
+    onClick(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
         }
     }
 
-    updateValue(offsetX, offsetY) {
+    updateValue(offsetX: number, offsetY: number) {
         let dx = offsetX - this.size / 2;
         let dy = this.size / 2 - offsetY;
         let angle = Math.atan2(dy, dx);
@@ -115,7 +167,7 @@ export class Knob {
         this.updateModel(angle, start);
     }
 
-    updateModel(angle, start) {
+    updateModel(angle: number, start: number) {
         let mappedValue;
         if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min, this.max);
         else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min, this.max);
@@ -127,60 +179,69 @@ export class Knob {
         this.onChange.emit(this.value);
     }
 
-    onMouseDown(event) {
+    onMouseDown(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
-            this.windowMouseMoveListener = this.onMouseMove.bind(this);
-            this.windowMouseUpListener = this.onMouseUp.bind(this);
-            window.addEventListener('mousemove', this.windowMouseMoveListener);
-            window.addEventListener('mouseup', this.windowMouseUpListener);
+            const window = this.document.defaultView || 'window';
+            this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
+            this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
             event.preventDefault();
         }
     }
 
-    onMouseUp(event) {
+    onMouseUp(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('mousemove', this.windowMouseMoveListener);
-            window.removeEventListener('mouseup', this.windowMouseUpListener);
-            this.windowMouseUpListener = null;
-            this.windowMouseMoveListener = null;
+            if (this.windowMouseMoveListener) {
+                this.windowMouseMoveListener();
+                this.windowMouseUpListener = null;
+            }
+
+            if (this.windowMouseUpListener) {
+                this.windowMouseUpListener();
+                this.windowMouseMoveListener = null;
+            }
             event.preventDefault();
         }
     }
 
-    onTouchStart(event) {
+    onTouchStart(event: TouchEvent) {
         if (!this.disabled && !this.readonly) {
-            this.windowTouchMoveListener = this.onTouchMove.bind(this);
-            this.windowTouchEndListener = this.onTouchEnd.bind(this);
-            window.addEventListener('touchmove', this.windowTouchMoveListener);
-            window.addEventListener('touchend', this.windowTouchEndListener);
+            const window = this.document.defaultView || 'window';
+            this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
+            this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
             event.preventDefault();
         }
     }
 
-    onTouchEnd(event) {
+    onTouchEnd(event: TouchEvent) {
         if (!this.disabled && !this.readonly) {
-            window.removeEventListener('touchmove', this.windowTouchMoveListener);
-            window.removeEventListener('touchend', this.windowTouchEndListener);
+            if (this.windowTouchMoveListener) {
+                this.windowTouchMoveListener();
+            }
+            if (this.windowTouchEndListener) {
+                this.windowTouchEndListener();
+            }
             this.windowTouchMoveListener = null;
             this.windowTouchEndListener = null;
             event.preventDefault();
         }
     }
 
-    onMouseMove(event) {
+    onMouseMove(event: MouseEvent) {
         if (!this.disabled && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
             event.preventDefault();
         }
     }
 
-    onTouchMove(event) {
-        if (!this.disabled && !this.readonly && event.touches.length == 1) {
+    onTouchMove(event: Event) {
+        if (!this.disabled && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
-            const offsetX = touch.clientX - rect.left;
-            const offsetY = touch.clientY - rect.top;
-            this.updateValue(offsetX, offsetY);
+            if (touch) {
+                const offsetX = touch.clientX - rect.left;
+                const offsetY = touch.clientY - rect.top;
+                this.updateValue(offsetX, offsetY);
+            }
         }
     }
 

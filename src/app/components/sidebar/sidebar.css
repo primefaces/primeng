@@ -1,6 +1,6 @@
 .p-sidebar {
     position: fixed;
-    transition: transform .3s;
+    transition: transform 0.3s;
     display: flex;
     flex-direction: column;
 }
@@ -8,11 +8,16 @@
 .p-sidebar-content {
     position: relative;
     overflow-y: auto;
+    flex-grow: 1;
 }
 
 .p-sidebar-header {
     display: flex;
     align-items: center;
+}
+
+.p-sidebar-footer {
+    margin-top: auto;
 }
 
 .p-sidebar-icon {

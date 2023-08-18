@@ -1,15 +1,20 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, NgModule, Output, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ObjectUtils } from 'primeng/utils';
+import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectButton),
     multi: true
 };
-
+/**
+ * SelectButton is used to choose single or multiple items from a list using buttons.
+ * @group Components
+ */
 @Component({
     selector: 'p-selectButton',
     template: `
@@ -36,7 +41,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <span class="p-button-label">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                    <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
                 </ng-template>
             </div>
         </div>
@@ -50,33 +55,79 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     }
 })
 export class SelectButton implements ControlValueAccessor {
-    @Input() options: any[];
-
-    @Input() optionLabel: string;
-
-    @Input() optionValue: string;
-
-    @Input() optionDisabled: string;
-
+    /**
+     * An array of selectitems to display as the available options.
+     * @group Props
+     */
+    @Input() options: any[] | undefined;
+    /**
+     * Name of the label field of an option.
+     * @group Props
+     */
+    @Input() optionLabel: string | undefined;
+    /**
+     * Name of the value field of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | undefined;
+    /**
+     * Name of the disabled field of an option.
+     * @group Props
+     */
+    @Input() optionDisabled: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
     @Input() tabindex: number = 0;
-
-    @Input() multiple: boolean;
-
+    /**
+     * When specified, allows selecting multiple values.
+     * @group Props
+     */
+    @Input() multiple: boolean | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
     @Input() style: any;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * Callback to invoke on input click.
+     * @param {SelectButtonOptionClickEvent} event - Custom click event.
+     * @group Emits
+     */
+    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>();
+    /**
+     * Callback to invoke on selection change.
+     * @param {SelectButtonChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
-    @Input() styleClass: string;
+    @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
 
-    @Input() ariaLabelledBy: string;
-
-    @Input() disabled: boolean;
-
-    @Input() dataKey: string;
-
-    @Output() onOptionClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @ContentChild(TemplateRef) itemTemplate;
+    public get selectButtonTemplate(): TemplateRef<any> {
+        return this.itemTemplate?.template;
+    }
 
     value: any;
 
@@ -116,7 +167,7 @@ export class SelectButton implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    onItemClick(event, option: any, index: number) {
+    onItemClick(event: Event, option: any, index: number) {
         if (this.disabled || this.isOptionDisabled(option)) {
             return;
         }
@@ -157,7 +208,7 @@ export class SelectButton implements ControlValueAccessor {
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter((val) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey));
+        this.value = this.value.filter((val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey));
     }
 
     isSelected(option: any) {
@@ -165,7 +216,7 @@ export class SelectButton implements ControlValueAccessor {
         let optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
-            if (this.value && this.value instanceof Array) {
+            if (this.value && Array.isArray(this.value)) {
                 for (let val of this.value) {
                     if (ObjectUtils.equals(val, optionValue, this.dataKey)) {
                         selected = true;
@@ -182,8 +233,8 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [SelectButton],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })
 export class SelectButtonModule {}

@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { InputMask } from './inputmask';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { InputMask } from './inputmask';
 
 @Component({
     template: `<p-inputMask [(ngModel)]="val" mask="99-9999"></p-inputMask>`
@@ -233,10 +233,10 @@ describe('InputMask', () => {
 
     it('should disabled with setDisabledState', () => {
         inputmask.setDisabledState(true);
-        fixture.detectChanges();
+        inputmask.cd.detectChanges();
 
         inputmask.focus();
-        fixture.detectChanges();
+        inputmask.cd.detectChanges();
 
         expect(document.activeElement).not.toEqual(inputmask.inputViewChild.nativeElement);
     });

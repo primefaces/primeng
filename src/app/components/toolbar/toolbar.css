@@ -4,7 +4,12 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+.p-toolbar-group-start,
+.p-toolbar-group-center,
+.p-toolbar-group-end {
+    display: flex;
+    align-items: center;
+}
 .p-toolbar-group-left,
 .p-toolbar-group-right {
     display: flex;

@@ -3,162 +3,190 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-      "primeng-library": {
-        "root": "src",
-        "projectType": "library",
-        "architect": {
-            "build": {
-            "builder": "@angular-devkit/build-angular:ng-packagr",
-            "options": {
-                "project": "src/app/components/ng-package.json",
-                "tsConfig": "src/app/components/tsconfig.lib.prod.json"
+        "primeng-library": {
+            "root": "src",
+            "projectType": "library",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "src/app/components/ng-package.json",
+                        "tsConfig": "src/app/components/tsconfig.lib.prod.json"
+                    }
+                }
             }
-          }
-        }
-      },
-      "primeng": {
-        "projectType": "application",
-        "schematics": {
-          "@schematics/angular:component": {
-            "style": "scss"
-          }
         },
-        "root": "",
-        "sourceRoot": "src",
-        "prefix": "app",
-        "architect": {
-          "build": {
-            "builder": "@angular-devkit/build-angular:browser",
-            "options": {
-              "outputPath": "dist/primeng",
-              "index": "src/index.html",
-              "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
-              "tsConfig": "tsconfig.app.json",
-              "aot": true,
-              "assets": [
-                "src/favicon.png",
-                "src/assets",
-                "src/showcase",
-                "src/upload.php",
-                "src/versions.json",
-                "src/.htaccess"
-              ],
-              "styles": [
-                "src/assets/showcase/styles/app/app.scss",
-                "./node_modules/@fullcalendar/common/main.css",
-                "./node_modules/@fullcalendar/daygrid/main.css",
-                "./node_modules/@fullcalendar/timegrid/main.css",
-                "src/styles.scss"
-              ],
-              "scripts": [
-                "./node_modules/prismjs/prism.js",
-                "./node_modules/prismjs/components/prism-typescript.js"
-              ],
-              "allowedCommonJsDependencies": [
-                "@fullcalendar/timegrid",
-                "@fullcalendar/interaction",
-                "@fullcalendar/daygrid",
-                "chart.js",
-                "xlsx",
-                "jspdf-autotable"
-             ]
+        "primeng": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
             },
-            "configurations": {
-              "production": {
-                "fileReplacements": [
-                  {
-                    "replace": "src/environments/environment.ts",
-                    "with": "src/environments/environment.prod.ts"
-                  }
-                ],
-                "optimization": {
-                  "scripts": true,
-                  "styles": {
-                    "minify": true,
-                    "inlineCritical": false
-                  },
-                  "fonts": true
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/primeng/browser",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.png",
+                            "src/assets",
+                            "src/showcase",
+                            "src/upload.php",
+                            "src/versions.json",
+                            "src/.htaccess"
+                        ],
+                        "styles": [
+                            "src/styles.scss",
+                            "node_modules/primeicons/primeicons.css"
+                        ],
+                        "scripts": [
+                            "./node_modules/prismjs/prism.js",
+                            "./node_modules/prismjs/components/prism-typescript.js",
+                            "./node_modules/prismjs/components/prism-scss.js",
+                            "./node_modules/prismjs/components/prism-bash.js"
+                        ],
+                        "allowedCommonJsDependencies": [
+                            "chart.js",
+                            "xlsx",
+                            "jspdf-autotable",
+                            "file-saver",
+                            "jspdf",
+                            "quill",
+                            "core-js",
+                            "raf",
+                            "rgbcolor"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": {
+                                "styles": {
+                                    "inlineCritical": false
+                                }
+                            },
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
                 },
-                "outputHashing": "all",
-                "sourceMap": false,
-                "namedChunks": false,
-                "extractLicenses": true,
-                "vendorChunk": false,
-                "buildOptimizer": true,
-                "budgets": [
-                  {
-                    "type": "initial",
-                    "maximumWarning": "2mb",
-                    "maximumError": "5mb"
-                  }
-                ]
-              },
-              "development": {
-                "buildOptimizer": false,
-                "optimization": false,
-                "vendorChunk": true,
-                "extractLicenses": false,
-                "sourceMap": true,
-                "namedChunks": true
-              }
-            },
-            "defaultConfiguration": "production"
-          },
-          "serve": {
-            "builder": "@angular-devkit/build-angular:dev-server",
-            "configurations": {
-              "production": {
-                "browserTarget": "primeng:build:production"
-              },
-              "development": {
-                "browserTarget": "primeng:build:development"
-              }
-            },
-            "defaultConfiguration": "development"
-          },
-          "extract-i18n": {
-            "builder": "@angular-devkit/build-angular:extract-i18n",
-            "options": {
-              "browserTarget": "primeng:build"
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "primeng:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "primeng:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "primeng:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": [
+                            "src/favicon.png",
+                            "src/assets",
+                            "src/upload.php"
+                        ],
+                        "styles": [
+                            "src/styles.scss",
+                            "src/assets/components/themes/lara-light-blue/theme.css"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "outputPath": "dist/primeng/server",
+                        "main": "server.ts",
+                        "tsConfig": "tsconfig.server.json",
+                        "inlineStyleLanguage": "scss",
+                        "optimization": false
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "media"
+                        },
+                        "development": {
+                            "optimization": false,
+                            "sourceMap": true,
+                            "extractLicenses": false,
+                            "vendorChunk": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve-ssr": {
+                    "builder": "@nguniversal/builders:ssr-dev-server",
+                    "configurations": {
+                        "development": {
+                            "browserTarget": "primeng:build:development",
+                            "serverTarget": "primeng:server:development"
+                        },
+                        "production": {
+                            "browserTarget": "primeng:build:production",
+                            "serverTarget": "primeng:server:production"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "prerender": {
+                    "builder": "@nguniversal/builders:prerender",
+                    "options": {
+                        "routes": [
+                            "/"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "primeng:build:production",
+                            "serverTarget": "primeng:server:production"
+                        },
+                        "development": {
+                            "browserTarget": "primeng:build:development",
+                            "serverTarget": "primeng:server:development"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                }
             }
-          },
-          "test": {
-            "builder": "@angular-devkit/build-angular:karma",
-            "options": {
-              "main": "src/test.ts",
-              "polyfills": "src/polyfills.ts",
-              "tsConfig": "tsconfig.spec.json",
-              "karmaConfig": "karma.conf.js",
-              "assets": [
-                "src/favicon.png",
-                "src/assets",
-                "src/upload.php"
-              ],
-              "styles": [
-                "src/styles.scss",
-                "src/assets/components/themes/lara-light-blue/theme.css"
-              ],
-              "scripts": []
-            }
-          },
-          "lint": {
-            "builder": "@angular-devkit/build-angular:tslint",
-            "options": {
-              "tsConfig": [
-                "tsconfig.app.json",
-                "tsconfig.spec.json"
-              ],
-              "exclude": [
-                "**/node_modules/**"
-              ]
-            }
-          }
         }
-      }
-    },
-    "defaultProject": "primeng",
-    "cli": {
-      "analytics": false
     }
 }

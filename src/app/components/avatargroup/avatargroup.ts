@@ -1,6 +1,9 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+/**
+ * AvatarGroup is a helper component for Avatar.
+ * @group Components
+ */
 @Component({
     selector: 'p-avatarGroup',
     template: `
@@ -16,9 +19,16 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class AvatarGroup {
-    @Input() styleClass: string;
-
-    @Input() style: any;
+    /**
+     * Style class of the component
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
 }
 
 @NgModule({

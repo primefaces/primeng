@@ -47,5 +47,10 @@ p-scroller {
 }
 
 .p-scroller-loading-icon {
-    font-size: 2rem;
+    scale: 2;
+}
+
+/* Inline */
+.p-scroller-inline .p-scroller-content {
+    position: static;
 }

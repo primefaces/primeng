@@ -1,0 +1,21 @@
+name: Label To Issues and PRs
+
+on:
+  issues:
+    types: [opened,reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Label issues
+        uses: andymckay/labeler@1.0.4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          add-labels: 'Status: Needs Triage'
+          remove-labels: 'Resolution: By Design,Resolution: Cannot Replicate,Resolution: Duplicate,Resolution: Help Wanted,Resolution: Invalid,Resolution: Needs Issue,Resolution: Needs More Information,Resolution: Needs Revision,Resolution: Wontfix'

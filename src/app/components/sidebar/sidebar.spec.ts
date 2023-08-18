@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Sidebar } from './sidebar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Sidebar } from './sidebar';
 
 @Component({
     template: `<p-sidebar [(visible)]="visibleSidebar1">
@@ -43,6 +43,7 @@ describe('Sidebar', () => {
         const containerEl = fixture.debugElement.query(By.css('div')).nativeElement;
         expect(containerEl.className).toContain('Primeng rocks!');
         expect(containerEl.style.height).toContain('300px');
+        flush();
     }));
 
     it('should not show icon', () => {
@@ -79,6 +80,7 @@ describe('Sidebar', () => {
 
         sidebar.cd.detectChanges();
         expect(containerEl.className).toContain('p-sidebar-top');
+        flush();
     }));
 
     it('should open', fakeAsync(() => {
@@ -90,6 +92,7 @@ describe('Sidebar', () => {
 
         tick(150);
         expect(sidebarOpenSpy).toHaveBeenCalled();
+        flush();
     }));
 
     it('should open fullscreen', fakeAsync(() => {
@@ -104,6 +107,7 @@ describe('Sidebar', () => {
         const containerEl = fixture.debugElement.query(By.css('div'));
         expect(sidebarOpenSpy).toHaveBeenCalled();
         expect(containerEl.nativeElement.className).toContain('p-sidebar-full');
+        flush();
     }));
 
     it('should close', fakeAsync(() => {
@@ -121,6 +125,7 @@ describe('Sidebar', () => {
         expect(containerEl).toBeFalsy();
         expect(sidebarCloseSpy).toHaveBeenCalled();
         sidebar.destroyModal();
+        flush();
     }));
 
     it('should listen emitters', () => {

@@ -1,9 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Checkbox } from './checkbox';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Checkbox } from './checkbox';
+import { CheckIcon } from 'primeng/icons/check';
 
 @Component({
     template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `
@@ -19,7 +19,7 @@ describe('Checkbox', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule],
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon],
             declarations: [Checkbox, TestCheckboxComponent]
         });
 
@@ -41,15 +41,16 @@ describe('Checkbox', () => {
     });
 
     it('should disabled', () => {
-        checkbox.disabled = true;
         checkbox.label = 'primeng';
-        fixture.detectChanges();
+        checkbox.disabled = true;
+        checkbox.cd.detectChanges();
 
         const onClickSpy = spyOn(checkbox, 'onClick').and.callThrough();
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         const labelEl = fixture.nativeElement.querySelector('.p-checkbox-label');
+
         boxEl.click();
-        fixture.detectChanges();
+        checkbox.cd.detectChanges();
 
         const input = fixture.nativeElement.querySelector('input');
         expect(input.checked).toBe(false);
@@ -149,8 +150,7 @@ describe('Checkbox', () => {
         fixture.detectChanges();
 
         const iconEl = fixture.nativeElement.querySelector('.p-checkbox-box .p-checkbox-icon');
-
-        expect(iconEl.className).toContain('pi pi-check');
+        expect(iconEl.parentElement.tagName.toLowerCase()).toEqual('checkicon');
     });
 
     it('should have custom checkbox icon', () => {

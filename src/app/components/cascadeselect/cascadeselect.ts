@@ -1,32 +1,35 @@
-import {
-    NgModule,
-    Component,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    Input,
-    TemplateRef,
-    ContentChildren,
-    QueryList,
-    ElementRef,
-    Output,
-    EventEmitter,
-    ViewChild,
-    forwardRef,
-    ChangeDetectorRef,
-    Renderer2,
-    OnDestroy,
-    OnInit,
-    AfterContentInit,
-    Inject
-} from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
-import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Input,
+    NgModule,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
+import { ObjectUtils } from 'primeng/utils';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
+import { TimesIcon } from 'primeng/icons/times';
+import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
+import { Nullable } from 'primeng/ts-helpers';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -47,7 +50,10 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         <ng-template #defaultOptionTemplate>
                             <span class="p-cascadeselect-item-text">{{ getOptionLabelToRender(option) }}</span>
                         </ng-template>
-                        <span class="p-cascadeselect-group-icon pi pi-angle-right" *ngIf="isOptionGroup(option)"></span>
+                        <span class="p-cascadeselect-group-icon" *ngIf="isOptionGroup(option)">
+                            <AngleRightIcon *ngIf="!groupIconTemplate" />
+                            <ng-template *ngTemplateOutlet="groupIconTemplate"></ng-template>
+                        </span>
                     </div>
                     <p-cascadeSelectSub
                         *ngIf="isOptionGroup(option) && isOptionActive(option)"
@@ -74,25 +80,27 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CascadeSelectSub implements OnInit {
-    @Input() selectionPath: any[];
+    @Input() selectionPath: string[] | string | undefined | null;
 
-    @Input() options: any[];
+    @Input() options: string[] | string | undefined | null;
 
-    @Input() optionGroupChildren: any[];
+    @Input() optionGroupChildren: string[] | string | undefined | null;
 
-    @Input() optionTemplate: TemplateRef<any>;
+    @Input() optionTemplate: Nullable<TemplateRef<any>>;
+
+    @Input() groupIconTemplate: Nullable<TemplateRef<any>>;
 
     @Input() level: number = 0;
 
-    @Input() optionLabel: string;
+    @Input() optionLabel: string | undefined;
 
-    @Input() optionValue: string;
+    @Input() optionValue: string | undefined;
 
-    @Input() optionGroupLabel: string;
+    @Input() optionGroupLabel: string | undefined;
 
-    @Input() dirty: boolean;
+    @Input() dirty: boolean | undefined;
 
-    @Input() root: boolean;
+    @Input() root: boolean | undefined;
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
@@ -111,11 +119,11 @@ export class CascadeSelectSub implements OnInit {
 
     activeOption: any = null;
 
-    _parentActive: boolean;
+    _parentActive: boolean = false;
 
     cascadeSelect: CascadeSelect;
 
-    constructor(@Inject(forwardRef(() => CascadeSelect)) cascadeSelect, private el: ElementRef) {
+    constructor(@Inject(forwardRef(() => CascadeSelect)) cascadeSelect: CascadeSelect, private el: ElementRef) {
         this.cascadeSelect = cascadeSelect as CascadeSelect;
     }
 
@@ -134,7 +142,7 @@ export class CascadeSelectSub implements OnInit {
         }
     }
 
-    onOptionClick(event, option) {
+    onOptionClick(event: Event, option: string | string[]) {
         if (this.isOptionGroup(option)) {
             this.activeOption = this.activeOption === option ? null : option;
 
@@ -150,39 +158,39 @@ export class CascadeSelectSub implements OnInit {
         }
     }
 
-    onOptionSelect(event) {
+    onOptionSelect(event: Event) {
         this.onSelect.emit(event);
     }
 
-    onOptionGroupSelect(event) {
+    onOptionGroupSelect(event: Event) {
         this.onGroupSelect.emit(event);
     }
 
-    getOptionLabel(option) {
+    getOptionLabel(option: string | string[]) {
         return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option;
     }
 
-    getOptionValue(option) {
+    getOptionValue(option: string | string[]) {
         return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option;
     }
 
-    getOptionGroupLabel(optionGroup) {
+    getOptionGroupLabel(optionGroup: string | string[]) {
         return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : null;
     }
 
-    getOptionGroupChildren(optionGroup) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren[this.level]);
+    getOptionGroupChildren(optionGroup: string | string[]) {
+        return ObjectUtils.resolveFieldData(optionGroup, (this.optionGroupChildren as any)[this.level]);
     }
 
-    isOptionGroup(option) {
-        return Object.prototype.hasOwnProperty.call(option, this.optionGroupChildren[this.level]);
+    isOptionGroup(option: string | string[]) {
+        return Object.prototype.hasOwnProperty.call(option, (this.optionGroupChildren as any)[this.level]);
     }
 
-    getOptionLabelToRender(option) {
+    getOptionLabelToRender(option: string | string[]) {
         return this.isOptionGroup(option) ? this.getOptionGroupLabel(option) : this.getOptionLabel(option);
     }
 
-    getItemClass(option) {
+    getItemClass(option: string | string[]) {
         return {
             'p-cascadeselect-item': true,
             'p-cascadeselect-item-group': this.isOptionGroup(option),
@@ -190,11 +198,11 @@ export class CascadeSelectSub implements OnInit {
         };
     }
 
-    isOptionActive(option) {
+    isOptionActive(option: string | string[]) {
         return this.activeOption === option;
     }
 
-    onKeyDown(event, option, index) {
+    onKeyDown(event: any, option: string | string[], index: number) {
         let listItem = event.currentTarget.parentElement;
 
         switch (event.key) {
@@ -270,7 +278,10 @@ export class CascadeSelectSub implements OnInit {
         }
     }
 }
-
+/**
+ * CascadeSelect is a form component to select a value from a nested structure of options.
+ * @group Components
+ */
 @Component({
     selector: 'p-cascadeSelect',
     template: `
@@ -301,42 +312,60 @@ export class CascadeSelectSub implements OnInit {
                     {{ label() }}
                 </ng-template>
             </span>
-            <i *ngIf="filled && !disabled && showClear" class="p-cascadeselect-clear-icon pi pi-times" (click)="clear($event)"></i>
+
+            <ng-container *ngIf="filled && !disabled && showClear">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-cascadeselect-clear-icon'" (click)="clear($event)" />
+                <span *ngIf="clearIconTemplate" class="p-cascadeselect-clear-icon" (click)="clear($event)">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
             <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-cascadeselect-trigger-icon pi pi-chevron-down"></span>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
+                <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                </span>
             </div>
-            <div
-                class="p-cascadeselect-panel p-component"
-                *ngIf="overlayVisible"
-                (click)="onOverlayClick($event)"
-                [class]="panelStyleClass"
-                [ngStyle]="panelStyle"
-                [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationDone($event)"
+            <p-overlay
+                #overlay
+                [(visible)]="overlayVisible"
+                [options]="overlayOptions"
+                [target]="'@parent'"
+                [appendTo]="appendTo"
+                [showTransitionOptions]="showTransitionOptions"
+                [hideTransitionOptions]="hideTransitionOptions"
+                (onAnimationDone)="onOverlayAnimationDone($event)"
+                (onBeforeShow)="onBeforeShow.emit($event)"
+                (onShow)="onShow.emit($event)"
+                (onBeforeHide)="onBeforeHide.emit($event)"
+                (onHide)="onHide.emit($event)"
             >
-                <div class="p-cascadeselect-items-wrapper">
-                    <p-cascadeSelectSub
-                        [options]="options"
-                        [selectionPath]="selectionPath"
-                        class="p-cascadeselect-items"
-                        [optionLabel]="optionLabel"
-                        [optionValue]="optionValue"
-                        [level]="0"
-                        [optionTemplate]="optionTemplate"
-                        [optionGroupLabel]="optionGroupLabel"
-                        [optionGroupChildren]="optionGroupChildren"
-                        (onSelect)="onOptionSelect($event)"
-                        (onGroupSelect)="onOptionGroupSelect($event)"
-                        [dirty]="dirty"
-                        [root]="true"
-                    >
-                    </p-cascadeSelectSub>
-                </div>
-            </div>
+                <ng-template pTemplate="content">
+                    <div #panel class="p-cascadeselect-panel p-component" [class]="panelStyleClass" [ngStyle]="panelStyle">
+                        <div class="p-cascadeselect-items-wrapper">
+                            <p-cascadeSelectSub
+                                [options]="options"
+                                [selectionPath]="selectionPath"
+                                class="p-cascadeselect-items"
+                                [optionLabel]="optionLabel"
+                                [optionValue]="optionValue"
+                                [level]="0"
+                                [optionTemplate]="optionTemplate"
+                                [groupIconTemplate]="groupIconTemplate"
+                                [optionGroupLabel]="optionGroupLabel"
+                                [optionGroupChildren]="optionGroupChildren"
+                                (onSelect)="onOptionSelect($event)"
+                                (onGroupSelect)="onOptionGroupSelect($event)"
+                                [dirty]="dirty"
+                                [root]="true"
+                            >
+                            </p-cascadeSelectSub>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-overlay>
         </div>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -348,72 +377,195 @@ export class CascadeSelectSub implements OnInit {
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./cascadeselect.css']
 })
-export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() options: any[];
-
-    @Input() optionLabel: string;
-
-    @Input() optionValue: string;
-
-    @Input() optionGroupLabel: string;
-
-    @Input() optionGroupChildren: any[];
-
-    @Input() placeholder: string;
-
-    @Input() value: string;
-
-    @Input() dataKey: string;
-
-    @Input() inputId: string;
-
-    @Input() tabindex: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() inputLabel: string;
-
-    @Input() ariaLabel: string;
-
-    @Input() appendTo: any;
-
-    @Input() disabled: boolean;
-
-    @Input() rounded: boolean;
-
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-
-    @Input() hideTransitionOptions: string = '.1s linear';
-
+export class CascadeSelect implements OnInit, AfterContentInit {
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * An array of selectitems to display as the available options.
+     * @group Props
+     */
+    @Input() options: string[] | string | undefined;
+    /**
+     * Property name or getter function to use as the label of an option.
+     * @group Props
+     */
+    @Input() optionLabel: string | undefined;
+    /**
+     * Property name or getter function to use as the value of an option, defaults to the option itself when not defined.
+     * @group Props
+     */
+    @Input() optionValue: string | undefined;
+    /**
+     * Property name or getter function to use as the label of an option group.
+     * @group Props
+     */
+    @Input() optionGroupLabel: string | string[] | undefined;
+    /**
+     * Property name or getter function to retrieve the items of a group.
+     * @group Props
+     */
+    @Input() optionGroupChildren: string | string[] | undefined;
+    /**
+     * Default text to display when no option is selected.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() value: string | undefined | null;
+    /**
+     * A property to uniquely identify an option.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Label of the input for accessibility.
+     * @group Props
+     */
+    @Input() inputLabel: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Id of the element or "body" for document where the overlay should be appended to.
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() rounded: boolean | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
-
-    @Input() panelStyleClass: string;
-
-    @Input() panelStyle: object;
-
-    @ViewChild('focusInput') focusInputEl: ElementRef;
-
-    @ViewChild('container') containerEl: ElementRef;
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onGroupChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
+    /**
+     * Style class of the overlay panel.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * Inline style of the overlay panel.
+     * @group Props
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * Callback to invoke on value change.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when a group changes.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onGroupChange: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the overlay is shown.
+     * @param {CascadeSelectShowEvent} event - Custom overlay show event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<CascadeSelectShowEvent> = new EventEmitter<CascadeSelectShowEvent>();
+    /**
+     * Callback to invoke when the overlay is hidden.
+     * @param {CascadeSelectHideEvent} event - Custom overlay hide event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<CascadeSelectHideEvent> = new EventEmitter<CascadeSelectHideEvent>();
+    /**
+     * Callback to invoke when the clear token is clicked.
+     * @group Emits
+     */
     @Output() onClear: EventEmitter<any> = new EventEmitter();
+    /**
+     * Callback to invoke before overlay is shown.
+     * @param {CascadeSelectBeforeShowEvent} event - Custom overlay show event.
+     * @group Emits
+     */
+    @Output() onBeforeShow: EventEmitter<CascadeSelectBeforeShowEvent> = new EventEmitter<CascadeSelectBeforeShowEvent>();
+    /**
+     * Callback to invoke before overlay is hidden.
+     * @param {CascadeSelectBeforeHideEvent} event - Custom overlay hide event.
+     * @group Emits
+     */
+    @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get showTransitionOptions(): string {
+        return this._showTransitionOptions;
+    }
+    set showTransitionOptions(val: string) {
+        this._showTransitionOptions = val;
+        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get hideTransitionOptions(): string {
+        return this._hideTransitionOptions;
+    }
+    set hideTransitionOptions(val: string) {
+        this._hideTransitionOptions = val;
+        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+    @ViewChild('focusInput') focusInputEl: Nullable<ElementRef>;
 
-    @Output() onBeforeShow: EventEmitter<any> = new EventEmitter();
+    @ViewChild('container') containerEl: Nullable<ElementRef>;
 
-    @Output() onBeforeHide: EventEmitter<any> = new EventEmitter();
+    @ViewChild('panel') panelEl: Nullable<ElementRef>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
+
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    _showTransitionOptions: string = '';
+
+    _hideTransitionOptions: string = '';
 
     selectionPath: any = null;
 
@@ -425,17 +577,15 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
 
     dirty: boolean = false;
 
-    valueTemplate: TemplateRef<any>;
+    valueTemplate: Nullable<TemplateRef<any>>;
 
-    optionTemplate: TemplateRef<any>;
+    optionTemplate: Nullable<TemplateRef<any>>;
 
-    outsideClickListener: any;
+    triggerIconTemplate: Nullable<TemplateRef<any>>;
 
-    scrollHandler: any;
+    groupIconTemplate: Nullable<TemplateRef<any>>;
 
-    resizeListener: any;
-
-    overlayEl: any;
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
     onModelChange: Function = () => {};
 
@@ -453,41 +603,54 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
                 case 'value':
                     this.valueTemplate = item.template;
                     break;
+
                 case 'option':
                     this.optionTemplate = item.template;
+                    break;
+
+                case 'triggericon':
+                    this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'optiongroupicon':
+                    this.groupIconTemplate = item.template;
                     break;
             }
         });
     }
 
-    onOptionSelect(event) {
+    onOptionSelect(event: any) {
         this.value = event.value;
         this.updateSelectionPath();
         this.onModelChange(this.value);
         this.onChange.emit(event);
         this.hide();
-        this.focusInputEl.nativeElement.focus();
+        this.focusInputEl?.nativeElement.focus();
     }
 
-    onOptionGroupSelect(event) {
+    onOptionGroupSelect(event: Event) {
         this.dirty = true;
         this.onGroupChange.emit(event);
     }
 
-    getOptionLabel(option) {
+    getOptionLabel(option: string | object) {
         return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option;
     }
 
-    getOptionValue(option) {
+    getOptionValue(option: string | object) {
         return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option;
     }
 
-    getOptionGroupChildren(optionGroup, level) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren[level]);
+    getOptionGroupChildren(optionGroup: string | object, level: number) {
+        return ObjectUtils.resolveFieldData(optionGroup, (this.optionGroupChildren as string)[level]);
     }
 
-    isOptionGroup(option, level) {
-        return Object.prototype.hasOwnProperty.call(option, this.optionGroupChildren[level]);
+    isOptionGroup(option: string | object, level: number) {
+        return Object.prototype.hasOwnProperty.call(option, (this.optionGroupChildren as string)[level]);
     }
 
     updateSelectionPath() {
@@ -509,7 +672,7 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.filled = !(this.selectionPath == null || this.selectionPath.length == 0);
     }
 
-    findModelOptionInGroup(option, level) {
+    findModelOptionInGroup(option: string | object, level: number): Nullable<object[] | any> {
         if (this.isOptionGroup(option, level)) {
             let selectedOption;
             for (let childOption of this.getOptionGroupChildren(option, level)) {
@@ -527,17 +690,15 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
     }
 
     show() {
-        this.onBeforeShow.emit();
         this.overlayVisible = true;
     }
 
     hide() {
-        this.onBeforeHide.emit();
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
 
-    clear(event) {
+    clear(event: Event) {
         this.value = null;
         this.selectionPath = null;
         this.updateFilledState();
@@ -547,19 +708,19 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    onClick(event) {
+    onClick(event: Event) {
         if (this.disabled) {
             return;
         }
 
-        if (!this.overlayEl || !this.overlayEl || !this.overlayEl.contains(event.target)) {
+        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target)) {
             if (this.overlayVisible) {
                 this.hide();
             } else {
                 this.show();
             }
 
-            this.focusInputEl.nativeElement.focus();
+            this.focusInputEl?.nativeElement.focus();
         }
     }
 
@@ -571,48 +732,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.focused = false;
     }
 
-    onOverlayClick(event) {
-        this.overlayService.add({
-            originalEvent: event,
-            target: this.el.nativeElement
-        });
-    }
-
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlayEl = event.element;
-                this.onOverlayEnter();
-                break;
-        }
-    }
-
     onOverlayAnimationDone(event: AnimationEvent) {
         switch (event.toState) {
             case 'void':
-                this.onOverlayLeave();
+                this.dirty = false;
                 break;
         }
-    }
-
-    onOverlayEnter() {
-        ZIndexUtils.set('overlay', this.overlayEl, this.config.zIndex.overlay);
-        this.appendContainer();
-        this.alignOverlay();
-        this.bindOutsideClickListener();
-        this.bindScrollListener();
-        this.bindResizeListener();
-        this.onShow.emit();
-    }
-
-    onOverlayLeave() {
-        this.unbindOutsideClickListener();
-        this.unbindScrollListener();
-        this.unbindResizeListener();
-        this.onHide.emit();
-        ZIndexUtils.clear(this.overlayEl);
-        this.overlayEl = null;
-        this.dirty = false;
     }
 
     writeValue(value: any): void {
@@ -634,83 +759,6 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    alignOverlay() {
-        if (this.appendTo) {
-            DomHandler.absolutePosition(this.overlayEl, this.containerEl.nativeElement);
-            this.overlayEl.style.minWidth = DomHandler.getOuterWidth(this.containerEl.nativeElement) + 'px';
-        } else {
-            DomHandler.relativePosition(this.overlayEl, this.containerEl.nativeElement);
-        }
-    }
-
-    bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = (event) => {
-                if (this.overlayVisible && this.overlayEl && !this.containerEl.nativeElement.contains(event.target) && !this.overlayEl.contains(event.target)) {
-                    this.hide();
-                }
-            };
-            document.addEventListener('click', this.outsideClickListener);
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            document.removeEventListener('click', this.outsideClickListener);
-            this.outsideClickListener = null;
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.containerEl.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
-    bindResizeListener() {
-        if (!this.resizeListener) {
-            this.resizeListener = () => {
-                if (this.overlayVisible && !DomHandler.isTouchDevice()) {
-                    this.hide();
-                }
-            };
-            window.addEventListener('resize', this.resizeListener);
-        }
-    }
-
-    unbindResizeListener() {
-        if (this.resizeListener) {
-            window.removeEventListener('resize', this.resizeListener);
-            this.resizeListener = null;
-        }
-    }
-
-    appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') document.body.appendChild(this.overlayEl);
-            else document.getElementById(this.appendTo).appendChild(this.overlayEl);
-        }
-    }
-
-    restoreAppend() {
-        if (this.overlayEl && this.appendTo) {
-            if (this.appendTo === 'body') document.body.removeChild(this.overlayEl);
-            else document.getElementById(this.appendTo).removeChild(this.overlayEl);
-        }
-    }
-
     label() {
         if (this.selectionPath) {
             return this.getOptionLabel(this.selectionPath[this.selectionPath.length - 1]);
@@ -719,12 +767,12 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
         return this.placeholder || 'p-emptylabel';
     }
 
-    onKeyDown(event) {
+    onKeyDown(event: any) {
         switch (event.code) {
             case 'Down':
             case 'ArrowDown':
                 if (this.overlayVisible) {
-                    DomHandler.findSingle(this.overlayEl, '.p-cascadeselect-item').children[0].focus();
+                    DomHandler.findSingle(this.panelEl?.nativeElement, '.p-cascadeselect-item').children[0].focus();
                 } else if (event.altKey && this.options && this.options.length) {
                     this.show();
                 }
@@ -765,23 +813,11 @@ export class CascadeSelect implements OnInit, AfterContentInit, OnDestroy {
             'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
     }
-
-    ngOnDestroy() {
-        this.restoreAppend();
-        this.unbindOutsideClickListener();
-        this.unbindResizeListener();
-
-        if (this.scrollHandler) {
-            this.scrollHandler.destroy();
-            this.scrollHandler = null;
-        }
-        this.overlayEl = null;
-    }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
-    exports: [CascadeSelect, CascadeSelectSub, SharedModule],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })
 export class CascadeSelectModule {}
