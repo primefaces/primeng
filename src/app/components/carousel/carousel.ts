@@ -156,7 +156,6 @@ export class Carousel implements AfterContentInit {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
                 this.stopAutoplay();
-                this.allowAutoplay = false;
             }
 
             if (val > this._page && val <= this.totalDots() - 1) {
@@ -442,7 +441,7 @@ export class Carousel implements AfterContentInit {
 
         if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
             if (this.autoplayInterval) {
-                this.stopAutoplay();
+                this.stopAutoplay(false);
             }
 
             this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
@@ -651,7 +650,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -666,7 +664,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -679,7 +676,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (index > page) {
@@ -808,12 +804,21 @@ export class Carousel implements AfterContentInit {
                 }
             }
         }, this.autoplayInterval);
+        this.allowAutoplay = true;
     }
 
-    stopAutoplay() {
+    stopAutoplay(changeAllow: boolean = true) {
         if (this.interval) {
             clearInterval(this.interval);
+            this.interval = undefined;
+            if (changeAllow) {
+                this.allowAutoplay = false;
+            }
         }
+    }
+
+    isPlaying(): boolean {
+        return !!this.interval;
     }
 
     onTransitionEnd() {
