@@ -3120,7 +3120,7 @@ export class TTEditableColumn implements AfterViewInit {
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             //enter
-            if (event.keyCode == 13) {
+            if (event.keyCode == 13 && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
