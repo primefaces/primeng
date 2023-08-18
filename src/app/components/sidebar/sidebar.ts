@@ -279,7 +279,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         });
     }
 
-    onKeydown(event: KeyboardEvent) {
+    onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
             this.hide();
         }
