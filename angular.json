@@ -137,7 +137,8 @@
                         "outputPath": "dist/primeng/server",
                         "main": "server.ts",
                         "tsConfig": "tsconfig.server.json",
-                        "inlineStyleLanguage": "scss"
+                        "inlineStyleLanguage": "scss",
+                        "optimization": false
                     },
                     "configurations": {
                         "production": {

@@ -52,12 +52,12 @@ describe('InputTextarea', () => {
         fixture.detectChanges();
 
         const inputTextEl = fixture.debugElement.query(By.css('textarea'));
-        let cachedHeight = inputTextEl.nativeElement.style.height;
+        let cachedHeight = parseInt(inputTextEl.nativeElement.style.height);
         inputTextEl.nativeElement.value = 'primeng';
         inputTextEl.nativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
-        expect(inputTextEl.nativeElement.style.height).toBeGreaterThan(cachedHeight);
+        expect(parseInt(inputTextEl.nativeElement.style.height)).toBeGreaterThan(cachedHeight);
         expect(inputTextEl.nativeElement.style.overflow).toEqual('hidden');
     });
 

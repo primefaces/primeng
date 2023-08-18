@@ -132,7 +132,7 @@ button {
 }
 
 .p-icon-wrapper {
-    display: flex;
+    display: inline-flex;
 }
 
 .p-icon {

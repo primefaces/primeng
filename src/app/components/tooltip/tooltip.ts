@@ -163,7 +163,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -292,7 +292,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.target, 'p-tooltip') || DomHandler.hasClass(e.target, 'p-tooltip-arrow') || DomHandler.hasClass(e.target, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
+            const valid =
+                DomHandler.hasClass(e.target, 'p-tooltip') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -692,4 +698,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     exports: [Tooltip],
     declarations: [Tooltip]
 })
-export class TooltipModule { }
+export class TooltipModule {}

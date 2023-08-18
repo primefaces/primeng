@@ -1,5 +1,5 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -12,13 +12,17 @@ import {
     Input,
     NgModule,
     OnDestroy,
+    OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    effect,
+    signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -26,91 +30,148 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { ZIndexUtils } from 'primeng/utils';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 
 @Component({
     selector: 'p-tieredMenuSub',
     template: `
-        <ul #sublist [ngClass]="{ 'p-submenu-list': !root }">
-            <ng-template ngFor let-child [ngForOf]="root ? item : item?.items">
-                <li *ngIf="child.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': child.visible === false }"></li>
+        <ul
+            #sublist
+            role="menu"
+            [ngClass]="{ 'p-submenu-list': !root, 'p-tieredmenu-root-list': root }"
+            [id]="menuId + '_list'"
+            [tabindex]="tabindex"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
+            [attr.aria-aria-activedescendant]="focusedItemId"
+            [attr.aria-orientation]="'vertical'"
+            [attr.data-pc-section]="'menu'"
+            (keydown)="menuKeydown.emit($event)"
+            (focus)="menuFocus.emit($event)"
+            (blur)="menuBlur.emit($event)"
+        >
+            <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
-                    *ngIf="!child.separator"
+                    *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
+                    [id]="getItemId(processedItem)"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [ngClass]="getSeparatorItemClass(processedItem)"
+                    role="separator"
+                    [attr.data-pc-section]="'separator'"
+                ></li>
+                <li
                     #listItem
-                    [ngClass]="{ 'p-menuitem': true, 'p-menuitem-active': child === activeItem, 'p-hidden': child.visible === false }"
-                    [ngStyle]="child.style"
-                    [class]="child.styleClass"
+                    *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
+                    role="menuitem"
+                    [id]="getItemId(processedItem)"
+                    [attr.data-pc-section]="'menuitem'"
+                    [attr.data-p-highlight]="isItemActive(processedItem)"
+                    [attr.data-p-focused]="isItemFocused(processedItem)"
+                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                    [attr.aria-label]="getItemLabel(processedItem)"
+                    [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
+                    [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
+                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                    [attr.aria-level]="level + 1"
+                    [attr.aria-setsize]="getAriaSetSize()"
+                    [attr.aria-posinset]="getAriaPosInset(index)"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
+                    [ngClass]="getItemClass(processedItem)"
+                    [class]="getItemProp(processedItem, 'styleClass')"
                     pTooltip
-                    [tooltipOptions]="child.tooltipOptions"
+                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <a
-                        *ngIf="!child.routerLink"
-                        (keydown)="onItemKeyDown($event, child)"
-                        [attr.href]="child.url"
-                        [attr.data-automationid]="child.automationId"
-                        [target]="child.target"
-                        [attr.title]="child.title"
-                        [attr.id]="child.id"
-                        (click)="onItemClick($event, child)"
-                        (mouseenter)="onItemMouseEnter($event, child)"
-                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
-                        [attr.tabindex]="child.disabled ? null : '0'"
-                        [attr.aria-haspopup]="item.items != null"
-                        [attr.aria-expanded]="item === activeItem"
-                        pRipple
-                    >
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{ child.label }}</span>
-                        <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
-                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
-                        </ng-container>
-                    </a>
-                    <a
-                        *ngIf="child.routerLink"
-                        (keydown)="onItemKeyDown($event, child)"
-                        [routerLink]="child.routerLink"
-                        [attr.data-automationid]="child.automationId"
-                        [queryParams]="child.queryParams"
-                        [routerLinkActive]="'p-menuitem-link-active'"
-                        [routerLinkActiveOptions]="child.routerLinkActiveOptions || { exact: false }"
-                        [target]="child.target"
-                        [attr.title]="child.title"
-                        [attr.id]="child.id"
-                        [attr.tabindex]="child.disabled ? null : '0'"
-                        role="menuitem"
-                        (click)="onItemClick($event, child)"
-                        (mouseenter)="onItemMouseEnter($event, child)"
-                        [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': child.disabled }"
-                        [fragment]="child.fragment"
-                        [queryParamsHandling]="child.queryParamsHandling"
-                        [preserveFragment]="child.preserveFragment"
-                        [skipLocationChange]="child.skipLocationChange"
-                        [replaceUrl]="child.replaceUrl"
-                        [state]="child.state"
-                        pRipple
-                    >
-                        <span class="p-menuitem-icon" *ngIf="child.icon" [ngClass]="child.icon" [ngStyle]="child.iconStyle"></span>
-                        <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{ child.label }}</span>
-                        <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
-                        <span class="p-menuitem-badge" *ngIf="child.badge" [ngClass]="child.badgeStyleClass">{{ child.badge }}</span>
-                        <ng-container *ngIf="child.items">
-                            <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" />
-                            <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate"></ng-template>
-                        </ng-container>
-                    </a>
+                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
+                        <a
+                            *ngIf="!getItemProp(processedItem, 'routerLink')"
+                            [attr.href]="getItemProp(processedItem, 'url')"
+                            [attr.aria-hidden]="true"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.data-pc-section]="'action'"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [attr.tabindex]="-1"
+                            pRipple
+                        >
+                            <span
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                class="p-menuitem-icon"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            >
+                            </span>
+                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                {{ getItemLabel(processedItem) }}
+                            </span>
+                            <ng-template #htmlLabel>
+                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                            </ng-template>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                            </ng-container>
+                        </a>
+                        <a
+                            *ngIf="getItemProp(processedItem, 'routerLink')"
+                            [routerLink]="getItemProp(processedItem, 'routerLink')"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.tabindex]="-1"
+                            [attr.aria-hidden]="true"
+                            [attr.data-pc-section]="'action'"
+                            [queryParams]="getItemProp(processedItem, 'queryParams')"
+                            [routerLinkActive]="'p-menuitem-link-active'"
+                            [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [fragment]="getItemProp(processedItem, 'fragment')"
+                            [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                            [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                            [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                            [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                            [state]="getItemProp(processedItem, 'state')"
+                            pRipple
+                        >
+                            <span
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                class="p-menuitem-icon"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            >
+                            </span>
+                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                {{ getItemLabel(processedItem) }}
+                            </span>
+                            <ng-template #htmlLabel>
+                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                            </ng-template>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                            </ng-container>
+                        </a>
+                    </div>
+
                     <p-tieredMenuSub
-                        (keydownItem)="onChildItemKeyDown($event)"
-                        [parentActive]="child === activeItem"
-                        [item]="child"
-                        *ngIf="child.items"
-                        [mobileActive]="mobileActive"
+                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                        [items]="processedItem.items"
                         [autoDisplay]="autoDisplay"
-                        (leafClick)="onLeafClick()"
-                        [popup]="popup"
+                        [menuId]="menuId"
+                        [activeItemPath]="activeItemPath"
+                        [focusedItemId]="focusedItemId"
+                        [level]="level + 1"
+                        (itemClick)="itemClick.emit($event)"
+                        (itemMouseEnter)="onItemMouseEnter($event)"
                     ></p-tieredMenuSub>
                 </li>
             </ng-template>
@@ -121,10 +182,10 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
         class: 'p-element'
     }
 })
-export class TieredMenuSub implements OnDestroy {
-    @Input() item: MenuItem | undefined;
+export class TieredMenuSub {
+    @Input() items: any[];
 
-    @Input() root: boolean | undefined;
+    @Input() root: boolean | undefined = false;
 
     @Input() autoDisplay: boolean | undefined;
 
@@ -132,152 +193,35 @@ export class TieredMenuSub implements OnDestroy {
 
     @Input() baseZIndex: number = 0;
 
-    @Input() mobileActive: boolean | undefined;
-
     @Input() popup: boolean | undefined;
 
-    @Input() get parentActive(): boolean {
-        return this._parentActive as boolean;
-    }
-    set parentActive(value) {
-        if (!this.root) {
-            this._parentActive = value;
+    @Input() menuId: string | undefined;
 
-            if (!value) this.activeItem = null;
-            else this.positionSubmenu();
-        }
-    }
+    @Input() ariaLabel: string | undefined;
 
-    @ViewChild('sublist') sublistViewChild: ElementRef | undefined;
+    @Input() ariaLabelledBy: string | undefined;
 
-    @Output() leafClick: EventEmitter<any> = new EventEmitter();
+    @Input() level: number = 0;
 
-    @Output() keydownItem: EventEmitter<any> = new EventEmitter();
+    @Input() focusedItemId: string | undefined;
 
-    _parentActive: boolean | undefined;
+    @Input() activeItemPath: any[];
 
-    documentClickListener: VoidListener;
+    @Input() tabindex: number = 0;
 
-    menuHoverActive: boolean = false;
+    @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
-    activeItem: any;
+    @Output() itemMouseEnter: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
-
-    onItemClick(event: Event, item: MenuItem) {
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
-        }
-
-        if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-
-        if (item.items) {
-            if (this.activeItem && item === this.activeItem) {
-                this.activeItem = null;
-                this.unbindDocumentClickListener();
-            } else {
-                this.activeItem = item;
-                if (this.root) {
-                    this.bindDocumentClickListener();
-                }
-            }
-        }
-
-        if (!item.items) {
-            this.onLeafClick();
-        }
-    }
-
-    onItemMouseEnter(event: MouseEvent, item: MenuItem) {
-        if (item.disabled || this.mobileActive) {
-            event.preventDefault();
-            return;
-        }
-
-        if (this.root) {
-            if (this.activeItem || this.autoDisplay || this.popup) {
-                this.activeItem = item;
-                this.bindDocumentClickListener();
-            }
-        } else {
-            this.activeItem = item;
-            this.bindDocumentClickListener();
-        }
-    }
-
-    onLeafClick() {
-        this.activeItem = null;
-        if (this.root) {
-            this.unbindDocumentClickListener();
-        }
-
-        this.leafClick.emit();
-    }
-
-    onItemKeyDown(event: KeyboardEvent, item: MenuItem) {
-        let listItem = (event.currentTarget as HTMLElement).parentElement;
-
-        switch (event.key) {
-            case 'ArrowDown':
-                const nextItem = this.findNextItem(listItem!);
-                if (nextItem) {
-                    nextItem.children[0].focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            case 'ArrowUp':
-                const prevItem = this.findPrevItem(listItem!);
-                if (prevItem) {
-                    prevItem.children[0].focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            case 'ArrowRight':
-                if (item.items) {
-                    this.activeItem = item;
-
-                    if (this.root) {
-                        this.bindDocumentClickListener();
-                    }
-
-                    setTimeout(() => {
-                        (listItem?.children[1].children[0].children[0].children[0] as HTMLElement).focus();
-                    }, 50);
-                }
-
-                event.preventDefault();
-                break;
-
-            case 'Enter':
-                if (!item.routerLink) {
-                    this.onItemClick(event, item);
-                }
-
-                break;
-
-            default:
-                break;
-        }
-
-        this.keydownItem.emit({
-            originalEvent: event,
-            element: listItem
-        });
-    }
 
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
@@ -295,57 +239,80 @@ export class TieredMenuSub implements OnDestroy {
         }
     }
 
-    findNextItem(item: Element): any {
-        let nextItem = item.nextElementSibling;
-
-        if (nextItem) return DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-menuitem') ? this.findNextItem(nextItem) : nextItem;
-        else return null;
+    getItemProp(processedItem: any, name: string, params: any | null = null) {
+        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
     }
 
-    findPrevItem(item: Element): any {
-        let prevItem = item.previousElementSibling;
-
-        if (prevItem) return DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-menuitem') ? this.findPrevItem(prevItem) : prevItem;
-        else return null;
+    getItemId(processedItem: any): string {
+        return `${this.menuId}_${processedItem.key}`;
     }
 
-    onChildItemKeyDown(event: KeyboardEvent) {
-        if (event.key === 'ArrowLeft') {
-            this.activeItem = null;
+    getItemKey(processedItem: any): string {
+        return this.getItemId(processedItem);
+    }
 
-            if (this.root) {
-                this.unbindDocumentClickListener();
-            }
-            if (event.target) {
-                const parent = (event.target as HTMLElement).parentElement;
-                if (parent && parent.parentElement && parent.parentElement.parentElement) {
-                    (parent.parentElement.parentElement.children[0] as HTMLElement).focus();
-                }
-            }
+    getItemClass(processedItem: any) {
+        return {
+            ...this.getItemProp(processedItem, 'class'),
+            'p-menuitem': true,
+            'p-highlight': this.isItemActive(processedItem),
+            'p-menuitem-active': this.isItemActive(processedItem),
+            'p-focus': this.isItemFocused(processedItem),
+            'p-disabled': this.isItemDisabled(processedItem)
+        };
+    }
+
+    getItemLabel(processedItem: any): string {
+        return this.getItemProp(processedItem, 'label');
+    }
+
+    getSeparatorItemClass(processedItem: any) {
+        return {
+            ...this.getItemProp(processedItem, 'class'),
+            'p-menuitem-separator': true
+        };
+    }
+
+    getAriaSetSize() {
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+    }
+
+    getAriaPosInset(index: number) {
+        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+    }
+
+    isItemVisible(processedItem: any): boolean {
+        return this.getItemProp(processedItem, 'visible') !== false;
+    }
+
+    isItemActive(processedItem: any): boolean {
+        if (this.activeItemPath) {
+            return this.activeItemPath.some((path) => path.key === processedItem.key);
         }
     }
 
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                if (this.el && !this.el.nativeElement.contains(event.target)) {
-                    this.activeItem = null;
-                    this.cd.markForCheck();
-                    this.unbindDocumentClickListener();
-                }
-            });
+    isItemDisabled(processedItem: any): boolean {
+        return this.getItemProp(processedItem, 'disabled');
+    }
+
+    isItemFocused(processedItem: any): boolean {
+        return this.focusedItemId === this.getItemId(processedItem);
+    }
+
+    isItemGroup(processedItem: any): boolean {
+        return ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    onItemMouseEnter(param: any) {
+        if (this.autoDisplay) {
+            const { event, processedItem } = param;
+            this.itemMouseEnter.emit({ originalEvent: event, processedItem });
         }
     }
 
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
-
-    ngOnDestroy() {
-        this.unbindDocumentClickListener();
+    onItemClick(event: any, processedItem: any) {
+        this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
+        this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 }
 /**
@@ -356,6 +323,10 @@ export class TieredMenuSub implements OnDestroy {
     selector: 'p-tieredMenu',
     template: `
         <div
+            #container
+            [attr.data-pc-section]="'root'"
+            [attr.data-pc-name]="'tieredmenu'"
+            [id]="id"
             [ngClass]="{ 'p-tieredmenu p-component': true, 'p-tieredmenu-overlay': popup }"
             [class]="styleClass"
             [ngStyle]="style"
@@ -366,7 +337,26 @@ export class TieredMenuSub implements OnDestroy {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <p-tieredMenuSub [item]="model" root="root" [parentActive]="parentActive" [baseZIndex]="baseZIndex" [autoZIndex]="autoZIndex" (leafClick)="onLeafClick()" [autoDisplay]="autoDisplay" [popup]="popup"></p-tieredMenuSub>
+            <p-tieredMenuSub
+                #rootmenu
+                [root]="true"
+                [items]="processedItems"
+                [menuId]="id"
+                [tabindex]="!disabled ? tabindex : -1"
+                [ariaLabel]="ariaLabel"
+                [ariaLabelledBy]="ariaLabelledBy"
+                [baseZIndex]="baseZIndex"
+                [autoZIndex]="autoZIndex"
+                [autoDisplay]="autoDisplay"
+                [popup]="popup"
+                [focusedItemId]="focused ? focusedItemId : undefined"
+                [activeItemPath]="activeItemPath()"
+                (itemClick)="onItemClick($event)"
+                (menuFocus)="onMenuFocus($event)"
+                (menuBlur)="onMenuBlur($event)"
+                (menuKeydown)="onKeyDown($event)"
+                (itemMouseEnter)="onItemMouseEnter($event)"
+            ></p-tieredMenuSub>
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
@@ -377,12 +367,18 @@ export class TieredMenuSub implements OnDestroy {
         class: 'p-element'
     }
 })
-export class TieredMenu implements AfterContentInit, OnDestroy {
+export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
@@ -415,9 +411,10 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
     @Input() baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
+     * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined;
+    @Input() autoDisplay: boolean | undefined = true;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -428,6 +425,31 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Current id state as a string.
+     * @group Props
+     */
+    @Input() id: string | undefined;
+    /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean = false;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -441,21 +463,23 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    submenuIconTemplate: Nullable<TemplateRef<any>>;
+    @ViewChild('rootmenu') rootmenu: TieredMenuSub | undefined;
 
-    parentActive: boolean | undefined;
+    @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
+
+    submenuIconTemplate: Nullable<TemplateRef<any>>;
 
     container: HTMLDivElement | undefined;
 
-    documentClickListener: VoidListener;
+    outsideClickListener: VoidListener;
 
-    documentResizeListener: VoidListener;
-
-    preventDocumentDefault: boolean | undefined;
+    resizeListener: VoidListener;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
     target: any;
+
+    relatedTarget: any;
 
     visible: boolean | undefined;
 
@@ -463,8 +487,67 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService) {
+    dirty: boolean = false;
+
+    focused: boolean = false;
+
+    activeItemPath = signal<any>([]);
+
+    number = signal<number>(0);
+
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+
+    searchValue: string = '';
+
+    searchTimeout: any;
+
+    _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
+
+    get visibleItems() {
+        const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
+
+        return processedItem ? processedItem.items : this.processedItems;
+    }
+
+    get processedItems() {
+        if (!this._processedItems || !this._processedItems.length) {
+            this._processedItems = this.createProcessedItems(this.model || []);
+        }
+        return this._processedItems;
+    }
+
+    get focusedItemId() {
+        const focusedItemInfo = this.focusedItemInfo();
+        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+    }
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
+        effect(() => {
+            const path = this.activeItemPath();
+
+            if (ObjectUtils.isNotEmpty(path)) {
+                this.bindOutsideClickListener();
+                this.bindResizeListener();
+            } else {
+                this.unbindOutsideClickListener();
+                this.unbindResizeListener();
+            }
+        });
+    }
+
+    ngOnInit() {
+        this.id = this.id || UniqueComponentId();
     }
 
     ngAfterContentInit() {
@@ -476,30 +559,71 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
             }
         });
     }
-    /**
-     * Toggles the visibility of the popup menu.
-     * @param {Event} event - Browser event.
-     * @group Method
-     */
-    toggle(event: any) {
-        if (this.visible) this.hide();
-        else this.show(event);
 
-        this.preventDocumentDefault = true;
+    createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
+        const processedItems = [];
+
+        items &&
+            items.forEach((item, index) => {
+                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
+                const newItem = {
+                    item,
+                    index,
+                    level,
+                    key,
+                    parent,
+                    parentKey
+                };
+
+                newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
+                processedItems.push(newItem);
+            });
+
+        return processedItems;
     }
 
-    /**
-     * Displays the popup menu.
-     * @param {Event} even - Browser event.
-     * @group Method
-     */
-    show(event: any) {
-        this.target = event.currentTarget;
-        this.relativeAlign = event.relativeAlign;
-        this.visible = true;
-        this.parentActive = true;
-        this.preventDocumentDefault = true;
-        this.cd.markForCheck();
+    getItemProp(item: any, name: string) {
+        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    }
+
+    getProccessedItemLabel(processedItem: any) {
+        return processedItem ? this.getItemLabel(processedItem.item) : undefined;
+    }
+
+    getItemLabel(item: any) {
+        return this.getItemProp(item, 'label');
+    }
+
+    isProcessedItemGroup(processedItem: any): boolean {
+        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    isSelected(processedItem: any): boolean {
+        return this.activeItemPath().some((p) => p.key === processedItem.key);
+    }
+
+    isValidSelectedItem(processedItem: any): boolean {
+        return this.isValidItem(processedItem) && this.isSelected(processedItem);
+    }
+
+    isValidItem(processedItem: any): boolean {
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+    }
+
+    isItemDisabled(item: any): boolean {
+        return this.getItemProp(item, 'disabled');
+    }
+
+    isItemSeparator(item: any): boolean {
+        return this.getItemProp(item, 'separator');
+    }
+
+    isItemMatched(processedItem: any): boolean {
+        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+    }
+
+    isProccessedItemGroup(processedItem: any): boolean {
+        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
     }
 
     onOverlayClick(event: MouseEvent) {
@@ -509,8 +633,241 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
                 target: this.el.nativeElement
             });
         }
+    }
 
-        this.preventDocumentDefault = true;
+    onItemClick(event: any) {
+        const { originalEvent, processedItem } = event;
+        const grouped = this.isProcessedItemGroup(processedItem);
+        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const selected = this.isSelected(processedItem);
+
+        if (selected) {
+            const { index, key, level, parentKey } = processedItem;
+
+            this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
+            this.focusedItemInfo.set({ index, level, parentKey });
+
+            this.dirty = true;
+            DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        } else {
+            if (grouped) {
+                this.onItemChange(event);
+            } else {
+                const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
+                this.hide(originalEvent);
+                this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+
+                DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+            }
+        }
+    }
+
+    onItemMouseEnter(event: any) {
+        if (!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
+        }
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        const metaKey = event.metaKey || event.ctrlKey;
+
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUpKey(event);
+                break;
+
+            case 'ArrowLeft':
+                this.onArrowLeftKey(event);
+                break;
+
+            case 'ArrowRight':
+                this.onArrowRightKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            case 'Space':
+                this.onSpaceKey(event);
+                break;
+
+            case 'Enter':
+                this.onEnterKey(event);
+                break;
+
+            case 'Escape':
+                this.onEscapeKey(event);
+                break;
+
+            case 'Tab':
+                this.onTabKey(event);
+                break;
+
+            case 'PageDown':
+            case 'PageUp':
+            case 'Backspace':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+                //NOOP
+                break;
+
+            default:
+                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                    this.searchItems(event, event.key);
+                }
+
+                break;
+        }
+    }
+
+    onArrowDownKey(event: KeyboardEvent) {
+        const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+
+        this.changeFocusedItemIndex(event, itemIndex);
+        event.preventDefault();
+    }
+
+    onArrowRightKey(event: KeyboardEvent) {
+        const processedItem = this.visibleItems[this.focusedItemInfo().index];
+        const grouped = this.isProccessedItemGroup(processedItem);
+
+        if (grouped) {
+            this.onItemChange({ originalEvent: event, processedItem });
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+            this.searchValue = '';
+            this.onArrowDownKey(event);
+        }
+
+        event.preventDefault();
+    }
+
+    onArrowUpKey(event: KeyboardEvent) {
+        if (event.altKey) {
+            if (this.focusedItemInfo().index !== -1) {
+                const processedItem = this.visibleItems[this.focusedItemInfo().index];
+                const grouped = this.isProccessedItemGroup(processedItem);
+
+                !grouped && this.onItemChange({ originalEvent: event, processedItem });
+            }
+
+            this.popup && this.hide(event, true);
+            event.preventDefault();
+        } else {
+            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+
+            this.changeFocusedItemIndex(event, itemIndex);
+            event.preventDefault();
+        }
+    }
+
+    onArrowLeftKey(event: KeyboardEvent) {
+        const processedItem = this.visibleItems[this.focusedItemInfo().index];
+        const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
+        const root = ObjectUtils.isEmpty(processedItem.parent);
+
+        if (!root) {
+            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+            this.searchValue = '';
+            this.onArrowDownKey(event);
+        }
+
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItemInfo().parentKey);
+        this.activeItemPath.set(activeItemPath);
+
+        event.preventDefault();
+    }
+
+    onHomeKey(event: KeyboardEvent) {
+        this.changeFocusedItemIndex(event, this.findFirstItemIndex());
+        event.preventDefault();
+    }
+
+    onEndKey(event: KeyboardEvent) {
+        this.changeFocusedItemIndex(event, this.findLastItemIndex());
+        event.preventDefault();
+    }
+
+    onSpaceKey(event: KeyboardEvent) {
+        this.onEnterKey(event);
+    }
+
+    onEscapeKey(event: KeyboardEvent) {
+        this.hide(event, true);
+        this.focusedItemInfo().index = this.findFirstFocusedItemIndex();
+
+        event.preventDefault();
+    }
+
+    onTabKey(event: KeyboardEvent) {
+        if (this.focusedItemInfo().index !== -1) {
+            const processedItem = this.visibleItems[this.focusedItemInfo().index];
+            const grouped = this.isProccessedItemGroup(processedItem);
+
+            !grouped && this.onItemChange({ originalEvent: event, processedItem });
+        }
+
+        this.hide();
+    }
+
+    onEnterKey(event: KeyboardEvent) {
+        if (this.focusedItemInfo().index !== -1) {
+            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+
+            anchorElement ? anchorElement.click() : element && element.click();
+
+            const processedItem = this.visibleItems[this.focusedItemInfo().index];
+            if (!this.popup) {
+                const processedItem = this.visibleItems[this.focusedItemInfo().index];
+                const grouped = this.isProccessedItemGroup(processedItem);
+
+                !grouped && (this.focusedItemInfo().index = this.findFirstFocusedItemIndex());
+            }
+        }
+
+        event.preventDefault();
+    }
+
+    onItemChange(event: any) {
+        const { processedItem, isFocus } = event;
+
+        if (ObjectUtils.isEmpty(processedItem)) return;
+
+        const { index, key, level, parentKey, items } = processedItem;
+        const grouped = ObjectUtils.isNotEmpty(items);
+        const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
+
+        grouped && activeItemPath.push(processedItem);
+        this.focusedItemInfo.set({ index, level, parentKey });
+        this.activeItemPath.set(activeItemPath);
+
+        grouped && (this.dirty = true);
+        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+    }
+
+    onMenuFocus(event: any) {
+        this.focused = true;
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' };
+
+        this.focusedItemInfo.set(focusedItemInfo);
+    }
+
+    onMenuBlur(event: any) {
+        this.focused = false;
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.searchValue = '';
+        this.dirty = false;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -522,9 +879,11 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
                     this.onShow.emit({});
                     this.appendOverlay();
                     this.alignOverlay();
-                    this.bindDocumentClickListener();
-                    this.bindDocumentResizeListener();
+                    this.bindOutsideClickListener();
+                    this.bindResizeListener();
                     this.bindScrollListener();
+                    DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+                    this.scrollInView();
                 }
                 break;
 
@@ -571,66 +930,144 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
      * Hides the popup menu.
      * @group Method
      */
-    hide() {
-        this.visible = false;
-        this.relativeAlign = false;
-        this.parentActive = false;
-        this.cd.markForCheck();
-    }
-
-    onWindowResize() {
-        if (this.visible && !DomHandler.isTouchDevice()) {
-            this.hide();
-        }
-    }
-
-    onLeafClick() {
+    hide(event?, isFocus?: boolean) {
         if (this.popup) {
-            this.hide();
+            this.onHide.emit({});
+            this.visible = false;
         }
+        this.activeItemPath.set([]);
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        this.unbindDocumentClickListener();
+        isFocus && DomHandler.focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
+        this.dirty = false;
     }
 
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
+    /**
+     * Toggles the visibility of the popup menu.
+     * @param {Event} event - Browser event.
+     * @group Method
+     */
+    toggle(event: any) {
+        this.visible ? this.hide(event, true) : this.show(event);
+    }
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
-                if (!this.preventDocumentDefault && this.popup) {
-                    this.hide();
-                }
+    /**
+     * Displays the popup menu.
+     * @param {Event} even - Browser event.
+     * @group Method
+     */
+    show(event: any, isFocus?) {
+        if (this.popup) {
+            this.visible = true;
+            this.target = this.target || event.currentTarget;
+            this.relatedTarget = event.relatedTarget || null;
+            this.relativeAlign = event?.relativeAlign || null;
+        }
 
-                this.preventDocumentDefault = false;
+        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+
+        if (!this.popup) {
+            isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+        }
+        this.cd.markForCheck();
+        this.dirty = true;
+    }
+
+    searchItems(event: any, char: string) {
+        this.searchValue = (this.searchValue || '') + char;
+
+        let itemIndex = -1;
+        let matched = false;
+
+        if (this.focusedItemInfo().index !== -1) {
+            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+        } else {
+            itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
+        }
+
+        if (itemIndex !== -1) {
+            matched = true;
+        }
+
+        if (itemIndex === -1 && this.focusedItemInfo().index === -1) {
+            itemIndex = this.findFirstFocusedItemIndex();
+        }
+
+        if (itemIndex !== -1) {
+            this.changeFocusedItemIndex(event, itemIndex);
+        }
+
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        this.searchTimeout = setTimeout(() => {
+            this.searchValue = '';
+            this.searchTimeout = null;
+        }, 500);
+
+        return matched;
+    }
+
+    findLastFocusedItemIndex() {
+        const selectedIndex = this.findSelectedItemIndex();
+        return selectedIndex < 0 ? this.findLastItemIndex() : selectedIndex;
+    }
+
+    findLastItemIndex() {
+        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+    }
+
+    findPrevItemIndex(index: number) {
+        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+
+        return matchedItemIndex > -1 ? matchedItemIndex : index;
+    }
+
+    findNextItemIndex(index: number) {
+        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+
+        return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
+    }
+
+    findFirstFocusedItemIndex() {
+        const selectedIndex = this.findSelectedItemIndex();
+
+        return selectedIndex < 0 ? this.findFirstItemIndex() : selectedIndex;
+    }
+
+    findFirstItemIndex() {
+        return this.visibleItems.findIndex((processedItem) => this.isValidItem(processedItem));
+    }
+
+    findSelectedItemIndex() {
+        return this.visibleItems.findIndex((processedItem) => this.isValidSelectedItem(processedItem));
+    }
+
+    changeFocusedItemIndex(event: any, index: number) {
+        if (this.focusedItemInfo().index !== index) {
+            this.focusedItemInfo.mutate((value) => {
+                value.index = index;
             });
+            this.scrollInView();
         }
     }
 
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
-    }
+    scrollInView(index: number = -1) {
+        const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
+        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
-    bindDocumentResizeListener() {
-        if (!this.documentResizeListener) {
-            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
-        }
-    }
-
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            this.documentResizeListener();
-            this.documentResizeListener = null;
+        if (element) {
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
         }
     }
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.target, (event) => {
                 if (this.visible) {
-                    this.hide();
+                    this.hide(event, true);
                 }
             });
         }
@@ -641,14 +1078,54 @@ export class TieredMenu implements AfterContentInit, OnDestroy {
     unbindScrollListener() {
         if (this.scrollHandler) {
             this.scrollHandler.unbindScrollListener();
+            this.scrollHandler = null;
+        }
+    }
+
+    bindResizeListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
+                    if (!DomHandler.isTouchDevice()) {
+                        this.hide(event, true);
+                    }
+                });
+            }
+        }
+    }
+
+    bindOutsideClickListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.outsideClickListener) {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    const isOutsideContainer = this.containerViewChild && !this.containerViewChild.nativeElement.contains(event.target);
+                    const isOutsideTarget = this.popup ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
+                    if (isOutsideContainer && isOutsideTarget) {
+                        this.hide();
+                    }
+                });
+            }
+        }
+    }
+
+    unbindOutsideClickListener() {
+        if (this.outsideClickListener) {
+            this.outsideClickListener();
+            this.outsideClickListener = null;
+        }
+    }
+
+    unbindResizeListener() {
+        if (this.resizeListener) {
+            this.resizeListener();
+            this.resizeListener = null;
         }
     }
 
     onOverlayHide() {
-        this.unbindDocumentClickListener();
-        this.unbindDocumentResizeListener();
+        this.unbindOutsideClickListener();
+        this.unbindResizeListener();
         this.unbindScrollListener();
-        this.preventDocumentDefault = false;
 
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;

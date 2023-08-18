@@ -27,7 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
@@ -67,17 +67,19 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 *ngIf="visible"
                 [style.width]="config.width"
                 [style.height]="config.height"
+                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
-                    <span class="p-dialog-title">{{ config.header }}</span>
+                    <span class="p-dialog-title" [id]="getAriaLabelledBy()">{{ config.header }}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                             <WindowMaximizeIcon *ngIf="!maximized && !maximizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
                             <WindowMinimizeIcon *ngIf="maximized && !minimizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
                         </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" role="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false" [attr.aria-label]="closeAriaLabel">
                             <TimesIcon [styleClass]="'p-dialog-header-close-icon'" />
                         </button>
                     </div>
@@ -92,7 +94,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         </div>
     `,
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css'],
     host: {
@@ -196,6 +198,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    get header() {
+        return this.config.header;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -207,11 +213,15 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public zone: NgZone,
         public primeNGConfig: PrimeNGConfig,
         @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
-    ) {}
+    ) { }
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
         this.cd.detectChanges();
+    }
+
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
     loadChildComponent(componentType: Type<any>) {
@@ -627,4 +637,4 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     declarations: [DynamicDialogComponent, DynamicDialogContent],
     exports: [SharedModule]
 })
-export class DynamicDialogModule {}
+export class DynamicDialogModule { }

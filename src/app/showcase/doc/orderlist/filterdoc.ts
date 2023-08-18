@@ -39,7 +39,7 @@ export class FilterDoc implements OnInit {
 
     products!: Product[];
 
-    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) { }
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((cars) => {
