@@ -33,7 +33,7 @@ import { ProductService } from '../../service/productservice';
                         </td>
                         <td>{{ product.name }}</td>
                         <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                         <td>
@@ -61,9 +61,9 @@ import { ProductService } from '../../service/productservice';
                                             <td>{{ order.id }}</td>
                                             <td>{{ order.customer }}</td>
                                             <td>{{ order.id }}</td>
-                                            <td>{{ order.amount | currency: 'USD' }}</td>
+                                            <td>{{ order.amount | currency : 'USD' }}</td>
                                             <td>
-                                                <p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag>
+                                                <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
                                             </td>
                                             <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                                         </tr>
@@ -89,7 +89,7 @@ export class RowExpandDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -111,9 +111,20 @@ export class RowExpandDoc implements OnInit {
         }
     }
 
+    getStatusSeverity(status: string) {
+        switch (status) {
+            case 'PENDING':
+                return 'warning';
+            case 'DELIVERED':
+                return 'success';
+            case 'CANCELLED':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `
-<p-table [value]="products" dataKey="name" [tableStyle]="{'min-width': '60rem'}">
+<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 5rem"></th>
@@ -130,12 +141,14 @@ export class RowExpandDoc implements OnInit {
             <td>
                 <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
             </td>
-            <td>{{product.name}}</td>
+            <td>{{ product.name }}</td>
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-            <td>{{product.price | currency:'USD'}}</td>
-            <td>{{product.category}}</td>
+            <td>{{ product.price | currency: 'USD' }}</td>
+            <td>{{ product.category }}</td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+            <td>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-product>
@@ -155,11 +168,13 @@ export class RowExpandDoc implements OnInit {
                         </ng-template>
                         <ng-template pTemplate="body" let-order>
                             <tr>
-                                <td>{{order.id}}</td>
-                                <td>{{order.customer}}</td>
-                                <td>{{order.id}}</td>
-                                <td>{{order.amount | currency:'USD'}}</td>
-                                <td><p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag></td>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.customer }}</td>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.amount | currency: 'USD' }}</td>
+                                <td>
+                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                </td>
                                 <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                             </tr>
                         </ng-template>
@@ -176,7 +191,7 @@ export class RowExpandDoc implements OnInit {
 </p-table>`,
         html: `
 <div class="card">
-    <p-table [value]="products" dataKey="name" [tableStyle]="{'min-width': '60rem'}">
+    <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 5rem"></th>
@@ -193,12 +208,14 @@ export class RowExpandDoc implements OnInit {
                 <td>
                     <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
-                <td>{{product.name}}</td>
+                <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td>
+                <td>{{ product.price | currency: 'USD' }}</td>
+                <td>{{ product.category }}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-product>
@@ -218,11 +235,13 @@ export class RowExpandDoc implements OnInit {
                             </ng-template>
                             <ng-template pTemplate="body" let-order>
                                 <tr>
-                                    <td>{{order.id}}</td>
-                                    <td>{{order.customer}}</td>
-                                    <td>{{order.id}}</td>
-                                    <td>{{order.amount | currency:'USD'}}</td>
-                                    <td><p-tag [value]="order.inventoryStatus" [severity]="getSeverity(order.inventoryStatus)"></p-tag></td>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.customer }}</td>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.amount | currency: 'USD' }}</td>
+                                    <td>
+                                        <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                    </td>
                                     <td><p-button type="button" icon="pi pi-plus"></p-button></td>
                                 </tr>
                             </ng-template>
@@ -249,7 +268,7 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['table-row-expand-demo.scss']
 })
 export class TableRowExpandDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -265,6 +284,17 @@ export class TableRowExpandDemo implements OnInit{
                 return 'warning';
             case 'OUTOFSTOCK':
                 return 'danger';
+        }
+    }
+
+    getStatusSeverity(status: string){
+        switch (status) {
+            case 'PENDING':
+                return 'warning';
+            case 'DELIVERED':
+                return 'success';
+            case 'CANCELLED':
+                return 'danger'
         }
     }
 }`,

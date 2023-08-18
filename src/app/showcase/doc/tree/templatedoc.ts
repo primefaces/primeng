@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -11,7 +11,7 @@ import { TreeNode } from 'primeng/api';
         <div class="card flex justify-content-center">
             <p-tree [value]="nodes" class="w-full md:w-30rem">
                 <ng-template let-node pTemplate="url">
-                    <a [href]="node.data">{{ node.label }}</a>
+                    <a [href]="node.data" target="_blank">{{ node.label }}</a>
                 </ng-template>
                 <ng-template let-node pTemplate="default">
                     <b>{{ node.label }}</b>
@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    nodes: TreeNode[];
+    nodes!: TreeNode[];
 
     ngOnInit() {
         this.nodes = [
@@ -57,7 +57,7 @@ export class TemplateDoc implements OnInit {
         basic: `
 <p-tree [value]="nodes" class="w-full md:w-30rem">
     <ng-template let-node pTemplate="url">
-        <a [href]="node.data">{{ node.label }}</a>
+        <a [href]="node.data" target="_blank">{{ node.label }}</a>
     </ng-template>
     <ng-template let-node pTemplate="default">
         <b>{{ node.label }}</b>
@@ -68,7 +68,7 @@ export class TemplateDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-tree [value]="nodes" class="w-full md:w-30rem">
         <ng-template let-node pTemplate="url">
-            <a [href]="node.data">{{ node.label }}</a>
+            <a [href]="node.data" target="_blank">{{ node.label }}</a>
         </ng-template>
         <ng-template let-node pTemplate="default">
             <b>{{ node.label }}</b>
@@ -85,7 +85,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './tree-template-demo.html'
 })
 export class TreeTemplateDemo implements OnInit {
-    nodes: TreeNode[];
+    nodes!: TreeNode[];
 
     ngOnInit() {
         this.nodes = [

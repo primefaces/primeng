@@ -4,6 +4,11 @@ import { Product } from '../../domain/product';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'responsive-stack-doc',
     template: ` <section>
@@ -28,7 +33,7 @@ import { ProductService } from '../../service/productservice';
                 <ng-template pTemplate="body" let-product let-columns="columns">
                     <tr>
                         <td><span class="p-column-title">Name</span>{{ product.name }}</td>
-                        <td><span class="p-column-title">Price</span>{{ product.price | currency: 'USD' }}</td>
+                        <td><span class="p-column-title">Price</span>{{ product.price | currency : 'USD' }}</td>
                         <td><span class="p-column-title">Category</span>{{ product.category }}</td>
                         <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
                         <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
@@ -48,9 +53,9 @@ export class ResponsiveStackDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -135,15 +140,20 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-responsive-stack-demo',
     templateUrl: 'table-responsive-stack-demo.html',
     styleUrls: ['table-responsive-stack-demo.scss']
 })
 export class TableResponsiveStackDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

@@ -13,21 +13,28 @@ export class AppDocSectionTextComponent {
 
     @Input() level: number = 2;
 
-    public parentTitle: string;
+    @Input() label!: string;
 
-    public parentId: string;
+    @Input() parentTitle: string;
+
+    @Input() parentDescription: string;
+
+    @Input() parentId: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     navigate(event) {
-        const hash = window.location.hash.substring(1);
-        const parentElement = event.currentTarget.parentElement;
-        this.location.go(this.location.path().split('#')[0] + '#' + this.id);
+        if (typeof window !== undefined) {
+            const hash = window.location.hash.substring(1);
+            const parentElement = event.currentTarget.parentElement;
+            const id = this.id ?? this.parentId;
+            this.location.go(this.location.path().split('#')[0] + '#' + id);
 
-        setTimeout(() => {
-            parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        }, 1);
+            setTimeout(() => {
+                parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            }, 1);
 
-        hash === this.id && event.preventDefault();
+            hash === this.id && event.preventDefault();
+        }
     }
 }

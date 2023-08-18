@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="sales">
+            <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
                         <th rowspan="3">Brand</th>
@@ -53,9 +53,7 @@ export class ColumnGroupDoc implements OnInit {
 
     @Input() title: string;
 
-    sales: TreeNode[];
-
-    cols: any[];
+    sales!: TreeNode[];
 
     ngOnInit() {
         this.sales = [
@@ -181,7 +179,7 @@ export class ColumnGroupDoc implements OnInit {
     }
     code: Code = {
         basic: `
-<p-treeTable [value]="sales">
+<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Brand</th>
@@ -221,7 +219,7 @@ export class ColumnGroupDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="sales">
+    <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th rowspan="3">Brand</th>
@@ -269,9 +267,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './tree-table-column-group-demo.html'
 })
 export class TreeTableColumnGroupDemo implements OnInit {
-    sales: TreeNode[];
-
-    cols: any[];
+    sales!: TreeNode[];
 
     ngOnInit() {
         this.sales = [

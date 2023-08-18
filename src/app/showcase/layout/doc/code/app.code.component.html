@@ -1,5 +1,5 @@
 <div *ngIf="code" class="relative doc-section-code">
-    <div class="flex surface-card align-items-center justify-content-end absolute z-2" style="right: '.75rem'; top: '.75rem'; gap: '.75rem'">
+    <div class="flex surface-card align-items-center justify-content-end absolute z-2" style="right: .75rem; top: .75rem; gap: .75rem">
         <div class="flex align-items-center gap-2" *ngIf="fullCodeVisible">
             <button *ngIf="code.html" pButton label="HTML" (click)="changeLang('html')"
                 class="p-button-rounded w-3rem p-button-text p-button-plain p-0 inline-flex align-items-center justify-content-center"
@@ -65,6 +65,16 @@
 
 <pre *ngIf="lang === 'data'" class="language-json"><code #codeElement>
 {{code.data}}
+
+</code></pre>
+
+<pre *ngIf="lang === 'scss'" class="language-scss"><code #codeElement>
+{{code.scss}}
+
+</code></pre>
+
+<pre *ngIf="lang === 'command'" class="language-shell"><code #codeElement>
+{{code.command}}
 
 </code></pre>
 </div>

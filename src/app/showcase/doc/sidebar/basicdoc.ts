@@ -25,7 +25,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 
     code: Code = {
         basic: `
@@ -58,7 +58,7 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-basic-demo.html'
 })
 export class SidebarBasicDemo {
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 }`
     };
 }

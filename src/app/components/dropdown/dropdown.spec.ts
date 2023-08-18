@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayModule } from 'primeng/overlay';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesIcon } from 'primeng/icons/times';
 
 @Component({
     template: `
@@ -17,6 +20,7 @@ import { OverlayModule } from 'primeng/overlay';
         </p-dropdown>
         <p-dropdown [(ngModel)]="selectedCity"></p-dropdown>
         <button (click)="setValue()"></button>
+        <p-dropdown [(ngModel)]="selectedCity" [options]="groupedCarsAlternate" optionGroupChildren="children" [group]="true"></p-dropdown>
     `
 })
 class TestDropdownComponent {
@@ -52,6 +56,12 @@ class TestDropdownComponent {
         }
     ];
 
+    groupedCarsAlternate = this.groupedCars.map((city) => ({
+        label: city.label,
+        value: city.value,
+        children: city.items
+    }));
+
     disabled: boolean;
 
     editable: boolean;
@@ -66,12 +76,13 @@ describe('Dropdown', () => {
     let dropdown: Dropdown;
     let testDropdown: Dropdown;
     let groupDropdown: Dropdown;
+    let alternateGroupDropdown: Dropdown;
     let fixture: ComponentFixture<Dropdown>;
     let groupFixture: ComponentFixture<TestDropdownComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, ScrollingModule, TooltipModule, OverlayModule, ChevronDownIcon, SearchIcon, TimesIcon],
             declarations: [Dropdown, DropdownItem, TestDropdownComponent]
         }).compileComponents();
 
@@ -79,6 +90,7 @@ describe('Dropdown', () => {
         groupFixture = TestBed.createComponent(TestDropdownComponent);
         groupDropdown = groupFixture.debugElement.children[0].componentInstance;
         testDropdown = groupFixture.debugElement.children[1].componentInstance;
+        alternateGroupDropdown = groupFixture.debugElement.children[3].componentInstance;
         dropdown = fixture.componentInstance;
     });
 
@@ -215,7 +227,7 @@ describe('Dropdown', () => {
         items.children[2].children[0].nativeElement.click();
         fixture.detectChanges();
         const itemCloseIcon = fixture.debugElement.query(By.css('.p-dropdown-clear-icon'));
-        itemCloseIcon.nativeElement.click();
+        itemCloseIcon.nativeElement.parentElement.click();
         fixture.detectChanges();
 
         expect(dropdown.selectedOption).toEqual({ label: 'Select City', value: null });
@@ -536,6 +548,12 @@ describe('Dropdown', () => {
         inputEl.dispatchEvent(keydownEvent);
 
         expect(groupDropdown.selectedOption.label).toEqual('Mercedes');
+    });
+
+    it('should alternateGroup auto select with alternate children field', () => {
+        groupFixture.detectChanges();
+
+        expect(alternateGroupDropdown.selectedOption.label).toEqual('Audi');
     });
 
     [null, undefined, ''].map((value) =>

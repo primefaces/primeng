@@ -19,7 +19,7 @@ interface City {
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
         </div>
-        <app-code [code]="code" selector="muilti-select-basic-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     </section>`
 })
 export class BasicDoc implements OnInit {
@@ -27,9 +27,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -59,14 +59,14 @@ interface City {
 }
 
 @Component({
-    selector: 'muilti-select-basic-demo',
-    templateUrl: './muilti-select-basic-demo.html'
+    selector: 'multi-select-basic-demo',
+    templateUrl: './multi-select-basic-demo.html'
 })
 export class MultiSelectBasicDemo implements OnInit {
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

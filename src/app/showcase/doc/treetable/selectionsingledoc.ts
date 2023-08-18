@@ -4,6 +4,11 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-single-doc',
     template: ` <section>
@@ -19,7 +24,7 @@ import { NodeService } from '../../service/nodeservice';
                 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
                 <span>Metakey</span>
             </div>
-            <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+            <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -49,11 +54,11 @@ export class SelectionSingleDoc implements OnInit {
 
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -71,7 +76,7 @@ export class SelectionSingleDoc implements OnInit {
         basic: `
 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
 
-<p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+<p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -95,7 +100,7 @@ export class SelectionSingleDoc implements OnInit {
         <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
         <span>Metakey</span>
     </div>
-    <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name">
+    <p-treeTable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -126,11 +131,11 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeTableSelectionSingleDemo implements OnInit {
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

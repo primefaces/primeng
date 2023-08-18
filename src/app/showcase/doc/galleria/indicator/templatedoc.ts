@@ -9,10 +9,10 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Indicator content can be customized with the <i>indicator</i> template.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%', 'margin-top': '2em' }">
+        <div class="card md:flex md:justify-content-center">
+            <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ maxWidth: '640px' }">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="indicator" let-index>
                     <span style="color: #e9ecef; cursor: pointer">
@@ -31,7 +31,7 @@ export class TemplateDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -58,9 +58,9 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%', 'margin-top': '2em' }">
+<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%', 'margin-top': '2em' }">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
     <ng-template pTemplate="indicator" let-index>
         <span style="color: #e9ecef; cursor: pointer">
@@ -69,10 +69,10 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%','margin-top': '2em'}">
+ <div class="card md:flex md:justify-content-center">
+    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="true" indicatorsPosition="left" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="indicator" let-index>
             <span style="color: #e9ecef; cursor: pointer">
@@ -90,7 +90,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-indicator-template-demo.html'
 })
 export class GalleriaIndicatorTemplateDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

@@ -33,8 +33,9 @@ export class AppCodeComponent {
     lang!: string;
 
     ngAfterViewChecked() {
-        if (window['Prism'] && this.codeElement) {
+        if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
             window['Prism'].highlightElement(this.codeElement.nativeElement);
+            this.codeElement.nativeElement.classList.add('prism');
         }
     }
 

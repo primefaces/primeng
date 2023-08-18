@@ -18,7 +18,7 @@ export class TouchUIDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core'
     templateUrl: './calendar-touchui-demo.html'
 })
 export class CalendarTouchuiDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

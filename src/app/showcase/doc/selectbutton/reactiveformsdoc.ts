@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -21,7 +21,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
@@ -56,7 +56,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './select-button-reactive-forms-demo.html'
 })
 export class SelectButtonReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },

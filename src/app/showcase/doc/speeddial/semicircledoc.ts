@@ -26,7 +26,7 @@ export class SemiCircleDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -56,6 +56,7 @@ export class SemiCircleDoc implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -90,7 +91,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialSemiCircleDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -120,6 +121,7 @@ export class SpeedDialSemiCircleDemo implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];

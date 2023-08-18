@@ -7,13 +7,12 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { BasicDoc } from './basicdoc';
 import { ElementDoc } from './elementdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ScrollTopModule],
-    declarations: [BasicDoc, ElementDoc, ImportDoc, PropsDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ElementDoc, ImportDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ScrollTopDocModule {}

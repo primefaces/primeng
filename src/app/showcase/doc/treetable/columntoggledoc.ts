@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'column-toggle-doc',
     template: ` <section>
@@ -10,7 +15,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="selectedColumns">
+            <p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption">
                     <div style="text-align:left">
                         <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" defaultLabel="Choose Columns" display="chip"></p-multiSelect>
@@ -41,11 +46,11 @@ export class ColumnToggleDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -63,7 +68,7 @@ export class ColumnToggleDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="selectedColumns">
+<p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div style="text-align:left">
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" defaultLabel="Choose Columns" display="chip"></p-multiSelect>
@@ -88,7 +93,7 @@ export class ColumnToggleDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="selectedColumns">
+    <p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div style="text-align:left">
                 <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" defaultLabel="Choose Columns" display="chip"></p-multiSelect>
@@ -117,16 +122,21 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-column-toggle-demo',
     templateUrl: './tree-table-column-toggle-demo.html'
 })
 export class TreeTableColumnToggleDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

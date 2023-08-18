@@ -15,7 +15,7 @@ interface City {
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name"></p-multiSelect>
         </div>
-        <app-code [code]="code" selector="muilti-select-invalid-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-invalid-demo"></app-code>
     </section>`
 })
 export class InvalidDoc implements OnInit {
@@ -23,9 +23,9 @@ export class InvalidDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -55,13 +55,13 @@ interface City {
 }
 
 @Component({
-    selector: 'muilti-select-invalid-demo',
-    templateUrl: './muilti-select-invalid-demo.html'
+    selector: 'multi-select-invalid-demo',
+    templateUrl: './multi-select-invalid-demo.html'
 })
 export class MultiSelectInvalidDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

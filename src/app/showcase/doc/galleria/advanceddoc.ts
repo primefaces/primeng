@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
@@ -9,7 +10,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card md:flex md:justify-content-center">
             <p-galleria
                 #galleria
                 [(value)]="images"
@@ -21,11 +22,11 @@ import { PhotoService } from '../../service/photoservice';
                 [circular]="true"
                 [autoPlay]="true"
                 [transitionInterval]="3000"
-                [containerStyle]="{ width: '100%' }"
+                [containerStyle]="{ 'max-width': '640px' }"
                 [containerClass]="galleriaClass()"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+                    <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -53,9 +54,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
-    showThumbnails: boolean;
+    showThumbnails: boolean | undefined;
 
     fullscreen: boolean = false;
 
@@ -63,9 +64,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     onFullScreenListener: any;
 
-    @ViewChild('galleria') galleria: Galleria;
+    @ViewChild('galleria') galleria: Galleria | undefined;
 
-    constructor(private photoService: PhotoService, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) {}
 
     responsiveOptions: any[] = [
         {
@@ -81,6 +82,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             numVisible: 1
         }
     ];
+
     ngOnInit() {
         this.photoService.getImages().then((images) => (this.images = images));
         this.bindDocumentListeners();
@@ -101,7 +103,182 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     openPreviewFullScreen() {
-        let elem = this.galleria.element.nativeElement.querySelector('.p-galleria');
+        let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem['mozRequestFullScreen']) {
+            /* Firefox */
+            elem['mozRequestFullScreen']();
+        } else if (elem['webkitRequestFullscreen']) {
+            /* Chrome, Safari & Opera */
+            elem['webkitRequestFullscreen']();
+        } else if (elem['msRequestFullscreen']) {
+            /* IE/Edge */
+            elem['msRequestFullscreen']();
+        }
+    }
+
+    onFullScreenChange() {
+        this.fullscreen = !this.fullscreen;
+        this.cd.detectChanges();
+        this.cd.reattach();
+    }
+
+    closePreviewFullScreen() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document['mozCancelFullScreen']) {
+                document['mozCancelFullScreen']();
+            } else if (document['webkitExitFullscreen']) {
+                document['webkitExitFullscreen']();
+            } else if (document['msExitFullscreen']) {
+                document['msExitFullscreen']();
+            }
+        }
+    }
+
+    bindDocumentListeners() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.onFullScreenListener = this.onFullScreenChange.bind(this);
+            document.addEventListener('fullscreenchange', this.onFullScreenListener);
+            document.addEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.addEventListener('msfullscreenchange', this.onFullScreenListener);
+        }
+    }
+
+    unbindDocumentListeners() {
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('fullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('mozfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('webkitfullscreenchange', this.onFullScreenListener);
+            document.removeEventListener('msfullscreenchange', this.onFullScreenListener);
+            this.onFullScreenListener = null;
+        }
+    }
+
+    ngOnDestroy() {
+        this.unbindDocumentListeners();
+    }
+
+    galleriaClass() {
+        return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
+    }
+
+    fullScreenIcon() {
+        return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
+    }
+
+    code: Code = {
+        basic: `
+<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="true"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [containerClass]="galleriaClass()"
+>
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+            <img [src]="item.thumbnailImageSrc" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer" let-item>
+        <div class="custom-galleria-footer">
+            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+            <span *ngIf="images" class="title-container">
+                <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
+                <span class="title">{{ images[activeIndex].title }}</span>
+                <span>{{ images[activeIndex].alt }}</span>
+            </span>
+            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+        </div>
+    </ng-template>
+</p-galleria>`,
+        html: `
+ <div class="card md:flex md:justify-content-center">
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid grid-nogutter justify-content-center">
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
+            </div>
+        </ng-template>
+    </p-galleria>
+</div>`,
+        typescript: `
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Galleria } from 'primeng/galleria';
+import { PhotoService } from '../../service/photoservice';
+
+@Component({
+    selector: 'galleria-advanced-demo',
+    templateUrl: './galleria-advanced-demo.html',
+    styleUrls: ['./galleria-advanced-demo.scss']
+})
+export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
+
+    images: any[] | undefined;
+
+    showThumbnails: boolean | undefined;
+
+    fullscreen: boolean = false;
+
+    activeIndex: number = 0;
+
+    onFullScreenListener: any;
+
+    @ViewChild('galleria') galleria: Galleria | undefined;
+
+    responsiveOptions: any[] = [
+        {
+            breakpoint: '1024px',
+            numVisible: 5
+        },
+        {
+            breakpoint: '768px',
+            numVisible: 3
+        },
+        {
+            breakpoint: '560px',
+            numVisible: 1
+        }
+    ];
+    
+    ngOnInit() {
+        this.photoService.getImages().then((images) => (this.images = images));
+        this.bindDocumentListeners();
+    }
+
+    onThumbnailButtonClick() {
+        this.showThumbnails = !this.showThumbnails;
+    }
+
+    toggleFullScreen() {
+        if (this.fullscreen) {
+            this.closePreviewFullScreen();
+        } else {
+            this.openPreviewFullScreen();
+        }
+
+        this.cd.detach();
+    }
+
+    openPreviewFullScreen() {
+        let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem['mozRequestFullScreen']) {
@@ -155,95 +332,11 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     galleriaClass() {
-        return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
+        return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
     }
 
     fullScreenIcon() {
-        return `pi ${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}`;
-    }
-    code: Code = {
-        basic: `
-<p-galleria
-    #galleria
-    [(value)]="images"
-    [(activeIndex)]="activeIndex"
-    [numVisible]="5"
-    [showThumbnails]="showThumbnails"
-    [showItemNavigators]="true"
-    [showItemNavigatorsOnHover]="true"
-    [circular]="true"
-    [autoPlay]="true"
-    [transitionInterval]="3000"
-    [containerStyle]="{ width: '100%' }"
-    [containerClass]="galleriaClass()"
->
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="footer" let-item>
-        <div class="custom-galleria-footer">
-            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
-            <span *ngIf="images" class="title-container">
-                <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
-                <span class="title">{{ images[activeIndex].title }}</span>
-                <span>{{ images[activeIndex].alt }}</span>
-            </span>
-            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
-<div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
-        </ng-template>
-    </p-galleria>
-</div>`,
-        typescript: `
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
-import { PhotoService } from '../../service/photoservice';
-
-@Component({
-    selector: 'galleria-advanced-demo',
-    templateUrl: './galleria-advanced-demo.html',
-    styleUrls: ['./galleria-advanced-demo.scss']
-})
-export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
-    images: any[];
-
-    responsiveOptions: any[] = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
-    ];
-
-    constructor(private photoService: PhotoService) {}
-
-    ngOnInit() {
-        this.photoService.getImages().then((images) => {
-            this.images = images;
-        });
+        return \`pi \${this.fullscreen ? 'pi-window-minimize' : 'pi-window-maximize'}\`;
     }
 }`,
         data: `

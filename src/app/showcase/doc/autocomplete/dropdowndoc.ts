@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
+import { PlatformService } from '../../service/platformservice';
+
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
 
 @Component({
     selector: 'dropdown-doc',
@@ -22,26 +28,28 @@ export class DropdownDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
-    constructor(private countryService: CountryService) {}
+    constructor(private countryService: CountryService, private PlatformService: PlatformService) {}
 
     ngOnInit() {
-        this.countryService.getCountries().then((countries) => {
-            this.countries = countries;
-        });
+        if (this.PlatformService.isBrowser()) {
+            this.countryService.getCountries().then((countries) => {
+                this.countries = countries;
+            });
+        }
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -63,16 +71,21 @@ export class DropdownDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-dropdown-demo',
     templateUrl: './autocomplete-dropdown-demo.html'
 })
 export class AutocompleteDropdownDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -82,12 +95,12 @@ export class AutocompleteDropdownDemo implements OnInit {
         });
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }

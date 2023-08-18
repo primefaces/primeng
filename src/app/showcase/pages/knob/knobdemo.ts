@@ -4,10 +4,8 @@ import { AccessibilityDoc } from '../../doc/knob/accessibilitydoc';
 import { BasicDoc } from '../../doc/knob/basicdoc';
 import { ColorDoc } from '../../doc/knob/colordoc';
 import { DisabledDoc } from '../../doc/knob/disableddoc';
-import { EventsDoc } from '../../doc/knob/eventsdoc';
 import { ImportDoc } from '../../doc/knob/importdoc';
 import { MinMaxDoc } from '../../doc/knob/minmaxdoc';
-import { PropsDoc } from '../../doc/knob/propsdoc';
 import { ReadonlyDoc } from '../../doc/knob/readonlydoc';
 import { SizeDoc } from '../../doc/knob/sizedoc';
 import { StepDoc } from '../../doc/knob/stepdoc';
@@ -84,19 +82,6 @@ export class KnobDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

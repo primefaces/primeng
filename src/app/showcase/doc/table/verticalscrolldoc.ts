@@ -41,7 +41,7 @@ export class VerticalScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-vertical-scroll-demo.html'
 })
 export class TableVerticalScrollDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 

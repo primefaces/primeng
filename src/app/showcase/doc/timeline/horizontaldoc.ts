@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
                 <ng-template pTemplate="content" let-event>
                     {{ event }}
                 </ng-template>
-                <ng-template pTemplate="opposite" let-event> </ng-template>
+                <ng-template pTemplate="opposite" let-event><span>&nbsp;</span></ng-template>
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-horizontal-demo"></app-code>
@@ -33,7 +33,7 @@ export class HorizontalDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = ['2020', '2021', '2022', '2023'];
@@ -57,7 +57,7 @@ export class HorizontalDoc {
     <ng-template pTemplate="content" let-event>
         {{ event }}
     </ng-template>
-    <ng-template pTemplate="opposite" let-event> </ng-template>
+    <ng-template pTemplate="opposite" let-event><span>&nbsp;</span></ng-template>
 </p-timeline>`,
 
         html: `
@@ -76,7 +76,7 @@ export class HorizontalDoc {
         <ng-template pTemplate="content" let-event>
             {{ event }}
         </ng-template>
-        <ng-template pTemplate="opposite" let-event> </ng-template>
+        <ng-template pTemplate="opposite" let-event><span>&nbsp;</span></ng-template>
     </p-timeline>
 </div>`,
 
@@ -88,7 +88,7 @@ import { Component } from '@angular/core';
     templateUrl: './timeline-horizontal-demo.html'
 })
 export class TimelineHorizontalDemo {
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = [

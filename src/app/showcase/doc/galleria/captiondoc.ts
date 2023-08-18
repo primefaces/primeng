@@ -8,10 +8,10 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
+        <div class="card md:flex md:justify-content-center">
+            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -32,7 +32,7 @@ export class CaptionDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -57,9 +57,9 @@ export class CaptionDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
+<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -73,10 +73,10 @@ export class CaptionDoc implements OnInit {
 </p-galleria>
 `,
         html: `
-<div class="card">
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}" [numVisible]="5"> 
+ <div class="card md:flex md:justify-content-center">
+    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%;" />
+            <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
@@ -94,7 +94,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-caption-demo.html'
 })
 export class GalleriaCaptionDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

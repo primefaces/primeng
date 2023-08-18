@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -12,20 +12,17 @@ import { ProductService } from '../../service/productservice';
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000">
                 <ng-template let-product pTemplate="item">
-                    <div class="product-item">
-                        <div class="product-item-content">
-                            <div class="mb-3">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                            </div>
-                            <div>
-                                <h4 class="mb-1">{{ product.name }}</h4>
-                                <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                                <div class="car-buttons mt-5">
-                                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                                    <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                                    <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
-                                </div>
+                    <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                        <div class="mb-3">
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-6 shadow-2" />
+                        </div>
+                        <div>
+                            <h4 class="mb-1">{{ product.name }}</h4>
+                            <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                            <div class="car-buttons mt-5">
+                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                             </div>
                         </div>
                     </div>
@@ -40,30 +37,31 @@ export class CircularDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 3,
-                numScroll: 3
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
             },
             {
-                breakpoint: '768px',
+                breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 2
+                numScroll: 1
             },
             {
-                breakpoint: '560px',
+                breakpoint: '767px',
                 numVisible: 1,
                 numScroll: 1
             }
@@ -85,20 +83,17 @@ export class CircularDoc implements OnInit {
         basic: `
 <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000">
     <ng-template let-product pTemplate="item">
-        <div class="product-item">
-            <div class="product-item-content">
-                <div class="mb-3">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                </div>
-                <div>
-                    <h4 class="mb-1">{{ product.name }}</h4>
-                    <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                    <div class="car-buttons mt-5">
-                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                        <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
-                    </div>
+        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+            <div class="mb-3">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-6 shadow-2" />
+            </div>
+            <div>
+                <h4 class="mb-1">{{ product.name }}</h4>
+                <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                <div class="car-buttons mt-5">
+                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                    <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                 </div>
             </div>
         </div>
@@ -108,20 +103,17 @@ export class CircularDoc implements OnInit {
 <div class="card">
     <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000">
         <ng-template let-product pTemplate="item">
-            <div class="product-item">
-                <div class="product-item-content">
-                    <div class="mb-3">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
-                    </div>
-                    <div>
-                        <h4 class="mb-1">{{ product.name }}</h4>
-                        <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                        <div class="car-buttons mt-5">
-                            <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                            <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                            <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
-                        </div>
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                <div class="mb-3">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-6 shadow-2" />
+                </div>
+                <div>
+                    <h4 class="mb-1">{{ product.name }}</h4>
+                    <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                    <div class="car-buttons mt-5">
+                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
                     </div>
                 </div>
             </div>
@@ -139,9 +131,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-circular-demo.scss']
 })
 export class CarouselCircularDemo implements OnInit{
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 
@@ -150,19 +142,19 @@ export class CarouselCircularDemo implements OnInit{
             this.products = products;
         });
 
-        this.responsiveOptions = [
+       this.responsiveOptions = [
             {
-                breakpoint: '1024px',
-                numVisible: 3,
-                numScroll: 3
+                breakpoint: '1199px',
+                numVisible: 1,
+                numScroll: 1
             },
             {
-                breakpoint: '768px',
+                breakpoint: '991px',
                 numVisible: 2,
-                numScroll: 2
+                numScroll: 1
             },
             {
-                breakpoint: '560px',
+                breakpoint: '767px',
                 numVisible: 1,
                 numScroll: 1
             }

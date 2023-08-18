@@ -18,7 +18,7 @@ export class SlotCharDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-slot-char-demo.html'
 })
 export class InputMaskSlotCharDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

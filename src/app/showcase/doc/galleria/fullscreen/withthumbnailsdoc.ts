@@ -13,7 +13,7 @@ import { PhotoService } from '../../../service/photoservice';
             <button pButton type="button" icon="pi pi-external-link" label="Show" (click)="displayBasic = true"></button>
             <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -32,9 +32,9 @@ export class WithThumbnailsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -65,7 +65,7 @@ export class WithThumbnailsDoc implements OnInit {
         basic: `
 <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -79,7 +79,7 @@ export class WithThumbnailsDoc implements OnInit {
     <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '50%'}" [numVisible]="9"
         [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;"/>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
@@ -97,9 +97,9 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-full-screen-with-thumbnails-demo.html'
 })
 export class GalleriaFullScreenWithThumbnailsDemo implements OnInit {
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

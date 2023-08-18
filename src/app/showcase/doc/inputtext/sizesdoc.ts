@@ -16,11 +16,11 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class SizesDoc {
-    value: string;
+    value: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
-    value3: string;
+    value3: string | undefined;
 
     @Input() id: string;
 
@@ -47,9 +47,9 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-sizes-demo.html'
 })
 export class InputTextSizesDemo {
-    value: string;
-    value2: string;
-    value3: string;
+    value: string | undefined;
+    value2: string | undefined;
+    value3: string | undefined;
 }`
     };
 }

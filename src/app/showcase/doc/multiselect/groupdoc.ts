@@ -23,7 +23,7 @@ interface City {
                 </ng-template>
             </p-multiSelect>
         </div>
-        <app-code [code]="code" selector="muilti-select-group-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-group-demo"></app-code>
     </section>`
 })
 export class GroupDoc {
@@ -31,9 +31,9 @@ export class GroupDoc {
 
     @Input() title: string;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [
@@ -103,13 +103,13 @@ interface City {
 }
 
 @Component({
-    selector: 'muilti-select-group-demo',
-    templateUrl: './muilti-select-group-demo.html'
+    selector: 'multi-select-group-demo',
+    templateUrl: './multi-select-group-demo.html'
 })
 export class MultiSelectGroupDemo {
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [

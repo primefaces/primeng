@@ -8,15 +8,13 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { CustomizedDoc } from './customizeddoc';
-import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ToggleButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CustomizedDoc, PropsDoc, EventsDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, CustomizedDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class ToggleButtonDocModule {}

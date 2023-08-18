@@ -10,13 +10,12 @@ import { CardDoc } from './carddoc';
 import { DataTableDoc } from './datatabledoc';
 import { ImportDoc } from './importdoc';
 import { ListDoc } from './listdoc';
-import { PropsDoc } from './propsdoc';
 import { ShapesDoc } from './shapesdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, TableModule, SkeletonModule],
-    declarations: [CardDoc, DataTableDoc, ImportDoc, ListDoc, PropsDoc, ShapesDoc, StyleDoc, AccessibilityDoc],
+    declarations: [CardDoc, DataTableDoc, ImportDoc, ListDoc, ShapesDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class SkeletonDocModule {}

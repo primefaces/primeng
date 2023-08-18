@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -8,10 +9,12 @@ import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 import { NodeService } from '../../service/nodeservice';
+
 interface City {
     name: string;
     code: string;
 }
+
 @Component({
     selector: 'landing',
     templateUrl: './landing.component.html'
@@ -81,13 +84,45 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     darkMode: boolean = false;
 
-    setAnimation: boolean = false;
+    setAnimation: boolean = true;
 
     selectedOptions: string[] = ['1'];
 
     theme: string = 'lara-light-blue';
 
-    constructor(private nodeService: NodeService, private customerService: CustomerService, private configService: AppConfigService, private cd: ChangeDetectorRef, public app: AppComponent, private metaService: Meta, private titleService: Title) {}
+    isNpmCopied: boolean = false;
+
+    usersData = [
+        { name: 'fox', width: '51', height: '22' },
+        { name: 'airbus', width: '87', height: '16' },
+        { name: 'mercedes', width: '34', height: '34' },
+        { name: 'ford', width: '64', height: '26' },
+        { name: 'vw', width: '35', height: '34' },
+        { name: 'intel', width: '53', height: '34' },
+        { name: 'unicredit', width: '79', height: '18' },
+        { name: 'lufthansa', width: '97', height: '18' },
+        { name: 'nvidia', width: '86', height: '16' },
+        { name: 'verizon', width: '102', height: '18' },
+        { name: 'amex', width: '81', height: '30' }
+    ];
+    usersImages: any;
+
+    private window: Window;
+
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        private nodeService: NodeService,
+        private customerService: CustomerService,
+        private configService: AppConfigService,
+        private cd: ChangeDetectorRef,
+        public app: AppComponent,
+        private metaService: Meta,
+        private titleService: Title
+    ) {
+        this.window = this.document.defaultView as Window;
+    }
 
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
@@ -202,8 +237,15 @@ export class LandingComponent implements OnInit, OnDestroy {
         this.bindScrollListener();
     }
 
+    copyNpm() {
+        navigator.clipboard.writeText('npm i primeng');
+        this.isNpmCopied = true;
+        setTimeout(() => {
+            this.isNpmCopied = false;
+        }, 2000);
+    }
+
     ngAfterViewInit() {
-        this.setAnimation = true;
         this.cd.detectChanges();
     }
 
@@ -212,22 +254,22 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     bindScrollListener() {
-        if (!this.scrollListener) {
-            this.scrollListener = () => {
-                if (window.scrollY > 0) {
-                    this.containerElement.nativeElement.classList.add('landing-header-sticky');
-                } else {
-                    this.containerElement.nativeElement.classList.remove('landing-header-sticky');
-                }
-            };
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.scrollListener) {
+                this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
+                    if (window.scrollY > 0) {
+                        this.containerElement.nativeElement.classList.add('landing-header-sticky');
+                    } else {
+                        this.containerElement.nativeElement.classList.remove('landing-header-sticky');
+                    }
+                });
+            }
         }
-
-        window.addEventListener('scroll', this.scrollListener);
     }
 
     unbindScrollListener() {
         if (this.scrollListener) {
-            window.removeEventListener('scroll', this.scrollListener);
+            this.scrollListener();
             this.scrollListener = null;
         }
     }
@@ -243,29 +285,38 @@ export class LandingComponent implements OnInit, OnDestroy {
 
         this.configService.updateConfig({ ...this.configService.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue', dark: this.config.dark } });
         this.changeTableTheme(theme);
+
+        if (isPlatformBrowser(this.platformId)) {
+            let linkElement = document.getElementById('theme-link');
+            this.replaceLink(linkElement, theme);
+            this.theme = theme;
+        }
     }
 
     changeTableTheme(newTheme) {
-        let linkElement = document.getElementById('home-table-link');
-        this.replaceLink(linkElement, newTheme);
-        this.theme = newTheme;
+        if (isPlatformBrowser(this.platformId)) {
+            let linkElement = document.getElementById('home-table-link');
+            this.replaceLink(linkElement, newTheme);
+            this.theme = newTheme;
+        }
     }
 
     replaceLink(linkElement, theme) {
-        const id = linkElement.getAttribute('id');
-        const tableThemeTokens = linkElement.getAttribute('href').split('/');
-        const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
-        if (currentTableTheme !== theme) {
-            const cloneLinkElement = linkElement.cloneNode(true);
-            cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
-            cloneLinkElement.setAttribute('id', id + '-clone');
+        if (isPlatformBrowser(this.platformId)) {
+            const id = linkElement.getAttribute('id');
+            const tableThemeTokens = linkElement.getAttribute('href').split('/');
+            const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
+            if (currentTableTheme !== theme) {
+                const cloneLinkElement = linkElement.cloneNode(true);
+                cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
+                cloneLinkElement.setAttribute('id', id + '-clone');
 
-            linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-            cloneLinkElement.addEventListener('load', () => {
-                linkElement.remove();
-                cloneLinkElement.setAttribute('id', id);
-            });
+                linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+                this.renderer.listen(cloneLinkElement, 'load', () => {
+                    linkElement.remove();
+                    cloneLinkElement.setAttribute('id', id);
+                });
+            }
         }
     }
 

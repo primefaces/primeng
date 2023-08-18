@@ -1,7 +1,10 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
-
+/**
+ * Chart groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-chart',
     template: `
@@ -16,19 +19,62 @@ import Chart from 'chart.js/auto';
     }
 })
 export class UIChart implements AfterViewInit, OnDestroy {
-    @Input() type: string;
-
+    /**
+     * Type of the chart.
+     * @group Props
+     */
+    @Input() type: string | undefined;
+    /**
+     * Array of per-chart plugins to customize the chart behaviour.
+     * @group Props
+     */
     @Input() plugins: any[] = [];
-
-    @Input() width: string;
-
-    @Input() height: string;
-
+    /**
+     * Width of the chart.
+     * @group Props
+     */
+    @Input() width: string | undefined;
+    /**
+     * Height of the chart.
+     * @group Props
+     */
+    @Input() height: string | undefined;
+    /**
+     * Whether the chart is redrawn on screen size change.
+     * @group Props
+     */
     @Input() responsive: boolean = true;
+    /**
+     * Data to display.
+     * @group Props
+     */
+    @Input() get data(): any {
+        return this._data;
+    }
+    set data(val: any) {
+        this._data = val;
+        this.reinit();
+    }
+    /**
+     * Options to customize the chart.
+     * @group Props
+     */
+    @Input() get options(): any {
+        return this._options;
+    }
+    set options(val: any) {
+        this._options = val;
+        this.reinit();
+    }
+    /**
+     * Callback to execute when an element on chart is clicked.
+     * @group Emits
+     */
+    @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter();
+    isBrowser: boolean = false;
 
-    initialized: boolean;
+    initialized: boolean | undefined;
 
     _data: any;
 
@@ -36,32 +82,14 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(public el: ElementRef) {}
-
-    @Input() get data(): any {
-        return this._data;
-    }
-
-    set data(val: any) {
-        this._data = val;
-        this.reinit();
-    }
-
-    @Input() get options(): any {
-        return this._options;
-    }
-
-    set options(val: any) {
-        this._options = val;
-        this.reinit();
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {}
 
     ngAfterViewInit() {
         this.initChart();
         this.initialized = true;
     }
 
-    onCanvasClick(event) {
+    onCanvasClick(event: Event) {
         if (this.chart) {
             const element = this.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
             const dataset = this.chart.getElementsAtEventForMode(event, 'dataset', { intersect: true }, false);
@@ -73,20 +101,22 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     initChart() {
-        let opts = this.options || {};
-        opts.responsive = this.responsive;
+        if (isPlatformBrowser(this.platformId)) {
+            let opts = this.options || {};
+            opts.responsive = this.responsive;
 
-        // allows chart to resize in responsive mode
-        if (opts.responsive && (this.height || this.width)) {
-            opts.maintainAspectRatio = false;
+            // allows chart to resize in responsive mode
+            if (opts.responsive && (this.height || this.width)) {
+                opts.maintainAspectRatio = false;
+            }
+
+            this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                type: this.type,
+                data: this.data,
+                options: this.options,
+                plugins: this.plugins
+            });
         }
-
-        this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-            type: this.type,
-            data: this.data,
-            options: this.options,
-            plugins: this.plugins
-        });
     }
 
     getCanvas() {

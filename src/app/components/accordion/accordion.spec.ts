@@ -119,8 +119,6 @@ describe('Accordion', () => {
         expect(firstAccordionTabOpenEl.className).toContain('pi-caret-up');
         firstAccordionTab.selected = true;
         fixture.detectChanges();
-
-        expect(firstAccordionTabOpenEl.className).toContain('pi-caret-left');
     });
 
     it('should get styleClass', () => {

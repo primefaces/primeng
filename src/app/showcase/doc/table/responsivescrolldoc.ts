@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
+
+interface Column {
+    field: string;
+    header: string;
+}
 
 @Component({
     selector: 'responsive-scroll-doc',
@@ -26,7 +31,7 @@ import { ProductService } from '../../service/productservice';
                 <ng-template pTemplate="body" let-product let-columns="columns">
                     <tr>
                         <td>{{ product.name }}</td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>
@@ -48,9 +53,9 @@ export class ResponsiveScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -135,14 +140,19 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-responsive-scroll-demo',
     templateUrl: 'table-responsive-scroll-demo.html'
 })
 export class TableResponsiveScrollDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

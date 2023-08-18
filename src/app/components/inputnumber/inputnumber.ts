@@ -1,15 +1,46 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Inject,
+    Injector,
+    Input,
+    NgModule,
+    OnChanges,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { TimesIcon } from 'primeng/icons/times';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { Nullable } from 'primeng/ts-helpers';
+import { InputNumberInputEvent } from './inputnumber.interface';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputNumber),
     multi: true
 };
+/**
+ * InputNumber is an input component to provide numerical input.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputNumber',
     template: `
@@ -54,67 +85,97 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <i *ngIf="buttonLayout != 'vertical' && showClear && value" class="p-inputnumber-clear-icon pi pi-times" (click)="clear()"></i>
+            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" />
+                <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
                 <button
                     type="button"
                     pButton
                     [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+                    class="p-button-icon-only"
                     [class]="incrementButtonClass"
-                    [icon]="incrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onUpButtonMouseDown($event)"
+                    (mousedown)="onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
                     (mouseleave)="onUpButtonMouseLeave()"
                     (keydown)="onUpButtonKeyDown($event)"
                     (keyup)="onUpButtonKeyUp()"
                     tabindex="-1"
-                ></button>
+                >
+                    <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
+                    <ng-container *ngIf="!incrementButtonIcon">
+                        <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
+                        <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
                 <button
                     type="button"
                     pButton
                     [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+                    class="p-button-icon-only"
                     [class]="decrementButtonClass"
-                    [icon]="decrementButtonIcon"
                     [disabled]="disabled"
-                    (mousedown)="this.onDownButtonMouseDown($event)"
+                    (mousedown)="onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
                     (mouseleave)="onDownButtonMouseLeave()"
                     (keydown)="onDownButtonKeyDown($event)"
                     (keyup)="onDownButtonKeyUp()"
                     tabindex="-1"
-                ></button>
+                >
+                    <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                    <ng-container *ngIf="!decrementButtonIcon">
+                        <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                        <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                    </ng-container>
+                </button>
             </span>
             <button
                 type="button"
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
                 [class]="incrementButtonClass"
-                [icon]="incrementButtonIcon"
+                class="p-button-icon-only"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onUpButtonMouseDown($event)"
+                (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
                 tabindex="-1"
-            ></button>
+            >
+                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
+                <ng-container *ngIf="!incrementButtonIcon">
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
+                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
+                </ng-container>
+            </button>
             <button
                 type="button"
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
+                class="p-button-icon-only"
                 [class]="decrementButtonClass"
-                [icon]="decrementButtonIcon"
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
-                (mousedown)="this.onDownButtonMouseDown($event)"
+                (mousedown)="onDownButtonMouseDown($event)"
                 (mouseup)="onDownButtonMouseUp()"
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
                 tabindex="-1"
-            ></button>
+            >
+                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                <ng-container *ngIf="!decrementButtonIcon">
+                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
+                </ng-container>
+            </button>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -128,104 +189,264 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
     }
 })
-export class InputNumber implements OnInit, ControlValueAccessor {
+export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+    /**
+     * Displays spinner buttons.
+     * @group Props
+     */
     @Input() showButtons: boolean = false;
-
+    /**
+     * Whether to format the value.
+     * @group Props
+     */
     @Input() format: boolean = true;
-
+    /**
+     * Layout of the buttons, valid values are "stacked" (default), "horizontal" and "vertical".
+     * @group Props
+     */
     @Input() buttonLayout: string = 'stacked';
-
-    @Input() inputId: string;
-
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() placeholder: string;
-
-    @Input() size: number;
-
-    @Input() maxlength: number;
-
-    @Input() tabindex: string;
-
-    @Input() title: string;
-
-    @Input() ariaLabel: string;
-
-    @Input() ariaRequired: boolean;
-
-    @Input() name: string;
-
-    @Input() required: boolean;
-
-    @Input() autocomplete: string;
-
-    @Input() min: number;
-
-    @Input() max: number;
-
-    @Input() incrementButtonClass: string;
-
-    @Input() decrementButtonClass: string;
-
-    @Input() incrementButtonIcon: string = 'pi pi-angle-up';
-
-    @Input() decrementButtonIcon: string = 'pi pi-angle-down';
-
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Advisory information to display on input.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * Size of the input field.
+     * @group Props
+     */
+    @Input() size: number | undefined;
+    /**
+     * Maximum number of character allows in the input field.
+     * @group Props
+     */
+    @Input() maxlength: number | undefined;
+    /**
+     * Specifies tab order of the element.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Title text of the input text.
+     * @group Props
+     */
+    @Input() title: string | undefined;
+    /**
+     * Used to define a string that labels the input element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Used to indicate that user input is required on an element before a form can be submitted.
+     * @group Props
+     */
+    @Input() ariaRequired: boolean | undefined;
+    /**
+     * Name of the input field.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() required: boolean | undefined;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() autocomplete: string | undefined;
+    /**
+     * Mininum boundary value.
+     * @group Props
+     */
+    @Input() min: number | undefined;
+    /**
+     * Maximum boundary value.
+     * @group Props
+     */
+    @Input() max: number | undefined;
+    /**
+     * Style class of the increment button.
+     * @group Props
+     */
+    @Input() incrementButtonClass: string | undefined;
+    /**
+     * Style class of the decrement button.
+     * @group Props
+     */
+    @Input() decrementButtonClass: string | undefined;
+    /**
+     * Style class of the increment button.
+     * @group Props
+     */
+    @Input() incrementButtonIcon: string | undefined;
+    /**
+     * Style class of the decrement button.
+     * @group Props
+     */
+    @Input() decrementButtonIcon: string | undefined;
+    /**
+     * When present, it specifies that an input field is read-only.
+     * @group Props
+     */
     @Input() readonly: boolean = false;
-
+    /**
+     * Step factor to increment/decrement the value.
+     * @group Props
+     */
     @Input() step: number = 1;
-
+    /**
+     * Determines whether the input field is empty.
+     * @group Props
+     */
     @Input() allowEmpty: boolean = true;
-
-    @Input() locale: string;
-
-    @Input() localeMatcher: string;
-
+    /**
+     * Locale to be used in formatting.
+     * @group Props
+     */
+    @Input() locale: string | undefined;
+    /**
+     * The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details.
+     * @group Props
+     */
+    @Input() localeMatcher: string | undefined;
+    /**
+     * Defines the behavior of the component, valid values are "decimal" and "currency".
+     * @group Props
+     */
     @Input() mode: string = 'decimal';
-
-    @Input() currency: string;
-
-    @Input() currencyDisplay: string;
-
+    /**
+     * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
+     * @group Props
+     */
+    @Input() currency: string | undefined;
+    /**
+     * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
+     * @group Props
+     */
+    @Input() currencyDisplay: string | undefined;
+    /**
+     * Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators.
+     * @group Props
+     */
     @Input() useGrouping: boolean = true;
-
-    @Input() minFractionDigits: number;
-
-    @Input() maxFractionDigits: number;
-
-    @Input() prefix: string;
-
-    @Input() suffix: string;
-
+    /**
+     * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
+     * @group Props
+     */
+    @Input() minFractionDigits: number | undefined;
+    /**
+     * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
+     * @group Props
+     */
+    @Input() maxFractionDigits: number | undefined;
+    /**
+     * Text to display before the value.
+     * @group Props
+     */
+    @Input() prefix: string | undefined;
+    /**
+     * Text to display after the value.
+     * @group Props
+     */
+    @Input() suffix: string | undefined;
+    /**
+     * Inline style of the input field.
+     * @group Props
+     */
     @Input() inputStyle: any;
-
-    @Input() inputStyleClass: string;
-
+    /**
+     * Style class of the input field.
+     * @group Props
+     */
+    @Input() inputStyleClass: string | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
     @Input() showClear: boolean = false;
+    /**
+     * No description available.
+     * @group Emits
+     */
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() get disabled(): boolean | undefined {
+        return this._disabled;
+    }
+    set disabled(disabled: boolean | undefined) {
+        if (disabled) this.focused = false;
 
-    @ViewChild('input') input: ElementRef;
+        this._disabled = disabled;
 
-    @Output() onInput: EventEmitter<any> = new EventEmitter();
+        if (this.timer) this.clearTimer();
+    }
+    /**
+     * Callback to invoke on input.
+     * @param {InputNumberInputEvent} event - Custom input event.
+     * @group Emits
+     */
+    @Output() onInput: EventEmitter<InputNumberInputEvent> = new EventEmitter<InputNumberInputEvent>();
+    /**
+     * Callback to invoke when the component receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the component loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke on input key press.
+     * @param {KeyboardEvent} event - Keyboard event.
+     * @group Emits
+     */
+    @Output() onKeyDown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    /**
+     * Callback to invoke when clear token is clicked.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
+    @ViewChild('input') input!: ElementRef;
 
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Output() onKeyDown: EventEmitter<any> = new EventEmitter();
+    clearIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
 
-    value: number;
+    decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+
+    value: Nullable<number>;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    focused: boolean;
+    focused: Nullable<boolean>;
 
-    initialized: boolean;
+    initialized: Nullable<boolean>;
 
     groupChar: string = '';
 
@@ -233,11 +454,11 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     suffixChar: string = '';
 
-    isSpecialChar: boolean;
+    isSpecialChar: Nullable<boolean>;
 
     timer: any;
 
-    lastValue: string;
+    lastValue: Nullable<string>;
 
     _numeral: any;
 
@@ -249,29 +470,19 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 
     _minusSign: any;
 
-    _currency: any;
+    _currency: Nullable<RegExp | string>;
 
-    _prefix: any;
+    _prefix: Nullable<RegExp>;
 
-    _suffix: any;
+    _suffix: Nullable<RegExp>;
 
-    _index: any;
+    _index: number | any;
 
-    _disabled: boolean;
+    _disabled: boolean | undefined;
 
-    @Input() get disabled(): boolean {
-        return this._disabled;
-    }
+    private ngControl: NgControl | null = null;
 
-    set disabled(disabled: boolean) {
-        if (disabled) this.focused = false;
-
-        this._disabled = disabled;
-
-        if (this.timer) this.clearTimer();
-    }
-
-    constructor(public el: ElementRef, private cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -280,7 +491,27 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
     }
 
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'incrementbuttonicon':
+                    this.incrementButtonIconTemplate = item.template;
+                    break;
+
+                case 'decrementbuttonicon':
+                    this.decrementButtonIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     ngOnInit() {
+        this.ngControl = this.injector.get(NgControl, null, { optional: true });
+
         this.constructParser();
 
         this.initialized = true;
@@ -309,7 +540,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this._decimal = this.getDecimalExpression();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
-        this._index = (d) => index.get(d);
+        this._index = (d: any) => index.get(d);
     }
 
     updateConstructParser() {
@@ -318,27 +549,34 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
     }
 
-    escapeRegExp(text) {
+    escapeRegExp(text: string): string {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 
-    getDecimalExpression() {
+    getDecimalExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
-        return new RegExp(`[${formatter.format(1.1).replace(this._currency, '').trim().replace(this._numeral, '')}]`, 'g');
+        return new RegExp(
+            `[${formatter
+                .format(1.1)
+                .replace(this._currency as RegExp | string, '')
+                .trim()
+                .replace(this._numeral, '')}]`,
+            'g'
+        );
     }
 
-    getGroupingExpression() {
+    getGroupingExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { useGrouping: true });
         this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '').charAt(0);
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
-    getMinusSignExpression() {
+    getMinusSignExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { useGrouping: false });
         return new RegExp(`[${formatter.format(-1).trim().replace(this._numeral, '')}]`, 'g');
     }
 
-    getCurrencyExpression() {
+    getCurrencyExpression(): RegExp {
         if (this.currency) {
             const formatter = new Intl.NumberFormat(this.locale, { style: 'currency', currency: this.currency, currencyDisplay: this.currencyDisplay, minimumFractionDigits: 0, maximumFractionDigits: 0 });
             return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._group, '')}]`, 'g');
@@ -347,7 +585,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return new RegExp(`[]`, 'g');
     }
 
-    getPrefixExpression() {
+    getPrefixExpression(): RegExp {
         if (this.prefix) {
             this.prefixChar = this.prefix;
         } else {
@@ -358,7 +596,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return new RegExp(`${this.escapeRegExp(this.prefixChar || '')}`, 'g');
     }
 
-    getSuffixExpression() {
+    getSuffixExpression(): RegExp {
         if (this.suffix) {
             this.suffixChar = this.suffix;
         } else {
@@ -369,7 +607,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return new RegExp(`${this.escapeRegExp(this.suffixChar || '')}`, 'g');
     }
 
-    formatValue(value) {
+    formatValue(value: any) {
         if (value != null) {
             if (value === '-') {
                 // Minus sign
@@ -396,13 +634,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return '';
     }
 
-    parseValue(text) {
+    parseValue(text: any) {
         let filteredText = text
-            .replace(this._suffix, '')
-            .replace(this._prefix, '')
+            .replace(this._suffix as RegExp, '')
+            .replace(this._prefix as RegExp, '')
             .trim()
             .replace(/\s/g, '')
-            .replace(this._currency, '')
+            .replace(this._currency as RegExp, '')
             .replace(this._group, '')
             .replace(this._minusSign, '-')
             .replace(this._decimal, '.')
@@ -420,7 +658,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return null;
     }
 
-    repeat(event, interval, dir) {
+    repeat(event: Event, interval: number | null, dir: number) {
         if (this.readonly) {
             return;
         }
@@ -435,14 +673,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.spin(event, dir);
     }
 
-    spin(event, dir) {
+    spin(event: Event, dir: number) {
         let step = this.step * dir;
-        let currentValue = this.parseValue(this.input.nativeElement.value) || 0;
-        let newValue = this.validateValue(currentValue + step);
+        let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
+        let newValue = this.validateValue((currentValue as number) + step);
         if (this.maxlength && this.maxlength < this.formatValue(newValue).length) {
             return;
         }
-
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
@@ -455,8 +692,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.onClear.emit();
     }
 
-    onUpButtonMouseDown(event) {
-        this.input.nativeElement.focus();
+    onUpButtonMouseDown(event: MouseEvent) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
+        this.input?.nativeElement.focus();
         this.repeat(event, null, 1);
         event.preventDefault();
     }
@@ -469,7 +711,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.clearTimer();
     }
 
-    onUpButtonKeyDown(event) {
+    onUpButtonKeyDown(event: KeyboardEvent) {
         if (event.keyCode === 32 || event.keyCode === 13) {
             this.repeat(event, null, 1);
         }
@@ -479,8 +721,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.clearTimer();
     }
 
-    onDownButtonMouseDown(event) {
-        this.input.nativeElement.focus();
+    onDownButtonMouseDown(event: MouseEvent) {
+        if (event.button === 2) {
+            this.clearTimer();
+            return;
+        }
+
+        this.input?.nativeElement.focus();
         this.repeat(event, null, -1);
         event.preventDefault();
     }
@@ -497,37 +744,37 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.clearTimer();
     }
 
-    onDownButtonKeyDown(event) {
+    onDownButtonKeyDown(event: KeyboardEvent) {
         if (event.keyCode === 32 || event.keyCode === 13) {
             this.repeat(event, null, -1);
         }
     }
 
-    onUserInput(event) {
+    onUserInput(event: Event) {
         if (this.readonly) {
             return;
         }
 
         if (this.isSpecialChar) {
-            event.target.value = this.lastValue;
+            (event.target as HTMLInputElement).value = this.lastValue as string;
         }
         this.isSpecialChar = false;
     }
 
-    onInputKeyDown(event) {
+    onInputKeyDown(event: KeyboardEvent) {
         if (this.readonly) {
             return;
         }
 
-        this.lastValue = event.target.value;
-        if (event.shiftKey || event.altKey) {
+        this.lastValue = (event.target as HTMLInputElement).value;
+        if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey) {
             this.isSpecialChar = true;
             return;
         }
 
-        let selectionStart = event.target.selectionStart;
-        let selectionEnd = event.target.selectionEnd;
-        let inputValue = event.target.value;
+        let selectionStart = (event.target as HTMLInputElement).selectionStart as number;
+        let selectionEnd = (event.target as HTMLInputElement).selectionEnd as number;
+        let inputValue = (event.target as HTMLInputElement).value as string;
         let newValueStr = null;
 
         if (event.altKey) {
@@ -587,7 +834,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
+                                this.input?.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                             }
@@ -596,7 +843,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + insertedText + inputValue.slice(selectionStart);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + '0' + inputValue.slice(selectionStart);
-                            newValueStr = this.parseValue(newValueStr) > 0 ? newValueStr : '';
+                            newValueStr = (this.parseValue(newValueStr) as number) > 0 ? newValueStr : '';
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                         }
@@ -629,7 +876,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                                this.input?.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                             }
@@ -638,13 +885,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
                             newValueStr = inputValue.slice(0, selectionStart) + insertedText + inputValue.slice(selectionStart + 1);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart) + '0' + inputValue.slice(selectionStart + 1);
-                            newValueStr = this.parseValue(newValueStr) > 0 ? newValueStr : '';
+                            newValueStr = (this.parseValue(newValueStr) as number) > 0 ? newValueStr : '';
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                         }
                     }
 
-                    this.updateValue(event, newValueStr, null, 'delete-back-single');
+                    this.updateValue(event, newValueStr as string, null, 'delete-back-single');
                 } else {
                     newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
                     this.updateValue(event, newValueStr, null, 'delete-range');
@@ -658,7 +905,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.onKeyDown.emit(event);
     }
 
-    onInputKeyPress(event) {
+    onInputKeyPress(event: KeyboardEvent) {
         if (this.readonly) {
             return;
         }
@@ -672,15 +919,21 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             event.preventDefault();
         }
 
+        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const newValueStr = newValue != null ? newValue.toString() : '';
+        if (this.maxlength && newValueStr.length > this.maxlength) {
+            return;
+        }
+
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
     }
 
-    onPaste(event) {
+    onPaste(event: ClipboardEvent) {
         if (!this.disabled && !this.readonly) {
             event.preventDefault();
-            let data = (event.clipboardData || window['clipboardData']).getData('Text');
+            let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
             if (data) {
                 let filteredData = this.parseValue(data);
                 if (filteredData != null) {
@@ -694,7 +947,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return this.min == null || this.min < 0;
     }
 
-    isMinusSign(char) {
+    isMinusSign(char: string) {
         if (this._minusSign.test(char) || char === '-') {
             this._minusSign.lastIndex = 0;
             return true;
@@ -703,7 +956,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return false;
     }
 
-    isDecimalSign(char) {
+    isDecimalSign(char: string) {
         if (this._decimal.test(char)) {
             this._decimal.lastIndex = 0;
             return true;
@@ -716,40 +969,44 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return this.mode === 'decimal';
     }
 
-    getDecimalCharIndexes(val) {
+    getDecimalCharIndexes(val: string) {
         let decimalCharIndex = val.search(this._decimal);
         this._decimal.lastIndex = 0;
 
-        const filteredVal = val.replace(this._prefix, '').trim().replace(/\s/g, '').replace(this._currency, '');
+        const filteredVal = val
+            .replace(this._prefix as RegExp, '')
+            .trim()
+            .replace(/\s/g, '')
+            .replace(this._currency as RegExp, '');
         const decimalCharIndexWithoutPrefix = filteredVal.search(this._decimal);
         this._decimal.lastIndex = 0;
 
         return { decimalCharIndex, decimalCharIndexWithoutPrefix };
     }
 
-    getCharIndexes(val) {
+    getCharIndexes(val: string) {
         const decimalCharIndex = val.search(this._decimal);
         this._decimal.lastIndex = 0;
         const minusCharIndex = val.search(this._minusSign);
         this._minusSign.lastIndex = 0;
-        const suffixCharIndex = val.search(this._suffix);
-        this._suffix.lastIndex = 0;
-        const currencyCharIndex = val.search(this._currency);
-        this._currency.lastIndex = 0;
+        const suffixCharIndex = val.search(this._suffix as RegExp);
+        (this._suffix as RegExp).lastIndex = 0;
+        const currencyCharIndex = val.search(this._currency as RegExp);
+        (this._currency as RegExp).lastIndex = 0;
 
         return { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex };
     }
 
-    insert(event, text, sign = { isDecimalSign: false, isMinusSign: false }) {
+    insert(event: Event, text: string, sign = { isDecimalSign: false, isMinusSign: false }) {
         const minusCharIndexOnText = text.search(this._minusSign);
         this._minusSign.lastIndex = 0;
         if (!this.allowMinusSign() && minusCharIndexOnText !== -1) {
             return;
         }
 
-        let selectionStart = this.input.nativeElement.selectionStart;
-        let selectionEnd = this.input.nativeElement.selectionEnd;
-        let inputValue = this.input.nativeElement.value.trim();
+        let selectionStart = this.input?.nativeElement.selectionStart;
+        let selectionEnd = this.input?.nativeElement.selectionEnd;
+        let inputValue = this.input?.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
         let newValueStr;
 
@@ -790,7 +1047,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
     }
 
-    insertText(value, text, start, end) {
+    insertText(value: string, text: string, start: number, end: number) {
         let textSplit = text === '.' ? text : text.split('.');
 
         if (textSplit.length === 2) {
@@ -808,7 +1065,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
     }
 
-    deleteRange(value, start, end) {
+    deleteRange(value: string, start: number, end: number) {
         let newValueStr;
 
         if (end - start === value.length) newValueStr = '';
@@ -820,8 +1077,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     initCursor() {
-        let selectionStart = this.input.nativeElement.selectionStart;
-        let inputValue = this.input.nativeElement.value;
+        let selectionStart = this.input?.nativeElement.selectionStart;
+        let inputValue = this.input?.nativeElement.value;
         let valueLength = inputValue.length;
         let index = null;
 
@@ -848,7 +1105,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
 
         if (index !== null) {
-            this.input.nativeElement.setSelectionRange(index + 1, index + 1);
+            this.input?.nativeElement.setSelectionRange(index + 1, index + 1);
         } else {
             i = selectionStart;
             while (i < valueLength) {
@@ -862,7 +1119,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
             }
 
             if (index !== null) {
-                this.input.nativeElement.setSelectionRange(index, index);
+                this.input?.nativeElement.setSelectionRange(index, index);
             }
         }
 
@@ -870,13 +1127,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
     }
 
     onInputClick() {
-        const currentValue = this.input.nativeElement.value;
+        const currentValue = this.input?.nativeElement.value;
         if (!this.readonly && currentValue !== DomHandler.getSelection()) {
             this.initCursor();
         }
     }
 
-    isNumeralChar(char) {
+    isNumeralChar(char: string) {
         if (char.length === 1 && (this._numeral.test(char) || this._decimal.test(char) || this._group.test(char) || this._minusSign.test(char))) {
             this.resetRegex();
             return true;
@@ -892,8 +1149,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this._minusSign.lastIndex = 0;
     }
 
-    updateValue(event, valueStr, insertedValueStr, operation) {
-        let currentValue = this.input.nativeElement.value;
+    updateValue(event: Event, valueStr: Nullable<string>, insertedValueStr: Nullable<string>, operation: Nullable<string>) {
+        let currentValue = this.input?.nativeElement.value;
         let newValue = null;
 
         if (valueStr != null) {
@@ -905,16 +1162,16 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         }
     }
 
-    handleOnInput(event, currentValue, newValue) {
+    handleOnInput(event: Event, currentValue: string, newValue: any) {
         if (this.isValueChanged(currentValue, newValue)) {
-            this.input.nativeElement.value = this.formatValue(newValue);
-            this.input.nativeElement.setAttribute('aria-valuenow', newValue);
+            (this.input as ElementRef).nativeElement.value = this.formatValue(newValue);
+            this.input?.nativeElement.setAttribute('aria-valuenow', newValue);
             this.updateModel(event, newValue);
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
 
-    isValueChanged(currentValue, newValue) {
+    isValueChanged(currentValue: string, newValue: string) {
         if (newValue === null && currentValue !== null) {
             return true;
         }
@@ -927,31 +1184,31 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return false;
     }
 
-    validateValue(value) {
+    validateValue(value: number | string) {
         if (value === '-' || value == null) {
             return null;
         }
 
-        if (this.min != null && value < this.min) {
+        if (this.min != null && (value as number) < this.min) {
             return this.min;
         }
 
-        if (this.max != null && value > this.max) {
+        if (this.max != null && (value as number) > this.max) {
             return this.max;
         }
 
         return value;
     }
 
-    updateInput(value, insertedValueStr, operation, valueStr) {
+    updateInput(value: any, insertedValueStr: Nullable<string>, operation: Nullable<string>, valueStr: Nullable<string>) {
         insertedValueStr = insertedValueStr || '';
 
-        let inputValue = this.input.nativeElement.value;
+        let inputValue = this.input?.nativeElement.value;
         let newValue = this.formatValue(value);
         let currentLength = inputValue.length;
 
         if (newValue !== valueStr) {
-            newValue = this.concatValues(newValue, valueStr);
+            newValue = this.concatValues(newValue, valueStr as string);
         }
 
         if (currentLength === 0) {
@@ -963,6 +1220,13 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
+
+            if (this.maxlength && newValue.length > this.maxlength) {
+                newValue = newValue.slice(0, this.maxlength);
+                selectionStart = Math.min(selectionStart, this.maxlength);
+                selectionEnd = Math.min(selectionEnd, this.maxlength);
+            }
+
             if (this.maxlength && this.maxlength < newValue.length) {
                 return;
             }
@@ -1015,7 +1279,7 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         this.input.nativeElement.setAttribute('aria-valuenow', value);
     }
 
-    concatValues(val1, val2) {
+    concatValues(val1: string, val2: string) {
         if (val1 && val2) {
             let decimalCharIndex = val2.search(this._decimal);
             this._decimal.lastIndex = 0;
@@ -1029,31 +1293,33 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return val1;
     }
 
-    getDecimalLength(value) {
+    getDecimalLength(value: string) {
         if (value) {
             const valueSplit = value.split(this._decimal);
 
             if (valueSplit.length === 2) {
-                return valueSplit[1].replace(this._suffix, '').trim().replace(/\s/g, '').replace(this._currency, '').length;
+                return valueSplit[1]
+                    .replace(this._suffix as RegExp, '')
+                    .trim()
+                    .replace(/\s/g, '')
+                    .replace(this._currency as RegExp, '').length;
             }
         }
 
         return 0;
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focused = true;
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focused = false;
-
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
         this.updateModel(event, newValue);
-
         this.onBlur.emit(event);
     }
 
@@ -1062,12 +1328,18 @@ export class InputNumber implements OnInit, ControlValueAccessor {
         return this.formatValue(val);
     }
 
-    updateModel(event, value) {
+    updateModel(event: Event, value: any) {
+        const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
+
         if (this.value !== value) {
             this.value = value;
+
+            if (!(isBlurUpdateOnMode && this.focused)) {
+                this.onModelChange(value);
+            }
+        } else if (isBlurUpdateOnMode) {
             this.onModelChange(value);
         }
-
         this.onModelTouched();
     }
 
@@ -1105,8 +1377,8 @@ export class InputNumber implements OnInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, ButtonModule],
-    exports: [InputNumber],
+    imports: [CommonModule, InputTextModule, ButtonModule, TimesIcon, AngleUpIcon, AngleDownIcon],
+    exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
 export class InputNumberModule {}

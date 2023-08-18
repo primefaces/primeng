@@ -4,10 +4,6 @@ import { BasicDoc } from '../../doc/dragdrop/basicdoc';
 import { DataTableDoc } from '../../doc/dragdrop/datatabledoc';
 import { DropIndicatorDoc } from '../../doc/dragdrop/dropindicatordoc';
 import { DragHandleDoc } from '../../doc/dragdrop/draghandledoc';
-import { DraggablePropsDoc } from '../../doc/dragdrop/draggablepropsdoc';
-import { DraggableEventsDoc } from '../../doc/dragdrop/draggableeventsdoc';
-import { DroppablePropsDoc } from '../../doc/dragdrop/droppablepropsdoc';
-import { DroppableEventsDoc } from '../../doc/dragdrop/droppableeventsdoc';
 
 @Component({
     templateUrl: './dragdropdemo.html',
@@ -39,29 +35,6 @@ export class DragDropDemo {
             id: 'draghandle',
             label: 'Drag Handle',
             component: DragHandleDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'draggableprops',
-            label: 'Properties of Draggable',
-            component: DraggablePropsDoc
-        },
-        {
-            id: 'draggableevents',
-            label: 'Events of Draggable',
-            component: DraggableEventsDoc
-        },
-        {
-            id: 'droppableprops',
-            label: 'Properties of Droppable',
-            component: DroppablePropsDoc
-        },
-        {
-            id: 'droppableevents',
-            label: 'Events of Droppable',
-            component: DroppableEventsDoc
         }
     ];
 }

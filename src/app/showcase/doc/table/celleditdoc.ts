@@ -58,7 +58,7 @@ import { ProductService } from '../../service/productservice';
                                     <input pInputText type="text" [(ngModel)]="product.price" />
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{ product.price | currency: 'USD' }}
+                                    {{ product.price | currency : 'USD' }}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -77,7 +77,7 @@ export class CellEditDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -211,7 +211,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-cell-edit-demo.html'
 })
 export class TableCellEditDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

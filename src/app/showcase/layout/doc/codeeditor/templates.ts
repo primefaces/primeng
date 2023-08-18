@@ -15,9 +15,9 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '15.2.0',
+    version: '16.2.0',
     description:
-        'PrimeNG is an open source UI library for Vue featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
 
 const getAppDependencies = () => {
@@ -359,9 +359,6 @@ const angular_json = `
               ],
               "scripts": [],
               "allowedCommonJsDependencies": [
-                "@fullcalendar/timegrid",
-                "@fullcalendar/interaction",
-                "@fullcalendar/daygrid",
                 "chart.js",
                 "xlsx",
                 "jspdf-autotable",
@@ -483,6 +480,7 @@ ${routeImports}
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
@@ -493,7 +491,6 @@ import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
-import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -509,7 +506,6 @@ import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
-import { GMapModule } from 'primeng/gmap';
 import { InplaceModule } from 'primeng/inplace';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -518,11 +514,11 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
-import { LightboxModule } from 'primeng/lightbox';
 import { ListboxModule } from 'primeng/listbox';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OrderListModule } from 'primeng/orderlist';
@@ -573,6 +569,7 @@ ${serviceImports}
 @NgModule({
   imports: [
     AvatarModule,
+    AvatarGroupModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -591,7 +588,6 @@ ${serviceImports}
     CheckboxModule,
     ChipsModule,
     ChipModule,
-    CodeHighlighterModule,
     ColorPickerModule,
     ConfirmDialogModule,
     ContextMenuModule,
@@ -607,7 +603,6 @@ ${serviceImports}
     FieldsetModule,
     FileUploadModule,
     GalleriaModule,
-    GMapModule,
     InplaceModule,
     InputMaskModule,
     InputSwitchModule,
@@ -616,11 +611,11 @@ ${serviceImports}
     InputNumberModule,
     ImageModule,
     KnobModule,
-    LightboxModule,
     ListboxModule,
     MegaMenuModule,
     MenuModule,
     MenubarModule,
+    MessageModule,
     MessagesModule,
     MultiSelectModule,
     OrganizationChartModule,
@@ -725,9 +720,7 @@ export class AppModule {}`;
                     test: 'ng test'
                 },
                 dependencies: {
-                    ...dependencies,
-                    jspdf: '1.5.3',
-                    'jspdf-autotable': '3.2.5'
+                    ...dependencies
                 }
             }
         },

@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                     <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <input type="text" pInputText placeholder="Search" />
+                    <input type="text" pInputText placeholder="Search" class="w-full" />
                 </ng-template>
             </p-menubar>
         </div>
@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -161,7 +161,7 @@ export class TemplateDoc implements OnInit {
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
     </ng-template>
     <ng-template pTemplate="end">
-        <input type="text" pInputText placeholder="Search" />
+        <input type="text" pInputText placeholder="Search" class="w-full" />
     </ng-template>
 </p-menubar>`,
 
@@ -172,7 +172,7 @@ export class TemplateDoc implements OnInit {
             <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
         </ng-template>
         <ng-template pTemplate="end">
-            <input type="text" pInputText placeholder="Search" />
+            <input type="text" pInputText placeholder="Search" class="w-full" />
         </ng-template>
     </p-menubar>
 </div>`,
@@ -186,7 +186,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menubar-template-demo.html'
 })
 export class MenubarTemplateDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

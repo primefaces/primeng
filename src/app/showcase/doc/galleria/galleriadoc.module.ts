@@ -23,7 +23,6 @@ import { HoverDoc } from './navigator/hoverdoc';
 import { IndicatorsDoc } from './navigator/indicatorsdoc';
 import { ItemThumbnailsDoc } from './navigator/itemthumbnailsdoc';
 import { ItemWithoutThumbnailsDoc } from './navigator/itemwithoutthumbnailsdoc';
-import { PropsDoc } from './propsdoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
 import { ThumbnailDoc } from './thumbnaildoc';
@@ -51,7 +50,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
         IndicatorsDoc,
         ItemThumbnailsDoc,
         ItemWithoutThumbnailsDoc,
-        PropsDoc,
         ResponsiveDoc,
         StyleDoc,
         ThumbnailDoc,

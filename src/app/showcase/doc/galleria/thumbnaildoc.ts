@@ -8,13 +8,13 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex flex-column md:align-items-center">
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
+            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                     <div class="grid grid-nogutter justify-content-center">
@@ -31,7 +31,7 @@ export class ThumbnailDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'bottom';
 
@@ -77,9 +77,9 @@ export class ThumbnailDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ width: '100%' }" [numVisible]="5">
+<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -88,13 +88,13 @@ export class ThumbnailDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>
-    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%'}" [numVisible]="5"> 
+    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; min-height: 420px; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
@@ -112,7 +112,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-thumbnail-demo.html'
 })
 export class GalleriaThumbnailDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'bottom';
 

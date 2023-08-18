@@ -18,7 +18,7 @@ interface City {
                 <label for="ms-cities">Select Cities</label>
             </span>
         </div>
-        <app-code [code]="code" selector="muilti-select-floatlabel-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
     </section>`
 })
 export class FloatLabelDoc implements OnInit {
@@ -26,9 +26,9 @@ export class FloatLabelDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -64,13 +64,13 @@ interface City {
 }
 
 @Component({
-    selector: 'muilti-select-floatlabel-demo',
-    templateUrl: './muilti-select-floatlabel-demo.html'
+    selector: 'multi-select-floatlabel-demo',
+    templateUrl: './multi-select-floatlabel-demo.html'
 })
 export class MultiSelectFloatlabelDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

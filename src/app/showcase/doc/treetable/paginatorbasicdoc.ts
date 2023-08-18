@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'paginator-basic-doc',
     template: ` <section>
@@ -10,7 +15,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10">
+            <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -38,9 +43,9 @@ export class PaginatorBasicDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     ngOnInit() {
         this.files = [];
@@ -74,7 +79,7 @@ export class PaginatorBasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10">
+<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -94,7 +99,7 @@ export class PaginatorBasicDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10">
+    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -117,14 +122,19 @@ export class PaginatorBasicDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-paginator-basic-demo',
     templateUrl: './tree-table-paginator-basic-demo.html'
 })
 export class TreeTablePaginatorBasicDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     ngOnInit() {
         this.files = [];

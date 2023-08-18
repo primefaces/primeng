@@ -407,6 +407,7 @@ pre[class*="language-"] {
        color: var(--surface-900);
        font-size: 14px;
        border-radius: 10px;
+       z-index: unset;
    }
    }
 

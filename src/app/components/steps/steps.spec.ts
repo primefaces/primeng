@@ -128,7 +128,7 @@ describe('Steps', () => {
 
     it('should change activeItem when click', () => {
         steps.readonly = false;
-        const itemClickSpy = spyOn(steps, 'itemClick').and.callThrough();
+        const itemClickSpy = spyOn(steps, 'onItemClick').and.callThrough();
         fixture.detectChanges();
 
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));

@@ -14,6 +14,7 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        html: `import { AvatarModule } from 'primeng/avatar';`
+        html: `import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';`
     };
 }

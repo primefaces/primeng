@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
     template: ` <section>
@@ -23,17 +28,17 @@ export class VirtualScrollDoc {
 
     selectedItem: any;
 
-    filteredItems: any[];
+    filteredItems: any[] | undefined;
 
-    items: any[];
+    items: any[] | undefined;
 
-    filterItems(event) {
+    filterItems(event: AutoCompleteCompleteEvent) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.items.length; i++) {
-            let item = this.items[i];
+        for (let i = 0; i < (this.items as any[]).length; i++) {
+            let item = (this.items as any[])[i];
             if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(item);
             }
@@ -61,6 +66,11 @@ export class VirtualScrollDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
     templateUrl: './autocomplete-virtual-scroll-demo.html'
@@ -68,17 +78,17 @@ import { Component } from '@angular/core';
 export class AutocompleteVirtualScrollDemo {
     selectedItem: any;
 
-    filteredItems: any[];
+    filteredItems: any[] | undefined;
 
-    items: any[];
+    items: any[] | undefined;
 
-    filterItems(event) {
+    filterItems(event: AutoCompleteCompleteEvent) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.items.length; i++) {
-            let item = this.items[i];
+        for (let i = 0; i < (this.items as any[]).length; i++) {
+            let item = (this.items as any[])[i];
             if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(item);
             }

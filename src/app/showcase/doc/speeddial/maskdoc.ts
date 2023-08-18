@@ -23,7 +23,7 @@ export class MaskDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -53,6 +53,7 @@ export class MaskDoc implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -81,7 +82,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialMaskDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -111,6 +112,7 @@ export class SpeedDialMaskDemo implements OnInit {
             },
             {
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];

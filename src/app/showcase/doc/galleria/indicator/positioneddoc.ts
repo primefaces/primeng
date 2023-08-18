@@ -12,7 +12,7 @@ import { PhotoService } from '../../../service/photoservice';
                 <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex flex-column md:align-items-center">
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
@@ -26,10 +26,10 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
                 [showIndicatorsOnItem]="showIndicatorsOnItem"
                 [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+                [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -43,7 +43,7 @@ export class PositionedDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 
@@ -100,14 +100,14 @@ export class PositionedDoc implements OnInit {
     [showThumbnails]="false"
     [showIndicatorsOnItem]="showIndicatorsOnItem"
     [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ width: '100%', 'margin-top': '2em' }"
+    [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>
@@ -116,7 +116,7 @@ export class PositionedDoc implements OnInit {
     </div>
     <p-galleria [(value)]="images" [indicatorsPosition]="position" [showIndicators]="true" [showThumbnails]="false" [showIndicatorsOnItem]="showIndicatorsOnItem" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '100%','margin-top': '2em'}">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
@@ -129,7 +129,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-indicator-positioned-demo.html'
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 

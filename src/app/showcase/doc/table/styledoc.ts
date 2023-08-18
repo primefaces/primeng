@@ -65,7 +65,7 @@ export class StyleDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -136,7 +136,7 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['table-style-demo.scss']
 })
 export class TableStyleDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -24,7 +24,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     categories: any[] = [
         { name: 'Accounting', key: 'A' },
@@ -67,7 +67,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './radio-button-reactive-forms-demo.html'
 })
 export class RadioButtonReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     categories: any[] = [
         { name: 'Accounting', key: 'A' },

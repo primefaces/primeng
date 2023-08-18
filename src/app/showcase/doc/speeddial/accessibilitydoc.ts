@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
                 SpeedDial component renders a native button element that implicitly includes any passed prop. Text to describe the button can be defined with the <i>aria-labelledby</i> or <i>aria-label</i> props. Addititonally the button includes
@@ -96,8 +95,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

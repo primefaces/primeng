@@ -24,9 +24,9 @@ export class TooltipDoc implements OnInit {
 
     @Input() title: string;
 
-    tooltipItems: MenuItem[];
+    tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[];
+    leftTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -70,6 +70,7 @@ export class TooltipDoc implements OnInit {
                     tooltipLabel: 'Angular Website'
                 },
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -118,6 +119,7 @@ export class TooltipDoc implements OnInit {
                     tooltipPosition: 'left'
                 },
                 icon: 'pi pi-external-link',
+                target: '_blank',
                 url: 'http://angular.io'
             }
         ];
@@ -148,9 +150,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialTooltipDemo implements OnInit {
-    tooltipItems: MenuItem[];
+    tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[];
+    leftTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 

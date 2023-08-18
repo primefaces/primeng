@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -19,11 +20,9 @@ export class AppMainComponent implements OnInit {
 
     news_key = 'primenews';
 
-    theme: string = 'lara-light-blue';
-
     public subscription: Subscription;
 
-    constructor(private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
 
     ngOnInit() {
         this.primengConfig.ripple = true;
@@ -31,8 +30,9 @@ export class AppMainComponent implements OnInit {
         this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
         });
-
-        this.newsActive = this.newsActive && this.isNewsStorageExpired();
+        if (isPlatformBrowser(this.platformId)) {
+            this.newsActive = this.newsActive && this.isNewsStorageExpired();
+        }
     }
 
     onMenuButtonClick() {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { IconService } from '../../service/iconservice';
 
 @Component({
@@ -31,7 +31,7 @@ export class ListDoc {
 
     selectedIcon: any;
 
-    constructor(private iconService: IconService) {}
+    constructor(private iconService: IconService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.iconService.getIcons().subscribe((data) => {
@@ -48,6 +48,7 @@ export class ListDoc {
 
             this.icons = icons;
             this.filteredIcons = data;
+            this.cd.markForCheck();
         });
     }
 

@@ -3,6 +3,11 @@ import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'context-menu-doc',
     template: ` <section>
@@ -12,7 +17,7 @@ import { NodeService } from '../../service/nodeservice';
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }"></p-toast>
 
-            <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+            <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -41,13 +46,13 @@ export class ContextMenuDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -66,11 +71,11 @@ export class ContextMenuDoc implements OnInit {
         ];
     }
 
-    viewFile(node) {
+    viewFile(node: any) {
         this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
     }
 
-    toggleFile(node) {
+    toggleFile(node: any) {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }
@@ -79,7 +84,7 @@ export class ContextMenuDoc implements OnInit {
         basic: `
 <p-toast [style]="{ marginTop: '80px' }"></p-toast>
 
-<p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+<p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -103,7 +108,7 @@ export class ContextMenuDoc implements OnInit {
 <div class="card">
     <p-toast [style]="{ marginTop: '80px' }"></p-toast>
 
-    <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+    <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -129,19 +134,24 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-context-menu-demo',
     templateUrl: './tree-table-context-menu-demo.html'
     providers: [MessageService]
 })
 export class TreeTableContextMenuDemo implements OnInit{
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -160,11 +170,11 @@ export class TreeTableContextMenuDemo implements OnInit{
         ];
     }
 
-    viewFile(node) {
+    viewFile(node: any) {
         this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
     }
 
-    toggleFile(node) {
+    toggleFile(node: any) {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }

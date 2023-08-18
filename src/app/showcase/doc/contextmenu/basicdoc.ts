@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" />
+            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full" />
             <p-contextMenu [target]="img" [model]="items"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
@@ -20,7 +20,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -153,12 +153,12 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true">
+<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
 <p-contextMenu [target]="img" [model]="items"></p-contextMenu>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true">
+    <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
     <p-contextMenu [target]="img" [model]="items"></p-contextMenu>
 </div>`,
 
@@ -171,7 +171,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './context-menu-basic-demo.html'
 })
 export class ContextBasicDoc implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

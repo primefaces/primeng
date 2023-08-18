@@ -3,6 +3,11 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'filter-doc',
     template: ` <section>
@@ -16,7 +21,7 @@ import { NodeService } from '../../service/nodeservice';
             <div class="flex justify-content-center mb-4">
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
-            <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+            <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-end align-items-center">
                         <div class="p-input-icon-left">
@@ -67,9 +72,9 @@ export class FilterDoc implements OnInit {
         { label: 'Strict', value: 'strict' }
     ];
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -86,7 +91,7 @@ export class FilterDoc implements OnInit {
         basic: `
 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
 
-<p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+<p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-end align-items-center">
             <div class="p-input-icon-left">
@@ -127,7 +132,7 @@ export class FilterDoc implements OnInit {
     <div class="flex justify-content-center mb-4">
         <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
     </div>
-    <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode">
+    <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
             <div class="flex justify-content-end align-items-center">
                 <div class="p-input-icon-left">
@@ -169,6 +174,11 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-filter-demo',
     templateUrl: './tree-table-filter-demo.html'
@@ -181,9 +191,9 @@ export class TreeTableFilterDemo implements OnInit{
         { label: 'Strict', value: 'strict' }
     ];
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

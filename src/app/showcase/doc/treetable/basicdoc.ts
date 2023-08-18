@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files">
+            <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Name</th>
@@ -41,7 +41,7 @@ export class BasicDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -51,7 +51,7 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files">
+<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -73,7 +73,7 @@ export class BasicDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files">
+    <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -104,7 +104,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-table-basic-demo.html'
 })
 export class TreeTableBasicDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

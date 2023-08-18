@@ -7,6 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { OverlayModule } from 'primeng/overlay';
 import { AutoComplete } from './autocomplete';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -53,7 +55,7 @@ describe('AutoComplete', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule, ChevronDownIcon, TimesCircleIcon],
             declarations: [AutoComplete, TestAutocompleteComponent]
         }).compileComponents();
 
@@ -469,7 +471,17 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         const panelEl = fixture.debugElement.query(By.css('div'));
-        expect(panelEl).toBeTruthy();
+        expect(panelEl).toBeFalsy();
+
+        inputEl.nativeElement.value = 'va';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const updatedPanelEl = fixture.debugElement.query(By.css('div'));
+        expect(updatedPanelEl).toBeFalsy();
         flush();
     }));
 
@@ -564,7 +576,9 @@ describe('AutoComplete', () => {
         expect(autocomplete.value.length).toEqual(1);
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
-        let backspaceEvent = { which: 8, preventDefault() {} };
+        let backspaceEvent = new Event('keydown');
+        Object.defineProperty(backspaceEvent, 'which', { value: 8 });
+        Object.defineProperty(backspaceEvent, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(backspaceEvent);
         fixture.detectChanges();
 
@@ -617,13 +631,14 @@ describe('AutoComplete', () => {
         const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        fixture.detectChanges();
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeydown(navigateEvent);
 
-        event.which = 38;
-        autocomplete.onKeydown(event);
-        event.which = 13;
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 13 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(event);
         fixture.detectChanges();
 
@@ -643,12 +658,17 @@ describe('AutoComplete', () => {
         const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        event.which = 9;
+
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeydown(navigateEvent);
+
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 9 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(event);
         fixture.detectChanges();
-
         expect(autocomplete.value).toEqual('Volvo');
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
@@ -666,7 +686,10 @@ describe('AutoComplete', () => {
         const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 27, preventDefault() {} };
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 27 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
+
         autocomplete.onKeydown(event);
         fixture.detectChanges();
 

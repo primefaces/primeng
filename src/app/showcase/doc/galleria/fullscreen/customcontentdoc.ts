@@ -9,7 +9,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card md:flex md:justify-content-center">
             <div *ngIf="images" class="grid" style="max-width: 800px;">
                 <div *ngFor="let image of images; let index = index" class="col-3" key="index">
                     <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
@@ -28,7 +28,7 @@ import { PhotoService } from '../../../service/photoservice';
                 [showThumbnails]="false"
             >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>
         </div>
@@ -42,11 +42,11 @@ export class FullScreenTemplateDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    displayCustom: boolean;
+    displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -93,12 +93,12 @@ export class FullScreenTemplateDoc implements OnInit {
     [showThumbnails]="false"
 >
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>
         `,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div *ngIf="images" class="grid" style="max-width: 800px;">
         <div *ngFor="let image of images; let index = index" class="col-3" key="index">
             <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
@@ -117,7 +117,7 @@ export class FullScreenTemplateDoc implements OnInit {
         [showThumbnails]="false"
     >
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
@@ -130,11 +130,11 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-full-secreen-template-demo.html'
 })
 export class GalleriaFullScreenTemplateDemo implements OnInit {
-    displayCustom: boolean;
+    displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

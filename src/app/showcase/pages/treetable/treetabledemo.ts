@@ -25,9 +25,6 @@ import { ColumnToggleDoc } from '../../doc/treetable/columntoggledoc';
 import { ConditionalStyleDoc } from '../../doc/treetable/conditionalstyledoc';
 import { ContextMenuDoc } from '../../doc/treetable/contextmenudoc';
 import { StyleDoc } from '../../doc/treetable/styledoc';
-import { PropsDoc } from '../../doc/treetable/propsdoc';
-import { EventsDoc } from '../../doc/treetable/eventsdoc';
-import { MethodsDoc } from '../../doc/treetable/methodsdoc';
 import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
 
 @Component({
@@ -199,24 +196,6 @@ export class TreeTableDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }
