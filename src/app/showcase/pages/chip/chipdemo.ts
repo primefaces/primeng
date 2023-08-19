@@ -5,8 +5,6 @@ import { ImportDoc } from '../../doc/chip/importdoc';
 import { TemplateDoc } from '../../doc/chip/templatedoc';
 import { BasicDoc } from '../../doc/chip/basicdoc';
 import { StyleDoc } from '../../doc/chip/styledoc';
-import { PropsDoc } from '../../doc/chip/propsdoc';
-import { EventsDoc } from '../../doc/chip/eventsdoc';
 import { AccessibilityDoc } from '../../doc/chip/accessibilitydoc';
 
 @Component({
@@ -49,19 +47,6 @@ export class ChipDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

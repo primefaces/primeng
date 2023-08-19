@@ -7,9 +7,7 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ColoredDoc } from './colored.doc';
-import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { SelectionDoc } from './selectiondoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
@@ -17,6 +15,6 @@ import { TemplateDoc } from './templatedoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, OrganizationChartModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, SelectionDoc, ColoredDoc, StyleDoc, AccessibilityDoc]
 })
 export class OrganizationChartDocModule {}

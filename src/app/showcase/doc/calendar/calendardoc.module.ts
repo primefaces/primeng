@@ -28,6 +28,7 @@ import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -54,6 +55,7 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
         StyleDoc,
         EventsDoc,
         MethodsDoc,
+        TemplatesDoc,
         AccessibilityDoc,
         ReactiveFormsDoc
     ]

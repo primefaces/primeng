@@ -31,7 +31,7 @@ import { ProductService } from '../../service/productservice';
                         <td>{{ product.name }}</td>
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -47,7 +47,7 @@ export class SingleColumnSortDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -113,7 +113,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-single-column-sort-demo.html'
 })
 export class TableSingleColumnSortDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

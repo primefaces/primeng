@@ -26,7 +26,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -58,7 +58,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-basic-demo.scss']
 })
 export class ScrollerBasicDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

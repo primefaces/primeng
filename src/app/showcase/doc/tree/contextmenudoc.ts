@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
@@ -23,11 +23,11 @@ export class ContextMenuDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFile: TreeNode;
+    selectedFile!: TreeNode | null;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -72,11 +72,11 @@ import { NodeService } from '../../service/nodeservice';
     providers:[MessageService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFile: TreeNode;
+    selectedFile!: TreeNode | null;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 

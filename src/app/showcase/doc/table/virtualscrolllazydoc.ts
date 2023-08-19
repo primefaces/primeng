@@ -1,9 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CarService } from '../../service/carservice';
+
+interface Column {
+    field: string;
+    header: string;
+}
 
 @Component({
     selector: 'virtual-scroll-lazy-doc',
@@ -50,11 +55,11 @@ export class VirtualScrollLazyDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 
@@ -149,11 +154,11 @@ import { CarService } from '../../service/carservice';
     templateUrl: 'table-virtual-scroll-lazy-demo.html'
 })
 export class TableVirtualScrollLazyDemo implements OnInit{
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 

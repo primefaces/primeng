@@ -19,7 +19,7 @@ export class SeverityDoc implements OnInit {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [
@@ -46,7 +46,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-severity-demo.html'
 })
 export class MessagesSeverityDemo implements OnInit {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [

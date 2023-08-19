@@ -3,10 +3,6 @@ import { BasicDoc } from '../../doc/virtualscroller/basicdoc';
 import { LazyLoadDoc } from '../../doc/virtualscroller/lazyloaddoc';
 import { ImportDoc } from '../../doc/virtualscroller/importdoc';
 import { StyleDoc } from '../../doc/virtualscroller/styledoc';
-import { PropsDoc } from '../../doc/virtualscroller/propsdoc';
-import { EventsDoc } from '../../doc/virtualscroller/eventsdoc';
-import { MethodsDoc } from '../../doc/virtualscroller/methodsdoc';
-import { TemplatesDoc } from '../../doc/virtualscroller/templatesdoc';
 import { ProgrammaticScrollDoc } from '../../doc/virtualscroller/programmaticscrolldoc';
 import { TemplateDoc } from '../../doc/virtualscroller/templatedoc';
 import { AccessibilityDoc } from '../../doc/virtualscroller/accessibilitydoc';
@@ -51,29 +47,6 @@ export class VirtualScrollerDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

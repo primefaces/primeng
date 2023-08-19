@@ -21,7 +21,7 @@ export class FloatlabelDoc {
 
     @Input() title: string;
 
-    value1: number;
+    value1!: number;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-number-float-label-demo.html'
 })
 export class InputNumberFloatLabelDemo {
-    value1: number;
+    value1!: number;
 }`
     };
 }

@@ -41,9 +41,9 @@ export class SizeDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    sizes: any[];
+    sizes!: any[];
 
     selectedSize: any = '';
 
@@ -119,9 +119,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-size-demo.html'
 })
 export class TableSizeDemo {
-    products: Product[];
+    products!: Product[];
 
-    sizes: any[];
+    sizes!: any[];
 
     selectedSize: any = '';
 

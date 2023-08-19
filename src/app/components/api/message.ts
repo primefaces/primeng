@@ -1,3 +1,7 @@
+/**
+ * Deines valid options for the message.
+ * @group Interface
+ */
 export interface Message {
     severity?: string;
     summary?: string;
@@ -11,4 +15,5 @@ export interface Message {
     icon?: string;
     contentStyleClass?: string;
     styleClass?: string;
+    closeIcon?: string;
 }

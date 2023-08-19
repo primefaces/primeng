@@ -3,13 +3,10 @@ import { AccessibilityDoc } from '../../doc/accordion/accessibilitydoc';
 import { BasicDoc } from '../../doc/accordion/basicdoc';
 import { ControlledDoc } from '../../doc/accordion/controlleddoc';
 import { DisabledDoc } from '../../doc/accordion/disableddoc';
-import { EventsDoc } from '../../doc/accordion/eventsdoc';
 import { ImportDoc } from '../../doc/accordion/importdoc';
 import { MultipleDoc } from '../../doc/accordion/multipledoc';
-import { PropsDoc } from '../../doc/accordion/propsdoc';
 import { StyleDoc } from '../../doc/accordion/styledoc';
 import { TemplateDoc } from '../../doc/accordion/templatedoc';
-import { TemplatesDoc } from '../../doc/accordion/templatesdoc';
 
 @Component({
     templateUrl: './accordiondemo.html',
@@ -56,24 +53,6 @@ export class AccordionDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { AppMainComponent } from './app.main.component';
 import { LandingComponent } from '../pages/landing/landing.component';
+import { AppMainComponent } from './app.main.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent, pathMatch: 'full' },
@@ -14,8 +14,10 @@ const routes: Routes = [
             { path: 'configuration', loadChildren: () => import('../pages/configuration/configurationdemo.module').then((m) => m.ConfigurationDemoModule) },
             { path: 'roadmap', loadChildren: () => import('../pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
             { path: 'team', loadChildren: () => import('../pages/team/team.module').then((m) => m.TeamModule) },
+            { path: 'partners', loadChildren: () => import('../pages/partners/partners.module').then((m) => m.PartnersModule) },
             { path: 'theming', loadChildren: () => import('../pages/theming/theming.module').then((m) => m.ThemingModule) },
             { path: 'icons', loadChildren: () => import('../pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
+            { path: 'customicons', loadChildren: () => import('../pages/customicons/customiconsdemo.module').then((m) => m.CustomIconsDemoModule) },
             { path: 'accordion', loadChildren: () => import('../pages/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },
             { path: 'avatar', loadChildren: () => import('../pages/avatar/avatardemo.module').then((m) => m.AvatarDemoModule) },
             { path: 'autocomplete', loadChildren: () => import('../pages/autocomplete/autocompletedemo.module').then((m) => m.AutoCompleteDemoModule) },

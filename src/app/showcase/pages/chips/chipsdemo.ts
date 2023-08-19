@@ -5,7 +5,6 @@ import { CommaSeperatorDoc } from '../../doc/chips/commaseperator.doc';
 import { RegexpSeperatorDoc } from '../../doc/chips/regexpseperator.doc';
 import { TemplateDoc } from '../../doc/chips/templatedoc';
 import { StyleDoc } from '../../doc/chips/styledoc';
-import { PropsDoc } from '../../doc/chips/propsdoc';
 import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
 
@@ -53,14 +52,6 @@ export class ChipsDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

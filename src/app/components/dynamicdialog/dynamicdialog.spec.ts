@@ -34,7 +34,6 @@ export class TestDynamicDialogComponent {
 @NgModule({
     imports: [CommonModule, DynamicDialogModule],
     declarations: [TestComponent, TestDynamicDialogComponent],
-    entryComponents: [TestComponent],
     exports: [TestComponent],
     providers: [DialogService]
 })

@@ -18,7 +18,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    color: string;
+    color: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './color-picker-disabled-demo.html'
 })
 export class ColorPickerDisabledDemo {
-    color: string;
+    color: string | undefined;
 }`
     };
 }

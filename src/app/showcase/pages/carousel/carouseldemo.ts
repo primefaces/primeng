@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/carousel/importdoc';
 import { BasicDoc } from '../../doc/carousel/basicdoc';
-import { PropsDoc } from '../../doc/carousel/propsdoc';
 import { StyleDoc } from '../../doc/carousel/styledoc';
 import { CircularDoc } from '../../doc/carousel/circulardoc';
 import { NumScrollDoc } from '../../doc/carousel/numscrolldoc';
@@ -60,14 +59,6 @@ export class CarouselDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

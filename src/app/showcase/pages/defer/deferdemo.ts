@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EventsDoc } from '../../doc/defer/eventsdoc';
 import { BasicDoc } from '../../doc/defer/basicdoc';
 import { ImportDoc } from '../../doc/defer/importdoc';
 import { DataTableDoc } from '../../doc/defer/datatabledoc';
@@ -36,14 +35,6 @@ export class DeferDemo {
             id: 'datatable',
             label: 'DataTable',
             component: DataTableDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

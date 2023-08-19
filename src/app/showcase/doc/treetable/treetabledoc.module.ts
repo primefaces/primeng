@@ -38,9 +38,6 @@ import { ConditionalStyleDoc } from './conditionalstyledoc';
 import { ContextMenuDoc } from './contextmenudoc';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { StyleDoc } from './styledoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
-import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
@@ -73,9 +70,6 @@ import { AccessibilityDoc } from './accessibilitydoc';
         ConditionalStyleDoc,
         ContextMenuDoc,
         StyleDoc,
-        PropsDoc,
-        EventsDoc,
-        MethodsDoc,
         AccessibilityDoc
     ]
 })

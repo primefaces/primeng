@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-
+/**
+ * Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.
+ * @group Components
+ */
 @Directive({
     selector: '[pAnimate]',
     host: {
@@ -9,11 +12,18 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class Animate implements AfterViewInit {
-    @Input() enterClass: string;
+    /**
+     * Selector to define the CSS class for enter animation.
+     * @group Props
+     */
+    @Input() enterClass: string | undefined;
+    /**
+     * Selector to define the CSS class for leave animation.
+     * @group Props
+     */
+    @Input() leaveClass: string | undefined;
 
-    @Input() leaveClass: string;
-
-    observer: IntersectionObserver;
+    observer: IntersectionObserver | undefined;
 
     timeout: any;
 
@@ -41,11 +51,11 @@ export class Animate implements AfterViewInit {
 
     enter() {
         this.host.nativeElement.style.visibility = 'visible';
-        DomHandler.addClass(this.host.nativeElement, this.enterClass);
+        DomHandler.addClass(this.host.nativeElement, this.enterClass as string);
     }
 
     leave() {
-        DomHandler.removeClass(this.host.nativeElement, this.enterClass);
+        DomHandler.removeClass(this.host.nativeElement, this.enterClass as string);
         if (this.leaveClass) {
             DomHandler.addClass(this.host.nativeElement, this.leaveClass);
         }

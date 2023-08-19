@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class FloatLabelDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-floatlabel-demo.html'
 })
 export class InputTextFloatlabelDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

@@ -90,7 +90,9 @@
 }
 
 .p-input-icon-left > i,
-.p-input-icon-right > i {
+.p-input-icon-left > .p-icon-wrapper,
+.p-input-icon-right > i,
+.p-input-icon-right > .p-icon-wrapper {
     position: absolute;
     top: 50%;
     margin-top: -.5rem;

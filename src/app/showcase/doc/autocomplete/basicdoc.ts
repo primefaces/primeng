@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'basic-doc',
     template: ` <section>
@@ -21,13 +26,13 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    items: any[];
+    items: any[] | undefined;
 
     selectedItem: any;
 
-    suggestions: any[];
+    suggestions: any[] | undefined;
 
-    search(event) {
+    search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
@@ -43,18 +48,23 @@ export class BasicDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-basic-demo',
     templateUrl: './autocomplete-basic-demo.html'
 })
 export class AutocompleteBasicDemo {
-    items: any[];
+    items: any[] | undefined;
 
     selectedItem: any;
 
-    suggestions: any[];
+    suggestions: any[] | undefined;
 
-    search(event) {
+    search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
 }`

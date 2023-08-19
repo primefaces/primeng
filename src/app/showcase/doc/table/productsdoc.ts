@@ -68,7 +68,7 @@ import { ProductService } from '../../service/productservice';
                         </td>
                         <td>{{ product.name }}</td>
                         <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                        <td>{{ product.price | currency: 'USD' }}</td>
+                        <td>{{ product.price | currency : 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
                         <td>
@@ -84,6 +84,73 @@ import { ProductService } from '../../service/productservice';
                     <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
                 </ng-template>
             </p-table>
+
+            <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">
+                <ng-template pTemplate="content">
+                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-3" *ngIf="product.image" />
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
+                        <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
+                    </div>
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label for="inventoryStatus">Inventory Status</label>
+                        <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
+                            <ng-template pTemplate="selectedItem">
+                                <p-tag [value]="product.inventoryStatus.toUpperCase()" [severity]="getSeverity(product.inventoryStatus.toUpperCase())"></p-tag>
+                            </ng-template>
+                            <ng-template let-option pTemplate="item">
+                                <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div class="field">
+                        <label class="mb-3">Category</label>
+                        <div class="formgrid grid">
+                            <div class="field-radiobutton col-6">
+                                <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
+                                <label for="category1">Accessories</label>
+                            </div>
+                            <div class="field-radiobutton col-6">
+                                <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
+                                <label for="category2">Clothing</label>
+                            </div>
+                            <div class="field-radiobutton col-6">
+                                <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
+                                <label for="category3">Electronics</label>
+                            </div>
+                            <div class="field-radiobutton col-6">
+                                <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
+                                <label for="category4">Fitness</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="formgrid grid">
+                        <div class="field col">
+                            <label for="price">Price</label>
+                            <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                        </div>
+                        <div class="field col">
+                            <label for="quantity">Quantity</label>
+                            <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="footer">
+                    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+                </ng-template>
+            </p-dialog>
+
+            <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
         </div>
         <app-code [code]="code" selector="table-products-demo" [extFiles]="extFiles"></app-code>
     </section>`,
@@ -97,17 +164,17 @@ export class ProductsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    productDialog: boolean;
+    productDialog: boolean = false;
 
-    products: Product[];
+    products!: Product[];
 
-    product: Product;
+    product!: Product;
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[] | null;
 
-    submitted: boolean;
+    submitted: boolean = false;
 
-    statuses: any[];
+    statuses!: any[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService, private cd: ChangeDetectorRef) {}
 
@@ -136,7 +203,7 @@ export class ProductsDoc implements OnInit {
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products = this.products.filter((val) => !this.selectedProducts.includes(val));
+                this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
             }
@@ -169,7 +236,7 @@ export class ProductsDoc implements OnInit {
     saveProduct() {
         this.submitted = true;
 
-        if (this.product.name.trim()) {
+        if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
@@ -366,7 +433,73 @@ export class ProductsDoc implements OnInit {
             <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
         </ng-template>
     </p-table>
-</div>`,
+</div>
+<p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-3" *ngIf="product.image" />
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
+            <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="product.description" required rows="3" cols="20"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="inventoryStatus">Inventory Status</label>
+            <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
+                <ng-template pTemplate="selectedItem">
+                    <p-tag [value]="product.inventoryStatus.toUpperCase()" [severity]="getSeverity(product.inventoryStatus.toUpperCase())"></p-tag>
+                </ng-template>
+                <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="field">
+            <label class="mb-3">Category</label>
+            <div class="formgrid grid">
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category"></p-radioButton>
+                    <label for="category1">Accessories</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category"></p-radioButton>
+                    <label for="category2">Clothing</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category"></p-radioButton>
+                    <label for="category3">Electronics</label>
+                </div>
+                <div class="field-radiobutton col-6">
+                    <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category"></p-radioButton>
+                    <label for="category4">Fitness</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="price">Price</label>
+                <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="field col">
+                <label for="quantity">Quantity</label>
+                <p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -380,17 +513,17 @@ import { ProductService } from '../../service/productservice';
     providers: [MessageService, ConfirmationService]
 })
 export class TableProductsDemo implements OnInit{
-    productDialog: boolean;
+    productDialog: boolean = false;
 
-    products: Product[];
+    products!: Product[];
 
-    product: Product;
+    product!: Product;
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[] | null;
 
-    submitted: boolean;
+    submitted: boolean = false;
 
-    statuses: any[];
+    statuses!: any[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
@@ -416,7 +549,7 @@ export class TableProductsDemo implements OnInit{
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products = this.products.filter((val) => !this.selectedProducts.includes(val));
+                this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
                 this.selectedProducts = null;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
             }
@@ -449,7 +582,7 @@ export class TableProductsDemo implements OnInit{
     saveProduct() {
         this.submitted = true;
 
-        if (this.product.name.trim()) {
+        if (this.product.name?.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });

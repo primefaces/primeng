@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    checked: boolean;
+    checked: boolean = false;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './checkbox-basic-demo.html'
 })
 export class CheckboxBasicDemo {
-    checked: boolean;
+    checked: boolean = false;
 }`
     };
 }

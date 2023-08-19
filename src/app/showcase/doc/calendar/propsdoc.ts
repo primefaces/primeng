@@ -120,7 +120,7 @@ import { Component, Input } from '@angular/core';
                     <tr>
                         <td>icon</td>
                         <td>string</td>
-                        <td>pi pi-calendar</td>
+                        <td>null</td>
                         <td>Icon of the calendar button.</td>
                     </tr>
                     <tr>

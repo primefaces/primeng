@@ -58,6 +58,46 @@ import { Component, Input } from '@angular/core';
                         <td>emptyfiltermessagetarget</td>
                         <td>-</td>
                     </tr>
+                    <tr>
+                        <td>moveupicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movetopicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movedownicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movebottomicon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>movetotargeticon</td>
+                        <td>$implicit: viewChanged</td>
+                    </tr>
+                    <tr>
+                        <td>movealltotargeticon</td>
+                        <td>$implicit: viewChanged</td>
+                    </tr>
+                    <tr>
+                        <td>movetosourceicon</td>
+                        <td>$implicit: viewChanged</td>
+                    </tr>
+                    <tr>
+                        <td>movealltosourceicon</td>
+                        <td>$implicit: viewChanged</td>
+                    </tr>
+                    <tr>
+                        <td>targetfiltericon</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>sourcefiltericon</td>
+                        <td>-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -76,13 +76,6 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                }
-                            ],
                             "optimization": {
                                 "styles": {
                                     "inlineCritical": false
@@ -144,7 +137,8 @@
                         "outputPath": "dist/primeng/server",
                         "main": "server.ts",
                         "tsConfig": "tsconfig.server.json",
-                        "inlineStyleLanguage": "scss"
+                        "inlineStyleLanguage": "scss",
+                        "optimization": false
                     },
                     "configurations": {
                         "production": {

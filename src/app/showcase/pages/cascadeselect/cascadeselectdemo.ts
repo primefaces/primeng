@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { AccessibilityDoc } from '../../doc/cascadeselect/accessibilitydoc';
 import { BasicDoc } from '../../doc/cascadeselect/basicdoc';
-import { EventsDoc } from '../../doc/cascadeselect/eventsdoc';
 import { ImportDoc } from '../../doc/cascadeselect/importdoc';
-import { PropsDoc } from '../../doc/cascadeselect/propsdoc';
 import { ReactiveFormsDoc } from '../../doc/cascadeselect/reactiveformsdoc';
 import { StyleDoc } from '../../doc/cascadeselect/styledoc';
 import { TemplateDoc } from '../../doc/cascadeselect/templatedoc';
@@ -42,19 +40,6 @@ export class CascadeSelectDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

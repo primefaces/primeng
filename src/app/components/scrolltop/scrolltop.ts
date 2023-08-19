@@ -1,10 +1,14 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, OnDestroy, ElementRef, ChangeDetectorRef, Inject, Renderer2, PLATFORM_ID } from '@angular/core';
+import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, OnInit, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-import { PrimeNGConfig } from 'primeng/api';
-
+/**
+ * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollTop',
     template: `
@@ -13,13 +17,18 @@ import { PrimeNGConfig } from 'primeng/api';
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
+            [attr.aria-label]="scrollTopAriaLabel"
             [ngClass]="containerClass()"
             (click)="onClick()"
             [class]="styleClass"
             [ngStyle]="style"
             type="button"
         >
-            <span [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
+            <ng-container *ngIf="!iconTemplate">
+                <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
+                <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
+            </ng-container>
+            <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,31 +57,65 @@ import { PrimeNGConfig } from 'primeng/api';
     }
 })
 export class ScrollTop implements OnInit, OnDestroy {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() target: string = 'window';
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Target of the ScrollTop.
+     * @group Props
+     */
+    @Input() target: 'window' | 'parent' | undefined = 'window';
+    /**
+     * Defines the threshold value of the vertical scroll position of the target to toggle the visibility.
+     * @group Props
+     */
     @Input() threshold: number = 400;
-
-    @Input() icon: string = 'pi pi-chevron-up';
-
-    @Input() behavior: string = 'smooth';
-
+    /**
+     * Name of the icon or JSX.Element for icon.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump.
+     * @group Props
+     */
+    @Input() behavior: 'auto' | 'smooth' | undefined = 'smooth';
+    /**
+     * A string value used to determine the display transition options.
+     * @group Props
+     */
     @Input() showTransitionOptions: string = '.15s';
-
+    /**
+     * A string value used to determine the hiding transition options.
+     * @group Props
+     */
     @Input() hideTransitionOptions: string = '.15s';
+    /**
+     * Establishes a string value that labels the scroll-top button.
+     * @group Props
+     */
+    @Input() buttonAriaLabel: string | undefined;
 
-    documentScrollListener: VoidFunction | null;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    parentScrollListener: VoidFunction | null;
+    iconTemplate: TemplateRef<any> | undefined;
+
+    documentScrollListener: VoidFunction | null | undefined;
+
+    parentScrollListener: VoidFunction | null | undefined;
 
     visible: boolean = false;
 
     overlay: any;
 
-    private window: Window;
+    private window: Window | null;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView;
@@ -81,6 +124,16 @@ export class ScrollTop implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.target === 'window') this.bindDocumentScrollListener();
         else if (this.target === 'parent') this.bindParentScrollListener();
+    }
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onClick() {
@@ -111,7 +164,7 @@ export class ScrollTop implements OnInit, OnDestroy {
         }
     }
 
-    checkVisibility(scrollY) {
+    checkVisibility(scrollY: number) {
         if (scrollY > this.threshold) this.visible = true;
         else this.visible = false;
 
@@ -167,8 +220,8 @@ export class ScrollTop implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ScrollTop],
+    imports: [CommonModule, ChevronUpIcon, SharedModule],
+    exports: [ScrollTop, SharedModule],
     declarations: [ScrollTop]
 })
 export class ScrollTopModule {}

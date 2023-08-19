@@ -20,7 +20,7 @@ export class DocumentDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -170,7 +170,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './context-menu-document-demo.html'
 })
 export class ContextMenuDocumentDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

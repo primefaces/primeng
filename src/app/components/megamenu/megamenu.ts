@@ -1,262 +1,275 @@
-import { NgModule, Component, ElementRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, AfterContentInit, ContentChildren, QueryList, TemplateRef, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { MegaMenuItem, MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    effect,
+    signal
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MegaMenuItem, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { DomHandler } from 'primeng/dom';
+import { VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 
 @Component({
-    selector: 'p-megaMenu',
+    selector: 'p-megaMenuSub',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="{ 'p-megamenu p-component': true, 'p-megamenu-horizontal': orientation == 'horizontal', 'p-megamenu-vertical': orientation == 'vertical' }">
-            <div class="p-megamenu-start" *ngIf="startTemplate">
-                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
-            </div>
-            <ul class="p-megamenu-root-list" role="menubar">
-                <ng-template ngFor let-category [ngForOf]="model">
-                    <li *ngIf="category.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': category.visible === false }"></li>
-                    <li
-                        *ngIf="!category.separator"
-                        [ngClass]="{ 'p-menuitem': true, 'p-menuitem-active': category == activeItem, 'p-hidden': category.visible === false }"
-                        pTooltip
-                        [tooltipOptions]="category.tooltipOptions"
-                        (mouseenter)="onCategoryMouseEnter($event, category)"
-                    >
+        <ul
+            #menubar
+            [ngClass]="{ 'p-megamenu-root-list': root, 'p-submenu-list p-megamenu-submenu': !root }"
+            [attr.role]="root ? 'menubar' : 'menu'"
+            [id]="id"
+            [attr.aria-orientation]="orientation"
+            [tabindex]="tabindex"
+            [attr.aria-activedescendant]="focusedItemId"
+            [attr.data-pc-section]="root ? 'root' : 'submenu'"
+            (keydown)="menuKeydown.emit($event)"
+            (focus)="menuFocus.emit($event)"
+            (blur)="menuBlur.emit($event)"
+        >
+            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [style]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
+            <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
+                <li
+                    *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
+                    [id]="getItemId(processedItem)"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [ngClass]="getSeparatorItemClass(processedItem)"
+                    role="separator"
+                    [attr.data-pc-section]="'separator'"
+                ></li>
+                <li
+                    #listItem
+                    *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
+                    role="menuitem"
+                    [id]="getItemId(processedItem)"
+                    [attr.data-pc-section]="'menuitem'"
+                    [attr.data-p-highlight]="isItemActive(processedItem)"
+                    [attr.data-p-focused]="isItemFocused(processedItem)"
+                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                    [attr.aria-label]="getItemLabel(processedItem)"
+                    [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
+                    [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
+                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                    [attr.aria-level]="level + 1"
+                    [attr.aria-setsize]="getAriaSetSize()"
+                    [attr.aria-posinset]="getAriaPosInset(index)"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
+                    [ngClass]="getItemClass(processedItem)"
+                    [class]="getItemProp(processedItem, 'styleClass')"
+                    pTooltip
+                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                >
+                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
                         <a
-                            *ngIf="!category.routerLink"
-                            [href]="category.url || '#'"
-                            [target]="category.target"
-                            [attr.title]="category.title"
-                            [attr.id]="category.id"
-                            (click)="onCategoryClick($event, category)"
-                            [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
-                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': category.disabled }"
-                            [ngStyle]="category.style"
-                            [class]="category.styleClass"
+                            *ngIf="!getItemProp(processedItem, 'routerLink')"
+                            [attr.href]="getItemProp(processedItem, 'url')"
+                            [attr.aria-hidden]="true"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.data-pc-section]="'action'"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
-                            <span class="p-menuitem-text" *ngIf="category.escape !== false; else categoryHtmlLabel">{{ category.label }}</span>
-                            <ng-template #categoryHtmlLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
-                            <span *ngIf="category.items" class="p-submenu-icon pi" [ngClass]="{ 'pi-angle-down': orientation == 'horizontal', 'pi-angle-right': orientation == 'vertical' }"></span>
+                            <span
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                class="p-menuitem-icon"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            >
+                            </span>
+                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                {{ getItemLabel(processedItem) }}
+                            </span>
+                            <ng-template #htmlLabel>
+                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                            </ng-template>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                            </ng-container>
                         </a>
                         <a
-                            *ngIf="category.routerLink"
-                            [routerLink]="category.routerLink"
-                            [queryParams]="category.queryParams"
+                            *ngIf="getItemProp(processedItem, 'routerLink')"
+                            [routerLink]="getItemProp(processedItem, 'routerLink')"
+                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.tabindex]="-1"
+                            [attr.aria-hidden]="true"
+                            [attr.data-pc-section]="'action'"
+                            [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menuitem-link-active'"
-                            [routerLinkActiveOptions]="category.routerLinkActiveOptions || { exact: false }"
-                            [attr.tabindex]="category.tabindex ? category.tabindex : '0'"
-                            [target]="category.target"
-                            [attr.title]="category.title"
-                            [attr.id]="category.id"
-                            (click)="onCategoryClick($event, category)"
-                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': category.disabled }"
-                            [ngStyle]="category.style"
-                            [class]="category.styleClass"
-                            [fragment]="category.fragment"
-                            [queryParamsHandling]="category.queryParamsHandling"
-                            [preserveFragment]="category.preserveFragment"
-                            [skipLocationChange]="category.skipLocationChange"
-                            [replaceUrl]="category.replaceUrl"
-                            [state]="category.state"
+                            [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                            [fragment]="getItemProp(processedItem, 'fragment')"
+                            [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                            [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                            [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                            [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                            [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span class="p-menuitem-icon" *ngIf="category.icon" [ngClass]="category.icon"></span>
-                            <span class="p-menuitem-text" *ngIf="category.escape !== false; else categoryHtmlRouteLabel">{{ category.label }}</span>
-                            <ng-template #categoryHtmlRouteLabel><span class="p-menuitem-text" [innerHTML]="category.label"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="category.badge" [ngClass]="category.badgeStyleClass">{{ category.badge }}</span>
+                            <span
+                                class="p-menuitem-icon"
+                                *ngIf="getItemProp(processedItem, 'icon')"
+                                [ngClass]="getItemProp(processedItem, 'icon')"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [attr.data-pc-section]="'icon'"
+                                [attr.aria-hidden]="true"
+                                [attr.tabindex]="-1"
+                            ></span>
+                            <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                </ng-container>
+                                <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                            </ng-container>
                         </a>
-                        <div class="p-megamenu-panel" *ngIf="category.items">
-                            <div class="p-megamenu-grid">
-                                <ng-template ngFor let-column [ngForOf]="category.items">
-                                    <div [class]="getColumnClass(category)">
-                                        <ng-template ngFor let-submenu [ngForOf]="column">
-                                            <ul class="p-megamenu-submenu" role="menu">
-                                                <li class="p-megamenu-submenu-header">
-                                                    <span *ngIf="submenu.escape !== false; else submenuHtmlLabel">{{ submenu.label }}</span>
-                                                    <ng-template #submenuHtmlLabel><span [innerHTML]="submenu.label"></span></ng-template>
-                                                    <span class="p-menuitem-badge" *ngIf="submenu.badge" [ngClass]="submenu.badgeStyleClass">{{ submenu.badge }}</span>
-                                                </li>
-                                                <ng-template ngFor let-item [ngForOf]="submenu.items">
-                                                    <li *ngIf="item.separator" class="p-menu-separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
-                                                    <li *ngIf="!item.separator" class="p-menuitem" [ngClass]="{ 'p-hidden': item.visible === false }" role="none" pTooltip [tooltipOptions]="item.tooltipOptions">
-                                                        <a
-                                                            *ngIf="!item.routerLink"
-                                                            role="menuitem"
-                                                            [href]="item.url || '#'"
-                                                            class="p-menuitem-link"
-                                                            [target]="item.target"
-                                                            [attr.title]="item.title"
-                                                            [attr.id]="item.id"
-                                                            [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
-                                                            [ngClass]="{ 'p-disabled': item.disabled }"
-                                                            [ngStyle]="item.style"
-                                                            [class]="item.styleClass"
-                                                            (click)="itemClick($event, item)"
-                                                            pRipple
-                                                        >
-                                                            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                                                            <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-                                                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
-                                                        </a>
-                                                        <a
-                                                            *ngIf="item.routerLink"
-                                                            role="menuitem"
-                                                            [routerLink]="item.routerLink"
-                                                            [queryParams]="item.queryParams"
-                                                            [routerLinkActive]="'p-menuitem-link-active'"
-                                                            [attr.tabindex]="item.tabindex ? item.tabindex : '0'"
-                                                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                                                            class="p-menuitem-link"
-                                                            [target]="item.target"
-                                                            [attr.title]="item.title"
-                                                            [attr.id]="item.id"
-                                                            [ngClass]="{ 'p-disabled': item.disabled }"
-                                                            [ngStyle]="item.style"
-                                                            [class]="item.styleClass"
-                                                            (click)="itemClick($event, item)"
-                                                            [fragment]="item.fragment"
-                                                            [queryParamsHandling]="item.queryParamsHandling"
-                                                            [preserveFragment]="item.preserveFragment"
-                                                            [skipLocationChange]="item.skipLocationChange"
-                                                            [replaceUrl]="item.replaceUrl"
-                                                            [state]="item.state"
-                                                            pRipple
-                                                        >
-                                                            <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                                                            <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                                                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
-                                                            <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
-                                                        </a>
-                                                    </li>
-                                                </ng-template>
-                                            </ul>
-                                        </ng-template>
-                                    </div>
-                                </ng-template>
+                    </div>
+                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel" [attr.data-pc-section]="'panel'">
+                        <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
+                            <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
+                                <p-megaMenuSub
+                                    *ngFor="let submenu of col"
+                                    [id]="getSubListId(submenu)"
+                                    [submenu]="submenu"
+                                    [items]="submenu.items"
+                                    [menuId]="menuId"
+                                    [focusedItemId]="focusedItemId"
+                                    [level]="level + 1"
+                                    [root]="false"
+                                    (itemClick)="itemClick.emit($event)"
+                                    (itemMouseEnter)="onItemMouseEnter($event)"
+                                >
+                                </p-megaMenuSub>
                             </div>
                         </div>
-                    </li>
-                </ng-template>
-            </ul>
-            <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
-                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
-            </div>
-            <ng-template #legacy>
-                <div class="p-megamenu-end">
-                    <ng-content></ng-content>
-                </div>
+                    </div>
+                </li>
             </ng-template>
-        </div>
+        </ul>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./megamenu.css'],
     host: {
         class: 'p-element'
     }
 })
-export class MegaMenu implements AfterContentInit {
-    @Input() model: MegaMenuItem[];
+export class MegaMenuSub {
+    @Input() id: string | undefined;
 
-    @Input() style: any;
+    @Input() items: any[] | undefined;
 
-    @Input() styleClass: string;
+    @Input() menuId: string | undefined;
 
-    @Input() orientation: string = 'horizontal';
+    @Input() ariaLabel: string | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @Input() ariaLabelledBy: string | undefined;
 
-    activeItem: any;
+    @Input() level: number = 0;
 
-    documentClickListener: () => void | null;
+    @Input() focusedItemId: string | undefined;
 
-    startTemplate: TemplateRef<any>;
+    @Input() disabled: boolean = false;
 
-    endTemplate: TemplateRef<any>;
+    @Input() orientation: string | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef) {}
+    @Input() activeItem: any;
 
-    ngAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'start':
-                    this.startTemplate = item.template;
-                    break;
+    @Input() submenu: any;
 
-                case 'end':
-                    this.endTemplate = item.template;
-                    break;
-            }
-        });
+    @Input() tabindex: number = 0;
+
+    @Input() root: boolean = false;
+
+    @Output() itemClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() itemMouseEnter: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuFocus: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuBlur: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
+
+    constructor(public el: ElementRef, public megaMenu: MegaMenu) {}
+
+    onItemClick(event: any, processedItem: any) {
+        this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
+        this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
-    onCategoryMouseEnter(event, menuitem: MegaMenuItem) {
-        if (menuitem.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        if (this.activeItem) {
-            this.activeItem = menuitem;
-        }
+    getItemProp(processedItem: any, name: string, params: any | null = null) {
+        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
     }
 
-    onCategoryClick(event, item: MenuItem | MegaMenuItem) {
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
-        }
-
-        if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-
-        if (item.items) {
-            if (this.activeItem && this.activeItem === item) {
-                this.activeItem = null;
-                this.unbindDocumentClickListener();
-            } else {
-                this.activeItem = item;
-                this.bindDocumentClickListener();
-            }
-        }
+    getItemId(processedItem: any): string {
+        return `${this.menuId}_${processedItem.key}`;
     }
 
-    itemClick(event: MouseEvent, item: MenuItem | MegaMenuItem) {
-        if (item.disabled) {
-            event.preventDefault();
-            return;
-        }
-
-        if (!item.url && !item.routerLink) {
-            event.preventDefault();
-        }
-
-        if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
-        }
-
-        this.activeItem = null;
+    getSubListId(processedItem) {
+        return `${this.getItemId(processedItem)}_list`;
     }
 
-    getColumnClass(menuitem: MegaMenuItem) {
-        let length = menuitem.items ? menuitem.items.length : 0;
+    getItemClass(processedItem: any) {
+        return {
+            ...this.getItemProp(processedItem, 'class'),
+            'p-menuitem': true,
+            'p-menuitem-active p-highlight': this.isItemActive(processedItem),
+            'p-focus': this.isItemFocused(processedItem),
+            'p-disabled': this.isItemDisabled(processedItem)
+        };
+    }
+
+    getItemLabel(processedItem: any): string {
+        return this.getItemProp(processedItem, 'label');
+    }
+
+    getSeparatorItemClass(processedItem: any) {
+        return {
+            ...this.getItemProp(processedItem, 'class'),
+            'p-menuitem-separator': true
+        };
+    }
+
+    getColumnClass(processedItem) {
+        let length = this.isItemGroup(processedItem) ? processedItem.items.length : 0;
         let columnClass;
+
         switch (length) {
             case 2:
                 columnClass = 'p-megamenu-col-6';
@@ -282,31 +295,759 @@ export class MegaMenu implements AfterContentInit {
         return columnClass;
     }
 
-    bindDocumentClickListener() {
+    getSubmenuHeaderClass(processedItem) {
+        return {
+            'p-megamenu-submenu-header p-submenu-header': true,
+            'p-disabled': this.isItemDisabled(processedItem),
+            ...this.getItemProp(processedItem, 'class')
+        };
+    }
+
+    isItemVisible(processedItem: any): boolean {
+        return this.getItemProp(processedItem, 'visible') !== false;
+    }
+
+    isItemActive(processedItem) {
+        return ObjectUtils.isNotEmpty(this.activeItem) ? this.activeItem.key === processedItem.key : false;
+    }
+
+    isItemDisabled(processedItem: any): boolean {
+        return this.getItemProp(processedItem, 'disabled');
+    }
+
+    isItemFocused(processedItem: any): boolean {
+        return this.focusedItemId === this.getItemId(processedItem);
+    }
+
+    isItemGroup(processedItem: any): boolean {
+        return ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    getAriaSetSize() {
+        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+    }
+
+    getAriaPosInset(index: number) {
+        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+    }
+
+    onItemMouseEnter(param: any) {
+        const { event, processedItem } = param;
+        this.itemMouseEnter.emit({ originalEvent: event, processedItem });
+    }
+}
+/**
+ * MegaMenu is navigation component that displays submenus together.
+ * @group Components
+ */
+@Component({
+    selector: 'p-megaMenu',
+    template: `
+        <div
+            [ngClass]="{ 'p-megamenu p-component': true, 'p-megamenu-horizontal': orientation == 'horizontal', 'p-megamenu-vertical': orientation == 'vertical' }"
+            [class]="styleClass"
+            [ngStyle]="style"
+            [attr.data-pc-section]="'root'"
+            [attr.data-pc-name]="'megamenu'"
+            [id]="id"
+        >
+            <div class="p-megamenu-start" *ngIf="startTemplate">
+                <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            </div>
+            <p-megaMenuSub
+                #rootmenu
+                [items]="processedItems"
+                [id]="id + '_list'"
+                [menuId]="id"
+                [root]="true"
+                [orientation]="orientation"
+                [ariaLabel]="ariaLabel"
+                [disabled]="disabled"
+                [tabindex]="!disabled ? tabindex : -1"
+                [activeItem]="activeItem()"
+                [level]="0"
+                [ariaLabelledBy]="ariaLabelledBy"
+                [focusedItemId]="focused ? focusedItemId : undefined"
+                (itemClick)="onItemClick($event)"
+                (menuFocus)="onMenuFocus($event)"
+                (menuBlur)="onMenuBlur($event)"
+                (menuKeydown)="onKeyDown($event)"
+                (itemMouseEnter)="onItemMouseEnter($event)"
+            ></p-megaMenuSub>
+            <div class="p-megamenu-end" *ngIf="endTemplate; else legacy">
+                <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            </div>
+            <ng-template #legacy>
+                <div class="p-megamenu-end">
+                    <ng-content></ng-content>
+                </div>
+            </ng-template>
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./megamenu.css'],
+    host: {
+        class: 'p-element'
+    }
+})
+export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
+    /**
+     * An array of menuitems.
+     * @group Props
+     */
+    @Input() set model(value: MegaMenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MegaMenuItem[] | undefined {
+        return this._model;
+    }
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Defines the orientation.
+     * @group Props
+     */
+    @Input() orientation: 'horizontal' | 'vertical' | string = 'horizontal';
+    /**
+     * Current id state as a string.
+     * @group Props
+     */
+    @Input() id: string | undefined;
+    /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean = false;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number = 0;
+
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    @ViewChild('menubutton') menubutton: ElementRef | undefined;
+
+    @ViewChild('rootmenu') rootmenu: MegaMenuSub | undefined;
+
+    startTemplate: TemplateRef<any> | undefined;
+
+    endTemplate: TemplateRef<any> | undefined;
+
+    menuIconTemplate: TemplateRef<any> | undefined;
+
+    submenuIconTemplate: TemplateRef<any> | undefined;
+
+    outsideClickListener: VoidListener;
+
+    resizeListener: VoidListener;
+
+    dirty: boolean = false;
+
+    focused: boolean = false;
+
+    activeItem = signal<any>(null);
+
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+
+    searchValue: string = '';
+
+    searchTimeout: any;
+
+    _processedItems: any[];
+
+    _model: MegaMenuItem[] | undefined;
+
+    get visibleItems() {
+        const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
+
+        return processedItem && processedItem.key === this.focusedItemInfo().parentKey
+            ? processedItem.items.reduce((items, col) => {
+                  col.forEach((submenu) => {
+                      submenu.items.forEach((a) => {
+                          items.push(a);
+                      });
+                  });
+
+                  return items;
+              }, [])
+            : this.processedItems;
+    }
+
+    get processedItems() {
+        if (!this._processedItems || !this._processedItems.length) {
+            this._processedItems = this.createProcessedItems(this.model || []);
+        }
+        return this._processedItems;
+    }
+
+    get focusedItemId() {
+        return ObjectUtils.isNotEmpty(this.focusedItemInfo().key) ? `${this.id}_${this.focusedItemInfo().key}` : null;
+    }
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public config: PrimeNGConfig, public cd: ChangeDetectorRef) {
+        effect(() => {
+            const activeItem = this.activeItem();
+            if (ObjectUtils.isNotEmpty(activeItem)) {
+                this.bindOutsideClickListener();
+                this.bindResizeListener();
+            } else {
+                this.unbindOutsideClickListener();
+                this.unbindResizeListener();
+            }
+        });
+    }
+
+    ngOnInit(): void {
+        this.id = this.id || UniqueComponentId();
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'start':
+                    this.startTemplate = item.template;
+                    break;
+
+                case 'end':
+                    this.endTemplate = item.template;
+                    break;
+
+                case 'menuicon':
+                    this.menuIconTemplate = item.template;
+                    break;
+
+                case 'submenuicon':
+                    this.submenuIconTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
+    createProcessedItems(items, level = 0, parent = {}, parentKey = '', columnIndex?) {
+        const processedItems = [];
+
+        items &&
+            items.forEach((item, index) => {
+                const key = (parentKey !== '' ? parentKey + '_' : '') + (columnIndex !== undefined ? columnIndex + '_' : '') + index;
+                const newItem = {
+                    item,
+                    index,
+                    level,
+                    key,
+                    parent,
+                    parentKey,
+                    columnIndex: columnIndex !== undefined ? columnIndex : (<any>parent).columnIndex !== undefined ? (<any>parent).columnIndex : index
+                };
+
+                newItem['items'] =
+                    level === 0 && item.items && item.items.length > 0 ? item.items.map((_items, _index) => this.createProcessedItems(_items, level + 1, newItem, key, _index)) : this.createProcessedItems(item.items, level + 1, newItem, key);
+                processedItems.push(newItem);
+            });
+
+        return processedItems;
+    }
+
+    getItemProp(item: any, name: string) {
+        return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    }
+
+    onItemClick(event: any) {
+        const { originalEvent, processedItem } = event;
+        const grouped = this.isProcessedItemGroup(processedItem);
+        const root = ObjectUtils.isEmpty(processedItem.parent);
+        const selected = this.isSelected(processedItem);
+
+        if (selected) {
+            const { index, key, parentKey } = processedItem;
+
+            this.activeItem.set(null);
+            this.focusedItemInfo.set({ index, key, parentKey });
+
+            this.dirty = !root;
+            DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        } else {
+            if (grouped) {
+                this.onItemChange(event);
+            } else {
+                const rootProcessedItem = root ? processedItem : this.activeItem();
+                this.hide(originalEvent);
+                this.changeFocusedItemInfo(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+
+                DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+            }
+        }
+    }
+
+    onItemMouseEnter(event: any) {
+        if (!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
+        }
+    }
+
+    scrollInView(index: number = -1) {
+        const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
+        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+
+        if (element) {
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+        }
+    }
+
+    onItemChange(event: any) {
+        const { processedItem, isFocus } = event;
+
+        if (ObjectUtils.isEmpty(processedItem)) return;
+
+        const { index, key, parentKey, items } = processedItem;
+        const grouped = ObjectUtils.isNotEmpty(items);
+
+        if (grouped) {
+            this.activeItem.set(processedItem);
+        }
+        this.focusedItemInfo.set({ index, key, parentKey });
+
+        grouped && (this.dirty = true);
+        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+    }
+
+    hide(event?, isFocus?: boolean) {
+        this.activeItem.set(null);
+        this.focusedItemInfo.set({ index: -1, key: '', parentKey: '' });
+
+        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        this.dirty = false;
+    }
+
+    onMenuFocus(event: any) {
+        this.focused = true;
+        if (this.focusedItemInfo().index === -1) {
+            const index = this.findFirstFocusedItemIndex();
+            const processedItem = this.findVisibleItem(index);
+
+            this.focusedItemInfo.set({ index, key: processedItem.key, parentKey: processedItem.parentKey });
+        }
+    }
+
+    onMenuBlur(event: any) {
+        this.focused = false;
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.searchValue = '';
+        this.dirty = false;
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        const metaKey = event.metaKey || event.ctrlKey;
+
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUpKey(event);
+                break;
+
+            case 'ArrowLeft':
+                this.onArrowLeftKey(event);
+                break;
+
+            case 'ArrowRight':
+                this.onArrowRightKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            case 'Space':
+                this.onSpaceKey(event);
+                break;
+
+            case 'Enter':
+                this.onEnterKey(event);
+                break;
+
+            case 'Escape':
+                this.onEscapeKey(event);
+                break;
+
+            case 'Tab':
+                this.onTabKey(event);
+                break;
+
+            case 'PageDown':
+            case 'PageUp':
+            case 'Backspace':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+                //NOOP
+                break;
+
+            default:
+                if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
+                    this.searchItems(event, event.key);
+                }
+
+                break;
+        }
+    }
+
+    findFirstFocusedItemIndex() {
+        const selectedIndex = this.findSelectedItemIndex();
+
+        return selectedIndex < 0 ? this.findFirstItemIndex() : selectedIndex;
+    }
+
+    findFirstItemIndex() {
+        return this.visibleItems.findIndex((processedItem) => this.isValidItem(processedItem));
+    }
+
+    findSelectedItemIndex() {
+        return this.visibleItems.findIndex((processedItem) => this.isValidSelectedItem(processedItem));
+    }
+
+    isProcessedItemGroup(processedItem: any): boolean {
+        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    isSelected(processedItem: any): boolean {
+        return ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem().key === processedItem.key : false;
+    }
+
+    isValidSelectedItem(processedItem: any): boolean {
+        return this.isValidItem(processedItem) && this.isSelected(processedItem);
+    }
+
+    isValidItem(processedItem: any): boolean {
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+    }
+
+    isItemDisabled(item: any): boolean {
+        return this.getItemProp(item, 'disabled');
+    }
+
+    isItemSeparator(item: any): boolean {
+        return this.getItemProp(item, 'separator');
+    }
+
+    isItemMatched(processedItem: any): boolean {
+        return this.isValidItem(processedItem) && this.getProccessedItemLabel(processedItem).toLocaleLowerCase().startsWith(this.searchValue.toLocaleLowerCase());
+    }
+
+    isProccessedItemGroup(processedItem: any): boolean {
+        return processedItem && ObjectUtils.isNotEmpty(processedItem.items);
+    }
+
+    searchItems(event: any, char: string) {
+        this.searchValue = (this.searchValue || '') + char;
+
+        let itemIndex = -1;
+        let matched = false;
+
+        if (this.focusedItemInfo().index !== -1) {
+            itemIndex = this.visibleItems.slice(this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem));
+            itemIndex = itemIndex === -1 ? this.visibleItems.slice(0, this.focusedItemInfo().index).findIndex((processedItem) => this.isItemMatched(processedItem)) : itemIndex + this.focusedItemInfo().index;
+        } else {
+            itemIndex = this.visibleItems.findIndex((processedItem) => this.isItemMatched(processedItem));
+        }
+
+        if (itemIndex !== -1) {
+            matched = true;
+        }
+
+        if (itemIndex === -1 && this.focusedItemInfo().index === -1) {
+            itemIndex = this.findFirstFocusedItemIndex();
+        }
+
+        if (itemIndex !== -1) {
+            this.changeFocusedItemInfo(event, itemIndex);
+        }
+
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+        }
+
+        this.searchTimeout = setTimeout(() => {
+            this.searchValue = '';
+            this.searchTimeout = null;
+        }, 500);
+
+        return matched;
+    }
+
+    getProccessedItemLabel(processedItem: any) {
+        return processedItem ? this.getItemLabel(processedItem.item) : undefined;
+    }
+
+    getItemLabel(item: any) {
+        return this.getItemProp(item, 'label');
+    }
+
+    changeFocusedItemInfo(event, index) {
+        const processedItem = this.findVisibleItem(index);
+        this.focusedItemInfo.mutate((value) => {
+            value.index = index;
+            value.key = ObjectUtils.isNotEmpty(processedItem) ? processedItem.key : '';
+        });
+
+        this.scrollInView();
+    }
+
+    onArrowDownKey(event: KeyboardEvent) {
+        if (this.orientation === 'horizontal') {
+            if (ObjectUtils.isNotEmpty(this.activeItem()) && this.activeItem().key === this.focusedItemInfo().key) {
+                this.focusedItemInfo.set({ index: -1, key: '', parentKey: this.activeItem().key });
+            } else {
+                const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+                const grouped = this.isProccessedItemGroup(processedItem);
+
+                if (grouped) {
+                    this.onItemChange({ originalEvent: event, processedItem });
+                    this.focusedItemInfo.set({ index: -1, key: processedItem.key, parentKey: processedItem.parentKey });
+                    this.searchValue = '';
+                }
+            }
+        }
+
+        const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+        this.changeFocusedItemInfo(event, itemIndex);
+        event.preventDefault();
+    }
+
+    onArrowRightKey(event: KeyboardEvent) {
+        const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+        const grouped = this.isProccessedItemGroup(processedItem);
+
+        if (grouped) {
+            if (this.orientation === 'vertical') {
+                if (ObjectUtils.isNotEmpty(this.activeItem()) && this.activeItem().key === processedItem.key) {
+                    this.focusedItemInfo.set({ index: -1, key: '', parentKey: this.activeItem().key });
+                } else {
+                    const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+                    const grouped = this.isProccessedItemGroup(processedItem);
+
+                    if (grouped) {
+                        this.onItemChange({ originalEvent: event, processedItem });
+                        this.focusedItemInfo.set({ index: -1, key: processedItem.key, parentKey: processedItem.parentKey });
+                        this.searchValue = '';
+                    }
+                }
+            }
+
+            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findNextItemIndex(this.focusedItemInfo().index) : this.findFirstFocusedItemIndex();
+
+            this.changeFocusedItemInfo(event, itemIndex);
+        } else {
+            const columnIndex = processedItem.columnIndex + 1;
+            const itemIndex = this.visibleItems.findIndex((item) => item.columnIndex === columnIndex);
+
+            itemIndex !== -1 && this.changeFocusedItemInfo(event, itemIndex);
+        }
+
+        event.preventDefault();
+    }
+
+    onArrowUpKey(event: KeyboardEvent) {
+        if (event.altKey && this.orientation === 'horizontal') {
+            if (this.focusedItemInfo().index !== -1) {
+                const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+                const grouped = this.isProccessedItemGroup(processedItem);
+
+                if (!grouped && ObjectUtils.isNotEmpty(this.activeItem)) {
+                    if (this.focusedItemInfo().index === 0) {
+                        this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, parentKey: this.activeItem().parentKey });
+                        this.activeItem.set(null);
+                    } else {
+                        this.changeFocusedItemInfo(event, this.findFirstItemIndex());
+                    }
+                }
+            }
+
+            event.preventDefault();
+        } else {
+            const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+
+            this.changeFocusedItemInfo(event, itemIndex);
+            event.preventDefault();
+        }
+    }
+
+    onArrowLeftKey(event: KeyboardEvent) {
+        const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+        const grouped = this.isProccessedItemGroup(processedItem);
+
+        if (grouped) {
+            if (this.orientation === 'horizontal') {
+                const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
+
+                this.changeFocusedItemInfo(event, itemIndex);
+            }
+        } else {
+            if (this.orientation === 'vertical' && ObjectUtils.isNotEmpty(this.activeItem())) {
+                if (processedItem.columnIndex === 0) {
+                    this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key, parentKey: this.activeItem().parentKey });
+                    this.activeItem.set(null);
+                }
+            }
+
+            const columnIndex = processedItem.columnIndex - 1;
+            const itemIndex = this.visibleItems.findIndex((item) => item.columnIndex === columnIndex);
+
+            itemIndex !== -1 && this.changeFocusedItemInfo(event, itemIndex);
+        }
+
+        event.preventDefault();
+    }
+
+    onHomeKey(event: KeyboardEvent) {
+        this.changeFocusedItemInfo(event, this.findFirstItemIndex());
+        event.preventDefault();
+    }
+
+    onEndKey(event: KeyboardEvent) {
+        this.changeFocusedItemInfo(event, this.findLastItemIndex());
+        event.preventDefault();
+    }
+
+    onSpaceKey(event: KeyboardEvent) {
+        this.onEnterKey(event);
+    }
+
+    onEscapeKey(event: KeyboardEvent) {
+        if (ObjectUtils.isNotEmpty(this.activeItem())) {
+            this.focusedItemInfo.set({ index: this.activeItem().index, key: this.activeItem().key });
+            this.activeItem.set(null);
+        }
+
+        event.preventDefault();
+    }
+
+    onTabKey(event: KeyboardEvent) {
+        if (this.focusedItemInfo().index !== -1) {
+            const processedItem = this.findVisibleItem(this.focusedItemInfo().index);
+            const grouped = this.isProccessedItemGroup(processedItem);
+
+            !grouped && this.onItemChange({ originalEvent: event, processedItem });
+        }
+
+        this.hide();
+    }
+
+    onEnterKey(event: KeyboardEvent) {
+        if (this.focusedItemInfo().index !== -1) {
+            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+
+            anchorElement ? anchorElement.click() : element && element.click();
+
+            const processedItem = this.visibleItems[this.focusedItemInfo().index];
+            const grouped = this.isProccessedItemGroup(processedItem);
+
+            !grouped && this.changeFocusedItemInfo(event, this.findFirstFocusedItemIndex());
+        }
+
+        event.preventDefault();
+    }
+
+    findVisibleItem(index) {
+        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+    }
+
+    findLastFocusedItemIndex() {
+        const selectedIndex = this.findSelectedItemIndex();
+        return selectedIndex < 0 ? this.findLastItemIndex() : selectedIndex;
+    }
+
+    findLastItemIndex() {
+        return ObjectUtils.findLastIndex(this.visibleItems, (processedItem) => this.isValidItem(processedItem));
+    }
+
+    findPrevItemIndex(index: number) {
+        const matchedItemIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleItems.slice(0, index), (processedItem) => this.isValidItem(processedItem)) : -1;
+
+        return matchedItemIndex > -1 ? matchedItemIndex : index;
+    }
+
+    findNextItemIndex(index: number) {
+        const matchedItemIndex = index < this.visibleItems.length - 1 ? this.visibleItems.slice(index + 1).findIndex((processedItem) => this.isValidItem(processedItem)) : -1;
+
+        return matchedItemIndex > -1 ? matchedItemIndex + index + 1 : index;
+    }
+
+    bindResizeListener() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.documentClickListener) {
-                this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    if (this.el && !this.el.nativeElement.contains(event.target)) {
-                        this.activeItem = null;
-                        this.unbindDocumentClickListener();
-                        this.cd.markForCheck();
+            if (!this.resizeListener) {
+                this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
+                    this.hide(event, true);
+                });
+            }
+        }
+    }
+
+    bindOutsideClickListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.outsideClickListener) {
+                this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
+                    const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
+
+                    if (isOutsideContainer) {
+                        this.hide();
                     }
                 });
             }
         }
     }
 
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
+    unbindOutsideClickListener() {
+        if (this.outsideClickListener) {
+            this.outsideClickListener();
+            this.outsideClickListener = null;
         }
+    }
+
+    unbindResizeListener() {
+        if (this.resizeListener) {
+            this.resizeListener();
+            this.resizeListener = null;
+        }
+    }
+
+    ngOnDestroy() {
+        this.unbindOutsideClickListener();
+        this.unbindResizeListener();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
-    declarations: [MegaMenu]
+    declarations: [MegaMenu, MegaMenuSub]
 })
 export class MegaMenuModule {}

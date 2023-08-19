@@ -9,10 +9,8 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';
-import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { NumberOfStarsDoc } from './numberofstarsdoc';
-import { PropsDoc } from './propsdoc';
 import { ReadOnlyDoc } from './readonlydoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
@@ -21,6 +19,6 @@ import { WithoutCancelDoc } from './withoutcanceldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RatingModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, PropsDoc, EventsDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, WithoutCancelDoc, NumberOfStarsDoc, TemplateDoc, ReadOnlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class RatingDocModule {}

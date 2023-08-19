@@ -41,7 +41,7 @@ export class ColumnResizeExpandModeDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-column-resize-expand-mode-demo.html'
 })
 export class TableColumnResizeExpandModeDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

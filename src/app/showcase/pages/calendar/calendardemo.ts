@@ -18,6 +18,7 @@ import { TouchUIDoc } from '../../doc/calendar/touchuidoc';
 import { DateTemplateDoc } from '../../doc/calendar/datetemplatedoc';
 import { PropsDoc } from '../../doc/calendar/propsdoc';
 import { StyleDoc } from '../../doc/calendar/styledoc';
+import { TemplatesDoc } from '../../doc/calendar/templatesdoc';
 import { EventsDoc } from '../../doc/calendar/eventsdoc';
 import { MethodsDoc } from '../../doc/calendar/methodsdoc';
 import { AccessibilityDoc } from '../../doc/calendar/accessibilitydoc';
@@ -127,24 +128,6 @@ export class CalendarDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }

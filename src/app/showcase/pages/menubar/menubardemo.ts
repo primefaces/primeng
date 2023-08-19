@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { TemplateDoc } from '../../doc/menubar/templatedoc';
 import { BasicDoc } from '../../doc/menubar/basicdoc';
 import { ImportDoc } from '../../doc/menubar/importdoc';
-import { MenuItemDoc } from '../../doc/menubar/menuitemdoc';
-import { PropsDoc } from '../../doc/menubar/propsdoc';
 import { StyleDoc } from '../../doc/menubar/styledoc';
-import { TemplatesDoc } from '../../doc/menubar/templatesdoc';
 import { AccessibilityDoc } from '../../doc/menubar/accessibilitydoc';
 
 @Component({
@@ -37,24 +34,6 @@ export class MenubarDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'menuitem',
-            label: 'MenuItem API',
-            component: MenuItemDoc
         }
     ];
 }

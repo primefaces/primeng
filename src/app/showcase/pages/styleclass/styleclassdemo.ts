@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/styleclass/importdoc';
-import { PropsDoc } from '../../doc/styleclass/propsdoc';
 import { AnimationDoc } from '../../doc/styleclass/animationdoc';
 import { ToggleClassDoc } from '../../doc/styleclass/toggleclassdoc';
 
@@ -23,14 +22,6 @@ export class StyleClassDemo {
             id: 'animation',
             label: 'Animation',
             component: AnimationDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
         }
     ];
 }

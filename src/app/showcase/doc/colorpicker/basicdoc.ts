@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    color: string;
+    color: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './color-picker-basic-demo.html'
 })
 export class ColorPickerBasicDemo {
-    color: string;
+    color: string | undefined;
 }`
     };
 }

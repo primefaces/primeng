@@ -24,7 +24,7 @@ export class MultipleDoc {
         { name: 'Option 3', value: 3 }
     ];
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -43,7 +43,7 @@ import { Component } from '@angular/core';
     templateUrl: './select-button-multiple-demo.html'
 })
 export class SelectButtonMultipleDemo {
-    value: number;
+    value!: number;
     
     paymentOptions: any[] = [
         { name: 'Option 1', value: 1 },

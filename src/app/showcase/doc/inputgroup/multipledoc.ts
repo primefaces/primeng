@@ -28,8 +28,6 @@ export class MultipleDoc {
 
     @Input() title: string;
 
-    dates: Date[];
-
     code: Code = {
         basic: `
 <div class="p-inputgroup w-full md:w-30rem">

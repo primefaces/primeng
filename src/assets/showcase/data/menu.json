@@ -499,9 +499,18 @@
             "routerLink": "/uikit"
         },
         {
-            "name": "PrimeIcons",
+            "name": "Icons",
             "icon": "pi pi-eye",
-            "routerLink": "/icons"
+            "children": [
+                {
+                    "name": "Prime Icons",
+                    "routerLink": "/icons"
+                },
+                {
+                    "name": "Custom Icons",
+                    "routerLink": "/customicons"
+                }
+            ]
         },
         {
             "name": "Templates",
@@ -516,7 +525,7 @@
         {
             "name": "PrimeFlex CSS",
             "icon": "pi pi-table",
-            "href": "https://www.primefaces.org/primeflex"
+            "href": "https://primeflex.org"
         },
         {
             "name": "Support",
@@ -529,6 +538,10 @@
                 {
                     "name": "Forum",
                     "href": "https://forum.primefaces.org/viewforum.php?f=35"
+                },
+                {
+                    "name": "Long Term Support",
+                    "routerLink": "/lts"
                 },
                 {
                     "name": "PRO Support",
@@ -566,7 +579,11 @@
                 },
                 {
                     "name": "Twitter",
-                    "href": "https://twitter.com/primeng?lang=en"
+                    "href": "https://twitter.com/prime_ng"
+                },
+                {
+                    "name": "Partners",
+                    "routerLink": "/partners"
                 },
                 {
                     "name": "Newsletter",

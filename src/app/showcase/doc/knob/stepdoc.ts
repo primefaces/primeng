@@ -18,7 +18,7 @@ export class StepDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './knob-step-demo.html'
 })
 export class KnobStepDemo {
-    value: number;
+    value!: number;
 }`
     };
 }
