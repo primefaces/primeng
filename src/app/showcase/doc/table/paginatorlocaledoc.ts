@@ -45,7 +45,7 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="table-paginator-locale-demo" [extFiles]="extFiles"></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -144,10 +144,10 @@ import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'table-paginator-basic-demo',
-    templateUrl: 'table-paginator-basic-demo.html'
+    selector: 'table-paginator-locale-demo',
+    templateUrl: 'table-paginator-locale-demo.html'
 })
-export class TablePaginatorBasicDemo {
+export class TablePaginatorLocaleDemo {
     customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
