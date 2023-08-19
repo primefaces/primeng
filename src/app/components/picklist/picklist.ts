@@ -23,7 +23,7 @@ import { ButtonModule } from 'primeng/button';
 import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
@@ -1296,9 +1296,14 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 }
 
+const DragConfig = {
+    zIndex: 1200
+};
+
 @NgModule({
     imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon, SearchIcon, HomeIcon],
     exports: [PickList, SharedModule, DragDropModule],
-    declarations: [PickList]
+    declarations: [PickList],
+    providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })
 export class PickListModule {}
