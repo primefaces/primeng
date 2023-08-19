@@ -189,6 +189,11 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      */
     @Input() showPageLinks: boolean = true;
     /**
+     * Locale to be used in formatting.
+     * @group Props
+     */
+    @Input() locale: string | undefined;
+    /**
      * Template instance to inject into the dropdown item inside in the paginator.
      * @param {Object} context - item instance.
      * @group Props
@@ -212,8 +217,6 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
-
-    @Input() locale: string;
     
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
