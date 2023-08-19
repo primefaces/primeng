@@ -12,7 +12,7 @@ interface Column {
     selector: 'paginator-locale-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
-            <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
+        <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card">
             <p-treeTable paginatorLocale="fa-IR" [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
