@@ -1,6 +1,9 @@
+.p-rating {
+    display: inline-flex;
+}
+
 .p-rating-icon {
     cursor: pointer;
-    display: inline-flex;
 }
 
 .p-rating.p-rating-readonly .p-rating-icon {

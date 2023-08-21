@@ -1,5 +1,5 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
 
@@ -9,7 +9,39 @@ export const KEYFILTER_VALIDATOR: any = {
     multi: true
 };
 
-const DEFAULT_MASKS = {
+type DefaultMasks = {
+    pint: RegExp;
+    int: RegExp;
+    pnum: RegExp;
+    money: RegExp;
+    num: RegExp;
+    hex: RegExp;
+    email: RegExp;
+    alpha: RegExp;
+    alphanum: RegExp;
+};
+
+type SafariKeys = {
+    63234: number;
+    63235: number;
+    63232: number;
+    63233: number;
+    63276: number;
+    63277: number;
+    63272: number;
+    63273: number;
+    63275: number;
+};
+
+type Keys = {
+    TAB: number;
+    RETURN: number;
+    ESC: number;
+    BACKSPACE: number;
+    DELETE: number;
+};
+
+const DEFAULT_MASKS: DefaultMasks = {
     pint: /[\d]/,
     int: /[\d\-]/,
     pnum: /[\d\.]/,
@@ -21,7 +53,7 @@ const DEFAULT_MASKS = {
     alphanum: /[a-z0-9_]/i
 };
 
-const KEYS = {
+const KEYS: Keys = {
     TAB: 9,
     RETURN: 13,
     ESC: 27,
@@ -29,7 +61,7 @@ const KEYS = {
     DELETE: 46
 };
 
-const SAFARI_KEYS = {
+const SAFARI_KEYS: SafariKeys = {
     63234: 37, // left
     63235: 39, // right
     63232: 38, // up
@@ -40,7 +72,10 @@ const SAFARI_KEYS = {
     63273: 36, // home
     63275: 35 // end
 };
-
+/**
+ * KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.
+ * @group Components
+ */
 @Directive({
     selector: '[pKeyFilter]',
     providers: [KEYFILTER_VALIDATOR],
@@ -49,34 +84,48 @@ const SAFARI_KEYS = {
     }
 })
 export class KeyFilter implements Validator {
-    @Input() pValidateOnly: boolean;
+    /**
+     * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
+     * @group Props
+     */
+    @Input() pValidateOnly: boolean | undefined;
+    /**
+     * Sets the pattern for key filtering.
+     * @group Props
+     */
+    @Input('pKeyFilter') set pattern(_pattern: string | RegExp) {
+        this._pattern = _pattern;
+        this.regex = (DEFAULT_MASKS as any)[this._pattern as string] || this._pattern;
+    }
+    get pattern(): string | RegExp {
+        return this._pattern;
+    }
+    /**
+     * Emits a value whenever the ngModel of the component changes.
+     * @param {(string | number)} modelValue - Custom model change event.
+     * @group Emits
+     */
+    @Output() ngModelChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
-    @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
+    regex!: RegExp;
 
-    regex: RegExp;
-
-    _pattern: any;
+    _pattern: string | RegExp;
 
     isAndroid: boolean;
 
     lastValue: any;
 
-    constructor(public el: ElementRef) {
-        this.isAndroid = DomHandler.isAndroid();
-    }
-
-    get pattern(): any {
-        return this._pattern;
-    }
-
-    @Input('pKeyFilter') set pattern(_pattern: any) {
-        this._pattern = _pattern;
-        this.regex = DEFAULT_MASKS[this._pattern] || this._pattern;
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.isAndroid = DomHandler.isAndroid();
+        } else {
+            this.isAndroid = false;
+        }
     }
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
-        k = DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
+        k = DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
     }
@@ -89,7 +138,7 @@ export class KeyFilter implements Validator {
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
-        return DomHandler.getBrowser().safari ? SAFARI_KEYS[k] || k : k;
+        return DomHandler.getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
     }
 
     getCharCode(e: KeyboardEvent) {
@@ -109,7 +158,7 @@ export class KeyFilter implements Validator {
     }
 
     isValidChar(c: string) {
-        return this.regex.test(c);
+        return (<RegExp>this.regex).test(c);
     }
 
     isValidString(str: string) {
@@ -174,7 +223,7 @@ export class KeyFilter implements Validator {
             return;
         }
 
-        ok = this.regex.test(cc);
+        ok = (<RegExp>this.regex).test(cc);
 
         if (!ok) {
             e.preventDefault();
@@ -182,8 +231,8 @@ export class KeyFilter implements Validator {
     }
 
     @HostListener('paste', ['$event'])
-    onPaste(e) {
-        const clipboardData = e.clipboardData || (<any>window).clipboardData.getData('text');
+    onPaste(e: ClipboardEvent) {
+        const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
         if (clipboardData) {
             const pastedText = clipboardData.getData('text');
             for (let char of pastedText.toString()) {
@@ -195,7 +244,7 @@ export class KeyFilter implements Validator {
         }
     }
 
-    validate(c: AbstractControl): { [key: string]: any } {
+    validate(c: AbstractControl): { [key: string]: any } | any {
         if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {

@@ -1,41 +1,66 @@
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-    Component,
-    Input,
-    ElementRef,
-    ViewChild,
     AfterContentInit,
-    TemplateRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
     ContentChildren,
-    QueryList,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
     NgModule,
     NgZone,
-    EventEmitter,
     Output,
-    ContentChild,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    SimpleChanges,
+    PLATFORM_ID,
+    QueryList,
     Renderer2,
-    Inject
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, Header, Footer } from 'primeng/api';
+import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
-import { CommonModule, DOCUMENT } from '@angular/common';
 import { UniqueComponentId } from 'primeng/utils';
-
+import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
+import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
+/**
+ * Carousel is a content slider featuring various customization options.
+ * @group Components
+ */
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass">
+        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
-                <div class="p-carousel-container">
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-left': !isVertical(), 'pi-chevron-up': isVertical() }"></span>
+                <div class="p-carousel-container" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }"
+                        [disabled]="isBackwardNavDisabled()"
+                        [attr.aria-label]="ariaPrevButtonLabel()"
+                        (click)="navBackward($event)"
+                        pRipple
+                    >
+                        <ng-container *ngIf="!previousIconTemplate">
+                            <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
+                        </ng-container>
+                        <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
+                        </span>
                     </button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -47,6 +72,9 @@ import { UniqueComponentId } from 'primeng/utils';
                                     'p-carousel-item-start': 0 === index,
                                     'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
                                 }"
+                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                [attr.aria-label]="ariaSlideNumber(index)"
+                                [attr.aria-roledescription]="ariaSlideLabel()"
                             >
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
@@ -69,13 +97,36 @@ import { UniqueComponentId } from 'primeng/utils';
                             </div>
                         </div>
                     </div>
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
-                        <span [ngClass]="{ 'p-carousel-prev-icon pi': true, 'pi-chevron-right': !isVertical(), 'pi-chevron-down': isVertical() }"></span>
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }"
+                        [disabled]="isForwardNavDisabled()"
+                        (click)="navForward($event)"
+                        pRipple
+                        [attr.aria-label]="ariaNextButtonLabel()"
+                    >
+                        <ng-container *ngIf="!nextIconTemplate">
+                            <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
+                            <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
+                        </ng-container>
+                        <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
+                            <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
+                        </span>
                     </button>
                 </div>
-                <ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }">
-                        <button type="button" [ngClass]="'p-link'" (click)="onDotClick($event, i)" [class]="indicatorStyleClass" [ngStyle]="indicatorStyle"></button>
+                <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
+                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
+                        <button
+                            type="button"
+                            [ngClass]="'p-link'"
+                            (click)="onDotClick($event, i)"
+                            [class]="indicatorStyleClass"
+                            [ngStyle]="indicatorStyle"
+                            [attr.aria-label]="ariaPageLabel(i + 1)"
+                            [attr.aria-current]="_page === i ? 'page' : undefined"
+                            [tabindex]="_page === i ? 0 : -1"
+                        ></button>
                     </li>
                 </ul>
             </div>
@@ -93,6 +144,11 @@ import { UniqueComponentId } from 'primeng/utils';
     }
 })
 export class Carousel implements AfterContentInit {
+    /**
+     * Index of the first item.
+     * @defaultValue 0
+     * @group Props
+     */
     @Input() get page(): number {
         return this._page;
     }
@@ -100,7 +156,6 @@ export class Carousel implements AfterContentInit {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
                 this.stopAutoplay();
-                this.allowAutoplay = false;
             }
 
             if (val > this._page && val <= this.totalDots() - 1) {
@@ -112,65 +167,126 @@ export class Carousel implements AfterContentInit {
 
         this._page = val;
     }
-
+    /**
+     * Number of items per page.
+     * @defaultValue 1
+     * @group Props
+     */
     @Input() get numVisible(): number {
         return this._numVisible;
     }
     set numVisible(val: number) {
         this._numVisible = val;
     }
-
+    /**
+     * Number of items to scroll.
+     * @defaultValue 1
+     * @group Props
+     */
     @Input() get numScroll(): number {
         return this._numVisible;
     }
     set numScroll(val: number) {
         this._numScroll = val;
     }
-
-    @Input() responsiveOptions: any[];
-
-    @Input() orientation = 'horizontal';
-
-    @Input() verticalViewPortHeight = '300px';
-
+    /**
+     * An array of options for responsive design.
+     * @see {CarouselResponsiveOptions}
+     * @group Props
+     */
+    @Input() responsiveOptions: CarouselResponsiveOptions[] | undefined;
+    /**
+     * Specifies the layout of the component.
+     * @group Props
+     */
+    @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+    /**
+     * Height of the viewport in vertical layout.
+     * @group Props
+     */
+    @Input() verticalViewPortHeight: string = '300px';
+    /**
+     * Style class of main content.
+     * @group Props
+     */
     @Input() contentClass: string = '';
-
+    /**
+     * Style class of the indicator items.
+     * @group Props
+     */
     @Input() indicatorsContentClass: string = '';
-
-    @Input() indicatorsContentStyle: any;
-
+    /**
+     * Inline style of the indicator items.
+     * @group Props
+     */
+    @Input() indicatorsContentStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the indicators.
+     * @group Props
+     */
     @Input() indicatorStyleClass: string = '';
-
-    @Input() indicatorStyle: any;
-
+    /**
+     * Style of the indicators.
+     * @group Props
+     */
+    @Input() indicatorStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * An array of objects to display.
+     * @defaultValue null
+     * @group Props
+     */
     @Input() get value(): any[] {
-        return this._value;
+        return this._value as any[];
     }
     set value(val) {
         this._value = val;
     }
-
+    /**
+     * Defines if scrolling would be infinite.
+     * @group Props
+     */
     @Input() circular: boolean = false;
-
+    /**
+     * Whether to display indicator container.
+     * @group Props
+     */
     @Input() showIndicators: boolean = true;
-
+    /**
+     * Whether to display navigation buttons in container.
+     * @group Props
+     */
     @Input() showNavigators: boolean = true;
-
+    /**
+     * Time in milliseconds to scroll items automatically.
+     * @group Props
+     */
     @Input() autoplayInterval: number = 0;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the viewport container.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Callback to invoke after scroll.
+     * @param {CarouselPageEvent} event - Custom page event.
+     * @group Emits
+     */
+    @Output() onPage: EventEmitter<CarouselPageEvent> = new EventEmitter<CarouselPageEvent>();
 
-    @Input() style: any;
+    @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
-    @Input() styleClass: string;
+    @ViewChild('indicatorContent') indicatorContent: ElementRef | undefined;
 
-    @Output() onPage: EventEmitter<any> = new EventEmitter();
+    @ContentChild(Header) headerFacet: QueryList<Header> | undefined;
 
-    @ViewChild('itemsContainer') itemsContainer: ElementRef;
+    @ContentChild(Footer) footerFacet: QueryList<Footer> | undefined;
 
-    @ContentChild(Header) headerFacet;
-
-    @ContentChild(Footer) footerFacet;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _numVisible: number = 1;
 
@@ -190,11 +306,11 @@ export class Carousel implements AfterContentInit {
 
     _page: number = 0;
 
-    _value: any[];
+    _value: any[] | null | undefined;
 
     carouselStyle: any;
 
-    id: string;
+    id: string | undefined;
 
     totalShiftedItems;
 
@@ -206,32 +322,39 @@ export class Carousel implements AfterContentInit {
 
     remainingItems: number = 0;
 
-    _items: any[];
+    _items: any[] | undefined;
 
     startPos: any;
 
     documentResizeListener: any;
 
-    clonedItemsForStarting: any[];
+    clonedItemsForStarting: any[] | undefined;
 
-    clonedItemsForFinishing: any[];
+    clonedItemsForFinishing: any[] | undefined;
 
-    allowAutoplay: boolean;
+    allowAutoplay: boolean | undefined;
 
     interval: any;
 
-    isCreated: boolean;
+    isCreated: boolean | undefined;
 
     swipeThreshold: number = 20;
 
-    itemTemplate: TemplateRef<any>;
+    itemTemplate: TemplateRef<any> | undefined;
 
-    headerTemplate: TemplateRef<any>;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    footerTemplate: TemplateRef<any>;
+    footerTemplate: TemplateRef<any> | undefined;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {
+    previousIconTemplate: TemplateRef<any> | undefined;
+
+    nextIconTemplate: TemplateRef<any> | undefined;
+
+    window: Window;
+
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private config: PrimeNGConfig) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
+        this.window = this.document.defaultView as Window;
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -283,7 +406,7 @@ export class Carousel implements AfterContentInit {
             this.bindDocumentListeners();
         }
 
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -295,6 +418,14 @@ export class Carousel implements AfterContentInit {
 
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'previousicon':
+                    this.previousIconTemplate = item.template;
+                    break;
+
+                case 'nexticon':
+                    this.nextIconTemplate = item.template;
                     break;
 
                 default:
@@ -310,7 +441,7 @@ export class Carousel implements AfterContentInit {
 
         if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
             if (this.autoplayInterval) {
-                this.stopAutoplay();
+                this.stopAutoplay(false);
             }
 
             this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
@@ -343,7 +474,7 @@ export class Carousel implements AfterContentInit {
             this._oldNumScroll = this._numScroll;
             this.prevState.numScroll = this._numScroll;
             this.prevState.numVisible = this._numVisible;
-            this.prevState.value = [...this._value];
+            this.prevState.value = [...(this._value as any[])];
 
             if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
                 this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
@@ -512,14 +643,13 @@ export class Carousel implements AfterContentInit {
         return !this.value || this.value.length === 0;
     }
 
-    navForward(e, index?) {
+    navForward(e: MouseEvent | TouchEvent, index?: number) {
         if (this.isCircular() || this._page < this.totalDots() - 1) {
             this.step(-1, index);
         }
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -527,14 +657,13 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    navBackward(e, index?) {
+    navBackward(e: MouseEvent | TouchEvent, index?: number) {
         if (this.isCircular() || this._page !== 0) {
             this.step(1, index);
         }
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -542,12 +671,11 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    onDotClick(e, index) {
+    onDotClick(e: MouseEvent, index: number) {
         let page = this._page;
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (index > page) {
@@ -557,7 +685,70 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    step(dir, page) {
+    onIndicatorKeydown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowRight':
+                this.onRightKey();
+                break;
+
+            case 'ArrowLeft':
+                this.onLeftKey();
+                break;
+        }
+    }
+
+    onRightKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
+    }
+
+    onLeftKey() {
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
+    }
+    onHomeKey() {
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, 0);
+    }
+
+    onEndKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, indicators.length - 1);
+    }
+
+    onTabKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
+
+        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+
+        indicators[activeIndex].children[0].tabIndex = '-1';
+        indicators[highlightedIndex].children[0].tabIndex = '0';
+    }
+
+    findFocusedIndicatorIndex() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+
+        return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+    }
+
+    changedFocusedIndicator(prevInd, nextInd) {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+
+        indicators[prevInd].children[0].tabIndex = '-1';
+        indicators[nextInd].children[0].tabIndex = '0';
+        indicators[nextInd].children[0].focus();
+    }
+
+    step(dir: number, page?: number) {
         let totalShiftedItems = this.totalShiftedItems;
         const isCircular = this.isCircular();
 
@@ -613,12 +804,21 @@ export class Carousel implements AfterContentInit {
                 }
             }
         }, this.autoplayInterval);
+        this.allowAutoplay = true;
     }
 
-    stopAutoplay() {
+    stopAutoplay(changeAllow: boolean = true) {
         if (this.interval) {
             clearInterval(this.interval);
+            this.interval = undefined;
+            if (changeAllow) {
+                this.allowAutoplay = false;
+            }
         }
+    }
+
+    isPlaying(): boolean {
+        return !!this.interval;
     }
 
     onTransitionEnd() {
@@ -631,7 +831,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    onTouchStart(e) {
+    onTouchStart(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
         this.startPos = {
@@ -640,12 +840,12 @@ export class Carousel implements AfterContentInit {
         };
     }
 
-    onTouchMove(e) {
+    onTouchMove(e: TouchEvent | MouseEvent) {
         if (e.cancelable) {
             e.preventDefault();
         }
     }
-    onTouchEnd(e) {
+    onTouchEnd(e: TouchEvent) {
         let touchobj = e.changedTouches[0];
 
         if (this.isVertical()) {
@@ -655,7 +855,7 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    changePageOnTouch(e, diff) {
+    changePageOnTouch(e: TouchEvent | MouseEvent, diff: number) {
         if (Math.abs(diff) > this.swipeThreshold) {
             if (diff < 0) {
                 this.navForward(e);
@@ -665,20 +865,42 @@ export class Carousel implements AfterContentInit {
         }
     }
 
-    bindDocumentListeners() {
-        if (!this.documentResizeListener && typeof window !== 'undefined') {
-            this.documentResizeListener = (e) => {
-                this.calculatePosition();
-            };
+    ariaPrevButtonLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.prevPageLabel : undefined;
+    }
 
-            window.addEventListener('resize', this.documentResizeListener);
+    ariaSlideLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.slide : undefined;
+    }
+
+    ariaNextButtonLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.nextPageLabel : undefined;
+    }
+
+    ariaSlideNumber(value) {
+        return this.config.translation.aria ? this.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value) : undefined;
+    }
+
+    ariaPageLabel(value) {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+    }
+
+    bindDocumentListeners() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentResizeListener) {
+                this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+                    this.calculatePosition();
+                });
+            }
         }
     }
 
     unbindDocumentListeners() {
-        if (this.documentResizeListener && typeof window !== 'undefined') {
-            window.removeEventListener('resize', this.documentResizeListener);
-            this.documentResizeListener = null;
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.documentResizeListener) {
+                this.documentResizeListener();
+                this.documentResizeListener = null;
+            }
         }
     }
 
@@ -693,7 +915,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

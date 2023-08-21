@@ -1,9 +1,12 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+/**
+ * Skeleton is a placeholder to display instead of the actual content.
+ * @group Components
+ */
 @Component({
     selector: 'p-skeleton',
-    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle()"></div> `,
+    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle()" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./skeleton.css'],
@@ -12,20 +15,45 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class Skeleton {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Shape of the element.
+     * @group Props
+     */
     @Input() shape: string = 'rectangle';
-
+    /**
+     * Type of the animation.
+     * @gruop Props
+     */
     @Input() animation: string = 'wave';
-
-    @Input() borderRadius: string = null;
-
-    @Input() size: string = null;
-
+    /**
+     * Border radius of the element, defaults to value from theme.
+     * @group Props
+     */
+    @Input() borderRadius: string | undefined;
+    /**
+     * Size of the Circle or Square.
+     * @group Props
+     */
+    @Input() size: string | undefined;
+    /**
+     * Width of the element.
+     * @group Props
+     */
     @Input() width: string = '100%';
-
+    /**
+     * Height of the element.
+     * @group Props
+     */
     @Input() height: string = '1rem';
 
     containerClass() {

@@ -1,10 +1,13 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+/**
+ * Avatar represents people using icons, labels and images.
+ * @group Components
+ */
 @Component({
     selector: 'p-avatar',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
@@ -19,21 +22,57 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class Avatar {
-    @Input() label: string;
-
-    @Input() icon: string;
-
-    @Input() image: string;
-
-    @Input() size: string = 'normal';
-
-    @Input() shape: string = 'square';
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Output() onImageError: EventEmitter<any> = new EventEmitter();
+    /**
+     * Defines the text to display.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+    /**
+     * Defines the icon to display.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+    /**
+     * Defines the image to display.
+     * @group Props
+     */
+    @Input() image: string | undefined;
+    /**
+     * Size of the element.
+     * @group Props
+     */
+    @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
+    /**
+     * Shape of the element.
+     * @group Props
+     */
+    @Input() shape: 'square' | 'circle' | undefined = 'square';
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Establishes a string value that labels the component.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * This event is triggered if an error occurs while loading an image file.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
     containerClass() {
         return {
@@ -45,7 +84,7 @@ export class Avatar {
         };
     }
 
-    imageError(event) {
+    imageError(event: Event) {
         this.onImageError.emit(event);
     }
 }

@@ -1,10 +1,11 @@
 {
-    "id": 30,
-    "content": "🚀 PrimeBlocks v3.2.0 is out with more than 30 new UI blocks ",
+    "id": 58,
+    "content": "Sakai Free Admin Template",
     "linkText": "Learn More",
-    "linkHref": "https://blocks.primeng.org",
+    "linkHref": "https://primefaces.org/sakai-ng",
     "backgroundStyle": "background-color:#3B82F6",
     "textStyle": "color:#ffffff;font-weight:500",
     "linkStyle": "color:#ffffff;font-weight:700",
     "linkHoverStyle": "text-decoration: underline"
 }
+

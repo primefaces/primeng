@@ -1,10 +1,13 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+/**
+ * Divider is used to separate contents.
+ * @group Components
+ */
 @Component({
     selector: 'p-divider',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
             <div class="p-divider-content">
                 <ng-content></ng-content>
             </div>
@@ -18,15 +21,31 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class Divider {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() layout: string = 'horizontal';
-
-    @Input() type: string = 'solid';
-
-    @Input() align: string;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Specifies the orientation.
+     * @group Props
+     */
+    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    /**
+     * Border style type.
+     * @group Props
+     */
+    @Input() type: 'solid' | 'dashed' | 'dotted' | undefined = 'solid';
+    /**
+     * Alignment of the content.
+     * @group Props
+     */
+    @Input() align: 'left' | 'center' | 'right' | 'top' | 'center' | 'bottom' | undefined;
 
     containerClass() {
         return {

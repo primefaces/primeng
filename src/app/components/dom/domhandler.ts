@@ -66,10 +66,7 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        if (element) {
-            return element.querySelector(selector);
-        }
-        return null;
+        return this.isElement(element) ? element.querySelector(selector) : null;
     }
 
     public static index(element: any): number {
@@ -100,7 +97,9 @@ export class DomHandler {
 
     public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
         if (overlay && target) {
-            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+            if (calculateMinWidth) {
+                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+            }
 
             if (appendTo === 'self') {
                 this.relativePosition(overlay, target);
@@ -138,12 +137,14 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
+        const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
+        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
             left = (targetOffset.left - relativeElementOffset.left) * -1;
-        } else if (targetOffset.left - relativeElementOffset.left + elementDimensions.width > viewport.width) {
+        } else if (horizontalOverflow > 0) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
+            left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
         } else {
             // element fits on screen (align with target)
             left = targetOffset.left - relativeElementOffset.left;
@@ -431,7 +432,9 @@ export class DomHandler {
     }
 
     public static getUserAgent(): string {
-        return navigator.userAgent;
+        if (navigator && this.isClient()) {
+            return navigator.userAgent;
+        }
     }
 
     public static isIE() {
@@ -474,7 +477,7 @@ export class DomHandler {
 
     public static appendChild(element: any, target: any) {
         if (this.isElement(target)) target.appendChild(element);
-        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 
@@ -683,5 +686,27 @@ export class DomHandler {
 
                 return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
         }
+    }
+
+    public static isClient() {
+        return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+    }
+
+    public static getAttribute(element, name) {
+        if (element) {
+            const value = element.getAttribute(name);
+
+            if (!isNaN(value)) {
+                return +value;
+            }
+
+            if (value === 'true' || value === 'false') {
+                return value === 'true';
+            }
+
+            return value;
+        }
+
+        return undefined;
     }
 }

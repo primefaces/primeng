@@ -53,7 +53,15 @@
     top: 0;
 }
 
-.p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon {
+.p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon:not(svg) {
+    margin-left: auto;
+}
+
+.p-menubar .p-menubar-root-list .p-icon-wrapper {
+    margin-left: auto;
+}
+
+.p-menubar .p-submenu-list .p-menuitem-link .p-icon-wrapper {
     margin-left: auto;
 }
 
