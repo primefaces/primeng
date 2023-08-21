@@ -1545,7 +1545,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
                 let stringArrValue = null;
-                if (this.value) {
+                if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
                 this.onModelChange(stringArrValue);
