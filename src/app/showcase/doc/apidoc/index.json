@@ -22730,11 +22730,11 @@
                             "description": "Whether to hide tooltip on escape key press."
                         },
                         {
-                            "name": "text",
+                            "name": "content",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Text of the tooltip."
+                            "type": "string | TemplateRef<HTMLElement>",
+                            "description": "Content of the tooltip."
                         },
                         {
                             "name": "disabled",
