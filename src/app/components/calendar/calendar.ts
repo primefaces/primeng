@@ -3366,7 +3366,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
-        this.onModelTouched();
     }
 
     ngOnDestroy() {
