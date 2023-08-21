@@ -197,6 +197,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      */
     @Input() lazy: boolean | undefined;
     /**
+     * Whether to call lazy loading on initialization.
+     * @group Props
+     */
+    @Input() lazyLoadOnInit: boolean = true;
+    /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
      */
@@ -349,7 +354,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
-        if (this.lazy) {
+        if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 
