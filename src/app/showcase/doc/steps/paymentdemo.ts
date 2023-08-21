@@ -53,10 +53,10 @@ export class PaymentDemo implements OnInit {
 
     nextPage() {
         this.ticketService.ticketInformation.paymentInformation = this.paymentInformation;
-        this.router.navigate(['steps/confirmation']);
+        this.router.navigate(['steps/confirmation'], { fragment: 'routing' });
     }
 
     prevPage() {
-        this.router.navigate(['steps/seat']);
+        this.router.navigate(['steps/seat'], { fragment: 'routing' });
     }
 }
