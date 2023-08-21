@@ -390,7 +390,7 @@ export const Password_VALUE_ACCESSOR: any = {
                     <div class="p-password-meter">
                         <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
-                    <div className="p-password-info">{{ infoText }}</div>
+                    <div class="p-password-info">{{ infoText }}</div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
