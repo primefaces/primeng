@@ -157,9 +157,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
+                [autoZIndex]="autoZIndex"
+                [baseZIndex]="baseZIndex"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -371,36 +373,51 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * @group Props
      */
     @Input() type: string = 'text';
-    /**
-     * Whether to automatically manage layering.
-     * @group Props
-     */
-    @Input() autoZIndex: boolean = true;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input() baseZIndex: number = 0;
+
+    /* @deprecated */
+    _autoZIndex: boolean;
+    @Input() get autoZIndex(): boolean {
+        return this._autoZIndex;
+    }
+    set autoZIndex(val: boolean) {
+        this._autoZIndex = val;
+        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _baseZIndex: number;
+    @Input() get baseZIndex(): number {
+        return this._baseZIndex;
+    }
+    set baseZIndex(val: number) {
+        this._baseZIndex = val;
+        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+
     /**
      * Defines a string that labels the dropdown button for accessibility.
      * @group Props
      */
     @Input() dropdownAriaLabel: string | undefined;
+
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+
     /**
      * Icon class of the dropdown icon.
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
+
     /**
      * Ensures uniqueness of selected items on multiple mode.
      * @group Props

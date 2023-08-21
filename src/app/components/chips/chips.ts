@@ -145,7 +145,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Separator char to add an item when pressed in addition to the enter key.
      * @group Props
      */
-    @Input() separator: string | undefined;
+    @Input() separator: string | RegExp | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
@@ -246,7 +246,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     onPaste(event: any) {
         if (!this.disabled) {
             if (this.separator) {
-                let pastedData = (event.clipboardData || (this.document.defaultView as any)['clipboardData']).getData('Text');
+                const pastedData: string = (event.clipboardData || (this.document.defaultView as any)['clipboardData']).getData('Text');
                 pastedData.split(this.separator).forEach((val: any) => {
                     this.addItem(event, val, true);
                 });
