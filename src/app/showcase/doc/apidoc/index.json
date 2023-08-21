@@ -2297,6 +2297,22 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Time to wait in milliseconds to hide the tooltip even it is active."
+                        },
+                        {
+                            "name": "autoHide",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to hide tooltip when hovering over tooltip content."
+                        },
+                        {
+                            "name": "hideOnEscape",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to hide tooltip on escape key press."
                         }
                     ]
                 }

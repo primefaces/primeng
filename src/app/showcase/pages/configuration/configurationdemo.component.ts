@@ -7,6 +7,7 @@ import { RepositoryDoc } from '../../doc/configuration/locale/repositorydoc';
 import { SetLocaleDoc } from '../../doc/configuration/locale/setlocaledoc';
 import { RippleDoc } from '../../doc/configuration/rippledoc';
 import { ZIndexDoc } from '../../doc/configuration/zindexdoc';
+import { TooltipConfigDoc } from '../../doc/configuration/tooltipdoc';
 
 @Component({
     selector: 'configuration',
@@ -28,6 +29,11 @@ export class ConfigurationDemoComponent {
             id: 'zIndex',
             label: 'ZIndex',
             component: ZIndexDoc
+        },
+        {
+            id: 'tooltip',
+            label: 'Tooltip Configuration',
+            component: TooltipConfigDoc
         },
         {
             id: 'filter-mode',

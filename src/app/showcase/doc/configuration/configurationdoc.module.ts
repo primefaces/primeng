@@ -11,10 +11,11 @@ import { RepositoryDoc } from './locale/repositorydoc';
 import { SetLocaleDoc } from './locale/setlocaledoc';
 import { RippleDoc } from './rippledoc';
 import { ZIndexDoc } from './zindexdoc';
+import { TooltipConfigDoc } from './tooltipdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [FilterModeDoc, ImportDoc, RippleDoc, ZIndexDoc, NgxTranslateDoc, ApiDoc, RepositoryDoc, SetLocaleDoc]
+    declarations: [FilterModeDoc, ImportDoc, RippleDoc, ZIndexDoc, TooltipConfigDoc, NgxTranslateDoc, ApiDoc, RepositoryDoc, SetLocaleDoc]
 })
 export class ConfigurationDocModule {}
