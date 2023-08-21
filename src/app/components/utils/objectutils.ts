@@ -23,8 +23,8 @@ export class ObjectUtils {
 
             if (arrA != arrB) return false;
 
-            var dateA = obj1 instanceof Date,
-                dateB = obj2 instanceof Date;
+            var dateA = this.isDate(obj1),
+                dateB = this.isDate(obj2);
             if (dateA != dateB) return false;
             if (dateA && dateB) return obj1.getTime() == obj2.getTime();
 
@@ -162,8 +162,12 @@ export class ObjectUtils {
         return str;
     }
 
+    public static isDate(input: any) {
+        return Object.prototype.toString.call(input) === '[object Date]';
+    }
+
     public static isEmpty(value) {
-        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!(value instanceof Date) && typeof value === 'object' && Object.keys(value).length === 0);
+        return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!this.isDate(value) && typeof value === 'object' && Object.keys(value).length === 0);
     }
 
     public static isNotEmpty(value) {
@@ -193,12 +197,50 @@ export class ObjectUtils {
     }
 
     public static merge(obj1?: any, obj2?: any): any {
-        if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
+        if (obj1 == undefined && obj2 == undefined) {
+            return undefined;
+        } else if ((obj1 == undefined || typeof obj1 === 'object') && (obj2 == undefined || typeof obj2 === 'object')) {
             return { ...(obj1 || {}), ...(obj2 || {}) };
         } else if ((obj1 == undefined || typeof obj1 === 'string') && (obj2 == undefined || typeof obj2 === 'string')) {
             return [obj1 || '', obj2 || ''].join(' ');
         }
 
         return obj2 || obj1;
+    }
+
+    public static isPrintableCharacter(char = '') {
+        return this.isNotEmpty(char) && char.length === 1 && char.match(/\S| /);
+    }
+
+    public static getItemValue(obj, ...params) {
+        return this.isFunction(obj) ? obj(...params) : obj;
+    }
+
+    public static findLastIndex(arr, callback) {
+        let index = -1;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                index = arr.findLastIndex(callback);
+            } catch {
+                index = arr.lastIndexOf([...arr].reverse().find(callback));
+            }
+        }
+
+        return index;
+    }
+
+    public static findLast(arr, callback) {
+        let item;
+
+        if (this.isNotEmpty(arr)) {
+            try {
+                item = arr.findLast(callback);
+            } catch {
+                item = [...arr].reverse().find(callback);
+            }
+        }
+
+        return item;
     }
 }

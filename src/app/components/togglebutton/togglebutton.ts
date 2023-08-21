@@ -1,7 +1,8 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, NgModule, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ToggleButtonChangeEvent } from './togglebutton.interface';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -10,7 +11,10 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ToggleButton),
     multi: true
 };
-
+/**
+ * ToggleButton is used to select a boolean value using a button.
+ * @group Components
+ */
 @Component({
     selector: 'p-toggleButton',
     template: `
@@ -26,7 +30,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             pRipple
         >
             <span *ngIf="onIcon || offIcon" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"></span>
-            <span class="p-button-label">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+            <span class="p-button-label" *ngIf="onLabel || offLabel">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
@@ -37,29 +41,67 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     }
 })
 export class ToggleButton implements ControlValueAccessor {
-    @Input() onLabel: string;
-
-    @Input() offLabel: string;
-
-    @Input() onIcon: string;
-
-    @Input() offIcon: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() disabled: boolean;
-
+    /**
+     * Label for the on state.
+     * @group Props
+     */
+    @Input() onLabel: string | undefined;
+    /**
+     * Label for the off state.
+     * @group Props
+     */
+    @Input() offLabel: string | undefined;
+    /**
+     * Icon for the on state.
+     * @group Props
+     */
+    @Input() onIcon: string | undefined;
+    /**
+     * Icon for the off state.
+     * @group Props
+     */
+    @Input() offIcon: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
     @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() inputId: string;
-
-    @Input() tabindex: number;
-
-    @Input() iconPos: string = 'left';
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: 'left' | 'right' = 'left';
+    /**
+     * Callback to invoke on value change.
+     * @param {ToggleButtonChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
 
     checked: boolean = false;
 
@@ -106,11 +148,11 @@ export class ToggleButton implements ControlValueAccessor {
     }
 
     get hasOnLabel(): boolean {
-        return this.onLabel && this.onLabel.length > 0;
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 
     get hasOffLabel(): boolean {
-        return this.onLabel && this.onLabel.length > 0;
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 }
 

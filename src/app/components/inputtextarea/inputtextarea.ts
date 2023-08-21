@@ -1,8 +1,11 @@
 import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
+import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-
+/**
+ * InputTextarea adds styling and autoResize functionality to standard textarea element.
+ * @group Components
+ */
 @Directive({
     selector: '[pInputTextarea]',
     host: {
@@ -12,29 +15,37 @@ import { Subscription } from 'rxjs';
     }
 })
 export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
-    @Input() autoResize: boolean;
+    /**
+     * When present, textarea size changes as being typed.
+     * @group Props
+     */
+    @Input() autoResize: boolean | undefined;
+    /**
+     * Callback to invoke on textarea resize.
+     * @param {(Event | {})} event - Custom resize event.
+     * @group Emits
+     */
+    @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
 
-    @Output() onResize: EventEmitter<any> = new EventEmitter();
+    filled: boolean | undefined;
 
-    filled: boolean;
+    cachedScrollHeight: number | undefined;
 
-    cachedScrollHeight: number;
+    ngModelSubscription: Subscription | undefined;
 
-    ngModelSubscription: Subscription;
-
-    ngControlSubscription: Subscription;
+    ngControlSubscription: Subscription | undefined;
 
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.ngModel) {
-            this.ngModelSubscription = this.ngModel.valueChanges.subscribe(() => {
+            this.ngModelSubscription = (this.ngModel as any).valueChanges.subscribe(() => {
                 this.updateState();
             });
         }
 
         if (this.control) {
-            this.ngControlSubscription = this.control.valueChanges.subscribe(() => {
+            this.ngControlSubscription = (this.control as any).valueChanges.subscribe(() => {
                 this.updateState();
             });
         }
@@ -48,7 +59,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     }
 
     @HostListener('input', ['$event'])
-    onInput(e) {
+    onInput(e: Event) {
         this.updateState();
     }
 
@@ -57,14 +68,14 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     }
 
     @HostListener('focus', ['$event'])
-    onFocus(e) {
+    onFocus(e: Event) {
         if (this.autoResize) {
             this.resize(e);
         }
     }
 
     @HostListener('blur', ['$event'])
-    onBlur(e) {
+    onBlur(e: Event) {
         if (this.autoResize) {
             this.resize(e);
         }

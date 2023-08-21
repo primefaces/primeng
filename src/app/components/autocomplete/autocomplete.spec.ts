@@ -1,11 +1,14 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { AutoComplete } from './autocomplete';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
+import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
+import { OverlayModule } from 'primeng/overlay';
+import { AutoComplete } from './autocomplete';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -52,9 +55,9 @@ describe('AutoComplete', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule],
+            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule, ChevronDownIcon, TimesCircleIcon],
             declarations: [AutoComplete, TestAutocompleteComponent]
-        });
+        }).compileComponents();
 
         fixture = TestBed.createComponent(TestAutocompleteComponent);
         autocomplete = fixture.debugElement.children[0].componentInstance;
@@ -184,6 +187,7 @@ describe('AutoComplete', () => {
         expect(handleSuggestionsChangeSpy).toHaveBeenCalled();
         expect(filterBrandsSpy).toHaveBeenCalled();
         expect(focusValue).toBeTruthy();
+        flush();
     }));
 
     it('should change immutable and scrollHeight', fakeAsync(() => {
@@ -208,12 +212,13 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         const suggestionsEls = fixture.debugElement.queryAll(By.css('li'));
-        const panelEl = fixture.debugElement.query(By.css('div'));
+        const panelEl = fixture.debugElement.query(By.css('.p-autocomplete-panel'));
         expect(panelEl.nativeElement.style.maxHeight).toEqual('450px');
         expect(autocomplete.suggestions.length).toEqual(1);
         expect(suggestionsEls.length).toEqual(1);
         expect(testComponent.filteredBrands.length).toEqual(1);
         expect(autocomplete.suggestions).toEqual(testComponent.filteredBrands);
+        flush();
     }));
 
     it('should change appendTo', fakeAsync(() => {
@@ -238,6 +243,7 @@ describe('AutoComplete', () => {
         expect(suggestionsEls.length).toEqual(2);
         expect(testComponent.filteredBrands.length).toEqual(2);
         expect(autocomplete.suggestions).toEqual(testComponent.filteredBrands);
+        flush();
     }));
 
     it('should change appendTo(2)', fakeAsync(() => {
@@ -262,6 +268,7 @@ describe('AutoComplete', () => {
         expect(suggestionsEls.length).toEqual(2);
         expect(testComponent.filteredBrands.length).toEqual(2);
         expect(autocomplete.suggestions).toEqual(testComponent.filteredBrands);
+        flush();
     }));
 
     it('should not show panel', fakeAsync(() => {
@@ -284,6 +291,7 @@ describe('AutoComplete', () => {
         expect(autocomplete.suggestions.length).toEqual(0);
         expect(suggestionsEls.length).toEqual(0);
         expect(testComponent.filteredBrands.length).toEqual(0);
+        flush();
     }));
 
     it('should show emptyMessage', fakeAsync(() => {
@@ -309,6 +317,7 @@ describe('AutoComplete', () => {
         expect(suggestionsEls.length).toEqual(1);
         expect(testComponent.filteredBrands.length).toEqual(0);
         expect(suggestionsEls[0].nativeElement.textContent).toContain(autocomplete.emptyMessage);
+        flush();
     }));
 
     it('should use autoHighlight', fakeAsync(() => {
@@ -331,6 +340,7 @@ describe('AutoComplete', () => {
 
         const firstItemEl = fixture.debugElement.query(By.css('li')).nativeElement;
         expect(firstItemEl.className).toContain('p-highlight');
+        flush();
     }));
 
     it('should use forceSelection', fakeAsync(() => {
@@ -354,6 +364,7 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         expect(inputEl.nativeElement.value).toEqual('');
+        flush();
     }));
 
     it('should select item', fakeAsync(() => {
@@ -381,6 +392,7 @@ describe('AutoComplete', () => {
         expect(selectItemSpy).toHaveBeenCalled();
         expect(inputEl.nativeElement.value).toEqual(autocomplete.value);
         expect(testComponent.brand).toEqual(autocomplete.value);
+        flush();
     }));
 
     it('should show panel with dropdown', () => {
@@ -439,6 +451,7 @@ describe('AutoComplete', () => {
         expect(selectItemSpy).toHaveBeenCalled();
         expect(inputEl.nativeElement.value).toEqual(autocomplete2.value.brand);
         expect(testComponent.car).toEqual(autocomplete2.value);
+        flush();
     }));
 
     it('should change minLength', fakeAsync(() => {
@@ -459,6 +472,17 @@ describe('AutoComplete', () => {
 
         const panelEl = fixture.debugElement.query(By.css('div'));
         expect(panelEl).toBeFalsy();
+
+        inputEl.nativeElement.value = 'va';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const updatedPanelEl = fixture.debugElement.query(By.css('div'));
+        expect(updatedPanelEl).toBeFalsy();
+        flush();
     }));
 
     it('should multiple', () => {
@@ -497,6 +521,7 @@ describe('AutoComplete', () => {
         expect(autocomplete.value.length).toEqual(1);
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
+        flush();
     }));
 
     it('should select selected item', fakeAsync(() => {
@@ -524,6 +549,7 @@ describe('AutoComplete', () => {
         expect(autocomplete.value.length).toEqual(1);
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
+        flush();
     }));
 
     it('should delete item with backspace', fakeAsync(() => {
@@ -550,12 +576,15 @@ describe('AutoComplete', () => {
         expect(autocomplete.value.length).toEqual(1);
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
-        let backspaceEvent = { which: 8, preventDefault() {} };
+        let backspaceEvent = new Event('keydown');
+        Object.defineProperty(backspaceEvent, 'which', { value: 8 });
+        Object.defineProperty(backspaceEvent, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(backspaceEvent);
         fixture.detectChanges();
 
         expect(autocomplete.value[0]).toEqual(undefined);
         expect(autocomplete.value.length).toEqual(0);
+        flush();
     }));
 
     it('should delete item with icon', fakeAsync(() => {
@@ -588,6 +617,7 @@ describe('AutoComplete', () => {
 
         expect(autocomplete.value[0]).toEqual(undefined);
         expect(autocomplete.value.length).toEqual(0);
+        flush();
     }));
 
     it('should navigate with arrow keys and select with enter', () => {
@@ -601,13 +631,14 @@ describe('AutoComplete', () => {
         const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        fixture.detectChanges();
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeydown(navigateEvent);
 
-        event.which = 38;
-        autocomplete.onKeydown(event);
-        event.which = 13;
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 13 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(event);
         fixture.detectChanges();
 
@@ -627,12 +658,17 @@ describe('AutoComplete', () => {
         const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        event.which = 9;
+
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeydown(navigateEvent);
+
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 9 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
         autocomplete.onKeydown(event);
         fixture.detectChanges();
-
         expect(autocomplete.value).toEqual('Volvo');
         expect(selectItemSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
@@ -650,7 +686,10 @@ describe('AutoComplete', () => {
         const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 27, preventDefault() {} };
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 27 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
+
         autocomplete.onKeydown(event);
         fixture.detectChanges();
 

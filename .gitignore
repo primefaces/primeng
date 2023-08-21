@@ -41,10 +41,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Themes
-src/assets/components/themes/soho-light/
-src/assets/components/themes/soho-dark/
-src/assets/components/themes/viva-light/
-src/assets/components/themes/viva-dark/
-src/assets/components/themes/mira/
-src/assets/components/themes/nano/
+# type doc
+api-generator/typedoc.json

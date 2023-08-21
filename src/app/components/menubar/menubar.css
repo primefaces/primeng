@@ -29,6 +29,7 @@
 .p-menubar-root-list {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .p-menubar-root-list > li ul {
@@ -43,7 +44,7 @@
 .p-menubar .p-submenu-list {
     display: none;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
 }
 
 .p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {
@@ -52,7 +53,15 @@
     top: 0;
 }
 
-.p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon {
+.p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon:not(svg) {
+    margin-left: auto;
+}
+
+.p-menubar .p-menubar-root-list .p-icon-wrapper {
+    margin-left: auto;
+}
+
+.p-menubar .p-submenu-list .p-menuitem-link .p-icon-wrapper {
     margin-left: auto;
 }
 

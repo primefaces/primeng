@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Checkbox } from './checkbox';
+import { CheckIcon } from 'primeng/icons/check';
 
 @Component({
     template: ` <p-checkbox [(ngModel)]="checked"> </p-checkbox> `
@@ -18,7 +19,7 @@ describe('Checkbox', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule],
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon],
             declarations: [Checkbox, TestCheckboxComponent]
         });
 
@@ -149,8 +150,7 @@ describe('Checkbox', () => {
         fixture.detectChanges();
 
         const iconEl = fixture.nativeElement.querySelector('.p-checkbox-box .p-checkbox-icon');
-
-        expect(iconEl.className).toContain('pi pi-check');
+        expect(iconEl.parentElement.tagName.toLowerCase()).toEqual('checkicon');
     });
 
     it('should have custom checkbox icon', () => {

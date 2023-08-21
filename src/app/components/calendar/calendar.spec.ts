@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Calendar } from './calendar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Calendar } from './calendar';
 
 describe('Calendar', () => {
     let calendar: Calendar;
@@ -25,24 +25,24 @@ describe('Calendar', () => {
     it('should created by default', () => {
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('span'));
-        expect(calenderEl).toBeTruthy();
+        const calendarEl = fixture.debugElement.query(By.css('span'));
+        expect(calendarEl).toBeTruthy();
     });
 
     it('should change styleClass', () => {
         calendar.styleClass = 'Primeng ROCKS!';
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('span'));
-        expect(calenderEl.nativeElement.className).toContain('Primeng ROCKS!');
+        const calendarEl = fixture.debugElement.query(By.css('span'));
+        expect(calendarEl.nativeElement.className).toContain('Primeng ROCKS!');
     });
 
     it('should change inputStyleClass', () => {
         calendar.inputStyleClass = 'Primeng ROCKS!';
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('input'));
-        expect(calenderEl.nativeElement.className).toContain('Primeng ROCKS!');
+        const calendarEl = fixture.debugElement.query(By.css('input'));
+        expect(calendarEl.nativeElement.className).toContain('Primeng ROCKS!');
     });
 
     it('should change panelStyle and panelStyleClass', () => {
@@ -60,34 +60,34 @@ describe('Calendar', () => {
         calendar.inputId = 'PRIMENG';
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('input'));
-        expect(calenderEl.nativeElement.id).toContain('PRIMENG');
+        const calendarEl = fixture.debugElement.query(By.css('input'));
+        expect(calendarEl.nativeElement.id).toContain('PRIMENG');
     });
 
     it('should change name', () => {
         calendar.name = 'PRIMENG';
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('input'));
-        expect(calenderEl.nativeElement.name).toContain('PRIMENG');
+        const calendarEl = fixture.debugElement.query(By.css('input'));
+        expect(calendarEl.nativeElement.name).toContain('PRIMENG');
     });
 
     it('should change placeholder', () => {
         calendar.placeholder = 'PRIMENG';
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('input'));
-        expect(calenderEl.nativeElement.placeholder).toContain('PRIMENG');
+        const calendarEl = fixture.debugElement.query(By.css('input'));
+        expect(calendarEl.nativeElement.placeholder).toContain('PRIMENG');
     });
 
     it('should show icon', () => {
         calendar.showIcon = true;
         fixture.detectChanges();
 
-        const calenderEl = fixture.debugElement.query(By.css('span'));
+        const calendarEl = fixture.debugElement.query(By.css('span'));
         const buttonEl = fixture.debugElement.query(By.css('button'));
-        expect(calenderEl.nativeElement.className).toContain('p-calendar-w-btn');
-        expect(buttonEl.nativeNode.outerHTML).toContain('pi pi-calendar');
+        expect(calendarEl.nativeElement.className).toContain('p-calendar-w-btn');
+        expect(buttonEl.nativeNode.outerHTML).toContain('calendaricon');
     });
 
     it('should change icon', () => {
@@ -209,6 +209,7 @@ describe('Calendar', () => {
         expect(calendar.isSingleSelection()).toEqual(true);
         tick(150);
         expect(calendar.overlayVisible).toEqual(false);
+        flush();
     }));
 
     it('should change date format', () => {
@@ -359,10 +360,10 @@ describe('Calendar', () => {
         decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentHour.toString());
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultHour.toString());
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual(calendar.currentHour.toString());
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual(calendar.currentMinute.toString());
         expect(calendar.currentMinute).toEqual(13);
         expect(calendar.currentHour).toEqual(16);
         const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
@@ -414,10 +415,10 @@ describe('Calendar', () => {
         decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toContain(calendar.currentHour.toString());
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toContain(calendar.currentMinute.toString());
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultHour.toString());
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toContain(calendar.currentHour.toString());
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toContain(calendar.currentMinute.toString());
         expect(fixture.debugElement.query(By.css('input')).nativeElement.value).toEqual(calendar.inputFieldValue);
     });
 
@@ -514,6 +515,7 @@ describe('Calendar', () => {
         expect(calendar.value).not.toEqual(null);
         clearButtonEl.nativeElement.click();
         fixture.detectChanges();
+        flush();
 
         tick(150);
         expect(calendar.overlayVisible).toEqual(false);
@@ -521,6 +523,7 @@ describe('Calendar', () => {
         expect(inputEl.value).toEqual('');
         expect(calendar.value).toEqual(null);
         expect(onClearButtonClickSpy).toHaveBeenCalled();
+        flush();
     }));
 
     it('should change today & clear button styleClass', () => {
@@ -586,6 +589,37 @@ describe('Calendar', () => {
         expect(calendar.value).toBeTruthy();
         expect(janEl.className).toContain('p-highlight');
         expect(calendar.inputFieldValue).toEqual('01');
+        flush();
+    }));
+
+    it('should use min date and max date with month picker', fakeAsync(() => {
+        calendar.view = 'month';
+        calendar.dateFormat = 'mm';
+        const today = new Date();
+        const minDate = new Date(today.getFullYear(), today.getMonth(), 2);
+        const maxDate = new Date(today.getFullYear(), today.getMonth(), 20);
+        calendar.minDate = minDate;
+        calendar.maxDate = maxDate;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const monthpickerEl = fixture.debugElement.query(By.css('.p-monthpicker'));
+        const currentMonth = monthpickerEl.children[today.getMonth()];
+        const unselectableMonths = monthpickerEl.queryAll(By.css('.p-disabled'));
+        expect(currentMonth.classes['.p-disabled']).toBeFalsy();
+        expect(unselectableMonths.length).toEqual(11);
+
+        currentMonth.nativeElement.click();
+        fixture.detectChanges();
+        tick(200);
+
+        expect(+calendar.inputFieldValue).toEqual(today.getMonth() + 1);
+        flush();
     }));
 
     it('should use touchUI', fakeAsync(() => {
@@ -616,6 +650,7 @@ describe('Calendar', () => {
         expect(onOverlayAnimationStartSpy).toHaveBeenCalled();
         calendar.destroyMask();
         tick(300);
+        flush();
     }));
 
     it('should select date with keyboardEvent', () => {
@@ -768,8 +803,8 @@ describe('Calendar', () => {
         expect(calendar.pm).toEqual(true);
         expect(amPmEl).toBeTruthy();
         expect(amPmEl.children[1].nativeElement.textContent).toEqual('PM');
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('03');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('12');
     });
 
     it('should change hourFormat', () => {
@@ -803,14 +838,14 @@ describe('Calendar', () => {
 
         expect(calendar.pm).toEqual(true);
         expect(amPmEl.children[1].nativeElement.textContent).toEqual('PM');
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('12');
         decrementHour.nativeElement.dispatchEvent(new Event('mousedown'));
         decrementHour.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
         expect(calendar.pm).toEqual(false);
         expect(amPmEl.children[1].nativeElement.textContent).toEqual('AM');
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('11');
     });
 
     it('should change hourFormat with ampm buttons', () => {
@@ -865,8 +900,8 @@ describe('Calendar', () => {
         const minutePicker = fixture.debugElement.query(By.css('.p-minute-picker'));
         const yearEl = fixture.debugElement.query(By.css('.p-datepicker-year'));
         const monthEl = fixture.debugElement.query(By.css('.p-datepicker-month'));
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('11');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('12');
         expect(yearEl.nativeElement.textContent).toContain('2017');
         expect(monthEl.nativeElement.textContent).toContain('September');
         expect(calendar.currentMonth).toEqual(8);
@@ -899,7 +934,7 @@ describe('Calendar', () => {
         expect(seperatorEl[0].children[0].nativeElement.textContent).toEqual(':');
         expect(seperatorEl[1].children[0].nativeElement.textContent).toEqual(':');
         expect(secondPicker).toBeTruthy();
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('21');
     });
 
     it('should change seconds', () => {
@@ -925,7 +960,7 @@ describe('Calendar', () => {
         incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('22');
         expect(incrementSecondSpy).toHaveBeenCalled();
         fixture.detectChanges();
 
@@ -933,7 +968,7 @@ describe('Calendar', () => {
         decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('21');
         expect(decrementSecondSpy).toHaveBeenCalled();
     });
 
@@ -972,9 +1007,9 @@ describe('Calendar', () => {
         incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('13');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('14');
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('23');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('13');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('14');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('23');
         expect(calendar.currentHour).toEqual(13);
         expect(calendar.currentMinute).toEqual(14);
         expect(calendar.currentSecond).toEqual(23);
@@ -986,9 +1021,9 @@ describe('Calendar', () => {
         decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('11');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('12');
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('21');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('11');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('12');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('21');
         expect(calendar.currentHour).toEqual(11);
         expect(calendar.currentMinute).toEqual(12);
         expect(calendar.currentSecond).toEqual(21);
@@ -1029,9 +1064,9 @@ describe('Calendar', () => {
         incrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('03');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('03');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('03');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('03');
         expect(calendar.currentHour).toEqual(3);
         expect(calendar.currentMinute).toEqual(3);
         expect(calendar.currentSecond).toEqual(3);
@@ -1043,9 +1078,9 @@ describe('Calendar', () => {
         decrementSecond.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
 
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
-        expect(secondPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('22');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('58');
+        expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('58');
         expect(calendar.currentHour).toEqual(22);
         expect(calendar.currentMinute).toEqual(58);
         expect(calendar.currentSecond).toEqual(58);
@@ -1417,6 +1452,7 @@ describe('Calendar', () => {
         fixture.detectChanges();
 
         expect(calendar.overlayVisible).toEqual(false);
+        flush();
     }));
 
     it('should be next year', () => {
@@ -1707,11 +1743,10 @@ describe('Calendar', () => {
         decrementMinuteEl.nativeElement.dispatchEvent(new Event('mousedown'));
         decrementMinuteEl.nativeElement.dispatchEvent(new Event('mouseup'));
         fixture.detectChanges();
-
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultHour.toString());
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).not.toEqual(defaultMinute.toString());
-        expect(hourPicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('22');
-        expect(minutePicker.queryAll(By.css('span'))[1].nativeElement.textContent).toEqual('58');
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultHour.toString());
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).not.toEqual(defaultMinute.toString());
+        expect(hourPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('22');
+        expect(minutePicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('58');
         expect(calendar.currentHour).toEqual(22);
         expect(calendar.currentMinute).toEqual(58);
     });

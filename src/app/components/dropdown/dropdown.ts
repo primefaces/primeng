@@ -29,20 +29,21 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { TimesIcon } from 'primeng/icons/times';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SearchIcon } from 'primeng/icons/search';
+import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
+import { Nullable } from 'primeng/ts-helpers';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Dropdown),
     multi: true
 };
-
-export interface DropdownFilterOptions {
-    filter?: (value?: any) => void;
-    reset?: () => void;
-}
 
 @Component({
     selector: 'p-dropdownItem',
@@ -57,7 +58,7 @@ export interface DropdownFilterOptions {
             [id]="selected ? 'p-highlighted-option' : ''"
             [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled }"
         >
-            <span *ngIf="!template">{{ label || 'empty' }}</span>
+            <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -66,19 +67,19 @@ export interface DropdownFilterOptions {
     }
 })
 export class DropdownItem {
-    @Input() option: SelectItem;
+    @Input() option: SelectItem | undefined;
 
-    @Input() selected: boolean;
+    @Input() selected: boolean | undefined;
 
-    @Input() label: string;
+    @Input() label: string | undefined;
 
-    @Input() disabled: boolean;
+    @Input() disabled: boolean | undefined;
 
-    @Input() visible: boolean;
+    @Input() visible: boolean | undefined;
 
-    @Input() itemSize: number;
+    @Input() itemSize: number | undefined;
 
-    @Input() template: TemplateRef<any>;
+    @Input() template: TemplateRef<any> | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -89,7 +90,10 @@ export class DropdownItem {
         });
     }
 }
-
+/**
+ * Dropdown also known as Select, is used to choose an item from a collection of options.
+ * @group Components
+ */
 @Component({
     selector: 'p-dropdown',
     template: `
@@ -150,10 +154,24 @@ export class DropdownItem {
                 (focus)="onEditableInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <i class="p-dropdown-clear-icon pi pi-times" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
+
+            <ng-container *ngIf="isVisibleClearIcon">
+                <TimesIcon [styleClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" />
+                <span class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                </span>
+            </ng-container>
+
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible">
-                <span class="p-dropdown-trigger-icon" [ngClass]="dropdownIcon"></span>
+                <ng-container *ngIf="!dropdownIconTemplate">
+                    <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                </ng-container>
+                <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                </span>
             </div>
+
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -189,7 +207,10 @@ export class DropdownItem {
                                         [attr.aria-label]="ariaFilterLabel"
                                         [attr.aria-activedescendant]="overlayVisible ? 'p-highlighted-option' : labelId"
                                     />
-                                    <span class="p-dropdown-filter-icon pi pi-search"></span>
+                                    <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-dropdown-filter-icon'" />
+                                    <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
+                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                    </span>
                                 </div>
                             </ng-template>
                         </div>
@@ -277,143 +298,254 @@ export class DropdownItem {
     styleUrls: ['./dropdown.css']
 })
 export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+    /**
+     * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
     @Input() scrollHeight: string = '200px';
-
-    @Input() filter: boolean;
-
-    @Input() name: string;
-
-    @Input() style: any;
-
-    @Input() panelStyle: any;
-
-    @Input() styleClass: string;
-
-    @Input() panelStyleClass: string;
-
-    @Input() readonly: boolean;
-
-    @Input() required: boolean;
-
-    @Input() editable: boolean;
-
-    @Input() appendTo: any;
-
-    @Input() tabindex: number;
-
-    @Input() placeholder: string;
-
-    @Input() filterPlaceholder: string;
-
-    @Input() filterLocale: string;
-
-    @Input() inputId: string;
-
-    @Input() selectId: string;
-
-    @Input() dataKey: string;
-
-    @Input() filterBy: string;
-
-    @Input() autofocus: boolean;
-
+    /**
+     * When specified, displays an input field to filter the items on keyup.
+     * @group Props
+     */
+    @Input() filter: boolean | undefined;
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Inline style of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Style class of the overlay panel element.
+     * @group Props
+     */
+    @Input() panelStyleClass: string | undefined;
+    /**
+     * When present, it specifies that the component cannot be edited.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * When present, it specifies that an input field must be filled out before submitting the form.
+     * @group Props
+     */
+    @Input() required: boolean | undefined;
+    /**
+     * When present, custom value instead of predefined options can be entered using the editable input field.
+     * @group Props
+     */
+    @Input() editable: boolean | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Default text to display when no option is selected.
+     * @group Props
+     */
+    @Input() placeholder: string | undefined;
+    /**
+     * Placeholder text to show when filter input is empty.
+     * @group Props
+     */
+    @Input() filterPlaceholder: string | undefined;
+    /**
+     * Locale to use in filtering. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() filterLocale: string | undefined;
+    /**
+     * Identifier of the accessible input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * No description available.
+     * @group Props
+     */
+    @Input() selectId: string | undefined;
+    /**
+     * A property to uniquely identify a value in options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
+    /**
+     * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
+     * @group Props
+     */
+    @Input() filterBy: string | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input() autofocus: boolean | undefined;
+    /**
+     * Clears the filter value when hiding the dropdown.
+     * @group Props
+     */
     @Input() resetFilterOnHide: boolean = false;
-
-    @Input() dropdownIcon: string = 'pi pi-chevron-down';
-
-    @Input() optionLabel: string;
-
-    @Input() optionValue: string;
-
-    @Input() optionDisabled: string;
-
-    @Input() optionGroupLabel: string;
-
+    /**
+     * Icon class of the dropdown icon.
+     * @group Props
+     */
+    @Input() dropdownIcon: string | undefined;
+    /**
+     * Name of the label field of an option.
+     * @group Props
+     */
+    @Input() optionLabel: string | undefined;
+    /**
+     * Name of the value field of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | undefined;
+    /**
+     * Name of the disabled field of an option.
+     * @group Props
+     */
+    @Input() optionDisabled: string | undefined;
+    /**
+     * Name of the label field of an option group.
+     * @group Props
+     */
+    @Input() optionGroupLabel: string | undefined;
+    /**
+     * Name of the options field of an option group.
+     * @group Props
+     */
     @Input() optionGroupChildren: string = 'items';
-
+    /**
+     * Whether to display the first item as the label if no placeholder is defined and value is null.
+     * @group Props
+     */
     @Input() autoDisplayFirst: boolean = true;
-
-    @Input() group: boolean;
-
-    @Input() showClear: boolean;
-
+    /**
+     * Whether to display options as grouped when nested options are provided.
+     * @group Props
+     */
+    @Input() group: boolean | undefined;
+    /**
+     * When enabled, a clear icon is displayed to clear the value.
+     * @group Props
+     */
+    @Input() showClear: boolean | undefined;
+    /**
+     * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
     @Input() emptyFilterMessage: string = '';
-
+    /**
+     * Text to display when there is no data. Defaults to global value in i18n translation configuration.
+     * @group Props
+     */
     @Input() emptyMessage: string = '';
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
     @Input() lazy: boolean = false;
-
-    @Input() virtualScroll: boolean;
-
-    @Input() virtualScrollItemSize: number;
-
-    @Input() virtualScrollOptions: ScrollerOptions;
-
-    @Input() overlayOptions: OverlayOptions;
-
-    @Input() ariaFilterLabel: string;
-
-    @Input() ariaLabel: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Input() filterMatchMode: string = 'contains';
-
-    @Input() maxlength: number;
-
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * Defines a string that labels the filter input.
+     * @group Props
+     */
+    @Input() ariaFilterLabel: string | undefined;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines how the items are filtered.
+     * @group Props
+     */
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    /**
+     * Maximum number of character allows in the editable input field.
+     * @group Props
+     */
+    @Input() maxlength: number | undefined;
+    /**
+     * Advisory information to display in a tooltip on hover.
+     * @group Props
+     */
     @Input() tooltip: string = '';
-
-    @Input() tooltipPosition: string = 'right';
-
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'top' | 'left' | 'right' | 'bottom' = 'right';
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
     @Input() tooltipPositionStyle: string = 'absolute';
-
-    @Input() tooltipStyleClass: string;
-
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Applies focus to the filter element when the overlay is shown.
+     * @group Props
+     */
     @Input() autofocusFilter: boolean = true;
-
+    /**
+     * No description available.
+     * @group Props
+     */
     @Input() overlayDirection: string = 'end';
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFilter: EventEmitter<any> = new EventEmitter();
-
-    @Output() onFocus: EventEmitter<any> = new EventEmitter();
-
-    @Output() onBlur: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
-
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
-
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
-
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
-
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild('container') containerViewChild: ElementRef;
-
-    @ViewChild('filter') filterViewChild: ElementRef;
-
-    @ViewChild('in') accessibleViewChild: ElementRef;
-
-    @ViewChild('editableInput') editableInputViewChild: ElementRef;
-
-    @ViewChild('items') itemsViewChild: ElementRef;
-
-    @ViewChild('scroller') scroller: Scroller;
-
-    @ViewChild('overlay') overlayViewChild: Overlay;
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    private _disabled: boolean;
-
-    @Input() get disabled(): boolean {
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input() get disabled(): boolean | undefined {
         return this._disabled;
     }
-
-    set disabled(_disabled: boolean) {
+    set disabled(_disabled: boolean | undefined) {
         if (_disabled) {
             this.focused = false;
 
@@ -425,82 +557,210 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.cd.detectChanges();
         }
     }
-
-    /* @deprecated */
-    _itemSize: number;
-    @Input() get itemSize(): number {
+    /**
+     * Item size of item to be virtual scrolled.
+     * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
+     */
+    @Input() get itemSize(): number | undefined {
         return this._itemSize;
     }
-    set itemSize(val: number) {
+    set itemSize(val: number | undefined) {
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
-
-    /* @deprecated */
-    _autoZIndex: boolean;
-    @Input() get autoZIndex(): boolean {
+    _itemSize: number | undefined;
+    /**
+     * Whether to automatically manage layering.
+     * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get autoZIndex(): boolean | undefined {
         return this._autoZIndex;
     }
-    set autoZIndex(val: boolean) {
+    set autoZIndex(val: boolean | undefined) {
         this._autoZIndex = val;
         console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _baseZIndex: number;
-    @Input() get baseZIndex(): number {
+    _autoZIndex: boolean | undefined;
+    /**
+     * Base zIndex value to use in layering.
+     * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get baseZIndex(): number | undefined {
         return this._baseZIndex;
     }
-    set baseZIndex(val: number) {
+    set baseZIndex(val: number | undefined) {
         this._baseZIndex = val;
         console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _showTransitionOptions: string;
-    @Input() get showTransitionOptions(): string {
+    _baseZIndex: number | undefined;
+    /**
+     * Transition options of the show animation.
+     * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
     }
-    set showTransitionOptions(val: string) {
+    set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
-
-    /* @deprecated */
-    _hideTransitionOptions: string;
-    @Input() get hideTransitionOptions(): string {
+    _showTransitionOptions: string | undefined;
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
+     */
+    @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
     }
-    set hideTransitionOptions(val: string) {
+    set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    _hideTransitionOptions: string | undefined;
+    /**
+     * When specified, filter displays with this value.
+     * @group Props
+     */
+    @Input() get filterValue(): string | undefined | null {
+        return this._filterValue;
+    }
+    set filterValue(val: string | undefined | null) {
+        this._filterValue = val;
+        this.activateFilter();
+    }
+    /**
+     * An array of objects to display as the available options.
+     * @group Props
+     */
+    @Input() get options(): any[] | undefined {
+        return this._options;
+    }
+    set options(val: any[] | undefined) {
+        this._options = val;
+        this.optionsToDisplay = this._options;
+        this.updateSelectedOption(this.value);
 
-    itemsWrapper: HTMLDivElement;
+        this.selectedOption = this.findOption(this.value, this.optionsToDisplay as any[]);
+        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value) && !this.editable) {
+            this.value = null;
+            this.onModelChange(this.value);
+        }
 
-    itemTemplate: TemplateRef<any>;
+        this.optionsChanged = true;
 
-    groupTemplate: TemplateRef<any>;
+        if (this._filterValue && this._filterValue.length) {
+            this.activateFilter();
+        }
+    }
+    /**
+     * Callback to invoke when value of dropdown changes.
+     * @param {DropdownChangeEvent} event - custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<DropdownChangeEvent> = new EventEmitter<DropdownChangeEvent>();
+    /**
+     * Callback to invoke when data is filtered.
+     * @param {DropdownFilterEvent} event - custom filter event.
+     * @group Emits
+     */
+    @Output() onFilter: EventEmitter<DropdownFilterEvent> = new EventEmitter<DropdownFilterEvent>();
+    /**
+     * Callback to invoke when dropdown gets focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when dropdown loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when component is clicked.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
+     * Callback to invoke when dropdown overlay gets visible.
+     * @param {AnimationEvent} event - Animation event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    /**
+     * Callback to invoke when dropdown overlay gets hidden.
+     * @param {AnimationEvent} event - Animation event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    /**
+     * Callback to invoke when dropdown clears the value.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {DropdownLazyLoadEvent} event - Lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<DropdownLazyLoadEvent> = new EventEmitter<DropdownLazyLoadEvent>();
 
-    loaderTemplate: TemplateRef<any>;
+    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
-    selectedItemTemplate: TemplateRef<any>;
+    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
-    headerTemplate: TemplateRef<any>;
+    @ViewChild('in') accessibleViewChild: Nullable<ElementRef>;
 
-    filterTemplate: TemplateRef<any>;
+    @ViewChild('editableInput') editableInputViewChild: Nullable<ElementRef>;
 
-    footerTemplate: TemplateRef<any>;
+    @ViewChild('items') itemsViewChild: Nullable<ElementRef>;
 
-    emptyFilterTemplate: TemplateRef<any>;
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    emptyTemplate: TemplateRef<any>;
+    @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
 
-    filterOptions: DropdownFilterOptions;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    _disabled: boolean | undefined;
+
+    itemsWrapper: Nullable<HTMLDivElement>;
+
+    itemTemplate: Nullable<TemplateRef<any>>;
+
+    groupTemplate: Nullable<TemplateRef<any>>;
+
+    loaderTemplate: Nullable<TemplateRef<any>>;
+
+    selectedItemTemplate: Nullable<TemplateRef<any>>;
+
+    headerTemplate: Nullable<TemplateRef<any>>;
+
+    filterTemplate: Nullable<TemplateRef<any>>;
+
+    footerTemplate: Nullable<TemplateRef<any>>;
+
+    emptyFilterTemplate: Nullable<TemplateRef<any>>;
+
+    emptyTemplate: Nullable<TemplateRef<any>>;
+
+    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearIconTemplate: Nullable<TemplateRef<any>>;
+
+    filterIconTemplate: Nullable<TemplateRef<any>>;
+
+    filterOptions: DropdownFilterOptions | undefined;
 
     selectedOption: any;
 
-    _options: any[];
+    _options: any[] | undefined;
 
     value: any;
 
@@ -508,48 +768,48 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onModelTouched: Function = () => {};
 
-    optionsToDisplay: any[];
+    optionsToDisplay: any[] | undefined;
 
-    hover: boolean;
+    hover: Nullable<boolean>;
 
-    focused: boolean;
+    focused: Nullable<boolean>;
 
-    overlayVisible: boolean;
+    overlayVisible: Nullable<boolean>;
 
-    optionsChanged: boolean;
+    optionsChanged: Nullable<boolean>;
 
-    panel: HTMLDivElement;
+    panel: Nullable<HTMLDivElement>;
 
-    dimensionsUpdated: boolean;
+    dimensionsUpdated: Nullable<boolean>;
 
     hoveredItem: any;
 
-    selectedOptionUpdated: boolean;
+    selectedOptionUpdated: Nullable<boolean>;
 
-    _filterValue: string;
+    _filterValue: string | undefined | null;
 
-    searchValue: string;
+    searchValue: Nullable<string>;
 
-    searchIndex: number;
+    searchIndex: Nullable<number>;
 
     searchTimeout: any;
 
-    previousSearchChar: string;
+    previousSearchChar: Nullable<string>;
 
-    currentSearchChar: string;
+    currentSearchChar: Nullable<string>;
 
-    preventModelTouched: boolean;
+    preventModelTouched: Nullable<boolean>;
 
     id: string = UniqueComponentId();
 
-    labelId: string;
+    labelId: Nullable<string>;
 
-    listId: string;
+    listId: Nullable<string>;
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -587,6 +847,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     this.loaderTemplate = item.template;
                     break;
 
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
+                    break;
+
+                case 'clearicon':
+                    this.clearIconTemplate = item.template;
+                    break;
+
+                case 'filtericon':
+                    this.filterIconTemplate = item.template;
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
@@ -608,37 +880,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
-    @Input() get options(): any[] {
-        return this._options;
-    }
-
-    set options(val: any[]) {
-        this._options = val;
-        this.optionsToDisplay = this._options;
-        this.updateSelectedOption(this.value);
-
-        this.selectedOption = this.findOption(this.value, this.optionsToDisplay);
-        if (!this.selectedOption && ObjectUtils.isNotEmpty(this.value) && !this.editable) {
-            this.value = null;
-            this.onModelChange(this.value);
-        }
-
-        this.optionsChanged = true;
-
-        if (this._filterValue && this._filterValue.length) {
-            this.activateFilter();
-        }
-    }
-
-    @Input() get filterValue(): string {
-        return this._filterValue;
-    }
-
-    set filterValue(val: string) {
-        this._filterValue = val;
-        this.activateFilter();
-    }
-
     ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
@@ -646,6 +887,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get label(): string {
+        if (typeof this.selectedOption === 'number') {
+            this.selectedOption = this.selectedOption.toString();
+        }
+
         return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null;
     }
 
@@ -663,7 +908,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.value || this.value != null || this.value != undefined;
     }
 
-    get isVisibleClearIcon(): boolean {
+    get isVisibleClearIcon(): boolean | undefined {
         return this.value != null && this.value !== '' && this.showClear && !this.disabled;
     }
 
@@ -693,12 +938,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
-    onItemClick(event) {
+    onItemClick(event: { originalEvent: Event; option: any }) {
         const option = event.option;
 
         if (!this.isOptionDisabled(option)) {
             this.selectItem(event.originalEvent, option);
-            this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
+            this.accessibleViewChild?.nativeElement.focus({ preventScroll: true });
         }
 
         setTimeout(() => {
@@ -706,7 +951,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }, 1);
     }
 
-    selectItem(event, option) {
+    selectItem(event: Event, option: any) {
         if (this.selectedOption != option) {
             this.selectedOption = option;
             this.value = this.getOptionValue(option);
@@ -734,9 +979,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight');
+            let selectedItem = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlayViewChild.el.nativeElement, 'li.p-highlight'));
+                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -753,7 +998,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.cd.markForCheck();
     }
 
-    resetFilter(): void {
+    /**
+     * Callback to invoke on filter reset.
+     * @group Method
+     */
+    public resetFilter(): void {
         this._filterValue = null;
 
         if (this.filterViewChild && this.filterViewChild.nativeElement) {
@@ -764,11 +1013,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     updateSelectedOption(val: any): void {
-        this.selectedOption = this.findOption(val, this.optionsToDisplay);
+        this.selectedOption = this.findOption(val, this.optionsToDisplay as any[]);
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             if (this.group) {
-                this.selectedOption = this.optionsToDisplay[0].items[0];
+                this.selectedOption = this.getOptionGroupChildren(this.optionsToDisplay[0])[0];
             } else {
                 this.selectedOption = this.optionsToDisplay[0];
             }
@@ -792,14 +1041,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.cd.markForCheck();
     }
 
-    onMouseclick(event) {
+    onMouseclick(event: MouseEvent) {
         if (this.disabled || this.readonly || this.isInputClick(event)) {
             return;
         }
 
         this.onClick.emit(event);
 
-        this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
+        this.accessibleViewChild?.nativeElement.focus({ preventScroll: true });
 
         if (this.overlayVisible) this.hide();
         else this.show();
@@ -807,22 +1056,26 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.cd.detectChanges();
     }
 
-    isInputClick(event): boolean {
-        return DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') || event.target.isSameNode(this.accessibleViewChild.nativeElement) || (this.editableInputViewChild && event.target.isSameNode(this.editableInputViewChild.nativeElement));
+    isInputClick(event: MouseEvent): boolean {
+        return (
+            DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
+            (event.target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
+            ((this.editableInputViewChild && (event.target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
+        );
     }
 
     isEmpty() {
         return !this.optionsToDisplay || (this.optionsToDisplay && this.optionsToDisplay.length === 0);
     }
 
-    onEditableInputFocus(event) {
+    onEditableInputFocus(event: Event) {
         this.focused = true;
         this.hide();
         this.onFocus.emit(event);
     }
 
-    onEditableInputChange(event) {
-        this.value = event.target.value;
+    onEditableInputChange(event: Event) {
+        this.value = (event.target as HTMLInputElement).value;
         this.updateSelectedOption(this.value);
         this.onModelChange(this.value);
         this.onChange.emit({
@@ -830,22 +1083,25 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             value: this.value
         });
     }
-
-    show() {
+    /**
+     * Displays the panel.
+     * @group Method
+     */
+    public show() {
         this.overlayVisible = true;
         this.cd.markForCheck();
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.el.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
-            this.virtualScroll && this.scroller.setContentEl(this.itemsViewChild.nativeElement);
+            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
                 if (this.virtualScroll) {
-                    const selectedIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
+                    const selectedIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay as any[]) : -1;
                     if (selectedIndex !== -1) {
-                        this.scroller.scrollToIndex(selectedIndex);
+                        this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
                     let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
@@ -872,8 +1128,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onHide.emit(event);
         }
     }
-
-    hide() {
+    /**
+     * Hides the panel.
+     * @group Method
+     */
+    public hide() {
         this.overlayVisible = false;
 
         if (this.filter && this.resetFilterOnHide) {
@@ -883,12 +1142,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.cd.markForCheck();
     }
 
-    onInputFocus(event) {
+    onInputFocus(event: Event) {
         this.focused = true;
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
+    onInputBlur(event: Event) {
         this.focused = false;
         this.onBlur.emit(event);
 
@@ -898,7 +1157,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.preventModelTouched = false;
     }
 
-    findPrevEnabledOption(index) {
+    findPrevEnabledOption(index: number) {
         let prevEnabledOption;
 
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
@@ -928,7 +1187,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return prevEnabledOption;
     }
 
-    findNextEnabledOption(index) {
+    findNextEnabledOption(index: number) {
         let nextEnabledOption;
 
         if (this.optionsToDisplay && this.optionsToDisplay.length) {
@@ -1082,10 +1341,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         let newOption;
         if (this.group) {
-            let searchIndex = this.selectedOption ? this.findOptionGroupIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : { groupIndex: 0, itemIndex: 0 };
+            let searchIndex = this.selectedOption ? this.findOptionGroupIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay as any[]) : { groupIndex: 0, itemIndex: 0 };
             newOption = this.searchOptionWithinGroup(searchIndex);
         } else {
-            let searchIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
+            let searchIndex = this.selectedOption ? this.findOptionIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay as any[]) : -1;
             newOption = this.searchOption(++searchIndex);
         }
 
@@ -1099,11 +1358,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }, 250);
     }
 
-    searchOption(index) {
+    searchOption(index: number) {
         let option;
 
         if (this.searchValue) {
-            option = this.searchOptionInRange(index, this.optionsToDisplay.length);
+            option = this.searchOptionInRange(index, (this.optionsToDisplay as any[]).length);
 
             if (!option) {
                 option = this.searchOptionInRange(0, index);
@@ -1113,9 +1372,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return option;
     }
 
-    searchOptionInRange(start, end) {
+    searchOptionInRange(start: number, end: number) {
         for (let i = start; i < end; i++) {
-            let opt = this.optionsToDisplay[i];
+            let opt = (this.optionsToDisplay as any[])[i];
             if (
                 this.getOptionLabel(opt)
                     .toLocaleLowerCase(this.filterLocale)
@@ -1129,27 +1388,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return null;
     }
 
-    searchOptionWithinGroup(index) {
+    searchOptionWithinGroup(index: any) {
         let option;
 
         if (this.searchValue) {
-            for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
-                for (let j = index.groupIndex === i ? index.itemIndex + 1 : 0; j < this.getOptionGroupChildren(this.optionsToDisplay[i]).length; j++) {
-                    let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
-                    if (
-                        this.getOptionLabel(opt)
-                            .toLocaleLowerCase(this.filterLocale)
-                            .startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale)) &&
-                        !this.isOptionDisabled(opt)
-                    ) {
-                        return opt;
-                    }
-                }
-            }
-
-            if (!option) {
-                for (let i = 0; i <= index.groupIndex; i++) {
-                    for (let j = 0; j < (index.groupIndex === i ? index.itemIndex : this.getOptionGroupChildren(this.optionsToDisplay[i]).length); j++) {
+            if (this.optionsToDisplay) {
+                for (let i = index.groupIndex; i < this.optionsToDisplay.length; i++) {
+                    for (let j = index.groupIndex === i ? index.itemIndex + 1 : 0; j < this.getOptionGroupChildren(this.optionsToDisplay[i]).length; j++) {
                         let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
                         if (
                             this.getOptionLabel(opt)
@@ -1158,6 +1403,22 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                             !this.isOptionDisabled(opt)
                         ) {
                             return opt;
+                        }
+                    }
+                }
+
+                if (!option) {
+                    for (let i = 0; i <= index.groupIndex; i++) {
+                        for (let j = 0; j < (index.groupIndex === i ? index.itemIndex : this.getOptionGroupChildren(this.optionsToDisplay[i]).length); j++) {
+                            let opt = this.getOptionGroupChildren(this.optionsToDisplay[i])[j];
+                            if (
+                                this.getOptionLabel(opt)
+                                    .toLocaleLowerCase(this.filterLocale)
+                                    .startsWith((this.searchValue as any).toLocaleLowerCase(this.filterLocale)) &&
+                                !this.isOptionDisabled(opt)
+                            ) {
+                                return opt;
+                            }
                         }
                     }
                 }
@@ -1204,7 +1465,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     findOption(val: any, opts: any[], inGroup?: boolean): SelectItem {
         if (this.group && !inGroup) {
-            let opt: SelectItem;
+            let opt!: SelectItem;
             if (opts && opts.length) {
                 for (let optgroup of opts) {
                     opt = this.findOption(val, this.getOptionGroupChildren(optgroup), true);
@@ -1220,8 +1481,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
-    onFilterInputChange(event): void {
-        let inputValue = event.target.value;
+    onFilterInputChange(event: Event | any): void {
+        let inputValue = (event.target as HTMLInputElement).value;
         if (inputValue && inputValue.length) {
             this._filterValue = inputValue;
             this.activateFilter();
@@ -1230,7 +1491,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.optionsToDisplay = this.options;
         }
 
-        this.virtualScroll && this.scroller.scrollToIndex(0);
+        this.virtualScroll && this.scroller?.scrollToIndex(0);
 
         this.optionsChanged = true;
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue });
@@ -1262,8 +1523,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.editable) DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
         else DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
     }
-
-    focus(): void {
+    /**
+     * Applies focus.
+     * @group Method
+     */
+    public focus(): void {
         this.applyFocus();
     }
 
@@ -1281,7 +1545,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon],
     exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
     declarations: [Dropdown, DropdownItem]
 })

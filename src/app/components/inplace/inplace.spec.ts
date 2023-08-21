@@ -1,8 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Inplace } from './inplace';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TimesIcon } from 'primeng/icons/times';
 import { ButtonModule } from '../button/button';
+import { Inplace } from './inplace';
 
 describe('Inplace', () => {
     let inplace: Inplace;
@@ -10,7 +11,7 @@ describe('Inplace', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ButtonModule],
+            imports: [NoopAnimationsModule, ButtonModule, TimesIcon],
             declarations: [Inplace]
         });
 
@@ -71,7 +72,7 @@ describe('Inplace', () => {
         displayEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(inplace.active).toEqual(undefined);
+        expect(inplace.active).toEqual(false);
         expect(activateSpy).toHaveBeenCalled();
         inplace.active = true;
         fixture.detectChanges();

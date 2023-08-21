@@ -1,26 +1,14 @@
-import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { PrimeNGConfig } from 'primeng/api';
 
-export interface TooltipOptions {
-    tooltipLabel?: string;
-    tooltipPosition?: string;
-    tooltipEvent?: string;
-    appendTo?: any;
-    positionStyle?: string;
-    tooltipStyleClass?: string;
-    tooltipZIndex?: string;
-    escape?: boolean;
-    disabled?: boolean;
-    showDelay?: number;
-    hideDelay?: number;
-    positionTop?: number;
-    positionLeft?: number;
-    life?: number;
-}
-
+/**
+ * Tooltip directive provides advisory information for a component.
+ * @group Components
+ */
 @Directive({
     selector: '[pTooltip]',
     host: {
@@ -28,59 +16,128 @@ export interface TooltipOptions {
     }
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
-    @Input() tooltipPosition: string;
-
-    @Input() tooltipEvent: string;
-
-    @Input() appendTo: any;
-
-    @Input() positionStyle: string;
-
-    @Input() tooltipStyleClass: string;
-
-    @Input() tooltipZIndex: string;
-
+    /**
+     * Position of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
+    /**
+     * Event to show the tooltip.
+     * @group Props
+     */
+    @Input() tooltipEvent: 'hover' | 'focus' | string | any = 'hover';
+    /**
+     *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @group Props
+     */
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * Type of CSS position.
+     * @group Props
+     */
+    @Input() positionStyle: string | undefined;
+    /**
+     * Style class of the tooltip.
+     * @group Props
+     */
+    @Input() tooltipStyleClass: string | undefined;
+    /**
+     * Whether the z-index should be managed automatically to always go on top or have a fixed value.
+     * @group Props
+     */
+    @Input() tooltipZIndex: string | undefined;
+    /**
+     * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
+     * @group Props
+     */
     @Input() escape: boolean = true;
-
-    @Input() showDelay: number;
-
-    @Input() hideDelay: number;
-
-    @Input() life: number;
-
-    @Input() positionTop: number;
-
-    @Input() positionLeft: number;
-
+    /**
+     * Delay to show the tooltip in milliseconds.
+     * @group Props
+     */
+    @Input() showDelay: number | undefined;
+    /**
+     * Delay to hide the tooltip in milliseconds.
+     * @group Props
+     */
+    @Input() hideDelay: number | undefined;
+    /**
+     * Time to wait in milliseconds to hide the tooltip even it is active.
+     * @group Props
+     */
+    @Input() life: number | undefined;
+    /**
+     * Specifies the additional vertical offset of the tooltip from its default position.
+     * @group Props
+     */
+    @Input() positionTop: number | undefined;
+    /**
+     * Specifies the additional horizontal offset of the tooltip from its default position.
+     * @group Props
+     */
+    @Input() positionLeft: number | undefined;
+    /**
+     * Whether to hide tooltip when hovering over tooltip content.
+     * @group Props
+     */
+    @Input() autoHide: boolean = true;
+    /**
+     * Automatically adjusts the element position when there is not enough space on the selected position.
+     * @group Props
+     */
     @Input() fitContent: boolean = true;
-
-    @Input('pTooltip') text: string;
-
+    /**
+     * Whether to hide tooltip on escape key press.
+     * @group Props
+     */
+    @Input() hideOnEscape: boolean = true;
+    /**
+     * Content of the tooltip.
+     * @group Props
+     */
+    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @defaultValue false
+     * @group Props
+     */
     @Input('tooltipDisabled') get disabled(): boolean {
-        return this._disabled;
+        return this._disabled as boolean;
     }
     set disabled(val: boolean) {
         this._disabled = val;
         this.deactivate();
     }
+    /**
+     * Specifies the tooltip configuration options for the component.
+     * @group Props
+     */
+    @Input() tooltipOptions: TooltipOptions | undefined;
 
-    @Input() tooltipOptions: TooltipOptions;
-
-    _tooltipOptions: TooltipOptions = {
+    _tooltipOptions = {
+        tooltipLabel: null,
         tooltipPosition: 'right',
         tooltipEvent: 'hover',
         appendTo: 'body',
+        positionStyle: null,
+        tooltipStyleClass: null,
         tooltipZIndex: 'auto',
         escape: true,
-        positionTop: 0,
-        positionLeft: 0
+        disabled: null,
+        showDelay: null,
+        hideDelay: null,
+        positionTop: null,
+        positionLeft: null,
+        life: null,
+        autoHide: true,
+        hideOnEscape: true
     };
 
-    _disabled: boolean;
+    _disabled: boolean | undefined;
 
     container: any;
 
-    styleClass: string;
+    styleClass: string | undefined;
 
     tooltipText: any;
 
@@ -88,42 +145,46 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     hideTimeout: any;
 
-    active: boolean;
+    active: boolean | undefined;
 
-    mouseEnterListener: Function;
+    mouseEnterListener: Nullable<Function>;
 
-    mouseLeaveListener: Function;
+    mouseLeaveListener: Nullable<Function>;
 
-    clickListener: Function;
+    containerMouseleaveListener: Nullable<Function>;
 
-    focusListener: Function;
+    clickListener: Nullable<Function>;
 
-    blurListener: Function;
+    focusListener: Nullable<Function>;
+
+    blurListener: Nullable<Function>;
 
     scrollHandler: any;
 
     resizeListener: any;
 
-    constructor(public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            if (this.getOption('tooltipEvent') === 'hover') {
-                this.mouseEnterListener = this.onMouseEnter.bind(this);
-                this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                this.clickListener = this.onClick.bind(this);
-                this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-                this.el.nativeElement.addEventListener('click', this.clickListener);
-            } else if (this.getOption('tooltipEvent') === 'focus') {
-                this.focusListener = this.onFocus.bind(this);
-                this.blurListener = this.onBlur.bind(this);
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                if (this.getOption('tooltipEvent') === 'hover') {
+                    this.mouseEnterListener = this.onMouseEnter.bind(this);
+                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                    this.clickListener = this.onInputClick.bind(this);
+                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                    this.el.nativeElement.addEventListener('click', this.clickListener);
+                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+                } else if (this.getOption('tooltipEvent') === 'focus') {
+                    this.focusListener = this.onFocus.bind(this);
+                    this.blurListener = this.onBlur.bind(this);
 
-                let target = this.getTarget(this.el.nativeElement);
-                target.addEventListener('focus', this.focusListener);
-                target.addEventListener('blur', this.blurListener);
-            }
-        });
+                    let target = this.getTarget(this.el.nativeElement);
+                    target.addEventListener('focus', this.focusListener);
+                    target.addEventListener('blur', this.blurListener);
+                }
+            });
+        }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -179,11 +240,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ disabled: simpleChange.disabled.currentValue });
         }
 
-        if (simpleChange.text) {
-            this.setOption({ tooltipLabel: simpleChange.text.currentValue });
+        if (simpleChange.content) {
+            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
 
             if (this.active) {
-                if (simpleChange.text.currentValue) {
+                if (simpleChange.content.currentValue) {
                     if (this.container && this.container.offsetParent) {
                         this.updateText();
                         this.align();
@@ -194,6 +255,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.hide();
                 }
             }
+        }
+
+        if (simpleChange.autoHide) {
+            this.setOption({ autoHide: simpleChange.autoHide.currentValue });
         }
 
         if (simpleChange.tooltipOptions) {
@@ -215,14 +280,29 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
     }
 
+    isAutoHide(): boolean {
+        return this.getOption('autoHide');
+    }
+
     onMouseEnter(e: Event) {
         if (!this.container && !this.showTimeout) {
             this.activate();
         }
     }
 
-    onMouseLeave(e: Event) {
-        this.deactivate();
+    onMouseLeave(e: MouseEvent) {
+        if (!this.isAutoHide()) {
+            const valid =
+                DomHandler.hasClass(e.target, 'p-tooltip') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            !valid && this.deactivate();
+        } else {
+            this.deactivate();
+        }
     }
 
     onFocus(e: Event) {
@@ -233,8 +313,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    onClick(e: Event) {
+    onInputClick(e: Event) {
         this.deactivate();
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    onPressEscape() {
+        if (this.hideOnEscape) {
+            this.deactivate();
+        }
     }
 
     activate() {
@@ -301,6 +388,27 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.fitContent) {
             this.container.style.width = 'fit-content';
         }
+
+        if (!this.isAutoHide()) {
+            this.bindContainerMouseleaveListener();
+        }
+    }
+
+    bindContainerMouseleaveListener() {
+        if (!this.containerMouseleaveListener) {
+            const targetEl: any = this.container ?? this.container.nativeElement;
+
+            this.containerMouseleaveListener = this.renderer.listen(targetEl, 'mouseleave', (e) => {
+                this.deactivate();
+            });
+        }
+    }
+
+    unbindContainerMouseleaveListener() {
+        if (this.containerMouseleaveListener) {
+            this.bindContainerMouseleaveListener();
+            this.containerMouseleaveListener = null;
+        }
     }
 
     show() {
@@ -328,11 +436,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     updateText() {
-        if (this.getOption('escape')) {
+        const content = this.getOption('tooltipLabel');
+        if (content instanceof TemplateRef) {
+            const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
+            embeddedViewRef.detectChanges();
+            embeddedViewRef.rootNodes.forEach(node => this.tooltipText.appendChild(node));
+        } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
+            this.tooltipText.appendChild(document.createTextNode(content));
         } else {
-            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
+            this.tooltipText.innerHTML = content;
         }
     }
 
@@ -448,15 +561,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
-    setOption(option: TooltipOptions) {
+    setOption(option: any) {
         this._tooltipOptions = { ...this._tooltipOptions, ...option };
     }
 
     getOption(option: string) {
-        return this._tooltipOptions[option];
+        return this._tooltipOptions[option as keyof typeof this.tooltipOptions];
     }
 
-    getTarget(el) {
+    getTarget(el: Element) {
         return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
     }
 
@@ -539,6 +652,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
+        this.unbindContainerMouseleaveListener();
         this.clearTimeouts();
         this.container = null;
         this.scrollHandler = null;

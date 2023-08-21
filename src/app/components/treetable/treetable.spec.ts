@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ContextMenuModule, ContextMenu } from 'primeng/contextmenu';
+import { MinusIcon } from 'primeng/icons/minus';
 
 @Component({
     template: `
@@ -1030,19 +1031,19 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.className).toContain('pi-minus');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toContain('svg');
         checkboxEls[3].nativeElement.click();
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.className).toContain('pi-check');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('svg');
         expect(testcomponent.selectedNode.length).toEqual(7);
         checkboxEls[4].nativeElement.click();
         fixture.detectChanges();
 
         checkboxEls = checkboxSelectionTreeTableEl.queryAll(By.css('.p-checkbox'));
-        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.className).toContain('pi-minus');
+        expect(checkboxEls[1].query(By.css('.p-checkbox-icon')).nativeElement.tagName.toLowerCase()).toEqual('svg');
         expect(testcomponent.selectedNode.length).toEqual(5);
     });
 
@@ -1291,7 +1292,7 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(onColumnDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(' Name ');
+        expect((reorderableTreeTable.draggedColumn as any).textContent).toEqual(' Name ');
         dragEvent.initEvent('dragenter', true, true);
         dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 2 + 1;
         reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);
@@ -1325,7 +1326,7 @@ describe('TreeTable', () => {
         fixture.detectChanges();
 
         expect(onColumnDragStartSpy).toHaveBeenCalled();
-        expect(reorderableTreeTable.draggedColumn.textContent).toEqual(' Name ');
+        expect((reorderableTreeTable.draggedColumn as any).textContent).toEqual(' Name ');
         dragEvent.initEvent('dragenter', true, true);
         dragEvent.pageX = reorableHeaderEls[2].nativeElement.clientWidth * 3 + 1;
         reorableHeaderEls[2].nativeElement.dispatchEvent(dragEvent);

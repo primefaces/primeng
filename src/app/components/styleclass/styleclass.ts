@@ -1,58 +1,99 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-
+import { VoidListener } from 'primeng/ts-helpers';
+/**
+ * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
+ * @group Components
+ */
 @Directive({
     selector: '[pStyleClass]',
     host: {
         class: 'p-element'
     }
 })
-export class StyleClass implements AfterViewInit, OnDestroy {
-    constructor(public el: ElementRef, public renderer: Renderer2) {}
+export class StyleClass implements OnDestroy {
+    constructor(public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
+    /**
+     * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
+     * @group Props
+     */
+    @Input('pStyleClass') selector: string | undefined;
+    /**
+     * Style class to add when item begins to get displayed.
+     * @group Props
+     */
+    @Input() enterClass: string | undefined;
+    /**
+     * Style class to add during enter animation.
+     * @group Props
+     */
+    @Input() enterActiveClass: string | undefined;
+    /**
+     * Style class to add when item begins to get displayed.
+     * @group Props
+     */
+    @Input() enterToClass: string | undefined;
+    /**
+     * Style class to add when item begins to get hidden.
+     * @group Props
+     */
+    @Input() leaveClass: string | undefined;
+    /**
+     * Style class to add during leave animation.
+     * @group Props
+     */
+    @Input() leaveActiveClass: string | undefined;
+    /**
+     * Style class to add when leave animation is completed.
+     * @group Props
+     */
+    @Input() leaveToClass: string | undefined;
+    /**
+     * Whether to trigger leave animation when outside of the element is clicked.
+     * @group Props
+     */
+    @Input() hideOnOutsideClick: boolean | undefined;
+    /**
+     * Adds or removes a class when no enter-leave animation is required.
+     * @group Props
+     */
+    @Input() toggleClass: string | undefined;
+    /**
+     * Whether to trigger leave animation when escape key pressed.
+     * @group Props
+     */
+    @Input() hideOnEscape: boolean | undefined;
 
-    @Input('pStyleClass') selector: string;
+    eventListener: VoidListener;
 
-    @Input() enterClass: string;
+    documentClickListener: VoidListener;
 
-    @Input() enterActiveClass: string;
+    documentKeydownListener: VoidListener;
 
-    @Input() enterToClass: string;
+    target: HTMLElement | null | undefined;
 
-    @Input() leaveClass: string;
+    enterListener: VoidListener;
 
-    @Input() leaveActiveClass: string;
+    leaveListener: VoidListener;
 
-    @Input() leaveToClass: string;
+    animating: boolean | undefined;
 
-    @Input() hideOnOutsideClick: boolean;
+    @HostListener('click', ['$event'])
+    clickListener() {
+        this.target = this.resolveTarget();
 
-    @Input() toggleClass: string;
+        if (this.toggleClass) {
+            this.toggle();
+        } else {
+            if ((this.target as HTMLElement).offsetParent === null) this.enter();
+            else this.leave();
+        }
+    }
 
-    eventListener: Function;
-
-    documentListener: Function;
-
-    target: HTMLElement;
-
-    enterListener: Function;
-
-    leaveListener: Function;
-
-    animating: boolean;
-
-    ngAfterViewInit() {
-        this.eventListener = this.renderer.listen(this.el.nativeElement, 'click', () => {
-            this.target = this.resolveTarget();
-
-            if (this.toggleClass) {
-                if (DomHandler.hasClass(this.target, this.toggleClass)) DomHandler.removeClass(this.target, this.toggleClass);
-                else DomHandler.addClass(this.target, this.toggleClass);
-            } else {
-                if (this.target.offsetParent === null) this.enter();
-                else this.leave();
-            }
-        });
+    toggle() {
+        if (DomHandler.hasClass(this.target, this.toggleClass as string)) DomHandler.removeClass(this.target, this.toggleClass as string);
+        else DomHandler.addClass(this.target, this.toggleClass as string);
     }
 
     enter() {
@@ -61,11 +102,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 this.animating = true;
 
                 if (this.enterActiveClass === 'slidedown') {
-                    this.target.style.height = '0px';
+                    (this.target as HTMLElement).style.height = '0px';
                     DomHandler.removeClass(this.target, 'hidden');
-                    this.target.style.maxHeight = this.target.scrollHeight + 'px';
+                    (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
                     DomHandler.addClass(this.target, 'hidden');
-                    this.target.style.height = '';
+                    (this.target as HTMLElement).style.height = '';
                 }
 
                 DomHandler.addClass(this.target, this.enterActiveClass);
@@ -74,14 +115,14 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 }
 
                 this.enterListener = this.renderer.listen(this.target, 'animationend', () => {
-                    DomHandler.removeClass(this.target, this.enterActiveClass);
+                    DomHandler.removeClass(this.target, this.enterActiveClass as string);
                     if (this.enterToClass) {
                         DomHandler.addClass(this.target, this.enterToClass);
                     }
-                    this.enterListener();
+                    this.enterListener && this.enterListener();
 
                     if (this.enterActiveClass === 'slidedown') {
-                        this.target.style.maxHeight = '';
+                        (this.target as HTMLElement).style.maxHeight = '';
                     }
                     this.animating = false;
                 });
@@ -97,7 +138,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.bindDocumentListener();
+            this.bindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.bindDocumentKeydownListener();
         }
     }
 
@@ -111,11 +156,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 }
 
                 this.leaveListener = this.renderer.listen(this.target, 'animationend', () => {
-                    DomHandler.removeClass(this.target, this.leaveActiveClass);
+                    DomHandler.removeClass(this.target, this.leaveActiveClass as string);
                     if (this.leaveToClass) {
                         DomHandler.addClass(this.target, this.leaveToClass);
                     }
-                    this.leaveListener();
+                    this.leaveListener && this.leaveListener();
                     this.animating = false;
                 });
             }
@@ -130,7 +175,11 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         }
 
         if (this.hideOnOutsideClick) {
-            this.unbindDocumentListener();
+            this.unbindDocumentClickListener();
+        }
+
+        if (this.hideOnEscape) {
+            this.unbindDocumentKeydownListener();
         }
     }
 
@@ -153,31 +202,50 @@ export class StyleClass implements AfterViewInit, OnDestroy {
                 return this.el.nativeElement.parentElement.parentElement;
 
             default:
-                return document.querySelector(this.selector);
+                return document.querySelector(this.selector as string);
         }
     }
 
-    bindDocumentListener() {
-        if (!this.documentListener) {
-            this.documentListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
-                if (!this.isVisible() || getComputedStyle(this.target).getPropertyValue('position') === 'static') this.unbindDocumentListener();
+    bindDocumentClickListener() {
+        if (!this.documentClickListener) {
+            this.documentClickListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
+                if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentClickListener();
                 else if (this.isOutsideClick(event)) this.leave();
             });
         }
     }
 
+    bindDocumentKeydownListener() {
+        if (!this.documentKeydownListener) {
+            this.zone.runOutsideAngular(() => {
+                this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
+                    const { key, keyCode, which, type } = event;
+                    if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
+                    if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
+                });
+            });
+        }
+    }
+
     isVisible() {
-        return this.target.offsetParent !== null;
+        return (this.target as HTMLElement).offsetParent !== null;
     }
 
     isOutsideClick(event: MouseEvent) {
-        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !this.target.contains(<HTMLElement>event.target);
+        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !(this.target as HTMLElement).contains(<HTMLElement>event.target);
     }
 
-    unbindDocumentListener() {
-        if (this.documentListener) {
-            this.documentListener();
-            this.documentListener = null;
+    unbindDocumentClickListener() {
+        if (this.documentClickListener) {
+            this.documentClickListener();
+            this.documentClickListener = null;
+        }
+    }
+
+    unbindDocumentKeydownListener() {
+        if (this.documentKeydownListener) {
+            this.documentKeydownListener();
+            this.documentKeydownListener = null;
         }
     }
 
@@ -186,7 +254,8 @@ export class StyleClass implements AfterViewInit, OnDestroy {
         if (this.eventListener) {
             this.eventListener();
         }
-        this.unbindDocumentListener();
+        this.unbindDocumentClickListener();
+        this.unbindDocumentKeydownListener();
     }
 }
 
