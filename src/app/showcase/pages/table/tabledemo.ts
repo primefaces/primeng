@@ -50,6 +50,7 @@ import { ColumnResizeFitModeDoc } from '../../doc/table/columnresizefitmodedoc';
 import { SelectionEventsDoc } from '../../doc/table/selectioneventsdoc';
 import { StylingDoc } from '../../doc/table/stylingdoc';
 import { AccessibilityDoc } from '../../doc/table/accessibilitydoc';
+import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -121,6 +122,11 @@ export class TableDemo {
                     id: 'paginator-basic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
+                },
+                {
+                    id: 'paginator-locale',
+                    label: 'Locale',
+                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginator-programmatic',

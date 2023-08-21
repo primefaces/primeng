@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -92,10 +92,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() hideOnEscape: boolean = true;
     /**
-     * Text of the tooltip.
+     * Content of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') text: string | undefined;
+    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
@@ -163,7 +163,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {
         this._tooltipOptions = { ...this._tooltipOptions, ...this.config.tooltipOptions };
     }
 
@@ -242,11 +242,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ disabled: simpleChange.disabled.currentValue });
         }
 
-        if (simpleChange.text) {
-            this.setOption({ tooltipLabel: simpleChange.text.currentValue });
+        if (simpleChange.content) {
+            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
 
             if (this.active) {
-                if (simpleChange.text.currentValue) {
+                if (simpleChange.content.currentValue) {
                     if (this.container && this.container.offsetParent) {
                         this.updateText();
                         this.align();
@@ -438,11 +438,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     updateText() {
-        if (this.getOption('escape')) {
+        const content = this.getOption('tooltipLabel');
+        if (content instanceof TemplateRef) {
+            const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
+            embeddedViewRef.detectChanges();
+            embeddedViewRef.rootNodes.forEach(node => this.tooltipText.appendChild(node));
+        } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
+            this.tooltipText.appendChild(document.createTextNode(content));
         } else {
-            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
+            this.tooltipText.innerHTML = content;
         }
     }
 

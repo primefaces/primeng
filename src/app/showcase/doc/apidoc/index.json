@@ -6542,7 +6542,7 @@
                             "name": "separator",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | RegExp",
                             "description": "Separator char to add an item when pressed in addition to the enter key."
                         },
                         {
@@ -11301,6 +11301,13 @@
                             "readonly": false,
                             "type": "string | SafeUrl",
                             "description": "Attribute of the image element."
+                        },
+                        {
+                            "name": "previewImageSrc",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "Attribute of the preview image element."
                         },
                         {
                             "name": "alt",
@@ -22746,11 +22753,11 @@
                             "description": "Whether to hide tooltip on escape key press."
                         },
                         {
-                            "name": "text",
+                            "name": "content",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Text of the tooltip."
+                            "type": "string | TemplateRef<HTMLElement>",
+                            "description": "Content of the tooltip."
                         },
                         {
                             "name": "disabled",

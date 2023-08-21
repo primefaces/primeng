@@ -342,6 +342,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [class]="inputStyleClass"
                 [attr.type]="unmasked | mapper : inputType"
                 [attr.placeholder]="placeholder"
+                [attr.autocomplete]="autocomplete"
                 [value]="value"
                 (input)="onInput($event)"
                 (focus)="onInputFocus($event)"
@@ -389,7 +390,7 @@ export const Password_VALUE_ACCESSOR: any = {
                     <div class="p-password-meter">
                         <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
                     </div>
-                    <div className="p-password-info">{{ infoText }}</div>
+                    <div class="p-password-info">{{ infoText }}</div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -514,6 +515,11 @@ export class Password implements AfterContentInit, OnInit {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Specify automated assistance in filling out password by browser.
+     * @group Props
+     */
+    @Input() autocomplete: string | undefined;
     /**
      * Advisory information to display on input.
      * @group Props

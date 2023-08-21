@@ -351,10 +351,19 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus() {
-        const focusable = DomHandler.getFocusableElements(this.container as HTMLDivElement);
-        if (focusable && focusable.length > 0) {
+        const autoFocusElement = DomHandler.findSingle(this.container, '[autofocus]');
+        if (autoFocusElement) {
             this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusable[0].focus(), 5);
+                setTimeout(() => autoFocusElement.focus(), 5);
+            });
+
+            return;
+        } 
+
+        const focusableElements = DomHandler.getFocusableElements(this.container);
+        if(focusableElements && focusableElements.length > 0) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusableElements[0].focus(), 5);
             });
         }
     }

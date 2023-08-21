@@ -39,7 +39,7 @@ import { DropdownChangeEvent } from 'primeng/dropdown';
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }" (click)="onPageLinkClick($event, pageLink - 1)" pRipple>
-                    {{ pageLink }}
+                    {{ getLocalization(pageLink) }}
                 </button>
             </span>
             <p-dropdown
@@ -189,6 +189,11 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      */
     @Input() showPageLinks: boolean = true;
     /**
+     * Locale to be used in formatting.
+     * @group Props
+     */
+    @Input() locale: string | undefined;
+    /**
      * Template instance to inject into the dropdown item inside in the paginator.
      * @param {Object} context - item instance.
      * @group Props
@@ -212,7 +217,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
-
+    
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
@@ -237,6 +242,17 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     ngOnInit() {
         this.updatePaginatorState();
+    }
+
+    getLocalization(digit: number) {
+        const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
+        const index = new Map(numerals.map((d, i) => [i, d]));
+        if (digit > 9) {
+            const numbers = String(digit).split('');
+            return numbers.map((number) => index.get(Number(number))).join('');
+        } else {
+            return index.get(digit);
+        }
     }
 
     ngAfterContentInit(): void {
@@ -292,7 +308,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
                 if (typeof opt == 'object' && opt['showAll']) {
                     this.rowsPerPageItems.unshift({ label: opt['showAll'], value: this.totalRecords });
                 } else {
-                    this.rowsPerPageItems.push({ label: String(opt), value: opt });
+                    this.rowsPerPageItems.push({ label: String(this.getLocalization(opt)), value: opt });
                 }
             }
         }
