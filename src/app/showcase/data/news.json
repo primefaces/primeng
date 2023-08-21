@@ -1,8 +1,8 @@
 {
-    "id": 57,
-    "content": "Summer Sale | Up to 50% Off",
+    "id": 58,
+    "content": "Sakai Free Admin Template",
     "linkText": "Learn More",
-    "linkHref": "https://www.primefaces.org/store",
+    "linkHref": "https://primefaces.org/sakai-ng",
     "backgroundStyle": "background-color:#3B82F6",
     "textStyle": "color:#ffffff;font-weight:500",
     "linkStyle": "color:#ffffff;font-weight:700",
