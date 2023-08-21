@@ -11287,6 +11287,13 @@
                             "description": "Attribute of the image element."
                         },
                         {
+                            "name": "previewImageSrc",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "Attribute of the preview image element."
+                        },
+                        {
                             "name": "alt",
                             "optional": false,
                             "readonly": false,
