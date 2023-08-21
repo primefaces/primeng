@@ -217,7 +217,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
-    
+
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;

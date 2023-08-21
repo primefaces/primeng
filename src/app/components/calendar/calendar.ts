@@ -197,8 +197,14 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)"
-                              class="p-yearpicker-year" [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }" pRipple>
+                        <span
+                            *ngFor="let y of yearPickerValues()"
+                            (click)="onYearSelect($event, y)"
+                            (keydown)="onYearCellKeydown($event, y)"
+                            class="p-yearpicker-year"
+                            [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
+                            pRipple
+                        >
                             {{ y }}
                         </span>
                     </div>
