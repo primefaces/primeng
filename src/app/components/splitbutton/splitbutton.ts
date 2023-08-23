@@ -191,6 +191,22 @@ export class SplitButton {
 
     onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
+
+        const clickOutsideHandler = (e: MouseEvent) => {
+            if (!this.containerViewChild.nativeElement.contains(e.target)) {
+                this.menu.hide();
+                this.isExpanded.set(this.menu.visible);
+                document.removeEventListener('click', clickOutsideHandler);
+            }
+        };
+
+        if (!this.menu.visible) {
+            document.addEventListener('click', clickOutsideHandler);
+        } else {
+            this.menu.hide();
+            this.isExpanded.set(this.menu.visible);
+        }
+
         this.menu?.toggle({ currentTarget: this.containerViewChild?.nativeElement, relativeAlign: this.appendTo == null });
         this.isExpanded.set(this.menu.visible);
     }
@@ -208,4 +224,4 @@ export class SplitButton {
     exports: [SplitButton, ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })
-export class SplitButtonModule {}
+export class SplitButtonModule { }
