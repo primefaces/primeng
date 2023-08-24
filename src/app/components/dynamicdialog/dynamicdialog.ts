@@ -67,12 +67,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 *ngIf="visible"
                 [style.width]="config.width"
                 [style.height]="config.height"
-                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
                 <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
-                    <span class="p-dialog-title" [id]="getAriaLabelledBy()">{{ config.header }}</span>
+                    <span class="p-dialog-title" [id]="ariaLabelledBy + '_title'">{{ config.header }}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
@@ -94,7 +94,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         </div>
     `,
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['../dialog/dialog.css'],
     host: {
@@ -121,6 +121,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     lastPageX: number | undefined;
 
     lastPageY: number | undefined;
+
+    ariaLabelledBy: string | undefined;
 
     @ViewChild(DynamicDialogContent) insertionPoint: Nullable<DynamicDialogContent>;
 
@@ -217,6 +219,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
+        this.ariaLabelledBy = this.getAriaLabelledBy();
         this.cd.detectChanges();
     }
 
@@ -358,10 +361,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             });
 
             return;
-        } 
+        }
 
         const focusableElements = DomHandler.getFocusableElements(this.container);
-        if(focusableElements && focusableElements.length > 0) {
+        if (focusableElements && focusableElements.length > 0) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElements[0].focus(), 5);
             });
