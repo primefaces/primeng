@@ -7,7 +7,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    forwardRef,
     Inject,
     Injector,
     Input,
@@ -19,16 +18,17 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { TimesIcon } from 'primeng/icons/times';
-import { AngleUpIcon } from 'primeng/icons/angleup';
 import { AngleDownIcon } from 'primeng/icons/angledown';
+import { AngleUpIcon } from 'primeng/icons/angleup';
+import { TimesIcon } from 'primeng/icons/times';
+import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 
@@ -53,29 +53,36 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             }"
             [ngStyle]="style"
             [class]="styleClass"
+            [attr.data-pc-name]="'inputnumber'"
+            [attr.data-pc-section]="'root'"
         >
             <input
+                pInputText
                 #input
+                [attr.id]="inputId"
+                role="spinbutton"
                 [ngClass]="'p-inputnumber-input'"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                pInputText
                 [value]="formattedValue()"
+                [attr.aria-valuemin]="min"
+                [attr.aria-valuemax]="max"
+                [attr.aria-valuenow]="value"
+                [disabled]="disabled"
+                [readonly]="readonly"
                 [attr.placeholder]="placeholder"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.title]="title"
-                [attr.id]="inputId"
                 [attr.size]="size"
                 [attr.name]="name"
                 [attr.autocomplete]="autocomplete"
                 [attr.maxlength]="maxlength"
                 [attr.tabindex]="tabindex"
-                [attr.aria-label]="ariaLabel"
                 [attr.aria-required]="ariaRequired"
-                [disabled]="disabled"
                 [attr.required]="required"
                 [attr.min]="min"
                 [attr.max]="max"
-                [readonly]="readonly"
                 inputmode="decimal"
                 (input)="onUserInput($event)"
                 (keydown)="onInputKeyDown($event)"
@@ -84,15 +91,15 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (click)="onInputClick()"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
+                [attr.data-pc-section]="'input'"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" />
-                <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon">
+                <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
-
-            <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'">
+            <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
                 <button
                     type="button"
                     pButton
@@ -100,16 +107,18 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     class="p-button-icon-only"
                     [class]="incrementButtonClass"
                     [disabled]="disabled"
+                    tabindex="-1"
                     (mousedown)="onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
                     (mouseleave)="onUpButtonMouseLeave()"
                     (keydown)="onUpButtonKeyDown($event)"
                     (keyup)="onUpButtonKeyUp()"
-                    tabindex="-1"
+                    [attr.aria-hidden]="true"
+                    [attr.data-pc-section]="'incrementbutton'"
                 >
-                    <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
+                    <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
                     <ng-container *ngIf="!incrementButtonIcon">
-                        <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
+                        <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
                         <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                     </ng-container>
                 </button>
@@ -120,59 +129,65 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     class="p-button-icon-only"
                     [class]="decrementButtonClass"
                     [disabled]="disabled"
+                    tabindex="-1"
+                    [attr.aria-hidden]="true"
                     (mousedown)="onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
                     (mouseleave)="onDownButtonMouseLeave()"
                     (keydown)="onDownButtonKeyDown($event)"
                     (keyup)="onDownButtonKeyUp()"
-                    tabindex="-1"
+                    [attr.data-pc-section]="decrementbutton"
                 >
-                    <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                    <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                     <ng-container *ngIf="!decrementButtonIcon">
-                        <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                        <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
                         <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
                     </ng-container>
                 </button>
             </span>
             <button
+                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
                 [class]="incrementButtonClass"
                 class="p-button-icon-only"
-                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
+                tabindex="-1"
+                [attr.aria-hidden]="true"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
-                tabindex="-1"
+                [attr.data-pc-section]="'incrementbutton'"
             >
-                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon"></span>
+                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate" />
+                    <AngleUpIcon *ngIf="!incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <button
+                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
                 pButton
                 [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
                 class="p-button-icon-only"
                 [class]="decrementButtonClass"
-                *ngIf="showButtons && buttonLayout !== 'stacked'"
                 [disabled]="disabled"
+                tabindex="-1"
+                [attr.aria-hidden]="true"
                 (mousedown)="onDownButtonMouseDown($event)"
                 (mouseup)="onDownButtonMouseUp()"
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
-                tabindex="-1"
+                [attr.data-pc-section]="'decrementbutton'"
             >
-                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon"></span>
+                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate" />
+                    <AngleDownIcon *ngIf="!decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
                     <ng-template *ngTemplateOutlet="decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -245,6 +260,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * @group Props
      */
     @Input() title: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -440,9 +460,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     value: Nullable<number>;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     focused: Nullable<boolean>;
 
@@ -482,7 +502,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) { }
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -698,17 +718,23 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             return;
         }
 
-        this.input?.nativeElement.focus();
-        this.repeat(event, null, 1);
-        event.preventDefault();
+        if (!this.disabled) {
+            this.input?.nativeElement.focus();
+            this.repeat(event, null, 1);
+            event.preventDefault();
+        }
     }
 
     onUpButtonMouseUp() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onUpButtonMouseLeave() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onUpButtonKeyDown(event: KeyboardEvent) {
@@ -718,7 +744,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     onUpButtonKeyUp() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onDownButtonMouseDown(event: MouseEvent) {
@@ -726,22 +754,29 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             this.clearTimer();
             return;
         }
-
-        this.input?.nativeElement.focus();
-        this.repeat(event, null, -1);
-        event.preventDefault();
+        if (!this.disabled) {
+            this.input?.nativeElement.focus();
+            this.repeat(event, null, -1);
+            event.preventDefault();
+        }
     }
 
     onDownButtonMouseUp() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onDownButtonMouseLeave() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onDownButtonKeyUp() {
-        this.clearTimer();
+        if (!this.disabled) {
+            this.clearTimer();
+        }
     }
 
     onDownButtonKeyDown(event: KeyboardEvent) {
@@ -781,43 +816,38 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
-        switch (event.which) {
-            //up
-            case 38:
+        switch (event.code) {
+            case 'ArrowUp':
                 this.spin(event, 1);
                 event.preventDefault();
                 break;
 
-            //down
-            case 40:
+            case 'ArrowDown':
                 this.spin(event, -1);
                 event.preventDefault();
                 break;
 
-            //left
-            case 37:
+            case 'ArrowLeft':
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart - 1))) {
                     event.preventDefault();
                 }
                 break;
 
-            //right
-            case 39:
+            case 'ArrowRight':
                 if (!this.isNumeralChar(inputValue.charAt(selectionStart))) {
                     event.preventDefault();
                 }
                 break;
 
-            //enter
-            case 13:
+            case 'Tab':
+            case 'Enter':
                 newValueStr = this.validateValue(this.parseValue(this.input.nativeElement.value));
                 this.input.nativeElement.value = this.formatValue(newValueStr);
                 this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
                 this.updateModel(event, newValueStr);
                 break;
 
-            //backspace
-            case 8: {
+            case 'Backspace': {
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
@@ -858,8 +888,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
             }
 
-            // del
-            case 46:
+            case 'Delete':
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
@@ -895,6 +924,20 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 } else {
                     newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
                     this.updateValue(event, newValueStr, null, 'delete-range');
+                }
+                break;
+
+            case 'Home':
+                if (this.min) {
+                    this.updateModel(event, this.min);
+                    event.preventDefault();
+                }
+                break;
+
+            case 'End':
+                if (this.max) {
+                    this.updateModel(event, this.max);
+                    event.preventDefault();
                 }
                 break;
 
@@ -1128,6 +1171,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     onInputClick() {
         const currentValue = this.input?.nativeElement.value;
+
         if (!this.readonly && currentValue !== DomHandler.getSelection()) {
             this.initCursor();
         }
@@ -1316,11 +1360,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     onInputBlur(event: Event) {
         this.focused = false;
+
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
+
+        this.onBlur.emit(event);
+
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
         this.updateModel(event, newValue);
-        this.onBlur.emit(event);
     }
 
     formattedValue() {
@@ -1381,4 +1428,4 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })
-export class InputNumberModule { }
+export class InputNumberModule {}
