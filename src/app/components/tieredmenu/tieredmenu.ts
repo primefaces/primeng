@@ -30,8 +30,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -966,11 +966,9 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
 
-        if (!this.popup) {
-            isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
-        }
+        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
         this.cd.markForCheck();
-        this.dirty = true;
     }
 
     searchItems(event: any, char: string) {
@@ -1110,7 +1108,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            this.outsideClickListener();
+            document.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }
