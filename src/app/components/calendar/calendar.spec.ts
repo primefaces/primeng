@@ -1399,7 +1399,6 @@ describe('Calendar', () => {
     });
 
     it('should trigger onModelChange when user input a well-formatted but invalid value with keepInvalid=true', () => {
-
         const today = new Date();
 
         calendar.keepInvalid = true;
