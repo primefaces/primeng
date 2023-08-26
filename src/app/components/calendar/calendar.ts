@@ -2575,6 +2575,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
+            } else if (this.keepInvalid) {
+                this.updateModel(value);
             }
         } catch (err) {
             //invalid date
