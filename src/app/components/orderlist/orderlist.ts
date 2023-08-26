@@ -470,6 +470,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
+                if (selectedItemIndex == -1) {
+                    break;
+                }
+
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex - 1];
@@ -493,6 +497,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
+                if (selectedItemIndex == -1) {
+                    break;
+                }
+
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
                     this.value.unshift(movedItem);
@@ -513,6 +521,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+
+                if (selectedItemIndex == -1) {
+                    break;
+                }
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
@@ -536,6 +548,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
+
+                if (selectedItemIndex == -1) {
+                    break;
+                }
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
