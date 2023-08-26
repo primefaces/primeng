@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
-                <p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="value4" inputId="minmax"  mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
             </div>
         </div>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
