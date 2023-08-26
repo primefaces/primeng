@@ -10831,6 +10831,14 @@
                             "description": "Items are displayed with a slideshow in autoPlay mode."
                         },
                         {
+                            "name": "shouldStopAutoplayByClick",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When enabled, autorun should stop by click."
+                        },
+                        {
                             "name": "transitionInterval",
                             "optional": false,
                             "readonly": false,
