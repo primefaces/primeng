@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
-                <p-inputNumber [(ngModel)]="value4" inputId="minmax"  mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
             </div>
         </div>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
@@ -46,7 +46,7 @@ export class NumeralsDoc {
 <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
-<p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
+<p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
 `,
 
         html: `
@@ -65,7 +65,7 @@ export class NumeralsDoc {
     </div>
     <div class="flex-auto">
         <label for="minmax">Min-Max Boundaries</label>
-        <p-inputNumber [(ngModel)]="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
+        <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
     </div>
 </div>`,
 
