@@ -637,7 +637,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
-                            .p-dialog[${this.id}] {
+                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
                             }
                         }
