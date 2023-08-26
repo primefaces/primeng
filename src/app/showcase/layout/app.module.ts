@@ -33,7 +33,6 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        AppRoutingModule,
         AppNewsModule,
         HttpClientModule,
         BrowserAnimationsModule,
@@ -45,4 +44,4 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
     providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
