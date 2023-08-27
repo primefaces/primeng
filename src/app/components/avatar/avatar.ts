@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
 @Component({
     selector: 'p-avatar',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
@@ -57,6 +57,16 @@ export class Avatar {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Establishes a string value that labels the component.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.

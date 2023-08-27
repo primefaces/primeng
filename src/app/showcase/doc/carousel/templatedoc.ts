@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -47,11 +47,12 @@ export class TemplateDoc implements OnInit {
 
     responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [

@@ -99,7 +99,7 @@ import {
                     <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
                         <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }">
                             <ng-container *ngIf="!tree.checkboxIconTemplate">
-                                <CheckIcon *ngIf="isSelected()" [styleClass]="'p-checkbox-icon'" />
+                                <CheckIcon *ngIf="!node.partialSelected && isSelected()" [styleClass]="'p-checkbox-icon'" />
                                 <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'" />
                             </ng-container>
                             <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected(), partialSelected: node.partialSelected }"></ng-template>

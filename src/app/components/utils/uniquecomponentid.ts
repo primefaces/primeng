@@ -1,7 +1,7 @@
 export var lastId = 0;
 
-export function UniqueComponentId() {
-    let prefix = 'pr_id_';
+export function UniqueComponentId(prefix = 'pn_id_') {
     lastId++;
+
     return `${prefix}${lastId}`;
 }

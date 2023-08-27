@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'avatar-group-demo',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Grouping is available by wrapping multiple Avatar components inside an AvatarGroup.</p>
+            <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>
         </app-docsectiontext>
         <div class="card justify-content-center">
             <p-avatarGroup styleClass="mb-3">
