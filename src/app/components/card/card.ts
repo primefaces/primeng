@@ -8,7 +8,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
 @Component({
     selector: 'p-card',
     template: `
-        <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'card'">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>

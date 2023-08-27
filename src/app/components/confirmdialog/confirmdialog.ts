@@ -51,15 +51,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
+                role="alertdialog"
                 *ngIf="visible"
+                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div class="p-dialog-header" *ngIf="headerTemplate">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-header" *ngIf="!headerTemplate">
-                    <span class="p-dialog-title" *ngIf="option('header')">{{ option('header') }}</span>
+                    <span class="p-dialog-title" [id]="getAriaLabelledBy()" *ngIf="option('header')">{{ option('header') }}</span>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="closable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
                             <TimesIcon />
                         </button>
                     </div>
@@ -170,6 +173,11 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() acceptLabel: string | undefined;
+    /**
+     * Defines a string that labels the close button for accessibility.
+     * @group Props
+     */
+    @Input() closeAriaLabel: string | undefined;
     /**
      * Defines a string that labels the accept button for accessibility.
      * @group Props
@@ -452,6 +460,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 this.cd.markForCheck();
             }
         });
+    }
+
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
     option(name: string) {

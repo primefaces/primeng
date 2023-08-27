@@ -17,6 +17,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
+            [attr.aria-label]="scrollTopAriaLabel"
             [ngClass]="containerClass()"
             (click)="onClick()"
             [class]="styleClass"
@@ -96,6 +97,11 @@ export class ScrollTop implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.15s';
+    /**
+     * Establishes a string value that labels the scroll-top button.
+     * @group Props
+     */
+    @Input() buttonAriaLabel: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

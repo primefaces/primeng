@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
@@ -45,7 +45,7 @@ import { Code } from '../../domain/code';
                 </tbody>
             </table>
         </div>
-    </app-developmentsection>`
+    `
 })
 export class AccessibilityDoc {
     @Input() id: string;

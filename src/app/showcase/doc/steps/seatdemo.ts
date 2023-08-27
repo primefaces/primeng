@@ -76,10 +76,10 @@ export class SeatDemo implements OnInit {
 
     nextPage() {
         this.ticketService.ticketInformation.seatInformation = this.seatInformation;
-        this.router.navigate(['steps/payment']);
+        this.router.navigate(['steps/payment'], { fragment: 'routing' });
     }
 
     prevPage() {
-        this.router.navigate(['steps/personal']);
+        this.router.navigate(['steps/personal'], { fragment: 'routing' });
     }
 }

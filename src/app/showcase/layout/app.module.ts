@@ -28,20 +28,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
     declarations: [AppComponent, AppFooterComponent, AppMainComponent],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'primeng' }),
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        AppNewsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        LandingModule,
-        AppConfigModule,
-        AppTopbarModule,
-        AppMenuModule
-    ],
+    imports: [BrowserModule.withServerTransition({ appId: 'primeng' }), AppRoutingModule, FormsModule, ReactiveFormsModule, AppNewsModule, HttpClientModule, BrowserAnimationsModule, LandingModule, AppConfigModule, AppTopbarModule, AppMenuModule],
     providers: [{ provide: LocationStrategy, useClass: PathLocationStrategy }, CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService],
     bootstrap: [AppComponent]
 })

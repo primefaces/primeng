@@ -115,4 +115,12 @@ export class DynamicDialogConfig<T = any> {
      * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
      */
     position?: string;
+    /**
+     * Defines a string that labels the close button for accessibility.
+     */
+    closeAriaLabel?: string;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     */
+    appendTo?: any;
 }
