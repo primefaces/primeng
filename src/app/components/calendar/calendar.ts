@@ -1026,7 +1026,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
-        this.yearOptions = [this.currentYear, this.currentYear + 1, this.currentYear + 2];
+        this.yearOptions = [];
         this.currentView = this.view;
 
         if (this.view === 'date') {
