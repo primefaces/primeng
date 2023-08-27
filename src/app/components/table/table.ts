@@ -684,7 +684,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';  
+    @Input() breakpoint: string = '960px';
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -1827,7 +1827,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.lazy && this.paginator) {
-            (rangeStart as number) -= <number>this.first;
             (rangeStart as number) -= <number>this.first;
         }
 

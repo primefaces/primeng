@@ -440,7 +440,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (content instanceof TemplateRef) {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
-            embeddedViewRef.rootNodes.forEach(node => this.tooltipText.appendChild(node));
+            embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
         } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
             this.tooltipText.appendChild(document.createTextNode(content));

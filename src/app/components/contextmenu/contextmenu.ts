@@ -25,6 +25,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -116,7 +117,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -159,7 +160,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -228,7 +229,7 @@ export class ContextMenuSub {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;

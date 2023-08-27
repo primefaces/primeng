@@ -23,6 +23,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -117,7 +118,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -160,7 +161,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!slideMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -240,7 +241,7 @@ export class SlideMenuSub {
         return -this.slideMenu.left == this.level * this.menuWidth;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public slideMenu: SlideMenu) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
