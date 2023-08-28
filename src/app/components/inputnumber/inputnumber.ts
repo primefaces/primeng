@@ -85,7 +85,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
+            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && (value || value === 0)">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
