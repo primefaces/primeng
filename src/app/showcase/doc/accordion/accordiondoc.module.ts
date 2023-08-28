@@ -9,17 +9,14 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ControlledDoc } from './controlleddoc';
 import { DisabledDoc } from './disableddoc';
-import { EventsDoc } from './eventsdoc';
 import { ImportDoc } from './importdoc';
 import { MultipleDoc } from './multipledoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
-import { TemplatesDoc } from './templatesdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, AccordionModule, ButtonModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, PropsDoc, EventsDoc, TemplatesDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, DisabledDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class AccordionDocModule {}

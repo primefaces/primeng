@@ -32,7 +32,10 @@ import { AngleDownIcon } from 'primeng/icons/angledown';
 import { SearchIcon } from 'primeng/icons/search';
 import { Nullable } from 'primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
-
+/**
+ * OrderList is used to managed the order of a collection.
+ * @group Components
+ */
 @Component({
     selector: 'p-orderList',
     template: `
@@ -178,10 +181,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      */
     @Input() dragdrop: boolean = false;
     /**
-     * Defines the location of the buttons with respect to the list, valid values are "left" or "right".
+     * Defines the location of the buttons with respect to the list.
      * @group Props
      */
-    @Input() controlsPosition: string = 'left';
+    @Input() controlsPosition: 'left' | 'right' = 'left';
     /**
      * Defines a string that labels the filter input.
      * @group Props
@@ -223,7 +226,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         return this._selection;
     }
     /**
-     * Value of the component.
+     * Array of values to be displayed in the component.
+     * It represents the data source for the list of items.
      * @group Props
      */
     @Input() set value(val: any[] | undefined) {
@@ -249,13 +253,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
     /**
      * Callback to invoke when selection changes.
-     * @param {OrderListSelectionChangeEvent} event - custom change event.
+     * @param {OrderListSelectionChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>();
     /**
      * Callback to invoke when filtering occurs.
-     * @param {OrderListFilterEvent} event - custom filter event.
+     * @param {OrderListFilterEvent} event - Custom filter event.
      * @group Emits
      */
     @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>();
@@ -390,25 +394,19 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     onItemClick(event: Event, item: any, index: number) {
         this.itemTouched = false;
         let selectedIndex = ObjectUtils.findIndexInList(item, this.selection);
-        let selected = selectedIndex != -1;
+        let selected = selectedIndex !== -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
-        if (metaSelection && event instanceof KeyboardEvent) {
+        if (metaSelection && event instanceof MouseEvent) {
             let metaKey = event.metaKey || event.ctrlKey || event.shiftKey;
 
             if (selected && metaKey) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
+                this._selection = this._selection.filter((val) => val !== item);
             } else {
-                this._selection = metaKey ? (this._selection ? [...this._selection] : []) : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
+                this._selection = metaKey ? [...this._selection, item] : [item];
             }
         } else {
-            if (selected) {
-                this._selection = this._selection.filter((val, index) => index !== selectedIndex);
-            } else {
-                this._selection = this._selection ? [...this._selection] : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this._selection, this.value as any[]);
-            }
+            this._selection = [item];
         }
 
         //binding
@@ -435,7 +433,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     /**
      * Callback to invoke on filter reset.
-     * @group Methods
+     * @group Method
      */
     public resetFilter() {
         this.filterValue = null;
@@ -459,7 +457,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     isSelected(item: any) {
-        return ObjectUtils.findIndexInList(item, this.selection) != -1;
+        return ObjectUtils.findIndexInList(item, this.selection) !== -1;
     }
 
     isEmpty() {

@@ -18,7 +18,7 @@ export class NumberOfStarsDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './rating-number-of-stars-demo.html'
 })
 export class RatingNumberOfStarsDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

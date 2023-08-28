@@ -76,13 +76,10 @@ import { VerticalScrollDoc } from './verticalscrolldoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { VirtualScrollLazyDoc } from './virtualscrolllazydoc';
 import { ColumnResizeFitModeDoc } from './columnresizefitmodedoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
 import { StylingDoc } from './stylingdoc';
-import { MethodsDoc } from './methodsdoc';
-import { TemplatesDoc } from './templatesdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 
 @NgModule({
     imports: [
@@ -168,13 +165,10 @@ import { AccessibilityDoc } from './accessibilitydoc';
         VerticalScrollDoc,
         VirtualScrollDoc,
         VirtualScrollLazyDoc,
-        PropsDoc,
-        EventsDoc,
         StylingDoc,
-        MethodsDoc,
-        TemplatesDoc,
         SelectionEventsDoc,
-        AccessibilityDoc
+        AccessibilityDoc,
+        PaginatorLocaleDoc
     ],
     exports: [AppDocModule]
 })

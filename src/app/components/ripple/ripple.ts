@@ -3,7 +3,10 @@ import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestr
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * Ripple directive adds ripple effect to the host element.
+ * @group Components
+ */
 @Directive({
     selector: '[pRipple]',
     host: {
@@ -87,6 +90,8 @@ export class Ripple implements AfterViewInit, OnDestroy {
         let ink = this.renderer.createElement('span');
         this.renderer.addClass(ink, 'p-ink');
         this.renderer.appendChild(this.el.nativeElement, ink);
+        this.renderer.setAttribute(ink, 'aria-hidden', 'true');
+        this.renderer.setAttribute(ink, 'role', 'presentation');
 
         if (!this.animationListener) {
             this.animationListener = this.renderer.listen(ink, 'animationend', this.onAnimationEnd.bind(this));

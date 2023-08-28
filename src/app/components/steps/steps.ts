@@ -1,15 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { DomHandler } from 'primeng/dom';
+import { Nullable } from 'primeng/ts-helpers';
 import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
-
+/**
+ * Steps components is an indicator for the steps in a wizard workflow.
+ * @group Components
+ */
 @Component({
     selector: 'p-steps',
     template: `
-        <div [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass">
-            <ul role="tablist">
+        <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
+            <ul #list role="tablist" [attr.data-pc-section]="'menu'">
                 <li
                     *ngFor="let item of model; let i = index"
                     class="p-steps-item"
@@ -22,6 +27,7 @@ import { Subscription } from 'rxjs';
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
                     [ngClass]="{ 'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i)) }"
+                    [attr.data-pc-section]="'menuitem'"
                 >
                     <a
                         *ngIf="isClickableRouterLink(item); else elseBlock"
@@ -31,17 +37,18 @@ import { Subscription } from 'rxjs';
                         [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                         class="p-menuitem-link"
-                        (click)="itemClick($event, item, i)"
-                        (keydown.enter)="itemClick($event, item, i)"
+                        (click)="onItemClick($event, item, i)"
+                        (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.id]="item.id"
-                        [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '0'"
+                        [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
                         [preserveFragment]="item.preserveFragment"
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
+                        [ariaCurrentWhenActive]="exact ? 'step' : undefined"
                     >
                         <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
@@ -52,11 +59,12 @@ import { Subscription } from 'rxjs';
                             [attr.href]="item.url"
                             class="p-menuitem-link"
                             role="presentation"
-                            (click)="itemClick($event, item, i)"
-                            (keydown.enter)="itemClick($event, item, i)"
+                            (click)="onItemClick($event, item, i)"
+                            (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '0'"
+                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
+                            [ariaCurrentWhenActive]="exact ? 'step' : undefined"
                         >
                             <span class="p-steps-number">{{ i + 1 }}</span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
@@ -65,7 +73,7 @@ import { Subscription } from 'rxjs';
                     </ng-template>
                 </li>
             </ul>
-        </div>
+        </nav>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -81,7 +89,7 @@ export class Steps implements OnInit, OnDestroy {
      */
     @Input() activeIndex: number = 0;
     /**
-     * An array of menuitems.
+     * An array of menu items.
      * @group Props
      */
     @Input() model: MenuItem[] | undefined;
@@ -101,11 +109,18 @@ export class Steps implements OnInit, OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
+     * Whether to apply 'router-link-active-exact' class if route exactly matches the item path.
+     * @group Props
+     */
+    @Input() exact: boolean = true;
+    /**
      * Callback to invoke when the new step is selected.
      * @param {number} number - current index.
      * @group Emits
      */
     @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
+
+    @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
 
     constructor(private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
@@ -115,7 +130,7 @@ export class Steps implements OnInit, OnDestroy {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
-    itemClick(event: Event, item: MenuItem, i: number) {
+    onItemClick(event: Event, item: MenuItem, i: number) {
         if (this.readonly || item.disabled) {
             event.preventDefault();
             return;
@@ -134,6 +149,95 @@ export class Steps implements OnInit, OnDestroy {
                 index: i
             });
         }
+    }
+
+    onItemKeydown(event: KeyboardEvent, item: MenuItem, i: number) {
+        switch (event.code) {
+            case 'ArrowRight': {
+                this.navigateToNextItem(event.target);
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowLeft': {
+                this.navigateToPrevItem(event.target);
+                event.preventDefault();
+                break;
+            }
+
+            case 'Home': {
+                this.navigateToFirstItem(event.target);
+                event.preventDefault();
+                break;
+            }
+
+            case 'End': {
+                this.navigateToLastItem(event.target);
+                event.preventDefault();
+                break;
+            }
+
+            case 'Tab':
+                //no op
+                break;
+
+            case 'Enter':
+
+            case 'Space': {
+                this.onItemClick(event, item, i);
+                event.preventDefault();
+                break;
+            }
+
+            default:
+                break;
+        }
+    }
+
+    navigateToNextItem(target) {
+        const nextItem = this.findNextItem(target);
+
+        nextItem && this.setFocusToMenuitem(target, nextItem);
+    }
+    navigateToPrevItem(target) {
+        const prevItem = this.findPrevItem(target);
+
+        prevItem && this.setFocusToMenuitem(target, prevItem);
+    }
+    navigateToFirstItem(target) {
+        const firstItem = this.findFirstItem();
+
+        firstItem && this.setFocusToMenuitem(target, firstItem);
+    }
+    navigateToLastItem(target) {
+        const lastItem = this.findLastItem();
+
+        lastItem && this.setFocusToMenuitem(target, lastItem);
+    }
+    findNextItem(item) {
+        const nextItem = item.parentElement.nextElementSibling;
+
+        return nextItem ? nextItem.children[0] : null;
+    }
+    findPrevItem(item) {
+        const prevItem = item.parentElement.previousElementSibling;
+
+        return prevItem ? prevItem.children[0] : null;
+    }
+    findFirstItem() {
+        const firstSibling = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+
+        return firstSibling ? firstSibling.children[0] : null;
+    }
+    findLastItem() {
+        const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+
+        return siblings ? siblings[siblings.length - 1].children[0] : null;
+    }
+    setFocusToMenuitem(target, focusableItem) {
+        target.tabIndex = '-1';
+        focusableItem.tabIndex = '0';
+        focusableItem.focus();
     }
 
     isClickableRouterLink(item: MenuItem) {

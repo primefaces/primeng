@@ -9,11 +9,12 @@ export interface BreadcumbTemplates {
     /**
      * Custom template of seperator.
      */
-    seperator: TemplateRef<any> | null;
+    seperator(): TemplateRef<any>;
 }
 /**
  * Custom select event.
  * @see {@link Breadcrumb.onItemClick}
+ * @group Events
  */
 export interface BreadcrumbItemClickEvent {
     /**

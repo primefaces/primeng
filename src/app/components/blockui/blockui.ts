@@ -3,11 +3,22 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, C
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
-
+/**
+ * BlockUI can either block other components or the whole page.
+ * @group Components
+ */
 @Component({
     selector: 'p-blockUI',
     template: `
-        <div #mask [class]="styleClass" [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }" [ngStyle]="{ display: blocked ? 'flex' : 'none' }">
+        <div
+            #mask
+            [class]="styleClass"
+            [attr.aria-busy]="blocked"
+            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }"
+            [ngStyle]="{ display: blocked ? 'flex' : 'none' }"
+            [attr.data-pc-name]="'blockui'"
+            [attr.data-pc-section]="'root'"
+        >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         </div>
@@ -22,7 +33,6 @@ import { ZIndexUtils } from 'primeng/utils';
 export class BlockUI implements AfterViewInit, OnDestroy {
     /**
      * Name of the local ng-template variable referring to another component.
-     * Default - document
      * @group Props
      */
     @Input() target: any;
@@ -48,7 +58,6 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     @Input() get blocked(): boolean {
         return this._blocked;
     }
-
     set blocked(val: boolean) {
         if (this.mask && this.mask.nativeElement) {
             if (val) this.block();

@@ -37,6 +37,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => InputNumber),
     multi: true
 };
+/**
+ * InputNumber is an input component to provide numerical input.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputNumber',
     template: `
@@ -915,6 +919,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
+        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const newValueStr = newValue != null ? newValue.toString() : '';
+        if (this.maxlength && newValueStr.length > this.maxlength) {
+            return;
+        }
+
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
@@ -1210,6 +1220,13 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
+
+            if (this.maxlength && newValue.length > this.maxlength) {
+                newValue = newValue.slice(0, this.maxlength);
+                selectionStart = Math.min(selectionStart, this.maxlength);
+                selectionEnd = Math.min(selectionEnd, this.maxlength);
+            }
+
             if (this.maxlength && this.maxlength < newValue.length) {
                 return;
             }

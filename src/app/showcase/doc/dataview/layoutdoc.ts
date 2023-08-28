@@ -77,7 +77,7 @@ export class LayoutDoc {
 
     layout: string = 'list';
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -85,7 +85,7 @@ export class LayoutDoc {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 12)));
     }
 
-    getSeverity(product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -226,7 +226,7 @@ import { ProductService } from '../../service/productservice';
 export class DataViewLayoutDemo {
     layout: string = 'list';
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -234,7 +234,7 @@ export class DataViewLayoutDemo {
         this.productService.getProducts().then((data) => (this.products = data.slice(0, 12)));
     }
 
-    getSeverity (product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';

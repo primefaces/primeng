@@ -7,12 +7,11 @@ import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, TerminalModule],
-    declarations: [ImportDoc, BasicDoc, StyleDoc, PropsDoc, AccessibilityDoc],
+    declarations: [ImportDoc, BasicDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TerminalDocModule {}

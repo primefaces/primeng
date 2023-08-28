@@ -18,7 +18,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    checked: boolean;
+    checked: boolean = false;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './checkbox-disabled-demo.html'
 })
 export class CheckboxDisabledDemo {
-    checked: boolean;
+    checked: boolean = false;
 }`
     };
 }

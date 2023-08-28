@@ -1,20 +1,43 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
+import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-
+import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
+/**
+ * Splitter is utilized to separate and resize panels.
+ * @group Components
+ */
 @Component({
     selector: 'p-splitter',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <ng-template ngFor let-panel let-i="index" [ngForOf]="panels">
-                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle">
+        <div #container [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'splitter'" [attr.data-p-gutter-resizing]="false" [attr.data-pc-section]="'root'">
+            <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
+                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
                     <ng-container *ngTemplateOutlet="panel"></ng-container>
                 </div>
-                <div class="p-splitter-gutter" *ngIf="i !== panels.length - 1" [ngStyle]="gutterStyle()" (mousedown)="onGutterMouseDown($event, i)" (touchstart)="onGutterTouchStart($event, i)">
-                    <div class="p-splitter-gutter-handle"></div>
+                <div
+                    *ngIf="i !== panels.length - 1"
+                    class="p-splitter-gutter"
+                    role="seperator"
+                    tabindex="-1"
+                    (mousedown)="onGutterMouseDown($event, i)"
+                    (touchstart)="onGutterTouchStart($event, i)"
+                    (touchmove)="onGutterTouchMove($event)"
+                    (touchend)="onGutterTouchEnd($event, i)"
+                    [attr.data-p-gutter-resizing]="false"
+                    [attr.data-pc-section]="'gutter'"
+                >
+                    <div
+                        class="p-splitter-gutter-handle"
+                        tabindex="0"
+                        [ngStyle]="gutterStyle()"
+                        [attr.aria-orientation]="layout"
+                        [attr.aria-valuenow]="prevSize"
+                        [attr.data-pc-section]="'gutterhandle'"
+                        (keyup)="onGutterKeyUp($event)"
+                        (keydown)="onGutterKeyDown($event, i)"
+                    ></div>
                 </div>
             </ng-template>
         </div>
@@ -52,22 +75,27 @@ export class Splitter {
      * Defines where a stateful splitter keeps its state, valid values are 'session' for sessionStorage and 'local' for localStorage.
      * @group Props
      */
-    @Input() stateStorage: 'local' | 'session' | undefined = 'session';
+    @Input() stateStorage: string | undefined = 'session';
     /**
      * Storage identifier of a stateful Splitter.
      * @group Props
      */
     @Input() stateKey: string | undefined | null = null;
     /**
-     * Orientation of the panels.
+     * Orientation of the panels. Valid values are 'horizontal' and 'vertical'.
      * @group Props
      */
-    @Input() layout: 'horizontal' | 'vertical' | undefined = 'horizontal';
+    @Input() layout: string | undefined = 'horizontal';
     /**
      * Size of the divider in pixels.
      * @group Props
      */
     @Input() gutterSize: number = 4;
+    /**
+     * Step factor to increment/decrement the size of the panels while pressing the arrow keys.
+     * @group Props
+     */
+    @Input() step: number = 5;
     /**
      * Minimum size of the elements relative to 100%.
      * @group Props
@@ -144,6 +172,10 @@ export class Splitter {
 
     prevPanelIndex: Nullable<number>;
 
+    timer: any;
+
+    prevSize: any;
+
     private window: Window;
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
@@ -176,7 +208,7 @@ export class Splitter {
 
             if (!initialized) {
                 let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-                let _panelSizes = [0, 0];
+                let _panelSizes = [];
 
                 this.panels.map((panel, i) => {
                     let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
@@ -186,32 +218,60 @@ export class Splitter {
                 });
 
                 this._panelSizes = _panelSizes;
+
+                this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
             }
         }
     }
 
-    resizeStart(event: TouchEvent | MouseEvent, index: number) {
-        this.gutterElement = event.currentTarget as HTMLElement;
+    resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
+        this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
         this.size = this.horizontal() ? DomHandler.getWidth((this.containerViewChild as ElementRef).nativeElement) : DomHandler.getHeight((this.containerViewChild as ElementRef).nativeElement);
-        this.dragging = true;
-        this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
+
+        if (!isKeyDown) {
+            this.dragging = true;
+            this.startPos = this.horizontal() ? (event instanceof MouseEvent ? event.pageX : event.changedTouches[0].pageX) : event instanceof MouseEvent ? event.pageY : event.changedTouches[0].pageY;
+        }
+
         this.prevPanelElement = this.gutterElement.previousElementSibling as HTMLElement;
         this.nextPanelElement = this.gutterElement.nextElementSibling as HTMLElement;
-        this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
-        this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
+
+        if (isKeyDown) {
+            this.prevPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true);
+            this.nextPanelSize = this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true);
+        } else {
+            this.prevPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.prevPanelElement, true) : DomHandler.getOuterHeight(this.prevPanelElement, true))) / this.size;
+            this.nextPanelSize = (100 * (this.horizontal() ? DomHandler.getOuterWidth(this.nextPanelElement, true) : DomHandler.getOuterHeight(this.nextPanelElement, true))) / this.size;
+        }
+
         this.prevPanelIndex = index;
         DomHandler.addClass(this.gutterElement, 'p-splitter-gutter-resizing');
+        this.gutterElement.setAttribute('data-p-gutter-resizing', 'true');
         DomHandler.addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        this.containerViewChild.nativeElement.setAttribute('data-p-resizing', 'true');
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
 
-    onResize(event: MouseEvent) {
-        let newPos;
-        if (this.horizontal()) newPos = (event.pageX * 100) / (this.size as number) - ((this.startPos as number) * 100) / (this.size as number);
-        else newPos = (event.pageY * 100) / (this.size as number) - ((this.startPos as number) * 100) / (this.size as number);
+    onResize(event: MouseEvent, step?: number, isKeyDown?: boolean) {
+        let newPos, newPrevPanelSize, newNextPanelSize;
 
-        let newPrevPanelSize = (this.prevPanelSize as number) + newPos;
-        let newNextPanelSize = (this.nextPanelSize as number) - newPos;
+        if (isKeyDown) {
+            if (this.horizontal()) {
+                newPrevPanelSize = (100 * (this.prevPanelSize + step)) / this.size;
+                newNextPanelSize = (100 * (this.nextPanelSize - step)) / this.size;
+            } else {
+                newPrevPanelSize = (100 * (this.prevPanelSize - step)) / this.size;
+                newNextPanelSize = (100 * (this.nextPanelSize + step)) / this.size;
+            }
+        } else {
+            if (this.horizontal()) newPos = (event.pageX * 100) / this.size - (this.startPos * 100) / this.size;
+            else newPos = (event.pageY * 100) / this.size - (this.startPos * 100) / this.size;
+
+            newPrevPanelSize = (this.prevPanelSize as number) + newPos;
+            newNextPanelSize = (this.nextPanelSize as number) - newPos;
+        }
+
+        this.prevSize = parseFloat(newPrevPanelSize).toFixed(4);
 
         if (this.validateResize(newPrevPanelSize, newNextPanelSize)) {
             (this.prevPanelElement as HTMLElement).style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
@@ -246,11 +306,83 @@ export class Splitter {
         }
     }
 
+    onGutterTouchMove(event) {
+        this.onResize(event);
+        event.preventDefault();
+    }
+
     onGutterTouchEnd(event: TouchEvent) {
         this.resizeEnd(event);
         this.unbindTouchListeners();
 
         if (event.cancelable) event.preventDefault();
+    }
+
+    repeat(event, index, step) {
+        this.resizeStart(event, index, true);
+        this.onResize(event, step, true);
+    }
+
+    setTimer(event, index, step) {
+        this.clearTimer();
+        this.timer = setTimeout(() => {
+            this.repeat(event, index, step);
+        }, 40);
+    }
+
+    clearTimer() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+    }
+
+    onGutterKeyUp(event) {
+        this.clearTimer();
+        this.resizeEnd(event);
+    }
+
+    onGutterKeyDown(event, index) {
+        switch (event.code) {
+            case 'ArrowLeft': {
+                if (this.layout === 'horizontal') {
+                    this.setTimer(event, index, this.step * -1);
+                }
+
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowRight': {
+                if (this.layout === 'horizontal') {
+                    this.setTimer(event, index, this.step);
+                }
+
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowDown': {
+                if (this.layout === 'vertical') {
+                    this.setTimer(event, index, this.step * -1);
+                }
+
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowUp': {
+                if (this.layout === 'vertical') {
+                    this.setTimer(event, index, this.step);
+                }
+
+                event.preventDefault();
+                break;
+            }
+
+            default:
+                //no op
+                break;
+        }
     }
 
     validateResize(newPrevPanelSize: number, newNextPanelSize: number) {

@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate } from 'primeng/api';
-
+/**
+ * Toolbar is a grouping component for buttons and other content.
+ * @group Components
+ */
 @Component({
     selector: 'p-toolbar',
     template: `
-        <div [ngClass]="'p-toolbar p-component'" [ngStyle]="style" [class]="styleClass" role="toolbar">
+        <div [ngClass]="'p-toolbar p-component'" [attr.aria-labelledby]="ariaLabelledBy" [ngStyle]="style" [class]="styleClass" role="toolbar" [attr.data-pc-name]="'toolbar'">
             <ng-content></ng-content>
-            <div class="p-toolbar-group-left p-toolbar-group-start" *ngIf="startTemplate">
+            <div class="p-toolbar-group-left p-toolbar-group-start" *ngIf="startTemplate" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-group-center" *ngIf="centerTemplate">
+            <div class="p-toolbar-group-center" *ngIf="centerTemplate" [attr.data-pc-section]="'center'">
                 <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-group-right p-toolbar-group-end" *ngIf="endTemplate">
+            <div class="p-toolbar-group-right p-toolbar-group-end" *ngIf="endTemplate" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
             </div>
         </div>
@@ -36,6 +39,11 @@ export class Toolbar implements AfterContentInit, BlockableUI {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

@@ -1,32 +1,41 @@
-import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, QueryList, ContentChildren, TemplateRef } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { PlusIcon } from 'primeng/icons/plus';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
-import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { PlusIcon } from 'primeng/icons/plus';
+import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
+import { UniqueComponentId } from 'primeng/utils';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 
-let idx: number = 0;
-
+/**
+ * Fieldset is a grouping component with the optional content toggle feature.
+ * @group Components
+ */
 @Component({
     selector: 'p-fieldset',
     template: `
-        <fieldset [attr.id]="id" [ngClass]="{ 'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable, 'p-fieldset-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
-            <legend class="p-fieldset-legend">
+        <fieldset
+            [attr.id]="id"
+            [ngClass]="{ 'p-fieldset p-component': true, 'p-fieldset-toggleable': toggleable, 'p-fieldset-expanded': !collapsed && toggleable }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.data-pc-name]="'fieldset'"
+            [attr.data-pc-section]="'root'"
+        >
+            <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'">
                 <ng-container *ngIf="toggleable; else legendContent">
-                    <a tabindex="0" (click)="toggle($event)" (keydown.enter)="toggle($event)" [attr.aria-controls]="id + '-content'" [attr.aria-expanded]="!collapsed" pRipple>
+                    <a [attr.id]="id + '_header'" pRipple tabindex="0" role="button" [attr.aria-controls]="id + '_content'" [attr.aria-expanded]="!collapsed" [attr.aria-label]="buttonAriaLabel" (click)="toggle($event)" (keydown)="onKeyDown($event)">
                         <ng-container *ngIf="collapsed">
-                            <PlusIcon [styleClass]="'p-fieldset-toggler'" *ngIf="!expandIconTemplate" />
-                            <span *ngIf="expandIconTemplate" class="p-fieldset-toggler">
+                            <PlusIcon *ngIf="!expandIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="expandIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
                                 <ng-container *ngTemplateOutlet="expandIconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngIf="!collapsed">
-                            <MinusIcon [styleClass]="'p-fieldset-toggler'" *ngIf="!collapseIconTemplate" />
-                            <span *ngIf="collapseIconTemplate" class="p-fieldset-toggler">
+                            <MinusIcon *ngIf="!collapseIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
+                            <span *ngIf="collapseIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
                                 <ng-container *ngTemplateOutlet="collapseIconTemplate"></ng-container>
                             </span>
                         </ng-container>
@@ -34,21 +43,22 @@ let idx: number = 0;
                     </a>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span class="p-fieldset-legend-text">{{ legend }}</span>
+                    <span class="p-fieldset-legend-text" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </ng-template>
             </legend>
             <div
-                [attr.id]="id + '-content'"
+                [attr.id]="id + '_content'"
+                role="region"
                 class="p-toggleable-content"
                 [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
-                [attr.aria-labelledby]="id"
+                [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
+                [attr.data-pc-section]="'toggleablecontent'"
                 (@fieldsetContent.done)="onToggleDone()"
-                role="region"
             >
-                <div class="p-fieldset-content">
+                <div class="p-fieldset-content" [attr.data-pc-section]="'content'">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
@@ -133,6 +143,14 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
+    get id() {
+        return UniqueComponentId();
+    }
+
+    get buttonAriaLabel() {
+        return this.legend;
+    }
+
     public animating: Nullable<boolean>;
 
     headerTemplate: Nullable<TemplateRef<any>>;
@@ -144,8 +162,6 @@ export class Fieldset implements AfterContentInit, BlockableUI {
     expandIconTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private el: ElementRef) {}
-
-    id: string = `p-fieldset-${idx++}`;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -182,6 +198,13 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
+    }
+
+    onKeyDown(event) {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            this.toggle(event);
+            event.preventDefault();
+        }
     }
 
     expand() {

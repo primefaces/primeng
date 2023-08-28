@@ -19,7 +19,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
     templateUrl: './tri-state-checkbox-disabled-demo.html'
 })
 export class TriStateCheckboxDisabledDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

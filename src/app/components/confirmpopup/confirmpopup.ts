@@ -7,7 +7,10 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-
+/**
+ * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
+ * @group Components
+ */
 @Component({
     selector: 'p-confirmPopup',
     template: `
@@ -16,14 +19,15 @@ import { Subscription } from 'rxjs';
             [ngClass]="'p-confirm-popup p-component'"
             [ngStyle]="style"
             [class]="styleClass"
+            role="alertdialog"
             (click)="onOverlayClick($event)"
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
         >
             <div #content class="p-confirm-popup-content">
-                <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation.icon" *ngIf="confirmation.icon"></i>
-                <span class="p-confirm-popup-message">{{ confirmation.message }}</span>
+                <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
+                <span class="p-confirm-popup-message">{{ confirmation?.message }}</span>
             </div>
             <div class="p-confirm-popup-footer">
                 <button
@@ -32,11 +36,11 @@ import { Subscription } from 'rxjs';
                     [label]="rejectButtonLabel"
                     (click)="reject()"
                     [ngClass]="'p-confirm-popup-reject p-button-sm'"
-                    [class]="confirmation.rejectButtonStyleClass || 'p-button-text'"
-                    *ngIf="confirmation.rejectVisible !== false"
+                    [class]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
+                    *ngIf="confirmation?.rejectVisible !== false"
                     [attr.aria-label]="rejectButtonLabel"
                 >
-                    <i [class]="confirmation.rejectIcon" *ngIf="confirmation.rejectIcon; else rejecticon"></i>
+                    <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
                     <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
                 </button>
                 <button
@@ -45,11 +49,11 @@ import { Subscription } from 'rxjs';
                     [label]="acceptButtonLabel"
                     (click)="accept()"
                     [ngClass]="'p-confirm-popup-accept p-button-sm'"
-                    [class]="confirmation.acceptButtonStyleClass"
-                    *ngIf="confirmation.acceptVisible !== false"
+                    [class]="confirmation?.acceptButtonStyleClass"
+                    *ngIf="confirmation?.acceptVisible !== false"
                     [attr.aria-label]="acceptButtonLabel"
                 >
-                    <i [class]="confirmation.acceptIcon" *ngIf="confirmation.acceptIcon; else accepticon"></i>
+                    <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
                     <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
                 </button>
             </div>
@@ -266,7 +270,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     accept() {
         if (this.confirmation?.acceptEvent) {
-            this.confirmation?.acceptEvent.emit();
+            this.confirmation.acceptEvent.emit();
         }
 
         this.hide();
@@ -274,7 +278,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     reject() {
         if (this.confirmation?.rejectEvent) {
-            this.confirmation?.rejectEvent.emit();
+            this.confirmation.rejectEvent.emit();
         }
 
         this.hide();
@@ -312,9 +316,11 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                let targetElement = <HTMLElement>this.confirmation?.target;
-                if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
-                    this.hide();
+                if (this.confirmation) {
+                    let targetElement = <HTMLElement>this.confirmation.target;
+                    if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
+                        this.hide();
+                    }
                 }
             });
         }

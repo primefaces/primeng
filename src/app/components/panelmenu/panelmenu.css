@@ -1,4 +1,4 @@
-.p-panelmenu .p-panelmenu-header-link {
+.p-panelmenu .p-panelmenu-header-action {
     display: flex;
     align-items: center;
     user-select: none;
@@ -7,7 +7,7 @@
     text-decoration: none;
 }
 
-.p-panelmenu .p-panelmenu-header-link:focus {
+.p-panelmenu .p-panelmenu-header-action:focus {
     z-index: 1;
 }
 
@@ -23,6 +23,8 @@
     user-select: none;
     cursor: pointer;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .p-panelmenu .p-menuitem-text {

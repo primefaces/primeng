@@ -21,19 +21,48 @@ import {
 } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-
+import { Nullable } from 'primeng/ts-helpers';
+/**
+ * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollPanel',
     template: `
-        <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass">
-            <div class="p-scrollpanel-wrapper">
-                <div #content class="p-scrollpanel-content">
+        <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
+            <div class="p-scrollpanel-wrapper" [attr.data-pc-section]="'wrapper'">
+                <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </div>
             </div>
-            <div #xBar class="p-scrollpanel-bar p-scrollpanel-bar-x"></div>
-            <div #yBar class="p-scrollpanel-bar p-scrollpanel-bar-y"></div>
+            <div
+                #xBar
+                class="p-scrollpanel-bar p-scrollpanel-bar-x"
+                tabindex="0"
+                role="scrollbar"
+                [attr.aria-orientation]="'horizontal'"
+                [attr.aria-valuenow]="lastScrollLeft"
+                [attr.data-pc-section]="'barx'"
+                (mousedown)="onXBarMouseDown($event)"
+                (keydown)="onKeyDown($event)"
+                (keyup)="onKeyUp()"
+                (focus)="onFocus($event)"
+                (blur)="onBlur()"
+            ></div>
+            <div
+                #yBar
+                class="p-scrollpanel-bar p-scrollpanel-bar-y"
+                tabindex="0"
+                role="scrollbar"
+                [attr.aria-orientation]="'vertical'"
+                [attr.aria-valuenow]="lastScrollTop"
+                [attr.data-pc-section]="'bary'"
+                (mousedown)="onYBarMouseDown($event)"
+                (keydown)="onKeyDown($event)"
+                (keyup)="onKeyUp()"
+                (focus)="onFocus($event)"
+            ></div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,6 +83,11 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Step factor to scroll the content while pressing the arrow keys.
+     * @group Props
+     */
+    @Input() step: number = 5;
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
@@ -83,6 +117,14 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
+    lastScrollLeft: number = 0;
+
+    lastScrollTop: number = 0;
+
+    orientation: string = 'vertical';
+
+    timer: any;
+
     windowResizeListener: VoidFunction | null | undefined;
 
     contentScrollListener: VoidFunction | null | undefined;
@@ -93,9 +135,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     yBarMouseDownListener: VoidFunction | null | undefined;
 
-    documentMouseMoveListener: VoidFunction | null | undefined;
+    documentMouseMoveListener: Nullable<(event?: any) => void>;
 
-    documentMouseUpListener: VoidFunction | null | undefined;
+    documentMouseUpListener: Nullable<(event?: any) => void>;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
@@ -176,8 +218,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.requestAnimationFrame(() => {
             if ((this.scrollXRatio as number) >= 1) {
+                xBar.setAttribute('data-p-scrollpanel-hidden', 'true');
                 DomHandler.addClass(xBar, 'p-scrollpanel-hidden');
             } else {
+                xBar.setAttribute('data-p-scrollpanel-hidden', 'false');
                 DomHandler.removeClass(xBar, 'p-scrollpanel-hidden');
                 const xBarWidth = Math.max((this.scrollXRatio as number) * 100, 10);
                 const xBarLeft = (content.scrollLeft * (100 - xBarWidth)) / (totalWidth - ownWidth);
@@ -185,8 +229,10 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
             }
 
             if ((this.scrollYRatio as number) >= 1) {
+                yBar.setAttribute('data-p-scrollpanel-hidden', 'true');
                 DomHandler.addClass(yBar, 'p-scrollpanel-hidden');
             } else {
+                yBar.setAttribute('data-p-scrollpanel-hidden', 'false');
                 DomHandler.removeClass(yBar, 'p-scrollpanel-hidden');
                 const yBarHeight = Math.max((this.scrollYRatio as number) * 100, 10);
                 const yBarTop = (content.scrollTop * (100 - yBarHeight)) / (totalHeight - ownHeight);
@@ -196,38 +242,145 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
+    onScroll(event) {
+        if (this.lastScrollLeft !== event.target.scrollLeft) {
+            this.lastScrollLeft = event.target.scrollLeft;
+            this.orientation = 'horizontal';
+        } else if (this.lastScrollTop !== event.target.scrollTop) {
+            this.lastScrollTop = event.target.scrollTop;
+            this.orientation = 'vertical';
+        }
+
+        this.moveBar();
+    }
+
+    onKeyDown(event) {
+        if (this.orientation === 'vertical') {
+            switch (event.code) {
+                case 'ArrowDown': {
+                    this.setTimer('scrollTop', this.step);
+                    event.preventDefault();
+                    break;
+                }
+
+                case 'ArrowUp': {
+                    this.setTimer('scrollTop', this.step * -1);
+                    event.preventDefault();
+                    break;
+                }
+
+                case 'ArrowLeft':
+
+                case 'ArrowRight': {
+                    event.preventDefault();
+                    break;
+                }
+
+                default:
+                    //no op
+                    break;
+            }
+        } else if (this.orientation === 'horizontal') {
+            switch (event.code) {
+                case 'ArrowRight': {
+                    this.setTimer('scrollLeft', this.step);
+                    event.preventDefault();
+                    break;
+                }
+
+                case 'ArrowLeft': {
+                    this.setTimer('scrollLeft', this.step * -1);
+                    event.preventDefault();
+                    break;
+                }
+
+                case 'ArrowDown':
+
+                case 'ArrowUp': {
+                    event.preventDefault();
+                    break;
+                }
+
+                default:
+                    //no op
+                    break;
+            }
+        }
+    }
+
+    onKeyUp() {
+        this.clearTimer();
+    }
+
+    repeat(bar, step) {
+        this.contentViewChild.nativeElement[bar] += step;
+        this.moveBar();
+    }
+
+    setTimer(bar, step) {
+        this.clearTimer();
+        this.timer = setTimeout(() => {
+            this.repeat(bar, step);
+        }, 40);
+    }
+
+    clearTimer() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+    }
+
+    bindDocumentMouseListeners(): void {
+        if (!this.documentMouseMoveListener) {
+            this.documentMouseMoveListener = (e) => {
+                this.onDocumentMouseMove(e);
+            };
+            this.document.addEventListener('mousemove', this.documentMouseMoveListener);
+        }
+
+        if (!this.documentMouseUpListener) {
+            this.documentMouseUpListener = (e) => {
+                this.onDocumentMouseUp(e);
+            };
+            this.document.addEventListener('mouseup', this.documentMouseUpListener);
+        }
+    }
+
+    unbindDocumentMouseListeners(): void {
+        if (this.documentMouseMoveListener) {
+            this.document.removeEventListener('mousemove', this.documentMouseMoveListener);
+            this.documentMouseMoveListener = null;
+        }
+
+        if (this.documentMouseUpListener) {
+            document.removeEventListener('mouseup', this.documentMouseUpListener);
+            this.documentMouseUpListener = null;
+        }
+    }
+
     onYBarMouseDown(e: MouseEvent) {
         this.isYBarClicked = true;
+        this.yBarViewChild.nativeElement.focus();
         this.lastPageY = e.pageY;
+
+        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'true');
         DomHandler.addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
+        this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'true');
         DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
         this.bindDocumentMouseListeners();
         e.preventDefault();
     }
 
-    bindDocumentMouseListeners(): void {
-        this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
-        this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
-    }
-
-    unbindDocumentMouseListeners(): void {
-        if (this.documentMouseMoveListener) {
-            this.documentMouseMoveListener();
-            this.documentMouseMoveListener = null;
-        }
-
-        if (this.documentMouseUpListener) {
-            this.documentMouseUpListener();
-            this.documentMouseUpListener = null;
-        }
-    }
-
     onXBarMouseDown(e: MouseEvent) {
         this.isXBarClicked = true;
+        this.xBarViewChild.nativeElement.focus();
         this.lastPageX = e.pageX;
+
+        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
         DomHandler.addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
+        this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
         DomHandler.addClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.bindDocumentMouseListeners();
@@ -265,7 +418,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Scrolls the top location to the given value.
      * @param scrollTop
-     * @group Methods
+     * @group Method
      */
     scrollTop(scrollTop: number) {
         let scrollableHeight = (this.contentViewChild as ElementRef).nativeElement.scrollHeight - (this.contentViewChild as ElementRef).nativeElement.clientHeight;
@@ -273,9 +426,26 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
         (this.contentViewChild as ElementRef).nativeElement.scrollTop = scrollTop;
     }
 
+    onFocus(event) {
+        if (this.xBarViewChild.nativeElement.isSameNode(event.target)) {
+            this.orientation = 'horizontal';
+        } else if (this.yBarViewChild.nativeElement.isSameNode(event.target)) {
+            this.orientation = 'vertical';
+        }
+    }
+
+    onBlur() {
+        if (this.orientation === 'horizontal') {
+            this.orientation = 'vertical';
+        }
+    }
+
     onDocumentMouseUp(e: Event) {
+        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
         DomHandler.removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
         DomHandler.removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
+        this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
         DomHandler.removeClass(this.document.body, 'p-scrollpanel-grabbed');
 
         this.unbindDocumentMouseListeners();
@@ -322,7 +492,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     /**
      * Refreshes the position and size of the scrollbar.
-     * @group Methods
+     * @group Method
      */
     refresh() {
         this.moveBar();

@@ -18,7 +18,7 @@ export class ToggleMaskDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-toggle-mask-demo.html'
 })
 export class PasswordToggleMaskDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

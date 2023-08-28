@@ -49,7 +49,10 @@ import {
     PickListTargetSelectEvent,
     PickListFilterOptions
 } from './picklist.interface';
-
+/**
+ * PickList is used to reorder items between different lists.
+ * @group Components
+ */
 @Component({
     selector: 'p-pickList',
     template: `
@@ -445,61 +448,61 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
     /**
      * Callback to invoke when items are moved from target to source.
-     * @param {PickListMoveToSourceEvent} event - custom move to source event.
+     * @param {PickListMoveToSourceEvent} event - Custom move to source event.
      * @group Emits
      */
     @Output() onMoveToSource: EventEmitter<PickListMoveToSourceEvent> = new EventEmitter<PickListMoveToSourceEvent>();
     /**
      * Callback to invoke when all items are moved from target to source.
-     * @param {PickListMoveAllToSourceEvent} event - custom move all to source event.
+     * @param {PickListMoveAllToSourceEvent} event - Custom move all to source event.
      * @group Emits
      */
     @Output() onMoveAllToSource: EventEmitter<PickListMoveAllToSourceEvent> = new EventEmitter<PickListMoveAllToSourceEvent>();
     /**
      * Callback to invoke when all items are moved from source to target.
-     * @param {PickListMoveAllToTargetEvent} event - custom move all to target event.
+     * @param {PickListMoveAllToTargetEvent} event - Custom move all to target event.
      * @group Emits
      */
     @Output() onMoveAllToTarget: EventEmitter<PickListMoveAllToTargetEvent> = new EventEmitter<PickListMoveAllToTargetEvent>();
     /**
      * Callback to invoke when items are moved from source to target.
-     * @param {PickListMoveToTargetEvent} event - custom move to target event.
+     * @param {PickListMoveToTargetEvent} event - Custom move to target event.
      * @group Emits
      */
     @Output() onMoveToTarget: EventEmitter<PickListMoveToTargetEvent> = new EventEmitter<PickListMoveToTargetEvent>();
     /**
      * Callback to invoke when items are reordered within source list.
-     * @param {PickListSourceReorderEvent} event - custom source reorder event.
+     * @param {PickListSourceReorderEvent} event - Custom source reorder event.
      * @group Emits
      */
     @Output() onSourceReorder: EventEmitter<PickListSourceReorderEvent> = new EventEmitter<PickListSourceReorderEvent>();
     /**
      * Callback to invoke when items are reordered within target list.
-     * @param {PickListTargetReorderEvent} event - custom target reorder event.
+     * @param {PickListTargetReorderEvent} event - Custom target reorder event.
      * @group Emits
      */
     @Output() onTargetReorder: EventEmitter<PickListTargetReorderEvent> = new EventEmitter<PickListTargetReorderEvent>();
     /**
      * Callback to invoke when items are selected within source list.
-     * @param {PickListSourceSelectEvent} event - custom source select event.
+     * @param {PickListSourceSelectEvent} event - Custom source select event.
      * @group Emits
      */
     @Output() onSourceSelect: EventEmitter<PickListSourceSelectEvent> = new EventEmitter<PickListSourceSelectEvent>();
     /**
      * Callback to invoke when items are selected within target list.
-     * @param {PickListTargetSelectEvent} event - custom target select event.
+     * @param {PickListTargetSelectEvent} event - Custom target select event.
      * @group Emits
      */
     @Output() onTargetSelect: EventEmitter<PickListTargetSelectEvent> = new EventEmitter<PickListTargetSelectEvent>();
     /**
      * Callback to invoke when the source list is filtered
-     * @param {PickListSourceFilterEvent} event - custom source filter event.
+     * @param {PickListSourceFilterEvent} event - Custom source filter event.
      * @group Emits
      */
     @Output() onSourceFilter: EventEmitter<PickListSourceFilterEvent> = new EventEmitter<PickListSourceFilterEvent>();
     /**
      * Callback to invoke when the target list is filtered
-     * @param {PickListTargetFilterEvent} event - custom target filter event.
+     * @param {PickListTargetFilterEvent} event - Custom target filter event.
      * @group Emits
      */
     @Output() onTargetFilter: EventEmitter<PickListTargetFilterEvent> = new EventEmitter<PickListTargetFilterEvent>();

@@ -18,7 +18,7 @@ export class IconDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date: Date | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-icon-demo.html'
 })
 export class CalendarIconDemo {
-    date: Date;
+    date: Date | undefined;
 }`
     };
 }

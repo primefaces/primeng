@@ -21,7 +21,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
@@ -51,7 +51,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     templateUrl: './password-reactive-forms-demo.html'
 })
 export class PasswordReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup!: FormGroup;
 
     ngOnInit() {
         this.formGroup = new FormGroup({

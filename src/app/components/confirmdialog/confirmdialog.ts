@@ -36,7 +36,10 @@ import { Subscription } from 'rxjs';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
+ * @group Components
+ */
 @Component({
     selector: 'p-confirmDialog',
     template: `
@@ -48,15 +51,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
+                role="alertdialog"
                 *ngIf="visible"
+                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div class="p-dialog-header" *ngIf="headerTemplate">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </div>
                 <div class="p-dialog-header" *ngIf="!headerTemplate">
-                    <span class="p-dialog-title" *ngIf="option('header')">{{ option('header') }}</span>
+                    <span class="p-dialog-title" [id]="getAriaLabelledBy()" *ngIf="option('header')">{{ option('header') }}</span>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="closable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
+                        <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
                             <TimesIcon />
                         </button>
                     </div>
@@ -140,7 +146,13 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() get style(): { [klass: string]: any } | null | undefined {
+        return this._style;
+    }
+    set style(value: { [klass: string]: any } | null | undefined) {
+        this._style = value;
+        this.cd.markForCheck();
+    }
     /**
      * Class of the element.
      * @group Props
@@ -161,6 +173,11 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() acceptLabel: string | undefined;
+    /**
+     * Defines a string that labels the close button for accessibility.
+     * @group Props
+     */
+    @Input() closeAriaLabel: string | undefined;
     /**
      * Defines a string that labels the accept button for accessibility.
      * @group Props
@@ -257,7 +274,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() focusTrap: boolean = true;
     /**
-     * Element to receive the focus when the dialog gets visible, valid values are "accept", "reject", "close" and "none".
+     * Element to receive the focus when the dialog gets visible.
      * @group Props
      */
     @Input() defaultFocus: 'accept' | 'reject' | 'close' = 'accept';
@@ -317,10 +334,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     /**
      * Callback to invoke when dialog is hidden.
-     * @param {ConfirmEventType} enum - confirm event type.
+     * @param {ConfirmEventType} enum - Custom confirm event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter();
+    @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter<ConfirmEventType>();
 
     @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
 
@@ -360,6 +377,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     confirmation: Nullable<Confirmation>;
 
     _visible: boolean | undefined;
+
+    _style: { [klass: string]: any } | null | undefined;
 
     maskVisible: boolean | undefined;
 
@@ -441,6 +460,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 this.cd.markForCheck();
             }
         });
+    }
+
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
     option(name: string) {

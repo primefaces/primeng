@@ -4,7 +4,10 @@ import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
-
+/**
+ * Terminal is a text based user interface.
+ * @group Components
+ */
 @Component({
     selector: 'p-terminal',
     template: `
@@ -14,7 +17,7 @@ import { Subscription } from 'rxjs';
                 <div *ngFor="let command of commands">
                     <span class="p-terminal-prompt">{{ prompt }}</span>
                     <span class="p-terminal-command">{{ command.text }}</span>
-                    <div class="p-terminal-response">{{ command.response }}</div>
+                    <div class="p-terminal-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
                 </div>
             </div>
             <div class="p-terminal-prompt-container">

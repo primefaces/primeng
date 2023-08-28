@@ -5,7 +5,10 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
-
+/**
+ * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
+ * @group Components
+ */
 @Component({
     selector: 'p-scrollTop',
     template: `
@@ -14,6 +17,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
+            [attr.aria-label]="scrollTopAriaLabel"
             [ngClass]="containerClass()"
             (click)="onClick()"
             [class]="styleClass"
@@ -64,7 +68,7 @@ export class ScrollTop implements OnInit, OnDestroy {
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
-     * Target of the ScrollTop, valid values are "window" and "parent".
+     * Target of the ScrollTop.
      * @group Props
      */
     @Input() target: 'window' | 'parent' | undefined = 'window';
@@ -93,6 +97,11 @@ export class ScrollTop implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.15s';
+    /**
+     * Establishes a string value that labels the scroll-top button.
+     * @group Props
+     */
+    @Input() buttonAriaLabel: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

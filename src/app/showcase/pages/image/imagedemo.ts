@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { EventsDoc } from '../../doc/Image/eventsdoc';
 import { ImportDoc } from '../../doc/Image/importdoc';
-import { PropsDoc } from '../../doc/Image/propsdoc';
 import { StyleDoc } from '../../doc/Image/styledoc';
-import { TemplatesDoc } from '../../doc/Image/templatesdoc';
 import { BasicDoc } from '../../doc/Image/basicdoc';
 import { TemplateDoc } from '../../doc/Image/templatedoc';
 import { AccessibilityDoc } from '../../doc/Image/accessibilitydoc';
 import { PreviewDoc } from '../../doc/Image/previewdoc';
+import { PreviewImageSourceDoc } from '../../doc/Image/previewimagesourcedoc';
 
 @Component({
     templateUrl: './imagedemo.html'
@@ -35,6 +33,11 @@ export class ImageDemo {
             component: PreviewDoc
         },
         {
+            id: 'preview-image-source',
+            label: 'Preview Image Source',
+            component: PreviewImageSourceDoc
+        },
+        {
             id: 'style',
             label: 'Style',
             component: StyleDoc
@@ -43,24 +46,6 @@ export class ImageDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }

@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-
+/**
+ * Skeleton is a placeholder to display instead of the actual content.
+ * @group Components
+ */
 @Component({
     selector: 'p-skeleton',
-    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle()"></div> `,
+    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle()" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./skeleton.css'],

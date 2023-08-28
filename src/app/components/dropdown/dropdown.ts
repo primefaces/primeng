@@ -30,7 +30,7 @@ import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
@@ -90,7 +90,10 @@ export class DropdownItem {
         });
     }
 }
-
+/**
+ * Dropdown also known as Select, is used to choose an item from a collection of options.
+ * @group Components
+ */
 @Component({
     selector: 'p-dropdown',
     template: `
@@ -319,7 +322,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Inline style of the overlay panel element.
      * @group Props
      */
-    @Input() panelStyle: any;
+    @Input() panelStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the element.
      * @group Props
@@ -555,9 +558,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Item size of item to be virtual scrolled.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get itemSize(): number | undefined {
         return this._itemSize;
@@ -568,9 +571,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     _itemSize: number | undefined;
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Whether to automatically manage layering.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get autoZIndex(): boolean | undefined {
         return this._autoZIndex;
@@ -581,9 +584,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     _autoZIndex: boolean | undefined;
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Base zIndex value to use in layering.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get baseZIndex(): number | undefined {
         return this._baseZIndex;
@@ -594,9 +597,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     _baseZIndex: number | undefined;
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get showTransitionOptions(): string | undefined {
         return this._showTransitionOptions;
@@ -607,9 +610,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     _showTransitionOptions: string | undefined;
     /**
-     * @deprecated since v14.2.0, use overlayOptions property instead.
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v14.2.0, use overlayOptions property instead.
      */
     @Input() get hideTransitionOptions(): string | undefined {
         return this._hideTransitionOptions;
@@ -997,7 +1000,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     /**
      * Callback to invoke on filter reset.
-     * @group Methods
+     * @group Method
      */
     public resetFilter(): void {
         this._filterValue = null;
@@ -1014,7 +1017,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             if (this.group) {
-                this.selectedOption = this.optionsToDisplay[0].items[0];
+                this.selectedOption = this.getOptionGroupChildren(this.optionsToDisplay[0])[0];
             } else {
                 this.selectedOption = this.optionsToDisplay[0];
             }
@@ -1082,7 +1085,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     /**
      * Displays the panel.
-     * @group Methods
+     * @group Method
      */
     public show() {
         this.overlayVisible = true;
@@ -1127,7 +1130,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     /**
      * Hides the panel.
-     * @group Methods
+     * @group Method
      */
     public hide() {
         this.overlayVisible = false;
@@ -1313,6 +1316,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             case 27:
             case 9:
                 this.hide();
+                event.preventDefault();
                 break;
 
             //search item based on keyboard input
@@ -1522,7 +1526,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
     /**
      * Applies focus.
-     * @group Methods
+     * @group Method
      */
     public focus(): void {
         this.applyFocus();

@@ -35,13 +35,16 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { RippleModule } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
-
+import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
+/**
+ * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+ * @group Components
+ */
 @Component({
     selector: 'p-fileUpload',
     template: `
-        <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'">
-            <div class="p-fileupload-buttonbar">
+        <div [ngClass]="'p-fileupload p-fileupload-advanced p-component'" [ngStyle]="style" [class]="styleClass" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [attr.data-pc-section]="'root'">
+            <div class="p-fileupload-buttonbar" [attr.data-pc-section]="'buttonbar'">
                 <span
                     class="p-button p-component p-fileupload-choose"
                     [ngClass]="{ 'p-focus': focus, 'p-disabled': disabled || isChooseDisabled() }"
@@ -52,32 +55,33 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     (keydown.enter)="choose()"
                     tabindex="0"
                     [class]="chooseStyleClass"
+                    [attr.data-pc-section]="'choosebutton'"
                 >
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" />
-                    <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon"></span>
+                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [attr.data-pc-section]="'input'" />
+                    <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                     <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon *ngIf="!chooseIconTemplate" />
-                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left">
+                        <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
                     </ng-container>
-                    <span class="p-button-label">{{ chooseButtonLabel }}</span>
+                    <span class="p-button-label" [attr.data-pc-section]="'choosebuttonlabel'">{{ chooseButtonLabel }}</span>
                 </span>
 
                 <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
-                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon"></span>
+                    <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!uploadIcon">
                         <UploadIcon *ngIf="!uploadIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                        <span *ngIf="uploadIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="uploadIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </p-button>
                 <p-button *ngIf="!auto && showCancelButton" type="button" [label]="cancelButtonLabel" (onClick)="clear()" [disabled]="!hasFiles() || uploading" [styleClass]="cancelStyleClass">
-                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
+                    <span *ngIf="cancelIcon" [ngClass]="cancelIcon" class="p-button-icon p-button-icon-left"></span>
                     <ng-container *ngIf="!cancelIcon">
-                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" />
-                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left">
+                        <TimesIcon *ngIf="!cancelIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-hidden]="true" />
+                        <span *ngIf="cancelIconTemplate" class="p-button-icon p-button-icon-left" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="cancelIconTemplate"></ng-template>
                         </span>
                     </ng-container>
@@ -85,7 +89,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
 
                 <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
             </div>
-            <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <div #content class="p-fileupload-content" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'">
                 <p-progressBar [value]="progress" [showValue]="false" *ngIf="hasFiles()"></p-progressBar>
 
                 <p-messages [value]="msgs" [enableService]="false"></p-messages>
@@ -111,7 +115,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files }"></ng-container>
             </div>
         </div>
-        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'">
+        <div class="p-fileupload p-fileupload-basic p-component" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
             <p-messages [value]="msgs" [enableService]="false"></p-messages>
             <span
                 [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
@@ -121,6 +125,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 (keydown)="onBasicKeydown($event)"
                 tabindex="0"
                 pRipple
+                [attr.data-pc-section]="'choosebutton'"
             >
                 <ng-container *ngIf="hasFiles() && !auto; else chooseSection">
                     <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
@@ -134,14 +139,14 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 <ng-template #chooseSection>
                     <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
                     <ng-container *ngIf="!chooseIcon">
-                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" />
-                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi">
+                        <PlusIcon [styleClass]="'p-button-icon p-button-icon-left pi'" *ngIf="!chooseIconTemplate" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'" />
+                        <span *ngIf="chooseIconTemplate" class="p-button-icon p-button-icon-left pi" [attr.aria-hidden]="true" [attr.data-pc-section]="'uploadicon'">
                             <ng-template *ngTemplateOutlet="chooseIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </ng-template>
-                <span *ngIf="basicButtonLabel" class="p-button-label">{{ basicButtonLabel }}</span>
-                <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" />
+                <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
+                <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" [attr.data-pc-section]="'input'" />
             </span>
         </div>
     `,
@@ -174,7 +179,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() multiple: boolean | undefined;
     /**
-     * Pattern to restrict the allowed file types such as 'image/*'.
+     * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
      * @group Props
      */
     @Input() accept: string | undefined;
@@ -325,29 +330,28 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     @Input() chooseStyleClass: string | undefined;
     /**
      * Callback to invoke before file upload is initialized.
-     * @param {FileBeforeUploadEvent} event - upload event.
+     * @param {FileBeforeUploadEvent} event - Custom upload event.
      * @group Emits
      */
     @Output() onBeforeUpload: EventEmitter<FileBeforeUploadEvent> = new EventEmitter<FileBeforeUploadEvent>();
     /**
      * An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.
-     * @param {FileSendEvent} event - send event.
+     * @param {FileSendEvent} event - Custom send event.
      * @group Emits
      */
     @Output() onSend: EventEmitter<FileSendEvent> = new EventEmitter<FileSendEvent>();
     /**
      * Callback to invoke when file upload is complete.
-     * @param {FileUploadEvent} event - upload event.
+     * @param {FileUploadEvent} event - Custom upload event.
      * @group Emits
      */
     @Output() onUpload: EventEmitter<FileUploadEvent> = new EventEmitter<FileUploadEvent>();
     /**
      * Callback to invoke if file upload fails.
-     * @param {File[]} files - Files.
-     * @param {ErrorEvent} error - Error event.
+     * @param {FileUploadErrorEvent} event - Custom error event.
      * @group Emits
      */
-    @Output() onError: EventEmitter<{ files: File[]; error?: ErrorEvent }> = new EventEmitter<{ files: File[]; error?: ErrorEvent }>();
+    @Output() onError: EventEmitter<FileUploadErrorEvent> = new EventEmitter<FileUploadErrorEvent>();
     /**
      * Callback to invoke when files in queue are removed without uploading using clear all button.
      * @param {Event} event - Browser event.
@@ -374,7 +378,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     @Output() onProgress: EventEmitter<FileProgressEvent> = new EventEmitter<FileProgressEvent>();
     /**
      * Callback to invoke in custom upload mode to upload the files manually.
-     * @param {FileUploadHandlerEvent} event - upload handler event.
+     * @param {FileUploadHandlerEvent} event - Upload handler event.
      * @group Emits
      */
     @Output() uploadHandler: EventEmitter<FileUploadHandlerEvent> = new EventEmitter<FileUploadHandlerEvent>();
@@ -549,7 +553,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
-        if (this.fileLimit && this.mode == 'advanced') {
+        if (this.fileLimit) {
             this.checkFileLimit();
         }
 
@@ -581,7 +585,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     validate(file: File): boolean {
-        this.msgs = [];
+        this.msgs = this.msgs || [];
         if (this.accept && !this.isFileTypeValid(file)) {
             this.msgs.push({
                 severity: 'error',
@@ -637,7 +641,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
     /**
      * Uploads the selected files.
-     * @group Methods
+     * @group Method
      */
     upload() {
         if (this.customUpload) {
@@ -717,7 +721,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
     /**
      * Clears the files list.
-     * @group Methods
+     * @group Method
      */
     clear() {
         this.files = [];
@@ -746,15 +750,13 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     checkFileLimit() {
-        this.msgs = [];
+        this.msgs ??= [];
         if (this.isFileLimitExceeded()) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
                 detail: this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())
             });
-        } else {
-            this.msgs = [];
         }
     }
 
@@ -825,15 +827,18 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     formatSize(bytes: number) {
-        if (bytes == 0) {
+        const k = 1024;
+        const dm = 3;
+        const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        if (bytes === 0) {
             return '0 B';
         }
-        let k = 1000,
-            dm = 3,
-            sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
 
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
+
+        return `${formattedSize} ${sizes[i]}`;
     }
 
     onBasicUploaderClick() {

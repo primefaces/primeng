@@ -25,11 +25,8 @@ import { ColumnToggleDoc } from '../../doc/treetable/columntoggledoc';
 import { ConditionalStyleDoc } from '../../doc/treetable/conditionalstyledoc';
 import { ContextMenuDoc } from '../../doc/treetable/contextmenudoc';
 import { StyleDoc } from '../../doc/treetable/styledoc';
-import { PropsDoc } from '../../doc/treetable/propsdoc';
-import { EventsDoc } from '../../doc/treetable/eventsdoc';
-import { MethodsDoc } from '../../doc/treetable/methodsdoc';
 import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
-import { TemplatesDoc } from '../../doc/treetable/templatesdoc';
+import { PaginatorLocaleDoc } from '../../doc/treetable/paginatorlocaledoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -64,6 +61,11 @@ export class TreeTableDemo {
                     id: 'paginatorbasic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
+                },
+                {
+                    id: 'paginatorlocale',
+                    label: 'Locale',
+                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginatortemplate',
@@ -200,29 +202,6 @@ export class TreeTableDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }

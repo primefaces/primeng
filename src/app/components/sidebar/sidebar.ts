@@ -29,7 +29,10 @@ import { ZIndexUtils } from 'primeng/utils';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * Sidebar is a panel component displayed as an overlay at the edges of the screen.
+ * @group Components
+ */
 @Component({
     selector: 'p-sidebar',
     template: `
@@ -51,22 +54,35 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [ngStyle]="style"
             [class]="styleClass"
             role="complementary"
+            [attr.data-pc-name]="'sidebar'"
+            [attr.data-pc-section]="'root'"
             [attr.aria-modal]="modal"
+            (keydown)="onKeyDown($event)"
         >
-            <div class="p-sidebar-header">
+            <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" *ngIf="showCloseIcon" pRipple>
-                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" />
-                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon">
+                <button
+                    type="button"
+                    class="p-sidebar-close p-sidebar-icon p-link"
+                    (click)="close($event)"
+                    (keydown.enter)="close($event)"
+                    [attr.aria-label]="ariaCloseLabel"
+                    *ngIf="showCloseIcon"
+                    pRipple
+                    [attr.data-pc-section]="'closebutton'"
+                    [attr.data-pc-group-section]="'iconcontainer'"
+                >
+                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </span>
                 </button>
             </div>
-            <div class="p-sidebar-content">
+            <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <div class="p-sidebar-footer">
+            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </div>
@@ -94,7 +110,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: any;
+    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the component.
      * @group Props
@@ -193,18 +209,18 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when dialog is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter();
+    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when dialog visibility is changed.
-     * @param {boolean} value - New value.
+     * @param {boolean} value - Visible value.
      * @group Emits
      */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     initialized: boolean | undefined;
 
@@ -261,6 +277,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
             }
         });
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.code === 'Escape') {
+            this.hide();
+        }
     }
 
     show() {

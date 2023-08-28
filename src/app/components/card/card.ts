@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-
+/**
+ * Card is a flexible container component.
+ * @group Components
+ */
 @Component({
     selector: 'p-card',
     template: `
-        <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'card'">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>

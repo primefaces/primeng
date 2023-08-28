@@ -22,7 +22,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];
@@ -44,7 +44,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-basic-demo.html'
 })
 export class MessagesBasicDemo implements OnInit {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];

@@ -3,6 +3,7 @@ import { SortMeta } from './sortmeta';
 
 /**
  * Represents an event object for lazy loading data.
+ * @group Interface
  */
 export interface LazyLoadEvent {
     /**

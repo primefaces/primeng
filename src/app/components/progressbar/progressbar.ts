@@ -1,23 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-
+/**
+ * ProgressBar is a process status indicator.
+ * @group Components
+ */
 @Component({
     selector: 'p-progressBar',
     template: `
         <div
+            role="progressbar"
             [class]="styleClass"
             [ngStyle]="style"
-            role="progressbar"
-            aria-valuemin="0"
+            [attr.aria-valuemin]="0"
             [attr.aria-valuenow]="value"
-            aria-valuemax="100"
+            [attr.aria-valuemax]="100"
+            [attr.data-pc-name]="'progressbar'"
+            [attr.data-pc-section]="'root'"
             [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
         >
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color">
-                <div *ngIf="showValue" class="p-progressbar-label" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
+            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+                <div *ngIf="showValue" class="p-progressbar-label" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
             </div>
-            <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container">
-                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color"></div>
+            <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container" [attr.data-pc-section]="'container'">
+                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
             </div>
         </div>
     `,

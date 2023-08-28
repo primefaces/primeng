@@ -37,7 +37,10 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
-
+/**
+ * Dialog is a container to display content in an overlay window.
+ * @group Components
+ */
 @Component({
     selector: 'p-dialog',
     template: `
@@ -70,17 +73,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
                 role="dialog"
-                [attr.aria-labelledby]="id + '-label'"
+                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                        <button *ngIf="maximizable" role="button" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                             <ng-container *ngIf="!maximizeIcon">
                                 <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
@@ -149,9 +153,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() resizable: boolean = true;
     /**
-     * @deprecated
      * Defines the left offset of dialog.
      * @group Props
+     * @deprecated positionLeft property is deprecated.
      */
     @Input() get positionLeft(): number {
         return 0;
@@ -160,9 +164,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         console.log('positionLeft property is deprecated.');
     }
     /**
-     * @deprecated
      * Defines the top offset of dialog.
      * @group Props
+     * @deprecated positionTop property is deprecated.
      */
     @Input() get positionTop(): number {
         return 0;
@@ -206,9 +210,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() closable: boolean = true;
     /**
-     * @deprecated
      * Defines if the component is responsive.
      * @group Props
+     * @deprecated Responsive property is deprecated.
      */
     @Input() get responsive(): boolean {
         return false;
@@ -217,7 +221,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         console.log('Responsive property is deprecated.');
     }
     /**
-     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
     @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
@@ -242,9 +246,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() showHeader: boolean = true;
     /**
-     * @deprecated
      * Defines the breakpoint of the component responsive.
      * @group Props
+     * @deprecated Breakpoint property is not utilized and deprecated. Use breakpoints or CSS media queries instead.
      */
     @Input() get breakpoint(): number {
         return 649;
@@ -331,10 +335,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Specifies the visibility of the dialog.
      * @group Props
      */
-    @Input() get visible(): any {
+    @Input() get visible(): boolean {
         return this._visible;
     }
-    set visible(value: any) {
+    set visible(value: boolean) {
         this._visible = value;
 
         if (this._visible && !this.maskVisible) {
@@ -450,7 +454,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     minimizeIconTemplate: Nullable<TemplateRef<any>>;
 
-    _visible: boolean | undefined;
+    _visible: boolean = false;
 
     maskVisible: boolean | undefined;
 
@@ -550,6 +554,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
+    }
+
     focus() {
         let focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
@@ -629,7 +637,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
-                            .p-dialog[${this.id}] {
+                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
                             }
                         }

@@ -56,9 +56,9 @@ export class LazyLoadDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    virtualProducts: Product[];
+    virtualProducts!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -172,9 +172,9 @@ import { ProductService } from 'src/service/productservice';
     templateUrl: './virtual-scroller-lazy-load-demo.html'
 })
 export class VirtualScrollerLazyLoadDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
-    virtualProducts: Product[];
+    virtualProducts!: Product[];
 
     constructor(private productService: ProductService) {}
 

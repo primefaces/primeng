@@ -70,7 +70,7 @@ export class SubheaderGroupingDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -81,12 +81,12 @@ export class SubheaderGroupingDoc implements OnInit {
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -95,7 +95,7 @@ export class SubheaderGroupingDoc implements OnInit {
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -217,7 +217,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-subheader-grouping-demo.html'
 })
 export class TableSubheaderGroupingDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -227,12 +227,12 @@ export class TableSubheaderGroupingDemo implements OnInit{
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -241,7 +241,7 @@ export class TableSubheaderGroupingDemo implements OnInit{
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

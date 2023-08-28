@@ -38,11 +38,8 @@ import { ConditionalStyleDoc } from './conditionalstyledoc';
 import { ContextMenuDoc } from './contextmenudoc';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { StyleDoc } from './styledoc';
-import { PropsDoc } from './propsdoc';
-import { EventsDoc } from './eventsdoc';
-import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
-import { TemplatesDoc } from './templatesdoc';
+import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule],
@@ -74,11 +71,8 @@ import { TemplatesDoc } from './templatesdoc';
         ConditionalStyleDoc,
         ContextMenuDoc,
         StyleDoc,
-        PropsDoc,
-        EventsDoc,
-        MethodsDoc,
         AccessibilityDoc,
-        TemplatesDoc
+        PaginatorLocaleDoc
     ]
 })
 export class TreeTableDocModule {}

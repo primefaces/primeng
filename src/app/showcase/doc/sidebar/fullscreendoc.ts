@@ -21,7 +21,7 @@ export class FullScreenDoc {
 
     @Input() title: string;
 
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-full-screen-demo.html'
 })
 export class SidebarFullScreenDemo {
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 }`
     };
 }

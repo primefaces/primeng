@@ -5,11 +5,11 @@ import { Code } from '../../domain/code';
     selector: 'template-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>For custom content support define a ng-template where the local ng-template variable refers to an option in the options collection.</p>
+            <p>For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template variable refers to an option in the options collection.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
-                <ng-template let-item>
+                <ng-template let-item pTemplate>
                     <i [class]="item.icon"></i>
                 </ng-template>
             </p-selectButton>
@@ -34,7 +34,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `
 <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
-    <ng-template let-item>
+    <ng-template let-item pTemplate>
         <i [class]="item.icon"></i>
     </ng-template>
 </p-selectButton>`,
@@ -42,7 +42,7 @@ export class TemplateDoc {
         html: `
 <div class="card flex justify-content-center">
     <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
-        <ng-template let-item>
+        <ng-template let-item pTemplate>
             <i [class]="item.icon"></i>
         </ng-template>
     </p-selectButton>

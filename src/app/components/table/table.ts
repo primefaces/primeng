@@ -39,7 +39,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -71,6 +71,7 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 
 @Injectable()
 export class TableService {
@@ -112,7 +113,10 @@ export class TableService {
         this.columnsSource.next(columns);
     }
 }
-
+/**
+ * Table displays data in tabular format.
+ * @group Components
+ */
 @Component({
     selector: 'p-table',
     template: `
@@ -156,6 +160,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -262,6 +267,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
+                [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -526,9 +532,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() scrollable: boolean | undefined;
     /**
-     * @deprecated Property is obselete since v14.2.0.
      * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
      * @group Props
+     * @deprecated Property is obselete since v14.2.0.
      */
     @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
     /**
@@ -567,16 +573,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() frozenWidth: string | undefined;
     /**
-     * @deprecated table is always responsive with scrollable behavior.
      * Defines if the table is responsive.
      * @group Props
+     * @deprecated table is always responsive with scrollable behavior.
      */
     @Input() get responsive(): boolean | undefined | null {
         return this._responsive;
     }
     set responsive(val: boolean | undefined | null) {
         this._responsive = val;
-        console.warn('responsive propery is deprecated as table is always responsive with scrollable behavior.');
+        console.warn('responsive property is deprecated as table is always responsive with scrollable behavior.');
     }
     _responsive: boolean | undefined | null;
     /**
@@ -660,7 +666,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() editMode: 'cell' | 'row' = 'cell';
     /**
-     * One or more field names to use in row grouping.
+     * Field name to use in row grouping.
      * @group Props
      */
     @Input() groupRowsBy: any;
@@ -679,6 +685,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * @group Props
      */
     @Input() breakpoint: string = '960px';
+    /**
+     * Locale to be used in paginator formatting.
+     * @group Props
+     */
+    @Input() paginatorLocale: string | undefined;
     /**
      * No description available.
      * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
@@ -788,10 +799,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() selectAllChange: EventEmitter<TableSelectAllChangeEvent> = new EventEmitter<TableSelectAllChangeEvent>();
     /**
      * Callback to invoke on selection changed.
-     * @param {*} any - selected data.
+     * @param {any | null} value - selected data.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() selectionChange: EventEmitter<any | null> = new EventEmitter<any | null>();
     /**
      * Callback to invoke when a row is selected.
      * @param {TableRowSelectEvent} event - custom select event.
@@ -890,10 +901,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() onHeaderCheckboxToggle: EventEmitter<TableHeaderCheckboxToggleEvent> = new EventEmitter<TableHeaderCheckboxToggleEvent>();
     /**
      * A function to implement custom sorting, refer to sorting section for details.
-     * @param {*} any - sort meta.
+     * @param {any} any - sort meta.
      * @group Emits
      */
-    @Output() sortFunction: EventEmitter<any> = new EventEmitter();
+    @Output() sortFunction: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke on pagination.
      * @param {number} number - first element.
@@ -902,10 +913,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     @Output() firstChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke on rows change.
-     * @param {*} array - rows data.
+     * @param {number} number - Row count.
      * @group Emits
      */
-    @Output() rowsChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output() rowsChange: EventEmitter<number> = new EventEmitter<number>();
     /**
      * Callback to invoke table state is saved.
      * @param {TableState} object - table state.
@@ -939,9 +950,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
     /**
-     * @deprecated use virtualScrollItemSize property instead.
      * Indicates the height of rows to be scrolled.
      * @group Props
+     * @deprecated use virtualScrollItemSize property instead.
      */
     @Input() get virtualRowHeight(): number {
         return this._virtualRowHeight;
@@ -1380,6 +1391,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this.filteredValue || this.value || [];
     }
 
+    private _initialColWidths: number[];
+
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
@@ -1815,7 +1828,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.lazy && this.paginator) {
             (rangeStart as number) -= <number>this.first;
-            (rangeStart as number) -= <number>this.first;
         }
 
         let rangeRowsData = [];
@@ -2210,8 +2222,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - export options.
-     * @group Methods
+     * @param {Object} object - Export options.
+     * @group Method
      */
     public exportCSV(options?: any) {
         let data;
@@ -2295,7 +2307,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Resets scroll to top.
-     * @group Methods
+     * @group Method
      */
     public resetScrollTop() {
         if (this.virtualScroll) this.scrollToVirtualIndex(0);
@@ -2304,7 +2316,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     /**
      * Scrolls to given index when using virtual scroll.
      * @param {number} index - index of the element.
-     * @group Methods
+     * @group Method
      */
     public scrollToVirtualIndex(index: number) {
         this.scroller && this.scroller.scrollToIndex(index);
@@ -2312,7 +2324,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     /**
      * Scrolls to given index.
      * @param {ScrollToOptions} options - scroll options.
-     * @group Methods
+     * @group Method
      */
     public scrollTo(options: any) {
         if (this.virtualScroll) {
@@ -2470,7 +2482,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
+                this._initialColWidths = this._totalTableWidth();
                 let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
@@ -2489,18 +2503,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
     }
 
-    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
-        let widths: any[] = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datatable-thead');
+    private _totalTableWidth(): number[] {
+        let widths = [];
+        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+
+        return widths;
+    }
+
+    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
 
         this.destroyStyleElement();
         this.createStyleElement();
 
         let innerHTML = '';
-        widths.forEach((width, index) => {
+        width.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
@@ -2511,7 +2531,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-
         this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
@@ -3997,7 +4016,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 
     @HostListener('keydown.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && !event.shiftKey) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);
             }
@@ -5499,7 +5518,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountUpAltIcon,
         SortAmountDownIcon,
         CheckIcon,
-        FilterIcon
+        FilterIcon,
+        FilterSlashIcon
     ],
     exports: [
         Table,

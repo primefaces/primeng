@@ -2,7 +2,7 @@
     overflow-x: auto;
 }
 
-.p-breadcrumb ul {
+.p-breadcrumb .p-breadcrumb-list {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -17,7 +17,13 @@
 
 .p-breadcrumb .p-menuitem-link {
     text-decoration: none;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.p-breadcrumb .p-menuitem-separator {
+    display: flex;
+    align-items: center;
 }
 
 .p-breadcrumb::-webkit-scrollbar {

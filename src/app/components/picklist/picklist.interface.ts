@@ -2,6 +2,7 @@ import { PickList } from './picklist';
 import { TemplateRef } from '@angular/core';
 /**
  * Callbacks to invoke on filter.
+ * @group Interface
  */
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;
@@ -11,6 +12,7 @@ export interface PickListFilterOptions {
 /**
  * Custom move to source event.
  * @see {@link PickList.onMoveToSource}
+ * @group Events
  */
 export interface PickListMoveToSourceEvent {
     /**
@@ -22,36 +24,41 @@ export interface PickListMoveToSourceEvent {
  * Custom move all to source event.
  * @see {@link PickList.onMoveAllToSource}
  * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListMoveAllToSourceEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move all to target event.
  * @see {@link PickList.onMoveAllToTarget}
  * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListMoveAllToTargetEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move to target event.
  * @see {@link PickList.onMoveToTarget}
  * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListMoveToTargetEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move source reorder event.
  * @see {@link PickList.onSourceReorder}
  * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListSourceReorderEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom move target reorder event.
  * @see {@link PickList.onTargetReorder}
  * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListTargetReorderEvent extends PickListMoveToSourceEvent {}
 /**
  * Custom source select event.
  * @see {@link PickList.onSourceSelect}
- * @extends {PickListMoveToSourceEvent}
+ * @group Events
  */
 export interface PickListSourceSelectEvent {
     /**
@@ -67,11 +74,13 @@ export interface PickListSourceSelectEvent {
  * Custom target select event.
  * @see {@link PickList.onTargetSelect}
  * @extends {PickListSourceSelectEvent}
+ * @group Events
  */
 export interface PickListTargetSelectEvent extends PickListSourceSelectEvent {}
 /**
  * Custom source filter event.
  * @see {@link PickList.onSourceFilter}
+ * @group Events
  */
 export interface PickListSourceFilterEvent {
     /**
@@ -86,6 +95,8 @@ export interface PickListSourceFilterEvent {
 /**
  * Custom target filter event.
  * @see {@link PickList.onTargetFilter}
+ * @extends {PickListSourceFilterEvent}
+ * @group Events
  */
 export interface PickListTargetFilterEvent extends PickListSourceFilterEvent {}
 /**
@@ -109,11 +120,11 @@ export interface PickListTemplates {
     /**
      * Custom source header template.
      */
-    sourceHeader: TemplateRef<any>;
+    sourceHeader(): TemplateRef<any>;
     /**
      * Custom target header template.
      */
-    targetHeader: TemplateRef<any>;
+    targetHeader(): TemplateRef<any>;
     /**
      * Custom source filter template.
      */
@@ -135,35 +146,35 @@ export interface PickListTemplates {
     /**
      * Custom source list empty message template.
      */
-    emptymessagesource: TemplateRef<any>;
+    emptymessagesource(): TemplateRef<any>;
     /**
      * Custom source list empty filter message template.
      */
-    emptyfiltermessagesource: TemplateRef<any>;
+    emptyfiltermessagesource(): TemplateRef<any>;
     /**
      * Custom target list empty message template.
      */
-    emptymessagetarget: TemplateRef<any>;
+    emptymessagetarget(): TemplateRef<any>;
     /**
      * Custom target list empty filter message template.
      */
-    emptyfiltermessagetarget: TemplateRef<any>;
+    emptyfiltermessagetarget(): TemplateRef<any>;
     /**
      * Custom move up icon template.
      */
-    moveupicon: TemplateRef<any>;
+    moveupicon(): TemplateRef<any>;
     /**
      * Custom move top icon template.
      */
-    movetopicon: TemplateRef<any>;
+    movetopicon(): TemplateRef<any>;
     /**
      * Custom move down icon template.
      */
-    movedownicon: TemplateRef<any>;
+    movedownicon(): TemplateRef<any>;
     /**
      * Custom move bottom icon template.
      */
-    movebottomicon: TemplateRef<any>;
+    movebottomicon(): TemplateRef<any>;
     /**
      * Custom move to target icon template.
      */
@@ -203,9 +214,9 @@ export interface PickListTemplates {
     /**
      * Custom target filter icon template.
      */
-    targetfiltericon: TemplateRef<any>;
+    targetfiltericon(): TemplateRef<any>;
     /**
      * Custom source filter icon template.
      */
-    sourcefiltericon: TemplateRef<any>;
+    sourcefiltericon(): TemplateRef<any>;
 }

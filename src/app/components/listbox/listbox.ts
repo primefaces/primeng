@@ -35,7 +35,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Listbox),
     multi: true
 };
-
+/**
+ * ListBox is used to select one or more values from a list of items.
+ * @group Components
+ */
 @Component({
     selector: 'p-listbox',
     template: `
@@ -202,10 +205,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Input() filterBy: string | undefined;
     /**
-     * Defines how the items are filtered, valid values are "contains" (default) "startsWith", "endsWith", "equals", "notEquals", "in", "lt", "lte", "gt" and "gte".
+     * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: string = 'contains';
+    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props

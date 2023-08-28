@@ -1,8 +1,9 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, NgModule, Output, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ObjectUtils } from 'primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -10,7 +11,10 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => SelectButton),
     multi: true
 };
-
+/**
+ * SelectButton is used to choose single or multiple items from a list using buttons.
+ * @group Components
+ */
 @Component({
     selector: 'p-selectButton',
     template: `
@@ -37,7 +41,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <span class="p-button-label">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                    <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
                 </ng-template>
             </div>
         </div>
@@ -119,7 +123,11 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
-    @ContentChild(TemplateRef) itemTemplate!: TemplateRef<any>;
+    @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
+
+    public get selectButtonTemplate(): TemplateRef<any> {
+        return this.itemTemplate?.template;
+    }
 
     value: any;
 
@@ -225,8 +233,8 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [SelectButton],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })
 export class SelectButtonModule {}

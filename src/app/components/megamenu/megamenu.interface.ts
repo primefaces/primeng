@@ -8,13 +8,13 @@ export interface MegaMenuTemplates {
     /**
      * Custom template of start.
      */
-    start: TemplateRef<any> | null;
+    start(): TemplateRef<any>;
     /**
      * Custom template of submenuicon.
      */
-    submenuicon: TemplateRef<any> | null;
+    submenuicon(): TemplateRef<any>;
     /**
      * Custom template of end.
      */
-    end: TemplateRef<any> | null;
+    end(): TemplateRef<any>;
 }

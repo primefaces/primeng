@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { MessageService, TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
@@ -23,7 +23,7 @@ export class LazyDoc implements OnInit {
 
     loading: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -35,7 +35,7 @@ export class LazyDoc implements OnInit {
         }, 1000);
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         if (event.node) {
             this.loading = true;
             setTimeout(() => {
@@ -70,7 +70,7 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeLazyDemo implements OnInit {
     loading: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
@@ -82,7 +82,7 @@ export class TreeLazyDemo implements OnInit {
         }, 1000);
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         if (event.node) {
             this.loading = true;
             setTimeout(() => {

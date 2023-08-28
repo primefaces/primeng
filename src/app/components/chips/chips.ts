@@ -13,7 +13,10 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Chips),
     multi: true
 };
-
+/**
+ * Chips groups a collection of contents in tabs.
+ * @group Components
+ */
 @Component({
     selector: 'p-chips',
     template: `
@@ -122,12 +125,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: any;
+    @Input() inputStyle: { [klass: string]: any } | null | undefined;
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: any;
+    @Input() inputStyleClass: string | undefined;
     /**
      * Whether to add an item on tab key press.
      * @group Props
@@ -142,7 +145,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Separator char to add an item when pressed in addition to the enter key.
      * @group Props
      */
-    @Input() separator: string | undefined;
+    @Input() separator: string | RegExp | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
@@ -150,31 +153,31 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     @Input() showClear: boolean = false;
     /**
      * Callback to invoke on chip add.
-     * @param {ChipsAddEvent} event - Custom event.
+     * @param {ChipsAddEvent} event - Custom chip add event.
      * @group Emits
      */
     @Output() onAdd: EventEmitter<ChipsAddEvent> = new EventEmitter<ChipsAddEvent>();
     /**
      * Callback to invoke on chip remove.
-     * @param {ChipsRemoveEvent} event - Custom event.
+     * @param {ChipsRemoveEvent} event - Custom chip remove event.
      * @group Emits
      */
     @Output() onRemove: EventEmitter<ChipsRemoveEvent> = new EventEmitter<ChipsRemoveEvent>();
     /**
      * Callback to invoke on focus of input field.
-     * @param {Event} event - Focus event
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on blur of input field.
-     * @param {Event} event - Blur event
+     * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on chip clicked.
-     * @param {ChipsClickEvent} event - Custom event
+     * @param {ChipsClickEvent} event - Custom chip click event.
      * @group Emits
      */
     @Output() onChipClick: EventEmitter<ChipsClickEvent> = new EventEmitter<ChipsClickEvent>();
@@ -182,7 +185,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Callback to invoke on clear token clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('inputtext') inputViewChild!: ElementRef;
 
@@ -205,6 +208,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     focus: Nullable<boolean>;
 
     filled: Nullable<boolean>;
+
+    private get isValueMaxLimited(): boolean {
+        return this.max && this.value && this.max === this.value.length;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
@@ -243,7 +250,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     onPaste(event: any) {
         if (!this.disabled) {
             if (this.separator) {
-                let pastedData = (event.clipboardData || (this.document.defaultView as any)['clipboardData']).getData('Text');
+                const pastedData: string = (event.clipboardData || (this.document.defaultView as any)['clipboardData']).getData('Text');
                 pastedData.split(this.separator).forEach((val: any) => {
                     this.addItem(event, val, true);
                 });
@@ -338,8 +345,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     addItem(event: Event, item: string, preventDefault: boolean): void {
         this.value = this.value || [];
+
         if (item && item.trim().length) {
-            if (this.allowDuplicate || this.value.indexOf(item) === -1) {
+            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isValueMaxLimited) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -348,6 +356,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 });
             }
         }
+
         this.updateFilledState();
         this.updateMaxedOut();
         this.inputViewChild.nativeElement.value = '';
@@ -361,6 +370,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = null;
         this.updateFilledState();
         this.onModelChange(this.value);
+        this.updateMaxedOut();
         this.onClear.emit();
     }
 
@@ -405,7 +415,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     updateMaxedOut(): void {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.max && this.value && this.max === this.value.length) {
+            if (this.isValueMaxLimited) {
                 // Calling `blur` is necessary because firefox does not call `onfocus` events
                 // for disabled inputs, unlike chromium browsers.
                 this.inputViewChild.nativeElement.blur();

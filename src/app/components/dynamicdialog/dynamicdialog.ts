@@ -27,7 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
@@ -67,17 +67,19 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 *ngIf="visible"
                 [style.width]="config.width"
                 [style.height]="config.height"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-modal]="true"
             >
                 <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
-                    <span class="p-dialog-title">{{ config.header }}</span>
+                    <span class="p-dialog-title" [id]="ariaLabelledBy + '_title'">{{ config.header }}</span>
                     <div class="p-dialog-header-icons">
                         <button *ngIf="config.maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                             <WindowMaximizeIcon *ngIf="!maximized && !maximizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
                             <WindowMinimizeIcon *ngIf="maximized && !minimizeIcon" [styleClass]="'p-dialog-header-maximize-icon'" />
                         </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" role="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false" [attr.aria-label]="closeAriaLabel">
                             <TimesIcon [styleClass]="'p-dialog-header-close-icon'" />
                         </button>
                     </div>
@@ -119,6 +121,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     lastPageX: number | undefined;
 
     lastPageY: number | undefined;
+
+    ariaLabelledBy: string | undefined;
 
     @ViewChild(DynamicDialogContent) insertionPoint: Nullable<DynamicDialogContent>;
 
@@ -196,6 +200,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    get header() {
+        return this.config.header;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -211,7 +219,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
+        this.ariaLabelledBy = this.getAriaLabelledBy();
         this.cd.detectChanges();
+    }
+
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
     loadChildComponent(componentType: Type<any>) {
@@ -341,10 +354,19 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus() {
-        const focusable = DomHandler.getFocusableElements(this.container as HTMLDivElement);
-        if (focusable && focusable.length > 0) {
+        const autoFocusElement = DomHandler.findSingle(this.container, '[autofocus]');
+        if (autoFocusElement) {
             this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusable[0].focus(), 5);
+                setTimeout(() => autoFocusElement.focus(), 5);
+            });
+
+            return;
+        }
+
+        const focusableElements = DomHandler.getFocusableElements(this.container);
+        if (focusableElements && focusableElements.length > 0) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusableElements[0].focus(), 5);
             });
         }
     }
@@ -363,6 +385,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     initResize(event: MouseEvent) {
         if (this.config.resizable) {
+            if (!this.documentResizeListener) {
+                this.bindDocumentResizeListeners();
+            }
+
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;

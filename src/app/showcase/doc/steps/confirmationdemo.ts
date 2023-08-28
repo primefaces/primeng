@@ -70,6 +70,6 @@ export class ConfirmationDemo implements OnInit {
     }
 
     prevPage() {
-        this.router.navigate(['steps/payment']);
+        this.router.navigate(['steps/payment'], { fragment: 'routing' });
     }
 }

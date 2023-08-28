@@ -582,6 +582,10 @@
                     "href": "https://twitter.com/prime_ng"
                 },
                 {
+                    "name": "Partners",
+                    "routerLink": "/partners"
+                },
+                {
                     "name": "Newsletter",
                     "href": "https://www.primefaces.org/newsletter"
                 },

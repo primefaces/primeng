@@ -20,7 +20,7 @@ export class RegexpSeperatorDoc {
 
     separatorExp: RegExp = /,| /;
 
-    values: string[];
+    values: string[] | undefined;
 
     code: Code = {
         basic: `
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
     templateUrl: './chips-reg-exp-seperator-demo.html'
 })
 export class ChipsRegExpSeperatorDemo {
-    values: string[];
+    values: string[] | undefined;
 
     separatorExp: RegExp = /,| /;
 }`

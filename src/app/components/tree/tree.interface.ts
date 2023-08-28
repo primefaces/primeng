@@ -1,11 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Tree } from './tree';
-import { ScrollerOptions } from 'primeng/scroller';
+import { ScrollerOptions } from 'primeng/api';
 
 /**
  * Custom node select event.
  * @see {@link Tree.onNodeSelect}
+ * @group Events
  */
 export interface TreeNodeSelectEvent {
     /**
@@ -15,35 +16,40 @@ export interface TreeNodeSelectEvent {
     /**
      * Node instance.
      */
-    node: TreeNode;
+    node: TreeNode<any>;
 }
 /**
  * Custom node unselect event.
  * @see {@link Tree.onNodeUnSelect}
  * @extends {TreeNodeSelectEvent}
+ * @group Events
  */
 export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node expand event.
  * @see {@link Tree.onNodeExpand}
  * @extends {TreeNodeSelectEvent}
+ * @group Events
  */
 export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node collapse event.
  * @see {@link Tree.onNodeCollapse}
  * @extends {TreeNodeSelectEvent}
+ * @group Events
  */
 export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
 /**
  * Custom context menu select event.
  * @see {@link Tree.onNodeContextMenuSelect}
  * @extends {TreeNodeSelectEvent}
+ * @group Events
  */
 export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
 /**
  * Custom node drop event.
  * @see {@link Tree.onNodeDrop}
+ * @group Events
  */
 export interface TreeNodeDropEvent {
     /**
@@ -53,11 +59,11 @@ export interface TreeNodeDropEvent {
     /**
      * Dragged node instance.
      */
-    dragNode?: TreeNode | null;
+    dragNode?: TreeNode<any> | null;
     /**
      * Dropped node instance.
      */
-    dropNode?: TreeNode | null;
+    dropNode?: TreeNode<any> | null;
     /**
      * Index of the dragged node.
      */
@@ -70,25 +76,28 @@ export interface TreeNodeDropEvent {
 /**
  * Custom lazy load event.
  * @see {@link Tree.onLazyLoad}
+ * @group Events
  */
 export interface TreeLazyLoadEvent {
     /**
-     * First element in viewport.
+     * First element index in viewport.
      */
-    first: any;
+    first: number;
     /**
-     * Last element in viewport.
+     * Last element index in viewport.
      */
-    last: any;
+    last: number;
 }
 /**
  * Custom scroll index change event.
  * @see {@link Tree.onScrollIndexChange}
+ * @group Events
  */
 export interface TreeScrollIndexChangeEvent extends TreeLazyLoadEvent {}
 /**
  * Custom scroll event.
  * @see {@link Tree.onScroll}
+ * @group Events
  */
 export interface TreeScrollEvent {
     /**
@@ -99,6 +108,7 @@ export interface TreeScrollEvent {
 /**
  * Custom filter event.
  * @see {@link Tree.onFilter}
+ * @group Events
  */
 export interface TreeFilterEvent {
     /**
@@ -108,7 +118,7 @@ export interface TreeFilterEvent {
     /**
      * Filtered nodes.
      */
-    filteredValue: TreeNode[] | null | undefined;
+    filteredValue: TreeNode<any>[] | null | undefined;
 }
 /**
  * Defines valid templates in Tree.
@@ -118,15 +128,15 @@ export interface TreeTemplates {
     /**
      * Custom header template.
      */
-    header: TemplateRef<any>;
+    header(): TemplateRef<any>;
     /**
      * Custom empty message template.
      */
-    empty: TemplateRef<any>;
+    empty(): TemplateRef<any>;
     /**
      * Custom footer template.
      */
-    footer: TemplateRef<any>;
+    footer(): TemplateRef<any>;
     /**
      * Custom loader template.
      * @param {Object} context - loader options.
@@ -165,9 +175,9 @@ export interface TreeTemplates {
     /**
      * Custom loading icon template.
      */
-    loadingicon: TemplateRef<any>;
+    loadingicon(): TemplateRef<any>;
     /**
      * Custom filter icon template.
      */
-    filtericon: TemplateRef<any>;
+    filtericon(): TemplateRef<any>;
 }

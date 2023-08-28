@@ -42,7 +42,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => Calendar),
     multi: true
 };
-
+/**
+ * Calendar also known as DatePicker, is a form component to work with dates.
+ * @group Components
+ */
 @Component({
     selector: 'p-calendar',
     template: `
@@ -194,7 +197,14 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" class="p-yearpicker-year" [ngClass]="{ 'p-highlight': isYearSelected(y) }" pRipple>
+                        <span
+                            *ngFor="let y of yearPickerValues()"
+                            (click)="onYearSelect($event, y)"
+                            (keydown)="onYearCellKeydown($event, y)"
+                            class="p-yearpicker-year"
+                            [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
+                            pRipple
+                        >
                             {{ y }}
                         </span>
                     </div>
@@ -474,14 +484,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() shortYearCutoff: any = '+10';
     /**
      * Whether the month should be rendered as a dropdown instead of text.
-     * @deprecated Navigator is always on
      * @group Props
+     * @deprecated Navigator is always on.
      */
     @Input() monthNavigator: boolean | undefined;
     /**
      * Whether the year should be rendered as a dropdown instead of text.
-     * @deprecated  Navigator is always on.
      * @group Props
+     * @deprecated  Navigator is always on.
      */
     @Input() yearNavigator: boolean | undefined;
     /**
@@ -680,9 +690,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
     /**
-     * @deprecated Years are based on decades by default.
      * The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).
      * @group Props
+     * @deprecated Years are based on decades by default.
      */
     @Input() get yearRange(): string {
         return this._yearRange;
@@ -752,8 +762,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createWeekDays();
     }
     /**
-     * No description available.
+     * Option to set calendar locale.
      * @group Props
+     * @deprecated Locale property has no effect, use new i18n API instead.
      */
     @Input() set locale(newLocale: LocaleSettings) {
         console.warn('Locale property has no effect, use new i18n API instead.');
@@ -792,13 +803,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke on blur of input field.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when date panel closed.
      * @param {Event} event - Mouse event
@@ -815,25 +826,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Callback to invoke when input field cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when input field is being typed.
      * @param {Event} event - browser event
      * @group Emits
      */
-    @Output() onInput: EventEmitter<any> = new EventEmitter();
+    @Output() onInput: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when today button is clicked.
      * @param {Date} date - today as a date instance.
      * @group Emits
      */
-    @Output() onTodayClick: EventEmitter<any> = new EventEmitter();
+    @Output() onTodayClick: EventEmitter<Date> = new EventEmitter<Date>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onClearClick: EventEmitter<any> = new EventEmitter();
+    @Output() onClearClick: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a month is changed using the navigators.
      * @param {CalendarMonthChangeEvent} event - custom month change event.
@@ -850,12 +861,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
-    @Output() onClickOutside: EventEmitter<any> = new EventEmitter();
+    @Output() onClickOutside: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when datepicker panel is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter();
+    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -910,9 +921,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlayVisible: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -1022,6 +1033,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.yearOptions = [];
         this.currentView = this.view;
 
         if (this.view === 'date') {
@@ -1540,7 +1552,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
                 let stringArrValue = null;
-                if (this.value) {
+                if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
                 this.onModelChange(stringArrValue);
@@ -1646,6 +1658,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return true;
     }
 
+    isYearDisabled(year) {
+        return !this.isSelectable(1, this.currentMonth, year, false);
+    }
+
     isYearSelected(year: number) {
         if (this.isComparable()) {
             let value = this.isRangeSelection() ? this.value[0] : this.value;
@@ -1663,7 +1679,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
-        if (start && end) {
+        if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
@@ -2566,6 +2582,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
+            } else if (this.keepInvalid) {
+                this.updateModel(value);
             }
         } catch (err) {
             //invalid date
@@ -2894,12 +2912,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         let iFormat!: any;
         const lookAhead = (match: string) => {
-                const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
-                if (matches) {
-                    iFormat++;
-                }
-                return matches;
-            },
+            const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        },
             formatNumber = (match: string, value: any, len: any) => {
                 let num = '' + value;
                 if (lookAhead(match)) {
@@ -3246,7 +3264,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         }
                     `;
 
-                    for (let j: number = numMonths; j < this.numberOfMonths; j++) {
+                    for (let j: number = <number>numMonths; j < this.numberOfMonths; j++) {
                         styles += `
                             .p-datepicker[${this.attributeSelector}] .p-datepicker-group:nth-child(${j + 1}) {
                                 display: none !important;
@@ -3357,7 +3375,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
-        this.onModelTouched();
     }
 
     ngOnDestroy() {
@@ -3386,4 +3403,4 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })
-export class CalendarModule {}
+export class CalendarModule { }

@@ -26,9 +26,13 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { ScrollerLazyLoadEvent, ScrollerOptions, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { ScrollerOptions } from 'primeng/api';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-
+/**
+ * Scroller is a performance-approach to handle huge data efficiently.
+ * @group Components
+ */
 @Component({
     selector: 'p-scroller',
     template: `
@@ -99,10 +103,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * Inline style of the component.
      * @group Props
      */
-    @Input() get style(): { [klass: string]: any } | null | undefined {
+    @Input() get style(): any {
         return this._style;
     }
-    set style(val: { [klass: string]: any } | null | undefined) {
+    set style(val: any) {
         this._style = val;
     }
     /**
@@ -319,10 +323,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.
      * @group Props
      */
-    @Input() get trackBy() {
+    @Input() get trackBy(): Function {
         return this._trackBy;
     }
-    set trackBy(val: any) {
+    set trackBy(val: Function) {
         this._trackBy = val;
     }
     /**
@@ -342,19 +346,19 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
     /**
      * Callback to invoke in lazy mode to load new data.
-     * @param {ScrollerLazyLoadEvent} event - custom lazy load event.
+     * @param {ScrollerLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
     @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
     /**
      * Callback to invoke when scroll position changes.
-     * @param {ScrollerScrollEvent} event - custom scroll event.
+     * @param {ScrollerScrollEvent} event - Custom scroll event.
      * @group Emits
      */
     @Output() onScroll: EventEmitter<ScrollerScrollEvent> = new EventEmitter<ScrollerScrollEvent>();
     /**
      * Callback to invoke when scroll position and item's range in view changes.
-     * @param {ScrollerScrollEvent} event - custom scroll index change event.
+     * @param {ScrollerScrollEvent} event - Custom scroll index change event.
      * @group Emits
      */
     @Output() onScrollIndexChange: EventEmitter<ScrollerScrollIndexChangeEvent> = new EventEmitter<ScrollerScrollIndexChangeEvent>();

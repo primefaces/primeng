@@ -28,3 +28,6 @@ export * from './treedragdropservice';
 export * from './treenode';
 export * from './treenodedragevent';
 export * from './lazyloadmeta';
+export * from './tooltipoptions';
+export * from './scrolleroptions';
+export * from './treetablenode';

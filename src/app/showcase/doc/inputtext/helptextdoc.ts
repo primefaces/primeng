@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class HelpTextDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -49,7 +49,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-help-text-demo.html'
 })
 export class InputTextHelpTextDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

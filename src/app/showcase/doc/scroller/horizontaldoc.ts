@@ -23,7 +23,7 @@ export class HorizontalDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -55,7 +55,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-horizontal-demo.scss']
 })
 export class ScrollerHorizontalDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

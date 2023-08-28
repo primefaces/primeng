@@ -8,17 +8,17 @@ export interface MenubarTemplates {
     /**
      * Custom template of start.
      */
-    start: TemplateRef<any> | null;
+    start(): TemplateRef<any>;
     /**
      * Custom template of end.
      */
-    end: TemplateRef<any> | null;
+    end(): TemplateRef<any>;
     /**
      * Custom template of menuicon.
      */
-    menuicon: TemplateRef<any> | null;
+    menuicon(): TemplateRef<any>;
     /**
      * Custom template of submenuicon.
      */
-    submenuicon: TemplateRef<any> | null;
+    submenuicon(): TemplateRef<any>;
 }

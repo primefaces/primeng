@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { AccessibilityDoc } from '../../doc/paginator/accessibilitydoc';
 import { BasicDoc } from '../../doc/paginator/basicdoc';
-import { EventsDoc } from '../../doc/paginator/eventsdoc';
 import { ImagesDoc } from '../../doc/paginator/imagesdoc';
 import { ImportDoc } from '../../doc/paginator/importdoc';
-import { PropsDoc } from '../../doc/paginator/propsdoc';
 import { StyleDoc } from '../../doc/paginator/styledoc';
 import { TemplateDoc } from '../../doc/paginator/templatedoc';
-import { TemplatesDoc } from '../../doc/paginator/templatesdoc';
+import { LocaleDoc } from '../../doc/paginator/localedoc';
 
 @Component({
     templateUrl: './paginatordemo.html',
@@ -24,6 +22,11 @@ export class PaginatorDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'locale',
+            label: 'Locale',
+            component: LocaleDoc
         },
         {
             id: 'template',
@@ -44,24 +47,6 @@ export class PaginatorDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
         }
     ];
 }

@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
-
+/**
+ * ProgressSpinner is a process status indicator.
+ * @group Components
+ */
 @Component({
     selector: 'p-progressSpinner',
     template: `
-        <div class="p-progress-spinner" [ngStyle]="style" [ngClass]="styleClass" role="alert" aria-busy="true">
-            <svg class="p-progress-spinner-svg" viewBox="25 25 50 50" [style.animation-duration]="animationDuration">
+        <div class="p-progress-spinner" [ngStyle]="style" [ngClass]="styleClass" role="progressbar" [attr.aria-busy]="true" [attr.data-pc-name]="'progressspinner'" [attr.data-pc-section]="'root'">
+            <svg class="p-progress-spinner-svg" viewBox="25 25 50 50" [style.animation-duration]="animationDuration" [attr.data-pc-section]="'root'">
                 <circle class="p-progress-spinner-circle" cx="50" cy="50" r="20" [attr.fill]="fill" [attr.stroke-width]="strokeWidth" stroke-miterlimit="10" />
             </svg>
         </div>

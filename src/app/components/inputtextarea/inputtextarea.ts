@@ -2,7 +2,10 @@ import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmit
 import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-
+/**
+ * InputTextarea adds styling and autoResize functionality to standard textarea element.
+ * @group Components
+ */
 @Directive({
     selector: '[pInputTextarea]',
     host: {
@@ -62,20 +65,6 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
 
     updateFilledState() {
         this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
-    }
-
-    @HostListener('focus', ['$event'])
-    onFocus(e: Event) {
-        if (this.autoResize) {
-            this.resize(e);
-        }
-    }
-
-    @HostListener('blur', ['$event'])
-    onBlur(e: Event) {
-        if (this.autoResize) {
-            this.resize(e);
-        }
     }
 
     resize(event?: Event) {

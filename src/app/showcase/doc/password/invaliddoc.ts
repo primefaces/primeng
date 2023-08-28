@@ -18,7 +18,7 @@ export class InvalidDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-invalid-demo.html'
 })
 export class PasswordInvalidDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

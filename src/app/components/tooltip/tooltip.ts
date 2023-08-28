@@ -1,11 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
-import { TooltipOptions } from './tooltip.interface';
 
+/**
+ * Tooltip directive provides advisory information for a component.
+ * @group Components
+ */
 @Directive({
     selector: '[pTooltip]',
     host: {
@@ -17,12 +20,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | undefined;
+    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
     /**
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | undefined;
+    @Input() tooltipEvent: 'hover' | 'focus' | string | any = 'hover';
     /**
      *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -89,12 +92,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() hideOnEscape: boolean = true;
     /**
-     * Text of the tooltip.
+     * Content of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') text: string | undefined;
+    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
     /**
      * When present, it specifies that the component should be disabled.
+     * @defaultValue false
      * @group Props
      */
     @Input('tooltipDisabled') get disabled(): boolean {
@@ -110,16 +114,23 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
 
-    _tooltipOptions: TooltipOptions = {
+    _tooltipOptions = {
+        tooltipLabel: null,
         tooltipPosition: 'right',
         tooltipEvent: 'hover',
         appendTo: 'body',
+        positionStyle: null,
+        tooltipStyleClass: null,
         tooltipZIndex: 'auto',
         escape: true,
-        positionTop: 0,
-        positionLeft: 0,
+        disabled: null,
+        showDelay: null,
+        hideDelay: null,
+        positionTop: null,
+        positionLeft: null,
+        life: null,
         autoHide: true,
-        hideOnEscape: false
+        hideOnEscape: true
     };
 
     _disabled: boolean | undefined;
@@ -152,7 +163,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -229,11 +240,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ disabled: simpleChange.disabled.currentValue });
         }
 
-        if (simpleChange.text) {
-            this.setOption({ tooltipLabel: simpleChange.text.currentValue });
+        if (simpleChange.content) {
+            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
 
             if (this.active) {
-                if (simpleChange.text.currentValue) {
+                if (simpleChange.content.currentValue) {
                     if (this.container && this.container.offsetParent) {
                         this.updateText();
                         this.align();
@@ -281,7 +292,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.target, 'p-tooltip') || DomHandler.hasClass(e.target, 'p-tooltip-arrow') || DomHandler.hasClass(e.target, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
+            const valid =
+                DomHandler.hasClass(e.target, 'p-tooltip') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -419,11 +436,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     updateText() {
-        if (this.getOption('escape')) {
+        const content = this.getOption('tooltipLabel');
+        if (content instanceof TemplateRef) {
+            const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
+            embeddedViewRef.detectChanges();
+            embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
+        } else if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
+            this.tooltipText.appendChild(document.createTextNode(content));
         } else {
-            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
+            this.tooltipText.innerHTML = content;
         }
     }
 
@@ -539,7 +561,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
 
-    setOption(option: TooltipOptions) {
+    setOption(option: any) {
         this._tooltipOptions = { ...this._tooltipOptions, ...option };
     }
 

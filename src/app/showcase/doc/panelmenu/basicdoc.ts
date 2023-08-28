@@ -26,6 +26,7 @@ export class BasicDoc implements OnInit {
             {
                 label: 'File',
                 icon: 'pi pi-fw pi-file',
+                expanded: true,
                 items: [
                     {
                         label: 'New',
@@ -44,6 +45,9 @@ export class BasicDoc implements OnInit {
                     {
                         label: 'Delete',
                         icon: 'pi pi-fw pi-trash'
+                    },
+                    {
+                        separator: true
                     },
                     {
                         label: 'Export',
@@ -183,6 +187,9 @@ export class PanelMenuBasicDemo implements OnInit {
                     {
                         label: 'Delete',
                         icon: 'pi pi-fw pi-trash'
+                    },
+                    { 
+                        separator: true 
                     },
                     {
                         label: 'Export',

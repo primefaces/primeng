@@ -48,12 +48,9 @@ import { VirtualScrollDoc } from '../../doc/table/virtualscrolldoc';
 import { VirtualScrollLazyDoc } from '../../doc/table/virtualscrolllazydoc';
 import { ColumnResizeFitModeDoc } from '../../doc/table/columnresizefitmodedoc';
 import { SelectionEventsDoc } from '../../doc/table/selectioneventsdoc';
-import { PropsDoc } from '../../doc/table/propsdoc';
-import { EventsDoc } from '../../doc/table/eventsdoc';
 import { StylingDoc } from '../../doc/table/stylingdoc';
-import { MethodsDoc } from '../../doc/table/methodsdoc';
-import { TemplatesDoc } from '../../doc/table/templatesdoc';
 import { AccessibilityDoc } from '../../doc/table/accessibilitydoc';
+import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -125,6 +122,11 @@ export class TableDemo {
                     id: 'paginator-basic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
+                },
+                {
+                    id: 'paginator-locale',
+                    label: 'Locale',
+                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginator-programmatic',
@@ -381,29 +383,6 @@ export class TableDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'props',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'events',
-            label: 'Events',
-            component: EventsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
-        },
-        {
-            id: 'templates',
-            label: 'Templates',
-            component: TemplatesDoc
         }
     ];
 }
