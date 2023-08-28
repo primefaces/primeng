@@ -18,7 +18,7 @@ export class InvalidDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-invalid-demo.html'
 })
 export class InputMaskInvalidDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

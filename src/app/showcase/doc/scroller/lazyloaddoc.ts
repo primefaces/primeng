@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface LazyEvent {
+    first: number;
+    last: number;
+}
 @Component({
     selector: 'lazy-load-doc',
     template: ` <section>
@@ -27,7 +31,7 @@ export class LazyLoadDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     lazyLoading: boolean = true;
 
@@ -39,7 +43,7 @@ export class LazyLoadDoc {
         this.items = Array.from({ length: 1000 });
     }
 
-    onLazyLoad(event) {
+    onLazyLoad(event: LazyEvent) {
         this.lazyLoading = true;
 
         if (this.loadLazyTimeout) {
@@ -81,13 +85,18 @@ export class LazyLoadDoc {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 
+interface LazyEvent {
+    first: number;
+    last: number;
+}
+
 @Component({
     selector: 'scroller-lazy-load-demo',
     templateUrl: './scroller-lazy-load-demo.html',
     styleUrls: ['./scroller-lazy-load-demo.scss']
 })
 export class ScrollerLazyLoadDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     lazyLoading: boolean = true;
 
@@ -97,7 +106,7 @@ export class ScrollerLazyLoadDemo implements OnInit {
         this.items = Array.from({ length: 1000 });
     }
 
-    onLazyLoad(event) {
+    onLazyLoad(event: LazyEvent) {
         this.lazyLoading = true;
 
         if (this.loadLazyTimeout) {

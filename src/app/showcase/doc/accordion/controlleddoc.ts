@@ -42,7 +42,7 @@ export class ControlledDoc {
 
     @Input() title: string;
 
-    activeIndex: number;
+    activeIndex: number | undefined;
 
     code: Code = {
         basic: `
@@ -109,7 +109,7 @@ import { Component } from '@angular/core';
     templateUrl: './accordion-controlled-demo.html'
 })
 export class AccordionControlledDemo {
-    activeIndex: number;
+    activeIndex: number | undefined;
 }`
     };
 }

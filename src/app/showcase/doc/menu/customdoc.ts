@@ -19,7 +19,7 @@ export class CustomContentDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -76,7 +76,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-custom-content-demo.html'
 })
 export class MenuCustomContentDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
     
     ngOnInit() {
         this.items = [

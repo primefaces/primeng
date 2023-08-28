@@ -71,6 +71,7 @@ import {
     TableSelectAllChangeEvent
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 
 @Injectable()
 export class TableService {
@@ -160,6 +161,7 @@ export class TableService {
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
+                [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -267,6 +269,7 @@ export class TableService {
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
+                [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
@@ -586,7 +589,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     set responsive(val: boolean | undefined | null) {
         this._responsive = val;
-        console.warn('responsive propery is deprecated as table is always responsive with scrollable behavior.');
+        console.warn('responsive property is deprecated as table is always responsive with scrollable behavior.');
     }
     _responsive: boolean | undefined | null;
     /**
@@ -670,7 +673,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() editMode: 'cell' | 'row' = 'cell';
     /**
-     * One or more field names to use in row grouping.
+     * Field name to use in row grouping.
      * @group Props
      */
     @Input() groupRowsBy: any;
@@ -689,6 +692,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * @group Props
      */
     @Input() breakpoint: string = '960px';
+    /**
+     * Locale to be used in paginator formatting.
+     * @group Props
+     */
+    @Input() paginatorLocale: string | undefined;
     /**
      * No description available.
      * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
@@ -1390,6 +1398,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return this.filteredValue || this.value || [];
     }
 
+    private _initialColWidths: number[];
+
     dataToRender(data: any) {
         const _data = data || this.processedData;
 
@@ -1824,7 +1834,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.lazy && this.paginator) {
-            (rangeStart as number) -= <number>this.first;
             (rangeStart as number) -= <number>this.first;
         }
 
@@ -2480,7 +2489,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.resizeTableCells(newColumnWidth, nextColumnWidth);
                 }
             } else if (this.columnResizeMode === 'expand') {
+                this._initialColWidths = this._totalTableWidth();
                 let tableWidth = this.tableViewChild?.nativeElement.offsetWidth + delta;
+
                 this.setResizeTableWidth(tableWidth + 'px');
                 this.resizeTableCells(newColumnWidth, null);
             }
@@ -2499,18 +2510,24 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.removeClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
     }
 
-    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
-        let widths: any[] = [];
-        const tableHead = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datatable-thead');
+    private _totalTableWidth(): number[] {
+        let widths = [];
+        const tableHead = DomHandler.findSingle(this.containerViewChild.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+
+        return widths;
+    }
+
+    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
 
         this.destroyStyleElement();
         this.createStyleElement();
 
         let innerHTML = '';
-        widths.forEach((width, index) => {
+        width.forEach((width, index) => {
             let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
             let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
             innerHTML += `
@@ -2521,7 +2538,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-
         this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
     }
 
@@ -4007,7 +4023,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
 
     @HostListener('keydown.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && !event.shiftKey) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);
             }
@@ -5509,7 +5525,8 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountUpAltIcon,
         SortAmountDownIcon,
         CheckIcon,
-        FilterIcon
+        FilterIcon,
+        FilterSlashIcon
     ],
     exports: [
         Table,

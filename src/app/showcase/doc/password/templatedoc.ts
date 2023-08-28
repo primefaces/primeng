@@ -32,7 +32,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -79,7 +79,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-template-demo.html'
 })
 export class PasswordTemplateDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

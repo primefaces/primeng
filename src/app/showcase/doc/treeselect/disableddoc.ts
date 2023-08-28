@@ -19,7 +19,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -45,7 +45,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-disabled-demo.html'
 })
 export class TreeSelectDisabledDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

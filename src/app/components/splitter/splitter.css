@@ -13,6 +13,7 @@
 
 .p-splitter-panel-nested {
     display: flex;
+    min-width: 0;
 }
 
 .p-splitter-panel p-splitter {

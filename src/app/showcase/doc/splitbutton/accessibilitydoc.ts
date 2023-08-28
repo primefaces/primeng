@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
                 SplitButton component renders two native button elements, main button uses the label property to define <i>aria-label</i> by default which can be customized with <i>buttonProps</i>. Dropdown button requires an explicit definition to
@@ -128,8 +127,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

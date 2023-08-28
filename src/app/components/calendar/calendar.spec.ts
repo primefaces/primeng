@@ -1398,6 +1398,32 @@ describe('Calendar', () => {
         expect(onModelTouchedSpy).toHaveBeenCalled();
     });
 
+    it('should trigger onModelChange when user input a well-formatted but invalid value with keepInvalid=true', () => {
+        const today = new Date();
+
+        calendar.keepInvalid = true;
+        calendar.dateFormat = 'yy/mm/dd';
+        calendar.minDate = today;
+        fixture.detectChanges();
+
+        const onModelChangeSpy = spyOn(calendar, 'onModelChange').and.callThrough();
+
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
+        const focusEvent = new Event('focus');
+        const blurEvent = new Event('blur');
+
+        inputEl.nativeElement.click();
+        inputEl.nativeElement.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+        expect(onModelChangeSpy).not.toHaveBeenCalled();
+
+        // simulate user input
+        inputEl.nativeElement.value = '2000/01/01'; // <-- an invalid value (= before today)
+        calendar.isKeydown = true;
+        calendar.onUserInput({ target: inputEl.nativeElement });
+        expect(onModelChangeSpy).toHaveBeenCalled();
+    });
+
     it('should change appendto', () => {
         calendar.appendTo = 'body';
         const date = new Date(2017, 8, 23);

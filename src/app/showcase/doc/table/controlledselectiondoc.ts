@@ -47,9 +47,9 @@ export class ControlledSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {
         this.isRowSelectable = this.isRowSelectable.bind(this);
@@ -62,11 +62,11 @@ export class ControlledSelectionDoc implements OnInit {
         });
     }
 
-    isRowSelectable(event) {
+    isRowSelectable(event: any) {
         return !this.isOutOfStock(event.data);
     }
 
-    isOutOfStock(data) {
+    isOutOfStock(data: Product) {
         return data.inventoryStatus === 'OUTOFSTOCK';
     }
 
@@ -133,9 +133,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-controlled-selection-demo.html'
 })
 export class TableControlledSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService) {
         this.isRowSelectable = this.isRowSelectable.bind(this);
@@ -147,11 +147,11 @@ export class TableControlledSelectionDemo implements OnInit{
         });
     }
 
-    isRowSelectable(event) {
+    isRowSelectable(event: any) {
         return !this.isOutOfStock(event.data);
     }
 
-    isOutOfStock(data) {
+    isOutOfStock(data: Product) {
         return data.inventoryStatus === 'OUTOFSTOCK';
     }
 }`,

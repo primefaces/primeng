@@ -18,7 +18,7 @@ export class InlineDoc {
 
     @Input() title: string;
 
-    color: string;
+    color: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './color-picker-inline-demo.html'
 })
 export class ColorPickerInlineDemo {
-    color: string;
+    color: string | undefined;
 }`
     };
 }

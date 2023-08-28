@@ -157,9 +157,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
+                [autoZIndex]="autoZIndex"
+                [baseZIndex]="baseZIndex"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onAnimationStart)="onOverlayAnimationStart($event)"
@@ -234,7 +236,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </p-overlay>
         </span>
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
@@ -372,36 +373,51 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * @group Props
      */
     @Input() type: string = 'text';
-    /**
-     * Whether to automatically manage layering.
-     * @group Props
-     */
-    @Input() autoZIndex: boolean = true;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input() baseZIndex: number = 0;
+
+    /* @deprecated */
+    _autoZIndex: boolean;
+    @Input() get autoZIndex(): boolean {
+        return this._autoZIndex;
+    }
+    set autoZIndex(val: boolean) {
+        this._autoZIndex = val;
+        console.warn('The autoZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
+    /* @deprecated */
+    _baseZIndex: number;
+    @Input() get baseZIndex(): number {
+        return this._baseZIndex;
+    }
+    set baseZIndex(val: number) {
+        this._baseZIndex = val;
+        console.warn('The baseZIndex property is deprecated since v14.2.0, use overlayOptions property instead.');
+    }
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+
     /**
      * Defines a string that labels the dropdown button for accessibility.
      * @group Props
      */
     @Input() dropdownAriaLabel: string | undefined;
+
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+
     /**
      * Icon class of the dropdown icon.
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
+
     /**
      * Ensures uniqueness of selected items on multiple mode.
      * @group Props
@@ -957,7 +973,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.cd.markForCheck();
     }
 
-    handleDropdownClick(event: MouseEvent) {
+    handleDropdownClick(event: Event) {
         if (!this.overlayVisible) {
             this.focusInput();
             let queryValue = this.multiple ? (this.multiInputEl as ElementRef).nativeElement.value : (this.inputEL as ElementRef).nativeElement.value;
@@ -1140,7 +1156,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             let inputValue = target.value.trim();
 
             if (this.suggestions) {
-                for (let suggestion of this.suggestions) {
+                let suggestions = [...this.suggestions];
+                if (this.group) {
+                    let groupedSuggestions = this.suggestions.filter((s) => s[this.optionGroupChildren]).flatMap((s) => s[this.optionGroupChildren]);
+                    suggestions = suggestions.concat(groupedSuggestions);
+                }
+
+                for (let suggestion of suggestions) {
                     let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
                     if (itemValue && inputValue === itemValue.trim()) {
                         valid = true;

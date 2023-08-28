@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { SortEvent } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
-import { SortEvent } from 'primeng/api';
-import { ProductService } from '../../service/productservice';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'custom-sort-doc',
@@ -47,7 +47,7 @@ export class CustomSortDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -130,7 +130,7 @@ import { SortEvent } from 'primeng/api';
     templateUrl: 'table-custom-sort-demo.html'
 })
 export class TableCustomSortDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

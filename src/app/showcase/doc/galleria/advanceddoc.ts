@@ -10,7 +10,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card md:flex md:justify-content-center">
             <p-galleria
                 #galleria
                 [(value)]="images"
@@ -54,9 +54,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
-    showThumbnails: boolean;
+    showThumbnails: boolean | undefined;
 
     fullscreen: boolean = false;
 
@@ -64,7 +64,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     onFullScreenListener: any;
 
-    @ViewChild('galleria') galleria: Galleria;
+    @ViewChild('galleria') galleria: Galleria | undefined;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     openPreviewFullScreen() {
-        let elem = this.galleria.element.nativeElement.querySelector('.p-galleria');
+        let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem['mozRequestFullScreen']) {
@@ -207,7 +207,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -231,9 +231,9 @@ import { PhotoService } from '../../service/photoservice';
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
-    images: any[];
+    images: any[] | undefined;
 
-    showThumbnails: boolean;
+    showThumbnails: boolean | undefined;
 
     fullscreen: boolean = false;
 
@@ -241,7 +241,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     onFullScreenListener: any;
 
-    @ViewChild('galleria') galleria: Galleria;
+    @ViewChild('galleria') galleria: Galleria | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -278,7 +278,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     }
 
     openPreviewFullScreen() {
-        let elem = this.galleria.element.nativeElement.querySelector('.p-galleria');
+        let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem['mozRequestFullScreen']) {

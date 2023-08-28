@@ -197,7 +197,14 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" class="p-yearpicker-year" [ngClass]="{ 'p-highlight': isYearSelected(y) }" pRipple>
+                        <span
+                            *ngFor="let y of yearPickerValues()"
+                            (click)="onYearSelect($event, y)"
+                            (keydown)="onYearCellKeydown($event, y)"
+                            class="p-yearpicker-year"
+                            [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
+                            pRipple
+                        >
                             {{ y }}
                         </span>
                     </div>
@@ -914,9 +921,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlayVisible: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
 
@@ -1026,6 +1033,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.yearOptions = [];
         this.currentView = this.view;
 
         if (this.view === 'date') {
@@ -1544,7 +1552,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
                 let stringArrValue = null;
-                if (this.value) {
+                if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
                 this.onModelChange(stringArrValue);
@@ -1650,6 +1658,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return true;
     }
 
+    isYearDisabled(year) {
+        return !this.isSelectable(1, this.currentMonth, year, false);
+    }
+
     isYearSelected(year: number) {
         if (this.isComparable()) {
             let value = this.isRangeSelection() ? this.value[0] : this.value;
@@ -1667,7 +1679,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
-        if (start && end) {
+        if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
@@ -2570,6 +2582,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
+            } else if (this.keepInvalid) {
+                this.updateModel(value);
             }
         } catch (err) {
             //invalid date
@@ -2898,12 +2912,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         let iFormat!: any;
         const lookAhead = (match: string) => {
-                const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
-                if (matches) {
-                    iFormat++;
-                }
-                return matches;
-            },
+            const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
+            if (matches) {
+                iFormat++;
+            }
+            return matches;
+        },
             formatNumber = (match: string, value: any, len: any) => {
                 let num = '' + value;
                 if (lookAhead(match)) {
@@ -3361,7 +3375,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
-        this.onModelTouched();
     }
 
     ngOnDestroy() {
@@ -3390,4 +3403,4 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })
-export class CalendarModule {}
+export class CalendarModule { }

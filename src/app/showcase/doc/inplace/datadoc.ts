@@ -45,7 +45,7 @@ export class DataDoc {
 
     @Input() title: string;
 
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}
 
@@ -124,7 +124,7 @@ import { CarService } from '../../service/carservice';
     templateUrl: './inplace-data-demo.html'
 })
 export class InplaceDataDemo {
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}
 

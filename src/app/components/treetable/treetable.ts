@@ -150,20 +150,21 @@ export class TreeTableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
+                [locale]="paginatorLocale"
             >
-                <ng-template pTemplate="firstpagelinkicon">
+                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="previouspagelinkicon">
+                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="lastpagelinkicon">
+                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="nextpagelinkicon">
+                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
                 </ng-template>
             </p-paginator>
@@ -214,20 +215,21 @@ export class TreeTableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
+                [locale]="paginatorLocale"
             >
-                <ng-template pTemplate="firstpagelinkicon">
+                <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="previouspagelinkicon">
+                <ng-template pTemplate="previouspagelinkicon" *ngIf="paginatorPreviousPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorPreviousPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="lastpagelinkicon">
+                <ng-template pTemplate="lastpagelinkicon" *ngIf="paginatorLastPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorLastPageLinkIconTemplate"></ng-container>
                 </ng-template>
 
-                <ng-template pTemplate="nextpagelinkicon">
+                <ng-template pTemplate="nextpagelinkicon" *ngIf="paginatorNextPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorNextPageLinkIconTemplate"></ng-container>
                 </ng-template>
             </p-paginator>
@@ -525,6 +527,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      */
     @Input() filterLocale: string | undefined;
     /**
+     * Locale to be used in paginator formatting.
+     * @group Props
+     */
+    @Input() paginatorLocale: string | undefined;
+    /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
@@ -608,7 +615,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @param {TreeTableNode} object - Node instance.
      * @group Emits
      */
-    @Output() selectionChange: EventEmitter<TreeTableNode<any> | null> = new EventEmitter<TreeTableNode<any> | null>();
+    @Output() selectionChange: EventEmitter<TreeTableNode<any>[] | null> = new EventEmitter<TreeTableNode<any>[] | null>();
     /**
      * Callback to invoke on context menu selection change.
      * @param {TreeTableNode} object - Node instance.
@@ -3127,7 +3134,7 @@ export class TTEditableColumn implements AfterViewInit {
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             //enter
-            if (event.keyCode == 13) {
+            if (event.keyCode == 13 && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();

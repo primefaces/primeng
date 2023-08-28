@@ -19,9 +19,9 @@ export class ScrollableDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = Array.from({ length: 50 }, (_, i) => ({ label: `Tab ${i + 1}` }));
@@ -46,9 +46,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-scrollable-demo.html'
 })
 export class TabMenuScrollableDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = Array.from({ length: 50 }, (_, i) => ({ label: \`Tab \${i + 1}\`}));

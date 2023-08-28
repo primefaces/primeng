@@ -7,6 +7,13 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -159,6 +166,14 @@
                             "readonly": false,
                             "type": "number | number[]",
                             "description": "Index of the active tab or an array of indexes in multiple mode."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused tab is activated."
                         }
                     ]
                 },
@@ -2566,6 +2581,144 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "pending",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "chooseYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "chooseMonth",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "chooseDate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevDecade",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextDecade",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevMonth",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextMonth",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevHour",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextHour",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevMinute",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextMinute",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevSecond",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextSecond",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "am",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "pm",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "searchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "selectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "emptySelectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "emptySearchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "aria",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "object"
                         }
                     ]
                 }
@@ -2598,7 +2751,7 @@
                             "name": "data",
                             "optional": true,
                             "readonly": false,
-                            "type": "any",
+                            "type": "T",
                             "description": "Data represented by the node."
                         },
                         {
@@ -3692,6 +3845,20 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes a string value that labels the component."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         }
                     ]
                 },
@@ -4157,7 +4324,7 @@
                                     "type": "MouseEvent"
                                 }
                             ],
-                            "description": "Callback to execute when button is clicked."
+                            "description": "Callback to execute when button is clicked. \nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (click)."
                         },
                         {
                             "name": "onFocus",
@@ -4167,7 +4334,7 @@
                                     "type": "FocusEvent"
                                 }
                             ],
-                            "description": "Callback to execute when button is focused."
+                            "description": "Callback to execute when button is focused.\nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus)."
                         },
                         {
                             "name": "onBlur",
@@ -4177,7 +4344,7 @@
                                     "type": "FocusEvent"
                                 }
                             ],
-                            "description": "Callback to execute when button loses focus."
+                            "description": "Callback to execute when button loses focus.\nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur)."
                         }
                     ]
                 }
@@ -5952,7 +6119,7 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | boolean | object",
+                            "type": "any",
                             "description": "Value of the checkbox."
                         },
                         {
@@ -6359,7 +6526,7 @@
                             "name": "separator",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | RegExp",
                             "description": "Separator char to add an item when pressed in addition to the enter key."
                         },
                         {
@@ -7106,12 +7273,12 @@
                             "description": "An array of menuitems."
                         },
                         {
-                            "name": "global",
+                            "name": "triggerEvent",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Attaches the menu to document instead of a particular item."
+                            "type": "string",
+                            "default": "contextmenu",
+                            "description": "Event for which the menu must be displayed."
                         },
                         {
                             "name": "target",
@@ -7121,25 +7288,33 @@
                             "description": "Local template variable name of the element to attach the context menu."
                         },
                         {
+                            "name": "global",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Attaches the menu to document instead of a particular item."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
                             "type": "Object",
-                            "description": "Inline style of the element."
+                            "description": "Inline style of the component."
                         },
                         {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Class of the element."
+                            "description": "Style class of the component."
                         },
                         {
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
                             "type": "any",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element."
                         },
                         {
                             "name": "autoZIndex",
@@ -7158,12 +7333,25 @@
                             "description": "Base zIndex value to use in layering."
                         },
                         {
-                            "name": "triggerEvent",
+                            "name": "id",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "contextmenu",
-                            "description": "Event for which the menu must be displayed."
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
                         }
                     ]
                 },
@@ -7175,20 +7363,20 @@
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "any"
+                                    "type": "null"
                                 }
                             ],
-                            "description": "Displays the popup menu."
+                            "description": "Callback to invoke when overlay menu is shown."
                         },
                         {
                             "name": "onHide",
                             "parameters": [
                                 {
                                     "name": "value",
-                                    "type": "any"
+                                    "type": "null"
                                 }
                             ],
-                            "description": "Hides the popup menu."
+                            "description": "Callback to invoke when overlay menu is hidden."
                         }
                     ]
                 }
@@ -8233,6 +8421,45 @@
                             "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
                             "default": "bottom",
                             "description": "Position of element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the dropdown button for accessibility."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to execute when button is focused."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component loses focus."
                         }
                     ]
                 }
@@ -9183,6 +9410,13 @@
                             "description": "Header text of the dialog."
                         },
                         {
+                            "name": "ariaLabelledBy",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifies the element (or elements) that labels the element it is applied to."
+                        },
+                        {
                             "name": "footer",
                             "optional": true,
                             "readonly": false,
@@ -9900,7 +10134,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Pattern to restrict the allowed file types such as 'image/*'."
+                            "description": "Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as \"image/*\") or the file extensions (such as \".jpg\")."
                         },
                         {
                             "name": "disabled",
@@ -10597,6 +10831,14 @@
                             "description": "Items are displayed with a slideshow in autoPlay mode."
                         },
                         {
+                            "name": "shouldStopAutoplayByClick",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When enabled, autorun should stop by click."
+                        },
+                        {
                             "name": "transitionInterval",
                             "optional": false,
                             "readonly": false,
@@ -11053,6 +11295,13 @@
                             "description": "Attribute of the image element."
                         },
                         {
+                            "name": "previewImageSrc",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "Attribute of the preview image element."
+                        },
+                        {
                             "name": "alt",
                             "optional": false,
                             "readonly": false,
@@ -11247,6 +11496,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon to display in the close button."
+                        },
+                        {
+                            "name": "closeAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes a string value that labels the close button."
                         }
                     ]
                 },
@@ -12840,9 +13096,46 @@
                             "name": "orientation",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"vertical\" | \"horizontal\"",
+                            "type": "string",
                             "default": "horizontal",
                             "description": "Defines the orientation."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
                         }
                     ]
                 }
@@ -12949,6 +13242,35 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
                         }
                     ]
                 },
@@ -12974,6 +13296,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when overlay menu is hidden."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list loses focus."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list receives focus."
                         }
                     ]
                 },
@@ -13061,7 +13403,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show a root submenu on mouse over."
                         },
                         {
@@ -13079,6 +13421,52 @@
                             "type": "number",
                             "default": "100",
                             "description": "Delay to hide the root submenu in milliseconds when mouse leaves."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to execute when button is focused."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to execute when button loses focus."
                         }
                     ]
                 }
@@ -14865,6 +15253,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
+                            "default": "body",
                             "description": "Target element to attach the panel, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -15506,7 +15895,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether multiple tabs can be activated at the same time or not."
                         },
                         {
@@ -15516,6 +15905,31 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "collapseAll",
+                            "parameters": [],
+                            "description": "Collapses open panels."
                         }
                     ]
                 }
@@ -17595,6 +18009,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
+                        },
+                        {
+                            "name": "step",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "5",
+                            "description": "Step factor to scroll the content while pressing the arrow keys."
                         }
                     ]
                 },
@@ -17703,6 +18125,13 @@
                             "type": "string",
                             "default": ".15s",
                             "description": "A string value used to determine the hiding transition options."
+                        },
+                        {
+                            "name": "buttonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes a string value that labels the scroll-top button."
                         }
                     ]
                 }
@@ -18175,35 +18604,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "model",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
-                        },
-                        {
-                            "name": "popup",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Defines if menu would displayed as a popup."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the element."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Class of the element."
-                        },
-                        {
                             "name": "menuWidth",
                             "optional": false,
                             "readonly": false,
@@ -18244,11 +18644,56 @@
                             "description": "Label of element to navigate back."
                         },
                         {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "model",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
+                        },
+                        {
+                            "name": "popup",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Defines if menu would displayed as a popup."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
                             "type": "any",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element."
                         },
                         {
                             "name": "autoZIndex",
@@ -18267,6 +18712,14 @@
                             "description": "Base zIndex value to use in layering."
                         },
                         {
+                            "name": "autoDisplay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to show a root submenu on mouse over."
+                        },
+                        {
                             "name": "showTransitionOptions",
                             "optional": false,
                             "readonly": false,
@@ -18281,6 +18734,27 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
                         }
                     ]
                 },
@@ -18313,11 +18787,25 @@
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": [
                         {
+                            "name": "hide",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "isFocus",
+                                    "type": "boolean"
+                                }
+                            ],
+                            "description": "Hides the popup menu."
+                        },
+                        {
                             "name": "toggle",
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "Event",
+                                    "type": "any",
                                     "description": "Browser event."
                                 }
                             ],
@@ -18328,16 +18816,14 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "Event",
-                                    "description": "Browser event."
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Displays the popup menu."
-                        },
-                        {
-                            "name": "hide",
-                            "parameters": [],
-                            "description": "Hides the popup menu."
                         }
                     ]
                 }
@@ -18989,6 +19475,14 @@
                             "description": "Size of the divider in pixels."
                         },
                         {
+                            "name": "step",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "5",
+                            "description": "Step factor to increment/decrement the size of the panels while pressing the arrow keys."
+                        },
+                        {
                             "name": "minSizes",
                             "optional": false,
                             "readonly": false,
@@ -19135,6 +19629,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
+                        },
+                        {
+                            "name": "exact",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to apply 'router-link-active-exact' class if route exactly matches the item path."
                         }
                     ]
                 },
@@ -19773,7 +20275,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
-                            "description": "One or more field names to use in row grouping."
+                            "description": "Field name to use in row grouping."
                         },
                         {
                             "name": "groupRowsByOrder",
@@ -20946,6 +21448,20 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
                         }
                     ]
                 },
@@ -21187,6 +21703,22 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Index of the active tab to change selected tab programmatically."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
                         }
                     ]
                 },
@@ -21501,7 +22033,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show a root submenu on mouse over."
                         },
                         {
@@ -21519,6 +22051,43 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Current id state as a string."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
                         }
                     ]
                 },
@@ -21551,6 +22120,20 @@
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": [
                         {
+                            "name": "hide",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "isFocus",
+                                    "type": "boolean"
+                                }
+                            ],
+                            "description": "Hides the popup menu."
+                        },
+                        {
                             "name": "toggle",
                             "parameters": [
                                 {
@@ -21567,14 +22150,13 @@
                                 {
                                     "name": "event",
                                     "type": "any"
+                                },
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Displays the popup menu."
-                        },
-                        {
-                            "name": "hide",
-                            "parameters": [],
-                            "description": "Hides the popup menu."
                         }
                     ]
                 }
@@ -22006,6 +22588,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
                         }
                     ]
                 }
@@ -22049,7 +22638,7 @@
                             "name": "tooltipPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "type": "string",
                             "description": "Position of the tooltip."
                         },
                         {
@@ -22156,11 +22745,11 @@
                             "description": "Whether to hide tooltip on escape key press."
                         },
                         {
-                            "name": "text",
+                            "name": "content",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Text of the tooltip."
+                            "type": "string | TemplateRef<HTMLElement>",
+                            "description": "Content of the tooltip."
                         },
                         {
                             "name": "disabled",

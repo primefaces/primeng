@@ -25,7 +25,7 @@ export class CloseDoc {
 
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
@@ -57,7 +57,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 

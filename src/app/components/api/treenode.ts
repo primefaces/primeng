@@ -2,7 +2,7 @@
  * Represents a node in a tree data structure.
  * @group Interface
  */
-export interface TreeNode <T=any> {
+export interface TreeNode<T = any> {
     /**
      * Label of the node.
      */
@@ -10,7 +10,7 @@ export interface TreeNode <T=any> {
     /**
      * Data represented by the node.
      */
-    data?: any;
+    data?: T;
     /**
      * Icon of the node to display next to content.
      */
