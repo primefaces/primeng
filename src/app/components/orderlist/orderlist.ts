@@ -471,7 +471,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex == -1) {
-                    break;
+                    continue;
                 }
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
@@ -498,7 +498,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex == -1) {
-                    break;
+                    continue;
                 }
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
@@ -523,7 +523,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex == -1) {
-                    break;
+                    continue;
                 }
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
@@ -550,7 +550,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 let selectedItemIndex: number = ObjectUtils.findIndexInList(selectedItem, this.value);
 
                 if (selectedItemIndex == -1) {
-                    break;
+                    continue;
                 }
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
