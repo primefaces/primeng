@@ -22301,6 +22301,14 @@
                             "description": "Base zIndex value to use in layering."
                         },
                         {
+                            "name": "life",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "3000",
+                            "description": "The default time to display messages for in milliseconds."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,

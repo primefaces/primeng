@@ -116,6 +116,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() index: number | null | undefined;
 
+    @Input() life: number;
+
     @Input() template: TemplateRef<any> | undefined;
 
     @Input() showTransformOptions: string | undefined;
@@ -146,7 +148,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                         index: <number>this.index,
                         message: <Message>this.message
                     });
-                }, this.message?.life || 3000);
+                }, this.message?.life || this.life || 3000);
             });
         }
     }
@@ -193,6 +195,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 *ngFor="let msg of messages; let i = index"
                 [message]="msg"
                 [index]="i"
+                [life]="life"
                 (onClose)="onMessageClose($event)"
                 [template]="template"
                 @toastAnimation
@@ -229,6 +232,11 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() baseZIndex: number = 0;
+    /**
+     * The default time to display messages for in milliseconds.
+     * @group Props
+     */
+    @Input() life: number = 3000;
     /**
      * Inline style of the component.
      * @group Props
