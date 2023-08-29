@@ -725,6 +725,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     clear() {
         this.files = [];
+        this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
         this.cd.markForCheck();
