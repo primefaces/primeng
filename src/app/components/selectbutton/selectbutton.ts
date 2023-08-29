@@ -185,7 +185,7 @@ export class SelectButton implements ControlValueAccessor {
                 value: this.value
             });
         } else if (this.value !== optionValue) {
-                this.value = optionValue;
+            this.value = optionValue;
             this.onModelChange(this.value);
 
             this.onChange.emit({
