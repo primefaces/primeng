@@ -751,7 +751,7 @@ export class Menu implements OnDestroy {
 
     isItemHidden(item: any): boolean {
         if (item.separator) {
-            return item.visible === false || (item.items && item.items.some(subitem => subitem.visible !== false));
+            return item.visible === false || (item.items && item.items.some((subitem) => subitem.visible !== false));
         }
         return item.visible === false;
     }
