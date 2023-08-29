@@ -149,6 +149,7 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
@@ -213,6 +214,7 @@ export class TreeTableService {
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
@@ -329,6 +331,11 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @group Props
      */
     @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    /**
+     * Custom style class for paginator
+     * @group Props
+     */
+    @Input() paginatorStyleClass: string | undefined;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props

@@ -70,6 +70,7 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             ></p-paginator>
             <div class="p-dataview-content">
                 <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
@@ -106,6 +107,7 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             ></p-paginator>
             <div class="p-dataview-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
@@ -151,6 +153,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * @group Props
      */
     @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
+    /**
+     * Custom style class for paginator
+     * @group Props
+     */
+    @Input() paginatorStyleClass: string | undefined;
     /**
      * Whether to show it even there is only one page.
      * @group Props
