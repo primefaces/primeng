@@ -7507,6 +7507,14 @@
                             "description": "Defines if data is loaded and interacted with in lazy manner."
                         },
                         {
+                            "name": "lazyLoadOnInit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to call lazy loading on initialization."
+                        },
+                        {
                             "name": "emptyMessage",
                             "optional": false,
                             "readonly": false,
