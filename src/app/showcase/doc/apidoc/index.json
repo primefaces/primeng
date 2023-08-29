@@ -6526,7 +6526,7 @@
                             "name": "separator",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | RegExp",
                             "description": "Separator char to add an item when pressed in addition to the enter key."
                         },
                         {
@@ -10831,6 +10831,14 @@
                             "description": "Items are displayed with a slideshow in autoPlay mode."
                         },
                         {
+                            "name": "shouldStopAutoplayByClick",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When enabled, autorun should stop by click."
+                        },
+                        {
                             "name": "transitionInterval",
                             "optional": false,
                             "readonly": false,
@@ -11285,6 +11293,13 @@
                             "readonly": false,
                             "type": "string | SafeUrl",
                             "description": "Attribute of the image element."
+                        },
+                        {
+                            "name": "previewImageSrc",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "Attribute of the preview image element."
                         },
                         {
                             "name": "alt",
@@ -20665,7 +20680,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -20699,7 +20714,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -22730,11 +22745,11 @@
                             "description": "Whether to hide tooltip on escape key press."
                         },
                         {
-                            "name": "text",
+                            "name": "content",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Text of the tooltip."
+                            "type": "string | TemplateRef<HTMLElement>",
+                            "description": "Content of the tooltip."
                         },
                         {
                             "name": "disabled",

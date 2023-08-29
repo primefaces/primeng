@@ -30,8 +30,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -110,7 +110,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -153,7 +153,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -372,7 +372,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
@@ -496,6 +502,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -639,7 +647,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey });
 
-            this.dirty = !root;
+            this.dirty = true;
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
             if (grouped) {
@@ -655,8 +663,10 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     onItemMouseEnter(event: any) {
-        if (this.dirty) {
-            this.onItemChange(event);
+        if (!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
         }
     }
 
@@ -951,13 +961,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
+            this.relativeAlign = event?.relativeAlign || null;
         }
 
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
 
-        if (!this.popup) {
-            isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
-        }
+        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
         this.cd.markForCheck();
     }
 
@@ -1098,7 +1108,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            this.outsideClickListener();
+            document.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }

@@ -9,7 +9,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card md:flex md:justify-content-center">
             <div *ngIf="images" class="grid" style="max-width: 800px;">
                 <div *ngFor="let image of images; let index = index" class="col-3" key="index">
                     <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
@@ -98,7 +98,7 @@ export class FullScreenTemplateDoc implements OnInit {
 </p-galleria>
         `,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div *ngIf="images" class="grid" style="max-width: 800px;">
         <div *ngFor="let image of images; let index = index" class="col-3" key="index">
             <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />

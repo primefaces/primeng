@@ -54,22 +54,35 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [ngStyle]="style"
             [class]="styleClass"
             role="complementary"
+            [attr.data-pc-name]="'sidebar'"
+            [attr.data-pc-section]="'root'"
             [attr.aria-modal]="modal"
+            (keydown)="onKeyDown($event)"
         >
-            <div class="p-sidebar-header">
+            <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <button type="button" class="p-sidebar-close p-sidebar-icon p-link" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel" *ngIf="showCloseIcon" pRipple>
-                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" />
-                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon">
+                <button
+                    type="button"
+                    class="p-sidebar-close p-sidebar-icon p-link"
+                    (click)="close($event)"
+                    (keydown.enter)="close($event)"
+                    [attr.aria-label]="ariaCloseLabel"
+                    *ngIf="showCloseIcon"
+                    pRipple
+                    [attr.data-pc-section]="'closebutton'"
+                    [attr.data-pc-group-section]="'iconcontainer'"
+                >
+                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </span>
                 </button>
             </div>
-            <div class="p-sidebar-content">
+            <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <div class="p-sidebar-footer">
+            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </div>
@@ -264,6 +277,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
             }
         });
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.code === 'Escape') {
+            this.hide();
+        }
     }
 
     show() {

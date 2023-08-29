@@ -79,6 +79,7 @@ import { ColumnResizeFitModeDoc } from './columnresizefitmodedoc';
 import { StylingDoc } from './stylingdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 
 @NgModule({
     imports: [
@@ -166,7 +167,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
         VirtualScrollLazyDoc,
         StylingDoc,
         SelectionEventsDoc,
-        AccessibilityDoc
+        AccessibilityDoc,
+        PaginatorLocaleDoc
     ],
     exports: [AppDocModule]
 })

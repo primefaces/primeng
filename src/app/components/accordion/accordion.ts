@@ -35,11 +35,11 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'p-accordionTab',
     template: `
         <div class="p-accordion-tab" [class.p-accordion-tab-active]="selected" [ngClass]="tabStyleClass" [ngStyle]="tabStyle" [attr.data-pc-name]="'accordiontab'">
-            <div class="p-accordion-header" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
+            <div class="p-accordion-header" role="heading" [attr.aria-level]="headerAriaLevel" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
                 <a
                     [ngClass]="headerStyleClass"
                     [style]="headerStyle"
-                    role="tab"
+                    role="button"
                     class="p-accordion-header-link"
                     (click)="toggle($event)"
                     (keydown)="onKeydown($event)"
@@ -191,6 +191,11 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         }
     }
     /**
+     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
+     * @group Props
+     */
+    @Input() headerAriaLevel: number = 2;
+    /**
      * Event triggered by changing the choice.
      * @param {boolean} value - Boolean value indicates that the option is changed.
      * @group Emits
@@ -328,7 +333,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 @Component({
     selector: 'p-accordion',
     template: `
-        <div [ngClass]="'p-accordion p-component'" [ngStyle]="style" [class]="styleClass" role="tablist">
+        <div [ngClass]="'p-accordion p-component'" [ngStyle]="style" [class]="styleClass">
             <ng-content></ng-content>
         </div>
     `,
@@ -385,6 +390,20 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      */
     @Input() selectOnFocus: boolean = false;
     /**
+     * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
+     * @group Props
+     */
+    @Input() get headerAriaLevel(): number {
+        return this._headerAriaLevel;
+    }
+    set headerAriaLevel(val: number) {
+        if (typeof val === 'number' && val > 0) {
+            this._headerAriaLevel = val;
+        } else if (this._headerAriaLevel !== 2) {
+            this._headerAriaLevel = 2;
+        }
+    }
+    /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.
      * @param {AccordionTabCloseEvent} event - Custom tab close event.
      * @group Emits
@@ -408,6 +427,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     tabListSubscription: Subscription | null = null;
 
     private _activeIndex: any;
+    private _headerAriaLevel: number = 2;
 
     preventActiveIndexPropagation: boolean = false;
 
@@ -535,6 +555,10 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     initTabs() {
         this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
+
+        this.tabs.forEach((tab) => {
+            tab.headerAriaLevel = this._headerAriaLevel;
+        });
 
         this.updateSelectionState();
         this.changeDetector.markForCheck();
