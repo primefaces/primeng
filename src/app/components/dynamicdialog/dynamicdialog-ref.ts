@@ -14,7 +14,7 @@ export class DynamicDialogRef {
 
         setTimeout(() => {
             this._onClose.complete();
-        }, 1000)
+        }, 1000);
     }
     /**
      * Destroys the dialog instance.

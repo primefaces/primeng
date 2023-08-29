@@ -20,11 +20,11 @@ import { Component, Input } from '@angular/core';
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-progress-circle</td>
+                        <td>p-progress-spinner-svg</td>
                         <td>SVG element.</td>
                     </tr>
                     <tr>
-                        <td>p-progress-path</td>
+                        <td>p-progress-spinner-circle</td>
                         <td>Circle element.</td>
                     </tr>
                 </tbody>

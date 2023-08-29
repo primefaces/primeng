@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
             [ngClass]="'p-confirm-popup p-component'"
             [ngStyle]="style"
             [class]="styleClass"
+            role="alertdialog"
             (click)="onOverlayClick($event)"
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onAnimationStart($event)"

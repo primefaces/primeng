@@ -73,17 +73,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
                 role="dialog"
-                [attr.aria-labelledby]="id + '-label'"
+                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-modal]="true"
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                    <span [attr.id]="id + '-label'" class="p-dialog-title" *ngIf="headerFacet">
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                        <button *ngIf="maximizable" role="button" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
                             <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                             <ng-container *ngIf="!maximizeIcon">
                                 <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
@@ -553,6 +554,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
+    getAriaLabelledBy() {
+        return this.header !== null ? UniqueComponentId() + '_header' : null;
+    }
+
     focus() {
         let focusable = DomHandler.findSingle(this.container, '[autofocus]');
         if (focusable) {
@@ -632,7 +637,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
-                            .p-dialog[${this.id}] {
+                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
                                 width: ${this.breakpoints[breakpoint]} !important;
                             }
                         }
@@ -687,34 +692,40 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = DomHandler.getOuterWidth(this.container);
-            let containerHeight = DomHandler.getOuterHeight(this.container);
-            let deltaX = event.pageX - (this.lastPageX as number);
-            let deltaY = event.pageY - (this.lastPageY as number);
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
-            let leftPos = offset.left + deltaX;
-            let topPos = offset.top + deltaY;
-            let viewport = DomHandler.getViewport();
+            const containerWidth = DomHandler.getOuterWidth(this.container);
+            const containerHeight = DomHandler.getOuterHeight(this.container);
+            const deltaX = event.pageX - (this.lastPageX as number);
+            const deltaY = event.pageY - (this.lastPageY as number);
+            const offset = this.container.getBoundingClientRect();
 
-            (this.container as HTMLDivElement).style.position = 'fixed';
+            const containerComputedStyle = getComputedStyle(this.container);
+
+            const leftMargin = parseFloat(containerComputedStyle.marginLeft);
+            const topMargin = parseFloat(containerComputedStyle.marginTop);
+
+            const leftPos = offset.left + deltaX - leftMargin;
+            const topPos = offset.top + deltaY - topMargin;
+            const viewport = DomHandler.getViewport();
+
+            this.container.style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = leftPos + 'px';
+                    this._style.left = `${leftPos}px`;
                     this.lastPageX = event.pageX;
-                    (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                    this.container.style.left = `${leftPos}px`;
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
-                    this._style.top = topPos + 'px';
+                    this._style.top = `${topPos}px`;
                     this.lastPageY = event.pageY;
-                    (this.container as HTMLDivElement).style.top = topPos + 'px';
+                    this.container.style.top = `${topPos}px`;
                 }
             } else {
                 this.lastPageX = event.pageX;
-                (this.container as HTMLDivElement).style.left = leftPos + 'px';
+                this.container.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                (this.container as HTMLDivElement).style.top = topPos + 'px';
+                this.container.style.top = `${leftPos}px`;
             }
         }
     }

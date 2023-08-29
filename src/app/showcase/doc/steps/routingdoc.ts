@@ -129,11 +129,11 @@ export class StepsRoutingDemo implements OnInit {
         {
             path: '',
             children: [
-                { path: '', redirectTo: 'personal', pathMatch: 'full' },
                 { path: 'personal', component: PersonalDemo },
-                { path: 'confirmation', component: ConfirmationDemo },
                 { path: 'seat', component: SeatDemo },
                 { path: 'payment', component: PaymentDemo }
+                { path: 'confirmation', component: ConfirmationDemo },
+                { path: '', redirectTo: 'personal', pathMatch: 'full' },
             ]
         }
     ])`,

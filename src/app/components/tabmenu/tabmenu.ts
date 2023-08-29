@@ -141,7 +141,17 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._focusableItems = (this._model || []).reduce((result, item) => {
+            result.push(item);
+
+            return result;
+        }, []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Defines the default active menuitem
      * @group Props
@@ -167,15 +177,21 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      */
     @Input() styleClass: string | undefined;
     /**
+     * Defines a string value that labels an interactive element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Identifier of the underlying input element.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
      * Event fired when a tab is selected.
      * @param {MenuItem} item - Menu item.
      * @group Emits
      */
     @Output() activeItemChange: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
-
-    @Input() ariaLabel: string | undefined;
-
-    @Input() ariaLabelledBy: string | undefined;
 
     @ViewChild('content') content: Nullable<ElementRef>;
 
@@ -209,12 +225,14 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     _focusableItems: MenuItem[] | undefined;
 
+    _model: MenuItem[] | undefined;
+
     focusedItemInfo = signal<any>(null);
 
     get focusableItems() {
         if (!this._focusableItems || !this._focusableItems.length) {
             this._focusableItems = (this.model || []).reduce((result, item) => {
-                !item.disabled && result.push(item);
+                result.push(item);
 
                 return result;
             }, []);

@@ -15,7 +15,7 @@ export interface TableRowSelectEvent {
     /**
      * Row data.
      */
-    data?: any[];
+    data?: any;
     /**
      * Selection type.
      */

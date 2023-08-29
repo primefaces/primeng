@@ -11,18 +11,21 @@ import {
     Inject,
     Input,
     NgModule,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
     ViewRef,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -114,7 +117,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -157,7 +160,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -226,7 +229,7 @@ export class ContextMenuSub {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
@@ -379,7 +382,13 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() set model(value: MenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Event for which the menu must be displayed.
      * @group Props
@@ -445,18 +454,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() onHide: EventEmitter<null> = new EventEmitter<null>();
-    /**
-     * Callback to execute when button is focused.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-    /**
-     * Callback to execute when button loses focus.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -501,6 +498,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -879,14 +878,12 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '' };
 
         this.focusedItemInfo.set(focusedItemInfo);
-        this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
         this.focused = false;
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
         this.searchValue = '';
-        this.onBlur.emit(event);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -929,10 +926,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
-        }
-
-        if (this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.containerViewChild?.nativeElement);
         }
 
         if (this.container && this.autoZIndex) {

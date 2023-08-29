@@ -6,7 +6,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { DomHandler } from '../dom/domhandler';
+import { DomHandler } from 'primeng/dom';
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components

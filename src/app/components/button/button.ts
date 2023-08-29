@@ -112,7 +112,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </defs>
     </svg>`;
 
-    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -135,6 +135,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
             if (!this.icon && this.label) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.labelOnly);
+            }
+
+            if (this.icon && !this.label && !ObjectUtils.isEmpty(this.htmlElement.textContent)) {
+                styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
             }
         }
 
@@ -199,22 +203,30 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     updateIcon() {
         let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
 
         if (!this.icon && !this.loading) {
             iconElement && this.htmlElement.removeChild(iconElement);
             return;
         }
 
+        if (this.loading && !this.loadingIcon && iconElement) {
+            iconElement.innerHTML = this.spinnerIcon;
+        }
+
         if (iconElement) {
-            if (this.iconPos) iconElement.className = 'p-button-icon p-button-icon-' + this.iconPos + ' ' + this.getIconClass();
-            else iconElement.className = 'p-button-icon ' + this.getIconClass();
+            if (this.iconPos) {
+                iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
+            } else {
+                iconElement.className = 'p-button-icon ' + this.getIconClass();
+            }
         } else {
             this.createIcon();
         }
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this._icon;
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
     }
 
     ngOnDestroy() {
@@ -239,32 +251,35 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
+            [attr.data-pc-name]="'button'"
+            [attr.data-pc-section]="'root'"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon' + icon" [ngClass]="iconClass()"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" />
+                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon pi-spin ' + loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon">
+                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()"></span>
-                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()">
+                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'">
                     <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label">{{ label }}</span>
-            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge">{{ badge }}</span>
+            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge" [attr.data-pc-section]="'badge'">{{ badge }}</span>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[class.p-disabled]': 'disabled' || 'loading'
     }
 })
 export class Button implements AfterContentInit {
@@ -329,7 +344,7 @@ export class Button implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
-     * Callback to execute when button is clicked. 
+     * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -377,11 +392,11 @@ export class Button implements AfterContentInit {
     buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': this.icon && !this.label,
+            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left'
         };
     }
 
@@ -420,4 +435,4 @@ export class Button implements AfterContentInit {
     exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })
-export class ButtonModule { }
+export class ButtonModule {}

@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    Inject,
     Input,
     NgModule,
     OnChanges,
@@ -18,6 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     computed,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -40,14 +42,15 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             [tabindex]="-1"
             [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
+            [attr.aria-hidden]="!parentExpanded"
             (focusin)="menuFocus.emit($event)"
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
             <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" class="p-menu-separator" role="separator"></li>
+                <li *ngIf="processedItem.separator" class="p-menuitem-separator" role="separator"></li>
                 <li
-                    *ngIf="!processedItem.separator"
+                    *ngIf="!processedItem.separator && isItemVisible(processedItem)"
                     class="p-menuitem"
                     role="treeitem"
                     [id]="getItemId(processedItem)"
@@ -56,12 +59,12 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
-                    [ngClass]="processedItem.styleClass"
+                    [class]="getItemProp(processedItem, 'styleClass')"
                     [class.p-hidden]="processedItem.visible === false"
                     [class.p-focus]="isItemFocused(processedItem)"
-                    [ngStyle]="processedItem.style"
-                    pTooltip
-                    [tooltipOptions]="processedItem.tooltipOptions"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
+                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
                     <div class="p-menuitem-content" (click)="onItemClick($event, processedItem)">
                         <a
@@ -71,6 +74,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             [ngClass]="{ 'p-disabled': getItemProp(processedItem, 'disabled') }"
                             [target]="getItemProp(processedItem, 'target')"
                             [attr.data-pc-section]="'action'"
+                            [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                         >
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
@@ -101,6 +105,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
                             [state]="getItemProp(processedItem, 'state')"
                             [attr.data-pc-section]="'action'"
+                            [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                         >
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!panelMenu.submenuIconTemplate">
@@ -125,6 +130,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             [focusedItemId]="focusedItemId"
                             [activeItemPath]="activeItemPath"
                             [level]="level + 1"
+                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                             (itemToggle)="onItemToggle($event)"
                         ></p-panelMenuSub>
                     </div>
@@ -172,6 +178,8 @@ export class PanelMenuSub {
 
     @Input() transitionOptions: string | undefined;
 
+    @Input() parentExpanded: boolean | undefined;
+
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
     @Output() menuFocus: EventEmitter<any> = new EventEmitter<any>();
@@ -182,7 +190,7 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(public panelMenu: PanelMenu, public el: ElementRef) {}
+    constructor(@Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu, public el: ElementRef) {}
 
     getItemId(processedItem) {
         return `${this.panelId}_${processedItem.key}`;
@@ -200,8 +208,12 @@ export class PanelMenuSub {
         return this.getItemProp(processedItem, 'label');
     }
 
+    isItemExpanded(processedItem) {
+        return processedItem.expanded;
+    }
+
     isItemActive(processedItem) {
-        return processedItem.expanded || this.activeItemPath.some((path) => path && path.key === processedItem.key);
+        return this.isItemExpanded(processedItem) || this.activeItemPath.some((path) => path && path.key === processedItem.key);
     }
 
     isItemVisible(processedItem) {
@@ -256,6 +268,7 @@ export class PanelMenuSub {
             [transitionOptions]="transitionOptions"
             [items]="processedItems()"
             [activeItemPath]="activeItemPath()"
+            [parentExpanded]="parentExpanded"
             (itemToggle)="onItemToggle($event)"
             (keydown)="onKeyDown($event)"
             (menuFocus)="onFocus($event)"
@@ -379,6 +392,7 @@ export class PanelMenuList implements OnChanges {
                 const newItem = {
                     icon: item.icon,
                     expanded: item.expanded,
+                    separator: item.separator,
                     item,
                     index,
                     level,
@@ -674,13 +688,13 @@ export class PanelMenuList implements OnChanges {
                         [ngClass]="{ 'p-component p-panelmenu-header': true, 'p-highlight': isItemActive(item), 'p-disabled': isItemDisabled(item) }"
                         [class]="getItemProp(item, 'styleClass')"
                         [ngStyle]="getItemProp(item, 'style')"
-                        pTooltip
+                        [pTooltip]="getItemProp(item, 'tooltip')"
                         [id]="getHeaderId(i)"
                         [tabindex]="0"
                         role="button"
-                        [tooltipOptions]="getItemProp(item, tooltipOptions)"
+                        [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
                         [attr.aria-expanded]="isItemActive(item)"
-                        [attr.arial-label]="getItemProp(item, 'label')"
+                        [attr.aria-label]="getItemProp(item, 'label')"
                         [attr.aria-controls]="getContentId(i)"
                         [attr.aria-disabled]="isItemDisabled(item)"
                         [attr.data-p-highlight]="isItemActive(item)"
@@ -761,6 +775,7 @@ export class PanelMenuList implements OnChanges {
                                 [root]="true"
                                 [activeItem]="activeItem()"
                                 [tabindex]="tabindex"
+                                [parentExpanded]="isItemActive(item)"
                                 (itemToggle)="changeExpandedKeys($event)"
                                 (headerFocus)="updateFocusedHeader($event)"
                             ></p-panelMenuList>

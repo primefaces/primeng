@@ -310,7 +310,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) { }
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
 
     ngOnInit() {
         if (this.responsive) {
@@ -677,4 +677,4 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     exports: [OrderList, SharedModule, DragDropModule],
     declarations: [OrderList]
 })
-export class OrderListModule { }
+export class OrderListModule {}

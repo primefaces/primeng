@@ -108,7 +108,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate">
@@ -396,7 +396,13 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() model: MegaMenuItem[] | undefined;
+    @Input() set model(value: MegaMenuItem[] | undefined) {
+        this._model = value;
+        this._processedItems = this.createProcessedItems(this._model || []);
+    }
+    get model(): MegaMenuItem[] | undefined {
+        return this._model;
+    }
     /**
      * Inline style of the element.
      * @group Props
@@ -437,18 +443,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * @group Props
      */
     @Input() tabindex: number = 0;
-    /**
-     * Callback to execute when button is focused.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-    /**
-     * Callback to execute when button loses focus.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -481,6 +475,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     searchTimeout: any;
 
     _processedItems: any[];
+
+    _model: MegaMenuItem[] | undefined;
 
     get visibleItems() {
         const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
@@ -604,8 +600,10 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     }
 
     onItemMouseEnter(event: any) {
-        if (this.dirty) {
-            this.onItemChange(event);
+        if (!DomHandler.isTouchDevice()) {
+            if (this.dirty) {
+                this.onItemChange(event);
+            }
         }
     }
 
@@ -651,7 +649,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
             this.focusedItemInfo.set({ index, key: processedItem.key, parentKey: processedItem.parentKey });
         }
-        this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
@@ -659,7 +656,6 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
         this.searchValue = '';
         this.dirty = false;
-        this.onBlur.emit(event);
     }
 
     onKeyDown(event: KeyboardEvent) {

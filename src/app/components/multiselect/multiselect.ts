@@ -451,11 +451,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() maxSelectedLabels: number = 3;
     /**
-     * Number of maximum options that can be selected.
-     * @group Props
-     */
-    @Input() selectionLimit: number | undefined;
-    /**
      * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
      * @group Props
      */
@@ -705,6 +700,17 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._itemSize = val;
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
+    /**
+     * Number of maximum options that can be selected.
+     * @group Props
+     */
+    @Input() get selectionLimit(): number | undefined {
+        return this._selectionLimit;
+    }
+    set selectionLimit(val: number | undefined) {
+        this._selectionLimit = val;
+        this.checkSelectionLimit();
+    }
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
@@ -795,6 +801,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     _placeholder: string | undefined;
 
     _itemSize: number | undefined;
+
+    _selectionLimit: number | undefined;
 
     public value: any[] | undefined | null;
 
@@ -1088,6 +1096,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateFilledState();
         this.updateLabel();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     checkAll() {

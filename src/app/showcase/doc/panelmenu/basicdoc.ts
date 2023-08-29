@@ -47,6 +47,9 @@ export class BasicDoc implements OnInit {
                         icon: 'pi pi-fw pi-trash'
                     },
                     {
+                        separator: true
+                    },
+                    {
                         label: 'Export',
                         icon: 'pi pi-fw pi-external-link'
                     }
@@ -184,6 +187,9 @@ export class PanelMenuBasicDemo implements OnInit {
                     {
                         label: 'Delete',
                         icon: 'pi pi-fw pi-trash'
+                    },
+                    { 
+                        separator: true 
                     },
                     {
                         label: 'Export',

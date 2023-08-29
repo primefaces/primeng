@@ -68,3 +68,7 @@
     position: relative;
     z-index: 1;
 }
+
+p-button[iconpos="right"] spinnericon {
+    order: 1;
+}
