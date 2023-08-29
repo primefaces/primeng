@@ -200,7 +200,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         private zone: NgZone,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
-    ) { }
+    ) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -230,9 +230,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                     if (!this.container?.contains(event.target) && !this.target.contains(event.target)) {
-                        this.zone.run(() => {
-                            this.hide();
-                        });
+                        this.hide();
                     }
 
                     this.cd.markForCheck();
@@ -508,4 +506,4 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     exports: [OverlayPanel, SharedModule],
     declarations: [OverlayPanel]
 })
-export class OverlayPanelModule { }
+export class OverlayPanelModule {}
