@@ -1057,10 +1057,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isInputClick(event: MouseEvent): boolean {
+        const target: HTMLElement = event.target as HTMLElement;
         return (
-            DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
-            (event.target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
-            ((this.editableInputViewChild && (event.target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
+            DomHandler.hasClass(target, 'p-dropdown-clear-icon') ||
+            target.closest('.p-dropdown-clear-icon') !== null ||
+            (target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
+            ((this.editableInputViewChild && (target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
         );
     }
 
