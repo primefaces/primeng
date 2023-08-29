@@ -74,11 +74,17 @@ export interface TreeTableFilterEvent {
     filteredValue?: TreeNode[];
 }
 /**
+ * Custom node expand event.
+ * @see {@link TreeTable.onNodeExpand}
+ * @group Events
+ */
+export interface TreeTableNodeExpandEvent<T = any> extends TreeTableNodeCollapseEvent<T> {}
+/**
  * Custom node collapse event.
  * @see {@link TreeTable.onNodeCollapse}
  * @group Events
  */
-export interface TreeTableNodeCollapseEvent {
+export interface TreeTableNodeCollapseEvent<T = any> {
     /**
      * Browser event.
      */
@@ -86,7 +92,7 @@ export interface TreeTableNodeCollapseEvent {
     /**
      * Node instance.
      */
-    node: TreeTableNode<any>;
+    node: TreeTableNode<T>;
 }
 /**
  * Custom sort event.
