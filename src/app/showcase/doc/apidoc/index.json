@@ -20680,7 +20680,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -20714,7 +20714,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
