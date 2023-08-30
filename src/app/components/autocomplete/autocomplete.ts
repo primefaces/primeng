@@ -89,7 +89,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
             />
-            <ng-container *ngIf="filled && !disabled && showClear">
+            <ng-container *ngIf="filled && !disabled && showClear && !loading">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" class="p-autocomplete-clear-icon" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
