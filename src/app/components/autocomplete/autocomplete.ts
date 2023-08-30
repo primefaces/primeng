@@ -659,6 +659,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     overlayVisible: boolean = false;
 
+    isSuggestionOptionSelect: boolean = false;
+
     suggestionsUpdated: Nullable<boolean>;
 
     highlightOption: any;
@@ -902,6 +904,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     selectItem(option: any, focus: boolean = true) {
+        this.isSuggestionOptionSelect = true;
+
         if (this.forceSelectionUpdateModelTimeout) {
             clearTimeout(this.forceSelectionUpdateModelTimeout);
             this.forceSelectionUpdateModelTimeout = null;
@@ -1161,42 +1165,48 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onInputChange(event: Event) {
-        if (this.forceSelection) {
-            let valid = false;
-            const target = event.target as HTMLTextAreaElement;
-            let inputValue = target.value.trim();
+        this.isSuggestionOptionSelect = false;
 
-            if (this.suggestions) {
-                let suggestions = [...this.suggestions];
-                if (this.group) {
-                    let groupedSuggestions = this.suggestions.filter((s) => s[this.optionGroupChildren]).flatMap((s) => s[this.optionGroupChildren]);
-                    suggestions = suggestions.concat(groupedSuggestions);
-                }
+        setTimeout(() => {
+            if (this.forceSelection && !this.isSuggestionOptionSelect) this.onForceSelectOrClearInput(event);
+        }, 200);
+    }
 
-                for (let suggestion of suggestions) {
-                    let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if (itemValue && inputValue.toLowerCase() === itemValue.toLowerCase().trim()) {
-                        valid = true;
-                        this.forceSelectionUpdateModelTimeout = setTimeout(() => {
-                            this.selectItem(suggestion, false);
-                        }, 250);
-                        break;
-                    }
-                }
+    onForceSelectOrClearInput(event: Event) {
+        let valid = false;
+        const target = event.target as HTMLTextAreaElement;
+        let inputValue = target.value.trim();
+
+        if (this.suggestions) {
+            let suggestions = [...this.suggestions];
+            if (this.group) {
+                let groupedSuggestions = this.suggestions.filter((s) => s[this.optionGroupChildren]).flatMap((s) => s[this.optionGroupChildren]);
+                suggestions = suggestions.concat(groupedSuggestions);
             }
 
-            if (!valid) {
-                if (this.multiple) {
-                    (<ElementRef>this.multiInputEl).nativeElement.value = '';
-                } else {
-                    this.value = null;
-                    (<ElementRef>this.inputEL).nativeElement.value = '';
+            for (let suggestion of suggestions) {
+                let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
+                if (itemValue && inputValue.toLowerCase() === itemValue.toLowerCase().trim()) {
+                    valid = true;
+                    this.forceSelectionUpdateModelTimeout = setTimeout(() => {
+                        this.selectItem(suggestion, false);
+                    }, 250);
+                    break;
                 }
-
-                this.onClear.emit(event);
-                this.onModelChange(this.value);
-                this.updateFilledState();
             }
+        }
+
+        if (!valid) {
+            if (this.multiple) {
+                (<ElementRef>this.multiInputEl).nativeElement.value = '';
+            } else {
+                this.value = null;
+                (<ElementRef>this.inputEL).nativeElement.value = '';
+            }
+
+            this.onClear.emit(event);
+            this.onModelChange(this.value);
+            this.updateFilledState();
         }
     }
 
