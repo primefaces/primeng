@@ -1164,7 +1164,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
                 for (let suggestion of suggestions) {
                     let itemValue = this.field ? ObjectUtils.resolveFieldData(suggestion, this.field) : suggestion;
-                    if (itemValue && inputValue === itemValue.trim()) {
+                    if (itemValue && inputValue.toLowerCase() === itemValue.toLowerCase().trim()) {
                         valid = true;
                         this.forceSelectionUpdateModelTimeout = setTimeout(() => {
                             this.selectItem(suggestion, false);
