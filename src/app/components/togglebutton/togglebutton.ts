@@ -23,14 +23,23 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [class]="styleClass"
             (click)="toggle($event)"
-            (keydown.enter)="toggle($event)"
+            (keydown)="onKeyDown($event)"
             [attr.tabindex]="disabled ? null : '0'"
-            role="checkbox"
+            role="switch"
             [attr.aria-checked]="checked"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
             pRipple
+            [attr.data-pc-name]="'togglebutton'"
+            [attr.data-pc-section]="'root'"
         >
-            <span *ngIf="onIcon || offIcon" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"></span>
-            <span class="p-button-label" *ngIf="onLabel || offLabel">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+            <span
+                *ngIf="onIcon || offIcon"
+                [class]="checked ? this.onIcon : this.offIcon"
+                [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
+                [attr.data-pc-section]="'icon'"
+            ></span>
+            <span class="p-button-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
         </div>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
@@ -61,6 +70,11 @@ export class ToggleButton implements ControlValueAccessor {
      * @group Props
      */
     @Input() offIcon: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -122,6 +136,19 @@ export class ToggleButton implements ControlValueAccessor {
             });
 
             this.cd.markForCheck();
+        }
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'Enter':
+                this.toggle(event);
+                event.preventDefault();
+                break;
+            case 'Space':
+                this.toggle(event);
+                event.preventDefault();
+                break;
         }
     }
 

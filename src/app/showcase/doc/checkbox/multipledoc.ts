@@ -9,8 +9,8 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-3">
             <div class="flex align-items-center gap-1">
-                <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-                <label for="ny">New York</label>
+                <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="newyork"></p-checkbox>
+                <label for="newyork">New York</label>
             </div>
             <div class="flex align-items-center gap-1">
                 <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>

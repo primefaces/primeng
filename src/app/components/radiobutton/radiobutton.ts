@@ -1,6 +1,6 @@
-import { NgModule, Component, Input, Output, ElementRef, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 
@@ -49,35 +49,43 @@ export class RadioControlRegistry {
 @Component({
     selector: 'p-radioButton',
     template: `
-        <div [ngStyle]="style" [ngClass]="{ 'p-radiobutton p-component': true, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled, 'p-radiobutton-focused': focused }" [class]="styleClass">
-            <div class="p-hidden-accessible">
+        <div
+            [ngStyle]="style"
+            [ngClass]="{ 'p-radiobutton p-component': true, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled, 'p-radiobutton-focused': focused }"
+            [class]="styleClass"
+            [attr.data-pc-name]="'radiobutton'"
+            [attr.data-pc-section]="'root'"
+            (click)="handleClick($event, input, true)"
+        >
+            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'">
                 <input
-                    #rb
-                    type="radio"
+                    #input
                     [attr.id]="inputId"
+                    type="radio"
                     [attr.name]="name"
-                    [attr.value]="value"
+                    [checked]="checked"
+                    [disabled]="disabled"
+                    [value]="value"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
                     [attr.tabindex]="tabindex"
                     [attr.aria-checked]="checked"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [checked]="checked"
-                    (change)="onChange($event)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
-                    [disabled]="disabled"
+                    [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
-            <div (click)="handleClick($event, rb, true)" [ngClass]="{ 'p-radiobutton-box': true, 'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused }">
-                <span class="p-radiobutton-icon"></span>
+            <div [ngClass]="{ 'p-radiobutton-box': true, 'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused }" [attr.data-pc-section]="'input'">
+                <span class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></span>
             </div>
         </div>
         <label
             (click)="select($event)"
             [class]="labelStyleClass"
-            [ngClass]="{ 'p-radiobutton-label': true, 'p-radiobutton-label-active': rb.checked, 'p-disabled': disabled, 'p-radiobutton-label-focus': focused }"
+            [ngClass]="{ 'p-radiobutton-label': true, 'p-radiobutton-label-active': input.checked, 'p-disabled': disabled, 'p-radiobutton-label-focus': focused }"
             *ngIf="label"
             [attr.for]="inputId"
+            [attr.data-pc-section]="'label'"
             >{{ label }}</label
         >
     `,
@@ -167,7 +175,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ViewChild('rb') inputViewChild!: ElementRef;
+    @ViewChild('input') inputViewChild!: ElementRef;
 
     public onModelChange: Function = () => {};
 
@@ -245,9 +253,6 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
         this.onBlur.emit(event);
     }
 
-    onChange(event: Event) {
-        this.select(event);
-    }
     /**
      * Applies focus to input field.
      * @group Method
