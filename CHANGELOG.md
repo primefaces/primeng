@@ -1,4 +1,13 @@
 # Changelog
+
+## [16.3.1](https://github.com/primefaces/primeng/tree/16.3.1) (2023-08-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.3.0...16.3.1)
+
+**Fixed bugs:**
+
+- PrimeNG build is not working [\#13581](https://github.com/primefaces/primeng/issues/13581)
+
 ## [16.3.0](https://github.com/primefaces/primeng/tree/16.3.0) (2023-08-30)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.2.0...16.3.0)
