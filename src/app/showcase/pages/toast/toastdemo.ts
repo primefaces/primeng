@@ -6,6 +6,7 @@ import { AnimationDoc } from '../../doc/toast/animationdoc';
 import { MultipleDoc } from '../../doc/toast/multipledoc';
 import { PositionDoc } from '../../doc/toast/positiondoc';
 import { ResponsiveDoc } from '../../doc/toast/responsivedoc';
+import { LifeDoc } from '../../doc/toast/lifedoc';
 import { StickyDoc } from '../../doc/toast/stickydoc';
 import { StyleDoc } from '../../doc/toast/styledoc';
 import { TargetDoc } from '../../doc/toast/targetdoc';
@@ -47,6 +48,11 @@ export class ToastDemo {
             id: 'target',
             label: 'Target',
             component: TargetDoc
+        },
+        {
+            id: 'life',
+            label: 'Life',
+            component: LifeDoc
         },
         {
             id: 'sticky',
