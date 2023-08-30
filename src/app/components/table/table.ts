@@ -5108,7 +5108,7 @@ export class ColumnFilter implements AfterContentInit {
         }
     }
 
-    toggleMenu(event : any) {
+    toggleMenu(event: any) {
         this.overlayVisible = !this.overlayVisible;
         event.stopPropagation();
     }
