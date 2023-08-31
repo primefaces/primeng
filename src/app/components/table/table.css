@@ -61,6 +61,7 @@
 .p-datatable-scrollable .p-frozen-column {
     position: sticky;
     background: inherit;
+    z-index: 1;
 }
 
 .p-datatable-scrollable th.p-frozen-column {
