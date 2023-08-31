@@ -936,7 +936,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
             if (data) {
                 if(this.maxlength) {
-                    data.toString().substring(0, this.maxlength);
+                    data = data.toString().substring(0, this.maxlength);
                 }
                 
                 let filteredData = this.parseValue(data);
