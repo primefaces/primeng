@@ -421,7 +421,6 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onBlur(event) {
         this.focused = false;
-        // fix error: NG0600: Writing to signals is not allowed in a computed or an effect by default
         asapScheduler.schedule(() => this.focusedOptionIndex.set(-1));
     }
 
