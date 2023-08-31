@@ -44,7 +44,7 @@
 .p-menubar .p-submenu-list {
     display: none;
     position: absolute;
-    z-index: 2;
+    z-index: 20;
 }
 
 .p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {

@@ -25,7 +25,7 @@
     display: none;
     position: absolute;
     width: auto;
-    z-index: 1;
+    z-index: 10;
 }
 
 .p-megamenu-root-list > .p-menuitem-active > .p-megamenu-panel {
