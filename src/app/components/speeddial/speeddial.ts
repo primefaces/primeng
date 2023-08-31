@@ -29,6 +29,8 @@ import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { UniqueComponentId } from 'primeng/utils';
+import { asapScheduler } from 'rxjs';
+
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
  * @group Components
@@ -419,7 +421,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onBlur(event) {
         this.focused = false;
-        this.focusedOptionIndex.set(-1);
+        // fix error: NG0600: Writing to signals is not allowed in a computed or an effect by default
+        asapScheduler.schedule(() => this.focusedOptionIndex.set(-1));
     }
 
     onArrowUp(event) {
