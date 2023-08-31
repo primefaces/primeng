@@ -31,7 +31,6 @@ import { AngleUpIcon } from 'primeng/icons/angleup';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
-import { stringify } from 'querystring';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
