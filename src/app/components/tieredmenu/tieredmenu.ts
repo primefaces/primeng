@@ -667,6 +667,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             if (this.dirty) {
                 this.onItemChange(event);
             }
+        } else {
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay });
         }
     }
 
