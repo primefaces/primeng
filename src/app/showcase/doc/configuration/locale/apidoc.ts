@@ -132,7 +132,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                             <td>Pending</td>
                         </tr>
                         <tr>
-                            <td>filesizeTypes</td>
+                            <td>fileSizeTypes</td>
                             <td>['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</td>
                         </tr>
                         <tr>

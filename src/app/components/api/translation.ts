@@ -33,7 +33,7 @@ export interface Translation {
     choose?: string;
     upload?: string;
     cancel?: string;
-    filesizeTypes?: string[];
+    fileSizeTypes?: string[];
     dayNames?: string[];
     dayNamesShort?: string[];
     dayNamesMin?: string[];

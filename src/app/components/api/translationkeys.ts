@@ -25,6 +25,8 @@ export class TranslationKeys {
     public static readonly CHOOSE = 'choose';
     public static readonly UPLOAD = 'upload';
     public static readonly CANCEL = 'cancel';
+    public static readonly PENDING = 'pending';
+    public static readonly FILE_SIZE_TYPES = 'fileSizeTypes';
     public static readonly DAY_NAMES = 'dayNames';
     public static readonly DAY_NAMES_SHORT = 'dayNamesShort';
     public static readonly DAY_NAMES_MIN = 'dayNamesMin';
