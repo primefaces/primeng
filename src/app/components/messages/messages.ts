@@ -137,6 +137,8 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     messageSubscription: Subscription | undefined;
 
+    removeSubscription: Subscription | undefined;
+
     clearSubscription: Subscription | undefined;
 
     timerSubscriptions: Subscription[] = [];
@@ -170,6 +172,14 @@ export class Messages implements AfterContentInit, OnDestroy {
                     this.startMessageLifes(filteredMessages);
                     this.cd.markForCheck();
                 }
+            });
+
+            this.removeSubscription = this.messageService.removeObserver.subscribe((id) => {
+                if (id) {
+                    this.messages = this.messages ? this.messages.filter(m => id !== m.id) : this.messages;
+                }
+    
+                this.cd.markForCheck();
             });
 
             this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
@@ -233,6 +243,10 @@ export class Messages implements AfterContentInit, OnDestroy {
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
+        }
+
+        if (this.removeSubscription) {
+            this.removeSubscription.unsubscribe();
         }
 
         if (this.clearSubscription) {

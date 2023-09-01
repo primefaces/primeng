@@ -12,6 +12,7 @@ import { StyleDoc } from '../../doc/toast/styledoc';
 import { TargetDoc } from '../../doc/toast/targetdoc';
 import { TemplateDoc } from '../../doc/toast/templatedoc';
 import { ClearDoc } from '../../doc/toast/cleardoc';
+import { RemoveDoc } from '../../doc/toast/removedoc';
 import { AccessibilityDoc } from '../../doc/toast/accessibilitydoc';
 
 @Component({
@@ -58,6 +59,11 @@ export class ToastDemo {
             id: 'sticky',
             label: 'Sticky',
             component: StickyDoc
+        },
+        {
+            id: 'remove',
+            label: 'Removing Messages',
+            component: RemoveDoc
         },
         {
             id: 'clear',

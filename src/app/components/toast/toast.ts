@@ -300,6 +300,8 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     messageSubscription: Subscription | undefined;
 
+    removeSubscription: Subscription | undefined;
+
     clearSubscription: Subscription | undefined;
 
     messages: Message[] | null | undefined;
@@ -324,6 +326,14 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
                     this.add([messages]);
                 }
             }
+        });
+
+        this.removeSubscription = this.messageService.removeObserver.subscribe((id) => {
+            if (id) {
+                this.messages = this.messages ? this.messages.filter(m => id !== m.id) : this.messages;
+            }
+
+            this.cd.markForCheck();
         });
 
         this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
@@ -460,6 +470,10 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
         if (this.containerViewChild && this.autoZIndex) {
             ZIndexUtils.clear(this.containerViewChild.nativeElement);
+        }
+
+        if (this.removeSubscription) {
+            this.removeSubscription.unsubscribe();
         }
 
         if (this.clearSubscription) {

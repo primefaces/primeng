@@ -23,6 +23,10 @@ class TestToastComponent {
         this.messageService.add({ key: key, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
     }
 
+    showWithId(id) {
+        this.messageService.add({ id: id, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+    }
+
     showMultipleToast() {
         this.messageService.addAll([
             { severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' },
@@ -32,6 +36,10 @@ class TestToastComponent {
 
     onClearWithKey(key) {
         this.messageService.clear(key);
+    }
+
+    onClearWithId(id) {
+        this.messageService.remove(id);
     }
 
     onClear() {
@@ -106,6 +114,17 @@ describe('Toast', () => {
         expect(toastMessage.nativeElement.classList).toContain('p-toast-message-warn');
     });
 
+    it('should create warn toast with id', () => {
+        fixture.detectChanges();
+
+        component.showWithId(1);
+        fixture.detectChanges();
+
+        let toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
+        expect(toastMessage.nativeElement).toBeTruthy();
+        expect(toastMessage.nativeElement.classList).toContain('p-toast-message-warn');
+    });
+
     it('should clear toast', () => {
         fixture.detectChanges();
 
@@ -140,6 +159,30 @@ describe('Toast', () => {
         Promise.resolve(null).then(() => {
             toastMessage = fixture.debugElement.query(By.css('.p-toast-message'));
             expect(toastMessage).toBeFalsy();
+        });
+    });
+
+    it('should clear toast with id', () => {
+        fixture.detectChanges();
+
+        component.showDefaultToast('success');
+        component.showWithId(1);
+        fixture.detectChanges();
+
+        let toastMessages = fixture.debugElement.queryAll(By.css('.p-toast-message'));
+        expect(toastMessages.length).toBe(2);
+        expect(toastMessages[0].nativeElement).toBeTruthy();
+        expect(toastMessages[0].nativeElement.classList).toContain('p-toast-message-success');
+        expect(toastMessages[1].nativeElement).toBeTruthy();
+        expect(toastMessages[1].nativeElement.classList).toContain('p-toast-message-warn');
+        component.onClearWithId(1);
+        fixture.detectChanges();
+
+        Promise.resolve(null).then(() => {
+            toastMessages = fixture.debugElement.queryAll(By.css('.p-toast-message'));
+            expect(toastMessages.length).toBe(1);
+            expect(toastMessages[0].nativeElement).toBeTruthy();
+            expect(toastMessages[0].nativeElement.classList).toContain('p-toast-message-success');
         });
     });
 

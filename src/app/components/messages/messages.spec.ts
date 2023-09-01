@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Messages } from './messages';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -26,6 +26,7 @@ import { TimesIcon } from 'primeng/icons/times';
         <button type="button" pButton (click)="showAllViaService()" label="Use Service"></button>
         <button type="button" pButton (click)="clearWithService()" label="Use Service"></button>
         <button type="button" pButton (click)="clearWithServiceAndKey()" label="Use Service"></button>
+        <button type="button" pButton (click)="removeWithServiceAndId()" label="Use Service"></button>
     `
 })
 class TestMessagesComponent {
@@ -65,7 +66,7 @@ class TestMessagesComponent {
     showAllViaService() {
         this.messageService.addAll([
             { severity: 'success', key: 'primeng', summary: 'Service Message', detail: 'Via MessageService' },
-            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' }
+            { severity: 'success', id: 1, summary: 'Service Message', detail: 'Via MessageService' }
         ]);
     }
 
@@ -75,6 +76,10 @@ class TestMessagesComponent {
 
     clearWithServiceAndKey() {
         this.messageService.clear('primeng');
+    }
+
+    removeWithServiceAndId() {
+        this.messageService.remove(1);
     }
 }
 
@@ -238,6 +243,21 @@ describe('Messages', () => {
         fixture.detectChanges();
 
         clearButton.nativeElement.click();
+        fixture.detectChanges();
+
+        const messageEl = fixture.debugElement.queryAll(By.css('.p-message-icon'));
+        expect(messageEl.length).toEqual(2);
+    });
+
+    it('should remove with service and id', () => {
+        fixture.detectChanges();
+
+        const successButton = fixture.debugElement.queryAll(By.css('button'))[6];
+        const removeButton = fixture.debugElement.queryAll(By.css('button'))[9];
+        successButton.nativeElement.click();
+        fixture.detectChanges();
+
+        removeButton.nativeElement.click();
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.queryAll(By.css('.p-message-icon'));

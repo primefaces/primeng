@@ -19,11 +19,12 @@ import { StyleDoc } from './styledoc';
 import { TargetDoc } from './targetdoc';
 import { TemplateDoc } from './templatedoc';
 import { ClearDoc } from './cleardoc';
+import { RemoveDoc } from './removedoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
-    declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, LifeDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, AccessibilityDoc],
+    declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, LifeDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, RemoveDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ToastDocModule {}

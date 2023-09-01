@@ -15,6 +15,7 @@ import { Code } from '../../domain/code';
             <div class="flex justify-content-center gap-2">
                 <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Show Single"></button>
                 <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Show Multiple"></button>
+                <button type="button" pButton class="p-button-warning" (click)="remove(1)" label="Remove Single"></button>
                 <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear All"></button>
             </div>
             <p-messages></p-messages>
@@ -36,9 +37,13 @@ export class ServiceDoc {
 
     addMultiple() {
         this.messageService.addAll([
-            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' },
-            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService' }
+            { id: 1, severity: 'success', summary: 'Service Message', detail: 'Via MessageService' },
+            { id: 2, severity: 'info', summary: 'Info Message', detail: 'Via MessageService' }
         ]);
+    }
+
+    remove(id) {
+        this.messageService.remove(id);
     }
 
     clear() {
@@ -50,6 +55,7 @@ export class ServiceDoc {
 <div class="flex justify-content-center gap-2">
     <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Single"></button>
     <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Multiple"></button>
+    <button type="button" pButton class="p-button-warning" (click)="remove(1)" label="Remove"></button>
     <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear"></button>
 </div>
 <p-messages></p-messages>`,
@@ -58,6 +64,7 @@ export class ServiceDoc {
     <div class="flex justify-content-center gap-2">
         <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Single"></button>
         <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Multiple"></button>
+        <button type="button" pButton class="p-button-warning" (click)="remove(1)" label="Remove"></button>
         <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear"></button>
     </div>
     <p-messages></p-messages>
@@ -83,6 +90,10 @@ export class MessagesServiceDemo {
             {severity:'success', summary:'Service Message', detail:'Via MessageService'},
             {severity:'info', summary:'Info Message', detail:'Via MessageService'}
         ]);
+    }
+
+    remove(id) {
+        this.messageService.remove(id);
     }
     
     clear() {
