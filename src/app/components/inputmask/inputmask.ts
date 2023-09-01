@@ -135,6 +135,16 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Advisory information to display on input.
      * @group Props
      */
+    @Input() maskDefNumbers: '9' | '#' = '9';
+    /**
+     * Custom mask definition for characters.
+     * @group Props
+     */
+    @Input() maskDefCharacters: 'a' | '$' = 'a';
+    /**
+     * Advisory information to display on input.
+     * @group Props
+     */
     @Input() placeholder: string | undefined;
     /**
      * Size of the input field.
@@ -330,11 +340,32 @@ export class InputMask implements OnInit, ControlValueAccessor {
         this.partialPosition = (this.mask as string).length;
         this.len = (this.mask as string).length;
         this.firstNonMaskPos = null;
-        this.defs = {
-            '9': '[0-9]',
-            a: this.characterPattern,
-            '*': `${this.characterPattern}|[0-9]`
-        };
+
+        if ((this.maskDefNumbers === '9') && (this.maskDefCharacters === 'a')) {
+            this.defs = {
+                '9': '[0-9]',
+                a: this.characterPattern,
+                '*': `${this.characterPattern}|[0-9]`
+            };
+        } else if ((this.maskDefNumbers === '#') && (this.maskDefCharacters === 'a')) {
+            this.defs = {
+                '#': '[0-9]',
+                a: this.characterPattern,
+                '*': `${this.characterPattern}|[0-9]`
+            };
+        } else if ((this.maskDefNumbers === '9') && (this.maskDefCharacters === '$')) {
+            this.defs = {
+                '9': '[0-9]',
+                '$': this.characterPattern,
+                '*': `${this.characterPattern}|[0-9]`
+            };
+        } else if ((this.maskDefNumbers === '#') && (this.maskDefCharacters === '$')) {
+            this.defs = {
+                '#': '[0-9]',
+                '$': this.characterPattern,
+                '*': `${this.characterPattern}|[0-9]`
+            };
+        }
 
         let maskTokens = (this.mask as string).split('');
         for (let i = 0; i < maskTokens.length; i++) {
