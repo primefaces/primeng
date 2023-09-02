@@ -607,8 +607,10 @@ export class Menu implements OnDestroy {
     changeFocusedOptionIndex(index) {
         const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
-        let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
-        order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
+        if(links.length > 0) {
+            let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
+            order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
+        }
     }
 
     itemClick(event: any) {
