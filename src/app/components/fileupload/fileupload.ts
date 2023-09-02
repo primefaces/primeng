@@ -467,7 +467,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -519,6 +519,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
                 });
             }
         }
+    }
+
+    getTranslation(option: string) {
+        return this.config.getTranslation(option);
     }
 
     choose() {
@@ -830,10 +834,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     formatSize(bytes: number) {
         const k = 1024;
         const dm = 3;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
-            return '0 B';
+            return `0 ${sizes[0]}`;
         }
 
         const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -897,4 +901,4 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
-export class FileUploadModule {}
+export class FileUploadModule { }
