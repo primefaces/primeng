@@ -447,7 +447,7 @@ export class PanelMenuList implements OnChanges {
         const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 
