@@ -467,7 +467,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         private http: HttpClient,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
