@@ -901,4 +901,4 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })
-export class FileUploadModule {}
+export class FileUploadModule { }
