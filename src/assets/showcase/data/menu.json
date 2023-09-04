@@ -460,10 +460,6 @@
                     "name": "Utilities",
                     "children": [
                         {
-                            "name": "Overlay",
-                            "routerLink": "/overlay"
-                        },
-                        {
                             "name": "FilterService",
                             "routerLink": "/filterservice"
                         }

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'programmatic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
 
 @Component({
     selector: 'repository-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Ready to use settings for locales are available at the community supported <a href="https://github.com/primefaces/primelocale">PrimeLocale</a> repository. We'd appreciate if you could contribute to this repository with pull requests

@@ -9,7 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-auto-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>
         </app-docsectiontext>

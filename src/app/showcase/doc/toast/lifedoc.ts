@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'life-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>

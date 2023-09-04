@@ -10,7 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-filter-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dropdown provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
