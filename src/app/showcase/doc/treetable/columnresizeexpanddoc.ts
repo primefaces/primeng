@@ -11,7 +11,7 @@ interface Column {
 
 @Component({
     selector: 'resize-expand-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>

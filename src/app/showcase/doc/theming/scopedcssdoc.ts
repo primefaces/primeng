@@ -16,7 +16,7 @@ import { Code } from '../../domain/code';
             }
         `
     ],
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Theming styles the components globally, in case you require to change the style of a certain component use <i>::ng-deep</i>.</p>
         </app-docsectiontext>

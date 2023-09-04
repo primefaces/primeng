@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-long-content-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>
         </app-docsectiontext>

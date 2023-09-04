@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Splitter requires two SplitterPanel components as children which are displayed horizontally by default.</p>
         </app-docsectiontext>

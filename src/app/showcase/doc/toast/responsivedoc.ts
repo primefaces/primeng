@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example

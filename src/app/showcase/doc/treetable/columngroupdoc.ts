@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'column-group-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">

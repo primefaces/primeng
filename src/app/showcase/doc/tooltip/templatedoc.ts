@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'options-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip can use either a <i>string</i> or a <i>TemplateRef</i>.</p>
         </app-docsectiontext>

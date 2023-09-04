@@ -10,7 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'images-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample image gallery implementation using paginator.</p>
         </app-docsectiontext>

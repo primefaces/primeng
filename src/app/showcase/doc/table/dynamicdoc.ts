@@ -9,7 +9,7 @@ interface Column {
 }
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>

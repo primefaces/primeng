@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'with-thumbnails-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>

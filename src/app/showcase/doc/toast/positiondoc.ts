@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
         </app-docsectiontext>

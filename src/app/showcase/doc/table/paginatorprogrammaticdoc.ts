@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-programmatic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p _ngcontent-ylv-c94="">Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>

@@ -5,7 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'horizontal-and-vertical-scroll-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
         </app-docsectiontext>

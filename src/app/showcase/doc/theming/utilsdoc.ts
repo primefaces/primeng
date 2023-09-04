@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'utils-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A couple of utility classes are provided as a solution to common requirements.</p>
         </app-docsectiontext>

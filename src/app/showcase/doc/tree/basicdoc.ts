@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>

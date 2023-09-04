@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'without-thumbnails-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Thumbnails can also be hidden in full screen mode.</p>
         </app-docsectiontext>

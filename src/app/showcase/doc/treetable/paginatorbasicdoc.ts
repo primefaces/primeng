@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>

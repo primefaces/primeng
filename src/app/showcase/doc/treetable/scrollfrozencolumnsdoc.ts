@@ -11,7 +11,7 @@ interface Column {
 
 @Component({
     selector: 'scroll-frozen-columns-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3">
             <p>A column can be fixed during horizontal scrolling by enabling the <i>frozenColumns</i> property.</p>
         </app-docsectiontext>

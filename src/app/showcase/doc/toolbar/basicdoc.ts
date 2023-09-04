@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Toolbar provides <i>start</i>, <i>center</i> and <i>end</i> templates to place content at these sections.</p>
         </app-docsectiontext>

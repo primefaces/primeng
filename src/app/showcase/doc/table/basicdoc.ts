@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'autoresize-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
