@@ -9,7 +9,7 @@ import { Message } from './message';
 export class MessageService {
     private messageSource = new Subject<Message | Message[]>();
     private clearSource = new Subject<string | null>();
-    private removeSource = new Subject<any | null>();
+    private removeSource = new Subject<{ key: string, value: any }>();
 
     messageObserver = this.messageSource.asObservable();
     clearObserver = this.clearSource.asObservable();
@@ -36,12 +36,13 @@ export class MessageService {
     }
     /**
      * Removes single message.
-     * @param {any} id - Id of the Message to be removed.
+     * @param {string} key - Property name of the Message to be removed.
+     * @param {any} value - Property value of the Message to be removed.
      * @group Method
      */
-    remove(id: any) {
-        if (id) {
-            this.removeSource.next(id);
+    remove(key: string, value: any) {
+        if (key && value) {
+            this.removeSource.next({ key, value });
         }
     }
     /**

@@ -7,13 +7,13 @@ import { Code } from '../../domain/code';
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                A toast may be removed programmatically by its <i>id</i>.
+                A toast may be removed programmatically by any property <i>key</i> and corresponding <i>value</i>.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-toast key="myKey"></p-toast>
             <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-            <button type="button" pButton pRipple (click)="remove(1)" label="Remove" class="p-button-secondary"></button>
+            <button type="button" pButton pRipple (click)="remove('id', 1)" label="Remove" class="p-button-secondary"></button>
         </div>
         <app-code [code]="code" selector="toast-remove-demo"></app-code>
     </section>`,
@@ -33,20 +33,20 @@ export class RemoveDoc {
         ]);
     }
 
-    remove(id: any) {
-        this.messageService.remove(id);
+    remove(key: string, value: any) {
+        this.messageService.remove(key, value);
     }
 
     code: Code = {
         basic: `
 <p-toast></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-<button type="button" pButton pRipple (click)="remove(1)" label="Remove" class="p-button-secondary"></button>`,
+<button type="button" pButton pRipple (click)="remove('id', 1)" label="Remove" class="p-button-secondary"></button>`,
         html: `
 <div class="card flex justify-content-center gap-2">
     <p-toast></p-toast>
     <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-    <button type="button" pButton pRipple (click)="remove(1)" label="Remove" class="p-button-secondary"></button>
+    <button type="button" pButton pRipple (click)="remove('id', 1)" label="Remove" class="p-button-secondary"></button>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
@@ -67,8 +67,8 @@ export class ToastRemoveDemo {
         ]);
     }
 
-    remove(id: any) {
-        this.messageService.remove(id);
+    remove(key: string, value: any) {
+        this.messageService.remove(key, value);
     }
 }`
     };

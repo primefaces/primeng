@@ -79,7 +79,7 @@ class TestMessagesComponent {
     }
 
     removeWithServiceAndId() {
-        this.messageService.remove(1);
+        this.messageService.remove('id', 1);
     }
 }
 

@@ -38,8 +38,8 @@ class TestToastComponent {
         this.messageService.clear(key);
     }
 
-    onClearWithId(id) {
-        this.messageService.remove(id);
+    onClearWithId(key, value) {
+        this.messageService.remove(key, value);
     }
 
     onClear() {
@@ -175,7 +175,7 @@ describe('Toast', () => {
         expect(toastMessages[0].nativeElement.classList).toContain('p-toast-message-success');
         expect(toastMessages[1].nativeElement).toBeTruthy();
         expect(toastMessages[1].nativeElement.classList).toContain('p-toast-message-warn');
-        component.onClearWithId(1);
+        component.onClearWithId('id', 1);
         fixture.detectChanges();
 
         Promise.resolve(null).then(() => {

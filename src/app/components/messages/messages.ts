@@ -174,11 +174,11 @@ export class Messages implements AfterContentInit, OnDestroy {
                 }
             });
 
-            this.removeSubscription = this.messageService.removeObserver.subscribe((id) => {
-                if (id) {
-                    this.messages = this.messages ? this.messages.filter(m => id !== m.id) : this.messages;
+            this.removeSubscription = this.messageService.removeObserver.subscribe((property: { key: string, value: any }) => {
+                if (property.key && property.value) {
+                    this.messages = this.messages ? this.messages.filter(m => m[property.key] !== property.value) : this.messages;
                 }
-    
+
                 this.cd.markForCheck();
             });
 
