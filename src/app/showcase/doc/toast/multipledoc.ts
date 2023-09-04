@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toast-multiple-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>
         </app-docsectiontext>

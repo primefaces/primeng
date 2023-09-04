@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-rows-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
         </app-docsectiontext>

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 ListBox allows choosing a single item by default, enable <i>multiple</i> property to choose more than one. When the optional <i>metaKeySelection</i> is present, behavior is changed in a way that selecting a new item requires meta key

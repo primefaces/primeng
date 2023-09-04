@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animation-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>
         </app-docsectiontext>

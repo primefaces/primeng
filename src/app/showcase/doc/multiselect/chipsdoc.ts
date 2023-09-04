@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'chips-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>

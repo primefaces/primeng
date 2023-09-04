@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-constraints-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>FilterService can be extended by adding new constraints using the <span>register</span> function.</p></app-docsectiontext
         >

@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>

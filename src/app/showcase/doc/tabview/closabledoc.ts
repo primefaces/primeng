@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'closable-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>closable</i> is enabled, a close icon is displayed to hide the tab.</p>
         </app-docsectiontext>

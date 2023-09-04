@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'rowspan-grouping-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>When <i>rowGroupMode</i> is configured to be <i>rowspan</i>, the grouping column spans multiple rows.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-position-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A Badge can be positioned at the top right corner of an element by adding <i>p-overlay-badge</i> style class to the element and embedding the badge inside.</p>
         </app-docsectiontext>

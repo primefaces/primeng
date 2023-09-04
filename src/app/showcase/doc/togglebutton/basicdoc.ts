@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way binding to a boolean property is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>

@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'single-column-sort-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>

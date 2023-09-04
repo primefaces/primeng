@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
         </app-docsectiontext>

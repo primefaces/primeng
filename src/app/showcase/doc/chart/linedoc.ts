@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-line-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
         </app-docsectiontext>

@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'gridlines-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>

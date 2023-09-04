@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'hover-event-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>
         </app-docsectiontext>

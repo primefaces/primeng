@@ -14,7 +14,7 @@ interface TableRowSelectEvent {
 
 @Component({
     selector: 'data-table-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
         </app-docsectiontext>

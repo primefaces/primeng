@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-set-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple buttons are grouped when wrapped inside an element with <i>p-buttonset</i> class.</p>
         </app-docsectiontext>

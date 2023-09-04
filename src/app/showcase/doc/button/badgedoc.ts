@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>

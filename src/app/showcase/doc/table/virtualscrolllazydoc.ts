@@ -12,7 +12,7 @@ interface Column {
 
 @Component({
     selector: 'virtual-scroll-lazy-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also

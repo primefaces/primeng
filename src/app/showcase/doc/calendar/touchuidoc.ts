@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-touchui-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
         </app-docsectiontext>

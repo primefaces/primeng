@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'file-upload-custom-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
