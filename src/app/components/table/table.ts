@@ -4965,8 +4965,7 @@ export class ColumnFilter implements AfterContentInit {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService,
-                private cd: ChangeDetectorRef) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
     }
 
