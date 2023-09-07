@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["node", "gtag.js"],
+    "types": ["node"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true
   },
