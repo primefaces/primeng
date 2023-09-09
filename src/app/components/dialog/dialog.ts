@@ -551,7 +551,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.ariaLabelledBy = this.getAriaLabelledBy()
+        this.ariaLabelledBy = this.getAriaLabelledBy();
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -1006,4 +1006,4 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })
-export class DialogModule { }
+export class DialogModule {}
