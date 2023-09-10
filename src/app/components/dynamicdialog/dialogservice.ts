@@ -22,6 +22,11 @@ export class DialogService {
      * @group Method
      */
     public open(componentType: Type<any>, config: DynamicDialogConfig): DynamicDialogRef {
+
+        if (!this.duplicationPermission(componentType, config)) {
+            return null;
+        }
+
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
@@ -71,5 +76,19 @@ export class DialogService {
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
         this.dialogComponentRefMap.delete(dialogRef);
-      }
+    }
+
+    private duplicationPermission(componentType: Type<any>, config: DynamicDialogConfig): boolean {
+        if (config.duplicate) {
+            return true;
+        }
+        let permission = true;
+        for (const [key, value] of this.dialogComponentRefMap) {
+            if (value.instance.childComponentType === componentType) {
+                permission = false;
+                break;
+            }
+        }
+        return permission;
+    }
 }
