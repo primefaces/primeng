@@ -1,4 +1,4 @@
-import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef, Inject } from '@angular/core';
+import { Injectable, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef, Inject, createComponent } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
@@ -13,7 +13,7 @@ import { DOCUMENT } from '@angular/common';
 export class DialogService {
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
+    constructor(private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
     /**
      * Displays the dialog using the dynamic dialog object options.
      * @param {*} componentType - Dynamic component for content template.
@@ -46,8 +46,7 @@ export class DialogService {
             sub.unsubscribe();
         });
 
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicDialogComponent);
-        const componentRef = componentFactory.create(new DynamicDialogInjector(this.injector, map));
+        const componentRef = createComponent(DynamicDialogComponent, { environmentInjector: this.appRef.injector, elementInjector: new DynamicDialogInjector(this.injector, map) });
 
         this.appRef.attachView(componentRef.hostView);
 
@@ -72,5 +71,5 @@ export class DialogService {
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
         this.dialogComponentRefMap.delete(dialogRef);
-    }
+      }
 }
