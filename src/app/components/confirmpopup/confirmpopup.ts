@@ -1,6 +1,23 @@
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -206,6 +223,13 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
                     break;
             }
         });
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    onEscapeKeydown(event: KeyboardEvent) {
+        if (this.confirmation && this.confirmation.closeOnEscape) {
+            this.reject();
+        }
     }
 
     onAnimationStart(event: AnimationEvent) {
