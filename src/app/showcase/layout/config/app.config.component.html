@@ -304,6 +304,23 @@
                     <span class="white-space-nowrap">Arya Purple</span>
                 </div>
             </div>
+
+            <h4>ttUI</h4>
+            <div class="grid">
+                <div class="col-3 flex flex-column align-items-center gap-2">
+                    <button class="p-link h-3rem" (click)="changeTheme($event, 'ttui-light', false)">
+                        <img src="assets/components/images/ttui-logo-light-theme.svg" alt="ttUI Light" class="w-3rem border-round" />
+                    </button>
+                    <span class="white-space-nowrap">ttUI Light</span>
+                </div>
+
+                <div class="col-3 flex flex-column align-items-center gap-2">
+                    <button class="p-link h-3rem" (click)="changeTheme($event, 'tailwind-light', false)">
+                        <img src="assets/components/images/ttui-logo-dark-theme.svg" alt="ttUI Light" class="w-3rem border-round" />
+                    </button>
+                    <span class="white-space-nowrap">ttUI Dark</span>
+                </div>
+            </div>
         </section>
     </div>
 </p-sidebar>
