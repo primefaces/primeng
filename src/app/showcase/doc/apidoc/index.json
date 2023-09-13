@@ -11810,6 +11810,14 @@
                             "description": "Allows to prevent clicking."
                         },
                         {
+                            "name": "preventEnter",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Allows to prevent entering."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,

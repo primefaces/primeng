@@ -38,8 +38,8 @@ export class InplaceContent {}
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
 
                 <ng-container *ngIf="closable">
-                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
-                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton (click)="onDeactivateClick($event)" (keydown)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
+                    <button *ngIf="!closeIcon" type="button" pButton [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" (keydown)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
                         <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
@@ -75,6 +75,11 @@ export class Inplace implements AfterContentInit {
      * @group Props
      */
     @Input() preventClick: boolean | undefined;
+    /**
+     * Allows to prevent entering.
+     * @group Props
+     */
+    @Input() preventEnter: boolean | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -142,9 +147,13 @@ export class Inplace implements AfterContentInit {
         if (!this.preventClick) this.activate(event);
     }
 
-    onDeactivateClick(event: MouseEvent) {
-        if (!this.preventClick) this.deactivate(event);
+    onDeactivateClick(event: MouseEvent | KeyboardEvent) {
+        if ('key' in event && event?.key === 'Enter') {
+            if (!this.preventEnter) this.deactivate(event);
+            event.preventDefault();
+        } else if (!this.preventClick) this.deactivate(event);
     }
+
     /**
      * Activates the content.
      * @param {Event} event - Browser event.
@@ -172,7 +181,7 @@ export class Inplace implements AfterContentInit {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.code === 'Enter') {
+        if (event.code === 'Enter' && !this.preventEnter) {
             this.activate(event);
             event.preventDefault();
         }
