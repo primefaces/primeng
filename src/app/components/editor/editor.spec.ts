@@ -70,6 +70,6 @@ describe('Editor', () => {
         fixture.detectChanges();
 
         const quill = editor.getQuill();
-        expect(quill.container.className).toContain('p-editor-content');
+        expect(quill.root.className).toContain('ql-editor');
     });
 });

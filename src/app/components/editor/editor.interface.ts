@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import { Editor } from './editor';
+import Quill, { RangeStatic } from 'quill';
 
 /**
  * Custom text change event.
@@ -33,11 +34,11 @@ export interface EditorSelectionChangeEvent {
     /**
      * Representation of the selection boundaries.
      */
-    range: string;
+    range: RangeStatic;
     /**
      * Representation of the previous selection boundaries.
      */
-    oldRange: string;
+    oldRange: RangeStatic;
     /**
      * Source of change. Will be either 'user' or 'api'.
      */
@@ -52,7 +53,7 @@ export interface EditorInitEvent {
     /**
      * Text editor instance.
      */
-    editor: any;
+    editor: Quill;
 }
 /**
  * Defines valid templates in Editor.

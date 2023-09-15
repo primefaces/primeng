@@ -24,6 +24,7 @@ import { EditorInitEvent, EditorTextChangeEvent, EditorSelectionChangeEvent } fr
 import { Nullable } from 'primeng/ts-helpers';
 //@ts-ignore
 import Quill from 'quill';
+import { Delta } from 'quill';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -173,7 +174,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     @ContentChild(Header) toolbar: any;
 
-    value: Nullable<string>;
+    value: Nullable<Delta | string>;
 
     delayedCommand: Function | null = null;
 
@@ -183,7 +184,7 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     onModelTouched: Function = () => {};
 
-    quill: any;
+    quill: Quill;
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -229,29 +230,34 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
         });
     }
 
-    writeValue(value: any): void {
-        this.value = value;
-
-        if (this.quill) {
-            if (value) {
-                const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert(this.value));
-                };
-
-                if (this.isAttachedQuillEditorToDOM) {
-                    command();
-                } else {
-                    this.delayedCommand = command;
-                }
-            } else {
+    writeValue(value: Delta | string | null | undefined): void {
+        if (value === undefined || value === null) {
+            if (this.quill) {
                 const command = (): void => {
                     this.quill.setText('');
                 };
 
-                if (this.isAttachedQuillEditorToDOM) {
-                    command();
+                if (this.isAttachedQuillEditorToDOM) command();
+                else this.delayedCommand = command;
+            }
+        } else {
+            this.value = value;
+
+            if (this.quill) {
+                if (typeof value === 'string') {
+                    const command = (): void => {
+                        this.quill.setText(this.value as string);
+                    };
+
+                    if (this.isAttachedQuillEditorToDOM) command();
+                    else this.delayedCommand = command;
                 } else {
-                    this.delayedCommand = command;
+                    const command = (): void => {
+                        this.quill.setContents(this.value as Delta);
+                    };
+
+                    if (this.isAttachedQuillEditorToDOM) command();
+                    else this.delayedCommand = command;
                 }
             }
         }
@@ -287,7 +293,11 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
         });
 
         if (this.value) {
-            this.quill.setContents(this.quill.clipboard.convert(this.value));
+            if (typeof this.value === 'string') {
+                this.quill.setText(this.value as string);
+            } else {
+                this.quill.setContents(this.value as Delta);
+            }
         }
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
@@ -310,11 +320,11 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
             }
         });
 
-        this.quill.on('selection-change', (range: string, oldRange: string, source: string) => {
+        this.quill.on('selection-change', (range, oldRange, source) => {
             this.onSelectionChange.emit({
-                range: range,
-                oldRange: oldRange,
-                source: source
+                range,
+                oldRange,
+                source
             });
         });
 
