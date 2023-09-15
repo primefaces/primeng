@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TreeNode } from "../../components/api/treenode";
 
 @Injectable()
 export class NodeService {
@@ -761,6 +762,31 @@ export class NodeService {
                 ]
             }
         ];
+    }
+
+    getDynamicTreeNodes(parentCount: number, childrenCount: number): TreeNode[] {
+        const nodes: TreeNode[] = [];
+        for (let index = 0; index < parentCount; index++) {
+            const node: TreeNode = {
+                key: index.toString(),
+                label: 'Parent ' + index,
+                selectable: true,
+                children: []
+            };
+            for (let j = 0; j < childrenCount; j++) {
+                node.children.push({
+                    key: index + '-' + j,
+                    label: 'Child ' + index + '-' + j,
+                    selectable: true,
+                });
+            }
+            nodes.push(node);
+        }
+        return nodes;
+    }
+
+    getLargeTreeNodes() {
+        return Promise.resolve(this.getDynamicTreeNodes(10, 100));
     }
 
     getTreeTableNodes() {
