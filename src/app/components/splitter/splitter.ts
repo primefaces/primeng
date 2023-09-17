@@ -262,7 +262,6 @@ export class Splitter {
 
         this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
     }
-        
 
     resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
