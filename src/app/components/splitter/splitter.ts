@@ -106,7 +106,7 @@ export class Splitter {
      * Whether to keep the proportions of the elements when adding/removing panels.
      * @group Props
      */
-    @Input() keepProportions: boolean = true;
+    @Input() keepProportions: boolean = false;
     /**
      * Size of the new panels relative to 100%.
      * @group Props
