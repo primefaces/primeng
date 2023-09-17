@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'invalid-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class InvalidDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-invalid-demo.html'
 })
 export class InputTextInvalidDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

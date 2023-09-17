@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-multiplemonths-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Number of months to display is configured with the <i>numberOfMonths</i> property.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class MultipleMonthDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core'
     templateUrl: './calendar-multiplemonths-demo.html'
 })
 export class CalendarMultiplemonthsDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
     templateUrl: './tri-state-checkbox-disabled-demo.html'
 })
 export class TriStateCheckboxDisabledDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

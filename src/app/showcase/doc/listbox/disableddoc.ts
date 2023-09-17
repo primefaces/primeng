@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class DisabledDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './listbox-disabled-demo.html'
 })
 export class ListboxDisabledDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
     
     ngOnInit() {
         this.cities = [

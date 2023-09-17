@@ -2,9 +2,14 @@ import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
 @Component({
     selector: 'file-upload-auto-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>
         </app-docsectiontext>
@@ -23,7 +28,7 @@ export class AutoDoc {
 
     constructor(private messageService: MessageService) {}
 
-    onBasicUploadAuto(event) {
+    onBasicUploadAuto(event: UploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 
@@ -40,6 +45,11 @@ export class AutoDoc {
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
 @Component({
     selector: 'file-upload-auto-demo',
     templateUrl: './file-upload-auto-demo.html',
@@ -48,7 +58,7 @@ import { MessageService } from 'primeng/api';
 export class FileUploadAutoDemo {
     constructor(private messageService: MessageService) { }
 
-    onBasicUploadAuto(event) {
+    onBasicUploadAuto(event: UploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 }`

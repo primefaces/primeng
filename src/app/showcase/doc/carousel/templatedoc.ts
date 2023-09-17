@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -43,15 +43,16 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [
@@ -154,9 +155,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-template-demo.scss']
 })
 export class CarouselTemplateDemo implements OnInit{
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

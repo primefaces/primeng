@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-month-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Month only picker is enabled by specifying <i>view</i> as <i>month</i> in addition to a suitable <i>dateFormat</i>.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class MonthDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-month-demo.html'
 })
 export class CalendarMonthDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

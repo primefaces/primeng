@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dock-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
@@ -31,7 +31,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     position: string = 'top';
 
@@ -106,7 +106,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './dock-basic-demo.html'
 })
 export class BasicDoc implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     position: string = 'top';
 

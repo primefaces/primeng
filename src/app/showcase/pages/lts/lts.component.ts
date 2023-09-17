@@ -20,7 +20,9 @@ import { LicenseManager } from 'primeng/api';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+
     LicenseManager.verify('LICENSE_KEY', 'PASS_KEY');
+    
 }`
     };
 }

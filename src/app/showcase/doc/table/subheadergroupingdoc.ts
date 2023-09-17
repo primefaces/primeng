@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'subheader-grouping-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Rows are grouped with the <i>groupRowsBy</i> property. When <i>rowGroupMode</i> is set as <i>subheader</i>, a header and footer can be displayed for each group. The content of a group header is provided with <i>groupheader</i> and
@@ -70,7 +70,7 @@ export class SubheaderGroupingDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -81,12 +81,12 @@ export class SubheaderGroupingDoc implements OnInit {
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -95,7 +95,7 @@ export class SubheaderGroupingDoc implements OnInit {
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -217,7 +217,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-subheader-grouping-demo.html'
 })
 export class TableSubheaderGroupingDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -227,12 +227,12 @@ export class TableSubheaderGroupingDemo implements OnInit{
         });
     }
 
-    calculateCustomerTotal(name) {
+    calculateCustomerTotal(name: string) {
         let total = 0;
 
         if (this.customers) {
             for (let customer of this.customers) {
-                if (customer.representative.name === name) {
+                if (customer.representative?.name === name) {
                     total++;
                 }
             }
@@ -241,7 +241,7 @@ export class TableSubheaderGroupingDemo implements OnInit{
         return total;
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

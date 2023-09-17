@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'quarter-circle-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>type</i> is defined as <i>quarter-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ export class QuarterCircleDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -91,7 +91,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialQuarterCircleDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 

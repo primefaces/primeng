@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animation-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, example below disables the animations altogether.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class AnimationDoc implements OnInit {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [
@@ -44,7 +44,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-animation-demo.html'
 })
 export class MessagesAnimationDemo implements OnInit {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit(){
         this.messages = [

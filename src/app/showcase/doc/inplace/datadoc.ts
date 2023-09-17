@@ -5,7 +5,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'data-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card">
             <p-inplace>
@@ -45,7 +45,7 @@ export class DataDoc {
 
     @Input() title: string;
 
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}
 
@@ -124,7 +124,7 @@ import { CarService } from '../../service/carservice';
     templateUrl: './inplace-data-demo.html'
 })
 export class InplaceDataDemo {
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}
 

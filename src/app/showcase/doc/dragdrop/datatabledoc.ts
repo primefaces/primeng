@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Drag and Drop to Table</p>
         </app-docsectiontext>
@@ -57,11 +57,11 @@ export class DataTableDoc implements OnInit {
 
     @Input() title: string;
 
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     constructor(private productService: ProductService) {}
 
@@ -77,8 +77,8 @@ export class DataTableDoc implements OnInit {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -89,8 +89,8 @@ export class DataTableDoc implements OnInit {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }
@@ -203,11 +203,11 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-data-table-demo.scss']
 })
 export class DragDropDataTableDemo implements OnInit {
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     constructor(private productService: ProductService) {}
 
@@ -223,8 +223,8 @@ export class DragDropDataTableDemo implements OnInit {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -235,8 +235,8 @@ export class DragDropDataTableDemo implements OnInit {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }

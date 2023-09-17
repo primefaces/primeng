@@ -3,9 +3,14 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'dynamic-columns-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be created programmatically.</p>
         </app-docsectiontext>
@@ -36,9 +41,9 @@ export class DynamicColumnsDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -95,14 +100,19 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-dynamic-columns-demo',
     templateUrl: './tree-table-dynamic-columns-demo.html'
 })
 export class TreeTableDynamicColumnsDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

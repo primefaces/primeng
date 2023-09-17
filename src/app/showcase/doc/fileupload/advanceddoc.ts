@@ -2,9 +2,14 @@ import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
 @Component({
     selector: 'file-upload-advanced-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
@@ -32,7 +37,7 @@ export class AdvancedDoc {
 
     constructor(private messageService: MessageService) {}
 
-    onUpload(event) {
+    onUpload(event: UploadEvent) {
         for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
@@ -64,6 +69,11 @@ export class AdvancedDoc {
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
 @Component({
     selector: 'file-upload-advanced-demo',
     templateUrl: './file-upload-advanced-demo.html',
@@ -74,7 +84,7 @@ export class FileUploadAdvancedDemo {
 
     constructor(private messageService: MessageService) {}
 
-    onUpload(event) {
+    onUpload(event:UploadEvent) {
         for(let file of event.files) {
             this.uploadedFiles.push(file);
         }

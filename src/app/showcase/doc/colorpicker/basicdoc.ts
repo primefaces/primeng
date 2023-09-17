@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'color-picker-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    color: string;
+    color: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './color-picker-basic-demo.html'
 })
 export class ColorPickerBasicDemo {
-    color: string;
+    color: string | undefined;
 }`
     };
 }

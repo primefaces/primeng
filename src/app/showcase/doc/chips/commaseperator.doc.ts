@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-comma-seperator-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A new chip is added when <i>enter</i> key is pressed, <i>separator</i> property allows definining an additional key. Currently only valid value is <i>,</i> to create a new item when comma key is pressed.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class CommaSeperatorDoc {
 
     @Input() title: string;
 
-    values: string[];
+    values: string[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './chips-comma-seperator-demo.html',
 })
 export class ChipsCommaSeperatorDemo {
-    values: string[];
+    values: string[] | undefined;
 }`
     };
 }

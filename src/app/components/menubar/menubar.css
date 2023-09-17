@@ -57,6 +57,10 @@
     margin-left: auto;
 }
 
+.p-menubar .p-menubar-root-list .p-icon-wrapper {
+    margin-left: auto;
+}
+
 .p-menubar .p-submenu-list .p-menuitem-link .p-icon-wrapper {
     margin-left: auto;
 }

@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '../../service/ticketservice';
-import { Code } from '../../domain/code';
 import { Subscription } from 'rxjs';
+import { Code } from '../../domain/code';
+import { TicketService } from '../../service/ticketservice';
 
 @Component({
     selector: 'routing-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Example below uses nested routes with Steps.</p>
         </app-docsectiontext>
@@ -129,11 +129,11 @@ export class StepsRoutingDemo implements OnInit {
         {
             path: '',
             children: [
-                { path: '', redirectTo: 'personal', pathMatch: 'full' },
                 { path: 'personal', component: PersonalDemo },
-                { path: 'confirmation', component: ConfirmationDemo },
                 { path: 'seat', component: SeatDemo },
                 { path: 'payment', component: PaymentDemo }
+                { path: 'confirmation', component: ConfirmationDemo },
+                { path: '', redirectTo: 'personal', pathMatch: 'full' },
             ]
         }
     ])`,

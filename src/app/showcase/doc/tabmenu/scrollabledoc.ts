@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
         </app-docsectiontext>
@@ -19,9 +19,9 @@ export class ScrollableDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = Array.from({ length: 50 }, (_, i) => ({ label: `Tab ${i + 1}` }));
@@ -46,9 +46,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-scrollable-demo.html'
 })
 export class TabMenuScrollableDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = Array.from({ length: 50 }, (_, i) => ({ label: \`Tab \${i + 1}\`}));

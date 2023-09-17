@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Chips can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     @Input() title: string;
 
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({
@@ -52,7 +52,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./chips-reactive-forms-demo.scss']
 })
 export class ChipsReactiveFormsDemo implements OnInit {
-    formGroup: FormGroup;
+    formGroup: FormGroup | undefined;
 
     ngOnInit() {
         this.formGroup = new FormGroup({

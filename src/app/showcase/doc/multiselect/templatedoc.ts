@@ -8,18 +8,18 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name">
                 <ng-template let-value pTemplate="selectedItems">
-                    <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries1">
+                    <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
                         <div>{{ option.name }}</div>
                     </div>
-                    <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0">Select Countries</div>
+                    <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
@@ -37,9 +37,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     ngOnInit() {
         this.countries = [
@@ -60,11 +60,11 @@ export class TemplateDoc implements OnInit {
         basic: `
 <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name" >
         <ng-template let-value pTemplate="selectedItems">
-            <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries1">
+            <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ option.name }}</div>
             </div>
-            <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0">Select Countries</div>
+            <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
@@ -78,11 +78,11 @@ export class TemplateDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" defaultLabel="Select a Country" optionLabel="name" >
         <ng-template let-value pTemplate="selectedItems">
-            <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries1">
+            <div class="flex align-items-center gap-2" *ngFor="let option of selectedCountries">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ option.name }}</div>
             </div>
-            <div *ngIf="!selectedCountries1 || selectedCountries1.length === 0">Select Countries</div>
+            <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
@@ -106,9 +106,9 @@ interface Country {
     templateUrl: './multi-select-template-demo.html'
 })
 export class MultiSelectTemplateDemo implements OnInit {
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.countries = [

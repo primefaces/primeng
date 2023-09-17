@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'column-resize-fit-mode-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to <i>true</i>. Fit mode is the default one and the overall table width does not change when a column is resized.</p>
         </app-docsectiontext>
@@ -41,7 +41,7 @@ export class ColumnResizeFitModeDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-column-resize-fit-mode-demo.html'
 })
 export class TableColumnResizeFitModeDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

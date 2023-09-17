@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'icons-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either <i>.p-input-icon-left</i> or <i>p-input-icon-right</i> class.</p>
         </app-docsectiontext>
@@ -22,9 +22,9 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class IconsDoc {
-    value: string;
+    value: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
     @Input() id: string;
 
@@ -58,8 +58,9 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-icons-demo.html'
 })
 export class InputTextIconsDemo {
-    value: string;
-    value2: string;
+    value: string | undefined;
+    
+    value2: string | undefined;
 }`
     };
 }

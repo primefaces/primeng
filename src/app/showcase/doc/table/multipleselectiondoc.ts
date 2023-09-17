@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'multiple-selection-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or <i>shiftkey</i> are required. Setting <i>metaKeySelection</i> property as false
@@ -49,9 +49,9 @@ export class MultipleSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     metaKeySelection: boolean = true;
 
@@ -125,9 +125,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-multiple-selection-demo.html'
 })
 export class TableMultipleSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     metaKeySelection: boolean = true;
 

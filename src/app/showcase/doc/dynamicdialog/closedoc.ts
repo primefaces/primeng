@@ -7,7 +7,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'close-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the <i>onClose</i> event at the caller. Here is an example on how to
@@ -25,7 +25,7 @@ export class CloseDoc {
 
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
@@ -57,7 +57,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 

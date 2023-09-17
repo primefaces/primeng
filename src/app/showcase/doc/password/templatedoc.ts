@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
         </app-docsectiontext>
@@ -32,7 +32,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -79,7 +79,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-template-demo.html'
 })
 export class PasswordTemplateDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

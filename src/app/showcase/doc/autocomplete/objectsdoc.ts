@@ -2,9 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-objects-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a
@@ -22,11 +27,11 @@ export class ObjectsDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -36,12 +41,12 @@ export class ObjectsDoc implements OnInit {
         });
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -63,16 +68,21 @@ export class ObjectsDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'src/service/countryservice';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-objects-demo',
     templateUrl: './autocomplete-objects-demo.html'
 })
 export class AutocompleteObjectsDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCountry: any;
 
-    filteredCountries: any[];
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 
@@ -82,12 +92,12 @@ export class AutocompleteObjectsDemo implements OnInit {
         });
     }
 
-    filterCountry(event) {
+    filterCountry(event: AutoCompleteCompleteEvent) {
         let filtered: any[] = [];
         let query = event.query;
 
-        for (let i = 0; i < this.countries.length; i++) {
-            let country = this.countries[i];
+        for (let i = 0; i < (this.countries as any[]).length; i++) {
+            let country = (this.countries as any[])[i];
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }

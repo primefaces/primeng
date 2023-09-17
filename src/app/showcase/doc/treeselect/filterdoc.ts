@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
@@ -23,7 +23,7 @@ export class FilterDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -49,7 +49,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-filter-demo.html'
 })
 export class TreeSelectFilterDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

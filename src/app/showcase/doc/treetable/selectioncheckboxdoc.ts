@@ -4,9 +4,14 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-checkbox-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
             <p>In checkbox selection mode, value binding should be a key-value pair where key is the node key and value is an object that has checked and partialChecked properties to represent the checked state of a node.</p>
@@ -47,11 +52,11 @@ export class SelectionCheckboxDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -125,16 +130,21 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-selection-checkbox-demo',
     templateUrl: './tree-table-selection-checkbox-demo.html'
 })
 export class TreeTableSelectionCheckboxDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

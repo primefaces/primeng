@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slot-char-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class SlotCharDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-slot-char-demo.html'
 })
 export class InputMaskSlotCharDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'active-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>By default item that matches the active route is highlighted, alternatively <i>activeItem</i> property can be used choose the initial active item.</p>
         </app-docsectiontext>
@@ -19,9 +19,9 @@ export class ActiveDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
@@ -53,9 +53,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-active-demo.html'
 })
 export class TabMenuActiveDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [

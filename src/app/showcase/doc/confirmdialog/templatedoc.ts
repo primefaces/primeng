@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Properties of the dialog are defined in two ways, <i>message</i>, <i>icon</i>, <i>header</i> properties can either be defined using confirm method or declaratively on p-confirmDialog ng-template by <i>header</i> and
@@ -46,7 +46,7 @@ export class TemplateDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
@@ -107,7 +107,7 @@ export class ConfirmTemplateDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });

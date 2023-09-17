@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-range-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A range of dates can be selected by defining <i>selectionMode</i> as <i>range</i>, in this case the bound value would be an array with two values where first date is the start of the range and second date is the end.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class RangeDoc {
 
     @Input() title: string;
 
-    rangeDates: Date[];
+    rangeDates: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core'
     templateUrl: './calendar-range-demo.html',
 })
 export class CalendarRangeDemo {
-    rangeDates: Date[];
+    rangeDates: Date[] | undefined;
 }`
     };
 }

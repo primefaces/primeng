@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'context-menu-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for the
@@ -45,11 +45,11 @@ export class ContextMenuDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -130,11 +130,11 @@ import { ProductService } from '../../service/productservice';
     providers: [MessageService]
 })
 export class TableContextMenuDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 

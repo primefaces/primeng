@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-group-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ export class GroupDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -93,7 +93,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
     

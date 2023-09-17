@@ -6,9 +6,9 @@
             </div>
             <ng-container>
                 <ul *ngIf="doc.children">
-                    <li *ngFor="let child of doc.children" class="navbar-item" [ngClass]="{'active-navbar-item': getActiveChildId(activeId, child.id) }">
+                    <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{'active-navbar-item': isActiveChildId(isFirst, activeId, child.id, doc.id) }">
                         <div class="navbar-item-content">
-                            <button class="p-link" (click)="onButtonClick(child)">
+                            <button class="p-link" (click)="onChildButtonClick(doc, isFirst, child)">
                                 {{ child.label }}
                             </button>
                         </div>

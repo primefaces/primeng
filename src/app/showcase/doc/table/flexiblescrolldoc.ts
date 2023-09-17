@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'flexible-scroll-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Flex scroll feature makes the scrollable viewport section dynamic instead of a fixed value so that it can grow or shrink relative to the parent size of the table. Click the button below to display a maximizable Dialog where data
@@ -52,9 +52,9 @@ export class FlexibleScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    dialogVisible: boolean;
+    dialogVisible: boolean = false;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -135,9 +135,9 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-flexible-scroll-demo.html'
 })
 export class TableFlexibleScrollDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    dialogVisible: boolean;
+    dialogVisible: boolean = false;
 
     constructor(private customerService: CustomerService) {}
 

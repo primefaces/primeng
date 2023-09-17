@@ -64,14 +64,14 @@ import { Nullable } from 'primeng/ts-helpers';
     `,
     animations: [trigger('childState', [state('in', style({ opacity: 1 })), transition('void => *', [style({ opacity: 0 }), animate(150)]), transition('* => void', [animate(150, style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     styleUrls: ['./organizationchart.css'],
     host: {
         class: 'p-element'
     }
 })
 export class OrganizationChartNode implements OnDestroy {
-    @Input() node: TreeNode | undefined;
+    @Input() node: TreeNode<any> | undefined;
 
     @Input() root: boolean | undefined;
 
@@ -133,7 +133,7 @@ export class OrganizationChartNode implements OnDestroy {
             <table class="p-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     host: {
         class: 'p-element'
     }
@@ -223,7 +223,7 @@ export class OrganizationChart implements AfterContentInit {
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    get root(): TreeNode | null {
+    get root(): TreeNode<any> | null {
         return this.value && this.value.length ? this.value[0] : null;
     }
 

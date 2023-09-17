@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
         </app-docsectiontext>
@@ -42,7 +42,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -111,7 +111,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-template-demo.scss']
 })
 export class ScrollerTemplateDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

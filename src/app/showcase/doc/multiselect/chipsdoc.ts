@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'chips-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class ChipsDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './multi-select-chips-demo.html'
 })
 export class MultiSelectChipsDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.cities = [

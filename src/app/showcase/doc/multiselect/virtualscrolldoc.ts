@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'virtual-scroll-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
@@ -33,9 +33,9 @@ export class VirtualScrollDoc {
 
     @Input() title: string;
 
-    virtualCountries: Country[];
+    virtualCountries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.virtualCountries = [];
@@ -80,9 +80,9 @@ interface Country {
     templateUrl: './multi-select-virtual-scroll-demo.html'
 })
 export class MultiSelectVirtualScrollDemo {
-    virtualCountries: Country[];
+    virtualCountries!: Country[];
 
-    selectedCountries: Country[];
+    selectedCountries!: Country[];
 
     constructor() {
         this.virtualCountries = []

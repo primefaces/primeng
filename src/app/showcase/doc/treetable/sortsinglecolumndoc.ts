@@ -4,9 +4,14 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'sort-single-column-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>
@@ -40,9 +45,9 @@ export class SortSingleColumnDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -104,14 +109,19 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-sort-single-column-demo',
     templateUrl: './tree-table-sort-single-column-demo.html'
 })
 export class TreeTableSortSingleColumnDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

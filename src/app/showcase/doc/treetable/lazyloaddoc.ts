@@ -3,9 +3,14 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking corresponding callbacks everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> occurs. Sample below
@@ -56,13 +61,13 @@ export class LazyLoadDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
     constructor(private nodeService: NodeService) {}
 
@@ -78,7 +83,7 @@ export class LazyLoadDoc implements OnInit {
         this.loading = true;
     }
 
-    loadNodes(event) {
+    loadNodes(event: any) {
         this.loading = true;
 
         setTimeout(() => {
@@ -100,7 +105,7 @@ export class LazyLoadDoc implements OnInit {
         }, 1000);
     }
 
-    onNodeExpand(event) {
+    onNodeExpand(event: any) {
         this.loading = true;
 
         setTimeout(() => {
@@ -174,18 +179,23 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-lazy-load-demo',
     templateUrl: './tree-table-lazy-load-demo.html'
 })
 export class TreeTableLazyLoadDemo implements OnInit{
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
     constructor(private nodeService: NodeService) {}
 
@@ -201,7 +211,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
         this.loading = true;
     }
 
-    loadNodes(event) {
+    loadNodes(event: any) {
         this.loading = true;
 
         setTimeout(() => {
@@ -223,7 +233,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
         }, 1000);
     }
 
-    onNodeExpand(event) {
+    onNodeExpand(event: any) {
         this.loading = true;
 
         setTimeout(() => {

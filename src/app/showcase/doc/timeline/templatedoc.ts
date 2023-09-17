@@ -1,9 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>
@@ -34,7 +42,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [
@@ -89,12 +97,20 @@ export class TemplateDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'timeline-template-demo',
     templateUrl: './timeline-template-demo.html'
 })
 export class TimelineTemplateDemo {
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'column-group-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
@@ -53,9 +53,7 @@ export class ColumnGroupDoc implements OnInit {
 
     @Input() title: string;
 
-    sales: TreeNode[];
-
-    cols: any[];
+    sales!: TreeNode[];
 
     ngOnInit() {
         this.sales = [
@@ -269,9 +267,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './tree-table-column-group-demo.html'
 })
 export class TreeTableColumnGroupDemo implements OnInit {
-    sales: TreeNode[];
-
-    cols: any[];
+    sales!: TreeNode[];
 
     ngOnInit() {
         this.sales = [

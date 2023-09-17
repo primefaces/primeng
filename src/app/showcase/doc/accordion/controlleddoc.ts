@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
         </app-docsectiontext>
@@ -42,7 +42,7 @@ export class ControlledDoc {
 
     @Input() title: string;
 
-    activeIndex: number;
+    activeIndex: number | undefined;
 
     code: Code = {
         basic: `
@@ -109,7 +109,7 @@ import { Component } from '@angular/core';
     templateUrl: './accordion-controlled-demo.html'
 })
 export class AccordionControlledDemo {
-    activeIndex: number;
+    activeIndex: number | undefined;
 }`
     };
 }

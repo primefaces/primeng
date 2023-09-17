@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabMenu requires a collection of menuitems as its model.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -49,7 +49,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-basic-demo.html'
 })
 export class TabMenuBasicDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

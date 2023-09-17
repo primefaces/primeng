@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { MessageService, TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'event-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
@@ -31,9 +31,9 @@ export class EventDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFile: TreeNode;
+    selectedFile!: TreeNode;
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -41,19 +41,19 @@ export class EventDoc implements OnInit {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         this.messageService.add({ severity: 'success', summary: 'Node Expanded', detail: event.node.label });
     }
 
-    nodeCollapse(event) {
+    nodeCollapse(event: any) {
         this.messageService.add({ severity: 'warn', summary: 'Node Collapsed', detail: event.node.label });
     }
 
-    nodeSelect(event) {
+    nodeSelect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Node Selected', detail: event.node.label });
     }
 
-    nodeUnselect(event) {
+    nodeUnselect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Node Unselected', detail: event.node.label });
     }
 
@@ -80,9 +80,9 @@ import { NodeService } from '../../service/nodeservice';
     providers: [MessageService]
 })
 export class TreeEventsDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFile: TreeNode;
+    selectedFile!: TreeNode;
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -90,19 +90,19 @@ export class TreeEventsDemo implements OnInit {
         this.nodeService.getFiles().then((data) => (this.files = data));
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         this.messageService.add({ severity: 'success', summary: 'Node Expanded', detail: event.node.label });
     }
 
-    nodeCollapse(event) {
+    nodeCollapse(event: any) {
         this.messageService.add({ severity: 'warn', summary: 'Node Collapsed', detail: event.node.label });
     }
 
-    nodeSelect(event) {
+    nodeSelect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Node Selected', detail: event.node.label });
     }
 
-    nodeUnselect(event) {
+    nodeUnselect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Node Unselected', detail: event.node.label });
     }
 }`,

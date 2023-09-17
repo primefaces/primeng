@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-columns-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
@@ -55,7 +55,7 @@ export class FrozenColumnsDoc implements OnInit {
 
     balanceFrozen: boolean = false;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -66,7 +66,7 @@ export class FrozenColumnsDoc implements OnInit {
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
@@ -147,7 +147,7 @@ import { CustomerService } from '../../service/customerservice';
 export class TableFrozenColumnsDemo implements OnInit{
     balanceFrozen: boolean = false;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -157,7 +157,7 @@ export class TableFrozenColumnsDemo implements OnInit{
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     } 
 }`,

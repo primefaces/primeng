@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>

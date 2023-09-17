@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ export class MultipleDoc {
         { name: 'Option 3', value: 3 }
     ];
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -43,7 +43,7 @@ import { Component } from '@angular/core';
     templateUrl: './select-button-multiple-demo.html'
 })
 export class SelectButtonMultipleDemo {
-    value: number;
+    value!: number;
     
     paymentOptions: any[] = [
         { name: 'Option 1', value: 1 },

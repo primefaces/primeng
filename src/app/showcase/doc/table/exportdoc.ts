@@ -4,9 +4,20 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+    customExportHeader?: string;
+}
+
+interface ExportColumn {
+    title: string;
+    dataKey: string;
+}
+
 @Component({
     selector: 'export-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default, all data is exported. If you'd like to export only the selection then pass a config object with <i>selectionOnly</i> property as true.
@@ -49,15 +60,15 @@ export class ExportDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    cols: any[];
+    cols!: Column[];
 
-    exportColumns: any[];
+    exportColumns!: ExportColumn[];
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
@@ -162,20 +173,31 @@ import * as FileSaver from 'file-saver';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+    customExportHeader?: string;
+}
+
+interface ExportColumn {
+    title: string;
+    dataKey: string;
+}
+
 @Component({
     selector: 'table-export-demo',
     templateUrl: 'table-export-demo.html'
 })
 export class TableExportDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product[];
+    selectedProducts!: Product[];
 
     constructor(private productService: ProductService) {}
 
-    cols: any[];
+    cols!: Column[];
 
-    exportColumns: any[];
+    exportColumns!: ExportColumn[];
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {

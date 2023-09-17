@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'listbox-invalid-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class InvalidDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './listbox-invalid-demo.html'
 })
 export class ListboxInvalidDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
     
     ngOnInit() {
         this.cities = [

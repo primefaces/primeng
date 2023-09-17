@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -30,7 +30,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -77,7 +77,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-template-demo.html'
 })
 export class DialogTemplateDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

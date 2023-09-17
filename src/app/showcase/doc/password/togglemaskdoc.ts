@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'togglemask-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class ToggleMaskDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-toggle-mask-demo.html'
 })
 export class PasswordToggleMaskDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

@@ -460,10 +460,6 @@
                     "name": "Utilities",
                     "children": [
                         {
-                            "name": "Overlay",
-                            "routerLink": "/overlay"
-                        },
-                        {
                             "name": "FilterService",
                             "routerLink": "/filterservice"
                         }
@@ -537,7 +533,7 @@
                 },
                 {
                     "name": "Forum",
-                    "href": "https://forum.primefaces.org/viewforum.php?f=35"
+                    "href": "https://github.com/orgs/primefaces/discussions"
                 },
                 {
                     "name": "Long Term Support",
@@ -580,6 +576,10 @@
                 {
                     "name": "Twitter",
                     "href": "https://twitter.com/prime_ng"
+                },
+                {
+                    "name": "Partners",
+                    "routerLink": "/partners"
                 },
                 {
                     "name": "Newsletter",

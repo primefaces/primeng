@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-disabled-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    checked: boolean;
+    checked: boolean = false;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './checkbox-disabled-demo.html'
 })
 export class CheckboxDisabledDemo {
-    checked: boolean;
+    checked: boolean = false;
 }`
     };
 }

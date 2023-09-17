@@ -1,9 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'opposite-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
@@ -25,7 +33,7 @@ export class OppositeDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [
@@ -62,12 +70,20 @@ export class OppositeDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface EventItem {
+    status?: string;
+    date?: string;
+    icon?: string;
+    color?: string;
+    image?: string;
+}
+
 @Component({
     selector: 'timeline-opposite-demo',
     templateUrl: './timeline-opposite-demo.html'
 })
 export class TimelineOppositeDemo {
-    events: any[];
+    events: EventItem[];
 
     constructor() {
         this.events = [

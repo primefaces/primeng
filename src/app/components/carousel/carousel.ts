@@ -29,6 +29,8 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { RippleModule } from 'primeng/ripple';
 import { UniqueComponentId } from 'primeng/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
+import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'primeng/dom';
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -36,14 +38,22 @@ import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interfa
 @Component({
     selector: 'p-carousel',
     template: `
-        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass">
+        <div [attr.id]="id" [ngClass]="{ 'p-carousel p-component': true, 'p-carousel-vertical': isVertical(), 'p-carousel-horizontal': !isVertical() }" [ngStyle]="style" [class]="styleClass" role="region">
             <div class="p-carousel-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
-                <div class="p-carousel-container">
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" (click)="navBackward($event)" pRipple>
+                <div class="p-carousel-container" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }"
+                        [disabled]="isBackwardNavDisabled()"
+                        [attr.aria-label]="ariaPrevButtonLabel()"
+                        (click)="navBackward($event)"
+                        pRipple
+                    >
                         <ng-container *ngIf="!previousIconTemplate">
                             <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
@@ -62,6 +72,9 @@ import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interfa
                                     'p-carousel-item-start': 0 === index,
                                     'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
                                 }"
+                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                [attr.aria-label]="ariaSlideNumber(index)"
+                                [attr.aria-roledescription]="ariaSlideLabel()"
                             >
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
@@ -84,7 +97,15 @@ import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interfa
                             </div>
                         </div>
                     </div>
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple>
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }"
+                        [disabled]="isForwardNavDisabled()"
+                        (click)="navForward($event)"
+                        pRipple
+                        [attr.aria-label]="ariaNextButtonLabel()"
+                    >
                         <ng-container *ngIf="!nextIconTemplate">
                             <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
@@ -94,9 +115,18 @@ import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interfa
                         </span>
                     </button>
                 </div>
-                <ul [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }">
-                        <button type="button" [ngClass]="'p-link'" (click)="onDotClick($event, i)" [class]="indicatorStyleClass" [ngStyle]="indicatorStyle"></button>
+                <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
+                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
+                        <button
+                            type="button"
+                            [ngClass]="'p-link'"
+                            (click)="onDotClick($event, i)"
+                            [class]="indicatorStyleClass"
+                            [ngStyle]="indicatorStyle"
+                            [attr.aria-label]="ariaPageLabel(i + 1)"
+                            [attr.aria-current]="_page === i ? 'page' : undefined"
+                            [tabindex]="_page === i ? 0 : -1"
+                        ></button>
                     </li>
                 </ul>
             </div>
@@ -126,7 +156,6 @@ export class Carousel implements AfterContentInit {
         if (this.isCreated && val !== this._page) {
             if (this.autoplayInterval) {
                 this.stopAutoplay();
-                this.allowAutoplay = false;
             }
 
             if (val > this._page && val <= this.totalDots() - 1) {
@@ -251,6 +280,8 @@ export class Carousel implements AfterContentInit {
 
     @ViewChild('itemsContainer') itemsContainer: ElementRef | undefined;
 
+    @ViewChild('indicatorContent') indicatorContent: ElementRef | undefined;
+
     @ContentChild(Header) headerFacet: QueryList<Header> | undefined;
 
     @ContentChild(Footer) footerFacet: QueryList<Footer> | undefined;
@@ -321,7 +352,7 @@ export class Carousel implements AfterContentInit {
 
     window: Window;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any) {
+    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private config: PrimeNGConfig) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
     }
@@ -410,7 +441,7 @@ export class Carousel implements AfterContentInit {
 
         if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
             if (this.autoplayInterval) {
-                this.stopAutoplay();
+                this.stopAutoplay(false);
             }
 
             this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
@@ -619,7 +650,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -634,7 +664,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (e && e.cancelable) {
@@ -647,7 +676,6 @@ export class Carousel implements AfterContentInit {
 
         if (this.autoplayInterval) {
             this.stopAutoplay();
-            this.allowAutoplay = false;
         }
 
         if (index > page) {
@@ -655,6 +683,69 @@ export class Carousel implements AfterContentInit {
         } else if (index < page) {
             this.navBackward(e, index);
         }
+    }
+
+    onIndicatorKeydown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowRight':
+                this.onRightKey();
+                break;
+
+            case 'ArrowLeft':
+                this.onLeftKey();
+                break;
+        }
+    }
+
+    onRightKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
+    }
+
+    onLeftKey() {
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
+    }
+    onHomeKey() {
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, 0);
+    }
+
+    onEndKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
+        const activeIndex = this.findFocusedIndicatorIndex();
+
+        this.changedFocusedIndicator(activeIndex, indicators.length - 1);
+    }
+
+    onTabKey() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
+
+        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+
+        indicators[activeIndex].children[0].tabIndex = '-1';
+        indicators[highlightedIndex].children[0].tabIndex = '0';
+    }
+
+    findFocusedIndicatorIndex() {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndicator = DomHandler.findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+
+        return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+    }
+
+    changedFocusedIndicator(prevInd, nextInd) {
+        const indicators = [...DomHandler.find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+
+        indicators[prevInd].children[0].tabIndex = '-1';
+        indicators[nextInd].children[0].tabIndex = '0';
+        indicators[nextInd].children[0].focus();
     }
 
     step(dir: number, page?: number) {
@@ -713,12 +804,21 @@ export class Carousel implements AfterContentInit {
                 }
             }
         }, this.autoplayInterval);
+        this.allowAutoplay = true;
     }
 
-    stopAutoplay() {
+    stopAutoplay(changeAllow: boolean = true) {
         if (this.interval) {
             clearInterval(this.interval);
+            this.interval = undefined;
+            if (changeAllow) {
+                this.allowAutoplay = false;
+            }
         }
+    }
+
+    isPlaying(): boolean {
+        return !!this.interval;
     }
 
     onTransitionEnd() {
@@ -763,6 +863,26 @@ export class Carousel implements AfterContentInit {
                 this.navBackward(e);
             }
         }
+    }
+
+    ariaPrevButtonLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.prevPageLabel : undefined;
+    }
+
+    ariaSlideLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.slide : undefined;
+    }
+
+    ariaNextButtonLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.nextPageLabel : undefined;
+    }
+
+    ariaSlideNumber(value) {
+        return this.config.translation.aria ? this.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value) : undefined;
+    }
+
+    ariaPageLabel(value) {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
     }
 
     bindDocumentListeners() {

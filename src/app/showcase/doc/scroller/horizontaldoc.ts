@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ export class HorizontalDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -55,7 +55,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-horizontal-demo.scss']
 })
 export class ScrollerHorizontalDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

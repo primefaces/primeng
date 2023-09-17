@@ -2,7 +2,7 @@
  * Represents a node in a tree data structure.
  * @group Interface
  */
-export interface TreeNode {
+export interface TreeNode<T = any> {
     /**
      * Label of the node.
      */
@@ -10,7 +10,7 @@ export interface TreeNode {
     /**
      * Data represented by the node.
      */
-    data?: any;
+    data?: T;
     /**
      * Icon of the node to display next to content.
      */
@@ -26,7 +26,7 @@ export interface TreeNode {
     /**
      * An array of treenodes as children.
      */
-    children?: TreeNode[];
+    children?: TreeNode<T>[];
     /**
      * Specifies if the node has children. Used in lazy loading.
      * @defaultValue false
@@ -44,7 +44,7 @@ export interface TreeNode {
     /**
      * Parent of the node.
      */
-    parent?: TreeNode;
+    parent?: TreeNode<T>;
     /**
      * Defines if value is partially selected.
      */

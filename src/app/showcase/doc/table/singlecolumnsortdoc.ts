@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'single-column-sort-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
@@ -47,7 +47,7 @@ export class SingleColumnSortDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -113,7 +113,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-single-column-sort-demo.html'
 })
 export class TableSingleColumnSortDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

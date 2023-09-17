@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'helptext-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class HelpTextDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -49,7 +49,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-help-text-demo.html'
 })
 export class InputTextHelpTextDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

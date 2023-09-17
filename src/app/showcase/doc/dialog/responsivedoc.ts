@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-responsive-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dialog width can be adjusted per screen size with the <i>breakpoints</i> option where a key defines the max-width for the breakpoint and value for the corresponding width. When no breakpoint matches width defined in
@@ -27,7 +27,7 @@ export class ResponsiveDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -62,7 +62,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-responsive-demo.html'
 })
 export class DialogResponsiveDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

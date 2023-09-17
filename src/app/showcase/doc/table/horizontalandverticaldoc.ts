@@ -5,7 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'horizontal-and-vertical-scroll-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
         </app-docsectiontext>
@@ -61,7 +61,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -72,7 +72,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
@@ -173,7 +173,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-horizontal-and-vertical-scroll-demo.html'
 })
 export class TableHorizontalAndVerticalScrollDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -183,7 +183,7 @@ export class TableHorizontalAndVerticalScrollDemo implements OnInit{
         });
     }
 
-    formatCurrency(value) {
+    formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 }`,

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-disabled-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './dropdown-disabled-demo.html'
 })
 export class DropdownDisabledDemo {
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [

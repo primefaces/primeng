@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'striped-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>p-datatable-striped</i> class displays striped rows.</p>
         </app-docsectiontext>
@@ -38,7 +38,7 @@ export class StripedDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -100,7 +100,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-striped-demo.html'
 })
 export class TableStripedDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

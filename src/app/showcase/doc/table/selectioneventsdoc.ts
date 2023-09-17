@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'selection-events-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Table provides <i>onRowSelect</i> and <i>onRowUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
@@ -44,9 +44,9 @@ export class SelectionEventsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -57,11 +57,11 @@ export class SelectionEventsDoc implements OnInit {
         });
     }
 
-    onRowSelect(event) {
+    onRowSelect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
     }
 
-    onRowUnselect(event) {
+    onRowUnselect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Product Unselected', detail: event.data.name });
     }
 
@@ -122,9 +122,9 @@ import { ProductService } from '../../service/productservice';
     providers: [MessageService]
 })
 export class TableSelectionEventsDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 
@@ -134,11 +134,11 @@ export class TableSelectionEventsDemo implements OnInit{
         });
     }
 
-    onRowSelect(event) {
+    onRowSelect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
     }
 
-    onRowUnselect(event) {
+    onRowUnselect(event: any) {
         this.messageService.add({ severity: 'info', summary: 'Product Unselected', detail: event.data.name });
     }
 }`,

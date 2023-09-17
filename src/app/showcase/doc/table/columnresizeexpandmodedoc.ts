@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'column-resize-expand-mode-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
@@ -41,7 +41,7 @@ export class ColumnResizeExpandModeDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -103,7 +103,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-column-resize-expand-mode-demo.html'
 })
 export class TableColumnResizeExpandModeDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

@@ -84,7 +84,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     darkMode: boolean = false;
 
-    setAnimation: boolean = false;
+    setAnimation: boolean = true;
 
     selectedOptions: string[] = ['1'];
 
@@ -246,7 +246,6 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.setAnimation = true;
         this.cd.detectChanges();
     }
 

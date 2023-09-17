@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-circular-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>autoplayInterval</i> is defined in milliseconds, items are scrolled automatically. In addition, for infinite scrolling <i>circular</i> property needs to be added which is enabled automatically in auto play mode.</p>
         </app-docsectiontext>
@@ -37,15 +37,16 @@ export class CircularDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [
@@ -130,9 +131,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-circular-demo.scss']
 })
 export class CarouselCircularDemo implements OnInit{
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

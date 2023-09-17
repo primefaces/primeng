@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-trigger-event-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Trigger event of context menu can be replaced by a different event with <i>triggerEvent</i> property. Default value of <i>triggerEvent</i> is <i>contextmenu</i>.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ export class TriggerEventDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -171,7 +171,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './context-menu-trigger-event-demo.html'
 })
 export class ContextMenuTriggerEventDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

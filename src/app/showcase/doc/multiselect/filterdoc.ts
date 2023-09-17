@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class FilterDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './multi-select-filter-demo.html'
 })
 export class MultiSelectFilterDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

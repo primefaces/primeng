@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-icon-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class IconDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date: Date | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-icon-demo.html'
 })
 export class CalendarIconDemo {
-    date: Date;
+    date: Date | undefined;
 }`
     };
 }

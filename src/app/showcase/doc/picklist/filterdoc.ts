@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
         </app-docsectiontext>
@@ -47,14 +47,17 @@ export class FilterDoc {
 
     @Input() title: string;
 
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(private carService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then((products) => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 
@@ -98,7 +101,7 @@ export class FilterDoc {
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -107,14 +110,20 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './picklist-filter-demo.html'
 })
 export class PicklistFilterDemo {
-    sourceProducts: Product[];
+    sourceProducts!: Product[];
 
-    targetProducts: Product[];
+    targetProducts!: Product[];
 
-    constructor(private carService: ProductService) {}
+    constructor(
+      private carService: ProductService,
+      private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
-        this.carService.getProductsSmall().then((products) => (this.sourceProducts = products));
+        this.carService.getProductsSmall().then(products => {
+            this.sourceProducts = products;
+            this.cdr.markForCheck();
+        });
         this.targetProducts = [];
     }
 }`,

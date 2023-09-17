@@ -3,9 +3,14 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'reorder-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Order of the columns and rows can be changed using drag and drop. Column reordering is configured by adding <i>reorderableColumns</i> property.</p>
             <p>
@@ -44,9 +49,9 @@ export class ReorderDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -114,14 +119,19 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-reorder-demo',
     templateUrl: 'table-reorder-demo.html'
 })
 export class TableReorderDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

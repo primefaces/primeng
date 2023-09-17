@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class EditableDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [
@@ -59,9 +59,9 @@ interface City {
     templateUrl: './dropdown-editable-demo.html'
 })
 export class DropdownEditableDemo implements OnInit {
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [

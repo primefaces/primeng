@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
         </app-docsectiontext>
@@ -37,12 +37,15 @@ export class DragDropDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
     }
 
     getSeverity(status: string) {
@@ -109,7 +112,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './orderlist-drag-drop-demo.html'
 })
 export class OrderlistDragDropDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-floatlabel-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -26,9 +26,9 @@ export class FloatLabelDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [
@@ -68,9 +68,9 @@ interface City {
     templateUrl: './dropdown-floatlabel-demo.html'
 })
 export class DropdownFloatlabelDemo implements OnInit {
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
     ngOnInit() {
         this.cities = [

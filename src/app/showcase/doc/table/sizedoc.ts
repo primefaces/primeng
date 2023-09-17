@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'size-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
@@ -41,9 +41,9 @@ export class SizeDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    sizes: any[];
+    sizes!: any[];
 
     selectedSize: any = '';
 
@@ -119,9 +119,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-size-demo.html'
 })
 export class TableSizeDemo {
-    products: Product[];
+    products!: Product[];
 
-    sizes: any[];
+    sizes!: any[];
 
     selectedSize: any = '';
 

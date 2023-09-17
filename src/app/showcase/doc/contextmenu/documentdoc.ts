@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-document-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ export class DocumentDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -170,7 +170,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './context-menu-document-demo.html'
 })
 export class ContextMenuDocumentDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

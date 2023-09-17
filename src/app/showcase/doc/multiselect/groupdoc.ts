@@ -9,7 +9,7 @@ interface City {
 
 @Component({
     selector: 'group-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
@@ -31,9 +31,9 @@ export class GroupDoc {
 
     @Input() title: string;
 
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [
@@ -107,9 +107,9 @@ interface City {
     templateUrl: './multi-select-group-demo.html'
 })
 export class MultiSelectGroupDemo {
-    groupedCities: SelectItemGroup[];
+    groupedCities!: SelectItemGroup[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     constructor() {
         this.groupedCities = [

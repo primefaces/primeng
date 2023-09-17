@@ -67,20 +67,6 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
         this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
 
-    @HostListener('focus', ['$event'])
-    onFocus(e: Event) {
-        if (this.autoResize) {
-            this.resize(e);
-        }
-    }
-
-    @HostListener('blur', ['$event'])
-    onBlur(e: Event) {
-        if (this.autoResize) {
-            this.resize(e);
-        }
-    }
-
     resize(event?: Event) {
         this.el.nativeElement.style.height = 'auto';
         this.el.nativeElement.style.height = this.el.nativeElement.scrollHeight + 'px';

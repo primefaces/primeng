@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'gridlines-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>
@@ -40,7 +40,7 @@ export class GridlinesDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -106,7 +106,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-gridlines-demo.html'
 })
 export class TableGridlinesDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 

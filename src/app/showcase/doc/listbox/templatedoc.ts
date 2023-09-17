@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
@@ -30,9 +30,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     ngOnInit() {
         this.countries = [
@@ -85,9 +85,9 @@ interface Country {
     templateUrl: './listbox-template-demo.html'
 })
 export class ListboxTemplateDemo implements OnInit {
-    countries: Country[];
+    countries!: Country[];
 
-    selectedCountry: Country;
+    selectedCountry!: Country;
 
     ngOnInit() {
         this.countries = [

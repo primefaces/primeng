@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'interactive-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with <i>activeIndexChange</i> to control the Steps.</p>
         </app-docsectiontext>
@@ -21,13 +21,13 @@ export class InteractiveDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     activeIndex: number = 0;
 
     constructor(public messageService: MessageService) {}
 
-    onActiveIndexChange(event) {
+    onActiveIndexChange(event: number) {
         this.activeIndex = event;
     }
 
@@ -73,13 +73,13 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class StepsInteractiveDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     activeIndex: number = 0;
 
     constructor(public messageService: MessageService) {}
 
-    onActiveIndexChange(event) {
+    onActiveIndexChange(event: number) {
         this.activeIndex = event;
     }
 

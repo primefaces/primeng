@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-maximizable-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>maximizable</i> property to <i>true</i> enables the full screen mode.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ export class MaximizableDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-maximizable-demo.html'
 })
 export class DialogMaximizableDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

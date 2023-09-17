@@ -5,9 +5,16 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface TableRowSelectEvent {
+    originalEvent?: Event;
+    data?: any;
+    type?: string;
+    index?: number;
+}
+
 @Component({
     selector: 'data-table-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>
@@ -54,9 +61,9 @@ export class DataTableDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    selectedProduct: Product;
+    selectedProduct: Product | undefined;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 
@@ -67,7 +74,7 @@ export class DataTableDoc implements OnInit {
         });
     }
 
-    onRowSelect(event, op: OverlayPanel) {
+    onRowSelect(event: TableRowSelectEvent, op: OverlayPanel) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
         op.hide();
     }
@@ -150,15 +157,22 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface TableRowSelectEvent {
+    originalEvent?: Event;
+    data?: any;
+    type?: string;
+    index?: number;
+}
+
 @Component({
     selector: 'overlay-panel-data-table-demo',
     templateUrl: './overlay-panel-data-table-demo.html',
     providers: [ MessageService ]
 })
 export class OverlayPanelDataTableDemo implements OnInit {
-    products: Product[];
+    products: Product[] | undefined;
 
-    selectedProduct: Product;
+    selectedProduct: Product | undefined;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 
@@ -169,7 +183,7 @@ export class OverlayPanelDataTableDemo implements OnInit {
         });
     }
 
-    onRowSelect(event, op: OverlayPanel) {
+    onRowSelect(event: TableRowSelectEvent, op: OverlayPanel) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
         op.hide();
     }

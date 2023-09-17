@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-format-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
             <ul class="mb-4 line-height-4">
@@ -37,7 +37,7 @@ export class FormatDoc {
 
     @Input() title: string;
 
-    date: Date;
+    date: Date | undefined;
 
     code: Code = {
         basic: `
@@ -56,7 +56,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-format-demo.html'
 })
 export class CalendarFormatDemo {
-    date: Date;
+    date: Date | undefined;
 }`
     };
 }

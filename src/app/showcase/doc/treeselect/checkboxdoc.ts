@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class CheckboxDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -45,7 +45,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-checkbox-demo.html'
 })
 export class TreeSelectCheckboxDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

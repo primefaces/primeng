@@ -85,7 +85,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
             />
-            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
+            <ng-container *ngIf="buttonLayout != 'vertical' && showClear && (value || value === 0)">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" />
                 <span *ngIf="clearIconTemplate" (click)="clear()" class="p-inputnumber-clear-icon">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
@@ -919,6 +919,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
+        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const newValueStr = newValue != null ? newValue.toString() : '';
+        if (this.maxlength && newValueStr.length > this.maxlength) {
+            return;
+        }
+
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
@@ -929,6 +935,10 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
             if (data) {
+                if (this.maxlength) {
+                    data = data.toString().substring(0, this.maxlength);
+                }
+
                 let filteredData = this.parseValue(data);
                 if (filteredData != null) {
                     this.insert(event, filteredData.toString());
@@ -1214,6 +1224,13 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         } else {
             let selectionStart = this.input.nativeElement.selectionStart;
             let selectionEnd = this.input.nativeElement.selectionEnd;
+
+            if (this.maxlength && newValue.length > this.maxlength) {
+                newValue = newValue.slice(0, this.maxlength);
+                selectionStart = Math.min(selectionStart, this.maxlength);
+                selectionEnd = Math.min(selectionEnd, this.maxlength);
+            }
+
             if (this.maxlength && this.maxlength < newValue.length) {
                 return;
             }

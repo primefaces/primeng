@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface Item {
+    label: string;
+    index: number;
+}
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 VirtualScroller requires <i>value</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>pTemplate</i> to define the content per item. Size of the viewport is configured using <i>scrollWidth</i>,
@@ -27,7 +31,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {
@@ -59,12 +63,17 @@ export class BasicDoc implements OnInit {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'virtual-scroller-basic-demo',
     templateUrl: './virtual-scroller-basic-demo.html'
 })
 export class VirtualScrollerBasicDemo implements OnInit {
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {

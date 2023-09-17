@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class FloatLabelDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-floatlabel-demo.html'
 })
 export class InputTextFloatlabelDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

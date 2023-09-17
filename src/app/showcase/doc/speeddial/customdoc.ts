@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>SpeedDial sample with an outlined button, custom icons and <i>transitionDelay</i>.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ export class CustomDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -81,7 +81,7 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialCustomDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 

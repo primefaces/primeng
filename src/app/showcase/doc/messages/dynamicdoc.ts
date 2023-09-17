@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-dynamic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A binding to the value property is required to provide messages to the component.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ export class DynamicDoc {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     addMessages() {
         this.messages = [
@@ -56,7 +56,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-dynamic-demo.html'
 })
 export class MessagesDynamicDemo {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     addMessages() {
         this.messages = [

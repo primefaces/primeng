@@ -3,9 +3,14 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'column-toggle-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
         </app-docsectiontext>
@@ -41,11 +46,11 @@ export class ColumnToggleDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -117,16 +122,21 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-column-toggle-demo',
     templateUrl: './tree-table-column-toggle-demo.html'
 })
 export class TreeTableColumnToggleDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
-    selectedColumns: any[];
+    selectedColumns!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

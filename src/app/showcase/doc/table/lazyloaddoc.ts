@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking onLazyLoad callback everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> happens. Sample here loads
@@ -90,17 +90,17 @@ export class LazyLoadDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
     selectAll: boolean = false;
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -139,7 +139,7 @@ export class LazyLoadDoc implements OnInit {
         this.selectedCustomers = value;
     }
 
-    onSelectAllChange(event) {
+    onSelectAllChange(event: any) {
         const checked = event.checked;
 
         if (checked) {
@@ -299,17 +299,17 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-lazy-load-demo.html'
 })
 export class TableLazyLoadDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    totalRecords: number;
+    totalRecords!: number;
 
-    loading: boolean;
+    loading: boolean = false;
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
     selectAll: boolean = false;
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -347,7 +347,7 @@ export class TableLazyLoadDemo implements OnInit{
         this.selectedCustomers = value;
     }
 
-    onSelectAllChange(event) {
+    onSelectAllChange(event: any) {
         const checked = event.checked;
 
         if (checked) {

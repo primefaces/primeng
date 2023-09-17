@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Both the selected option and the options list can be templated to provide customizated representation. Use <i>selectedItem</i> template to customize the selected label display and the <i>item</i> template to change the content of the
@@ -34,9 +34,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [
@@ -96,9 +96,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './dropdown-template-demo.html'
 })
 export class DropdownTemplateDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
-    selectedCountry: string;
+    selectedCountry: string | undefined;
 
     ngOnInit() {
         this.countries = [

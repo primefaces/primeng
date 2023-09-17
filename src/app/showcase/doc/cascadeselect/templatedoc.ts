@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'cascade-select-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is
@@ -30,7 +30,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
 
@@ -146,7 +146,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './cascade-select-template-demo.html'
 })
 export class CascadeselectTemplateDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
     

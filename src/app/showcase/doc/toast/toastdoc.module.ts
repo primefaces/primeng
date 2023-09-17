@@ -13,6 +13,7 @@ import { MultipleDoc } from './multipledoc';
 import { PositionDoc } from './positiondoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { SeverityDoc } from './severitydoc';
+import { LifeDoc } from './lifedoc';
 import { StickyDoc } from './stickydoc';
 import { StyleDoc } from './styledoc';
 import { TargetDoc } from './targetdoc';
@@ -22,7 +23,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
-    declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, AccessibilityDoc],
+    declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, LifeDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ToastDocModule {}

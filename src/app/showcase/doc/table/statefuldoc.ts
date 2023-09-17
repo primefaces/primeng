@@ -5,7 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'stateful-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings.</p>
             <p>
@@ -75,9 +75,9 @@ export class StatefulDoc implements OnInit {
 
     @Input() title: string;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer;
+    selectedCustomers!: Customer;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -88,7 +88,7 @@ export class StatefulDoc implements OnInit {
         });
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -227,9 +227,9 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['table-stateful-demo.scss']
 })
 export class TableStatefulDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer;
+    selectedCustomers!: Customer;
 
     constructor(private customerService: CustomerService) {}
 
@@ -237,7 +237,7 @@ export class TableStatefulDemo implements OnInit{
         this.customerService.getCustomersMini().then((data) => (this.customers = data));
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

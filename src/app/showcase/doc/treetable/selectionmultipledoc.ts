@@ -4,9 +4,14 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
@@ -49,11 +54,11 @@ export class SelectionMultipleDoc implements OnInit {
 
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -118,6 +123,11 @@ import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-selection-multiple-demo',
     templateUrl: './tree-table-selection-multiple-demo.html'
@@ -125,11 +135,11 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeTableSelectionMultipleDemo implements OnInit {
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

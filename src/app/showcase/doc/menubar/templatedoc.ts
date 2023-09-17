@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menubar-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content can be placed inside the menubar using the <i>start</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -186,7 +186,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menubar-template-demo.html'
 })
 export class MenubarTemplateDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

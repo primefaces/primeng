@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-time-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TimePicker is enabled with <i>showTime</i> property and 24 (default) or 12 hour mode is configured using <i>hourFormat</i> option.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class TimeDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core'
     templateUrl: './calendar-time-demo.html'
 })
 export class CalendarTimeDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

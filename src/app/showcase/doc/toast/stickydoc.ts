@@ -4,9 +4,9 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sticky-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>A toast disappears after 3000ms defined the <i>life</i> option, set <i>sticky</i> option <i>true</i> to display toast that do not hide automatically.</p>
+            <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class VerticalDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './slider-vertical-demo.html'
 })
 export class SliderVerticalDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

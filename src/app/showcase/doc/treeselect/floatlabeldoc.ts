@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -22,7 +22,7 @@ export class FloatLabelDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -54,7 +54,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-floatlabel-demo.html'
 })
 export class TreeSelectFloatlabelDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

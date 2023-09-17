@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Chips is used as a controlled input with <i>ngModel</i> property where it should be an array.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    values: string[];
+    values: string[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './chips-basic-demo.html'
 })
 export class ChipsBasicDemo {
-    values: string[];
+    values: string[] | undefined;
 }`
     };
 }

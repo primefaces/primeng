@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-popup-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ export class BasicDoc {
 
     confirm(event: Event) {
         this.confirmationService.confirm({
-            target: event.target,
+            target: event.target as EventTarget,
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -65,7 +65,7 @@ export class ConfirmPopupBasicDemo {
     
     confirm(event: Event) {
         this.confirmationService.confirm({
-            target: event.target,
+            target: event.target as EventTarget,
             message: 'Are you sure that you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

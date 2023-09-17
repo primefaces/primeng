@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class DisabledDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -45,7 +45,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-disabled-demo.html'
 })
 export class TreeSelectDisabledDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

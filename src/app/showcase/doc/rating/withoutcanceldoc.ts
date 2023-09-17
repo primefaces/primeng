@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'without-cancel-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class WithoutCancelDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './rating-without-cancel-demo.html'
 })
 export class RatingWithoutCancelDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

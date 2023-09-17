@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-group-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
@@ -28,7 +28,7 @@ export class GroupDoc {
 
     groupedCities: SelectItemGroup[];
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     constructor() {
         this.groupedCities = [
@@ -99,7 +99,7 @@ import { Component } from '@angular/core';
 export class DropdownGroupDemo {
     groupedCities: SelectItemGroup[];
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     constructor() {
         this.groupedCities = [

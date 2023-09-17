@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Carousel supports specific configuration per screen size with the <i>responsiveOptions</i> property that takes an array of objects where each object defines the max-width <i>breakpoint</i>, <i>numVisible</i> for the number of items
@@ -43,15 +43,16 @@ export class ResponsiveDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [
@@ -140,9 +141,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-responsive-demo.scss']
 })
 export class CarouselResponsiveDemo {
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

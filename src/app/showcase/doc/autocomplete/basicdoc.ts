@@ -1,9 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 AutoComplete uses <i>ngModel</i> for two-way binding, requires a list of suggestions and a <i>completeMethod</i> to query for the results. The completeMethod gets the query text as <i>event.query</i> property and should update the
@@ -21,13 +26,13 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    items: any[];
+    items: any[] | undefined;
 
     selectedItem: any;
 
-    suggestions: any[];
+    suggestions: any[] | undefined;
 
-    search(event) {
+    search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
 
@@ -43,18 +48,23 @@ export class BasicDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface AutoCompleteCompleteEvent {
+    originalEvent: Event;
+    query: string;
+}
+
 @Component({
     selector: 'autocomplete-basic-demo',
     templateUrl: './autocomplete-basic-demo.html'
 })
 export class AutocompleteBasicDemo {
-    items: any[];
+    items: any[] | undefined;
 
     selectedItem: any;
 
-    suggestions: any[];
+    suggestions: any[] | undefined;
 
-    search(event) {
+    search(event: AutoCompleteCompleteEvent) {
         this.suggestions = [...Array(10).keys()].map(item => event.query + '-' + item);
     }
 }`

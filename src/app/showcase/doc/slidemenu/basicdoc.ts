@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>SlideMenu requires a collection of menuitems as its <i>model</i> along with <i>viewportHeight</i> and <i>menuWidth</i>.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -168,7 +168,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './slide-menu-basic-demo.html'
 })
 export class SlideMenuBasicDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

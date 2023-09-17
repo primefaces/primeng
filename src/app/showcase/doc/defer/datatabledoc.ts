@@ -6,7 +6,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'datatable-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
@@ -46,7 +46,7 @@ export class DataTableDoc {
 
     @Input() title: string;
 
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService, private messageService: MessageService) {}
 
@@ -121,7 +121,7 @@ import { CarService } from '../../service/carservice';
     providers: [MessageService, CarService]
 })
 export class DeferDataTableDemo {
-    cars: Car[];
+    cars: Car[] | undefined;
 
     constructor(private carService: CarService, private messageService: MessageService) {}
 

@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
@@ -23,9 +23,9 @@ export class CheckboxDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFiles: TreeNode[];
+    selectedFiles!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -52,9 +52,9 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-checkbox-demo.html'
 })
 export class TreeCheckboxDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedFiles: TreeNode[];
+    selectedFiles!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

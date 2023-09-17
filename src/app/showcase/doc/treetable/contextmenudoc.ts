@@ -3,9 +3,14 @@ import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'context-menu-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
         </app-docsectiontext>
@@ -41,13 +46,13 @@ export class ContextMenuDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -66,11 +71,11 @@ export class ContextMenuDoc implements OnInit {
         ];
     }
 
-    viewFile(node) {
+    viewFile(node: any) {
         this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
     }
 
-    toggleFile(node) {
+    toggleFile(node: any) {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }
@@ -129,19 +134,24 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-context-menu-demo',
     templateUrl: './tree-table-context-menu-demo.html'
     providers: [MessageService]
 })
 export class TreeTableContextMenuDemo implements OnInit{
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
-    items: MenuItem[];
+    items!: MenuItem[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -160,11 +170,11 @@ export class TreeTableContextMenuDemo implements OnInit{
         ];
     }
 
-    viewFile(node) {
+    viewFile(node: any) {
         this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.data.name + ' - ' + node.data.size });
     }
 
-    toggleFile(node) {
+    toggleFile(node: any) {
         node.expanded = !node.expanded;
         this.files = [...this.files];
     }

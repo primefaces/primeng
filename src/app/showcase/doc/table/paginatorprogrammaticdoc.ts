@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
 import { Code } from '../../domain/code';
+import { Customer } from '../../domain/customer';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-programmatic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p _ngcontent-ylv-c94="">Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
@@ -21,9 +21,10 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
                 [paginator]="true"
                 [rows]="rows"
                 [showCurrentPageReport]="true"
-                [(first)]="first"
+                [first]="first"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                (onPage)="pageChange($event)"
                 [rowsPerPageOptions]="[10, 25, 50]"
             >
                 <ng-template pTemplate="header">
@@ -55,7 +56,7 @@ export class PaginatorProgrammaticDoc {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
     first = 0;
 
@@ -82,6 +83,11 @@ export class PaginatorProgrammaticDoc {
         this.first = 0;
     }
 
+    pageChange(event) {
+        this.first = event.first;
+        this.rows = event.rows;
+    }
+
     isLastPage(): boolean {
         return this.customers ? this.first === this.customers.length - this.rows : true;
     }
@@ -92,6 +98,11 @@ export class PaginatorProgrammaticDoc {
 
     code: Code = {
         basic: `
+<div class="mb-3">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+</div>
 <p-table
     [value]="customers"
     [paginator]="true"
@@ -99,6 +110,7 @@ export class PaginatorProgrammaticDoc {
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    (onPage)="pageChange($event)"
     [rowsPerPageOptions]="[10, 25, 50]"
 >
     <ng-template pTemplate="header">
@@ -125,6 +137,11 @@ export class PaginatorProgrammaticDoc {
     </ng-template>
 </p-table>`,
         html: `
+<div class="mb-3">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+</div>
 <div class="card">
     <p-table
         [value]="customers"
@@ -133,6 +150,7 @@ export class PaginatorProgrammaticDoc {
         [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onPage)="pageChange($event)"
         [rowsPerPageOptions]="[10, 25, 50]"
     >
         <ng-template pTemplate="header">
@@ -169,7 +187,7 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-paginator-programmatic-demo.html'
 })
 export class TablePaginatorProgrammaticDemo {
-    customers: Customer[];
+    customers!: Customer[];
 
     first = 0;
 
@@ -191,6 +209,11 @@ export class TablePaginatorProgrammaticDemo {
 
     reset() {
         this.first = 0;
+    }
+
+    pageChange(event) {
+        this.first = event.first;
+        this.rows = event.rows;
     }
 
     isLastPage(): boolean {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-buttonbar-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class ButtonBarDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-buttonbar-demo.html'
 })
 export class CalendarButtonbarDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

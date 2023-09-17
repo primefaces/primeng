@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'page-only-selection-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext></app-docsectiontext>
         <div class="card">
             <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
@@ -45,9 +45,9 @@ export class PageOnlySelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -121,9 +121,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-page-only-selection-demo.html'
 })
 export class TablePageOnlySelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService) {}
 

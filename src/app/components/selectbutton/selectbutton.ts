@@ -1,8 +1,9 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ContentChild, TemplateRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, NgModule, Output, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ObjectUtils } from 'primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -40,7 +41,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                     <span class="p-button-label">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: i }"></ng-container>
+                    <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
                 </ng-template>
             </div>
         </div>
@@ -122,7 +123,11 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
-    @ContentChild(TemplateRef) itemTemplate!: TemplateRef<any>;
+    @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
+
+    public get selectButtonTemplate(): TemplateRef<any> {
+        return this.itemTemplate?.template;
+    }
 
     value: any;
 
@@ -167,9 +172,11 @@ export class SelectButton implements ControlValueAccessor {
             return;
         }
 
+        const optionValue = this.getOptionValue(option);
+
         if (this.multiple) {
             if (this.isSelected(option)) this.removeOption(option);
-            else this.value = [...(this.value || []), this.getOptionValue(option)];
+            else this.value = [...(this.value || []), optionValue];
 
             this.onModelChange(this.value);
 
@@ -177,18 +184,14 @@ export class SelectButton implements ControlValueAccessor {
                 originalEvent: event,
                 value: this.value
             });
-        } else {
-            let value = this.getOptionValue(option);
+        } else if (this.value !== optionValue) {
+            this.value = optionValue;
+            this.onModelChange(this.value);
 
-            if (this.value !== value) {
-                this.value = this.getOptionValue(option);
-                this.onModelChange(this.value);
-
-                this.onChange.emit({
-                    originalEvent: event,
-                    value: this.value
-                });
-            }
+            this.onChange.emit({
+                originalEvent: event,
+                value: this.value
+            });
         }
 
         this.onOptionClick.emit({
@@ -208,7 +211,7 @@ export class SelectButton implements ControlValueAccessor {
 
     isSelected(option: any) {
         let selected = false;
-        let optionValue = this.getOptionValue(option);
+        const optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
             if (this.value && Array.isArray(this.value)) {
@@ -220,7 +223,7 @@ export class SelectButton implements ControlValueAccessor {
                 }
             }
         } else {
-            selected = ObjectUtils.equals(this.getOptionValue(option), this.value, this.dataKey);
+            selected = ObjectUtils.equals(optionValue, this.value, this.dataKey);
         }
 
         return selected;
@@ -228,8 +231,8 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [SelectButton],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })
 export class SelectButtonModule {}

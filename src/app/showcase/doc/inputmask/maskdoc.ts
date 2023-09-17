@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'input-mask-mask-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Mask format can be a combination of the following definitions; <i>a</i> for alphabetic characters, <i>9</i> for numeric characters and <i>*</i> for alphanumberic characters. In addition, formatting characters like <i>(</i> ,
@@ -32,11 +32,11 @@ export class MaskDoc {
 
     @Input() title: string;
 
-    value1: string;
+    value1: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
-    value3: string;
+    value3: string | undefined;
 
     code: Code = {
         basic: `
@@ -75,11 +75,11 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-mask-demo.html'
 })
 export class InputMaskMaskDemo {
-    value1: string;
+    value1: string | undefined;
 
-    value2: string;
+    value2: string | undefined;
 
-    value3: string;
+    value3: string | undefined;
 }`
     };
 }

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './rating-basic-demo.html'
 })
 export class RatingBasicDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ export class BasicDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
@@ -54,7 +54,7 @@ export class BasicDoc {
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
-            reject: (type) => {
+            reject: (type: ConfirmEventType) => {
                 switch (type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
@@ -103,7 +103,7 @@ export class ConfirmBasicDoc {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
             reject: (type) => {
-                switch (type) {
+                switch (type: ConfirmEventType) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
                         break;
@@ -124,7 +124,7 @@ export class ConfirmBasicDoc {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
             reject: (type) => {
-                switch (type) {
+                switch (type: ConfirmEventType) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
                         break;

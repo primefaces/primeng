@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Layout of the MegaMenu is changed with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as options.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class VerticalDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -158,7 +158,7 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-vertical-demo.html'
 })
 export class MegaMenuVerticalDemo implements OnInit {
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

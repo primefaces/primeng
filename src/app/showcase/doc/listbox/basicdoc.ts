@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Listbox is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively.
@@ -27,9 +27,9 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
 
     ngOnInit() {
         this.cities = [
@@ -63,9 +63,9 @@ interface City {
     templateUrl: './listbox-basic-demo.html'
 })
 export class ListboxBasicDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCity: City;
+    selectedCity!: City;
     
     ngOnInit() {
         this.cities = [

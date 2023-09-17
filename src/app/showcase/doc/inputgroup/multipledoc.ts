@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
@@ -27,8 +27,6 @@ export class MultipleDoc {
     @Input() id: string;
 
     @Input() title: string;
-
-    dates: Date[];
 
     code: Code = {
         basic: `

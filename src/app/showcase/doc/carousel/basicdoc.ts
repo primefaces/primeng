@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
         </app-docsectiontext>
@@ -37,15 +37,16 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
+            this.cdr.detectChanges();
         });
 
         this.responsiveOptions = [
@@ -130,9 +131,9 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./carousel-basic-demo.scss']
 })
 export class CarouselBasicDemo implements OnInit {
-    products: Product[];
+    products: Product[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
     constructor(private productService: ProductService) {}
 

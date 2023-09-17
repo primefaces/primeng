@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'cascade-select-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. <i>optionGroupLabel</i> is used for the text of a category and <i>optionGroupChildren</i> is to define the children of the category.
@@ -21,7 +21,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
 
@@ -119,7 +119,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './cascade-select-basic-demo.html'
 })
 export class CascadeSelectBasicDemo implements OnInit {
-    countries: any[];
+    countries: any[] | undefined;
 
     selectedCity: any;
     

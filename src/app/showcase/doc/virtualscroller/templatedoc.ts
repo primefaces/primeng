@@ -1,9 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Header and Footer are the two sections that are capable of displaying custom content by using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -26,7 +31,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {
@@ -62,12 +67,17 @@ export class TemplateDoc implements OnInit {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 
+interface Item {
+    label: string;
+    index: number;
+}
+
 @Component({
     selector: 'virtual-scroller-template-demo',
     templateUrl: './virtual-scroller-template-demo.html'
 })
 export class VirtualScrollerTemplateDemo implements OnInit {
-    items = [];
+    items: Item[] = [];
 
     ngOnInit(): void {
         for (let i = 0; i < 10000; i++) {

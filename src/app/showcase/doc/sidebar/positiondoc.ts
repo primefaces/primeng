@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
         </app-docsectiontext>
@@ -37,13 +37,13 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    sidebarVisible1: boolean;
+    sidebarVisible1: boolean = false;
 
-    sidebarVisible2: boolean;
+    sidebarVisible2: boolean = false;
 
-    sidebarVisible3: boolean;
+    sidebarVisible3: boolean = false;
 
-    sidebarVisible4: boolean;
+    sidebarVisible4: boolean = false;
 
     code: Code = {
         basic: `
@@ -100,13 +100,13 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-position-demo.html'
 })
 export class SidebarPositionDemo {
-    sidebarVisible1: boolean;
+    sidebarVisible1: boolean = false;
     
-    sidebarVisible2: boolean;
+    sidebarVisible2: boolean = false;
     
-    sidebarVisible3: boolean;
+    sidebarVisible3: boolean = false;
     
-    sidebarVisible4: boolean;
+    sidebarVisible4: boolean = false;
 }`
     };
 }

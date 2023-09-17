@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dialog-overlays-inside-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can either append the overlay to the body by using
@@ -31,11 +31,11 @@ export class OverlaysInsideDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
-    visible: boolean;
+    visible: boolean = false;
 
     ngOnInit() {
         this.cities = [
@@ -83,11 +83,11 @@ interface City {
     templateUrl: './dialog-overlays-inside-demo.html'
 })
 export class DialogOverlaysInsideDemo implements OnInit {
-    cities: City[];
+    cities: City[] | undefined;
 
-    selectedCity: City;
+    selectedCity: City | undefined;
 
-    visible: boolean;
+    visible: boolean = false;
 
     ngOnInit() { 
         this.cities = [

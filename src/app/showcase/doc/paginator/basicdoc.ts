@@ -1,9 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Paginator is used as a controlled component with <i>first</i>, <i>rows</i> and <i>onPageChange</i> properties to manage the first index and number of records to display per page. Total number of records need to be with
@@ -25,7 +32,7 @@ export class BasicDoc {
 
     rows: number = 10;
 
-    onPageChange(event) {
+    onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
     }
@@ -42,6 +49,13 @@ export class BasicDoc {
         typescript: `
 import { Component } from '@angular/core';
 
+interface PageEvent {
+    first: number;
+    rows: number;
+    page: number;
+    pageCount: number;
+}
+
 @Component({
     selector: 'paginator-basic-demo',
     templateUrl: './paginator-basic-demo.html'
@@ -51,7 +65,7 @@ export class PaginatorBasicDemo {
 
     rows: number = 10;
 
-    onPageChange(event) {
+    onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
     }

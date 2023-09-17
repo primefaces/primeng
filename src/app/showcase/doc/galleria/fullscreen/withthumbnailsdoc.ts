@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'with-thumbnails-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
@@ -32,9 +32,9 @@ export class WithThumbnailsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -97,9 +97,9 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-full-screen-with-thumbnails-demo.html'
 })
 export class GalleriaFullScreenWithThumbnailsDemo implements OnInit {
-    displayBasic: boolean;
+    displayBasic: boolean | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

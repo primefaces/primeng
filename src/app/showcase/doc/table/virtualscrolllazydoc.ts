@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CarService } from '../../service/carservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'virtual-scroll-lazy-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
@@ -50,11 +55,11 @@ export class VirtualScrollLazyDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 
@@ -149,11 +154,11 @@ import { CarService } from '../../service/carservice';
     templateUrl: 'table-virtual-scroll-lazy-demo.html'
 })
 export class TableVirtualScrollLazyDemo implements OnInit{
-    cars: Car[];
+    cars!: Car[];
 
-    virtualCars: Car[];
+    virtualCars!: Car[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private carService: CarService) {}
 

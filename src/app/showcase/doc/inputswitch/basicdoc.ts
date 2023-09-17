@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    checked: boolean;
+    checked: boolean = false;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-switch-basic-demo.html'
 })
 export class InputSwitchBasicDemo {
-    checked: boolean;
+    checked: boolean = false;
 }`
     };
 }

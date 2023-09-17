@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-content-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class CustomContentDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -76,7 +76,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './menu-custom-content-demo.html'
 })
 export class MenuCustomContentDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
     
     ngOnInit() {
         this.items = [

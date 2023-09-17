@@ -3,9 +3,13 @@ import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>
@@ -36,9 +40,9 @@ export class DynamicDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -98,14 +102,19 @@ import { Component } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-dynamic-demo',
     templateUrl: 'table-dynamic-demo.html'
 })
 export class TableDynamicDemo {
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

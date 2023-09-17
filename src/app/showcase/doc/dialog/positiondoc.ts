@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-position-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
@@ -37,9 +37,9 @@ export class PositionDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
-    position: string;
+    position: string = 'center';
 
     showDialog(position: string) {
         this.position = position;
@@ -101,9 +101,9 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-position-demo.html'
 })
 export class DialogPositionDemo {
-    visible: boolean;
+    visible: boolean = false;
 
-    position: string;
+    position: string = 'center';
 
     showDialog(position: string) {
         this.position = position;

@@ -7,7 +7,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'dynamic-dialog-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Since the dynamically loaded content is not defined at build time, a configuration is necessary
@@ -30,7 +30,7 @@ export class BasicDoc implements OnDestroy {
 
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
@@ -85,7 +85,7 @@ export class DynamicDialogBasicDemo implements OnDestroy {
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {

@@ -1017,7 +1017,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
             if (this.group) {
-                this.selectedOption = this.optionsToDisplay[0].items[0];
+                this.selectedOption = this.getOptionGroupChildren(this.optionsToDisplay[0])[0];
             } else {
                 this.selectedOption = this.optionsToDisplay[0];
             }
@@ -1057,10 +1057,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isInputClick(event: MouseEvent): boolean {
+        const target: HTMLElement = event.target as HTMLElement;
         return (
-            DomHandler.hasClass(event.target, 'p-dropdown-clear-icon') ||
-            (event.target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
-            ((this.editableInputViewChild && (event.target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
+            DomHandler.hasClass(target, 'p-dropdown-clear-icon') ||
+            target.closest('.p-dropdown-clear-icon') !== null ||
+            (target as HTMLInputElement).isSameNode(this.accessibleViewChild?.nativeElement) ||
+            ((this.editableInputViewChild && (target as HTMLInputElement).isSameNode(this.editableInputViewChild.nativeElement)) as boolean)
         );
     }
 
@@ -1316,6 +1318,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             case 27:
             case 9:
                 this.hide();
+                event.preventDefault();
                 break;
 
             //search item based on keyboard input
@@ -1482,7 +1485,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFilterInputChange(event: Event | any): void {
-        let inputValue = (event.target as HTMLInputElement).value;
+        let inputValue: string = (event.target as HTMLInputElement).value?.trim();
         if (inputValue && inputValue.length) {
             this._filterValue = inputValue;
             this.activateFilter();

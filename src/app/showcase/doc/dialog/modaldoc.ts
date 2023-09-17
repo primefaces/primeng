@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-modal-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Mask layer behind the Dialog can be turned on by setting the <i>modal</i> property to <i>true</i>.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ export class ModalDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-modal-demo.html'
 })
 export class DialogModalDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Calendar UI accepts custom content using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -46,7 +46,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-template-demo.html'
 })
 export class CalendarTemplateDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

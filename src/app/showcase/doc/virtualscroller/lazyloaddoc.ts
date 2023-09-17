@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded on demand. To implement lazy loading, enable the <i>lazy</i> property and implement <i>onLazyLoad</i> callback to
@@ -56,9 +56,9 @@ export class LazyLoadDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    virtualProducts: Product[];
+    virtualProducts!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -172,9 +172,9 @@ import { ProductService } from 'src/service/productservice';
     templateUrl: './virtual-scroller-lazy-load-demo.html'
 })
 export class VirtualScrollerLazyLoadDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
-    virtualProducts: Product[];
+    virtualProducts!: Product[];
 
     constructor(private productService: ProductService) {}
 

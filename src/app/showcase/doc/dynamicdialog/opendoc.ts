@@ -5,7 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'open-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>open</i> method of the <i>DialogService</i> is used to open a Dialog. First parameter is the component to load and second one is the configuration object to customize the Dialog.</p>
         </app-docsectiontext>
@@ -20,7 +20,7 @@ export class OpenDoc {
 
     constructor(public dialogService: DialogService) {}
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, { header: 'Select a Product' });
@@ -38,7 +38,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService) {}
 

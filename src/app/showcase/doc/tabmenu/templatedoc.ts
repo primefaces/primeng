@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-template-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabMenu supports templating via the <i>item</i> template which gets the menuitem instance and the index.</p>
         </app-docsectiontext>
@@ -21,9 +21,9 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
@@ -63,9 +63,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-template-demo.html'
 })
 export class TabMenuTemplateDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Scroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>item</i> template are required on component. In addition, an initial array is required based on the total number of items to
@@ -26,7 +26,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -58,7 +58,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-basic-demo.scss']
 })
 export class ScrollerBasicDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

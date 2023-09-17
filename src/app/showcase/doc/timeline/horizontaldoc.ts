@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
         </app-docsectiontext>
@@ -33,7 +33,7 @@ export class HorizontalDoc {
 
     @Input() title: string;
 
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = ['2020', '2021', '2022', '2023'];
@@ -88,7 +88,7 @@ import { Component } from '@angular/core';
     templateUrl: './timeline-horizontal-demo.html'
 })
 export class TimelineHorizontalDemo {
-    events: any[];
+    events: string[];
 
     constructor() {
         this.events = [

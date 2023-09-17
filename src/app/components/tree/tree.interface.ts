@@ -16,7 +16,7 @@ export interface TreeNodeSelectEvent {
     /**
      * Node instance.
      */
-    node: TreeNode;
+    node: TreeNode<any>;
 }
 /**
  * Custom node unselect event.
@@ -59,11 +59,11 @@ export interface TreeNodeDropEvent {
     /**
      * Dragged node instance.
      */
-    dragNode?: TreeNode | null;
+    dragNode?: TreeNode<any> | null;
     /**
      * Dropped node instance.
      */
-    dropNode?: TreeNode | null;
+    dropNode?: TreeNode<any> | null;
     /**
      * Index of the dragged node.
      */
@@ -118,7 +118,7 @@ export interface TreeFilterEvent {
     /**
      * Filtered nodes.
      */
-    filteredValue: TreeNode[] | null | undefined;
+    filteredValue: TreeNode<any>[] | null | undefined;
 }
 /**
  * Defines valid templates in Tree.

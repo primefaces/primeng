@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The <i>severity</i> option specifies the type of the message.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class SeverityDoc implements OnInit {
 
     @Input() title: string;
 
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [
@@ -46,7 +46,7 @@ import { Message } from 'primeng/api';
     templateUrl: './messages-severity-demo.html'
 })
 export class MessagesSeverityDemo implements OnInit {
-    messages: Message[];
+    messages: Message[] | undefined;
 
     ngOnInit() {
         this.messages = [

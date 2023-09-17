@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'checkbox-selection-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Multiple selection can also be handled using checkboxes by enabling the <i>selectionMode</i> property of column as <i>multiple</i>.</p>
         </app-docsectiontext>
@@ -47,9 +47,9 @@ export class CheckboxSelectionDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -123,9 +123,9 @@ import { ProductService } from '../../service/productservice';
     templateUrl: 'table-checkbox-selection-demo.html'
 })
 export class TableCheckboxSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProducts: Product;
+    selectedProducts!: Product;
 
     constructor(private productService: ProductService) {}
 

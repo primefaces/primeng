@@ -9,17 +9,17 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 @Component({
     selector: 'p-chip',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
             <ng-content></ng-content>
             <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" />
-            <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'"></span></ng-template>
-            <div class="p-chip-text" *ngIf="label">{{ label }}</div>
+            <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
+            <div class="p-chip-text" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
-                    <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)"></span>
-                    <TimesCircleIcon [attr.tabindex]="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" (click)="close($event)" (keydown.enter)="close($event)" />
+                    <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)"></span>
+                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" class="pi-chip-remove-icon" (click)="close($event)" (keydown.enter)="close($event)">
+                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -111,6 +111,12 @@ export class Chip implements AfterContentInit {
     close(event: MouseEvent) {
         this.visible = false;
         this.onRemove.emit(event);
+    }
+
+    onKeydown(event) {
+        if (event.key === 'Enter' || event.key === 'Backspace') {
+            this.close(event);
+        }
     }
 
     imageError(event: Event) {

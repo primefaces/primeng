@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { MessageService, TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'lazy-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ export class LazyDoc implements OnInit {
 
     loading: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
@@ -35,7 +35,7 @@ export class LazyDoc implements OnInit {
         }, 1000);
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         if (event.node) {
             this.loading = true;
             setTimeout(() => {
@@ -70,7 +70,7 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeLazyDemo implements OnInit {
     loading: boolean = false;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService, private messageService: MessageService) { }
 
@@ -82,7 +82,7 @@ export class TreeLazyDemo implements OnInit {
         }, 1000);
     }
 
-    nodeExpand(event) {
+    nodeExpand(event: any) {
         if (event.node) {
             this.loading = true;
             setTimeout(() => {

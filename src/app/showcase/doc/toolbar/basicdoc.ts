@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Toolbar provides <i>start</i>, <i>center</i> and <i>end</i> templates to place content at these sections.</p>
         </app-docsectiontext>
@@ -31,7 +31,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -98,7 +98,7 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './toolbar-basic-demo.html'
 })
 export class ToolbarBasicDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'optional-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When the input does not complete the mask definition, it is cleared by default. Use <i>autoClear</i> property to control this behavior. In addition, <i>?</i> is used to mark anything after the question mark optional.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class OptionalDoc {
 
     @Input() title: string;
 
-    value: string;
+    value: string | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-mask-optional-demo.html'
 })
 export class InputMaskOptionalDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

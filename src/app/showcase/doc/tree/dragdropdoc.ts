@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
@@ -21,7 +21,7 @@ export class DragDropDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -49,7 +49,7 @@ import { NodeService } from '../../service/nodeservice';
     providers: [TreeDragDropService]
 })
 export class TreeDragDropDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

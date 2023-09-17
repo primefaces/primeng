@@ -4,9 +4,9 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Items display a tooltip on hober when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
+            <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
@@ -24,9 +24,9 @@ export class TooltipDoc implements OnInit {
 
     @Input() title: string;
 
-    tooltipItems: MenuItem[];
+    tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[];
+    leftTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 
@@ -150,9 +150,9 @@ import { MenuItem, MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class SpeedDialTooltipDemo implements OnInit {
-    tooltipItems: MenuItem[];
+    tooltipItems: MenuItem[] | undefined;
 
-    leftTooltipItems: MenuItem[];
+    leftTooltipItems: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
 

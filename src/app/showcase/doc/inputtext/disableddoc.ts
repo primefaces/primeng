@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
     </section>`
 })
 export class DisabledDoc {
-    value: string;
+    value: string | undefined;
 
     @Input() id: string;
 
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './input-text-disabled-demo.html'
 })
 export class InputTextDisabledDemo {
-    value: string;
+    value: string | undefined;
 }`
     };
 }

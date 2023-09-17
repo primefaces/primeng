@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property. Dialogs are <i>draggable</i> and <i>resizable</i> by default.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;
@@ -59,7 +59,7 @@ import { Component } from '@angular/core';
     templateUrl: './dialog-basic-demo.html'
 })
 export class DialogBasicDemo {
-    visible: boolean;
+    visible: boolean = false;
 
     showDialog() {
         this.visible = true;

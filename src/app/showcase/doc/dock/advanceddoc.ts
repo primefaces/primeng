@@ -8,7 +8,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'dock-advanced-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
@@ -73,23 +73,23 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     @Input() title: string;
 
-    displayTerminal: boolean;
+    displayTerminal: boolean | undefined;
 
-    displayFinder: boolean;
+    displayFinder: boolean | undefined;
 
-    displayGalleria: boolean;
+    displayGalleria: boolean | undefined;
 
-    dockItems: MenuItem[];
+    dockItems: MenuItem[] | undefined;
 
-    menubarItems: any[];
+    menubarItems: any[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
-    nodes: any[];
+    nodes: any[] | undefined;
 
-    subscription: Subscription;
+    subscription: Subscription | undefined;
 
     constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
@@ -336,7 +336,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         this.nodeService.getFiles().then((data) => (this.nodes = data));
     }
 
-    commandHandler(text) {
+    commandHandler(text: any) {
         let response;
         let argsIndex = text.indexOf(' ');
         let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
@@ -360,7 +360,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         }
 
         if (response) {
-            this.terminalService.sendResponse(response);
+            this.terminalService.sendResponse(response as string);
         }
     }
 
@@ -486,23 +486,23 @@ import { PhotoService } from '../../service/photoservice';
     providers: [MessageService, TerminalService]
 })
 export class DockAdvancedDemo implements OnInit {
-    displayTerminal: boolean;
+    displayTerminal: boolean | undefined;
 
-    displayFinder: boolean;
+    displayFinder: boolean | undefined;
 
-    displayGalleria: boolean;
+    displayGalleria: boolean | undefined;
 
-    dockItems: MenuItem[];
+    dockItems: MenuItem[] | undefined;
 
-    menubarItems: any[];
+    menubarItems: any[] | undefined;
 
-    responsiveOptions: any[];
+    responsiveOptions: any[] | undefined;
 
-    images: any[];
+    images: any[] | undefined;
 
-    nodes: any[];
+    nodes: any[] | undefined;
 
-    subscription: Subscription;
+    subscription: Subscription | undefined;
 
     constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
@@ -749,7 +749,7 @@ export class DockAdvancedDemo implements OnInit {
         this.nodeService.getFiles().then((data) => (this.nodes = data));
     }
 
-    commandHandler(text) {
+    commandHandler(text: any) {
         let response;
         let argsIndex = text.indexOf(' ');
         let command = argsIndex !== -1 ? text.substring(0, argsIndex) : text;
@@ -773,7 +773,7 @@ export class DockAdvancedDemo implements OnInit {
         }
 
         if (response) {
-            this.terminalService.sendResponse(response);
+            this.terminalService.sendResponse(response as string);
         }
     }
 

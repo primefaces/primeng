@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-inline-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Calendar is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class InlineDoc {
 
     @Input() title: string;
 
-    date: Date[];
+    date: Date[] | undefined;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './calendar-inline-demo.html'
 })
 export class CalendarInlineDemo {
-    date: Date[];
+    date: Date[] | undefined;
 }`
     };
 }

@@ -4,9 +4,14 @@ import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'selection-single-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
             <p>
@@ -49,11 +54,11 @@ export class SelectionSingleDoc implements OnInit {
 
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -126,11 +131,11 @@ import { NodeService } from '../../service/nodeservice';
 export class TreeTableSelectionSingleDemo implements OnInit {
     metaKeySelection: boolean = true;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private nodeService: NodeService) {}
 

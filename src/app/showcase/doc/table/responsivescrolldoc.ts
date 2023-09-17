@@ -1,12 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'responsive-scroll-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>When there is not enough space for the table to fit all the content efficiently, table displays a horizontal scrollbar. It is suggested to give a min-width to the table to avoid design issues due wrapping of cell contents.</p>
             <p>Following table displays a horizontal scrollbar when viewport is smaller than 50rem.</p>
@@ -48,9 +53,9 @@ export class ResponsiveScrollDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -135,14 +140,19 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-responsive-scroll-demo',
     templateUrl: 'table-responsive-scroll-demo.html'
 })
 export class TableResponsiveScrollDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

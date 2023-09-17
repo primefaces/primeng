@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-pagination-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
@@ -45,7 +45,7 @@ export class PaginationDoc {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -53,7 +53,7 @@ export class PaginationDoc {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
-    getSeverity(product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
@@ -138,7 +138,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './data-view-pagination-demo.html'
 })
 export class DataViewPaginationDemo {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
@@ -146,7 +146,7 @@ export class DataViewPaginationDemo {
         this.productService.getProducts().then((data) => (this.products = data));
     }
 
-    getSeverity (product) {
+    getSeverity(product: Product) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';

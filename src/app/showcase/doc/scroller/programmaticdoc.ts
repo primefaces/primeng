@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'programmatic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
@@ -24,9 +24,9 @@ export class ProgrammaticDoc implements OnInit {
 
     @Input() title: string;
 
-    @ViewChild('sc') sc: Scroller;
+    @ViewChild('sc') sc!: Scroller;
 
-    items = [];
+    items: string[] = [];
 
     ngOnInit(): void {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -64,9 +64,9 @@ import { Scroller } from 'primeng/scroller';
     templateUrl: './scroller-programmatic-demo.html'
 })
 export class ScrollerProgrammaticDemo implements OnInit {
-    @ViewChild('sc') sc: Scroller;
+    @ViewChild('sc') sc!: Scroller;
 
-    items = [];
+    items: string[] = [];
 
     ngOnInit(): void {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
@@ -26,7 +26,7 @@ export class TemplateDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -179,7 +179,7 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-template-demo.html'
 })
 export class MegaMenuTemplateDemo implements OnInit {
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

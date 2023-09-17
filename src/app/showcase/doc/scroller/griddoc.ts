@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'grid-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scrolling can be enabled vertically and horizontally when <i>orientation</i> is set as <i>both</i>. In this mode, <i>itemSize</i> should be an array where first value is the height of an item and second is the width.</p>
         </app-docsectiontext>
@@ -25,7 +25,7 @@ export class GridDoc implements OnInit {
 
     @Input() title: string;
 
-    items: string[][];
+    items!: string[][];
 
     constructor(private cd: ChangeDetectorRef) {}
 
@@ -63,7 +63,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-grid-demo.scss']
 })
 export class ScrollerGridDemo implements OnInit {
-    items: string[][];
+    items!: string[][];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => \`Item #\${i}_\${j}\`));

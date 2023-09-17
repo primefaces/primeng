@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'column-selection-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Selection using custom elements.</p>
         </app-docsectiontext>
@@ -45,9 +45,9 @@ export class ColumnSelectionDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
@@ -125,9 +125,9 @@ import { MessageService } from 'primeng/api';
     providers: [MessageService]
 })
 export class TableColumnSelectionDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    selectedProduct: Product;
+    selectedProduct!: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService) {}
 

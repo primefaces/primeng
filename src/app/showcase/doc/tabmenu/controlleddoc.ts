@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>For controlled mode, use <i>activeItem</i> property along with <i>activeItemChange</i> event are needed to manage the active item.</p>
         </app-docsectiontext>
@@ -20,9 +20,9 @@ export class ControlledDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
@@ -36,12 +36,12 @@ export class ControlledDoc implements OnInit {
         this.activeItem = this.items[0];
     }
 
-    onActiveItemChange(event) {
+    onActiveItemChange(event: MenuItem) {
         this.activeItem = event;
     }
 
     activateLast() {
-        this.activeItem = this.items[this.items.length - 1];
+        this.activeItem = (this.items as MenuItem[])[(this.items as MenuItem[]).length - 1];
     }
 
     code: Code = {
@@ -64,9 +64,9 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './tab-menu-controlled-demo.html'
 })
 export class TabMenuControlledDemo implements OnInit {
-    items: MenuItem[];
+    items: MenuItem[] | undefined;
 
-    activeItem: MenuItem;
+    activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
@@ -80,12 +80,12 @@ export class TabMenuControlledDemo implements OnInit {
         this.activeItem = this.items[0];
     }
 
-    onActiveItemChange(event){
+    onActiveItemChange(event: MenuItem) {
         this.activeItem = event;
     }
 
     activateLast() {
-        this.activeItem = this.items[this.items.length - 1];
+        this.activeItem = (this.items as MenuItem[])[(this.items as MenuItem[]).length - 1];
     }
 }`,
 

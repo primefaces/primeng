@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
 import { TreeNode } from 'primeng/api';
+import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
@@ -24,7 +24,7 @@ export class ControlledDoc implements OnInit {
 
     @Input() title: string;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 
@@ -80,7 +80,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-controlled-demo.html'
 })
 export class TreeControlledDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
 

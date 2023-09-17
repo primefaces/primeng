@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { IconService } from '../../service/iconservice';
 
 @Component({
     selector: 'list-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Here is the full list of PrimeIcons. More icons will be added periodically and you may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
         </app-docsectiontext>
@@ -31,7 +31,7 @@ export class ListDoc {
 
     selectedIcon: any;
 
-    constructor(private iconService: IconService) {}
+    constructor(private iconService: IconService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.iconService.getIcons().subscribe((data) => {
@@ -48,6 +48,7 @@ export class ListDoc {
 
             this.icons = icons;
             this.filteredIcons = data;
+            this.cd.markForCheck();
         });
     }
 

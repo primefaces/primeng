@@ -4,9 +4,14 @@ import { Product } from '../../domain/product';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'responsive-stack-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px' as max-width. This feature is enabled by setting <i>responsiveLayout</i> to <i>stack</i> and adding an element with
@@ -48,9 +53,9 @@ export class ResponsiveStackDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -135,15 +140,20 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-responsive-stack-demo',
     templateUrl: 'table-responsive-stack-demo.html',
     styleUrls: ['table-responsive-stack-demo.scss']
 })
 export class TableResponsiveStackDemo implements OnInit{
-    products: Product[];
+    products!: Product[];
 
-    cols: any[];
+    cols!: Column[];
 
     constructor(private productService: ProductService) {}
 

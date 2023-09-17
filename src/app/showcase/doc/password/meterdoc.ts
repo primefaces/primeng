@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'meter-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Strength meter is displayed as a popup while a value is being entered.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class MeterDoc {
 
     @Input() title: string;
 
-    value: string;
+    value!: string;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './password-meter-demo.html'
 })
 export class PasswordMeterDemo {
-    value: string;
+    value!: string;
 }`
     };
 }

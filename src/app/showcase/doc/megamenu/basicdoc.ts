@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>MegaMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
@@ -158,7 +158,7 @@ import { MegaMenuItem } from 'primeng/api';
     templateUrl: './mega-menu-basic-demo.html'
 })
 export class MegaMenuBasicDemo implements OnInit {
-    items: MegaMenuItem[];
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

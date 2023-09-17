@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
@@ -23,7 +23,7 @@ export class TemplateDoc {
 
     @Input() title: string;
 
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 
     code: Code = {
         basic: `
@@ -52,7 +52,7 @@ import { Component } from '@angular/core';
     templateUrl: './sidebar-template-demo.html'
 })
 export class SidebarTemplateDemo {
-    sidebarVisible: boolean;
+    sidebarVisible: boolean = false;
 }`
     };
 }

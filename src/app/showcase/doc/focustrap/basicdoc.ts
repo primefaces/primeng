@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'focus-trap-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>
@@ -44,7 +44,7 @@ export class BasicDoc {
 
     @Input() title: string;
 
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     cities = [
         { name: 'New York', code: 'NY' },
@@ -107,7 +107,7 @@ import { Component } from '@angular/core';
     templateUrl: './focus-trap-basic-demo.html'
 })
 export class FocusTrapBasicDemo {
-    selectedCity: string;
+    selectedCity: string | undefined;
 
     cities = [
         { name: 'New York', code: 'NY' },

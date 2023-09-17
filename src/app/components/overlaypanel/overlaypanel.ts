@@ -25,9 +25,9 @@ import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'prim
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
 /**
  * OverlayPanel is a container component positioned as connected to its target.
  * @group Components
@@ -44,6 +44,8 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             [@animation]="{ value: overlayVisible ? 'open' : 'close', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
+            role="dialog"
+            [attr.aria-modal]="overlayVisible"
         >
             <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
                 <ng-content></ng-content>
@@ -115,7 +117,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      *  Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -223,20 +225,15 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.dismissable) {
-                this.zone.runOutsideAngular(() => {
-                    let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-                    const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
+                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
-                    this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                        if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
-                            this.zone.run(() => {
-                                this.hide();
-                            });
-                        }
+                this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                    if (!this.container?.contains(event.target) && !this.target.contains(event.target)) {
+                        this.hide();
+                    }
 
-                        this.selfClick = false;
-                        this.cd.markForCheck();
-                    });
+                    this.cd.markForCheck();
                 });
             }
         }

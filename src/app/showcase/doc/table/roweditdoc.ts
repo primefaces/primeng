@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'row-edit-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
@@ -100,9 +100,9 @@ export class RowEditDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    products: Product[];
+    products!: Product[];
 
-    statuses: SelectItem[];
+    statuses!: SelectItem[];
 
     clonedProducts: { [s: string]: Product } = {};
 
@@ -122,12 +122,12 @@ export class RowEditDoc implements OnInit {
     }
 
     onRowEditInit(product: Product) {
-        this.clonedProducts[product.id] = { ...product };
+        this.clonedProducts[product.id as string] = { ...product };
     }
 
     onRowEditSave(product: Product) {
         if (product.price > 0) {
-            delete this.clonedProducts[product.id];
+            delete this.clonedProducts[product.id as string];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
         } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
@@ -135,8 +135,8 @@ export class RowEditDoc implements OnInit {
     }
 
     onRowEditCancel(product: Product, index: number) {
-        this.products[index] = this.clonedProducts[product.id];
-        delete this.clonedProducts[product.id];
+        this.products[index] = this.clonedProducts[product.id as string];
+        delete this.clonedProducts[product.id as string];
     }
 
     code: Code = {
@@ -283,9 +283,9 @@ import { ProductService } from '../../service/productservice';
 })
 export class TableRowEditDemo implements OnInit{
 
-    products: Product[];
+    products!: Product[];
 
-    statuses: SelectItem[];
+    statuses!: SelectItem[];
 
     clonedProducts: { [s: string]: Product } = {};
 
@@ -304,12 +304,12 @@ export class TableRowEditDemo implements OnInit{
     }
 
     onRowEditInit(product: Product) {
-        this.clonedProducts[product.id] = { ...product };
+        this.clonedProducts[product.id as string] = { ...product };
     }
 
     onRowEditSave(product: Product) {
         if (product.price > 0) {
-            delete this.clonedProducts[product.id];
+            delete this.clonedProducts[product.id as string];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
         } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
@@ -317,8 +317,8 @@ export class TableRowEditDemo implements OnInit{
     }
 
     onRowEditCancel(product: Product, index: number) {
-        this.products[index] = this.clonedProducts[product.id];
-        delete this.clonedProducts[product.id];
+        this.products[index] = this.clonedProducts[product.id as string];
+        delete this.clonedProducts[product.id as string];
     }
 }`,
         data: `{

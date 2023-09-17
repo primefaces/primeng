@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
@@ -24,7 +24,7 @@ export class MultipleDoc {
 
     @Input() title: string;
 
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 
@@ -58,7 +58,7 @@ import { NodeService } from '../../service/nodeservice';
     templateUrl: './tree-select-multiple-demo.html'
 })
 export class TreeSelectMultipleDemo {
-    nodes: any[];
+    nodes!: any[];
 
     selectedNodes: any;
 

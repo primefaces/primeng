@@ -3,9 +3,14 @@ import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'paginator-template-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Paginator UI is customized using the <i>paginatorleft</i> and <i>paginatorright</i> property. Each element can also be customized further with your own UI to replace the default one, refer to the
@@ -48,9 +53,9 @@ export class PaginatorTemplateDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols!: Column[];
 
     ngOnInit() {
         this.files = [];
@@ -139,14 +144,19 @@ export class PaginatorTemplateDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'tree-table-paginator-template-demo',
     templateUrl: './tree-table-paginator-template-demo.html'
 })
 export class TreeTablePaginatorTemplateDemo implements OnInit {
-    files: TreeNode[];
+    files!: TreeNode[];
 
-    cols: any[];
+    cols: Column[];
 
     ngOnInit() {
         this.files = [];

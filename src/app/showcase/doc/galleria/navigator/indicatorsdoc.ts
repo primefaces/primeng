@@ -5,11 +5,11 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'indicators-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card md:flex md:justify-content-center">
             <p-galleria
                 [(value)]="images"
                 [showItemNavigators]="true"
@@ -40,7 +40,7 @@ export class IndicatorsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
@@ -78,7 +78,7 @@ export class IndicatorsDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px', 'margin-top':'2em' }"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -100,7 +100,7 @@ import { PhotoService } from '../../service/photoservice';
     providers: [PhotoService]
 })
 export class GalleriaNavigatorIndicatorsDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {

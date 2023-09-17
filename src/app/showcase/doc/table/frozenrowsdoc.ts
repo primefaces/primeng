@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
+import { Customer } from '../../domain/customer';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-rows-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
         </app-docsectiontext>
@@ -55,9 +56,9 @@ export class FrozenRowsDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    unlockedCustomers: any[];
+    unlockedCustomers!: Customer[];
 
-    lockedCustomers: any[];
+    lockedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -87,7 +88,7 @@ export class FrozenRowsDoc implements OnInit {
         ];
     }
 
-    toggleLock(data, frozen, index) {
+    toggleLock(data: Customer, frozen: boolean, index: number) {
         if (frozen) {
             this.lockedCustomers = this.lockedCustomers.filter((c, i) => i !== index);
             this.unlockedCustomers.push(data);
@@ -182,9 +183,9 @@ import { CustomerService } from '../../service/customerservice';
     templateUrl: 'table-frozen-rows-demo.html'
 })
 export class TableFrozenRowsDemo implements OnInit{
-    unlockedCustomers: any[];
+    unlockedCustomers!: Customer[];
 
-    lockedCustomers: any[];
+    lockedCustomers!: Customer[];
 
     constructor(private customerService: CustomerService) {}
 
@@ -211,7 +212,7 @@ export class TableFrozenRowsDemo implements OnInit{
         ];
     }
 
-    toggleLock(data, frozen, index) {
+    toggleLock(data: Customer, frozen: boolean, index: number) {
         if (frozen) {
             this.lockedCustomers = this.lockedCustomers.filter((c, i) => i !== index);
             this.unlockedCustomers.push(data);

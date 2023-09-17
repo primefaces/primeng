@@ -16,7 +16,7 @@ import { Subscription, timer } from 'rxjs';
 @Component({
     selector: 'p-messages',
     template: `
-        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass">
+        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass" [attr.aria-atomic]="true" [attr.aria-live]="'assertive'" [attr.data-pc-name]="'message'">
             <ng-container *ngIf="!contentTemplate; else staticMessage">
                 <div
                     *ngFor="let msg of messages; let i = index"
@@ -24,26 +24,26 @@ import { Subscription, timer } from 'rxjs';
                     role="alert"
                     [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 >
-                    <div class="p-message-wrapper">
-                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon"> </span>
+                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'">
+                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
                         <span class="p-message-icon" *ngIf="!msg.icon">
                             <ng-container>
-                                <CheckIcon *ngIf="msg.severity === 'success'" />
-                                <InfoCircleIcon *ngIf="msg.severity === 'info'" />
-                                <TimesCircleIcon *ngIf="msg.severity === 'error'" />
-                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" />
+                                <CheckIcon *ngIf="msg.severity === 'success'" [attr.data-pc-section]="'icon'" />
+                                <InfoCircleIcon *ngIf="msg.severity === 'info'" [attr.data-pc-section]="'icon'" />
+                                <TimesCircleIcon *ngIf="msg.severity === 'error'" [attr.data-pc-section]="'icon'" />
+                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" [attr.data-pc-section]="'icon'" />
                             </ng-container>
                         </span>
                         <ng-container *ngIf="!escape; else escapeOut">
-                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary"></span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail"></span>
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
                         </ng-container>
                         <ng-template #escapeOut>
-                            <span *ngIf="msg.summary" class="p-message-summary">{{ msg.summary }}</span>
-                            <span *ngIf="msg.detail" class="p-message-detail">{{ msg.detail }}</span>
+                            <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [attr.data-pc-section]="'detail'">{{ msg.detail }}</span>
                         </ng-template>
-                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple>
-                            <TimesIcon [styleClass]="'p-message-close-icon'" />
+                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple [attr.aria-label]="'Close'" [attr.data-pc-section]="'closebutton'">
+                            <TimesIcon [styleClass]="'p-message-close-icon'" [attr.data-pc-section]="'closeicon'" />
                         </button>
                     </div>
                 </div>

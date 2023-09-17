@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-directive-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Button can also be used as directive using <i>pButton</i>. In contrary of p-button component, pButton directive does not utilize ripple effect, use <i>pRipple</i> directive to enable ripple.</p>
         </app-docsectiontext>

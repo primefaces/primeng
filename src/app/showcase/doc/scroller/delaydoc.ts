@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'delay-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>
         </app-docsectiontext>
@@ -41,7 +41,7 @@ export class DelayDoc {
 
     @Input() title: string;
 
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
@@ -104,7 +104,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./scroller-delay-demo.scss']
 })
 export class ScrollerDelayDemo implements OnInit {
-    items: string[];
+    items!: string[];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);

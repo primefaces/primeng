@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'number-of-stars-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Number of stars to display is defined with <i>stars</i> property.</p>
         </app-docsectiontext>
@@ -18,7 +18,7 @@ export class NumberOfStarsDoc {
 
     @Input() title: string;
 
-    value: number;
+    value!: number;
 
     code: Code = {
         basic: `
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './rating-number-of-stars-demo.html'
 })
 export class RatingNumberOfStarsDemo {
-    value: number;
+    value!: number;
 }`
     };
 }

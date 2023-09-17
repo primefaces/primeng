@@ -5,7 +5,7 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'passingdata-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 In case you need to pass data to the component that is dynamically loaded, use the <i>data</i> property that can be access using the DynamicDialogConfig class. In additon, the loaded component can also control the Dialog using the
@@ -21,7 +21,7 @@ export class PassingDataDoc {
 
     @Input() title: string;
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}
 
@@ -46,7 +46,7 @@ import { ProductListDemo } from './productlistdemo';
 })
 export class DynamicDialogDemo {
 
-    ref: DynamicDialogRef;
+    ref: DynamicDialogRef | undefined;
     
     constructor(public dialogService: DialogService) {}
 

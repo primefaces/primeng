@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
         </app-docsectiontext>
@@ -32,11 +32,11 @@ export class CheckboxDoc {
 
     @Input() title: string;
 
-    checkbox1: boolean;
+    checkbox1: boolean = false;
 
-    checkbox2: boolean;
+    checkbox2: boolean = false;
 
-    category: string;
+    category: string | undefined;
 
     code: Code = {
         basic: `
@@ -83,11 +83,11 @@ import { Component } from '@angular/core';
     templateUrl: './inputgroup-checkbox-demo.html'
 })
 export class InputgroupCheckboxDemo {
-    checkbox1: boolean;
+    checkbox1: boolean = false;
 
-    checkbox2: boolean;
+    checkbox2: boolean = false;
 
-    category: string;
+    category: string | undefined;
 }`
     };
 }

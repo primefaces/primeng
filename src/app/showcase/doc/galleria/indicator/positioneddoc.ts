@@ -5,14 +5,14 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'positioned-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to
                 <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex flex-column md:align-items-center">
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
@@ -43,7 +43,7 @@ export class PositionedDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 
@@ -107,7 +107,7 @@ export class PositionedDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>
@@ -129,7 +129,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-indicator-positioned-demo.html'
 })
 export class GalleriaIndicatorPositionedDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     position: string = 'top';
 

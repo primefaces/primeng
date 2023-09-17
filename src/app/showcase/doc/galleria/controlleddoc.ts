@@ -4,11 +4,11 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex flex-column md:align-items-center">
             <div class="py-2">
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
                 <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
@@ -32,7 +32,7 @@ export class ControlledDoc implements OnInit {
 
     @Input() title: string;
 
-    images: any[];
+    images: any[] | undefined;
 
     get activeIndex(): number {
         return this._activeIndex;
@@ -92,7 +92,7 @@ export class ControlledDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
-<div class="card">
+ <div class="card md:flex md:justify-content-center">
     <div class="py-2">
         <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
         <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
@@ -117,7 +117,7 @@ import { PhotoService } from '../../service/photoservice';
     templateUrl: './galleria-controlled-demo.html'
 })
 export class GalleriaControlledDemo implements OnInit {
-    images: any[];
+    images: any[] | undefined;
 
     get activeIndex(): number {
         return this._activeIndex;

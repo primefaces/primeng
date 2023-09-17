@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -26,9 +26,9 @@ export class FloatLabelDoc implements OnInit {
 
     @Input() title: string;
 
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
@@ -68,9 +68,9 @@ interface City {
     templateUrl: './multi-select-floatlabel-demo.html'
 })
 export class MultiSelectFloatlabelDemo implements OnInit {
-    cities: City[];
+    cities!: City[];
 
-    selectedCities: City[];
+    selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [

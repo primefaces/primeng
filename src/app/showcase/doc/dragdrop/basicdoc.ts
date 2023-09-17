@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 
 @Component({
     selector: 'drag-drop-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 <i>pDraggable</i> and <i>pDroppable</i> are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also
@@ -36,11 +36,11 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     ngOnInit() {
         this.selectedProducts = [];
@@ -57,8 +57,8 @@ export class BasicDoc implements OnInit {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -69,8 +69,8 @@ export class BasicDoc implements OnInit {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }
@@ -124,11 +124,11 @@ import { ProductService } from '../../service/productservice';
     styleUrls: ['./drag-drop-basic-demo.scss']
 })
 export class DragDropBasicDemo implements OnInit {
-    availableProducts: Product[];
+    availableProducts: Product[] | undefined;
 
-    selectedProducts: Product[];
+    selectedProducts: Product[] | undefined;
 
-    draggedProduct: Product;
+    draggedProduct: Product | undefined | null;
 
     ngOnInit() {
         this.selectedProducts = [];
@@ -145,8 +145,8 @@ export class DragDropBasicDemo implements OnInit {
     drop() {
         if (this.draggedProduct) {
             let draggedProductIndex = this.findIndex(this.draggedProduct);
-            this.selectedProducts = [...this.selectedProducts, this.draggedProduct];
-            this.availableProducts = this.availableProducts.filter((val, i) => i != draggedProductIndex);
+            this.selectedProducts = [...(this.selectedProducts as Product[]), this.draggedProduct];
+            this.availableProducts = this.availableProducts?.filter((val, i) => i != draggedProductIndex);
             this.draggedProduct = null;
         }
     }
@@ -157,8 +157,8 @@ export class DragDropBasicDemo implements OnInit {
 
     findIndex(product: Product) {
         let index = -1;
-        for (let i = 0; i < this.availableProducts.length; i++) {
-            if (product.id === this.availableProducts[i].id) {
+        for (let i = 0; i < (this.availableProducts as Product[]).length; i++) {
+            if (product.id === (this.availableProducts as Product[])[i].id) {
                 index = i;
                 break;
             }

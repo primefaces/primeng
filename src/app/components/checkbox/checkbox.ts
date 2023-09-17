@@ -74,7 +74,7 @@ export class Checkbox implements ControlValueAccessor {
      * Value of the checkbox.
      * @group Props
      */
-    @Input() value: string | object | boolean | undefined | null;
+    @Input() value: any;
     /**
      * Name of the checkbox group.
      * @group Props

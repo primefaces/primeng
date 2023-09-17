@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'customers-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
@@ -182,13 +182,13 @@ export class CustomersDoc implements OnInit {
 
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -201,7 +201,7 @@ export class CustomersDoc implements OnInit {
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
             this.cd.markForCheck();
         });
 
@@ -228,7 +228,7 @@ export class CustomersDoc implements OnInit {
         ];
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
@@ -581,13 +581,13 @@ import { CustomerService } from '../../service/customerservice';
     styleUrls: ['table-customers-demo.scss']
 })
 export class TableCustomersDemo implements OnInit{
-    customers: Customer[];
+    customers!: Customer[];
 
-    selectedCustomers: Customer[];
+    selectedCustomers!: Customer[];
 
-    representatives: Representative[];
+    representatives!: Representative[];
 
-    statuses: any[];
+    statuses!: any[];
 
     loading: boolean = true;
 
@@ -600,7 +600,7 @@ export class TableCustomersDemo implements OnInit{
             this.customers = customers;
             this.loading = false;
 
-            this.customers.forEach((customer) => (customer.date = new Date(customer.date)));
+            this.customers.forEach((customer) => (customer.date = new Date(<Date>customer.date)));
         });
 
         this.representatives = [
@@ -626,7 +626,7 @@ export class TableCustomersDemo implements OnInit{
         ];
     }
 
-    getSeverity(status) {
+    getSeverity(status: string) {
         switch (status) {
             case 'unqualified':
                 return 'danger';

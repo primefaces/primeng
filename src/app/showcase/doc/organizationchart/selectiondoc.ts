@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'selection-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
@@ -29,7 +29,7 @@ export class SelectionDoc {
 
     @Input() title: string;
 
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
     data: TreeNode[] = [
         {
@@ -113,7 +113,7 @@ import { TreeNode } from 'primeng/api';
     templateUrl: './organization-chart-selection-demo.html',
 })
 export class OrganizationChartSelectionDemo {
-    selectedNodes: TreeNode[];
+    selectedNodes!: TreeNode[];
 
     data: TreeNode[] = [
         {

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
         </app-docsectiontext>
@@ -37,12 +37,15 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[];
+    products!: Product[];
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((cars) => (this.products = cars));
+        this.productService.getProductsSmall().then((cars) => {
+            this.products = cars;
+            this.cdr.detectChanges();
+        });
     }
 
     getSeverity(status: string) {
@@ -109,7 +112,7 @@ import { ProductService } from '../../service/productservice';
     templateUrl: './orderlist-basic-demo.html'
 })
 export class OrderlistBasicDemo implements OnInit {
-    products: Product[];
+    products!: Product[];
 
     constructor(private productService: ProductService) {}
 
