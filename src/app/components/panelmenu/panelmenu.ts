@@ -267,7 +267,6 @@ export class PanelMenuSub {
             [activeItemPath]="activeItemPath()"
             [transitionOptions]="transitionOptions"
             [items]="processedItems()"
-            [activeItemPath]="activeItemPath()"
             [parentExpanded]="parentExpanded"
             (itemToggle)="onItemToggle($event)"
             (keydown)="onKeyDown($event)"
@@ -776,7 +775,6 @@ export class PanelMenuList implements OnChanges {
                                 [activeItem]="activeItem()"
                                 [tabindex]="tabindex"
                                 [parentExpanded]="isItemActive(item)"
-                                (itemToggle)="changeExpandedKeys($event)"
                                 (headerFocus)="updateFocusedHeader($event)"
                             ></p-panelMenuList>
                         </div>
