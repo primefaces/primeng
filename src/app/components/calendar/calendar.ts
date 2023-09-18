@@ -1361,6 +1361,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             return;
         }
 
+        if (this.isRangeSelection() && this.value?.length) {
+            if (!this.isRangeSelectable(this.value[0], dateMeta)) {
+                event.preventDefault();
+                this.value[0] = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            }
+        }
+
         if (this.isMultipleSelection() && this.isSelected(dateMeta)) {
             this.value = this.value.filter((date: Date, i: number) => {
                 return !this.isDateEquals(date, dateMeta);
@@ -1750,6 +1757,31 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         return validMin && validMax && validDate && validDay;
+    }
+
+    isRangeSelectable(startDate: Date, endDate: { day: number; month: number; year: number }): boolean {
+        if (!startDate || !endDate) {
+            throw Error('Invalid arguments');
+        }
+
+        const endDateAsDate = new Date(endDate.year, endDate.month, endDate.day);
+
+        const addOneDay = (date: Date) => {
+            const newDate = new Date(date);
+            newDate.setDate(newDate.getDate() + 1);
+            return newDate;
+        };
+
+        let currentDate = startDate;
+
+        while (currentDate <= endDateAsDate) {
+            if (!this.isSelectable(currentDate.getDate(), currentDate.getMonth(), currentDate.getFullYear(), false)) {
+                return false;
+            }
+            currentDate = addOneDay(currentDate);
+        }
+
+        return true;
     }
 
     isDateDisabled(day: number, month: number, year: number): boolean {
