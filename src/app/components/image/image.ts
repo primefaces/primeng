@@ -22,7 +22,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     selector: 'p-image',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-        <img [attr.src]="src" [attr.srcset]="srcSet" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
+            <img [attr.src]="src" [attr.srcset]="srcSet" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
             <button type="button" class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()" #previewButton>
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -60,7 +60,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -220,7 +220,7 @@ export class Image implements AfterContentInit {
         min: 0.5
     };
 
-    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -414,4 +414,4 @@ export class Image implements AfterContentInit {
     exports: [Image, SharedModule],
     declarations: [Image]
 })
-export class ImageModule { }
+export class ImageModule {}
