@@ -22,7 +22,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     selector: 'p-image',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <img [attr.src]="src" [attr.srcset]="srcSet" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
+            <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
             <button type="button" class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()" #previewButton>
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -60,7 +60,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSrcSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -110,6 +110,11 @@ export class Image implements AfterContentInit {
      */
     @Input() srcSet: string | SafeUrl | undefined;
     /**
+     * The sizes definition for the main image.
+     * @group Props
+     */
+    @Input() sizes: string | undefined;
+    /**
      * The source path for the preview image.
      * @group Props
      */
@@ -119,6 +124,11 @@ export class Image implements AfterContentInit {
      * @group Props
      */
     @Input() previewImageSrcSet: string | SafeUrl | undefined;
+    /**
+     * The sizes definition for the preview image.
+     * @group Props
+     */
+    @Input() previewImageSrcSizes: string | undefined;
     /**
      * Attribute of the preview image element.
      * @group Props
