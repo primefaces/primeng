@@ -60,7 +60,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSrcSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -128,7 +128,7 @@ export class Image implements AfterContentInit {
      * The sizes definition for the preview image.
      * @group Props
      */
-    @Input() previewImageSrcSizes: string | undefined;
+    @Input() previewImageSizes: string | undefined;
     /**
      * Attribute of the preview image element.
      * @group Props
