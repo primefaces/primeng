@@ -465,7 +465,8 @@ export class Menu implements OnDestroy {
         }
     }
 
-    menuitemId(id: string, index?: string, childIndex?: string) {
+    menuitemId(item: MenuItem, id: string, index?: string, childIndex?: string) {
+        // let itemId = item.id ?? id;
         return `${id}_${index}${typeof childIndex !== 'undefined' ? '_' + childIndex : ''}`;
     }
 
@@ -501,8 +502,8 @@ export class Menu implements OnDestroy {
     onListBlur(event: FocusEvent | MouseEvent) {
         this.focused = false;
         this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(null);
-        this.focusedOptionIndex.set(null);
+        this.selectedOptionIndex.set(-1);
+        this.focusedOptionIndex.set(-1);
         this.onBlur.emit(event);
     }
 
