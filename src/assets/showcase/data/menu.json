@@ -462,6 +462,10 @@
                         {
                             "name": "FilterService",
                             "routerLink": "/filterservice"
+                        },
+                        {
+                            "name": "Overlay",
+                            "routerLink": "/overlay"
                         }
                     ]
                 }
