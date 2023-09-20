@@ -221,7 +221,7 @@ export class TieredMenuSub {
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
-  
+
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
