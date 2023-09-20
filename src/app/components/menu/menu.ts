@@ -168,7 +168,7 @@ export class MenuItemContent {
                         pTooltip
                         [tooltipOptions]="submenu.tooltipOptions"
                         role="none"
-                        [attr.id]="menuitemId(item, id, i)"
+                        [attr.id]="menuitemId(submenu, id, i)"
                     >
                         <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
                         <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
@@ -466,11 +466,7 @@ export class Menu implements OnDestroy {
     }
 
     menuitemId(item: MenuItem, id: string, index?: string, childIndex?: string) {
-        if(item && item.id && item.id !== undefined) {
-            return item.id;
-        } else {
-        }
-        return `${id}_${index}${typeof childIndex !== 'undefined' ? '_' + childIndex : ''}`;
+        return item?.id ?? `${id}_${index}${childIndex !== undefined ? '_' + childIndex : ''}`;
     }
 
     isItemFocused(id) {
