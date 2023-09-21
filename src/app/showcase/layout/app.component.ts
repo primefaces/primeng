@@ -11,7 +11,7 @@ import Announcement from '../data/news.json';
 })
 export class AppComponent implements OnInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private configService: AppConfigService, private router: Router) {
-        if(isPlatformBrowser(platformId) && window && process.env.NODE_ENV === 'production'){
+        if (isPlatformBrowser(platformId) && window && process.env.NODE_ENV === 'production') {
             this.injectScripts();
         }
         this.handleRouteEvents();

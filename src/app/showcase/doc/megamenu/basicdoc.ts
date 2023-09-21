@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-    </section>`,
+    </section>`
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;
