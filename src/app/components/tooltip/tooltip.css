@@ -3,6 +3,7 @@
     display:none;
     padding: .25em .5rem;
     max-width: 12.5rem;
+    pointer-events:none;
 }
 
 .p-tooltip.p-tooltip-right,
