@@ -13,6 +13,14 @@ export interface ConfirmDialogTemplates {
      */
     footer(): TemplateRef<any>;
     /**
+     * Custom template of message.
+     */
+    message(): TemplateRef<any>;
+    /**
+     * Custom template of icon.
+     */
+    icon(): TemplateRef<any>;
+    /**
      * Custom template of rejecticon.
      */
     rejecticon(): TemplateRef<any>;
