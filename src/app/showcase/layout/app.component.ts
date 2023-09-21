@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppConfigService } from '../service/appconfigservice';
 import Announcement from '../data/news.json';
-declare let gtag: Function;
 
 @Component({
     selector: 'app-root',
