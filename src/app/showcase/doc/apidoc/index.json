@@ -100,6 +100,14 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "The value that returns the selection."
+                        },
+                        {
+                            "name": "headerAriaLevel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "2",
+                            "description": "The aria-level that each accordion header will have. The default value is 2 as per W3C specifications"
                         }
                     ]
                 },
@@ -174,6 +182,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "headerAriaLevel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "The aria-level that each accordion header will have. The default value is 2 as per W3C specifications"
                         }
                     ]
                 },
@@ -2493,6 +2508,12 @@
                             "type": "string"
                         },
                         {
+                            "name": "fileSizeTypes",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string[]"
+                        },
+                        {
                             "name": "dayNames",
                             "optional": true,
                             "readonly": false,
@@ -2584,133 +2605,133 @@
                         },
                         {
                             "name": "pending",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "chooseYear",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "chooseMonth",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "chooseDate",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevDecade",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextDecade",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevYear",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextYear",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevMonth",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextMonth",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevHour",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextHour",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevMinute",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextMinute",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "prevSecond",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "nextSecond",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "am",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "pm",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "searchMessage",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "selectionMessage",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "emptySelectionMessage",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
                         {
                             "name": "emptySearchMessage",
-                            "optional": false,
+                            "optional": true,
                             "readonly": false,
                             "type": "string"
                         },
@@ -2718,7 +2739,307 @@
                             "name": "aria",
                             "optional": true,
                             "readonly": false,
-                            "type": "object"
+                            "type": "Aria"
+                        }
+                    ]
+                },
+                {
+                    "name": "Aria",
+                    "description": "Represents a set of translated HTML attributes used in a component or application.",
+                    "props": [
+                        {
+                            "name": "trueLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "falseLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nullLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "star",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "stars",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "selectAll",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "unselectAll",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "close",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "previous",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "next",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "navigation",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "scrollTop",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveTop",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveUp",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveDown",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveBottom",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveToTarget",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveToSource",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveAllToTarget",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "moveAllToSource",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "pageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "firstPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "lastPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "nextPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "prevPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "rowsPerPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "previousPageLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "jumpToPageDropdownLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "jumpToPageInputLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "selectRow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "unselectRow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "expandRow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "collapseRow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "showFilterMenu",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "hideFilterMenu",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "filterOperator",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "filterConstraint",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "editRow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "saveEdit",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "cancelEdit",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "listView",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "gridView",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "slide",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "slideNumber",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "zoomImage",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "zoomIn",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "zoomOut",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "rotateRight",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "rotateLeft",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3052,7 +3373,7 @@
                             "name": "node",
                             "optional": true,
                             "readonly": false,
-                            "type": "TreeNode<any>",
+                            "type": "TreeNode<T>",
                             "description": "Node instance."
                         },
                         {
@@ -3280,22 +3601,6 @@
                             "type": "string",
                             "default": "text",
                             "description": "Type of the input, defaults to \"text\"."
-                        },
-                        {
-                            "name": "autoZIndex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to automatically manage layering."
-                        },
-                        {
-                            "name": "baseZIndex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Base zIndex value to use in layering."
                         },
                         {
                             "name": "ariaLabel",
@@ -4324,7 +4629,7 @@
                                     "type": "MouseEvent"
                                 }
                             ],
-                            "description": "Callback to execute when button is clicked. \nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (click)."
+                            "description": "Callback to execute when button is clicked.\nThis event is intended to be used with the <p-button> component. Using a regular <button> element, use (click)."
                         },
                         {
                             "name": "onFocus",
@@ -6934,6 +7239,13 @@
                             "description": "Label of the accept button."
                         },
                         {
+                            "name": "closeAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the close button for accessibility."
+                        },
+                        {
                             "name": "acceptAriaLabel",
                             "optional": false,
                             "readonly": false,
@@ -7144,6 +7456,18 @@
                     },
                     {
                         "parent": "confirmdialog",
+                        "name": "message",
+                        "parameters": [],
+                        "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "confirmdialog",
+                        "name": "icon",
+                        "parameters": [],
+                        "description": "Custom template of icon."
+                    },
+                    {
+                        "parent": "confirmdialog",
                         "name": "rejecticon",
                         "parameters": [],
                         "description": "Custom template of rejecticon."
@@ -7269,8 +7593,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MenuItem[]"
                         },
                         {
                             "name": "triggerEvent",
@@ -7434,6 +7757,13 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
+                        },
+                        {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "alwaysShowPaginator",
@@ -9598,6 +9928,20 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"left\", \"right\", \"top-left\", \"top-right\", \"bottom-left\" or \"bottom-right\"."
+                        },
+                        {
+                            "name": "closeAriaLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the close button for accessibility."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         }
                     ]
                 }
@@ -11307,14 +11651,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
-                            "description": "Attribute of the preview image element."
+                            "description": "Attribute of the image element."
                         },
                         {
                             "name": "alt",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Attribute of the image element."
+                            "description": "Attribute of the preview image element."
                         },
                         {
                             "name": "width",
@@ -12478,7 +12822,7 @@
                             "name": "pattern",
                             "optional": false,
                             "readonly": false,
-                            "type": "string | RegExp"
+                            "type": "RegExp | KeyFilterPattern"
                         }
                     ]
                 },
@@ -12498,6 +12842,9 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {}
         }
     },
     "knob": {
@@ -13083,8 +13430,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MegaMenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MegaMenuItem[]"
                         },
                         {
                             "name": "style",
@@ -13373,8 +13719,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MenuItem[]"
                         },
                         {
                             "name": "style",
@@ -13783,13 +14128,6 @@
                             "description": "Decides how many selected item labels to show at most."
                         },
                         {
-                            "name": "selectionLimit",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Number of maximum options that can be selected."
-                        },
-                        {
                             "name": "selectedItemsLabel",
                             "optional": false,
                             "readonly": false,
@@ -14075,6 +14413,13 @@
                             "type": "number",
                             "description": "Item size of item to be virtual scrolled.",
                             "deprecated": "use virtualScrollItemSize property instead."
+                        },
+                        {
+                            "name": "selectionLimit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Number of maximum options that can be selected."
                         }
                     ]
                 },
@@ -15548,6 +15893,13 @@
                             "description": "Whether to show page links."
                         },
                         {
+                            "name": "locale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Locale to be used in formatting."
+                        },
+                        {
                             "name": "dropdownItemTemplate",
                             "optional": false,
                             "readonly": false,
@@ -16172,6 +16524,13 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "autocomplete",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specify automated assistance in filling out password by browser."
                         },
                         {
                             "name": "placeholder",
@@ -18612,6 +18971,12 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "model",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MenuItem[]"
+                        },
+                        {
                             "name": "menuWidth",
                             "optional": false,
                             "readonly": false,
@@ -18666,13 +19031,6 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "model",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
                         },
                         {
                             "name": "popup",
@@ -19181,6 +19539,20 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Defined to rotate showIcon when hideIcon is not present."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string value that labels an interactive element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the underlying input element."
                         }
                     ]
                 },
@@ -19839,6 +20211,13 @@
                             "description": "Position of the paginator, options are \"top\", \"bottom\" or \"both\"."
                         },
                         {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
+                        },
+                        {
                             "name": "paginatorDropdownAppendTo",
                             "optional": false,
                             "readonly": false,
@@ -20308,6 +20687,13 @@
                             "type": "string",
                             "default": "960px",
                             "description": "The breakpoint to define the maximum width boundary when using stack responsive layout."
+                        },
+                        {
+                            "name": "paginatorLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Locale to be used in paginator formatting."
                         },
                         {
                             "name": "value",
@@ -21425,8 +21811,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MenuItem[]"
                         },
                         {
                             "name": "activeItem",
@@ -21988,8 +22373,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MenuItem[]"
                         },
                         {
                             "name": "popup",
@@ -23822,8 +24206,8 @@
                             "name": "onNodeUnselect",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "TreeNode<any"
+                                    "name": "event",
+                                    "type": "TreeNodeUnSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a node is unselected."
@@ -23832,8 +24216,8 @@
                             "name": "onNodeSelect",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "TreeNode<any"
+                                    "name": "event",
+                                    "type": "TreeNodeSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a node is selected."
@@ -24099,6 +24483,13 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
+                        },
+                        {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "paginatorDropdownAppendTo",
@@ -24392,6 +24783,13 @@
                             "description": "Locale to use in filtering. The default locale is the host environment's current locale."
                         },
                         {
+                            "name": "paginatorLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Locale to be used in paginator formatting."
+                        },
+                        {
                             "name": "totalRecords",
                             "optional": false,
                             "readonly": false,
@@ -24480,8 +24878,8 @@
                             "name": "onNodeExpand",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "TreeTableNode<any"
+                                    "name": "event",
+                                    "type": "TreeTableNodeExpandEvent<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is expanded."
@@ -24491,7 +24889,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "TreeTableNodeCollapseEvent"
+                                    "type": "TreeTableNodeCollapseEvent<any"
                                 }
                             ],
                             "description": "Callback to invoke when a node is collapsed."
@@ -24782,6 +25180,26 @@
                         ]
                     },
                     {
+                        "name": "TreeTableNodeExpandEvent",
+                        "description": "Custom node expand event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "node",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "TreeTableNode<T>",
+                                "description": "Node instance."
+                            }
+                        ]
+                    },
+                    {
                         "name": "TreeTableNodeCollapseEvent",
                         "description": "Custom node collapse event.",
                         "props": [
@@ -24796,7 +25214,7 @@
                                 "name": "node",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "TreeTableNode<any>",
+                                "type": "TreeTableNode<T>",
                                 "description": "Node instance."
                             }
                         ]

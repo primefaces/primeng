@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 interface Column {
@@ -10,13 +9,18 @@ interface Column {
 }
 
 @Component({
-    selector: 'resize-fit-doc',
+    selector: 'resize-scrollable-doc',
     template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
-            <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>
+        <app-docsectiontext [title]="title" [id]="id" [level]="3">
+            <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns">
+                    </colgroup>
+                </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns" ttResizableColumn>
@@ -34,15 +38,13 @@ interface Column {
                 </ng-template>
             </p-treeTable>
         </div>
-        <app-code [code]="code" selector="tree-table-resize-fit-demo"></app-code>
+        <app-code [code]="code" selector="tree-table-resize-scrollable-demo"></app-code>
     </section>`
 })
-export class ResizeFitDoc implements OnInit {
+export class ResizeScrollableDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     files!: TreeNode[];
 
@@ -61,7 +63,12 @@ export class ResizeFitDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+    <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+            <col *ngFor="let col of columns">
+        </colgroup>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -81,7 +88,12 @@ export class ResizeFitDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns">
+            </colgroup>
+        </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>
@@ -111,10 +123,10 @@ interface Column {
 }
 
 @Component({
-    selector: 'tree-table-resize-fit-demo',
-    templateUrl: './tree-table-resize-fit-demo.html'
+    selector: 'tree-table-resize-scrollable-demo',
+    templateUrl: './tree-table-resize-scrollable-demo.html'
 })
-export class TreeTableResizeFitDemo implements OnInit {
+export class TreeTableResizeScrollableDemo implements OnInit {
     files!: TreeNode[];
 
     cols!: Column[];
