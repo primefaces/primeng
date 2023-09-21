@@ -4,9 +4,7 @@ import { Code } from '../../domain/code';
 @Component({
     selector: 'import-doc',
     template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
-            <p>Content of the badge is specified using the <i>value</i> property.</p>
-        </app-docsectiontext>
+        <app-docsectiontext [title]="title" [id]="id"/>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
