@@ -73,9 +73,11 @@ export class AppComponent implements OnInit, OnDestroy {
     handleRouteEvents() {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                gtag('event', 'page_view', {
-                    page_path: event.urlAfterRedirects
-                });
+                if (typeof window['gtag'] === 'function') {
+                    window['gtag']('event', 'page_view', {
+                        page_path: event.urlAfterRedirects
+                    });
+                }
             }
         });
     }
