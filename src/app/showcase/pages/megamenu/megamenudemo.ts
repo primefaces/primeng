@@ -7,7 +7,14 @@ import { VerticalDoc } from '../../doc/megamenu/verticaldoc';
 import { AccessibilityDoc } from '../../doc/megamenu/accessibilitydoc';
 
 @Component({
-    templateUrl: './megamenudemo.html'
+    templateUrl: './megamenudemo.html',
+    styles: [`
+        :host ::ng-deep{
+            .p-megamenu-panel {
+                z-index: 3;
+            }
+        }
+    `]
 })
 export class MegaMenuDemo {
     docs = [
