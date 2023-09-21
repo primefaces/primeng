@@ -51,29 +51,25 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  src: local("Inter"), local("Inter-Regular"), url("./fonts/Inter-Regular.woff2") format("woff2"), url("./fonts/Inter-Regular.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter"), local("Inter-Regular"), url("./fonts/Inter-Regular.woff2") format("woff2"), url("./fonts/Inter-Regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  src: local("Inter Medium"), local("Inter-Medium"), url("./fonts/Inter-Medium.woff2") format("woff2"), url("./fonts/Inter-Medium.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter Medium"), local("Inter-Medium"), url("./fonts/Inter-Medium.woff2") format("woff2"), url("./fonts/Inter-Medium.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  src: local("Inter SemiBold"), local("Inter-SemiBold"), url("./fonts/Inter-SemiBold.woff2") format("woff2"), url("./fonts/Inter-SemiBold.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter SemiBold"), local("Inter-SemiBold"), url("./fonts/Inter-SemiBold.woff2") format("woff2"), url("./fonts/Inter-SemiBold.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  src: local("Inter Bold"), local("Inter-Bold"), url("./fonts/Inter-Bold.woff2") format("woff2"), url("./fonts/Inter-Bold.woff") format("woff");
-  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: local("Inter Bold"), local("Inter-Bold"), url("./fonts/Inter-Bold.woff2") format("woff2"), url("./fonts/Inter-Bold.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 * {
   box-sizing: border-box;
@@ -766,24 +762,28 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   margin-left: 0.5rem;
 }
 
-.p-chips .p-chips-multiple-container {
-  padding: 0.25rem 0.5rem;
-  gap: 0.5rem;
-}
-.p-chips .p-chips-multiple-container:not(.p-disabled):hover {
+.p-chips:not(.p-disabled):hover .p-chips-multiple-container {
   border-color: #81A1C1;
 }
-.p-chips .p-chips-multiple-container:not(.p-disabled).p-focus {
+.p-chips:not(.p-disabled).p-focus .p-chips-multiple-container {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #C0D0E0;
   border-color: #81A1C1;
 }
+.p-chips .p-chips-multiple-container {
+  padding: 0.25rem 0.5rem;
+}
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  background: #E5E9F0;
+  color: #4C566A;
+  border-radius: 16px;
+}
+.p-chips .p-chips-multiple-container .p-chips-token.p-focus {
   background: #D8DEE9;
-  color: #2E3440;
-  border-radius: 4px;
+  color: #4C566A;
 }
 .p-chips .p-chips-multiple-container .p-chips-token .p-chips-token-icon {
   margin-left: 0.5rem;
@@ -798,17 +798,8 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   padding: 0;
   margin: 0;
 }
-
-p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
+.p-chips.p-invalid.p-component > .p-inputtext {
   border-color: #BF616A;
-}
-
-p-chips.p-chips-clearable .p-inputtext {
-  padding-right: 1.5rem;
-}
-p-chips.p-chips-clearable .p-chips-clear-icon {
-  color: #81A1C1;
-  right: 0.5rem;
 }
 
 .p-colorpicker-preview,

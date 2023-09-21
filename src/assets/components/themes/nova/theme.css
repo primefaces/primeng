@@ -742,24 +742,28 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   border-color: #ffffff;
 }
 
-.p-chips .p-chips-multiple-container {
-  padding: 0.2145rem 0.429rem;
-  gap: 0.5rem;
-}
-.p-chips .p-chips-multiple-container:not(.p-disabled):hover {
+.p-chips:not(.p-disabled):hover .p-chips-multiple-container {
   border-color: #212121;
 }
-.p-chips .p-chips-multiple-container:not(.p-disabled).p-focus {
+.p-chips:not(.p-disabled).p-focus .p-chips-multiple-container {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem #8dcdff;
   border-color: #007ad9;
 }
+.p-chips .p-chips-multiple-container {
+  padding: 0.2145rem 0.429rem;
+}
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.2145rem 0.429rem;
-  background: #007ad9;
-  color: #ffffff;
-  border-radius: 3px;
+  margin-right: 0.5rem;
+  background: #c8c8c8;
+  color: #333333;
+  border-radius: 16px;
+}
+.p-chips .p-chips-multiple-container .p-chips-token.p-focus {
+  background: #bababa;
+  color: #333333;
 }
 .p-chips .p-chips-multiple-container .p-chips-token .p-chips-token-icon {
   margin-left: 0.5rem;
@@ -774,17 +778,8 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   padding: 0;
   margin: 0;
 }
-
-p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
+.p-chips.p-invalid.p-component > .p-inputtext {
   border-color: #a80000;
-}
-
-p-chips.p-chips-clearable .p-inputtext {
-  padding-right: 1.429rem;
-}
-p-chips.p-chips-clearable .p-chips-clear-icon {
-  color: #848484;
-  right: 0.429rem;
 }
 
 .p-colorpicker-preview,
