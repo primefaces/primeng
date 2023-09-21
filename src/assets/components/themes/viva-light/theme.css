@@ -86,7 +86,8 @@
 }
 
 .p-component {
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   font-weight: normal;
 }
@@ -119,7 +120,8 @@
 
 .p-link {
   font-size: 1rem;
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   border-radius: 6px;
 }
 .p-link:focus {
@@ -299,8 +301,9 @@
   padding: 0.25rem 0;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-  font-family: Poppins, sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: #6c6c6c;
   padding: 0;
   margin: 0;
@@ -798,8 +801,9 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   padding: 0.25rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
-  font-family: Poppins, sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: #6c6c6c;
   padding: 0;
   margin: 0;
@@ -1199,7 +1203,8 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-inputtext {
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   color: #6c6c6c;
   background: #ffffff;
@@ -6370,8 +6375,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding: 1rem;
 }
 .p-terminal .p-terminal-input {
-  font-size: 1rem;
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
 }
 
 /* Customizations to the designer theme should be defined here */
