@@ -10,8 +10,8 @@ import { ProductListDemo } from './productlistdemo';
     template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display dynamic dialog. First parameter of <i>open</i> method is the type of component to load and the second parameter is
-                the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
+                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display dynamic dialog. First parameter
+                of <i>open</i> method is the type of component to load and the second parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
