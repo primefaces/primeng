@@ -11635,25 +11635,11 @@
                             "description": "The source path for the main image."
                         },
                         {
-                            "name": "srcSet",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | SafeUrl",
-                            "description": "The srcset definition for the main image."
-                        },
-                        {
                             "name": "previewImageSrc",
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
                             "description": "The source path for the preview image."
-                        },
-                        {
-                            "name": "previewImageSrcSet",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string | SafeUrl",
-                            "description": "The srcset definition for the preview image."
                         },
                         {
                             "name": "alt",
