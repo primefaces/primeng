@@ -84,7 +84,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
                             <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                            <span class="p-menuitem-text" *ngIf="processedItem.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
+                            <span class="p-menuitem-text" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
                             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
                         </a>
