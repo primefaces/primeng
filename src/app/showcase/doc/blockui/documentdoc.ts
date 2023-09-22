@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'block-ui-document-demo',
     template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Enabling <i>fullScreen</i> property controls the document.</p>
+            <p>If the target element is not specified, BlockUI blocks the document by default.</p>
         </app-docsectiontext>
         <div class="card">
             <p-blockUI [blocked]="blockedDocument"></p-blockUI>
