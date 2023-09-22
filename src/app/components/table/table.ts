@@ -698,11 +698,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      */
     @Input() paginatorLocale: string | undefined;
     /**
-     * No description available.
-     * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
-     * @group Emits
-     */
-    /**
      * An array of objects to display.
      * @group Props
      */
@@ -803,6 +798,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     set selectAll(val: boolean | null) {
         this._selection = val;
     }
+    /**
+     * Emits when the all of the items selected or unselected.
+     * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
+     * @group Emits
+     */
     @Output() selectAllChange: EventEmitter<TableSelectAllChangeEvent> = new EventEmitter<TableSelectAllChangeEvent>();
     /**
      * Callback to invoke on selection changed.

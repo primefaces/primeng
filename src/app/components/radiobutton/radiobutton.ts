@@ -94,7 +94,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      */
     @Input() value: any;
     /**
-     * No description available.
+     * The name of the form control.
      * @group Props
      */
     @Input() formControlName: string | undefined;

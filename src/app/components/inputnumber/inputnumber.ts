@@ -261,7 +261,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      */
     @Input() name: string | undefined;
     /**
-     * No description available.
+     * Indicates that whether the input field is required.
      * @group Props
      */
     @Input() required: boolean | undefined;
@@ -380,10 +380,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * @group Props
      */
     @Input() showClear: boolean = false;
-    /**
-     * No description available.
-     * @group Emits
-     */
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
