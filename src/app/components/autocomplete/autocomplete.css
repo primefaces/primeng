@@ -62,6 +62,7 @@
 }
 
 .p-autocomplete-token-icon {
+    display: flex;
     cursor: pointer;
 }
 
