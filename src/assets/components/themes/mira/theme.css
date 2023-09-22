@@ -1,4 +1,6 @@
 :root {
+  font-family: "Inter", sans-serif;
+  --font-family:"Inter", sans-serif;
   --surface-a:#ffffff;
   --surface-b:#ECEFF4;
   --surface-c:#D8DEE9;
@@ -9,7 +11,6 @@
   --text-color-secondary:#81A1C1;
   --primary-color:#5E81AC;
   --primary-color-text:#ffffff;
-  --font-family:Inter, sans-serif;
   --surface-0: #ffffff;
   --surface-50: #edeef0;
   --surface-100: #dbdde1;
@@ -80,7 +81,8 @@
 }
 
 .p-component {
-  font-family: "Inter", sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   font-weight: normal;
 }
@@ -113,7 +115,8 @@
 
 .p-link {
   font-size: 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   border-radius: 4px;
 }
 .p-link:focus {
@@ -293,8 +296,9 @@
   padding: 0.25rem 0;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: #4C566A;
   padding: 0;
   margin: 0;
@@ -792,8 +796,9 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   padding: 0.25rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: #4C566A;
   padding: 0;
   margin: 0;
@@ -1193,7 +1198,8 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-inputtext {
-  font-family: "Inter", sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   color: #4C566A;
   background: #ffffff;
@@ -6364,8 +6370,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding: 1rem;
 }
 .p-terminal .p-terminal-input {
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
 }
 
 /* Customizations to the designer theme should be defined here */

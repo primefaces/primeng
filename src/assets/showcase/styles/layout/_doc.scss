@@ -5,6 +5,7 @@
     display: flex;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--surface-border);
+    overflow: auto;
 
     li {
         margin-bottom: -1px;
@@ -16,18 +17,19 @@
             padding: 1rem 0;
             min-width: 12rem;
             text-align: center;
-            color: var(--text-color-secondary);
+            color: var(--surface-700);
             font-size: 1.125rem;
             letter-spacing: 2px;
             cursor: pointer;
             margin: 0;
-            transition: all 0.3s;
+            transition: all 0.2s;
             border-bottom: 1px solid transparent;
             border-top-right-radius: var(--border-round);
             border-top-left-radius: var(--border-round);
+            white-space: nowrap;
 
             &:hover {
-                border-bottom-color: var(--text-color);
+                border-bottom-color: var(--surface-500);
             }
 
             &:focus {
@@ -41,6 +43,10 @@
                 border-bottom-color: var(--primary-color);
             }
         }
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 }
 
@@ -60,8 +66,8 @@
     margin-bottom: 2rem;
 
     p {
-        font-size: 1.25rem;
-        color: var(--surface-800);
+        font-size: 1.125rem;
+        color: var(--surface-900);
     }
 }
 
@@ -92,7 +98,7 @@
 .doc-section-description {
     > p {
         font-size: 1.125rem;
-        color: var(--surface-800);
+        color: var(--surface-900);
 
         i {
             border-radius: 6px;
@@ -153,6 +159,11 @@
         .navbar-item-content {
             border-left: 1px solid var(--surface-border);
             padding-left: .25rem;
+            transition: all .2s;
+
+            &:hover {
+                border-left-color: var(--surface-500);
+            }
         }
     }
 
@@ -160,16 +171,19 @@
         > .navbar-item-content {
             display: flex;
 
-            .p-link {
+            .px-link {
                 padding: 0.25rem 1rem 0.25rem 1rem;
-                color: var(--text-color);
+                color: var(--surface-800);
                 white-space: nowrap;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                transition: all .2s;
 
                 &:hover {
-                    color: var(--primary-color);
+                    .px-link {
+                        color: var(--surface-900);
+                    }
                 }
             }
         }
@@ -178,8 +192,7 @@
             > .navbar-item-content {
                 border-color: var(--primary-color);
 
-                .p-link {
-                    font-weight: 700;
+                .px-link {
                     color: var(--primary-color);
                 }
             }

@@ -1,4 +1,6 @@
 :root {
+  font-family: Poppins, sans-serif;
+  --font-family:Poppins, sans-serif;
   --surface-a:#161d21;
   --surface-b:#0e1315;
   --surface-c:rgba(158, 173, 230, 0.08);
@@ -9,7 +11,6 @@
   --text-color-secondary:rgba(255, 255, 255, 0.6);
   --primary-color:#9eade6;
   --primary-color-text:#121212;
-  --font-family:Poppins, sans-serif;
   --surface-0: #0e1315;
   --surface-50: #262b2c;
   --surface-100: #3e4244;
@@ -84,7 +85,8 @@
 }
 
 .p-component {
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   font-weight: normal;
 }
@@ -117,7 +119,8 @@
 
 .p-link {
   font-size: 1rem;
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   border-radius: 6px;
 }
 .p-link:focus {
@@ -297,8 +300,9 @@
   padding: 0.25rem 0;
 }
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-  font-family: Poppins, sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: rgba(255, 255, 255, 0.87);
   padding: 0;
   margin: 0;
@@ -796,8 +800,9 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
   padding: 0.25rem 0;
 }
 .p-chips .p-chips-multiple-container .p-chips-input-token input {
-  font-family: Poppins, sans-serif;
-  font-size: 1rem;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
   color: rgba(255, 255, 255, 0.87);
   padding: 0;
   margin: 0;
@@ -1197,7 +1202,8 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 
 .p-inputtext {
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.87);
   background: #0e1315;
@@ -6368,8 +6374,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding: 1rem;
 }
 .p-terminal .p-terminal-input {
-  font-size: 1rem;
-  font-family: Poppins, sans-serif;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: inherit;
 }
 
 /* Customizations to the designer theme should be defined here */

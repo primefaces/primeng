@@ -7456,6 +7456,18 @@
                     },
                     {
                         "parent": "confirmdialog",
+                        "name": "message",
+                        "parameters": [],
+                        "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "confirmdialog",
+                        "name": "icon",
+                        "parameters": [],
+                        "description": "Custom template of icon."
+                    },
+                    {
+                        "parent": "confirmdialog",
                         "name": "rejecticon",
                         "parameters": [],
                         "description": "Custom template of rejecticon."
@@ -24471,6 +24483,13 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
+                        },
+                        {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "paginatorStyleClass",

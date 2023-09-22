@@ -2052,17 +2052,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             //enter
-            case 13: {
-                this.onMonthSelect(event, index);
-                event.preventDefault();
-                break;
-            }
-
-            //enter
             //space
             case 13:
             case 32: {
-                this.overlayVisible = false;
+                this.onMonthSelect(event, index);
                 event.preventDefault();
                 break;
             }
