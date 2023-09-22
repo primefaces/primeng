@@ -205,13 +205,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
         let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
 
-        if (!this.icon && !this.loading) {
-            iconElement && this.htmlElement.removeChild(iconElement);
-            return;
-        }
-
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
+        } else if (iconElement?.innerHTML) {
+            iconElement.innerHTML = '';
         }
 
         if (iconElement) {
