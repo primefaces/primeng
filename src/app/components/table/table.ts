@@ -3926,7 +3926,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
         class: 'p-element'
     }
 })
-export class EditableColumn implements AfterViewInit, OnDestroy {
+export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     @Input('pEditableColumn') data: any;
 
     @Input('pEditableColumnField') field: any;
@@ -3940,6 +3940,12 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     overlayEventListener: any;
 
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
+
+    public ngOnChanges({ data }: SimpleChanges): void {
+        if (this.el.nativeElement && !data.firstChange) {
+            this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
+        }
+    }
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
