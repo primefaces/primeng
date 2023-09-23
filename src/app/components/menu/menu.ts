@@ -54,6 +54,7 @@ export class SafeHtmlPipe implements PipeTransform {
             <a
                 *ngIf="!item?.routerLink"
                 [attr.title]="item.title"
+                [attr.id]="item.id"
                 [attr.href]="item.url || null"
                 [attr.data-automationid]="item.automationId"
                 [attr.tabindex]="-1"
@@ -75,6 +76,7 @@ export class SafeHtmlPipe implements PipeTransform {
                 [attr.data-pc-section]="'action'"
                 [attr.aria-hidden]="true"
                 [attr.title]="item.title"
+                [attr.id]="item.id"
                 [queryParams]="item.queryParams"
                 routerLinkActive="p-menuitem-link-active"
                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
