@@ -86,7 +86,7 @@ import { asapScheduler } from 'rxjs';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <a
-                        *ngIf="isClickableRouterLink(item); else elseBlock"
+                        *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
                         pRipple
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
@@ -110,7 +110,7 @@ import { asapScheduler } from 'rxjs';
                         <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
                     <ng-template #elseBlock>
-                        <a
+                        <a *ngIf="_visible"
                             [attr.href]="item.url || null"
                             class="p-speeddial-action"
                             role="menuitem"
