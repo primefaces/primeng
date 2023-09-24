@@ -917,6 +917,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
         const newValue = this.parseValue(this.input.nativeElement.value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
+
+        if (this.maxlength && this.getSelectedText()?.length == this.maxlength) {
+            this.insert(event, char, { isDecimalSign, isMinusSign });
+            return;
+        }
+
         if (this.maxlength && newValueStr.length > this.maxlength) {
             return;
         }
@@ -924,6 +930,15 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
+    }
+
+    private getSelectedText() {
+        return (
+            window
+                ?.getSelection()
+                ?.toString()
+                .replaceAll(/[^0-9']/g, '') || ''
+        );
     }
 
     onPaste(event: ClipboardEvent) {
