@@ -110,7 +110,8 @@ import { asapScheduler } from 'rxjs';
                         <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                     </a>
                     <ng-template #elseBlock>
-                        <a *ngIf="_visible"
+                        <a
+                            *ngIf="_visible"
                             [attr.href]="item.url || null"
                             class="p-speeddial-action"
                             role="menuitem"
