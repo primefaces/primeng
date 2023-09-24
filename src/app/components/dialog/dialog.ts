@@ -19,6 +19,7 @@ import {
     PLATFORM_ID,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -551,9 +552,14 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.ariaLabelledBy = this.getAriaLabelledBy();
         if (this.breakpoints) {
             this.createStyle();
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.header) {
+            this.ariaLabelledBy = this.getAriaLabelledBy();
         }
     }
 
