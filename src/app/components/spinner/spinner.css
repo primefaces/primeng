@@ -1,61 +1,63 @@
-.ui-spinner {
-    display: inline-block;
-    overflow: visible;
-    padding: 0;
-    position: relative;
-    vertical-align: middle;
-}
+@layer primeng {
+    .ui-spinner {
+        display: inline-block;
+        overflow: visible;
+        padding: 0;
+        position: relative;
+        vertical-align: middle;
+    }
 
-.ui-spinner-input {
-    vertical-align: middle;
-    padding-right: 1.5em;
-}
+    .ui-spinner-input {
+        vertical-align: middle;
+        padding-right: 1.5em;
+    }
 
-.ui-spinner-button {
-    cursor: default;
-    display: block;
-    height: 50%;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    vertical-align: middle;
-    width: 1.5em;
-}
+    .ui-spinner-button {
+        cursor: default;
+        display: block;
+        height: 50%;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        vertical-align: middle;
+        width: 1.5em;
+    }
 
-.ui-spinner .ui-spinner-button-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -.5em;
-    margin-left: -.5em;
-    width: 1em;
-}
+    .ui-spinner .ui-spinner-button-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -0.5em;
+        margin-left: -0.5em;
+        width: 1em;
+    }
 
-.ui-spinner-up {
-    top: 0;
-}
+    .ui-spinner-up {
+        top: 0;
+    }
 
-.ui-spinner-down {
-    bottom: 0;
-}
+    .ui-spinner-down {
+        bottom: 0;
+    }
 
-/* Fluid */
-.ui-fluid .ui-spinner {
-    width: 100%;
-}
+    /* Fluid */
+    .ui-fluid .ui-spinner {
+        width: 100%;
+    }
 
-.ui-fluid .ui-spinner .ui-spinner-input {
-    padding-right: 2em;
-    width: 100%;
-}
+    .ui-fluid .ui-spinner .ui-spinner-input {
+        padding-right: 2em;
+        width: 100%;
+    }
 
-.ui-fluid .ui-spinner .ui-spinner-button {
-    width: 1.5em;
-}
+    .ui-fluid .ui-spinner .ui-spinner-button {
+        width: 1.5em;
+    }
 
-.ui-fluid .ui-spinner .ui-spinner-button .ui-spinner-button-icon {
-    left: .7em;
+    .ui-fluid .ui-spinner .ui-spinner-button .ui-spinner-button-icon {
+        left: 0.7em;
+    }
 }
