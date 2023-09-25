@@ -35,7 +35,7 @@ export class ProductListDemo implements OnInit {
     constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsSmall().then((products) => this.products = products);
     }
 
     selectProduct(product: Product) {
