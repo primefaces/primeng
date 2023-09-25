@@ -40,7 +40,6 @@ export class AppMainComponent implements OnInit {
         this.menuActive = true;
         DomHandler.addClass(this.document.body, 'blocked-scroll');
         this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
-
     }
 
     onMaskClick() {

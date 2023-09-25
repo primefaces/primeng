@@ -611,11 +611,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             if (this.maximized) {
                 DomHandler.addClass(this.document.body, 'p-overflow-hidden');
                 this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
-            } 
-            else {
+            } else {
                 DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
                 this.document.body.style.removeProperty('--scrollbar-width');
-            } 
+            }
         }
 
         this.onMaximize.emit({ maximized: this.maximized });

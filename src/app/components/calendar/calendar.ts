@@ -172,11 +172,17 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                             </td>
                                             <td *ngFor="let date of week" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                    <span [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }" (click)="onDateSelect($event, date)" draggable="false" (keydown)="onDateCellKeydown($event, date, i)" pRipple>
+                                                    <span
+                                                        [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
+                                                        (click)="onDateSelect($event, date)"
+                                                        draggable="false"
+                                                        (keydown)="onDateCellKeydown($event, date, i)"
+                                                        pRipple
+                                                    >
                                                         <ng-container *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
-                                                         <ng-container *ngIf="date.selectable || !disabledDateTemplate">
+                                                        <ng-container *ngIf="date.selectable || !disabledDateTemplate">
                                                             <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
-                                                         </ng-container>
+                                                        </ng-container>
                                                         <ng-container *ngIf="!date.selectable">
                                                             <ng-container *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
                                                         </ng-container>

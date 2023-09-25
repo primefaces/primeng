@@ -22,7 +22,6 @@ export class DialogService {
      * @group Method
      */
     public open(componentType: Type<any>, config: DynamicDialogConfig): DynamicDialogRef {
-
         if (!this.duplicationPermission(componentType, config)) {
             return null;
         }

@@ -226,10 +226,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     loadChildComponent(componentType: Type<any>) {
-      let viewContainerRef = this.insertionPoint?.viewContainerRef;
-      viewContainerRef?.clear();
+        let viewContainerRef = this.insertionPoint?.viewContainerRef;
+        viewContainerRef?.clear();
 
-      this.componentRef = viewContainerRef?.createComponent(componentType);
+        this.componentRef = viewContainerRef?.createComponent(componentType);
     }
 
     moveOnTop() {
