@@ -4,10 +4,6 @@
  */
 export class DynamicDialogConfig<T = any> {
     /**
-     * A boolean to determine if it can be duplicate.
-     */
-    duplicate?: boolean;
-    /**
      * An object to pass to the component loaded inside the Dialog.
      * @group Props
      */
@@ -157,4 +153,9 @@ export class DynamicDialogConfig<T = any> {
      * @group Props
      */
     appendTo?: any;
+    /**
+     * A boolean to determine if it can be duplicate.
+     * @group Props
+     */
+    duplicate?: boolean;
 }
