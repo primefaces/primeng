@@ -1304,11 +1304,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 event.preventDefault();
                 break;
 
-            //escape and tab
+            //escape
             case 27:
-            case 9:
                 this.hide();
                 event.preventDefault();
+                break;
+            // tab
+            case 9:
+                this.hide();
                 break;
 
             //search item based on keyboard input
