@@ -2809,6 +2809,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             });
             this.renderer.appendChild(this.document.body, this.mask);
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
         }
     }
 
@@ -2838,6 +2839,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         if (!hasBlockerMasks) {
             DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.removeProperty('--scrollbar-width');
         }
 
         this.unbindAnimationEndListener();

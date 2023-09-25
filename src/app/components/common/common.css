@@ -51,6 +51,7 @@
 
 .p-overflow-hidden {
     overflow: hidden;
+    padding-right: var(--scrollbar-width);
 }
 
 .p-unselectable-text {

@@ -250,6 +250,8 @@ export class Image implements AfterContentInit {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
         }
     }
 
@@ -366,6 +368,8 @@ export class Image implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
+        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        this.document.body.style.removeProperty('--scrollbar-width');
     }
 
     imageError(event: Event) {
