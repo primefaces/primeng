@@ -711,7 +711,7 @@ export class AppModule {}`;
             content: {
                 name: `primeng-${selector}`,
                 description: `PrimeNG ${componentName}`,
-                licence: 'MIT',
+                license: 'MIT',
                 keywords: [],
                 scripts: {
                     ng: 'ng',

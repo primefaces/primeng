@@ -1,6 +1,6 @@
 {
     "root": true,
-    "ignorePatterns": ["projects/**/*"],
+    "ignorePatterns": ["src/app/showcase/**/*"],
     "overrides": [
         {
             "files": ["*.ts"],
@@ -32,10 +32,10 @@
                         "suffixes": [""]
                     }
                 ],
-                "@angular-eslint/template/eqeqeq": [
+                "@angular-eslint/directive-class-suffix": [
                     "error",
                     {
-                      "allowNullOrUndefined": true
+                        "suffixes": [""]
                     }
                 ],
                 "@angular-eslint/no-host-metadata-property": "off",
@@ -58,7 +58,14 @@
         {
             "files": ["*.html"],
             "extends": ["plugin:@angular-eslint/template/recommended"],
-            "rules": {}
+            "rules": {
+                "@angular-eslint/template/eqeqeq": [
+                    "error",
+                    {
+                      "allowNullOrUndefined": true
+                    }
+                ]
+            }
         }
     ]
 }

@@ -52,6 +52,7 @@
         "@types/jasmine": "~4.3.1",
         "@types/jest": "^29.5.1",
         "@types/node": "^12.20.55",
+        "@typescript-eslint/eslint-plugin": "^6.6.0",
         "chart.js": "3.3.2",
         "codelyzer": "^0.0.28",
         "del": "^7.0.0",

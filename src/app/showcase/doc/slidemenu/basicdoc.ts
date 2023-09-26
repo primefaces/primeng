@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>SlideMenu requires a collection of menuitems as its <i>model</i> along with <i>viewportHeight</i> and <i>menuWidth</i>.</p>
         </app-docsectiontext>

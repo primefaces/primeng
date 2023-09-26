@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 import { AppConfigService } from '../service/appconfigservice';
 import { AppComponent } from './app.component';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-main',
@@ -22,7 +23,7 @@ export class AppMainComponent implements OnInit {
 
     public subscription: Subscription;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, @Inject(DOCUMENT) private document: Document, private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
 
     ngOnInit() {
         this.primengConfig.ripple = true;
@@ -37,7 +38,8 @@ export class AppMainComponent implements OnInit {
 
     onMenuButtonClick() {
         this.menuActive = true;
-        this.addClass(document.body, 'blocked-scroll');
+        DomHandler.addClass(this.document.body, 'blocked-scroll');
+        this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
     }
 
     onMaskClick() {
@@ -46,17 +48,8 @@ export class AppMainComponent implements OnInit {
 
     hideMenu() {
         this.menuActive = false;
-        this.removeClass(document.body, 'blocked-scroll');
-    }
-
-    addClass(element: any, className: string) {
-        if (element.classList) element.classList.add(className);
-        else element.className += ' ' + className;
-    }
-
-    removeClass(element: any, className: string) {
-        if (element.classList) element.classList.remove(className);
-        else element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        DomHandler.removeClass(this.document.body, 'blocked-scroll');
+        this.document.body.style.removeProperty('--scrollbar-width');
     }
 
     hideNews() {

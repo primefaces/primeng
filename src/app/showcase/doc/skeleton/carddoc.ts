@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>

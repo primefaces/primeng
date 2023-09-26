@@ -851,7 +851,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      */
     @Input() filterPlaceholder: string | undefined;
     /**
-     * No description available.
+     * Values after the tree nodes are filtered.
      * @group Props
      */
     @Input() filteredNodes: TreeNode<any>[] | undefined | null;

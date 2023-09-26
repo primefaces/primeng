@@ -68,8 +68,14 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     </div>
                 </div>
                 <div #content class="p-dialog-content">
-                    <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="option('icon')"></i>
-                    <span class="p-confirm-dialog-message" [innerHTML]="option('message')"></span>
+                    <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="!iconTemplate && option('icon')"></i>
+                    <ng-container *ngIf="iconTemplate">
+                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                    </ng-container>
+                    <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
+                    <ng-container *ngIf="messageTemplate">
+                        <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
+                    </ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
@@ -351,8 +357,17 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 case 'header':
                     this.headerTemplate = item.template;
                     break;
+
                 case 'footer':
                     this.footerTemplate = item.template;
+                    break;
+
+                case 'message':
+                    this.messageTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 case 'rejecticon':
@@ -373,6 +388,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     rejectIconTemplate: Nullable<TemplateRef<any>>;
 
     acceptIconTemplate: Nullable<TemplateRef<any>>;
+
+    messageTemplate: Nullable<TemplateRef<any>>;
+
+    iconTemplate: Nullable<TemplateRef<any>>;
 
     confirmation: Nullable<Confirmation>;
 

@@ -38,6 +38,7 @@ import { ConditionalStyleDoc } from './conditionalstyledoc';
 import { ContextMenuDoc } from './contextmenudoc';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { StyleDoc } from './styledoc';
+import { ResizeScrollableDoc } from './columnresizescrollabledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 
@@ -72,7 +73,8 @@ import { PaginatorLocaleDoc } from './paginatorlocaledoc';
         ContextMenuDoc,
         StyleDoc,
         AccessibilityDoc,
-        PaginatorLocaleDoc
+        PaginatorLocaleDoc,
+        ResizeScrollableDoc
     ]
 })
 export class TreeTableDocModule {}

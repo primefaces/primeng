@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>InputTextarea is applied to an input field with <i>pInputTextarea</i> directive.</p>
         </app-docsectiontext>

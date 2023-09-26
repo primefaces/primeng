@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -45,12 +45,15 @@ export class ProductListDemoDoc implements OnInit {
 
     @Input() title: string;
 
-    products: Product[] | undefined;
+    products: Product[];
 
-    constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
+    constructor(private productService: ProductService, public ref: DynamicDialogRef, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsSmall().then((products) => {
+            this.products = products;
+            this.cd.markForCheck();
+        });
     }
 
     selectProduct(product: Product) {
@@ -122,7 +125,7 @@ export class ProductListDemoDoc implements OnInit {
     </p-table>
 </div>`,
         typescript: `
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -134,12 +137,15 @@ import { ProductService } from '../../service/productservice';
 })
 export class ProductListDemo implements OnInit {
 
-    products: Product[] | undefined;
+    products: Product[];
 
-    constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
+    constructor(private productService: ProductService, public ref: DynamicDialogRef, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsSmall().then((products) => {
+            this.products = products;
+            this.cd.markForCheck();
+        });
     }
 
     selectProduct(product: Product) {

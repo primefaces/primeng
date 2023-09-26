@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>CSS file of the icon library needs to be imported in <i>styles.scss</i> of your application.</p>
         </app-docsectiontext>

@@ -23,7 +23,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <img [attr.src]="src" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
-            <button class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()" #previewButton>
+            <button type="button" class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()" #previewButton>
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
@@ -250,6 +250,8 @@ export class Image implements AfterContentInit {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
         }
     }
 
@@ -366,6 +368,8 @@ export class Image implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
+        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        this.document.body.style.removeProperty('--scrollbar-width');
     }
 
     imageError(event: Event) {

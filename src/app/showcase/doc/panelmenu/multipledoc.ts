@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section>
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
