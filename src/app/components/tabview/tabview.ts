@@ -192,7 +192,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     closed: boolean = false;
 
     view: EmbeddedViewRef<any> | null = null;
-    
+
     _headerStyle: { [klass: string]: any } | null | undefined;
 
     _headerStyleClass: string | undefined;
