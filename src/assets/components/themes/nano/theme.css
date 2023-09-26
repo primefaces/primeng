@@ -2861,7 +2861,7 @@
   }
   .p-datatable .p-datatable-tbody > tr:focus-visible {
     outline: 0.15rem solid #90c9f5;
-    outline-offset: 0.15rem;
+    outline-offset: -0.15rem;
   }
   .p-datatable .p-datatable-tbody > tr.p-highlight {
     background: #44A1D9;
