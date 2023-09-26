@@ -4661,6 +4661,11 @@
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
   }
+  .p-fileupload .p-fileupload-content.p-fileupload-highlight {
+    border-color: #007ad9;
+    border-style: dashed;
+    background-color: #e02365;
+  }
   .p-fileupload .p-progressbar {
     height: 0.25rem;
   }
