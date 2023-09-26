@@ -1,4 +1,4 @@
-@layer primeng.core {
+@layer primeng {
     .p-listbox-list-wrapper {
         overflow: auto;
     }

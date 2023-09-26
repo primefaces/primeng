@@ -3,7 +3,7 @@
         stroke-dashoffset: 0;
     }
 }
-@layer primeng.core {
+@layer primeng {
     .p-knob-range {
         fill: none;
         transition: stroke 0.1s ease-in;
