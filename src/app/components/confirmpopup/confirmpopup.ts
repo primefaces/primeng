@@ -272,6 +272,9 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
             ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
+        if (!this.confirmation) {
+            return;
+        }
         DomHandler.absolutePosition(this.container, this.confirmation?.target);
 
         const containerOffset = DomHandler.getOffset(this.container);
