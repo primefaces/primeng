@@ -11625,14 +11625,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
-                            "description": "Attribute of the image element."
+                            "description": "The source path for the main image."
                         },
                         {
                             "name": "previewImageSrc",
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
-                            "description": "Attribute of the image element."
+                            "description": "The source path for the preview image."
                         },
                         {
                             "name": "alt",
@@ -24474,6 +24474,13 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
+                        },
+                        {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "paginatorStyleClass",
