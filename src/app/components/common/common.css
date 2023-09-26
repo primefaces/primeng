@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-component,
     .p-component * {
         box-sizing: border-box;

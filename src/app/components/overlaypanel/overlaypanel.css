@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-overlaypanel {
         position: absolute;
         margin-top: 10px;

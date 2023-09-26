@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-inplace .p-inplace-display {
         display: inline;
         cursor: pointer;

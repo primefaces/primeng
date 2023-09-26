@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-tabview-nav-container {
         position: relative;
     }

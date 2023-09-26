@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-terminal {
         height: 18rem;
         overflow: auto;

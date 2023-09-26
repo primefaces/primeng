@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-scrollpanel-wrapper {
         overflow: hidden;
         width: 100%;

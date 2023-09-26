@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-rating {
         display: inline-flex;
     }

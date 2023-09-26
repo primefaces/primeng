@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-dataview {
         position: relative;
     }

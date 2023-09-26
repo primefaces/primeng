@@ -1,4 +1,4 @@
-@layer primeng {
+@layer primeng.core {
     .p-timeline {
         display: flex;
         flex-grow: 1;
