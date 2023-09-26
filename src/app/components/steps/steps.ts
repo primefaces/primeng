@@ -266,7 +266,7 @@ export class Steps implements OnInit, OnDestroy {
             return '-1';
         }
 
-        if (!item.disabled && (this.activeIndex === index)) {
+        if (!item.disabled && this.activeIndex === index) {
             return item.tabindex || '0';
         }
 
