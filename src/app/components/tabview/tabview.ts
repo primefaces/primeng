@@ -73,12 +73,24 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Inline style of the tab header.
      * @group Props
      */
-    @Input() headerStyle: { [klass: string]: any } | null | undefined;
+    @Input() get headerStyle(): { [klass: string]: any } | null | undefined {
+        return this._headerStyle;
+    }
+    set headerStyle(headerStyle: { [klass: string]: any } | null | undefined) {
+        this._headerStyle = headerStyle;
+        this.tabView.cd.markForCheck();
+    }
     /**
      * Style class of the tab header.
      * @group Props
      */
-    @Input() headerStyleClass: string | undefined;
+    @Input() get headerStyleClass(): string | undefined {
+        return this._headerStyleClass;
+    }
+    set headerStyleClass(headerStyleClass: string | undefined) {
+        this._headerStyleClass = headerStyleClass;
+        this.tabView.cd.markForCheck();
+    }
     /**
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      * @group Props
@@ -180,6 +192,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     closed: boolean = false;
 
     view: EmbeddedViewRef<any> | null = null;
+    
+    _headerStyle: { [klass: string]: any } | null | undefined;
+
+    _headerStyleClass: string | undefined;
 
     _selected: boolean | undefined;
 
