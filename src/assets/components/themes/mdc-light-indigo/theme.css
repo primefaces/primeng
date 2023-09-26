@@ -4710,7 +4710,7 @@
     border-bottom-left-radius: 4px;
   }
   .p-fileupload .p-fileupload-content.p-fileupload-highlight {
-    border-color: #3F51B5;
+    border-color: 1px dashed #3F51B5;
     border-style: dashed;
     background-color: rgba(63, 81, 181, 0.12);
   }
