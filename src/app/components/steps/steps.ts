@@ -21,9 +21,7 @@ import { Subscription } from 'rxjs';
                     #menuitem
                     [ngStyle]="item.style"
                     [class]="item.styleClass"
-                    role="tab"
-                    [attr.aria-selected]="i === activeIndex"
-                    [attr.aria-expanded]="i === activeIndex"
+                    role="presentation"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
                     [ngClass]="{ 'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i)) }"
@@ -33,7 +31,7 @@ import { Subscription } from 'rxjs';
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
-                        role="presentation"
+                        role="tab"
                         [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                         class="p-menuitem-link"
@@ -41,14 +39,17 @@ import { Subscription } from 'rxjs';
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.id]="item.id"
-                        [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
+                        [attr.tabindex]="getItemTabIndex(item, i)"
+                        [attr.aria-selected]="i === activeIndex"
+                        [attr.aria-expanded]="i === activeIndex"
+                        [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
                         [preserveFragment]="item.preserveFragment"
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
-                        [ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                        [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
                     >
                         <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
@@ -58,13 +59,16 @@ import { Subscription } from 'rxjs';
                         <a
                             [attr.href]="item.url"
                             class="p-menuitem-link"
-                            role="presentation"
+                            role="tab"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.id]="item.id"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
-                            [ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                            [attr.tabindex]="getItemTabIndex(item, i)"
+                            [attr.aria-selected]="i === activeIndex"
+                            [attr.aria-expanded]="i === activeIndex"
+                            [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
+                            [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
                         >
                             <span class="p-steps-number">{{ i + 1 }}</span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
@@ -178,11 +182,14 @@ export class Steps implements OnInit, OnDestroy {
             }
 
             case 'Tab':
-                //no op
+                if (i !== this.activeIndex) {
+                    const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                    siblings[i].children[0].tabIndex = '-1';
+                    siblings[this.activeIndex].children[0].tabIndex = '0';
+                }
                 break;
 
             case 'Enter':
-
             case 'Space': {
                 this.onItemClick(event, item, i);
                 event.preventDefault();
@@ -252,6 +259,18 @@ export class Steps implements OnInit, OnDestroy {
         }
 
         return index === this.activeIndex;
+    }
+
+    getItemTabIndex(item: MenuItem, index: number): string {
+        if (item.disabled) {
+            return '-1';
+        }
+
+        if (!item.disabled && (this.activeIndex === index)) {
+            return item.tabindex || '0';
+        }
+
+        return item.tabindex ?? '-1';
     }
 
     ngOnDestroy() {
