@@ -1,5 +1,18 @@
 # Changelog
 
+## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)
+
+**Fixed bugs:**
+
+- Menu Components | id property of menuItem API is ignored [\#13763](https://github.com/primefaces/primeng/issues/13763)
+- ESLint Error [\#13764](https://github.com/primefaces/primeng/issues/13764)
+- Table: Incorrect behavior when a column is both sortable and filterable, and user clicks on a certain part of the filter icon [\#13361](https://github.com/primefaces/primeng/issues/13361)
+- Tree | onKeydown is broken with contextMenu [\#13558](https://github.com/primefaces/primeng/issues/13558)
+- p-confirmPopup errors when setTimeout runs after onContainerDestroy [\#13761](https://github.com/primefaces/primeng/issues/13761)
+- MegaMenu ReferenceError in Jest Test same as #12945 [\#13758](https://github.com/primefaces/primeng/issues/13758)
+
 ## [16.4.0](https://github.com/primefaces/primeng/tree/16.4.0) (2023-09-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.3.1...16.4.0)
