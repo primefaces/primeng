@@ -13,9 +13,9 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 @Component({
     selector: 'p-breadcrumb',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
-            <ul [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
-                <li [class]="home.styleClass" [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }" [ngStyle]="home.style" *ngIf="home" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
+        <nav [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
+            <ol [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
+                <li [class]="home.styleClass" [attr.id]="home.id" [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }" [ngStyle]="home.style" *ngIf="home" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
                     <a
                         [href]="home.url ? home.url : null"
                         *ngIf="!home.routerLink"
@@ -24,7 +24,6 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         (click)="onClick($event, home)"
                         [target]="home.target"
                         [attr.title]="home.title"
-                        [attr.id]="home.id"
                         [attr.tabindex]="home.disabled ? null : '0'"
                         [ariaCurrentWhenActive]="isCurrentUrl(home)"
                     >
@@ -46,7 +45,6 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         (click)="onClick($event, home)"
                         [target]="home.target"
                         [attr.title]="home.title"
-                        [attr.id]="home.id"
                         [attr.tabindex]="home.disabled ? null : '0'"
                         [ariaCurrentWhenActive]="isCurrentUrl(home)"
                         [fragment]="home.fragment"
@@ -69,7 +67,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [ngStyle]="item.style" [ngClass]="{ 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
+                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
                         <a
                             *ngIf="!item.routerLink"
                             [attr.href]="item.url ? item.url : null"
@@ -77,7 +75,6 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             (click)="onClick($event, item)"
                             [target]="item.target"
                             [attr.title]="item.title"
-                            [attr.id]="item.id"
                             [attr.tabindex]="item.disabled ? null : '0'"
                             [ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
@@ -97,7 +94,6 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             (click)="onClick($event, item)"
                             [target]="item.target"
                             [attr.title]="item.title"
-                            [attr.id]="item.id"
                             [attr.tabindex]="item.disabled ? null : '0'"
                             [fragment]="item.fragment"
                             [queryParamsHandling]="item.queryParamsHandling"
@@ -119,8 +115,8 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>
                 </ng-template>
-            </ul>
-        </div>
+            </ol>
+        </nav>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

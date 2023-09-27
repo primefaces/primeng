@@ -236,7 +236,7 @@ export class ContextMenuSub {
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -489,7 +489,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     activeItemPath = signal<any>([]);
 
-    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     submenuVisible = signal<boolean>(false);
 
@@ -515,8 +515,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     get focusedItemId() {
-        const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        const focusedItem = this.focusedItemInfo();
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(
@@ -668,10 +668,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const selected = this.isSelected(processedItem);
 
         if (selected) {
-            const { index, key, level, parentKey } = processedItem;
+            const { index, key, level, parentKey, item } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item });
 
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
@@ -757,7 +757,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -790,7 +790,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const root = ObjectUtils.isEmpty(processedItem.parent);
 
         if (!root) {
-            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -817,12 +817,15 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
+        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         this.focusedItemInfo.mutate((value) => {
             value.index = this.findFirstFocusedItemIndex();
+            value.item = processedItem.item
         });
 
         event.preventDefault();
     }
+
 
     onTabKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
@@ -867,7 +870,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             activeItemPath.push(processedItem);
             this.submenuVisible.set(true);
         }
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
         this.activeItemPath.set(activeItemPath);
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -875,14 +878,14 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '' };
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '', item: null };
 
         this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         this.searchValue = '';
     }
 
@@ -939,7 +942,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     hide() {
         this.visible.set(false);
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null});
     }
 
     toggle(event?: any) {
@@ -948,7 +951,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     show(event: any) {
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
         this.pageX = event.pageX;
         this.pageY = event.pageY;
@@ -1027,6 +1030,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         return matched;
     }
 
+    findVisibleItem(index) {
+        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+    }
+
     findLastFocusedItemIndex() {
         const selectedIndex = this.findSelectedItemIndex();
         return selectedIndex < 0 ? this.findLastItemIndex() : selectedIndex;
@@ -1063,9 +1070,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     changeFocusedItemIndex(event: any, index: number) {
+        const processedItem = this.findVisibleItem(index);
         if (this.focusedItemInfo().index !== index) {
             this.focusedItemInfo.mutate((value) => {
                 value.index = index;
+                value.item = processedItem.item;
             });
             this.scrollInView();
         }

@@ -256,7 +256,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -502,7 +502,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     number = signal<number>(0);
 
-    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     searchValue: string = '';
 
@@ -526,8 +526,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     get focusedItemId() {
-        const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        const focusedItem = this.focusedItemInfo();
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(
@@ -622,10 +622,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         const selected = this.isSelected(processedItem);
 
         if (selected) {
-            const { index, key, level, parentKey } = processedItem;
+            const { index, key, level, parentKey, item } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = !root;
             DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
@@ -652,9 +652,11 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     changeFocusedItemIndex(event: any, index: number) {
+        const processedItem = this.findVisibleItem(index);
         if (this.focusedItemInfo().index !== index) {
             this.focusedItemInfo.mutate((value) => {
                 value.index = index;
+                value.item = processedItem.item;
             });
             this.scrollInView();
         }
@@ -674,12 +676,12 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
         if (ObjectUtils.isEmpty(processedItem)) return;
 
-        const { index, key, level, parentKey, items } = processedItem;
+        const { index, key, level, parentKey, items, item } = processedItem;
         const grouped = ObjectUtils.isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item });
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
@@ -711,20 +713,22 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         }
 
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
         isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
         this.dirty = false;
     }
 
     show() {
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
+        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' , item: processedItem.item});
         DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' };
+        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem.item  };
 
         this.focusedItemInfo.set(focusedItemInfo);
         this.onFocus.emit(event);
@@ -732,7 +736,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         this.searchValue = '';
         this.dirty = false;
         this.onBlur.emit(event);
@@ -797,6 +801,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
                 break;
         }
+    }
+
+    findVisibleItem(index) {
+        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
     }
 
     findFirstFocusedItemIndex() {
@@ -899,7 +907,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
             if (grouped) {
                 this.onItemChange({ originalEvent: event, processedItem });
-                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item: processedItem.item });
                 this.onArrowRightKey(event);
             }
         } else {
@@ -919,7 +927,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
             if (grouped) {
                 this.onItemChange({ originalEvent: event, processedItem });
-                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item: processedItem.item });
                 this.onArrowDownKey(event);
             }
         } else {
@@ -939,7 +947,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
             if (grouped) {
                 this.onItemChange({ originalEvent: event, processedItem });
-                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+                this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item: processedItem.item });
                 const itemIndex = this.findLastItemIndex();
 
                 this.changeFocusedItemIndex(event, itemIndex);
@@ -947,7 +955,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         } else {
             const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
             if (this.focusedItemInfo().index === 0) {
-                this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+                this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
                 this.searchValue = '';
                 this.onArrowLeftKey(event);
                 const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== this.focusedItemInfo().parentKey);
