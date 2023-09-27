@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -226,7 +227,7 @@ export class MegaMenuSub {
 
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public megaMenu: MegaMenu) {}
+    constructor(public el: ElementRef, @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu) {}
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
