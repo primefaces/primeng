@@ -124,6 +124,11 @@ export class DynamicDialogConfig<T = any> {
      */
     minY?: number;
     /**
+     * When enabled, first button receives focus on show.
+     * @group Props
+     */
+    focusOnShow?: boolean;
+    /**
      * Whether the dialog can be displayed full screen.
      * @group Props
      */

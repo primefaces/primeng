@@ -161,6 +161,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config.minY ? this.config.minY : 0;
     }
 
+    get focusOnShow(): boolean {
+        return this.config.focusOnShow ? this.config.focusOnShow : true;
+    }
+
     get keepInViewport(): boolean {
         return this.config.keepInViewport!;
     }
@@ -253,7 +257,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 if (this.config.modal !== false) {
                     this.enableModality();
                 }
-                this.focus();
+                if (this.focusOnShow) {
+                    this.focus();
+                }
                 break;
 
             case 'void':
