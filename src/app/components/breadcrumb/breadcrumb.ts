@@ -15,7 +15,16 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
     template: `
         <nav [class]="styleClass" [ngStyle]="style" [ngClass]="'p-breadcrumb p-component'" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
             <ol [attr.data-pc-section]="'menu'" class="p-breadcrumb-list">
-                <li [class]="home.styleClass" [attr.id]="home.id" [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }" [ngStyle]="home.style" *ngIf="home" pTooltip [tooltipOptions]="home.tooltipOptions" [attr.data-pc-section]="'home'">
+                <li
+                    [class]="home.styleClass"
+                    [attr.id]="home.id"
+                    [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }"
+                    [ngStyle]="home.style"
+                    *ngIf="home"
+                    pTooltip
+                    [tooltipOptions]="home.tooltipOptions"
+                    [attr.data-pc-section]="'home'"
+                >
                     <a
                         [href]="home.url ? home.url : null"
                         *ngIf="!home.routerLink"

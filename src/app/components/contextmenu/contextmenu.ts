@@ -820,12 +820,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         this.focusedItemInfo.mutate((value) => {
             value.index = this.findFirstFocusedItemIndex();
-            value.item = processedItem.item
+            value.item = processedItem.item;
         });
 
         event.preventDefault();
     }
-
 
     onTabKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
@@ -942,7 +941,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     hide() {
         this.visible.set(false);
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null});
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
 
     toggle(event?: any) {

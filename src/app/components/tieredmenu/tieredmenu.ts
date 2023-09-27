@@ -747,7 +747,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item});
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }

@@ -933,7 +933,7 @@ export class PanelMenu implements AfterContentInit {
     }
 
     getContentId(item, index) {
-        return item.id ? item.id + '_content' :`${this.getPanelId(index)}_content`;
+        return item.id ? item.id + '_content' : `${this.getPanelId(index)}_content`;
     }
 
     updateFocusedHeader(event) {

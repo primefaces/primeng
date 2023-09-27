@@ -842,7 +842,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         if (grouped) {
             let { index, level, key, item } = processedItem;
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: 0, level: level, parentKey: key});
+            this.focusedItemInfo.set({ index: 0, level: level, parentKey: key });
 
             this.searchValue = '';
             this.animate('right');
@@ -909,10 +909,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         if (this.popup) {
             this.hide(event, true);
-            this.focusedItemInfo.mutate(value => {
+            this.focusedItemInfo.mutate((value) => {
                 value.index = this.findLastFocusedItemIndex();
                 value.item = null;
-            })
+            });
 
             event.preventDefault();
         }
@@ -967,7 +967,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus() {
         this.focused = true;
-        
+
         this.bindOutsideClickListener();
         this.bindTransitionListeners();
 
@@ -980,7 +980,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         if (this.focusedItemInfo().index === -1 && !this.left) {
-            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '', item: this.findVisibleItem(0).item});
+            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '', item: this.findVisibleItem(0).item });
         }
     }
 
