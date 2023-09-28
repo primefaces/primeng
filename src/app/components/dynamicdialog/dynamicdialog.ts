@@ -162,7 +162,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get focusOnShow(): boolean {
-        return this.config.focusOnShow ? this.config.focusOnShow : true;
+        return this.config.focusOnShow ?? true;
     }
 
     get keepInViewport(): boolean {
