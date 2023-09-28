@@ -35,6 +35,8 @@ global['navigator'] = win.navigator;
 global['CSS'] = null;
 // global['XMLHttpRequest'] = require('xmlhttprequest').XMLHttpRequest;
 global['Prism'] = null;
+// global google tag manager
+global['gtag'] = () => {};
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {

@@ -419,7 +419,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      */
     @Input() placeholder: string | undefined;
     /**
-     * No description available.
+     * Selected value of the component.
      * @group Props
      */
     @Input() value: string | undefined | null;
@@ -463,11 +463,6 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * @group Props
      */
     @Input() disabled: boolean | undefined;
-    /**
-     * No description available.
-     * @group Props
-     */
-    @Input() rounded: boolean | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props

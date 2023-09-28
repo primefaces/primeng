@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Spinner buttons is enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons,
+                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons,
                 up and down arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>

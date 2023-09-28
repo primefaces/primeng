@@ -22,7 +22,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     selector: 'p-image',
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
-            <img [attr.src]="src" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
+            <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
             <button type="button" class="p-image-preview-indicator" *ngIf="preview" (click)="onImageClick()" #previewButton>
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
@@ -60,7 +60,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -100,15 +100,35 @@ export class Image implements AfterContentInit {
      */
     @Input() style: { [klass: string]: any } | null | undefined;
     /**
-     * Attribute of the image element.
+     * The source path for the main image.
      * @group Props
      */
     @Input() src: string | SafeUrl | undefined;
     /**
-     * Attribute of the image element.
+     * The srcset definition for the main image.
+     * @group Props
+     */
+    @Input() srcSet: string | SafeUrl | undefined;
+    /**
+     * The sizes definition for the main image.
+     * @group Props
+     */
+    @Input() sizes: string | undefined;
+    /**
+     * The source path for the preview image.
      * @group Props
      */
     @Input() previewImageSrc: string | SafeUrl | undefined;
+    /**
+     * The srcset definition for the preview image.
+     * @group Props
+     */
+    @Input() previewImageSrcSet: string | SafeUrl | undefined;
+    /**
+     * The sizes definition for the preview image.
+     * @group Props
+     */
+    @Input() previewImageSizes: string | undefined;
     /**
      * Attribute of the preview image element.
      * @group Props
@@ -250,6 +270,8 @@ export class Image implements AfterContentInit {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
+            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
         }
     }
 
@@ -366,6 +388,8 @@ export class Image implements AfterContentInit {
         this.previewVisible = false;
         this.rotate = 0;
         this.scale = this.zoomSettings.default;
+        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        this.document.body.style.removeProperty('--scrollbar-width');
     }
 
     imageError(event: Event) {

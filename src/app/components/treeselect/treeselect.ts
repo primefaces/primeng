@@ -107,8 +107,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </div>
                             <button class="p-treeselect-close p-link" (click)="hide()">
-                                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-treeselect-filter-icon'" />
-                                <span *ngIf="closeIconTemplate" class="p-treeselect-filter-icon">
+                                <TimesIcon *ngIf="!closeIconTemplate" />
+                                <span *ngIf="closeIconTemplate">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                                 </span>
                             </button>

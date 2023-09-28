@@ -1,8 +1,10 @@
-.p-avatar-group p-avatar + p-avatar {
-    margin-left: -1rem;
-}
+@layer primeng {
+    .p-avatar-group p-avatar + p-avatar {
+        margin-left: -1rem;
+    }
 
-.p-avatar-group {
-    display: flex;
-    align-items: center;
+    .p-avatar-group {
+        display: flex;
+        align-items: center;
+    }
 }
