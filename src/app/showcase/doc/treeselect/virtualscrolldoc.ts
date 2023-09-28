@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"
-                          [virtualScroll]="true" [virtualScrollItemSize]="40" [virtualScrollOptions]="{scrollHeight: '200px'}"></p-treeSelect>
+                          [virtualScroll]="true" [virtualScrollItemSize]="40" [virtualScrollOptions]="{ scrollHeight: '200px' }"></p-treeSelect>
         </div>
         <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>
     </section>`

@@ -113,7 +113,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </button>
                         </div>
-                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
+                        <div class="p-treeselect-items-wrapper" [class.p-treeselect-virtual-scroll]="virtualScroll" [ngStyle]="{ 'max-height': scrollHeight }" >
                             <p-tree
                                 #tree
                                 [value]="options"
