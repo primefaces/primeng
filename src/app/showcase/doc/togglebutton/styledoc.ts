@@ -27,10 +27,6 @@ import { Component, Input } from '@angular/core';
                         <td>p-button-icon-right</td>
                         <td>Value element.</td>
                     </tr>
-                    <tr>
-                        <td>p-button-text</td>
-                        <td>Text element.</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
