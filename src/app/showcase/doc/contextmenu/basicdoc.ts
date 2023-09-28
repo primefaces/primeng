@@ -25,8 +25,9 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'File',
+                label: '<h1>File</h1>',
                 icon: 'pi pi-fw pi-file',
+                escape: false,
                 items: [
                     {
                         label: 'New',
@@ -170,7 +171,7 @@ import { MenuItem } from 'primeng/api';
     selector: 'context-menu-basic-demo',
     templateUrl: './context-menu-basic-demo.html'
 })
-export class ContextBasicDoc implements OnInit {
+export class ContextMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
