@@ -5980,7 +5980,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "No description available."
+                            "description": "Selected value of the component."
                         },
                         {
                             "name": "dataKey",
@@ -6038,14 +6038,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should be disabled."
-                        },
-                        {
-                            "name": "rounded",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "No description available."
                         },
                         {
                             "name": "showClear",
@@ -9074,13 +9066,6 @@
                             "description": "Identifier of the accessible input element."
                         },
                         {
-                            "name": "selectId",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "No description available."
-                        },
-                        {
                             "name": "dataKey",
                             "optional": false,
                             "readonly": false,
@@ -9304,14 +9289,6 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Applies focus to the filter element when the overlay is shown."
-                        },
-                        {
-                            "name": "overlayDirection",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": "end",
-                            "description": "No description available."
                         },
                         {
                             "name": "disabled",
@@ -9720,19 +9697,12 @@
         }
     },
     "dynamicdialog-config": {
-        "components": {},
-        "interfaces": {
-            "description": "Defines the custom interfaces used by the module.",
-            "values": [
-                {
-                    "name": "DynamicDialogConfig",
-                    "description": "Dialogs can be created dynamically with any component as the content using a DialogService.",
-                    "props": [
-                        {
-                            "name": "constructor",
-                            "optional": false,
-                            "readonly": false
-                        },
+        "components": {
+            "DynamicDialogConfig": {
+                "description": "Dialogs can be created dynamically with any component as the content using a DialogService.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
                         {
                             "name": "data",
                             "optional": true,
@@ -9780,6 +9750,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Specifies if pressing escape key should hide the dialog."
                         },
                         {
@@ -9794,6 +9765,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Whether to automatically manage layering."
                         },
                         {
@@ -9801,6 +9773,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Specifies if clicking the modal background should hide the dialog."
                         },
                         {
@@ -9808,6 +9781,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Inline style of the component."
                         },
                         {
@@ -9843,6 +9817,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Adds a close icon to the header to hide the dialog."
                         },
                         {
@@ -9850,6 +9825,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Whether to show the header or not."
                         },
                         {
@@ -9857,6 +9833,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Defines if background should be blocked when dialog is displayed."
                         },
                         {
@@ -9871,6 +9848,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Enables resizing of the content."
                         },
                         {
@@ -9878,6 +9856,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Enables dragging to change the position using header."
                         },
                         {
@@ -9885,6 +9864,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Keeps dialog in the viewport."
                         },
                         {
@@ -9906,6 +9886,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
+                            "default": "false",
                             "description": "Whether the dialog can be displayed full screen."
                         },
                         {
@@ -9945,7 +9926,7 @@
                         }
                     ]
                 }
-            ]
+            }
         }
     },
     "dynamicdialog-injector": {
@@ -11644,14 +11625,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
-                            "description": "Attribute of the image element."
+                            "description": "The source path for the main image."
                         },
                         {
                             "name": "previewImageSrc",
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
-                            "description": "Attribute of the image element."
+                            "description": "The source path for the preview image."
                         },
                         {
                             "name": "alt",
@@ -12335,7 +12316,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "No description available."
+                            "description": "Indicates that whether the input field is required."
                         },
                         {
                             "name": "autocomplete",
@@ -14330,7 +14311,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "comma",
-                            "description": "No description available."
+                            "description": "Defines how the selected items are displayed."
                         },
                         {
                             "name": "autocomplete",
@@ -14338,7 +14319,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "on",
-                            "description": "No description available."
+                            "description": "Defines the autocomplete is active."
                         },
                         {
                             "name": "showClear",
@@ -17495,7 +17476,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "No description available."
+                            "description": "The name of the form control."
                         },
                         {
                             "name": "name",
@@ -20789,6 +20770,16 @@
                             "description": "Callback to invoke on context menu selection change."
                         },
                         {
+                            "name": "selectAllChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "TableSelectAllChangeEvent"
+                                }
+                            ],
+                            "description": "Emits when the all of the items selected or unselected."
+                        },
+                        {
                             "name": "selectionChange",
                             "parameters": [
                                 {
@@ -23369,7 +23360,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "TreeNode<any>[]",
-                            "description": "No description available."
+                            "description": "Values after the tree nodes are filtered."
                         },
                         {
                             "name": "filterLocale",
@@ -24483,6 +24474,13 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
+                        },
+                        {
+                            "name": "paginatorStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "paginatorStyleClass",

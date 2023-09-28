@@ -581,12 +581,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() autofocusFilter: boolean = true;
     /**
-     * No description available.
+     * Defines how the selected items are displayed.
      * @group Props
      */
-    @Input() display: string = 'comma';
+    @Input() display: string | 'comma' | 'chip' = 'comma';
     /**
-     * No description available.
+     * Defines the autocomplete is active.
      * @group Props
      */
     @Input() autocomplete: string = 'on';

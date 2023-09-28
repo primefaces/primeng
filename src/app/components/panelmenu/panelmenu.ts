@@ -84,7 +84,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate"></ng-template>
                             </ng-container>
                             <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                            <span class="p-menuitem-text" *ngIf="processedItem.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
+                            <span class="p-menuitem-text" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
                             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
                         </a>
@@ -193,7 +193,7 @@ export class PanelMenuSub {
     constructor(@Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu, public el: ElementRef) {}
 
     getItemId(processedItem) {
-        return `${this.panelId}_${processedItem.key}`;
+        return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem) {
@@ -267,7 +267,6 @@ export class PanelMenuSub {
             [activeItemPath]="activeItemPath()"
             [transitionOptions]="transitionOptions"
             [items]="processedItems()"
-            [activeItemPath]="activeItemPath()"
             [parentExpanded]="parentExpanded"
             (itemToggle)="onItemToggle($event)"
             (keydown)="onKeyDown($event)"
@@ -325,7 +324,8 @@ export class PanelMenuList implements OnChanges {
     });
 
     get focusedItemId() {
-        return ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
+        const focusedItem = this.focusedItem();
+        return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -373,7 +373,7 @@ export class PanelMenuList implements OnChanges {
     }
 
     isValidItem(processedItem) {
-        return !!processedItem && !this.isItemDisabled(processedItem);
+        return !!processedItem && !this.isItemDisabled(processedItem) && !processedItem.separator;
     }
 
     findFirstItem() {
@@ -447,7 +447,7 @@ export class PanelMenuList implements OnChanges {
         const element = DomHandler.findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 
@@ -532,7 +532,6 @@ export class PanelMenuList implements OnChanges {
 
     onArrowDownKey(event) {
         const processedItem = ObjectUtils.isNotEmpty(this.focusedItem()) ? this.findNextItem(this.focusedItem()) : this.findFirstItem();
-
         this.changeFocusedItem({ originalEvent: event, processedItem, focusOnNext: true });
         event.preventDefault();
     }
@@ -607,13 +606,13 @@ export class PanelMenuList implements OnChanges {
 
     findNextItem(processedItem) {
         const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+
         const matchedItem =
             index < this.visibleItems().length - 1
                 ? this.visibleItems()
                       .slice(index + 1)
                       .find((pItem) => this.isValidItem(pItem))
                 : undefined;
-
         return matchedItem || processedItem;
     }
 
@@ -689,13 +688,13 @@ export class PanelMenuList implements OnChanges {
                         [class]="getItemProp(item, 'styleClass')"
                         [ngStyle]="getItemProp(item, 'style')"
                         [pTooltip]="getItemProp(item, 'tooltip')"
-                        [id]="getHeaderId(i)"
+                        [id]="getHeaderId(item, i)"
                         [tabindex]="0"
                         role="button"
                         [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
                         [attr.aria-expanded]="isItemActive(item)"
                         [attr.aria-label]="getItemProp(item, 'label')"
-                        [attr.aria-controls]="getContentId(i)"
+                        [attr.aria-controls]="getContentId(item, i)"
                         [attr.aria-disabled]="isItemDisabled(item)"
                         [attr.data-p-highlight]="isItemActive(item)"
                         [attr.data-p-disabled]="isItemDisabled(item)"
@@ -763,20 +762,19 @@ export class PanelMenuList implements OnChanges {
                         [@rootItem]="getAnimation(item)"
                         (@rootItem.done)="onToggleDone()"
                         role="region"
-                        [id]="getContentId(i)"
-                        [attr.aria-labelledby]="getHeaderId(i)"
+                        [id]="getContentId(item, i)"
+                        [attr.aria-labelledby]="getHeaderId(item, i)"
                         [attr.data-pc-section]="'toggleablecontent'"
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
                             <p-panelMenuList
-                                [panelId]="getPanelId(i)"
+                                [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
                                 [activeItem]="activeItem()"
                                 [tabindex]="tabindex"
                                 [parentExpanded]="isItemActive(item)"
-                                (itemToggle)="changeExpandedKeys($event)"
                                 (headerFocus)="updateFocusedHeader($event)"
                             ></p-panelMenuList>
                         </div>
@@ -926,20 +924,16 @@ export class PanelMenu implements AfterContentInit {
         return ObjectUtils.isNotEmpty(item.items);
     }
 
-    getPanelId(index) {
-        return `${this.id}_${index}`;
+    getPanelId(index, item?) {
+        return item && item.id ? item.id : `${this.id}_${index}`;
     }
 
-    getPanelKey(index) {
-        return this.getPanelId(index);
+    getHeaderId(item, index) {
+        return item.id ? item.id + '_header' : `${this.getPanelId(index)}_header`;
     }
 
-    getHeaderId(index) {
-        return `${this.getPanelId(index)}_header`;
-    }
-
-    getContentId(index) {
-        return `${this.getPanelId(index)}_content`;
+    getContentId(item, index) {
+        return item.id ? item.id + '_content' : `${this.getPanelId(index)}_content`;
     }
 
     updateFocusedHeader(event) {

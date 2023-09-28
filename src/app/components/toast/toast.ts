@@ -67,7 +67,6 @@ import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
                     </div>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
-                <span *ngIf="message.closeIcon" [class]="'p-toast-message-icon pi ' + message.closeIcon"></span>
                 <button
                     type="button"
                     class="p-toast-icon-close p-link"
@@ -78,6 +77,7 @@ import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
                     [attr.aria-label]="'Close'"
                     [attr.data-pc-section]="'closebutton'"
                 >
+                    <span *ngIf="message.closeIcon" [class]="'pt-1 text-base p-toast-message-icon pi ' + message.closeIcon"></span>
                     <TimesIcon *ngIf="!message.closeIcon" [styleClass]="'p-toast-icon-close-icon'" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
                 </button>
             </div>

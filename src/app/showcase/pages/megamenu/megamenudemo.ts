@@ -8,13 +8,15 @@ import { AccessibilityDoc } from '../../doc/megamenu/accessibilitydoc';
 
 @Component({
     templateUrl: './megamenudemo.html',
-    styles: [`
-        :host ::ng-deep{
-            .p-megamenu-panel {
-                z-index: 3;
+    styles: [
+        `
+            :host ::ng-deep {
+                .p-megamenu-panel {
+                    z-index: 3;
+                }
             }
-        }
-    `]
+        `
+    ]
 })
 export class MegaMenuDemo {
     docs = [
