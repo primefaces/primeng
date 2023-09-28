@@ -318,12 +318,6 @@ export class TreeSelect implements AfterContentInit {
      */
     @Input() resetFilterOnHide: boolean = true;
     /**
-     * Inline style of the tree component.
-     * @group Props
-     */
-    @Input() treeStyle: { [klass: string]: any } | null | undefined;
-
-    /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
