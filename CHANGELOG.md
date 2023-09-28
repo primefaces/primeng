@@ -17,13 +17,10 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.3.1...16.4.0)
 
-**Breaking Changes:**
+**Implemented New Features and Enhancements:**
 
 - Theme updates: change :focus to focus-visible [\#13740](https://github.com/primefaces/primeng/issues/13740)
 - New @layer implementation [\#13737](https://github.com/primefaces/primeng/issues/13737)
-
-**Implemented New Features and Enhancements:**
-
 - dynamic dialog module (same instances on top of each other) and update deprecated methods [\#13617](https://github.com/primefaces/primeng/issues/13617)
 - DataTable | Row selection focus styling issue [\#13617](https://github.com/primefaces/primeng/issues/13617)
 - FileUpload | Drag and drop highlight enhancement [\#13306](https://github.com/primefaces/primeng/issues/13306)
