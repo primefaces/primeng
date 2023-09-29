@@ -766,22 +766,26 @@ export class NodeService {
 
     getDynamicTreeNodes(parentCount: number, childrenCount: number): TreeNode[] {
         const nodes: TreeNode[] = [];
-        for (let index = 0; index < parentCount; index++) {
-            const node: TreeNode = {
-                key: index.toString(),
-                label: 'Parent ' + index,
-                selectable: true,
-                children: []
-            };
-            for (let j = 0; j < childrenCount; j++) {
-                node.children.push({
-                    key: index + '-' + j,
-                    label: 'Child ' + index + '-' + j,
+
+        for (let parentIndex = 0; parentIndex < parentCount; parentIndex++) {
+            const children: TreeNode[] = [];
+
+            for (let childIndex = 0; childIndex < childrenCount; childIndex++) {
+                children.push({
+                    key: `${parentIndex}-${childIndex}`,
+                    label: `Child ${parentIndex}-${childIndex}`,
                     selectable: true,
                 });
             }
-            nodes.push(node);
+
+            nodes.push({
+                key: parentIndex.toString(),
+                label: `Parent ${parentIndex}`,
+                selectable: true,
+                children: children,
+            });
         }
+
         return nodes;
     }
 
