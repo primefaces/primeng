@@ -19,6 +19,7 @@ import {
     PLATFORM_ID,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -73,13 +74,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
                 role="dialog"
-                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
+                    <span [id]="ariaLabelledBy + '_title'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                    <span [id]="ariaLabelledBy + '_title'" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -464,6 +465,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean | undefined;
 
+    ariaLabelledBy: string | undefined;
+
     documentDragListener: VoidListener;
 
     documentDragEndListener: VoidListener;
@@ -551,6 +554,12 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     ngOnInit() {
         if (this.breakpoints) {
             this.createStyle();
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.header) {
+            this.ariaLabelledBy = this.getAriaLabelledBy();
         }
     }
 
