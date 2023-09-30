@@ -24,6 +24,7 @@ import { CustomerService } from '../../service/customerservice';
                 [first]="first"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                (onPage)="pageChange($event)"
                 [rowsPerPageOptions]="[10, 25, 50]"
             >
                 <ng-template pTemplate="header">
@@ -82,6 +83,11 @@ export class PaginatorProgrammaticDoc {
         this.first = 0;
     }
 
+    pageChange(event) {
+        this.first = event.first;
+        this.rows = event.rows;
+    }
+
     isLastPage(): boolean {
         return this.customers ? this.first === this.customers.length - this.rows : true;
     }
@@ -104,6 +110,7 @@ export class PaginatorProgrammaticDoc {
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    (onPage)="pageChange($event)"
     [rowsPerPageOptions]="[10, 25, 50]"
 >
     <ng-template pTemplate="header">
@@ -143,6 +150,7 @@ export class PaginatorProgrammaticDoc {
         [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onPage)="pageChange($event)"
         [rowsPerPageOptions]="[10, 25, 50]"
     >
         <ng-template pTemplate="header">
@@ -201,6 +209,11 @@ export class TablePaginatorProgrammaticDemo {
 
     reset() {
         this.first = 0;
+    }
+
+    pageChange(event) {
+        this.first = event.first;
+        this.rows = event.rows;
     }
 
     isLastPage(): boolean {

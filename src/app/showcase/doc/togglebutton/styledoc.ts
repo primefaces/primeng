@@ -16,20 +16,16 @@ import { Component, Input } from '@angular/core';
                 </thead>
                 <tbody>
                     <tr>
-                        <td>p-knob</td>
+                        <td>p-togglebutton</td>
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-knob-text</td>
+                        <td>p-button-icon-left</td>
                         <td>Text element.</td>
                     </tr>
                     <tr>
-                        <td>p-knob-value</td>
+                        <td>p-button-icon-right</td>
                         <td>Value element.</td>
-                    </tr>
-                    <tr>
-                        <td>p-knob-text</td>
-                        <td>Text element.</td>
                     </tr>
                 </tbody>
             </table>

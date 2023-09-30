@@ -331,6 +331,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
                 DomHandler.addClass(document.body, 'p-overflow-hidden');
+                this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
             }
         }
     }
@@ -351,6 +352,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         if (this.blockScroll) {
             DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            this.document.body.style.removeProperty('--scrollbar-width');
         }
 
         this.unbindAnimationEndListener();

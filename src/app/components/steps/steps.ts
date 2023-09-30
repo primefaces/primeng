@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs';
                     role="tab"
                     [attr.aria-selected]="i === activeIndex"
                     [attr.aria-expanded]="i === activeIndex"
+                    [attr.id]="item.id"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
                     [ngClass]="{ 'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i)) }"
@@ -40,7 +41,6 @@ import { Subscription } from 'rxjs';
                         (click)="onItemClick($event, item, i)"
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
-                        [attr.id]="item.id"
                         [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
                         [fragment]="item.fragment"
                         [queryParamsHandling]="item.queryParamsHandling"
@@ -62,7 +62,6 @@ import { Subscription } from 'rxjs';
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
-                            [attr.id]="item.id"
                             [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
                             [ariaCurrentWhenActive]="exact ? 'step' : undefined"
                         >

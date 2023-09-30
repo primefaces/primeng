@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
         '[class.p-inputtextarea-resizable]': 'autoResize'
     }
 })
-export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
+export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -49,6 +49,10 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
                 this.updateState();
             });
         }
+    }
+
+    ngAfterViewChecked() {
+        this.updateState();
     }
 
     ngAfterViewInit() {

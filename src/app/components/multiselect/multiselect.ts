@@ -581,12 +581,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() autofocusFilter: boolean = true;
     /**
-     * No description available.
+     * Defines how the selected items are displayed.
      * @group Props
      */
-    @Input() display: string = 'comma';
+    @Input() display: string | 'comma' | 'chip' = 'comma';
     /**
-     * No description available.
+     * Defines the autocomplete is active.
      * @group Props
      */
     @Input() autocomplete: string = 'on';
@@ -1471,6 +1471,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     onFilterInputChange(event: KeyboardEvent) {
         this._filterValue = (<HTMLInputElement>event.target).value;
         this.activateFilter();
+        this.filtered = true;
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue });
         this.cd.detectChanges();
     }

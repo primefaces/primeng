@@ -379,11 +379,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input() inputId: string | undefined;
     /**
-     * No description available.
-     * @group Props
-     */
-    @Input() selectId: string | undefined;
-    /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
@@ -533,11 +528,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() autofocusFilter: boolean = true;
-    /**
-     * No description available.
-     * @group Props
-     */
-    @Input() overlayDirection: string = 'end';
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props

@@ -27,10 +27,6 @@ import { Component, Input } from '@angular/core';
                         <td>p-knob-value</td>
                         <td>Value element.</td>
                     </tr>
-                    <tr>
-                        <td>p-knob-text</td>
-                        <td>Text element.</td>
-                    </tr>
                 </tbody>
             </table>
         </div>

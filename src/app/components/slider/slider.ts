@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -313,6 +313,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (!this.sliderHandleClick) {
             this.updateDomData();
             this.handleChange(event);
+
+            if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
+            else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
         }
 
         this.sliderHandleClick = false;
@@ -396,7 +399,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     setValueFromHandle(event: Event, handleValue: any) {
-        this.sliderHandleClick = false;
         let newValue = this.getValueFromHandle(handleValue);
 
         if (this.range) {
