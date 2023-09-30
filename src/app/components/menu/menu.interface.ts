@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
 
 /**
- * Defines valid templates in PanelMenu.
+ * Defines valid templates in Menu.
  * @group Templates
  */
-export interface PanelMenuTemplates {
+export interface MenuTemplates {
     /**
      * Custom template of icon.
      * @param {Object} context - item data.
@@ -15,8 +15,4 @@ export interface PanelMenuTemplates {
          */
         $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
-    /**
-     * Custom template of submenuicon.
-     */
-    submenuicon(): TemplateRef<any>;
 }

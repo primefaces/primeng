@@ -93,16 +93,19 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!megaMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="megaMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -139,15 +142,18 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span
-                                class="p-menuitem-icon"
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            ></span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!megaMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                ></span>
+                                <ng-template *ngTemplateOutlet="megaMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
                             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
@@ -455,6 +461,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     endTemplate: TemplateRef<any> | undefined;
 
+    iconTemplate: TemplateRef<any> | undefined;
+
     menuIconTemplate: TemplateRef<any> | undefined;
 
     submenuIconTemplate: TemplateRef<any> | undefined;
@@ -533,6 +541,10 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
                 case 'end':
                     this.endTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 case 'menuicon':

@@ -95,16 +95,19 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!tieredMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="tieredMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -138,16 +141,19 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!tieredMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="tieredMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -312,6 +318,7 @@ export class TieredMenuSub {
     }
 
     onItemClick(event: any, processedItem: any) {
+        console.log(this.tieredMenu.iconTemplate);
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
@@ -468,6 +475,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
 
+    iconTemplate: Nullable<TemplateRef<any>>;
+    
     submenuIconTemplate: Nullable<TemplateRef<any>>;
 
     container: HTMLDivElement | undefined;
@@ -553,6 +562,10 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+                
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;

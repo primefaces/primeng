@@ -14,6 +14,16 @@ export interface MenubarTemplates {
      */
     end(): TemplateRef<any>;
     /**
+     * Custom template of icon.
+     * @param {Object} context - item data.
+     */
+    icon(context: {
+        /**
+         * Item icon.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
      * Custom template of menuicon.
      */
     menuicon(): TemplateRef<any>;

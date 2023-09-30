@@ -10,6 +10,16 @@ export interface MegaMenuTemplates {
      */
     start(): TemplateRef<any>;
     /**
+     * Custom template of icon.
+     * @param {Object} context - item data.
+     */
+    icon(context: {
+        /**
+         * Item icon.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
      * Custom template of submenuicon.
      */
     submenuicon(): TemplateRef<any>;

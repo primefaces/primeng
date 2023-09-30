@@ -1,6 +1,8 @@
 import {
+    AfterContentInit,
     NgModule,
     Component,
+    ContentChildren,
     ElementRef,
     OnDestroy,
     Input,
@@ -14,6 +16,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     PLATFORM_ID,
+    QueryList,
     TemplateRef,
     Pipe,
     PipeTransform,
@@ -24,7 +27,7 @@ import {
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
@@ -95,6 +98,10 @@ export class SafeHtmlPipe implements PipeTransform {
 
             <ng-template #itemContent>
                 <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                <ng-container *ngIf="item.icon">
+                    <span *ngIf="!menu.iconTemplate" class="p-menuitem-icon" [ngClass]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                    <ng-template *ngTemplateOutlet="menu.iconTemplate; context: { $implicit: item.icon }"></ng-template>
+                </ng-container>
                 <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                 <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
                 <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
@@ -229,7 +236,7 @@ export class MenuItemContent {
         class: 'p-element'
     }
 })
-export class Menu implements OnDestroy {
+export class Menu implements OnDestroy, AfterContentInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -318,9 +325,13 @@ export class Menu implements OnDestroy {
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
+    iconTemplate: TemplateRef<any> | undefined;
 
     container: HTMLDivElement | undefined;
 
@@ -390,6 +401,16 @@ export class Menu implements OnDestroy {
         if (!this.popup) {
             this.bindDocumentClickListener();
         }
+    }
+
+    ngAfterContentInit() {
+        this.templates?.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {

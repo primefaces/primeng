@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -54,7 +55,7 @@ export class MenubarService {
     selector: 'p-menubarSub',
     template: `
         <ul
-            #menubar
+            #sublist
             [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }"
             [attr.data-pc-section]="'menu'"
             role="menu"
@@ -110,16 +111,19 @@ export class MenubarService {
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!menubar.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="menubar.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -156,15 +160,19 @@ export class MenubarService {
                             [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span
-                                class="p-menuitem-icon"
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            ></span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!menubar.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="menubar.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
                             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
@@ -234,11 +242,11 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
+    @ViewChild('sublist', { static: true }) menubarViewChild: ElementRef;
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService, @Inject(forwardRef(() => Menubar)) public menubar: Menubar) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -482,6 +490,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     endTemplate: TemplateRef<any> | undefined;
 
+    iconTemplate: TemplateRef<any> | undefined;
+
     menuIconTemplate: TemplateRef<any> | undefined;
 
     submenuIconTemplate: TemplateRef<any> | undefined;
@@ -568,6 +578,10 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
                 case 'end':
                     this.endTemplate = item.template;
+                    break;
+
+                case 'icon':
+                    this.iconTemplate = item.template;
                     break;
 
                 case 'menuicon':

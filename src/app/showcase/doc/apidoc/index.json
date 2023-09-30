@@ -13489,6 +13489,18 @@
                     },
                     {
                         "parent": "megamenu",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
+                    },
+                    {
+                        "parent": "megamenu",
                         "name": "submenuicon",
                         "parameters": [],
                         "description": "Custom template of submenuicon."
@@ -13687,6 +13699,26 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "menu",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
+                    }
+                ]
+            }
         }
     },
     "menubar": {
@@ -13822,6 +13854,18 @@
                         "name": "end",
                         "parameters": [],
                         "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "menubar",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
                     },
                     {
                         "parent": "menubar",
@@ -16281,6 +16325,18 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "panelmenu",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
+                    },
                     {
                         "parent": "panelmenu",
                         "name": "submenuicon",
@@ -19181,6 +19237,18 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "slidemenu",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
+                    },
                     {
                         "parent": "slidemenu",
                         "name": "backicon",
@@ -22550,6 +22618,18 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "tieredmenu",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item icon.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom template of icon."
+                    },
                     {
                         "parent": "tieredmenu",
                         "name": "submenuicon",

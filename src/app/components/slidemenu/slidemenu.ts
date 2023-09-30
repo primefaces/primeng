@@ -101,16 +101,19 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             [attr.tabindex]="-1"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!slideMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="slideMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -144,16 +147,19 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                             [state]="getItemProp(processedItem, 'state')"
                             pRipple
                         >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
-                                [attr.tabindex]="-1"
-                            >
-                            </span>
+                            <ng-container *ngIf="getItemProp(processedItem, 'icon')">
+                                <span
+                                    *ngIf="!slideMenu.iconTemplate"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <ng-template *ngTemplateOutlet="slideMenu.iconTemplate; context: { $implicit: getItemProp(processedItem, 'icon') }" [attr.data-pc-section]="'icon'" [attr.aria-hidden]="true" [attr.tabindex]="-1"></ng-template>
+                            </ng-container>
                             <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
                                 {{ getItemLabel(processedItem) }}
                             </span>
@@ -509,6 +515,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     @ViewChild('slideMenuContent') slideMenuContentViewChild: ElementRef<any> | undefined;
 
+    iconTemplate: Nullable<TemplateRef<any>>;
+
     submenuIconTemplate: Nullable<TemplateRef<any>>;
 
     backIconTemplate: TemplateRef<any>;
@@ -606,6 +614,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+
                 case 'backicon':
                     this.backIconTemplate = item.template;
                     break;
