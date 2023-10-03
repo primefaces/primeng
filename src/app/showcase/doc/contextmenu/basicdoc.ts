@@ -25,7 +25,7 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: '<h1>File</h1>',
+                label: 'File',
                 icon: 'pi pi-fw pi-file',
                 escape: false,
                 items: [
