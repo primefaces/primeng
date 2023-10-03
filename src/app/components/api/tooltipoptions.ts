@@ -14,7 +14,7 @@ export interface TooltipOptions {
      */
     tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
     /**
-     * Event to show tooltip.
+     * Event to show the tooltip.
      */
     tooltipEvent?: 'hover' | 'focus';
     /**
