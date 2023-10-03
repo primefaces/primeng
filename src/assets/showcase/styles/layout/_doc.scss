@@ -1,7 +1,7 @@
 .doc-tabmenu {
     list-style: none;
     margin: 0 17rem 0 0;
-    padding: 0;
+    padding: 0 0 1px 0;
     display: flex;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--surface-border);
@@ -14,7 +14,7 @@
             background-color: transparent;
             border: 0 none;
             display: block;
-            padding: 1rem 0;
+            padding: 1rem 2rem;
             min-width: 12rem;
             text-align: center;
             color: var(--surface-700);
