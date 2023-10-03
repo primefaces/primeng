@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
-import { useStackBlitz, useCodeSandbox } from '../codeeditor';
+import { useCodeSandbox, useStackBlitz } from '../codeeditor';
 
 @Component({
     selector: 'app-code',
@@ -36,6 +36,7 @@ export class AppCodeComponent {
         if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
             window['Prism'].highlightElement(this.codeElement.nativeElement);
             this.codeElement.nativeElement.classList.add('prism');
+            this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');
         }
     }
 
