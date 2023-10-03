@@ -2234,7 +2234,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "\"focus\" | \"hover\"",
-                            "description": "Position of tooltip."
+                            "description": "Event to show tooltip."
                         },
                         {
                             "name": "appendTo",
@@ -9923,6 +9923,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
+                            "name": "duplicate",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "A boolean to determine if it can be duplicate."
                         }
                     ]
                 }
@@ -11628,11 +11636,39 @@
                             "description": "The source path for the main image."
                         },
                         {
+                            "name": "srcSet",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "The srcset definition for the main image."
+                        },
+                        {
+                            "name": "sizes",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "The sizes definition for the main image."
+                        },
+                        {
                             "name": "previewImageSrc",
                             "optional": false,
                             "readonly": false,
                             "type": "string | SafeUrl",
                             "description": "The source path for the preview image."
+                        },
+                        {
+                            "name": "previewImageSrcSet",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | SafeUrl",
+                            "description": "The srcset definition for the preview image."
+                        },
+                        {
+                            "name": "previewImageSizes",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "The sizes definition for the preview image."
                         },
                         {
                             "name": "alt",
@@ -24474,13 +24510,6 @@
                             "type": "\"both\" | \"top\" | \"bottom\"",
                             "default": "bottom",
                             "description": "Position of the paginator."
-                        },
-                        {
-                            "name": "paginatorStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Custom style class for paginator"
                         },
                         {
                             "name": "paginatorStyleClass",
