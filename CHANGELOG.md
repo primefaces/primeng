@@ -322,6 +322,19 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.10-LTS](https://www.npmjs.com/package/primeng/v/15.4.10-lts) (2023-10-04)
+**Fixed bugs:**
+- Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.9-LTS](https://www.npmjs.com/package/primeng/v/15.4.9-lts) (2023-08-30)
 **Fixed bugs:**
 - Image Component: esc button doesn't close the preview [\#13305](https://github.com/primefaces/primeng/issues/13305)
@@ -578,6 +591,19 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.13-LTS](https://www.npmjs.com/package/primeng/v/14.2.13-lts) (2023-10-04)
+**Fixed bugs:**
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- Dropdown: Escape Key event not default prevented [\#13463](https://github.com/primefaces/primeng/issues/13463)
+- p-splitter: nested panels should have min-width: 0 to leverage flex-basis correctly [\#13323](https://github.com/primefaces/primeng/issues/13323)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.12-LTS](https://www.npmjs.com/package/primeng/v/14.2.12-lts) (2023-08-30)
 - DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)
