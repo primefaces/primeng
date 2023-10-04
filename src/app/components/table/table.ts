@@ -2678,7 +2678,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     onRowDrop(event: Event, rowElement: any) {
         if (this.droppedRowIndex != null) {
-            let dropIndex = <number>this.draggedRowIndex >= this.droppedRowIndex ? this.droppedRowIndex : this.droppedRowIndex === 0 ? 0 : this.droppedRowIndex - 1;
+            let dropIndex = <number>this.droppedRowIndex;
 
             if (this.virtualScroll) {
                 // TODO: Check
