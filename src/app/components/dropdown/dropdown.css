@@ -8,7 +8,7 @@
 .p-dropdown-clear-icon {
     position: absolute;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
 }
 
 .p-dropdown-trigger {
@@ -30,11 +30,21 @@
 
 .p-dropdown-label-empty {
     overflow: hidden;
-    visibility: hidden;
+    opacity: 0;
 }
 
-input.p-dropdown-label  {
+input.p-dropdown-label {
     cursor: default;
+}
+
+.p-dropdown .p-dropdown-panel {
+    min-width: 100%;
+}
+
+.p-dropdown-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .p-dropdown-items-wrapper {
@@ -47,6 +57,10 @@ input.p-dropdown-label  {
     white-space: nowrap;
     position: relative;
     overflow: hidden;
+}
+
+.p-dropdown-item-group {
+    cursor: auto;
 }
 
 .p-dropdown-items {
@@ -66,7 +80,7 @@ input.p-dropdown-label  {
 .p-dropdown-filter-icon {
     position: absolute;
     top: 50%;
-    margin-top: -.5rem;
+    margin-top: -0.5rem;
 }
 
 .p-fluid .p-dropdown {
