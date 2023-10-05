@@ -3,6 +3,7 @@ import { OpenDoc } from '../../doc/dynamicdialog/opendoc';
 import { ImportDoc } from '../../doc/dynamicdialog/importdoc';
 import { StyleDoc } from '../../doc/dynamicdialog/styledoc';
 import { BasicDoc } from '../../doc/dynamicdialog/basicdoc';
+import { PositionDoc } from '../../doc/dynamicdialog/positiondoc';
 import { UsageDoc } from '../../doc/dynamicdialog/usagedoc';
 import { PassingDataDoc } from '../../doc/dynamicdialog/passingdatadoc';
 import { CloseDoc } from '../../doc/dynamicdialog/closedoc';
@@ -22,6 +23,11 @@ export class DynamicDialogDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'position',
+            label: 'Position',
+            component: PositionDoc
         },
         {
             id: 'usage',
