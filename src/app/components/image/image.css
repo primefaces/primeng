@@ -8,6 +8,7 @@
     .p-image-preview-container {
         position: relative;
         display: inline-block;
+        line-height: 0;
     }
 
     .p-image-preview-indicator {
@@ -18,6 +19,7 @@
         height: 100%;
         outline: none;
         border: none;
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
