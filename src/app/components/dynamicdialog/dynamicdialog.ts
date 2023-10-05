@@ -227,27 +227,18 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy, OnInit 
     }
 
     setPosition(value: string) {
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
-        }
+        const transformOptionsMap = {
+            'topleft': 'translate3d(-100%, 0px, 0px)',
+            'bottomleft': 'translate3d(-100%, 0px, 0px)',
+            'left': 'translate3d(-100%, 0px, 0px)',
+            'topright': 'translate3d(100%, 0px, 0px)',
+            'bottomright': 'translate3d(100%, 0px, 0px)',
+            'right': 'translate3d(100%, 0px, 0px)',
+            'bottom': 'translate3d(0px, 100%, 0px)',
+            'top': 'translate3d(0px, -100%, 0px)',
+        };
+
+        this.transformOptions = transformOptionsMap[value] || 'scale(0.7)';
     }
 
     getAriaLabelledBy() {
