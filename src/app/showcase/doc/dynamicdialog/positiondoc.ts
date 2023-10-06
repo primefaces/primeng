@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogPosition, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
@@ -40,7 +40,7 @@ export class PositionDoc implements OnDestroy {
 
     ref: DynamicDialogRef;
 
-    show(position: string) {
+    show(position: DynamicDialogPosition) {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Select a Product',
             width: '70%',

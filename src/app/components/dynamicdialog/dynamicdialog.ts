@@ -28,7 +28,7 @@ import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { DynamicDialogConfig } from './dynamicdialog-config';
+import { DynamicDialogConfig, DynamicDialogPosition } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
 
@@ -226,18 +226,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy, OnInit 
         this.cd.detectChanges();
     }
 
-    setPosition(value: string) {
+    setPosition(value: DynamicDialogPosition) {
         const transformOptionsMap = {
-            'topleft': 'translate3d(-100%, 0px, 0px)',
-            'bottomleft': 'translate3d(-100%, 0px, 0px)',
+            'top-left': 'translate3d(-100%, -100%, 0px)',
+            'bottom-left': 'translate3d(-100%, 100%, 0px)',
             'left': 'translate3d(-100%, 0px, 0px)',
-            'topright': 'translate3d(100%, 0px, 0px)',
-            'bottomright': 'translate3d(100%, 0px, 0px)',
+            'top-right': 'translate3d(100%, -100%, 0px)',
+            'bottom-right': 'translate3d(100%, 100%, 0px)',
             'right': 'translate3d(100%, 0px, 0px)',
             'bottom': 'translate3d(0px, 100%, 0px)',
             'top': 'translate3d(0px, -100%, 0px)',
         };
-
         this.transformOptions = transformOptionsMap[value] || 'scale(0.7)';
     }
 

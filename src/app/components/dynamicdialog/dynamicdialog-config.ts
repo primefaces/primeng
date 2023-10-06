@@ -142,7 +142,7 @@ export class DynamicDialogConfig<T = any> {
      * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
      * @group Props
      */
-    position?: string;
+    position?: DynamicDialogPosition;
     /**
      * Defines a string that labels the close button for accessibility.
      * @group Props
@@ -159,3 +159,5 @@ export class DynamicDialogConfig<T = any> {
      */
     duplicate?: boolean;
 }
+
+export type DynamicDialogPosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
