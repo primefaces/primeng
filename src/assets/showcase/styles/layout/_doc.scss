@@ -63,11 +63,12 @@
 }
 
 .doc-intro {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
     p {
         font-size: 1.125rem;
         color: var(--surface-900);
+        margin: 0;
     }
 }
 
@@ -235,8 +236,16 @@
         }
     }
 
-    pre {
-        margin: 0 0 1.5rem 0;
+    pre[class*=language-] {
+        margin: 0;
+    }
+}
+
+app-code {
+    display: block;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
     }
 }
 
@@ -254,7 +263,7 @@
 
     th {
         border-bottom: 1px solid var(--surface-border);
-        padding: 1rem;
+        padding: .75rem;
         text-align: left;
         text-transform: capitalize;
     }
@@ -265,7 +274,7 @@
         }
 
         td {
-            padding: 1rem;
+            padding: .75rem;
             border-bottom: 1px solid var(--surface-border);
             white-space: pre-wrap;
             line-height: 1.5;

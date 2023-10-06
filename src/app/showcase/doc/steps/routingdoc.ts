@@ -6,7 +6,7 @@ import { TicketService } from '../../service/ticketservice';
 
 @Component({
     selector: 'routing-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Example below uses nested routes with Steps.</p>
         </app-docsectiontext>

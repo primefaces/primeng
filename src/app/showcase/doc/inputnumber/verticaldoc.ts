@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                 buttonLayout="vertical"
                 spinnerMode="vertical"
                 inputId="vertical"
-                [style]="{'width': '4rem'}"
+                [style]="{ width: '4rem' }"
                 decrementButtonClass="p-button-secondary"
                 incrementButtonClass="p-button-secondary"
                 incrementButtonIcon="pi pi-plus"

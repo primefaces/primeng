@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-maximizable-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>maximizable</i> property to <i>true</i> enables the full screen mode.</p>
         </app-docsectiontext>

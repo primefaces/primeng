@@ -5,7 +5,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'surfaces-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette varies between 0 - 900 and named surfaces are also available.</p>
         </app-docsectiontext>

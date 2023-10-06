@@ -9,7 +9,7 @@ interface Column {
 }
 @Component({
     selector: 'column-toggle-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>

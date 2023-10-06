@@ -9,7 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-advanced-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
