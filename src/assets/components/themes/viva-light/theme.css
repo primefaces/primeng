@@ -205,8 +205,8 @@
     box-sizing: border-box;
   }
   .p-component {
-    font-family: inherit;
-    font-feature-settings: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
     font-weight: normal;
   }
@@ -231,9 +231,9 @@
     height: 1rem;
   }
   .p-link {
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
-    font-family: inherit;
-    font-feature-settings: inherit;
     border-radius: 6px;
   }
   .p-link:focus-visible {
@@ -286,9 +286,9 @@
     padding: 0.25rem 0;
   }
   .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #6c6c6c;
     padding: 0;
     margin: 0;
@@ -767,9 +767,9 @@
     padding: 0.25rem 0;
   }
   .p-chips .p-chips-multiple-container .p-chips-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #6c6c6c;
     padding: 0;
     margin: 0;
@@ -1144,8 +1144,8 @@
     border-color: #f88c79;
   }
   .p-inputtext {
-    font-family: inherit;
-    font-feature-settings: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
     color: #6c6c6c;
     background: #ffffff;
@@ -6096,6 +6096,10 @@
     outline-offset: 0;
     box-shadow: 0 0 0 0.1rem #bbc7ee;
   }
+  .p-chip .pi-chip-remove-icon:focus {
+    outline: 0 none;
+  }
+
   .p-inplace .p-inplace-display {
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
@@ -6192,9 +6196,9 @@
     padding: 1rem;
   }
   .p-terminal .p-terminal-input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
   }
 }
 /* Customizations to the designer theme should be defined here */

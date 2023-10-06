@@ -14,6 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';`
+        typescript: `import { DataViewModule } from 'primeng/dataview';`
     };
 }
