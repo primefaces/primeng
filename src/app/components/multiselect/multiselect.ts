@@ -992,6 +992,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateFilledState();
         this.checkSelectionLimit();
         this.cd.markForCheck();
+        
     }
 
     checkSelectionLimit() {
