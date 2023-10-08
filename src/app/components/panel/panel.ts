@@ -36,7 +36,6 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
                         (click)="onIconClick($event)"
                         (keydown)="onKeyDown($event)"
                     >
-                    
                         <ng-container *ngIf="!headerIconTemplate">
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
@@ -51,7 +50,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
 
                         <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
                     </button>
-                        <button (click)="toggle($event)">collapse</button>
+                    <button (click)="toggle($event)">collapse</button>
                 </div>
             </div>
             <div

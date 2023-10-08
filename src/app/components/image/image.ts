@@ -23,7 +23,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
-            <button type="button" class="p-image-preview-indicator" (click)="onImageClick()" #previewButton [ngStyle]="{'height': height + 'px', 'width': width + 'px'}" style="border: 'none';">
+            <button type="button" class="p-image-preview-indicator" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }" style="border: 'none';">
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
