@@ -50,7 +50,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
 
                         <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
                     </button>
-                    <button (click)="toggle($event)">collapse</button>
+                   
                 </div>
             </div>
             <div
