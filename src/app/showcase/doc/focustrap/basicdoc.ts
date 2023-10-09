@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'focus-trap-basic-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-rounded-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Rounded buttons have a circular border radius.</p>
         </app-docsectiontext>

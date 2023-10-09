@@ -7,7 +7,7 @@ interface LazyEvent {
 }
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,

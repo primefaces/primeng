@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-template-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>

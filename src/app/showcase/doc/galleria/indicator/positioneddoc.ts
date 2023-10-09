@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'positioned-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to

@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'dropdown-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible

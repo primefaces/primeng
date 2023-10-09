@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'closable-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Messages are <i>closable</i> by default resulting in a close icon being displayed on top right corner. In order to disable closable messages, set <i>closable</i> to <i>false</i>. Note that in this case two-way binding is not necessary

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'without-cancel-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>

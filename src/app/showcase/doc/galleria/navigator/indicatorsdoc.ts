@@ -5,7 +5,7 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'indicators-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>

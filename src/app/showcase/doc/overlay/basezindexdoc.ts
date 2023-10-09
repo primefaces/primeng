@@ -3,7 +3,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'base-zindex-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>The <i>baseZIndex</i> is base zIndex value to use in layering. Its default value is 0.</p>
         </app-docsectiontext>

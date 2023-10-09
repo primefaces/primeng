@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-icon-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>
         </app-docsectiontext>

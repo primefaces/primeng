@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>

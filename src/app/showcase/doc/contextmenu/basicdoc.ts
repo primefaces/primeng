@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-basic-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
         </app-docsectiontext>

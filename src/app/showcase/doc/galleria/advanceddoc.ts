@@ -6,7 +6,7 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>

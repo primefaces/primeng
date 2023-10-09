@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>

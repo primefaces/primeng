@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-pie-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>

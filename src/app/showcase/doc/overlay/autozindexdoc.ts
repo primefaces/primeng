@@ -3,7 +3,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'auto-zindex-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>The <i>autoZIndex</i> determines whether to automatically manage layering. Its default value is 'false'.</p>
         </app-docsectiontext>

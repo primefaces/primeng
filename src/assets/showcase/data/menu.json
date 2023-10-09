@@ -313,10 +313,6 @@
                             "routerLink": "/panelmenu"
                         },
                         {
-                            "name": "SlideMenu",
-                            "routerLink": "/slidemenu"
-                        },
-                        {
                             "name": "Steps",
                             "routerLink": "/steps"
                         },

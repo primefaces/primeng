@@ -7,7 +7,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'filter-row-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Filters are displayed inline within a separate row.</p>
         </app-docsectiontext>

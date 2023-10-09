@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'datatable-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample DataTable implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>

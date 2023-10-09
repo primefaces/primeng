@@ -6,7 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-locale-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>

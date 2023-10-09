@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'palette-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Colors palette consists of 13 main colors where each color provides tints/shades from 50 to 900.</p>
         </app-docsectiontext>

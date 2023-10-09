@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-basic-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property. Dialogs are <i>draggable</i> and <i>resizable</i> by default.</p>
         </app-docsectiontext>

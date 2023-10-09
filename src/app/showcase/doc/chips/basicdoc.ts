@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-basic-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Chips is used as a controlled input with <i>ngModel</i> property where it should be an array.</p>
         </app-docsectiontext>

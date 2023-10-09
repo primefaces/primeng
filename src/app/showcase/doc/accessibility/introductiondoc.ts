@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p class="line-height-3  bg-indigo-600 text-white p-3 text-lg" style="border-radius: 10px;">
                 Accessibility is a major concern of the Prime UI libraries and PrimeNG is no exception. <a href="https://www.primetek.com.tr" class="text-white">PrimeTek</a> teams have initiated a significant process to review and enhance the

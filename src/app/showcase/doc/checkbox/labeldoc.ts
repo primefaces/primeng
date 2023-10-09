@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-label-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The label attribute provides a label text for the checkbox. This label is also clickable and toggles the checked state.</p>
         </app-docsectiontext>
