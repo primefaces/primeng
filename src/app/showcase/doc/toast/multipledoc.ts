@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <button type="button" pButton pRipple (click)="showMultiple()" label="Show Multiple"></button>
+            <button type="button" pButton pRipple (click)="show()" label="Multiple"></button>
         </div>
         <app-code [code]="code" selector="toast-multiple-demo"></app-code>
     </section>`,
@@ -23,7 +23,7 @@ export class MultipleDoc {
 
     constructor(private messageService: MessageService) {}
 
-    showMultiple() {
+    show() {
         this.messageService.addAll([
             { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
             { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
@@ -34,11 +34,11 @@ export class MultipleDoc {
     code: Code = {
         basic: `
 <p-toast></p-toast>
-<button type="button" pButton pRipple (click)="showMultiple()" label="Show Multiple"></button>`,
+<button type="button" pButton pRipple (click)="show()" label="Multiple"></button>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="showMultiple()" label="Show Multiple"></button>
+    <button type="button" pButton pRipple (click)="show()" label="Multiple"></button>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
@@ -52,7 +52,7 @@ import { MessageService } from 'primeng/api';
 export class ToastMultipleDemo {
     constructor(private messageService: MessageService) {}
 
-    showMultiple() {
+    show() {
         this.messageService.addAll([
             { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
             { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
