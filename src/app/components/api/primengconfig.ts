@@ -7,6 +7,8 @@ import { Translation } from './translation';
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
     ripple: boolean = false;
+    
+    inputStyle: 'outlined' | 'filled' = 'outlined';
 
     overlayOptions: OverlayOptions = {};
 
