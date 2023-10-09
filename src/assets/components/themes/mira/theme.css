@@ -960,7 +960,7 @@
   .p-dropdown .p-dropdown-label.p-placeholder {
     color: #4C566A;
   }
-  .p-dropdown .p-dropdown-label:enabled:focus {
+  .p-dropdown .p-dropdown-label:focus, .p-dropdown .p-dropdown-label:enabled:focus {
     outline: 0 none;
     box-shadow: none;
   }
@@ -974,6 +974,9 @@
   .p-dropdown .p-dropdown-clear-icon {
     color: #81A1C1;
     right: 2.357rem;
+  }
+  .p-dropdown.p-invalid.p-component {
+    border-color: #BF616A;
   }
 
   .p-dropdown-panel {
@@ -1016,12 +1019,14 @@
     color: #2E3440;
     background: #D8DEE9;
   }
-  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
-    color: #4C566A;
-    background: transparent;
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+    background: #bec8da;
   }
-  .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
-    padding: 0.5rem 1rem;
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled).p-focus {
+    color: #4C566A;
+    background: #E5E9F0;
+  }
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
     color: #4C566A;
     background: transparent;
   }
@@ -1032,9 +1037,10 @@
     background: #ffffff;
     font-weight: 600;
   }
-
-  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
-    border-color: #BF616A;
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-empty-message {
+    padding: 0.5rem 1rem;
+    color: #4C566A;
+    background: transparent;
   }
 
   .p-input-filled .p-dropdown {

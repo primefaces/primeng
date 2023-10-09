@@ -36,6 +36,12 @@
                                 </a>
                             </li>
                             <li class="mr-0 lg:mr-2">
+                                <a href="/uikit">
+                                    <img src="https://primefaces.org/cdn/primeng/images/landing/uikit-icon.svg" alt="primevue designer" width="30" />
+                                    <span>UI Kit</span>
+                                </a>
+                            </li>
+                            <li class="mr-0 lg:mr-2">
                                 <a href="https://www.primefaces.org/store/templates.xhtml" target="_blank">
                                     <img src="https://primefaces.org/cdn/primeng/images/landing/templates-icon.svg" width="34" height="30" alt="Primeng templates" />
                                     <span>Templates</span>
@@ -43,13 +49,14 @@
                             </li>
                         </ol>
                     </nav>
-                    <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer"
-                        class="linkbox p-0 header-button mr-2 flex align-items-center justify-content-center flex-shrink-0">
+                    <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox p-0 header-button mr-1 md:mr-2 flex align-items-center justify-content-center flex-shrink-0">
                         <i class="pi pi-github"></i>
                     </a>
-                    <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer"
-                        class="linkbox p-0 header-button mr-2 flex align-items-center justify-content-center flex-shrink-0">
+                    <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox p-0 header-button mr-1 md:mr-2 flex align-items-center justify-content-center flex-shrink-0">
                         <i class="pi pi-discord"></i>
+                    </a>
+                    <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer" class="linkbox p-0 header-button mr-1 md:mr-2 flex align-items-center justify-content-center flex-shrink-0">
+                        <i class="pi pi-comments"></i>
                     </a>
                     <button type="button"
                         class="linkbox header-button inline-flex align-items-center justify-content-center"
@@ -57,7 +64,7 @@
                         <i class="pi pi-{{ config.dark ? 'sun' : 'moon' }}"></i>
                     </button>
                     <button
-                        class="linkbox header-button inline-flex align-items-center justify-content-center lg:hidden ml-2 menu-button"
+                        class="linkbox header-button inline-flex align-items-center justify-content-center lg:hidden ml-1 md:ml-2 menu-button"
                         (click)="menuActive = !menuActive">
                         <i class="pi pi-bars"></i>
                     </button>
