@@ -62,10 +62,12 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </ng-template>
                 </div>
                 <ng-container *ngIf="checkValue() && !disabled && showClear">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-treeselect-clear-icon'" (click)="clear($event)" />
-                    <span *ngIf="clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                    </span>
+                    <div class="p-treeselect-trigger">
+                        <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-treeselect-clear-icon'" (click)="clear($event)" />
+                        <span *ngIf="clearIconTemplate" class="p-treeselect-clear-icon" (click)="clear($event)">
+                            <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                        </span>
+                    </div>
                 </ng-container>
             </div>
             <div class="p-treeselect-trigger">
