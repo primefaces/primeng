@@ -44,9 +44,9 @@
     }
     .p-multiselect-token-label {
         overflow: hidden;
-        text-overflow: ellipsis; 
-        white-space: nowrap; 
-        max-width: 100px; 
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100px;
     }
     .p-multiselect-items-wrapper {
         overflow: auto;
