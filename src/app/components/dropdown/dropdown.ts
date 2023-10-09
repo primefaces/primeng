@@ -466,7 +466,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Whether to display the first item as the label if no placeholder is defined and value is null.
      * @group Props
      */
-    @Input() autoDisplayFirst: boolean = false;
+    @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
