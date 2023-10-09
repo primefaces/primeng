@@ -280,7 +280,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document,  @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -518,13 +518,15 @@ export class GalleriaContent implements DoCheck {
     }
 
     startSlideShow() {
-        this.interval = setInterval(() => {
-            let activeIndex = this.galleria.circular && this.value.length - 1 === this.activeIndex ? 0 : this.activeIndex + 1;
-            this.onActiveIndexChange(activeIndex);
-            this.activeIndex = activeIndex;
-        }, this.galleria.transitionInterval);
-
-        this.slideShowActive = true;
+        if(isPlatformBrowser(this.galleria.platformId)) {
+            this.interval = setInterval(() => {
+                let activeIndex = this.galleria.circular && this.value.length - 1 === this.activeIndex ? 0 : this.activeIndex + 1;
+                this.onActiveIndexChange(activeIndex);
+                this.activeIndex = activeIndex;
+            }, this.galleria.transitionInterval);
+    
+            this.slideShowActive = true;
+        }
     }
 
     stopSlideShow() {
