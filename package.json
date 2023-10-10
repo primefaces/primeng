@@ -93,7 +93,6 @@
         "zone.js": "~0.13.0"
     },
     "dependencies": {
-        "@docsearch/js": "^3.3.4",
-        "@types/react": "^18.0.28"
+        "@docsearch/js": "^3.3.4"
     }
 }
