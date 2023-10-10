@@ -265,7 +265,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         if (simpleChange.id) {
-            console.log('e')
+            console.log('e');
             this.setOption({ id: simpleChange.text.currentValue });
         }
 
@@ -370,7 +370,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.container = document.createElement('div');
         this.container.setAttribute('id', this.getOption('id') || this.id);
-        this.container.setAttribute('role', 'tooltip')
+        this.container.setAttribute('role', 'tooltip');
 
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
