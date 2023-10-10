@@ -163,7 +163,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) { }
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -389,7 +389,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.width = 'fit-content';
         }
 
-        if (!this.isAutoHide()) {
+        if (this.isAutoHide()) {
+            this.container.style.pointerEvents = 'none';
+        } else {
+            this.container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
     }
@@ -698,4 +701,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     exports: [Tooltip],
     declarations: [Tooltip]
 })
-export class TooltipModule {}
+export class TooltipModule { }
