@@ -1,9 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -16,6 +16,11 @@ import { ZIndexUtils } from 'primeng/utils';
     }
 })
 export class Tooltip implements AfterViewInit, OnDestroy {
+    /**
+     * When present, it adds a custom id to the tooltip.
+     * @group Props
+     */
+    @Input() id: string | undefined;
     /**
      * Position of the tooltip.
      * @group Props
@@ -92,10 +97,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      */
     @Input() hideOnEscape: boolean = true;
     /**
-     * Content of the tooltip.
+     * Text of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
+    @Input('pTooltip') text: string | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
@@ -130,7 +135,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         positionLeft: null,
         life: null,
         autoHide: true,
-        hideOnEscape: true
+        hideOnEscape: true,
+        id: null
     };
 
     _disabled: boolean | undefined;
@@ -163,9 +169,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private changeDetector: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
+        this.id = this.id || UniqueComponentId() + '_tooltip';
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 if (this.getOption('tooltipEvent') === 'hover') {
@@ -240,11 +247,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ disabled: simpleChange.disabled.currentValue });
         }
 
-        if (simpleChange.content) {
-            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
+        if (simpleChange.text) {
+            this.setOption({ tooltipLabel: simpleChange.text.currentValue });
 
             if (this.active) {
-                if (simpleChange.content.currentValue) {
+                if (simpleChange.text.currentValue) {
                     if (this.container && this.container.offsetParent) {
                         this.updateText();
                         this.align();
@@ -255,6 +262,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.hide();
                 }
             }
+        }
+
+        if (simpleChange.id) {
+            console.log('e')
+            this.setOption({ id: simpleChange.text.currentValue });
         }
 
         if (simpleChange.autoHide) {
@@ -292,13 +304,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid =
-                DomHandler.hasClass(e.target, 'p-tooltip') ||
-                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
-                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            const valid = DomHandler.hasClass(e.target, 'p-tooltip') || DomHandler.hasClass(e.target, 'p-tooltip-arrow') || DomHandler.hasClass(e.target, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -363,6 +369,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         this.container = document.createElement('div');
+        this.container.setAttribute('id', this.getOption('id') || this.id);
+        this.container.setAttribute('role', 'tooltip')
 
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
@@ -436,16 +444,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     updateText() {
-        const content = this.getOption('tooltipLabel');
-        if (content instanceof TemplateRef) {
-            const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
-            embeddedViewRef.detectChanges();
-            embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
-        } else if (this.getOption('escape')) {
+        if (this.getOption('escape')) {
             this.tooltipText.innerHTML = '';
-            this.tooltipText.appendChild(document.createTextNode(content));
+            this.tooltipText.appendChild(document.createTextNode(this.getOption('tooltipLabel')));
         } else {
-            this.tooltipText.innerHTML = content;
+            this.tooltipText.innerHTML = this.getOption('tooltipLabel');
         }
     }
 
