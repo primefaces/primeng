@@ -4,7 +4,6 @@
         display: none;
         padding: 0.25em 0.5rem;
         max-width: 12.5rem;
-        pointer-events: none;
     }
 
     .p-tooltip.p-tooltip-right,
