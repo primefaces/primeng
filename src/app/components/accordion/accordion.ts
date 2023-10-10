@@ -292,17 +292,9 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         accordionTabs.forEach((tab) => {
             const content = tab.querySelector('.p-accordion-content');
             const focusableElements = DomHandler.getFocusableElements(content);
-            if (tab.classList.contains('p-accordion-tab-active')) {
-                focusableElements.forEach((element) => {
-                    if (!element.classList.contains('p-accordion-header-link')) {
-                        element.tabIndex = -2;
-                    }
-                });
-            } else {
-                focusableElements.forEach((element) => {
-                    element.tabIndex = 0;
-                });
-            }
+            focusableElements.forEach((element) => {
+                element.tabIndex = tab.classList.contains('p-accordion-tab-active') && !element.classList.contains('p-accordion-header-link') ? -2 : 0;
+            });
         });
     }
 
