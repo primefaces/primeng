@@ -86,6 +86,11 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Input() multiple: boolean | undefined;
     /**
+     * Whether selection can not be cleared.
+     * @group Props
+     */
+    @Input() allowEmpty: boolean = true;
+    /**
      * Inline style of the component.
      * @group Props
      */
@@ -174,26 +179,24 @@ export class SelectButton implements ControlValueAccessor {
 
         const optionValue = this.getOptionValue(option);
 
+        let selected = this.isSelected(option);
+
+        if (selected && !this.allowEmpty) {
+            return;
+        }
+
         if (this.multiple) {
             if (this.isSelected(option)) this.removeOption(option);
             else this.value = [...(this.value || []), optionValue];
-
-            this.onModelChange(this.value);
-
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        } else if (this.value !== optionValue) {
-            this.value = optionValue;
-            this.onModelChange(this.value);
-
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
+        } else {
+            this.value = selected ? null : optionValue;
         }
 
+        this.onModelChange(this.value);
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
         this.onOptionClick.emit({
             originalEvent: event,
             option: option,
