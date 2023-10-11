@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-button label="Emails" badge="8"></p-button>
-            <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+            <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
     </section>`
@@ -22,12 +22,12 @@ export class BadgeDoc {
     code: Code = {
         basic: `
 <p-button label="Emails" badge="8"></p-button>
-<p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
+<p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-button label="Emails" badge="8"></p-button>
-    <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+    <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
 </div>`,
 
         typescript: `
