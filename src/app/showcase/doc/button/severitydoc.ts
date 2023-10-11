@@ -9,12 +9,12 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
             <p-button label="Primary"></p-button>
-            <p-button label="Secondary" styleClass="p-button-secondary"></p-button>
-            <p-button label="Success" styleClass="p-button-success"></p-button>
-            <p-button label="Info" styleClass="p-button-info"></p-button>
-            <p-button label="Warning" styleClass="p-button-warning"></p-button>
-            <p-button label="Help" styleClass="p-button-help"></p-button>
-            <p-button label="Danger" styleClass="p-button-danger"></p-button>
+            <p-button label="Secondary" severity="secondary"></p-button>
+            <p-button label="Success" severity="success"></p-button>
+            <p-button label="Info" severity="info"></p-button>
+            <p-button label="Warning" severity="warning"></p-button>
+            <p-button label="Help" severity="help"></p-button>
+            <p-button label="Danger" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
     </section>`
@@ -27,22 +27,22 @@ export class SeverityDoc {
     code: Code = {
         basic: `
 <p-button label="Primary"></p-button>
-<p-button label="Secondary" styleClass="p-button-secondary"></p-button>
-<p-button label="Success" styleClass="p-button-success"></p-button>
-<p-button label="Info" styleClass="p-button-info"></p-button>
-<p-button label="Warning" styleClass="p-button-warning"></p-button>
-<p-button label="Help" styleClass="p-button-help"></p-button>
-<p-button label="Danger" styleClass="p-button-danger"></p-button>`,
+<p-button label="Secondary" severity="secondary"></p-button>
+<p-button label="Success" severity="success"></p-button>
+<p-button label="Info" severity="info"></p-button>
+<p-button label="Warning" severity="warning"></p-button>
+<p-button label="Help" severity="help"></p-button>
+<p-button label="Danger" severity="danger"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
     <p-button label="Primary"></p-button>
-    <p-button label="Secondary" styleClass="p-button-secondary"></p-button>
-    <p-button label="Success" styleClass="p-button-success"></p-button>
-    <p-button label="Info" styleClass="p-button-info"></p-button>
-    <p-button label="Warning" styleClass="p-button-warning"></p-button>
-    <p-button label="Help" styleClass="p-button-help"></p-button>
-    <p-button label="Danger" styleClass="p-button-danger"></p-button>
+    <p-button label="Secondary" severity="secondary"></p-button>
+    <p-button label="Success" severity="success"></p-button>
+    <p-button label="Info" severity="info"></p-button>
+    <p-button label="Warning" severity="warning"></p-button>
+    <p-button label="Help" severity="help"></p-button>
+    <p-button label="Danger" severity="danger"></p-button>
 </div>`,
 
         typescript: `

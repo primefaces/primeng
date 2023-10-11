@@ -2234,7 +2234,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "\"focus\" | \"hover\"",
-                            "description": "Event to show tooltip."
+                            "description": "Event to show the tooltip."
                         },
                         {
                             "name": "appendTo",
@@ -4251,7 +4251,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
+                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4287,7 +4287,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
+                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4587,6 +4587,68 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon to display in loading state."
+                        },
+                        {
+                            "name": "raised",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a shadow to indicate elevation."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a circular border radius to the button."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "plain",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a plain textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the style of the button."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a border class without a background initially."
+                        },
+                        {
+                            "name": "link",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a link style to the button."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the button."
                         },
                         {
                             "name": "style",
@@ -18591,6 +18653,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When specified, allows selecting multiple values."
+                        },
+                        {
+                            "name": "allowEmpty",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether selection can not be cleared."
                         },
                         {
                             "name": "style",

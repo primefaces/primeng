@@ -1,6 +1,9 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { AppConfig } from 'src/app/showcase/domain/appconfig';
+import { AppConfigService } from 'src/app/showcase/service/appconfigservice';
 
 @Component({
     selector: 'app-docapitable',
@@ -29,9 +32,19 @@ export class AppDocApiTable implements OnInit {
 
     @Input() isInterface: boolean = false;
 
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location) {}
+    config: AppConfig;
 
-    ngOnInit() {}
+    subscription: Subscription;
+
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, public configService: AppConfigService) {}
+
+    ngOnInit() {
+        this.config = this.configService.config;
+
+        this.subscription = this.configService.configUpdate$.subscribe((config) => {
+            this.config = config;
+        });
+    }
 
     navigate(event, param) {
         if (typeof window !== undefined) {
@@ -104,6 +117,12 @@ export class AppDocApiTable implements OnInit {
             const label = document.getElementById(id);
             this.location.go(`${this.location.path()}/#${id}`);
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 }

@@ -19,24 +19,40 @@
             </thead>
             <tbody>
                 <tr *ngFor="let prop of data">
-                    <td *ngFor="let entry of getEntries(prop)" [ngClass]="{'doc-option-type': entry[0] === 'type', 'doc-option-default': entry[0] === 'default'}">
-                        <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
-                            <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{'line-through cursor-pointer': !!prop.deprecated}" [attr.title]="prop.deprecated">{{entry[1] || '-'}}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a></span>
-                            <span *ngIf="entry[0] === 'type'">{{entry[1] || '-'}}</span>
+                    <td *ngFor="let entry of getEntries(prop)">
+                        <ng-container
+                            *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
+                            <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name"
+                                [ngClass]="{'line-through cursor-pointer': !!prop.deprecated}"
+                                [attr.title]="prop.deprecated">{{entry[1] || '-'}}<a
+                                    (click)="navigate($event, entry[1])" class="doc-option-link"><i
+                                        class="pi pi-link"></i></a></span>
+                            <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{entry[1] || '-'}}</span>
                             <ng-container *ngIf="entry[0] === 'parameters'">
-                                <ng-container *ngIf="entry[1].name; else nullValue">
-                                    <span *ngIf="entry[1].name" [ngClass]="{'parameter-bold': label === 'Templates'}">{{entry[1].name}} :</span>
-                                    <ng-container *ngFor="let value of getType(entry[1].type); let i = index;">{{i !== 0 ? ' |' : ' ' }} <a *ngIf="isLinkType(value); else elseBlock" (click)="scrollToLinkedElement($event, value, prop)" class="cursor-pointer text-primary">{{value || '-'}}</a>
+                                <div class="doc-option-params" *ngIf="entry[1].name; else nullValue">
+                                    <span *ngIf="entry[1].name"
+                                        [ngClass]="{'doc-option-parameter-name': label === 'Emitters', 'text-primary-700':label === 'Templates'}">{{entry[1].name}}
+                                        :</span>
+                                    <ng-container *ngFor="let value of getType(entry[1].type); let i = index;">{{i !== 0
+                                        ? ' |' : ' ' }} <a *ngIf="isLinkType(value); else elseBlock"
+                                            (click)="scrollToLinkedElement($event, value, prop)"
+                                            [ngClass]="{'doc-option-parameter-type':label === 'Emitters', 'text-primary-700':label==='Templates'}">{{value || '-'}}</a>
                                         <ng-template #elseBlock>
-                                            <span>{{value}}</span>
+                                            <span [ngClass]="{'doc-option-parameter-type':label === 'Emitters', 'text-primary-700':label==='Templates'}">{{value}}</span>
                                         </ng-template>
                                     </ng-container>
-                                </ng-container>
+                                </div>
                                 <ng-template #nullValue>
                                     <span>null</span>
                                 </ng-template>
                             </ng-container>
-                            <span *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'" [id]="id + '.' + entry[0]">{{entry[1]}}</span>
+                            <span [ngClass]="{
+                                'doc-option-dark': config.dark && entry[0] === 'default',
+                                'doc-option-light': !config.dark && entry[0] === 'default',
+                                'doc-option-default': entry[0] === 'default',
+                                'doc-option-description': entry[0] === 'description'
+                              }" *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
+                                [id]="id + '.' + entry[0]">{{ entry[1] }}</span>
                         </ng-container>
                     </td>
                 </tr>
@@ -46,7 +62,8 @@
 
     <ng-container *ngIf="data[0].data && data[0].data.length > 0">
         <ng-container *ngFor="let childData of data;">
-            <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label" [description]="childData.description" [relatedProp]="childData.relatedProp"></app-docapitable>
+            <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label"
+                [description]="childData.description" [relatedProp]="childData.relatedProp"></app-docapitable>
         </ng-container>
     </ng-container>
 </ng-container>

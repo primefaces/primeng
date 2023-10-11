@@ -2,12 +2,12 @@
     <div class="flex surface-card align-items-center justify-content-end absolute z-2" style="right: .75rem; top: .75rem; gap: .75rem">
         <div class="flex align-items-center gap-2" *ngIf="fullCodeVisible">
             <button *ngIf="code.html" pButton label="HTML" (click)="changeLang('html')"
-                class="p-button-rounded w-3rem p-button-text p-button-plain p-0 inline-flex align-items-center justify-content-center"
+                class="py-0 px-2 h-2rem p-button-text p-button-plain p-0 inline-flex align-items-center justify-content-center"
                 [ngClass]="{'doc-section-code-active text-primary':lang === 'html'}">
             </button>
     
             <button *ngIf="code.typescript" pButton label="TypeScript" (click)="changeLang('typescript')"
-                class="p-button-rounded w-5rem p-button-text p-button-plain p-0 inline-flex align-items-center justify-content-center"
+                class="py-0 px-2 h-2rem p-button-text p-button-plain inline-flex align-items-center justify-content-center"
                 [ngClass]="{'doc-section-code-active text-primary':lang === 'typescript'}">
             </button>
     
