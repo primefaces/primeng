@@ -17,6 +17,7 @@
         overflow: hidden;
         flex: 1 1 auto;
         cursor: pointer;
+        display: flex;
     }
 
     .p-multiselect-label {
