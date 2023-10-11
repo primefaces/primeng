@@ -2234,7 +2234,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "\"focus\" | \"hover\"",
-                            "description": "Event to show tooltip."
+                            "description": "Event to show the tooltip."
                         },
                         {
                             "name": "appendTo",
@@ -18591,6 +18591,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When specified, allows selecting multiple values."
+                        },
+                        {
+                            "name": "allowEmpty",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether selection can not be cleared."
                         },
                         {
                             "name": "style",
