@@ -537,6 +537,7 @@ export class Menu implements OnDestroy {
                     DomHandler.focus(this.target);
                     this.hide();
                 }
+                break;
 
             case 'Tab':
                 this.overlayVisible && this.hide();
