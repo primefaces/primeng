@@ -9,11 +9,10 @@ import { BasicDoc } from './basicdoc';
 import { DocumentDoc } from './documentdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
-import { TriggerEventDoc } from './triggereventdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, DocumentDoc, StyleDoc, TriggerEventDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, DocumentDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ContextMenuDocModule {}
