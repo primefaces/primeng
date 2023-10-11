@@ -366,8 +366,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-        this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+        DomHandler.blockBodyScroll();
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -376,8 +375,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-        this.document.body.style.removeProperty('--scrollbar-width');
+        DomHandler.unblockBodyScroll();
         this.maskVisible = false;
         this.cd.markForCheck();
 

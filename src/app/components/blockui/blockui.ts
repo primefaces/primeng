@@ -107,8 +107,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
             this.target.getBlockableElement().style.position = 'relative';
         } else {
             this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+            DomHandler.blockBodyScroll();
         }
 
         if (this.autoZIndex) {
@@ -129,8 +128,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
             ZIndexUtils.clear(this.mask.nativeElement);
             DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.removeProperty('--scrollbar-width');
+            DomHandler.unblockBodyScroll();
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
