@@ -10,7 +10,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
-import {TemplateDoc} from "./templatedoc";
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ToolbarModule, RouterModule, ButtonModule, SplitButtonModule],

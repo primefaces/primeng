@@ -205,7 +205,7 @@ export class PanelMenuSub {
         return {
             'p-menuitem': true,
             'p-disabled': this.isItemDisabled(processedItem)
-        }
+        };
     }
 
     getItemProp(processedItem, name?, params?) {
@@ -253,7 +253,7 @@ export class PanelMenuSub {
     }
 
     onItemClick(event, processedItem) {
-        if(!this.isItemDisabled(processedItem)) {
+        if (!this.isItemDisabled(processedItem)) {
             this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
             this.itemToggle.emit({ processedItem, expanded: !this.isItemActive(processedItem) });
         }

@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'template-doc',
     template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Content can also be placed using the  <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
+            <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toolbar>

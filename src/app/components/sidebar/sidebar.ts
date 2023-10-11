@@ -330,7 +330,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
-                DomHandler.blockBodyScroll()
+                DomHandler.blockBodyScroll();
             }
         }
     }
@@ -350,7 +350,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.unblockBodyScroll()
+            DomHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
