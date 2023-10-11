@@ -568,4 +568,40 @@ describe('MultiSelect', () => {
         expect(emptyMesage).toBeTruthy();
         expect(emptyMesage.nativeElement.textContent).toContain('No results found');
     });
+
+    it('should change the computed label when dependent properties are changed', () => {
+        multiselect.options = [
+            { label: 'Audi', value: 'Audi' },
+            { label: 'BMW', value: 'BMW' },
+            { label: 'Fiat', value: 'Fiat' },
+            { label: 'Ford', value: 'Ford' },
+            { label: 'Honda', value: 'Honda' },
+            { label: 'Jaguar', value: 'Jaguar' },
+            { label: 'Mercedes', value: 'Mercedes' },
+            { label: 'Renault', value: 'Renault' },
+            { label: 'VW', value: 'VW' },
+            { label: 'Volvo', value: 'Volvo' }
+        ];
+        fixture.detectChanges();
+
+        const multiselectEl = fixture.debugElement.children[0].nativeElement;
+        multiselectEl.click();
+        fixture.detectChanges();
+
+        const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
+        const bmwEl = multiselectItemEl[1];
+        bmwEl.nativeElement.click();
+        fixture.detectChanges();
+
+        multiselect.cd.detectChanges();
+        const labelEl = fixture.debugElement.query(By.css('.p-multiselect-label'));
+        expect(labelEl.nativeElement.textContent).toContain('BMW');
+
+        multiselect.maxSelectedLabels = 0;
+        multiselect.selectedItemsLabel = '{0} item(s) selected';
+        fixture.detectChanges();
+
+        multiselect.cd.detectChanges();
+        expect(labelEl.nativeElement.textContent).toContain('1 item(s) selected');
+    });
 });
