@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
             <p>Custom content inside a button is defined as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button styleClass="p-button-outlined">
+            <p-button [outlined]="true">
                 <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
                 <span class="ml-2 font-bold">PrimeNG</span>
             </p-button>
@@ -23,14 +23,14 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `
-<p-button styleClass="p-button-outlined">
+<p-button [outlined]="true">
     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
     <span class="ml-2 font-bold">PrimeNG</span>
 </p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-button styleClass="p-button-outlined">
+    <p-button [outlined]="true">
         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
         <span class="ml-2 font-bold">PrimeNG</span>
     </p-button>
