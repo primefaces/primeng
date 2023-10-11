@@ -397,7 +397,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.width = 'fit-content';
         }
 
-        if (!this.isAutoHide()) {
+        if (this.isAutoHide()) {
+            this.container.style.pointerEvents = 'none';
+        } else {
+            this.container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
     }
