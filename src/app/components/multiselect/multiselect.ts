@@ -441,21 +441,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
-     * Whether to show labels of selected item labels or use default label.
-     * @group Props
-     */
-    @Input() displaySelectedLabel: boolean = true;
-    /**
-     * Decides how many selected item labels to show at most.
-     * @group Props
-     */
-    @Input() maxSelectedLabels: number = 3;
-    /**
-     * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
-     * @group Props
-     */
-    @Input() selectedItemsLabel: string = 'ellipsis';
-    /**
      * Whether to show the checkbox at header to toggle all items at once.
      * @group Props
      */
@@ -667,6 +652,39 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this._placeholder;
     }
     /**
+     * Whether to show labels of selected item labels or use default label.
+     * @group Props
+     */
+    @Input() set displaySelectedLabel(val: boolean) {
+        this._displaySelectedLabel = val;
+        this.updateLabel();
+    }
+    get displaySelectedLabel(): boolean {
+        return this._displaySelectedLabel;
+    }
+    /**
+     * Decides how many selected item labels to show at most.
+     * @group Props
+     */
+    @Input() set maxSelectedLabels(val: number) {
+        this._maxSelectedLabels = val;
+        this.updateLabel();
+    }
+    get maxSelectedLabels(): number {
+        return this._maxSelectedLabels;
+    }
+    /**
+     * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
+     * @group Props
+     */
+    @Input() set selectedItemsLabel(val: string) {
+        this._selectedItemsLabel = val;
+        this.updateLabel();
+    }
+    get selectedItemsLabel(): string {
+        return this._selectedItemsLabel;
+    }
+    /**
      * An array of objects to display as the available options.
      * @group Props
      */
@@ -799,6 +817,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     _defaultLabel: string | undefined;
 
     _placeholder: string | undefined;
+
+    _displaySelectedLabel: boolean = true;
+
+    _maxSelectedLabels: number = 3;
+
+    _selectedItemsLabel: string = 'ellipsis';
 
     _itemSize: number | undefined;
 
