@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'full-screen-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>

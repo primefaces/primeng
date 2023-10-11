@@ -1,4 +1,4 @@
-@layer primeng.core {
+@layer primeng {
     .p-toast {
         position: fixed;
         width: 25rem;

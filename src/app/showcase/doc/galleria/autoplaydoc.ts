@@ -4,11 +4,11 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-autoplay-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A slideshow implementation is defined by adding <i>circular</i> and <i>autoPlay</i> properties.</p>
         </app-docsectiontext>
-        <div class="card md:flex md:justify-content-center">
+        <div class="card">
             <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%;" />
@@ -64,7 +64,7 @@ export class AutoPlayDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5"  [containerStyle]="{ 'max-width': '640px' }"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />

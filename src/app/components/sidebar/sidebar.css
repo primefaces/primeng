@@ -1,4 +1,4 @@
-@layer primeng.core {
+@layer primeng {
     .p-sidebar {
         position: fixed;
         transition: transform 0.3s;

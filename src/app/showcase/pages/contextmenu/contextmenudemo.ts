@@ -27,11 +27,6 @@ export class ContextMenuDemo {
             component: DocumentDoc
         },
         {
-            id: 'triggerevent',
-            label: 'Trigger Event',
-            component: TriggerEventDoc
-        },
-        {
             id: 'style',
             label: 'Style',
             component: StyleDoc

@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'dynamic-columns-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Columns can be created programmatically.</p>
         </app-docsectiontext>

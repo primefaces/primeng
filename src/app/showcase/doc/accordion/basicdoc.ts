@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Accordion consists of one or more <i>AccordionTab</i> elements which are collapsed by default. Tab to expand initially can be defined with the <i>activeIndex</i> property.</p>
         </app-docsectiontext>

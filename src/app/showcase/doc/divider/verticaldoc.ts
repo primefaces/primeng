@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-vertical-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Vertical divider is enabled by setting the <i>layout</i> property as <i>vertical</i>.</p>
         </app-docsectiontext>

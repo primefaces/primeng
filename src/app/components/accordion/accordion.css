@@ -1,4 +1,4 @@
-@layer primeng.core {
+@layer primeng {
     .p-accordion-header-link {
         cursor: pointer;
         display: flex;

@@ -49,7 +49,7 @@ import { Subscription } from 'rxjs';
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
-                        [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
+                        [ariaCurrentWhenActive]="exact ? 'step' : undefined"
                     >
                         <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>

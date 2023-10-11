@@ -5,11 +5,11 @@ import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'indicators-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
-        <div class="card md:flex md:justify-content-center">
+        <div class="card">
             <p-galleria
                 [(value)]="images"
                 [showItemNavigators]="true"
@@ -78,7 +78,7 @@ export class IndicatorsDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px', 'margin-top':'2em' }"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />

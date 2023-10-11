@@ -5,14 +5,14 @@ import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'surfaces-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette varies between 0 - 900 and named surfaces are also available.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="color-stack">
                 <div *ngFor="let shade of shades">
-                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade, color: shade < 500 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
+                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade + ')', color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
                 </div>
             </div>
         </div>

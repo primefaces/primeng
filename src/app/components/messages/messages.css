@@ -1,4 +1,4 @@
-@layer primeng.core {
+@layer primeng {
     .p-message-wrapper {
         display: flex;
         align-items: center;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-stacked-bar-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>

@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "16.3.1",
+    "version": "16.4.1",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -93,7 +93,6 @@
         "zone.js": "~0.13.0"
     },
     "dependencies": {
-        "@docsearch/js": "^3.3.4",
-        "@types/react": "^18.0.28"
+        "@docsearch/js": "^3.3.4"
     }
 }

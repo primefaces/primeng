@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animations-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Various components utilize Angular animations to improve the user experience. Animations have their own module <i>BrowserAnimationsModule</i> is required to be imported in your application. If you prefer to disable animations

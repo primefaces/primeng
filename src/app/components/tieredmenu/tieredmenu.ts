@@ -45,7 +45,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
-            [attr.aria-aria-activedescendant]="focusedItemId"
+            [attr.aria-activedescendant]="focusedItemId"
             [attr.aria-orientation]="'vertical'"
             [attr.data-pc-section]="'menu'"
             (keydown)="menuKeydown.emit($event)"
@@ -245,7 +245,7 @@ export class TieredMenuSub {
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item?.id ?? `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -496,7 +496,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     number = signal<number>(0);
 
-    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     searchValue: string = '';
 
@@ -508,7 +508,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
-
         return processedItem ? processedItem.items : this.processedItems;
     }
 
@@ -521,7 +520,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     get focusedItemId() {
         const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
     }
 
     constructor(
@@ -643,10 +642,10 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const selected = this.isSelected(processedItem);
 
         if (selected) {
-            const { index, key, level, parentKey } = processedItem;
+            const { index, key, level, parentKey, item } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -744,10 +743,11 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     onArrowRightKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const grouped = this.isProccessedItemGroup(processedItem);
+        const item = processedItem.item;
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -780,7 +780,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const root = ObjectUtils.isEmpty(processedItem.parent);
 
         if (!root) {
-            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -847,12 +847,12 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (ObjectUtils.isEmpty(processedItem)) return;
 
-        const { index, key, level, parentKey, items } = processedItem;
+        const { index, key, level, parentKey, items, item } = processedItem;
         const grouped = ObjectUtils.isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item });
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
@@ -861,14 +861,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' };
-
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: this.visibleItems[this.findFirstFocusedItemIndex()]?.item };
         this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         this.searchValue = '';
         this.dirty = false;
     }
@@ -1050,6 +1049,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         if (this.focusedItemInfo().index !== index) {
             this.focusedItemInfo.mutate((value) => {
                 value.index = index;
+                value.item = this.visibleItems[index].item;
             });
             this.scrollInView();
         }
@@ -1060,7 +1060,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 

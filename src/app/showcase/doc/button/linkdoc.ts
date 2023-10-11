@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-link-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A button can be rendered as a link as well.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button label="Submit" styleClass="p-button-link"></p-button>
+            <p-button label="Submit" [link]="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
     </section>`
@@ -20,11 +20,11 @@ export class LinkDoc {
 
     code: Code = {
         basic: `
-<p-button label="Submit" styleClass="p-button-link"></p-button>`,
+<p-button label="Submit" [link]="true"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-button label="Submit" styleClass="p-button-link"></p-button>
+    <p-button label="Submit" [link]="true"></p-button>
 </div>`,
 
         typescript: `

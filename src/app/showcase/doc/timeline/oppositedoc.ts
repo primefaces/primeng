@@ -11,7 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
