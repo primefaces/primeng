@@ -251,7 +251,8 @@ export class MultiSelectItem {
                                     </span>
                                 </div>
 
-                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple>
+                                <button aria-labelledBy="close-label" class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple>
+                                    <span id="close-label" class="p-multiselect-close-label">Close multiselect input</span>
                                     <TimesIcon [styleClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate" />
                                     <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
                                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>

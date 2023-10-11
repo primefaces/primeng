@@ -99,6 +99,10 @@
         position: relative;
     }
 
+    .p-multiselect-close-label {
+        display: none;
+    }
+
     .p-fluid .p-multiselect {
         display: flex;
     }
