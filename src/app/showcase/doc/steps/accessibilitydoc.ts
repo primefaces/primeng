@@ -6,8 +6,9 @@ import { Component, Input } from '@angular/core';
         <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
-                Steps component uses the <i>nav</i> element and since any attribute is passed to the root implicitly <i>aria-labelledby</i> or <i>aria-label</i> can be used to describe the component. Inside an ordered list is used where the current
-                step item defines <i>aria-current</i> as "step".
+                Steps component uses the <i>nav</i> element and since any attribute is passed to the root implicitly <i>aria-labelledby</i> or <i>aria-label</i> can be used to describe the component. Inside a list is used where the current step item
+                defines <i>aria-current</i> as "step". Each step have an <i>aria-controls</i> attribute, if the corresponding property is present in the step model, that links the step item to the controlled element, satisfying the WAI-ARIA
+                requirements for elements with <i>role=tablist</i>
             </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">

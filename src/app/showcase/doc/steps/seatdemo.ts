@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 @Component({
     template: `
-        <div class="stepsdemo-content">
+        <div class="stepsdemo-content" id="seat-content">
             <p-card>
                 <ng-template pTemplate="title"> Seat Information </ng-template>
                 <ng-template pTemplate="subtitle"> Choose your seat </ng-template>

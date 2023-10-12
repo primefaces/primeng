@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { StepItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Code } from '../../domain/code';
 import { TicketService } from '../../service/ticketservice';
@@ -24,7 +24,7 @@ export class RoutingDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[];
+    items: StepItem[];
 
     subscription: Subscription;
 
@@ -34,19 +34,23 @@ export class RoutingDoc implements OnInit {
         this.items = [
             {
                 label: 'Personal',
-                routerLink: ''
+                routerLink: '',
+                ariaControls: 'personal-content'
             },
             {
                 label: 'Seat',
-                routerLink: 'seat'
+                routerLink: 'seat',
+                ariaControls: 'seat-content'
             },
             {
                 label: 'Payment',
-                routerLink: 'payment'
+                routerLink: 'payment',
+                ariaControls: 'payment-content'
             },
             {
                 label: 'Confirmation',
-                routerLink: 'confirmation'
+                routerLink: 'confirmation',
+                ariaControls: 'confirmation-content'
             }
         ];
 
