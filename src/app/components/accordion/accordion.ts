@@ -283,7 +283,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         this.accordion.updateActiveIndex();
         this.changeDetector.markForCheck();
 
-        event.preventDefault();
+        event?.preventDefault();
     }
 
     findTabIndex() {
