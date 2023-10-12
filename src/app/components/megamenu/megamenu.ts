@@ -40,7 +40,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             #menubar
             [ngClass]="{ 'p-megamenu-root-list': root, 'p-submenu-list p-megamenu-submenu': !root }"
             [attr.role]="root ? 'menubar' : 'menu'"
-            [id]="id"
+            [attr.id]="id"
             [attr.aria-orientation]="orientation"
             [tabindex]="tabindex"
             [attr.aria-activedescendant]="focusedItemId"
@@ -53,7 +53,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -63,7 +63,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
@@ -350,7 +350,7 @@ export class MegaMenuSub {
             [ngStyle]="style"
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'megamenu'"
-            [id]="id"
+            [attr.id]="id"
         >
             <div class="p-megamenu-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
@@ -358,7 +358,7 @@ export class MegaMenuSub {
             <p-megaMenuSub
                 #rootmenu
                 [items]="processedItems"
-                [id]="id + '_list'"
+                [attr.id]="id + '_list'"
                 [menuId]="id"
                 [root]="true"
                 [orientation]="orientation"

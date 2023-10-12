@@ -47,7 +47,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             [ngClass]="{ 'p-submenu-list': !root, 'p-contextmenu-root-list': root }"
             [@overlayAnimation]="visible"
             (@overlayAnimation.start)="onEnter($event, sublist)"
-            [id]="menuId + '_list'"
+            [attr.id]="menuId + '_list'"
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
@@ -61,7 +61,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -71,7 +71,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
@@ -339,7 +339,7 @@ export class ContextMenuSub {
             #container
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
-            [id]="id"
+            [attr.id]="id"
             [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-overlay': true }"
             [class]="styleClass"
             [ngStyle]="style"

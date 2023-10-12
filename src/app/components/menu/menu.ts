@@ -142,13 +142,13 @@ export class MenuItemContent {
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             [attr.data-pc-name]="'menu'"
-            [id]="id"
+            [attr.id]="id"
         >
             <ul
                 #list
                 class="p-menu-list p-reset"
                 role="menu"
-                [id]="id + '_list'"
+                [attr.id]="id + '_list'"
                 [tabindex]="tabindex"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
@@ -192,7 +192,6 @@ export class MenuItemContent {
                             [attr.data-p-disabled]="disabled(item.disabled)"
                             [attr.aria-disabled]="disabled(item.disabled)"
                             [attr.id]="menuitemId(item, id, i, j)"
-                            [id]="menuitemId(item, id, i, j)"
                         ></li>
                     </ng-template>
                 </ng-template>
@@ -215,7 +214,6 @@ export class MenuItemContent {
                         [attr.data-p-disabled]="disabled(item.disabled)"
                         [attr.aria-disabled]="disabled(item.disabled)"
                         [attr.id]="menuitemId(item, id, i)"
-                        [id]="menuitemId(item, id, i)"
                     ></li>
                 </ng-template>
             </ul>

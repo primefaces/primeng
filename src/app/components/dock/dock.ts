@@ -18,7 +18,7 @@ import { DomHandler } from 'primeng/dom';
             <div class="p-dock-list-container">
                 <ul
                     #list
-                    [id]="id"
+                    [attr.id]="id"
                     class="p-dock-list"
                     role="menu"
                     [attr.aria-orientation]="position === 'bottom' || position === 'top' ? 'horizontal' : 'vertical'"
