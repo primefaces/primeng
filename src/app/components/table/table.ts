@@ -2519,28 +2519,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         return widths;
     }
 
-    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
-        let colIndex = DomHandler.index(this.resizeColumnElement);
-        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
-
-        this.destroyStyleElement();
-        this.createStyleElement();
-
-        let innerHTML = '';
-        width.forEach((width, index) => {
-            let colWidth = index === colIndex ? newColumnWidth : nextColumnWidth && index === colIndex + 1 ? nextColumnWidth : width;
-            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
-            innerHTML += `
-                #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
-                #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
-                #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
-                    ${style}
-                }
-            `;
-        });
-        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-    }
-
     onColumnDragStart(event: any, columnElement: any) {
         this.reorderIconWidth = DomHandler.getHiddenElementOuterWidth(this.reorderIndicatorUpViewChild?.nativeElement);
         this.reorderIconHeight = DomHandler.getHiddenElementOuterHeight(this.reorderIndicatorDownViewChild?.nativeElement);
@@ -2623,6 +2601,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
 
+            if(this.resizableColumns && this.resizeColumnElement && this.resizeColumnElement.isSameNode(this.draggedColumn)) {
+                let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
+                ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
+                this.updateStyleElement(width, dragIndex, null, null);
+            }
+
             (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'none';
             (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.display = 'none';
             this.draggedColumn.draggable = false;
@@ -2630,6 +2614,32 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             this.dropPosition = null;
         }
     }
+
+    resizeTableCells(newColumnWidth: number, nextColumnWidth: number | null) {
+        let colIndex = DomHandler.index(this.resizeColumnElement);
+        let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
+        this.updateStyleElement(width, colIndex, newColumnWidth, nextColumnWidth);
+    }
+
+    updateStyleElement(width: number[], colIndex: number, newColumnWidth: number, nextColumnWidth: number | null) {
+        this.destroyStyleElement();
+        this.createStyleElement();
+    
+        let innerHTML = '';
+        width.forEach((width, index) => {
+            let colWidth = index === colIndex ? newColumnWidth : (nextColumnWidth && index === colIndex + 1) ? nextColumnWidth : width;
+            let style = `width: ${colWidth}px !important; max-width: ${colWidth}px !important;`;
+            innerHTML += `
+                #${this.id}-table > .p-datatable-thead > tr > th:nth-child(${index + 1}),
+                #${this.id}-table > .p-datatable-tbody > tr > td:nth-child(${index + 1}),
+                #${this.id}-table > .p-datatable-tfoot > tr > td:nth-child(${index + 1}) {
+                    ${style}
+                }
+            `;
+        });
+        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+    }
+    
 
     onRowDragStart(event: any, index: number) {
         this.rowDragging = true;
