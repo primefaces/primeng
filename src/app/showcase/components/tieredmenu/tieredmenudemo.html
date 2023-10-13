@@ -276,144 +276,140 @@ export class TieredMenuDemo &#123;
 </app-code>
 
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-export class TieredMenuDemo &#123;
-
-    items: MenuItem[];
-
-    ngOnInit() &#123;
-        this.items = [
-            &#123;
-            label:'File',
-            icon:'pi pi-fw pi-file',
-            items:[
+    export class TieredMenuDemo &#123;
+    
+        items: MenuItem[];
+    
+        ngOnInit() &#123;
+            this.items = [
                 &#123;
-                    label:'New',
-                    icon:'pi pi-fw pi-plus',
+                    label:'File',
+                    icon:'pi pi-fw pi-file',
                     items:[
                         &#123;
-                        label:'Bookmark',
-                        icon:'pi pi-fw pi-bookmark'
-                        &#123;,
+                            label:'New',
+                            icon:'pi pi-fw pi-plus',
+                            items:[
+                                &#123;
+                                    label:'Bookmark',
+                                    icon:'pi pi-fw pi-bookmark'
+                                &#125;,
+                                &#123;
+                                    label:'Video',
+                                    icon:'pi pi-fw pi-video'
+                                &#125;
+                            ]
+                        &#125;,
                         &#123;
-                        label:'Video',
-                        icon:'pi pi-fw pi-video'
-                        &#123;,
-
+                            label:'Delete',
+                            icon:'pi pi-fw pi-trash'
+                        &#125;,
+                        &#123;
+                            separator:true
+                        &#125;,
+                        &#123;
+                            label:'Export',
+                            icon:'pi pi-fw pi-external-link'
+                        &#125;
                     ]
-                &#123;,
-                &#123;
-                    label:'Delete',
-                    icon:'pi pi-fw pi-trash'
-                &#123;,
-                &#123;
-                    separator:true
-                &#123;,
-                &#123;
-                    label:'Export',
-                    icon:'pi pi-fw pi-external-link'
-                &#123;
-            ]
-            &#123;,
-            &#123;
-            label:'Edit',
-            icon:'pi pi-fw pi-pencil',
-            items:[
-                &#123;
-                    label:'Left',
-                    icon:'pi pi-fw pi-align-left'
-                &#123;,
-                &#123;
-                    label:'Right',
-                    icon:'pi pi-fw pi-align-right'
-                &#123;,
-                &#123;
-                    label:'Center',
-                    icon:'pi pi-fw pi-align-center'
-                &#123;,
-                &#123;
-                    label:'Justify',
-                    icon:'pi pi-fw pi-align-justify'
-                &#123;,
-
-            ]
-            &#123;,
-            &#123;
-            label:'Users',
-            icon:'pi pi-fw pi-user',
-            items:[
-                &#123;
-                    label:'New',
-                    icon:'pi pi-fw pi-user-plus',
-
-                &#123;,
-                &#123;
-                    label:'Delete',
-                    icon:'pi pi-fw pi-user-minus',
-
-                &#123;,
-                &#123;
-                    label:'Search',
-                    icon:'pi pi-fw pi-users',
-                    items:[
-                        &#123;
-                        label:'Filter',
-                        icon:'pi pi-fw pi-filter',
-                        items:[
-                            &#123;
-                                label:'Print',
-                                icon:'pi pi-fw pi-print'
-                            &#123;
-                        ]
-                        &#123;,
-                        &#123;
-                        icon:'pi pi-fw pi-bars',
-                        label:'List'
-                        &#123;
-                    ]
-                &#123;
-            ]
-            &#123;,
-            &#123;
-            label:'Events',
-            icon:'pi pi-fw pi-calendar',
-            items:[
+                &#125;,
                 &#123;
                     label:'Edit',
                     icon:'pi pi-fw pi-pencil',
                     items:[
                         &#123;
-                        label:'Save',
-                        icon:'pi pi-fw pi-calendar-plus'
-                        &#123;,
+                            label:'Left',
+                            icon:'pi pi-fw pi-align-left'
+                        &#125;,
                         &#123;
-                        label:'Delete',
-                        icon:'pi pi-fw pi-calendar-minus'
-                        &#123;,
-
+                            label:'Right',
+                            icon:'pi pi-fw pi-align-right'
+                        &#125;,
+                        &#123;
+                            label:'Center',
+                            icon:'pi pi-fw pi-align-center'
+                        &#125;,
+                        &#123;
+                            label:'Justify',
+                            icon:'pi pi-fw pi-align-justify'
+                        &#125;,
                     ]
-                &#123;,
+                &#125;,
                 &#123;
-                    label:'Archieve',
-                    icon:'pi pi-fw pi-calendar-times',
+                    label:'Users',
+                    icon:'pi pi-fw pi-user',
                     items:[
                         &#123;
-                        label:'Remove',
-                        icon:'pi pi-fw pi-calendar-minus'
+                            label:'New',
+                            icon:'pi pi-fw pi-user-plus',
+                        &#125;,
                         &#123;
+                            label:'Delete',
+                            icon:'pi pi-fw pi-user-minus',
+                        &#125;,
+                        &#123;
+                            label:'Search',
+                            icon:'pi pi-fw pi-users',
+                            items:[
+                                &#123;
+                                    label:'Filter',
+                                    icon:'pi pi-fw pi-filter',
+                                    items:[
+                                        &#123;
+                                            label:'Print',
+                                            icon:'pi pi-fw pi-print'
+                                        &#125;
+                                    ]
+                                &#125;,
+                                &#123;
+                                    icon:'pi pi-fw pi-bars',
+                                    label:'List'
+                                &#125;
+                            ]
+                        &#125;
                     ]
+                &#125;,
                 &#123;
+                    label:'Events',
+                    icon:'pi pi-fw pi-calendar',
+                    items:[
+                        &#123;
+                            label:'Edit',
+                            icon:'pi pi-fw pi-pencil',
+                            items:[
+                                &#123;
+                                    label:'Save',
+                                    icon:'pi pi-fw pi-calendar-plus'
+                                &#125;,
+                                &#123;
+                                    label:'Delete',
+                                    icon:'pi pi-fw pi-calendar-minus'
+                                &#125;,
+        
+                            ]
+                        &#125;,
+                        &#123;
+                            label:'Archieve',
+                            icon:'pi pi-fw pi-calendar-times',
+                            items:[
+                                &#123;
+                                    label:'Remove',
+                                    icon:'pi pi-fw pi-calendar-minus'
+                                &#125;
+                            ]
+                        &#125;
+                    ]
+                &#125;,
+                &#123;
+                    separator:true
+                &#125;,
+                &#123;
+                    label:'Quit',
+                    icon:'pi pi-fw pi-power-off'
+                &#125;
             ]
-            &#123;,
-            &#123;
-            separator:true
-            &#123;,
-            &#123;
-            label:'Quit',
-            icon:'pi pi-fw pi-power-off'
-            &#123;
-        ]
+        &#125;
     &#125;
-&#125;
 </app-code>
         </p-tabPanel>
         <p-tabPanel header="StackBlitz">
