@@ -265,7 +265,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         if (simpleChange.id) {
-            this.setOption({ id: simpleChange.text.currentValue });
+            this.setOption({ id: simpleChange.id.currentValue });
         }
 
         if (simpleChange.autoHide) {
