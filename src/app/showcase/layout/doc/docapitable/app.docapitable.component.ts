@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppConfig } from 'src/app/showcase/domain/appconfig';
@@ -36,13 +36,14 @@ export class AppDocApiTable implements OnInit {
 
     subscription: Subscription;
 
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, public configService: AppConfigService) {}
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, public configService: AppConfigService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.config = this.configService.config;
 
         this.subscription = this.configService.configUpdate$.subscribe((config) => {
             this.config = config;
+            this.cd.markForCheck();
         });
     }
 
