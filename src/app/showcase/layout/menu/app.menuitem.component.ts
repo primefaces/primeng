@@ -11,10 +11,11 @@ export class AppMenuItemComponent {
 
     @Input() root: boolean = true;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router) { }
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
         const url = this.router.url.split('#')[0];
-        return menuitem.children && !menuitem.children.some((item) => item.routerLink === `${url}` || (item.children && item.children.some((it) => it.routerLink === `${url}`)));
+        const rootMenuItemRoute = menuitem.routerLink || '';
+        return url.includes(rootMenuItemRoute);
     }
 }

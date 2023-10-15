@@ -11,7 +11,7 @@
     </div>
     {{item.name}}
 </a>
-<a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
+<a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: '', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
     <div *ngIf="item.icon && root" class="menu-icon">
         <i [ngClass]="item.icon"></i>
     </div>
