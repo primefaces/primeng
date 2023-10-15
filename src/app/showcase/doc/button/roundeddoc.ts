@@ -3,18 +3,18 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-rounded-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Rounded buttons have a circular border radius.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
-            <p-button label="Primary" styleClass="p-button-rounded"></p-button>
-            <p-button label="Secondary" styleClass="p-button-rounded p-button-secondary"></p-button>
-            <p-button label="Success" styleClass="p-button-rounded p-button-success"></p-button>
-            <p-button label="Info" styleClass="p-button-rounded p-button-info"></p-button>
-            <p-button label="Warning" styleClass="p-button-rounded p-button-warning"></p-button>
-            <p-button label="Help" styleClass="p-button-rounded p-button-help"></p-button>
-            <p-button label="Danger" styleClass="p-button-rounded p-button-danger"></p-button>
+            <p-button label="Primary" [rounded]="true"></p-button>
+            <p-button label="Secondary" [rounded]="true" severity="secondary"></p-button>
+            <p-button label="Success" [rounded]="true" severity="success"></p-button>
+            <p-button label="Info" [rounded]="true" severity="info"></p-button>
+            <p-button label="Warning" [rounded]="true" severity="warning"></p-button>
+            <p-button label="Help" [rounded]="true" severity="help"></p-button>
+            <p-button label="Danger" [rounded]="true" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-rounded-demo"></app-code>
     </section>`
@@ -26,23 +26,23 @@ export class RoundedDoc {
 
     code: Code = {
         basic: `
-<p-button label="Primary" styleClass="p-button-rounded"></p-button>
-<p-button label="Secondary" styleClass="p-button-rounded p-button-secondary"></p-button>
-<p-button label="Success" styleClass="p-button-rounded p-button-success"></p-button>
-<p-button label="Info" styleClass="p-button-rounded p-button-info"></p-button>
-<p-button label="Warning" styleClass="p-button-rounded p-button-warning"></p-button>
-<p-button label="Help" styleClass="p-button-rounded p-button-help"></p-button>
-<p-button label="Danger" styleClass="p-button-rounded p-button-danger"></p-button>`,
+<p-button label="Primary" [rounded]="true"></p-button>
+<p-button label="Secondary" [rounded]="true" severity="secondary"></p-button>
+<p-button label="Success" [rounded]="true" severity="success"></p-button>
+<p-button label="Info" [rounded]="true" severity="info"></p-button>
+<p-button label="Warning" [rounded]="true" severity="warning"></p-button>
+<p-button label="Help" [rounded]="true" severity="help"></p-button>
+<p-button label="Danger" [rounded]="true" severity="danger"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
-    <p-button label="Primary" styleClass="p-button-rounded"></p-button>
-    <p-button label="Secondary" styleClass="p-button-rounded p-button-secondary"></p-button>
-    <p-button label="Success" styleClass="p-button-rounded p-button-success"></p-button>
-    <p-button label="Info" styleClass="p-button-rounded p-button-info"></p-button>
-    <p-button label="Warning" styleClass="p-button-rounded p-button-warning"></p-button>
-    <p-button label="Help" styleClass="p-button-rounded p-button-help"></p-button>
-    <p-button label="Danger" styleClass="p-button-rounded p-button-danger"></p-button>
+    <p-button label="Primary" [rounded]="true"></p-button>
+    <p-button label="Secondary" [rounded]="true" severity="secondary"></p-button>
+    <p-button label="Success" [rounded]="true" severity="success"></p-button>
+    <p-button label="Info" [rounded]="true" severity="info"></p-button>
+    <p-button label="Warning" [rounded]="true" severity="warning"></p-button>
+    <p-button label="Help" [rounded]="true" severity="help"></p-button>
+    <p-button label="Danger" [rounded]="true" severity="danger"></p-button>
 </div>`,
 
         typescript: `

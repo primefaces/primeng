@@ -10,7 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'locale-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>

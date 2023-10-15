@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'stroke-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
         </app-docsectiontext>

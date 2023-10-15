@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Setting <i>disabled</i> property to <i>true</i> of a <i>TabPanel</i> prevents user interaction.</p>
         </app-docsectiontext>

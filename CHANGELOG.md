@@ -1,5 +1,35 @@
 # Changelog
 
+## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
+
+**Deprecated:**
+- SlideMenu: Deprecate from PrimeNG [\#13830](https://github.com/primefaces/primeng/issues/13830)
+- Remove FullCalendar theme support [\#13834](https://github.com/primefaces/primeng/issues/13834)
+
+**Implemented New Features and Enhancements:**
+- Button: New props [\#13851](https://github.com/primefaces/primeng/issues/13851)
+- SelectButton: Add allowEmpty property [\#13853](https://github.com/primefaces/primeng/issues/13853)
+- Accessibility | Step component bugs and improvements [\#13742](https://github.com/primefaces/primeng/issues/13742)
+- Tooltip: Accessibility role not available [\#13843](https://github.com/primefaces/primeng/issues/13843)
+- Improve block/unblockScroll architecture [\#13855](https://github.com/primefaces/primeng/issues/13855)
+
+**Fixed bugs:**
+
+- Toolbar: Inconsistent naming and wrong documentation [\#13814](https://github.com/primefaces/primeng/issues/13814)
+- Password | Incorrect placement of close icon when toggleMask="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
+- Tooltip: disable autoHide doesn't work [\#13828](https://github.com/primefaces/primeng/issues/13828)
+- Multiselect: Chips: Delete button not visible if label is too wide [\#13816](https://github.com/primefaces/primeng/issues/13816)
+- BlockUI: Mask is not applied when blocked changes rapidly [\#11838](https://github.com/primefaces/primeng/issues/11838)
+- panelMenu- sub MenuItem is disabled but still it can be clickable and expandable [\#13827](https://github.com/primefaces/primeng/issues/13827)
+- Multiselect: Incorrect view with selected items [\#13654](https://github.com/primefaces/primeng/issues/13654)
+- there is a missed "break;" line in a switch case in menu.ts at line 540 [\#13766](https://github.com/primefaces/primeng/issues/13766)
+- SSR fails on carousel circular and galleria autoplay [\#13837](https://github.com/primefaces/primeng/issues/13837)
+- Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
+- p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
+- Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
 ## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)
@@ -322,6 +352,19 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.10-LTS](https://www.npmjs.com/package/primeng/v/15.4.10-lts) (2023-10-04)
+**Fixed bugs:**
+- Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.9-LTS](https://www.npmjs.com/package/primeng/v/15.4.9-lts) (2023-08-30)
 **Fixed bugs:**
 - Image Component: esc button doesn't close the preview [\#13305](https://github.com/primefaces/primeng/issues/13305)
@@ -578,6 +621,19 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.13-LTS](https://www.npmjs.com/package/primeng/v/14.2.13-lts) (2023-10-04)
+**Fixed bugs:**
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- Dropdown: Escape Key event not default prevented [\#13463](https://github.com/primefaces/primeng/issues/13463)
+- p-splitter: nested panels should have min-width: 0 to leverage flex-basis correctly [\#13323](https://github.com/primefaces/primeng/issues/13323)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.12-LTS](https://www.npmjs.com/package/primeng/v/14.2.12-lts) (2023-08-30)
 - DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)

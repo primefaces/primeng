@@ -3,18 +3,19 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-text-demo',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
-            <p-button label="Primary" styleClass="p-button-text"></p-button>
-            <p-button label="Secondary" styleClass="p-button-secondary p-button-text"></p-button>
-            <p-button label="Success" styleClass="p-button-success p-button-text"></p-button>
-            <p-button label="Info" styleClass="p-button-info p-button-text"></p-button>
-            <p-button label="Warning" styleClass="p-button-warning p-button-text"></p-button>
-            <p-button label="Help" styleClass="p-button-help p-button-text"></p-button>
-            <p-button label="Danger" styleClass="p-button-danger p-button-text"></p-button>
+            <p-button label="Primary" [text]="true"></p-button>
+            <p-button label="Secondary" [text]="true" severity="secondary"></p-button>
+            <p-button label="Success" [text]="true" severity="success"></p-button>
+            <p-button label="Info" [text]="true" severity="info"></p-button>
+            <p-button label="Warning" [text]="true" severity="warning"></p-button>
+            <p-button label="Help" [text]="true" severity="help"></p-button>
+            <p-button label="Danger" [text]="true" severity="danger"></p-button>
+            <p-button label="Plain" [text]="true" [plain]="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-text-demo"></app-code>
     </section>`
@@ -26,23 +27,25 @@ export class TextDoc {
 
     code: Code = {
         basic: `
-<p-button label="Primary" styleClass="p-button-text"></p-button>
-<p-button label="Secondary" styleClass="p-button-secondary p-button-text"></p-button>
-<p-button label="Success" styleClass="p-button-success p-button-text"></p-button>
-<p-button label="Info" styleClass="p-button-info p-button-text"></p-button>
-<p-button label="Warning" styleClass="p-button-warning p-button-text"></p-button>
-<p-button label="Help" styleClass="p-button-help p-button-text"></p-button>
-<p-button label="Danger" styleClass="p-button-danger p-button-text"></p-button>`,
+<p-button label="Primary" [text]="true"></p-button>
+<p-button label="Secondary" [text]="true" severity="secondary"></p-button>
+<p-button label="Success" [text]="true" severity="success"></p-button>
+<p-button label="Info" [text]="true" severity="info"></p-button>
+<p-button label="Warning" [text]="true" severity="warning"></p-button>
+<p-button label="Help" [text]="true" severity="help"></p-button>
+<p-button label="Danger" [text]="true" severity="danger"></p-button>
+<p-button label="Plain" [text]="true" [plain]="true"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
-    <p-button label="Primary" styleClass="p-button-text"></p-button>
-    <p-button label="Secondary" styleClass="p-button-secondary p-button-text"></p-button>
-    <p-button label="Success" styleClass="p-button-success p-button-text"></p-button>
-    <p-button label="Info" styleClass="p-button-info p-button-text"></p-button>
-    <p-button label="Warning" styleClass="p-button-warning p-button-text"></p-button>
-    <p-button label="Help" styleClass="p-button-help p-button-text"></p-button>
-    <p-button label="Danger" styleClass="p-button-danger p-button-text"></p-button>
+    <p-button label="Primary" [text]="true"></p-button>
+    <p-button label="Secondary" [text]="true" severity="secondary"></p-button>
+    <p-button label="Success" [text]="true" severity="success"></p-button>
+    <p-button label="Info" [text]="true" severity="info"></p-button>
+    <p-button label="Warning" [text]="true" severity="warning"></p-button>
+    <p-button label="Help" [text]="true" severity="help"></p-button>
+    <p-button label="Danger" [text]="true" severity="danger"></p-button>
+    <p-button label="Plain" [text]="true" [plain]="true"></p-button>
 </div>`,
 
         typescript: `

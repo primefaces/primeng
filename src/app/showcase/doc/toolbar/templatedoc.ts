@@ -3,30 +3,33 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'basic-doc',
-    template: ` <section class="py-4">
+    selector: 'template-doc',
+    template: ` <section class="py-3">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Toolbar is a grouping component for buttons and other content. Its content can be placed inside the <i>start</i>, <i>center</i> and <i>end</i> sections.</p>
+            <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toolbar>
-                <div class="p-toolbar-group-start">
+                <ng-template pTemplate="start">
                     <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
                     <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
                     <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
                     <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
-                </div>
-                <div class="p-toolbar-group-end">
+                </ng-template>
+                <ng-template pTemplate="center">
+                    <span class="text-primary font-semibold text-xl">Center</span>
+                </ng-template>
+                <ng-template pTemplate="end">
                     <p-button icon="pi pi-search" class="mr-2"></p-button>
                     <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
                     <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
-                </div>
+                </ng-template>
             </p-toolbar>
         </div>
-        <app-code [code]="code" selector="toolbar-basic-demo"></app-code>
+        <app-code [code]="code" selector="toolbar-template-demo"></app-code>
     </section>`
 })
-export class BasicDoc implements OnInit {
+export class TemplateDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -59,33 +62,39 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `
 <p-toolbar>
-    <div class="p-toolbar-group-start">
+    <ng-template pTemplate="start">
         <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
         <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
         <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
         <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
-    </div>
-    <div class="p-toolbar-group-end">
+    </ng-template>
+    <ng-template pTemplate="center">
+        <span class="text-primary font-semibold text-xl">Center</span>
+    </ng-template>
+    <ng-template pTemplate="end">
         <p-button icon="pi pi-search" class="mr-2"></p-button>
         <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
         <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
-    </div>
+    </ng-template>
 </p-toolbar>`,
 
         html: `
-<div class="card">
+<ng-template class="card">
     <p-toolbar>
-        <div class="p-toolbar-group-start">
+        <ng-template pTemplate="start">
             <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
             <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
             <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
             <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
-        </div>
-        <div class="p-toolbar-group-end">
+        </ng-template>
+        <ng-template pTemplate="center">
+            <span class="text-primary font-semibold text-xl">Center</span>
+        </ng-template>
+        <ng-template pTemplate="end">
             <p-button icon="pi pi-search" class="mr-2"></p-button>
             <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
             <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
-        </div>
+        </ng-template>
     </p-toolbar>
 </div>`,
 
@@ -94,10 +103,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'toolbar-basic-demo',
-    templateUrl: './toolbar-basic-demo.html'
+    selector: 'toolbar-template-demo',
+    templateUrl: './toolbar-template-demo.html'
 })
-export class ToolbarBasicDemo implements OnInit {
+export class ToolbarTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {

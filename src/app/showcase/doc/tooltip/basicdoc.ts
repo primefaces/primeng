@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Tooltip is applied to an element with pTooltip directive where the value of the directive defines the text to display.</p>
         </app-docsectiontext>

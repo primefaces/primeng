@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'videos-doc',
-    template: ` <section class="py-3">
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p><a href="https://angular.io/cli">Angular CLI</a> is the recommended way to build Angular applications with PrimeNG.</p>
         </app-docsectiontext>
