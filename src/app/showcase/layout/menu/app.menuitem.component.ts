@@ -11,7 +11,7 @@ export class AppMenuItemComponent {
 
     @Input() root: boolean = true;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) {}
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
         const url = this.router.url.split('#')[0];
