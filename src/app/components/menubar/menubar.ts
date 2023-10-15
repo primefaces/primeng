@@ -64,13 +64,13 @@ export class MenubarService {
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             (keydown)="menuKeydown.emit($event)"
-            [id]="menuId"
+            [attr.id]="menuId"
             [attr.aria-activedescendant]="focusedItemId"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -80,7 +80,7 @@ export class MenubarService {
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"

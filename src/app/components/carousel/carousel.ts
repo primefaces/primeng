@@ -358,29 +358,31 @@ export class Carousel implements AfterContentInit {
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.value) {
-            if (this.circular && this._value) {
-                this.setCloneItems();
-            }
-        }
-
-        if (this.isCreated) {
-            if (simpleChange.numVisible) {
-                if (this.responsiveOptions) {
-                    this.defaultNumVisible = this.numVisible;
-                }
-
-                if (this.isCircular()) {
+        if (isPlatformBrowser(this.platformId)) {
+            if (simpleChange.value) {
+                if (this.circular && this._value) {
                     this.setCloneItems();
                 }
-
-                this.createStyle();
-                this.calculatePosition();
             }
 
-            if (simpleChange.numScroll) {
-                if (this.responsiveOptions) {
-                    this.defaultNumScroll = this.numScroll;
+            if (this.isCreated) {
+                if (simpleChange.numVisible) {
+                    if (this.responsiveOptions) {
+                        this.defaultNumVisible = this.numVisible;
+                    }
+
+                    if (this.isCircular()) {
+                        this.setCloneItems();
+                    }
+
+                    this.createStyle();
+                    this.calculatePosition();
+                }
+
+                if (simpleChange.numScroll) {
+                    if (this.responsiveOptions) {
+                        this.defaultNumScroll = this.numScroll;
+                    }
                 }
             }
         }
@@ -388,22 +390,24 @@ export class Carousel implements AfterContentInit {
 
     ngAfterContentInit() {
         this.id = UniqueComponentId();
-        this.allowAutoplay = !!this.autoplayInterval;
+        if (isPlatformBrowser(this.platformId)) {
+            this.allowAutoplay = !!this.autoplayInterval;
 
-        if (this.circular) {
-            this.setCloneItems();
-        }
+            if (this.circular) {
+                this.setCloneItems();
+            }
 
-        if (this.responsiveOptions) {
-            this.defaultNumScroll = this._numScroll;
-            this.defaultNumVisible = this._numVisible;
-        }
+            if (this.responsiveOptions) {
+                this.defaultNumScroll = this._numScroll;
+                this.defaultNumVisible = this._numVisible;
+            }
 
-        this.createStyle();
-        this.calculatePosition();
+            this.createStyle();
+            this.calculatePosition();
 
-        if (this.responsiveOptions) {
-            this.bindDocumentListeners();
+            if (this.responsiveOptions) {
+                this.bindDocumentListeners();
+            }
         }
 
         this.templates?.forEach((item) => {
@@ -436,69 +440,71 @@ export class Carousel implements AfterContentInit {
     }
 
     ngAfterContentChecked() {
-        const isCircular = this.isCircular();
-        let totalShiftedItems = this.totalShiftedItems;
+        if (isPlatformBrowser(this.platformId)) {
+            const isCircular = this.isCircular();
+            let totalShiftedItems = this.totalShiftedItems;
 
-        if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
-            if (this.autoplayInterval) {
-                this.stopAutoplay(false);
-            }
+            if (this.value && this.itemsContainer && (this.prevState.numScroll !== this._numScroll || this.prevState.numVisible !== this._numVisible || this.prevState.value.length !== this.value.length)) {
+                if (this.autoplayInterval) {
+                    this.stopAutoplay(false);
+                }
 
-            this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
+                this.remainingItems = (this.value.length - this._numVisible) % this._numScroll;
 
-            let page = this._page;
-            if (this.totalDots() !== 0 && page >= this.totalDots()) {
-                page = this.totalDots() - 1;
-                this._page = page;
-                this.onPage.emit({
-                    page: this.page
-                });
-            }
+                let page = this._page;
+                if (this.totalDots() !== 0 && page >= this.totalDots()) {
+                    page = this.totalDots() - 1;
+                    this._page = page;
+                    this.onPage.emit({
+                        page: this.page
+                    });
+                }
 
-            totalShiftedItems = page * this._numScroll * -1;
-            if (isCircular) {
-                totalShiftedItems -= this._numVisible;
-            }
+                totalShiftedItems = page * this._numScroll * -1;
+                if (isCircular) {
+                    totalShiftedItems -= this._numVisible;
+                }
 
-            if (page === this.totalDots() - 1 && this.remainingItems > 0) {
-                totalShiftedItems += -1 * this.remainingItems + this._numScroll;
-                this.isRemainingItemsAdded = true;
-            } else {
-                this.isRemainingItemsAdded = false;
-            }
-
-            if (totalShiftedItems !== this.totalShiftedItems) {
-                this.totalShiftedItems = totalShiftedItems;
-            }
-
-            this._oldNumScroll = this._numScroll;
-            this.prevState.numScroll = this._numScroll;
-            this.prevState.numVisible = this._numVisible;
-            this.prevState.value = [...(this._value as any[])];
-
-            if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
-                this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
-            }
-
-            this.isCreated = true;
-
-            if (this.autoplayInterval && this.isAutoplay()) {
-                this.startAutoplay();
-            }
-        }
-
-        if (isCircular) {
-            if (this.page === 0) {
-                totalShiftedItems = -1 * this._numVisible;
-            } else if (totalShiftedItems === 0) {
-                totalShiftedItems = -1 * this.value.length;
-                if (this.remainingItems > 0) {
+                if (page === this.totalDots() - 1 && this.remainingItems > 0) {
+                    totalShiftedItems += -1 * this.remainingItems + this._numScroll;
                     this.isRemainingItemsAdded = true;
+                } else {
+                    this.isRemainingItemsAdded = false;
+                }
+
+                if (totalShiftedItems !== this.totalShiftedItems) {
+                    this.totalShiftedItems = totalShiftedItems;
+                }
+
+                this._oldNumScroll = this._numScroll;
+                this.prevState.numScroll = this._numScroll;
+                this.prevState.numVisible = this._numVisible;
+                this.prevState.value = [...(this._value as any[])];
+
+                if (this.totalDots() > 0 && this.itemsContainer.nativeElement) {
+                    this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
+                }
+
+                this.isCreated = true;
+
+                if (this.autoplayInterval && this.isAutoplay()) {
+                    this.startAutoplay();
                 }
             }
 
-            if (totalShiftedItems !== this.totalShiftedItems) {
-                this.totalShiftedItems = totalShiftedItems;
+            if (isCircular) {
+                if (this.page === 0) {
+                    totalShiftedItems = -1 * this._numVisible;
+                } else if (totalShiftedItems === 0) {
+                    totalShiftedItems = -1 * this.value.length;
+                    if (this.remainingItems > 0) {
+                        this.isRemainingItemsAdded = true;
+                    }
+                }
+
+                if (totalShiftedItems !== this.totalShiftedItems) {
+                    this.totalShiftedItems = totalShiftedItems;
+                }
             }
         }
     }

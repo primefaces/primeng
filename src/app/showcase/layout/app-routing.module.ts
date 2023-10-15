@@ -87,7 +87,6 @@ const routes: Routes = [
             { path: 'selectbutton', loadChildren: () => import('../pages/selectbutton/selectbuttondemo.module').then((m) => m.SelectButtonDemoModule) },
             { path: 'sidebar', loadChildren: () => import('../pages/sidebar/sidebardemo.module').then((m) => m.SidebarDemoModule) },
             { path: 'skeleton', loadChildren: () => import('../pages/skeleton/skeletondemo.module').then((m) => m.SkeletonDemoModule) },
-            { path: 'slidemenu', loadChildren: () => import('../pages/slidemenu/slidemenudemo.module').then((m) => m.SlideMenuDemoModule) },
             { path: 'slider', loadChildren: () => import('../pages/slider/sliderdemo.module').then((m) => m.SliderDemoModule) },
             { path: 'speeddial', loadChildren: () => import('../pages/speeddial/speeddialdemo.module').then((m) => m.SpeedDialDemoModule) },
             { path: 'splitbutton', loadChildren: () => import('../pages/splitbutton/splitbuttondemo.module').then((m) => m.SplitButtonDemoModule) },

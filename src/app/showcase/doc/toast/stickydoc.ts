@@ -10,7 +10,10 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <button type="button" pButton pRipple (click)="showSticky()" label="Show Sticky"></button>
+            <div class="flex flex-wrap gap-2">
+                <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
+                <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+            </div>
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
     </section>`,
@@ -23,18 +26,28 @@ export class StickyDoc {
 
     constructor(private messageService: MessageService) {}
 
-    showSticky() {
+    show() {
         this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    }
+
+    clear() {
+        this.messageService.clear();
     }
 
     code: Code = {
         basic: `
 <p-toast></p-toast>
-<button type="button" pButton pRipple (click)="showSticky()" label="Show Sticky"></button>`,
+<div class="flex flex-wrap gap-2">
+    <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
+    <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+</div>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="showSticky()" label="Show Sticky"></button>
+    <div class="flex flex-wrap gap-2">
+        <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
+        <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+    </div>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
@@ -48,8 +61,12 @@ import { MessageService } from 'primeng/api';
 export class ToastStickyDemo {
     constructor(private messageService: MessageService) {}
 
-    showSticky() {
+    show() {
         this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    }
+
+    clear() {
+        this.messageService.clear();
     }
 }`
     };

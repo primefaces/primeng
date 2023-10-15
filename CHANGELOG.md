@@ -1,5 +1,35 @@
 # Changelog
 
+## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
+
+**Deprecated:**
+- SlideMenu: Deprecate from PrimeNG [\#13830](https://github.com/primefaces/primeng/issues/13830)
+- Remove FullCalendar theme support [\#13834](https://github.com/primefaces/primeng/issues/13834)
+
+**Implemented New Features and Enhancements:**
+- Button: New props [\#13851](https://github.com/primefaces/primeng/issues/13851)
+- SelectButton: Add allowEmpty property [\#13853](https://github.com/primefaces/primeng/issues/13853)
+- Accessibility | Step component bugs and improvements [\#13742](https://github.com/primefaces/primeng/issues/13742)
+- Tooltip: Accessibility role not available [\#13843](https://github.com/primefaces/primeng/issues/13843)
+- Improve block/unblockScroll architecture [\#13855](https://github.com/primefaces/primeng/issues/13855)
+
+**Fixed bugs:**
+
+- Toolbar: Inconsistent naming and wrong documentation [\#13814](https://github.com/primefaces/primeng/issues/13814)
+- Password | Incorrect placement of close icon when toggleMask="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
+- Tooltip: disable autoHide doesn't work [\#13828](https://github.com/primefaces/primeng/issues/13828)
+- Multiselect: Chips: Delete button not visible if label is too wide [\#13816](https://github.com/primefaces/primeng/issues/13816)
+- BlockUI: Mask is not applied when blocked changes rapidly [\#11838](https://github.com/primefaces/primeng/issues/11838)
+- panelMenu- sub MenuItem is disabled but still it can be clickable and expandable [\#13827](https://github.com/primefaces/primeng/issues/13827)
+- Multiselect: Incorrect view with selected items [\#13654](https://github.com/primefaces/primeng/issues/13654)
+- there is a missed "break;" line in a switch case in menu.ts at line 540 [\#13766](https://github.com/primefaces/primeng/issues/13766)
+- SSR fails on carousel circular and galleria autoplay [\#13837](https://github.com/primefaces/primeng/issues/13837)
+- Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
+- p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
+- Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
 ## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)

@@ -51,9 +51,9 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                 <li *ngIf="processedItem.separator" class="p-menuitem-separator" role="separator"></li>
                 <li
                     *ngIf="!processedItem.separator && isItemVisible(processedItem)"
-                    class="p-menuitem"
+                    [ngClass]="getItemClass(processedItem)"
                     role="treeitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.aria-label]="getItemProp(processedItem, 'label')"
                     [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
                     [attr.aria-level]="level + 1"
@@ -61,9 +61,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [class]="getItemProp(processedItem, 'styleClass')"
                     [class.p-hidden]="processedItem.visible === false"
-                    [class.p-focus]="isItemFocused(processedItem)"
+                    [class.p-focus]="isItemFocused(processedItem) && !isItemDisabled(processedItem)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
                     <div class="p-menuitem-content" (click)="onItemClick($event, processedItem)">
@@ -200,6 +201,13 @@ export class PanelMenuSub {
         return this.getItemId(processedItem);
     }
 
+    getItemClass(processedItem) {
+        return {
+            'p-menuitem': true,
+            'p-disabled': this.isItemDisabled(processedItem)
+        };
+    }
+
     getItemProp(processedItem, name?, params?) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
     }
@@ -245,8 +253,10 @@ export class PanelMenuSub {
     }
 
     onItemClick(event, processedItem) {
-        this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
-        this.itemToggle.emit({ processedItem, expanded: !this.isItemActive(processedItem) });
+        if (!this.isItemDisabled(processedItem)) {
+            this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
+            this.itemToggle.emit({ processedItem, expanded: !this.isItemActive(processedItem) });
+        }
     }
 
     onItemToggle(event) {
@@ -688,7 +698,7 @@ export class PanelMenuList implements OnChanges {
                         [class]="getItemProp(item, 'styleClass')"
                         [ngStyle]="getItemProp(item, 'style')"
                         [pTooltip]="getItemProp(item, 'tooltip')"
-                        [id]="getHeaderId(item, i)"
+                        [attr.id]="getHeaderId(item, i)"
                         [tabindex]="0"
                         role="button"
                         [tooltipOptions]="getItemProp(item, 'tooltipOptions')"
@@ -762,7 +772,7 @@ export class PanelMenuList implements OnChanges {
                         [@rootItem]="getAnimation(item)"
                         (@rootItem.done)="onToggleDone()"
                         role="region"
-                        [id]="getContentId(item, i)"
+                        [attr.id]="getContentId(item, i)"
                         [attr.aria-labelledby]="getHeaderId(item, i)"
                         [attr.data-pc-section]="'toggleablecontent'"
                     >

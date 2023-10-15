@@ -591,8 +591,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+            DomHandler.blockBodyScroll();
         }
     }
 
@@ -603,8 +602,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             if (this.modal) {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.removeProperty('--scrollbar-width');
+                DomHandler.unblockBodyScroll();
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -618,11 +616,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
         if (!this.modal && !this.blockScroll) {
             if (this.maximized) {
-                DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+                DomHandler.blockBodyScroll();
             } else {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.removeProperty('--scrollbar-width');
+                DomHandler.unblockBodyScroll();
             }
         }
 

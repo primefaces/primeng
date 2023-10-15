@@ -12,7 +12,7 @@ import { AppConfigService } from '../../service/appconfigservice';
         <div class="card">
             <div class="color-stack">
                 <div *ngFor="let shade of shades">
-                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade, color: shade < 500 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
+                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade + ')', color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
                 </div>
             </div>
         </div>
