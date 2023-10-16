@@ -327,6 +327,10 @@ export class DropdownItem {
     styleUrls: ['./dropdown.css']
 })
 export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+    /**
+     * Unique identifier of the component
+     * @group Props
+     */
     @Input() id: string | undefined;
     /**
      * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
@@ -418,7 +422,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() filterBy: string | undefined;
-
+    /**
+     * Fields used when filtering the options, defaults to optionLabel.
+     * @group Props
+     */
     @Input() filterFields: any[] | undefined;
     /**
      * When present, it specifies that the component should automatically get focus on load.
@@ -555,13 +562,20 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() tooltipStyleClass: string | undefined;
-
-    @Input() inputStyleClass: string | undefined;
-
+    /**
+     * Fields used when filtering the options, defaults to optionLabel.
+     * @group Props
+     */
     @Input() focusOnHover: boolean = false;
-
+    /**
+     * Determines if the option will be selected on focus.
+     * @group Props
+     */
     @Input() selectOnFocus: boolean = false;
-    
+    /**
+     * Whether to focus on the first visible or selected element when the overlay panel is shown.
+     * @group Props
+     */
     @Input() autoOptionFocus: boolean = true;
     /**
      * Applies focus to the filter element when the overlay is shown.
