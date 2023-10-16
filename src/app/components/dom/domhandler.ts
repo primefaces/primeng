@@ -633,6 +633,12 @@ export class DomHandler {
         return focusableElements.length > 0 ? focusableElements[0] : null;
     }
 
+    public static getLastFocusableElement(element, selector) {
+        const focusableElements = this.getFocusableElements(element, selector);
+
+        return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
+    }
+
     public static getNextFocusableElement(element: HTMLElement, reverse = false) {
         const focusableElements = DomHandler.getFocusableElements(element);
         let index = 0;

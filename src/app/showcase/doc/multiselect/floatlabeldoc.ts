@@ -14,8 +14,8 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <span class="p-float-label">
-                <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
-                <label for="ms-cities">Select Cities</label>
+                <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
+                <label for="float-label">Select Cities</label>
             </span>
         </div>
         <app-code [code]="code" selector="multi-select-floatlabel-demo"></app-code>
@@ -43,15 +43,15 @@ export class FloatLabelDoc implements OnInit {
     code: Code = {
         basic: `
 <span class="p-float-label">
-    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
-    <label for="ms-cities">Select Cities</label>
+    <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
+    <label for="float-label">Select Cities</label>
 </span>`,
 
         html: `
 <div class="card flex justify-content-center">
     <span class="p-float-label">
-        <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
-        <label for="ms-cities">Select Cities</label>
+        <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
+        <label for="float-label">Select Cities</label>
     </span>
 </div>`,
 

@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     </section>`
