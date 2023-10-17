@@ -1307,8 +1307,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             //escape and tab
             case 27:
             case 9:
-                this.hide();
-                event.preventDefault();
+                if (this.overlayVisible) {
+                    this.hide();
+                    event.preventDefault();
+                }
                 break;
 
             //search item based on keyboard input

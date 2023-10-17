@@ -34,12 +34,6 @@ import { Code } from '../../domain/code';
                     <tbody>
                         <tr>
                             <td>
-                                <i>tab</i>
-                            </td>
-                            <td>Moves focus to the dropdown element.</td>
-                        </tr>
-                        <tr>
-                            <td>
                                 <i>space</i>
                             </td>
                             <td>Opens the popup and moves visual focus to the selected option, if there is none then first option receives the focus.</td>
@@ -74,11 +68,11 @@ import { Code } from '../../domain/code';
                             <td>
                                 <i>tab</i>
                             </td>
-                            <td>Moves focus to the next focusable element in the popup, if there is none then first focusable element receives the focus.</td>
+                            <td>Selects the focused option and closes the popup.</td>
                         </tr>
                         <tr>
                             <td><i>shift</i> + <i>tab</i></td>
-                            <td>Moves focus to the previous focusable element in the popup, if there is none then last focusable element receives the focus.</td>
+                            <td>Selects the focused option and closes the popup.</td>
                         </tr>
                         <tr>
                             <td>
