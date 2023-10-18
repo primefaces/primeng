@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { StarFillIcon } from 'primeng/icons/starfill';
-import { StarIcon } from 'primeng/icons/star';
 import { BanIcon } from 'primeng/icons/ban';
-import { RatingRateEvent } from './rating.interface';
+import { StarIcon } from 'primeng/icons/star';
+import { StarFillIcon } from 'primeng/icons/starfill';
 import { Nullable } from 'primeng/ts-helpers';
+import { RatingRateEvent } from './rating.interface';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -20,9 +20,9 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }">
+        <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }" [attr.data-pc-name]="'rating'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
-                <ng-container *ngIf="cancel">
+                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'">
                     <span
                         *ngIf="iconCancelClass"
                         [attr.tabindex]="disabled || readonly ? null : '0'"
@@ -32,24 +32,48 @@ export const RATING_VALUE_ACCESSOR: any = {
                         [ngClass]="iconCancelClass"
                         [ngStyle]="iconCancelStyle"
                     ></span>
-                    <BanIcon *ngIf="!iconCancelClass" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle" />
-                </ng-container>
+                    <BanIcon
+                        *ngIf="!iconCancelClass"
+                        [attr.tabindex]="disabled || readonly ? null : '0'"
+                        (click)="clear($event)"
+                        (keydown.enter)="clear($event)"
+                        [styleClass]="'p-rating-icon p-rating-cancel'"
+                        [ngStyle]="iconCancelStyle"
+                        [attr.data-pc-section]="'cancelIcon'"
+                    />
+                </div>
                 <span *ngFor="let star of starsArray; let i = index">
                     <ng-container *ngIf="!value || i >= value">
-                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
-                        <StarIcon *ngIf="!iconOffClass" (click)="rate($event, i)" [ngStyle]="iconOffStyle" (keydown.enter)="rate($event, i)" [styleClass]="'p-rating-icon'" [attr.tabindex]="disabled || readonly ? null : '0'" />
+                        <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)" [attr.data-pc-section]="'offIcon'"></span>
+                        <StarIcon
+                            *ngIf="!iconOffClass"
+                            (click)="rate($event, i)"
+                            [ngStyle]="iconOffStyle"
+                            (keydown.enter)="rate($event, i)"
+                            [styleClass]="'p-rating-icon'"
+                            [attr.tabindex]="disabled || readonly ? null : '0'"
+                            [attr.data-pc-section]="'offIcon'"
+                        />
                     </ng-container>
                     <ng-container *ngIf="value && i < value">
-                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)"></span>
-                        <StarFillIcon *ngIf="!iconOnClass" (click)="rate($event, i)" [ngStyle]="iconOnStyle" (keydown.enter)="rate($event, i)" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.tabindex]="disabled || readonly ? null : '0'" />
+                        <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" (click)="rate($event, i)" (keydown.enter)="rate($event, i)" [attr.data-pc-section]="'onIcon'"></span>
+                        <StarFillIcon
+                            *ngIf="!iconOnClass"
+                            (click)="rate($event, i)"
+                            [ngStyle]="iconOnStyle"
+                            (keydown.enter)="rate($event, i)"
+                            [styleClass]="'p-rating-icon p-rating-icon-active'"
+                            [attr.tabindex]="disabled || readonly ? null : '0'"
+                            [attr.data-pc-section]="'onIcon'"
+                        />
                     </ng-container>
                 </span>
             </ng-container>
             <ng-template #customTemplate>
-                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'">
                     <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
                 </span>
-                <span *ngFor="let star of starsArray; let i = index" class="p-rating-icon" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="rate($event, i)" (keydown.enter)="rate($event, i)">
+                <span *ngFor="let star of starsArray; let i = index" class="p-rating-icon" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="rate($event, i)" (keydown.enter)="rate($event, i)" [attr.data-pc-section]="'onIcon'">
                     <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
                 </span>
             </ng-template>
