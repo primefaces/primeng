@@ -223,7 +223,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'hidden';
     }
 
     ngOnDestroy() {
