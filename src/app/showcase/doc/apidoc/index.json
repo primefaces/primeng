@@ -18659,7 +18659,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether selection can not be cleared."
                         },
                         {
