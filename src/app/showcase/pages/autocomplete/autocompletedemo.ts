@@ -11,6 +11,9 @@ import { DropdownDoc } from '../../doc/autocomplete/dropdowndoc';
 import { ForceSelectionDoc } from '../../doc/autocomplete/forceselectiondoc';
 import { ObjectsDoc } from '../../doc/autocomplete/objectsdoc';
 import { ReactiveFormsDoc } from '../../doc/autocomplete/reactiveformsdoc';
+import { FloatLabelDoc } from '../../doc/autocomplete/floatlabeldoc';
+import { DisabledDoc } from '../../doc/autocomplete/disableddoc';
+import { InvalidDoc } from '../../doc/autocomplete/invaliddoc';
 @Component({
     templateUrl: './autocompletedemo.html'
 })
@@ -65,6 +68,21 @@ export class AutoCompleteDemo {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
+        },
+        {
+            id: 'floatlabel',
+            label: 'Float Label',
+            component: FloatLabelDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'style',
