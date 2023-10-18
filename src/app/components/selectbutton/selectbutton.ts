@@ -89,7 +89,7 @@ export class SelectButton implements ControlValueAccessor {
      * Whether selection can not be cleared.
      * @group Props
      */
-    @Input() allowEmpty: boolean = true;
+    @Input() allowEmpty: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
