@@ -1,5 +1,15 @@
 # Changelog
 
+## [16.5.1](https://github.com/primefaces/primeng/tree/16.5.1) (2023-10-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.5.0...16.5.1)
+
+**Fixed bugs:**
+- Table | Column widths are not recalculated w/resize + drag & drop [\#13875](https://github.com/primefaces/primeng/issues/13875)
+- Tooltip doesn't accept TemplateRef HTMLElement anymore [\#13866](https://github.com/primefaces/primeng/issues/13866)
+- Component: AccordionTab.toggle(null) throws TypeError [\#13872](https://github.com/primefaces/primeng/issues/13872)
+- Menu Components | Convert property binding of 'id' to attribute binding [\#13870](https://github.com/primefaces/primeng/issues/13870)
+
 ## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
