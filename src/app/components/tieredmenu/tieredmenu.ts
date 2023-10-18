@@ -663,7 +663,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     onItemMouseEnter(event: any) {
-        if(!DomHandler.isTouchDevice()) {
+        if (!DomHandler.isTouchDevice()) {
             if (this.dirty) {
                 this.onItemChange(event);
             }

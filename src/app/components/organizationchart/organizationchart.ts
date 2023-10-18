@@ -221,7 +221,7 @@ export class OrganizationChart implements AfterContentInit {
 
     selectionSource$ = this.selectionSource.asObservable();
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) { }
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     get root(): TreeNode<any> | null {
         return this.value && this.value.length ? this.value[0] : null;
@@ -313,4 +313,4 @@ export class OrganizationChart implements AfterContentInit {
     exports: [OrganizationChart, SharedModule],
     declarations: [OrganizationChart, OrganizationChartNode]
 })
-export class OrganizationChartModule { }
+export class OrganizationChartModule {}

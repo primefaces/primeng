@@ -10,7 +10,7 @@ import { PhotoService } from '../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
-         <div class="card md:flex md:justify-content-center">
+        <div class="card md:flex md:justify-content-center">
             <p-galleria
                 #galleria
                 [(value)]="images"

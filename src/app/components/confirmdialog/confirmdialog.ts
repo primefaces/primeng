@@ -462,7 +462,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         });
     }
 
-    getAriaLabelledBy(){
+    getAriaLabelledBy() {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 

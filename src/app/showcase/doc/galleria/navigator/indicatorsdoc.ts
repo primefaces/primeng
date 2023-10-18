@@ -9,7 +9,7 @@ import { PhotoService } from '../../../service/photoservice';
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>
         </app-docsectiontext>
-         <div class="card md:flex md:justify-content-center">
+        <div class="card md:flex md:justify-content-center">
             <p-galleria
                 [(value)]="images"
                 [showItemNavigators]="true"

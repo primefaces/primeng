@@ -606,7 +606,7 @@ export class DomHandler {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static  getFocusableElements(element, selector = '') {
+    public static getFocusableElements(element, selector = '') {
         let focusableElements = this.find(
             element,
             `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},

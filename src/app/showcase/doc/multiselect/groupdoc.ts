@@ -11,7 +11,10 @@ interface City {
     selector: 'group-doc',
     template: ` <section>
         <app-docsectiontext [title]="title" [id]="id">
-        <p> Options can be grouped when a nested data structures is provided. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is required to define the property that refers to the children of a group. </p>
+            <p>
+                Options can be grouped when a nested data structures is provided. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is required to define the property that refers to the
+                children of a group.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" scrollHeight="250px" display="chip">

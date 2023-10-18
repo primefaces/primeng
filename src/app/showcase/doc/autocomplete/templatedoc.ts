@@ -34,10 +34,6 @@ export class TemplateDoc {
 
     countries: any[] | undefined;
 
-    items: any[] | undefined;
-
-    groupedCities: SelectItemGroup[] | undefined;
-
     selectedCountryAdvanced: any[] | undefined;
 
     filteredCountries: any[] | undefined;
@@ -48,44 +44,6 @@ export class TemplateDoc {
         this.countryService.getCountries().then((countries) => {
             this.countries = countries;
         });
-
-        this.groupedCities = [
-            {
-                label: 'Germany',
-                value: 'de',
-                items: [
-                    { label: 'Berlin', value: 'Berlin' },
-                    { label: 'Frankfurt', value: 'Frankfurt' },
-                    { label: 'Hamburg', value: 'Hamburg' },
-                    { label: 'Munich', value: 'Munich' }
-                ]
-            },
-            {
-                label: 'USA',
-                value: 'us',
-                items: [
-                    { label: 'Chicago', value: 'Chicago' },
-                    { label: 'Los Angeles', value: 'Los Angeles' },
-                    { label: 'New York', value: 'New York' },
-                    { label: 'San Francisco', value: 'San Francisco' }
-                ]
-            },
-            {
-                label: 'Japan',
-                value: 'jp',
-                items: [
-                    { label: 'Kyoto', value: 'Kyoto' },
-                    { label: 'Osaka', value: 'Osaka' },
-                    { label: 'Tokyo', value: 'Tokyo' },
-                    { label: 'Yokohama', value: 'Yokohama' }
-                ]
-            }
-        ];
-
-        this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-        }
     }
 
     filterCountry(event: AutoCompleteCompleteEvent) {
@@ -98,7 +56,6 @@ export class TemplateDoc {
                 filtered.push(country);
             }
         }
-
         this.filteredCountries = filtered;
     }
 
@@ -144,10 +101,6 @@ interface AutoCompleteCompleteEvent {
 export class AutocompleteTemplateDemo {
     countries: any[] | undefined;
 
-    items: any[] | undefined;
-
-    groupedCities: SelectItemGroup[] | undefined;
-
     selectedCountryAdvanced: any[] | undefined;
 
     filteredCountries: any[] | undefined; 
@@ -158,44 +111,6 @@ export class AutocompleteTemplateDemo {
         this.countryService.getCountries().then((countries) => {
             this.countries = countries;
         });
-
-        this.groupedCities = [
-            {
-                label: 'Germany',
-                value: 'de',
-                items: [
-                    { label: 'Berlin', value: 'Berlin' },
-                    { label: 'Frankfurt', value: 'Frankfurt' },
-                    { label: 'Hamburg', value: 'Hamburg' },
-                    { label: 'Munich', value: 'Munich' }
-                ]
-            },
-            {
-                label: 'USA',
-                value: 'us',
-                items: [
-                    { label: 'Chicago', value: 'Chicago' },
-                    { label: 'Los Angeles', value: 'Los Angeles' },
-                    { label: 'New York', value: 'New York' },
-                    { label: 'San Francisco', value: 'San Francisco' }
-                ]
-            },
-            {
-                label: 'Japan',
-                value: 'jp',
-                items: [
-                    { label: 'Kyoto', value: 'Kyoto' },
-                    { label: 'Osaka', value: 'Osaka' },
-                    { label: 'Tokyo', value: 'Tokyo' },
-                    { label: 'Yokohama', value: 'Yokohama' }
-                ]
-            }
-        ];
-
-        this.items = [];
-        for (let i = 0; i < 10000; i++) {
-            this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-        }
     }
 
     filterCountry(event: AutoCompleteCompleteEvent) {

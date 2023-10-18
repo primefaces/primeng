@@ -644,7 +644,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     onItemMouseEnter(event: any) {
-        if(!DomHandler.isTouchDevice()) {
+        if (!DomHandler.isTouchDevice()) {
             if (!this.mobileActive && this.dirty) {
                 this.onItemChange(event);
             }

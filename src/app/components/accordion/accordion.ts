@@ -556,9 +556,9 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     initTabs() {
         this.tabs = (this.tabList as QueryList<AccordionTab>).toArray();
 
-        this.tabs.forEach(tab => {
+        this.tabs.forEach((tab) => {
             tab.headerAriaLevel = this._headerAriaLevel;
-        })
+        });
 
         this.updateSelectionState();
         this.changeDetector.markForCheck();

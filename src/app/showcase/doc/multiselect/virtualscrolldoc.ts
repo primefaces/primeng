@@ -11,7 +11,17 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities"></p-multiSelect>
+            <p-multiSelect
+                [options]="virtualItems"
+                [showToggleAll]="false"
+                [(ngModel)]="selectedItems"
+                optionLabel="name"
+                [virtualScroll]="true"
+                [filter]="true"
+                [virtualScrollItemSize]="43"
+                class="multiselect-custom-virtual-scroll"
+                placeholder="Select Cities"
+            ></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
     </section>`

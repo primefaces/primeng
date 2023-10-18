@@ -45,7 +45,15 @@ import { DomHandler } from 'primeng/dom';
             </div>
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
                 <div class="p-carousel-container" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }" [disabled]="isBackwardNavDisabled()" [attr.aria-label]="ariaPrevButtonLabel()" (click)="navBackward($event)" pRipple>
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }"
+                        [disabled]="isBackwardNavDisabled()"
+                        [attr.aria-label]="ariaPrevButtonLabel()"
+                        (click)="navBackward($event)"
+                        pRipple
+                    >
                         <ng-container *ngIf="!previousIconTemplate">
                             <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
@@ -89,7 +97,15 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
                     </div>
-                    <button type="button" *ngIf="showNavigators" [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }" [disabled]="isForwardNavDisabled()" (click)="navForward($event)" pRipple [attr.aria-label]="ariaNextButtonLabel()">
+                    <button
+                        type="button"
+                        *ngIf="showNavigators"
+                        [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }"
+                        [disabled]="isForwardNavDisabled()"
+                        (click)="navForward($event)"
+                        pRipple
+                        [attr.aria-label]="ariaNextButtonLabel()"
+                    >
                         <ng-container *ngIf="!nextIconTemplate">
                             <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
@@ -101,7 +117,16 @@ import { DomHandler } from 'primeng/dom';
                 </div>
                 <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
                     <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
-                        <button type="button" [ngClass]="'p-link'" (click)="onDotClick($event, i)" [class]="indicatorStyleClass" [ngStyle]="indicatorStyle" [attr.aria-label]="ariaPageLabel(i + 1)" [attr.aria-current]="_page === i ? 'page' : undefined" [tabindex]="_page === i ? 0 : -1"></button>
+                        <button
+                            type="button"
+                            [ngClass]="'p-link'"
+                            (click)="onDotClick($event, i)"
+                            [class]="indicatorStyleClass"
+                            [ngStyle]="indicatorStyle"
+                            [attr.aria-label]="ariaPageLabel(i + 1)"
+                            [attr.aria-current]="_page === i ? 'page' : undefined"
+                            [tabindex]="_page === i ? 0 : -1"
+                        ></button>
                     </li>
                 </ul>
             </div>
@@ -673,7 +698,6 @@ export class Carousel implements AfterContentInit {
             case 'ArrowLeft':
                 this.onLeftKey();
                 break;
-
         }
     }
 

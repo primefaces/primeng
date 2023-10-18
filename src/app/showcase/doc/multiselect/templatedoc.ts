@@ -17,7 +17,7 @@ interface Country {
                 <ng-template let-value pTemplate="selectedItems">
                     <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of selectedCountries">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ option.name }}, </div>
+                        <div>{{ option.name }},</div>
                     </div>
                     <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
                 </ng-template>
