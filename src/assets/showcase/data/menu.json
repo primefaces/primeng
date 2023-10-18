@@ -542,6 +542,11 @@
             ]
         },
         {
+            "name": "PrimeTV",
+            "icon": "pi pi-youtube",
+            "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -552,10 +557,6 @@
                 {
                     "name": "Roadmap",
                     "routerLink": "/roadmap"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
                 },
                 {
                     "name": "Source Code",
