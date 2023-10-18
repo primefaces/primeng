@@ -1,6 +1,6 @@
 import { QueryParamsHandling } from '@angular/router';
-import { TooltipOptions } from './tooltipoptions';
 import { MegaMenuItem } from './megamenuitem';
+import { TooltipOptions } from './tooltipoptions';
 
 /**
  * MenuItem provides the following properties. Note that not all of them may be utilized by the tabmenu component.
@@ -143,6 +143,10 @@ export interface MenuItem {
      * @see {TooltipOptions}
      */
     tooltipOptions?: TooltipOptions;
+    /**
+     * Optional
+     */
+    [key: string]: any;
 }
 
 /**

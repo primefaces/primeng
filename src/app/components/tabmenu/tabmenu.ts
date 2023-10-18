@@ -20,8 +20,6 @@ import {
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
-    computed,
-    effect,
     signal
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -223,7 +221,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     private timerIdForInitialAutoScroll: any = null;
 
-    _focusableItems: MenuItem[] | undefined;
+    _focusableItems: MenuItem[] | undefined | any;
 
     _model: MenuItem[] | undefined;
 
