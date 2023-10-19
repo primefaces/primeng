@@ -784,9 +784,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return {
             'p-autocomplete p-component p-inputwrapper': true,
             'p-disabled': this.disabled,
+            'p-focus': this.focused,
             'p-autocomplete-dd': this.dropdown,
             'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-filled': ObjectUtils.isNotEmpty(this.modelValue()) || ObjectUtils.isNotEmpty(this.inputValue()),
+            'p-inputwrapper-filled': this.modelValue() || ObjectUtils.isNotEmpty(this.inputValue),
             'p-inputwrapper-focus': this.focused,
             'p-overlay-open': this.overlayVisible
         };
@@ -806,7 +807,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     get inputClass() {
         return {
-            'p-autocomplete-input p-inputtext p-component': true,
+            'p-autocomplete-input p-inputtext p-component': !this.multiple,
             'p-autocomplete-dd-input': this.dropdown
         };
     }
