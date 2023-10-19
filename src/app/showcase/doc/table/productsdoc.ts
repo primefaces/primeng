@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'products-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'delay-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>
         </app-docsectiontext>

@@ -9,7 +9,7 @@ import { SearchIcon } from 'primeng/icons/search';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Tree, TreeModule } from 'primeng/tree';
+import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { ObjectUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
@@ -107,8 +107,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </div>
                             <button class="p-treeselect-close p-link" (click)="hide()">
-                                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-treeselect-filter-icon'" />
-                                <span *ngIf="closeIconTemplate" class="p-treeselect-filter-icon">
+                                <TimesIcon *ngIf="!closeIconTemplate" />
+                                <span *ngIf="closeIconTemplate">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                                 </span>
                             </button>
@@ -389,13 +389,13 @@ export class TreeSelect implements AfterContentInit {
      * @param {TreeNode} node - Node instance.
      * @group Emits
      */
-    @Output() onNodeUnselect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
+    @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is selected.
      * @param {TreeNode} node - Node instance.
      * @group Emits
      */
-    @Output() onNodeSelect: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
+    @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
 
     _showTransitionOptions: string | undefined;
 
@@ -764,16 +764,16 @@ export class TreeSelect implements AfterContentInit {
         return index;
     }
 
-    onSelect(node: TreeNode) {
-        this.onNodeSelect.emit(node);
+    onSelect(event: TreeNodeSelectEvent) {
+        this.onNodeSelect.emit(event);
 
         if (this.selectionMode === 'single') {
             this.hide();
         }
     }
 
-    onUnselect(node: TreeNode) {
-        this.onNodeUnselect.emit(node);
+    onUnselect(event: TreeNodeUnSelectEvent) {
+        this.onNodeUnselect.emit(event);
     }
 
     onFocus() {

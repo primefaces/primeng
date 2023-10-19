@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'custom-sort-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and defining a sortFunction implementation. This function gets a SortEvent instance that provides the data to sort,

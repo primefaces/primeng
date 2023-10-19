@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-vertical-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>To create a vertical Carousel, <i>orientation</i> needs to be set to <i>vertical</i> along with a <i>verticalViewPortHeight</i>.</p>
         </app-docsectiontext>

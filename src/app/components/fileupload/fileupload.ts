@@ -521,6 +521,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         }
     }
 
+    getTranslation(option: string) {
+        return this.config.getTranslation(option);
+    }
+
     choose() {
         this.advancedFileInput?.nativeElement.click();
     }
@@ -725,6 +729,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     clear() {
         this.files = [];
+        this.uploadedFileCount = 0;
         this.onClear.emit();
         this.clearInputElement();
         this.cd.markForCheck();
@@ -829,10 +834,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     formatSize(bytes: number) {
         const k = 1024;
         const dm = 3;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
-            return '0 B';
+            return `0 ${sizes[0]}`;
         }
 
         const i = Math.floor(Math.log(bytes) / Math.log(k));

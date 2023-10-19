@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>

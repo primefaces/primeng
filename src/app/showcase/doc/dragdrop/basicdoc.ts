@@ -4,7 +4,7 @@ import { Product } from '../../domain/product';
 
 @Component({
     selector: 'drag-drop-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 <i>pDraggable</i> and <i>pDroppable</i> are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also

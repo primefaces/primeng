@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>OrganizationChart requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>

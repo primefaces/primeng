@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-template-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabMenu supports templating via the <i>item</i> template which gets the menuitem instance and the index.</p>
         </app-docsectiontext>

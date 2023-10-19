@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'presets-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>

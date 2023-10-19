@@ -172,9 +172,20 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                             </td>
                                             <td *ngFor="let date of week" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                                    <span [ngClass]="{ 'p-highlight': isSelected(date), 'p-disabled': !date.selectable }" (click)="onDateSelect($event, date)" draggable="false" (keydown)="onDateCellKeydown($event, date, i)" pRipple>
-                                                        <ng-container *ngIf="!dateTemplate">{{ date.day }}</ng-container>
-                                                        <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
+                                                    <span
+                                                        [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
+                                                        (click)="onDateSelect($event, date)"
+                                                        draggable="false"
+                                                        (keydown)="onDateCellKeydown($event, date, i)"
+                                                        pRipple
+                                                    >
+                                                        <ng-container *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
+                                                        <ng-container *ngIf="date.selectable || !disabledDateTemplate">
+                                                            <ng-container *ngTemplateOutlet="dateTemplate; context: { $implicit: date }"></ng-container>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="!date.selectable">
+                                                            <ng-container *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                        </ng-container>
                                                     </span>
                                                 </ng-container>
                                             </td>
@@ -197,7 +208,14 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" class="p-yearpicker-year" [ngClass]="{ 'p-highlight': isYearSelected(y) }" pRipple>
+                        <span
+                            *ngFor="let y of yearPickerValues()"
+                            (click)="onYearSelect($event, y)"
+                            (keydown)="onYearCellKeydown($event, y)"
+                            class="p-yearpicker-year"
+                            [ngClass]="{ 'p-highlight': isYearSelected(y), 'p-disabled': isYearDisabled(y) }"
+                            pRipple
+                        >
                             {{ y }}
                         </span>
                     </div>
@@ -1026,6 +1044,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
+        this.yearOptions = [];
         this.currentView = this.view;
 
         if (this.view === 'date') {
@@ -1544,7 +1563,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
                 let stringArrValue = null;
-                if (this.value) {
+                if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
                 this.onModelChange(stringArrValue);
@@ -1650,6 +1669,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return true;
     }
 
+    isYearDisabled(year) {
+        return !this.isSelectable(1, this.currentMonth, year, false);
+    }
+
     isYearSelected(year: number) {
         if (this.isComparable()) {
             let value = this.isRangeSelection() ? this.value[0] : this.value;
@@ -1667,7 +1690,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
-        if (start && end) {
+        if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
@@ -2040,17 +2063,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             //enter
-            case 13: {
-                this.onMonthSelect(event, index);
-                event.preventDefault();
-                break;
-            }
-
-            //enter
             //space
             case 13:
             case 32: {
-                this.overlayVisible = false;
+                this.onMonthSelect(event, index);
                 event.preventDefault();
                 break;
             }
@@ -2570,6 +2586,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
+            } else if (this.keepInvalid) {
+                this.updateModel(value);
             }
         } catch (err) {
             //invalid date
@@ -2801,7 +2819,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.disableModality();
             });
             this.renderer.appendChild(this.document.body, this.mask);
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            DomHandler.blockBodyScroll();
         }
     }
 
@@ -2830,7 +2848,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            DomHandler.blockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -3361,7 +3379,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
         this.overlay = null;
-        this.onModelTouched();
     }
 
     ngOnDestroy() {

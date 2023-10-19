@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>

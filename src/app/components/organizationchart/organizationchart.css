@@ -1,60 +1,62 @@
-.p-organizationchart-table {
-    border-spacing: 0;
-    border-collapse: separate;
-    margin: 0 auto;
-}
+@layer primeng {
+    .p-organizationchart-table {
+        border-spacing: 0;
+        border-collapse: separate;
+        margin: 0 auto;
+    }
 
-.p-organizationchart-table > tbody > tr > td {
-    text-align: center;
-    vertical-align: top;
-    padding: 0 .75rem;
-}
+    .p-organizationchart-table > tbody > tr > td {
+        text-align: center;
+        vertical-align: top;
+        padding: 0 0.75rem;
+    }
 
-.p-organizationchart-node-content {
-    display: inline-block;
-    position: relative;
-}
+    .p-organizationchart-node-content {
+        display: inline-block;
+        position: relative;
+    }
 
-.p-organizationchart-node-content .p-node-toggler {
-    position: absolute;
-    bottom: -.75rem;
-    margin-left: -.75rem;
-    z-index: 2;
-    left: 50%;
-    user-select: none;
-    cursor: pointer;
-    width: 1.5rem;
-    height: 1.5rem;
-}
+    .p-organizationchart-node-content .p-node-toggler {
+        position: absolute;
+        bottom: -0.75rem;
+        margin-left: -0.75rem;
+        z-index: 2;
+        left: 50%;
+        user-select: none;
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 
-.p-organizationchart-node-content .p-node-toggler .p-node-toggler-icon {
-    position: relative;
-    top: .25rem;
-}
+    .p-organizationchart-node-content .p-node-toggler .p-node-toggler-icon {
+        position: relative;
+        top: 0.25rem;
+    }
 
-.p-organizationchart-line-down {
-    margin: 0 auto;
-    height: 20px;
-    width: 1px;
-}
+    .p-organizationchart-line-down {
+        margin: 0 auto;
+        height: 20px;
+        width: 1px;
+    }
 
-.p-organizationchart-line-right {
-    border-radius: 0px;
-}
+    .p-organizationchart-line-right {
+        border-radius: 0px;
+    }
 
- .p-organizationchart-line-left {
-    border-radius: 0;
-}
+    .p-organizationchart-line-left {
+        border-radius: 0;
+    }
 
-.p-organizationchart-selectable-node {
-    cursor: pointer;
-}
+    .p-organizationchart-selectable-node {
+        cursor: pointer;
+    }
 
-.p-organizationchart .p-organizationchart-node-hidden {
-    display: none;
-}
+    .p-organizationchart .p-organizationchart-node-hidden {
+        display: none;
+    }
 
-.p-organizationchart-preservespace .p-organizationchart-node-hidden {
-    visibility: hidden;
-    display: inherit;
+    .p-organizationchart-preservespace .p-organizationchart-node-hidden {
+        visibility: hidden;
+        display: inherit;
+    }
 }

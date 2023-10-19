@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
+import { Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-inline-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>p-message</i> component is used to display inline messages mostly within forms.</p>
         </app-docsectiontext>

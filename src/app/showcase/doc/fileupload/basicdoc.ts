@@ -9,7 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>

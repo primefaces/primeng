@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
@@ -39,19 +39,25 @@ export class TemplateDoc {
 
     @Input() title: string;
 
+    visible: boolean = false;
+
     constructor(private messageService: MessageService) {}
 
     showConfirm() {
-        this.messageService.clear();
-        this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+        if (!this.visible) {
+            this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+            this.visible = true;
+        }
     }
 
     onConfirm() {
         this.messageService.clear('confirm');
+        this.visible = false;
     }
 
     onReject() {
         this.messageService.clear('confirm');
+        this.visible = false;
     }
 
     code: Code = {
@@ -111,8 +117,23 @@ import { MessageService } from 'primeng/api';
 export class ToastTemplateDemo {
     constructor(private messageService: MessageService) {}
 
-    showSticky() {
-        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    visible: boolean = false;
+
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+            this.visible = true;
+        }
+    }
+
+    onConfirm() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
+
+    onReject() {
+        this.messageService.clear('confirm');
+        this.visible = false;
     }
 }`
     };

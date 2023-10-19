@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'group-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>RadioButton is used as a controlled input with <i>value</i> and <i>ngModel</i> properties.</p>
         </app-docsectiontext>

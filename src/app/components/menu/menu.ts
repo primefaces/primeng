@@ -142,13 +142,13 @@ export class MenuItemContent {
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             [attr.data-pc-name]="'menu'"
-            [id]="id"
+            [attr.id]="id"
         >
             <ul
                 #list
                 class="p-menu-list p-reset"
                 role="menu"
-                [id]="id + '_list'"
+                [attr.id]="id + '_list'"
                 [tabindex]="tabindex"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
@@ -168,7 +168,7 @@ export class MenuItemContent {
                         pTooltip
                         [tooltipOptions]="submenu.tooltipOptions"
                         role="none"
-                        [attr.id]="menuitemId(id, i)"
+                        [attr.id]="menuitemId(submenu, id, i)"
                     >
                         <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
                         <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
@@ -179,7 +179,7 @@ export class MenuItemContent {
                             class="p-menuitem"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
-                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
+                            [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
                             (onMenuItemClick)="itemClick($event)"
@@ -188,11 +188,10 @@ export class MenuItemContent {
                             role="menuitem"
                             [attr.data-pc-section]="'menuitem'"
                             [attr.aria-label]="label(item.label)"
-                            [attr.data-p-focused]="isItemFocused(menuitemId(id, i, j))"
+                            [attr.data-p-focused]="isItemFocused(menuitemId(item, id, i, j))"
                             [attr.data-p-disabled]="disabled(item.disabled)"
                             [attr.aria-disabled]="disabled(item.disabled)"
-                            [attr.id]="menuitemId(id, i, j)"
-                            [id]="menuitemId(id, i, j)"
+                            [attr.id]="menuitemId(item, id, i, j)"
                         ></li>
                     </ng-template>
                 </ng-template>
@@ -202,7 +201,7 @@ export class MenuItemContent {
                         class="p-menuitem"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
-                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(id, i) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
+                        [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
                         (onMenuItemClick)="itemClick($event)"
@@ -211,11 +210,10 @@ export class MenuItemContent {
                         role="menuitem"
                         [attr.data-pc-section]="'menuitem'"
                         [attr.aria-label]="label(item.label)"
-                        [attr.data-p-focused]="isItemFocused(menuitemId(id, i))"
+                        [attr.data-p-focused]="isItemFocused(menuitemId(item, id, i))"
                         [attr.data-p-disabled]="disabled(item.disabled)"
                         [attr.aria-disabled]="disabled(item.disabled)"
-                        [attr.id]="menuitemId(id, i)"
-                        [id]="menuitemId(id, i)"
+                        [attr.id]="menuitemId(item, id, i)"
                     ></li>
                 </ng-template>
             </ul>
@@ -465,8 +463,8 @@ export class Menu implements OnDestroy {
         }
     }
 
-    menuitemId(id: string, index?: string, childIndex?: string) {
-        return `${id}_${index}${typeof childIndex !== 'undefined' ? '_' + childIndex : ''}`;
+    menuitemId(item: MenuItem, id: string, index?: string, childIndex?: string) {
+        return item?.id ?? `${id}_${index}${childIndex !== undefined ? '_' + childIndex : ''}`;
     }
 
     isItemFocused(id) {
@@ -501,8 +499,8 @@ export class Menu implements OnDestroy {
     onListBlur(event: FocusEvent | MouseEvent) {
         this.focused = false;
         this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(null);
-        this.focusedOptionIndex.set(null);
+        this.selectedOptionIndex.set(-1);
+        this.focusedOptionIndex.set(-1);
         this.onBlur.emit(event);
     }
 
@@ -537,6 +535,7 @@ export class Menu implements OnDestroy {
                     DomHandler.focus(this.target);
                     this.hide();
                 }
+                break;
 
             case 'Tab':
                 this.overlayVisible && this.hide();
@@ -607,8 +606,10 @@ export class Menu implements OnDestroy {
     changeFocusedOptionIndex(index) {
         const links = DomHandler.find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
-        let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
-        order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
+        if (links.length > 0) {
+            let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
+            order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
+        }
     }
 
     itemClick(event: any) {
@@ -747,6 +748,13 @@ export class Menu implements OnDestroy {
             }
         }
         return false;
+    }
+
+    isItemHidden(item: any): boolean {
+        if (item.separator) {
+            return item.visible === false || (item.items && item.items.some((subitem) => subitem.visible !== false));
+        }
+        return item.visible === false;
     }
 }
 

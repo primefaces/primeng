@@ -4,7 +4,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'events-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext></app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`

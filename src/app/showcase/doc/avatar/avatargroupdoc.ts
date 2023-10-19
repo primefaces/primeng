@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-group-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>
         </app-docsectiontext>

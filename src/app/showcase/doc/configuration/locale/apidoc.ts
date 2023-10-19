@@ -4,7 +4,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
 @Component({
     selector: 'api-doc',
     template: `
-        <section>
+        <section class="py-4">
             <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
                 <p>Configuration is managed by the Locale API imported from <i>primeng/config</i>.</p>
 
@@ -130,6 +130,10 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                         <tr>
                             <td>pending</td>
                             <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>fileSizeTypes</td>
+                            <td>['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</td>
                         </tr>
                         <tr>
                             <td>dayNames</td>

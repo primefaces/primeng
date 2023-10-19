@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-combo-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Different chart types can be combined in the same graph usign the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>

@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'column-toggle-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
         </app-docsectiontext>

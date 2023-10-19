@@ -11,7 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>

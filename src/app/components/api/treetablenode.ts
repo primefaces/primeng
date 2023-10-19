@@ -17,7 +17,7 @@ export interface TreeTableNode<T = any> extends TreeNode {
     /**
      * Node instance.
      */
-    node?: TreeNode<any>;
+    node?: TreeNode<T>;
     /**
      * Selection type.
      */

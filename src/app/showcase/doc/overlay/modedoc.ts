@@ -4,7 +4,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'mode-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>
                 It has two valid values; <i>overlay</i> and <i>modal</i>. In overlay mode, a container element is opened like overlaypanel or dropdown's panel. In modal mode, the container element behaves like popup. This behaviour is similar to a

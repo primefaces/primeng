@@ -11,7 +11,7 @@ interface Column {
 
 @Component({
     selector: 'scroll-horizontal-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>

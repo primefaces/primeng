@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>

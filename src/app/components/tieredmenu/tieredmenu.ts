@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -30,8 +31,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -44,7 +45,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
-            [attr.aria-aria-activedescendant]="focusedItemId"
+            [attr.aria-activedescendant]="focusedItemId"
             [attr.aria-orientation]="'vertical'"
             [attr.data-pc-section]="'menu'"
             (keydown)="menuKeydown.emit($event)"
@@ -54,7 +55,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -64,7 +65,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
@@ -110,7 +111,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -153,7 +154,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -221,7 +222,7 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public tieredMenu: TieredMenu) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
@@ -244,7 +245,7 @@ export class TieredMenuSub {
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item?.id ?? `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -495,7 +496,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     number = signal<number>(0);
 
-    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     searchValue: string = '';
 
@@ -507,7 +508,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
-
         return processedItem ? processedItem.items : this.processedItems;
     }
 
@@ -520,7 +520,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     get focusedItemId() {
         const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
     }
 
     constructor(
@@ -642,10 +642,10 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const selected = this.isSelected(processedItem);
 
         if (selected) {
-            const { index, key, level, parentKey } = processedItem;
+            const { index, key, level, parentKey, item } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -667,6 +667,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             if (this.dirty) {
                 this.onItemChange(event);
             }
+        } else {
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay });
         }
     }
 
@@ -741,10 +743,11 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     onArrowRightKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const grouped = this.isProccessedItemGroup(processedItem);
+        const item = processedItem.item;
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -777,7 +780,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const root = ObjectUtils.isEmpty(processedItem.parent);
 
         if (!root) {
-            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -844,12 +847,12 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (ObjectUtils.isEmpty(processedItem)) return;
 
-        const { index, key, level, parentKey, items } = processedItem;
+        const { index, key, level, parentKey, items, item } = processedItem;
         const grouped = ObjectUtils.isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item });
         this.activeItemPath.set(activeItemPath);
 
         grouped && (this.dirty = true);
@@ -858,14 +861,13 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' };
-
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: this.visibleItems[this.findFirstFocusedItemIndex()]?.item };
         this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         this.searchValue = '';
         this.dirty = false;
     }
@@ -966,11 +968,9 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
 
-        if (!this.popup) {
-            isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
-        }
+        isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+
         this.cd.markForCheck();
-        this.dirty = true;
     }
 
     searchItems(event: any, char: string) {
@@ -1049,6 +1049,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         if (this.focusedItemInfo().index !== index) {
             this.focusedItemInfo.mutate((value) => {
                 value.index = index;
+                value.item = this.visibleItems[index].item;
             });
             this.scrollInView();
         }
@@ -1059,7 +1060,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 
@@ -1110,7 +1111,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     unbindOutsideClickListener() {
         if (this.outsideClickListener) {
-            this.outsideClickListener();
+            document.removeEventListener('click', this.outsideClickListener);
             this.outsideClickListener = null;
         }
     }

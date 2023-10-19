@@ -15,7 +15,7 @@ interface NodeEvent {
 
 @Component({
     selector: 'selection-events-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TreeTable provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>

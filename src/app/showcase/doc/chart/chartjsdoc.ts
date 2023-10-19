@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chartjs-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>To begin with, first you must install the charts.js package using npm and then include it in your project. An example with CLI would be;</p>
         </app-docsectiontext>

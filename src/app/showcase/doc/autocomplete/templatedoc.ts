@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-template-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>

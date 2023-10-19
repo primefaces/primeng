@@ -4,7 +4,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
         </app-docsectiontext>

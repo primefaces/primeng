@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sidebar is used as a container and visibility is controlled with a binding to <i>visible</i>.</p>
         </app-docsectiontext>

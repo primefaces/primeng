@@ -4,12 +4,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>MegaMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu [model]="items" baseZIndex="2000"></p-megaMenu>
+            <p-megaMenu [model]="items"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
     </section>`

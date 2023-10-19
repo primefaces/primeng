@@ -11,7 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'alignment-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Content location relative the line is defined with the <i>align</i> property.</p>
         </app-docsectiontext>

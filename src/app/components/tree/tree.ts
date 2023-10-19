@@ -487,7 +487,7 @@ export class UITreeNode implements OnInit {
     onKeyDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement>event.target).parentElement?.parentElement;
 
-        if (nodeElement?.nodeName !== 'P-TREENODE' || (this.tree.contextMenu && this.tree.contextMenu.containerViewChild.nativeElement.style.display === 'block')) {
+        if (nodeElement?.nodeName !== 'P-TREENODE' || (this.tree.contextMenu && this.tree.contextMenu.containerViewChild?.nativeElement.style.display === 'block')) {
             return;
         }
 
@@ -851,7 +851,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      */
     @Input() filterPlaceholder: string | undefined;
     /**
-     * No description available.
+     * Values after the tree nodes are filtered.
      * @group Props
      */
     @Input() filteredNodes: TreeNode<any>[] | undefined | null;

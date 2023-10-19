@@ -3,55 +3,55 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-icon-only-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Buttons can have icons without labels.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
                 <p-button icon="pi pi-check"></p-button>
-                <p-button icon="pi pi-bookmark" styleClass="p-button-secondary"></p-button>
-                <p-button icon="pi pi-search" styleClass="p-button-success"></p-button>
-                <p-button icon="pi pi-user" styleClass="p-button-info"></p-button>
-                <p-button icon="pi pi-bell" styleClass="p-button-warning"></p-button>
-                <p-button icon="pi pi-heart" styleClass="p-button-help"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+                <p-button icon="pi pi-bookmark" severity="secondary"></p-button>
+                <p-button icon="pi pi-search" severity="success"></p-button>
+                <p-button icon="pi pi-user" severity="info"></p-button>
+                <p-button icon="pi pi-bell" severity="warning"></p-button>
+                <p-button icon="pi pi-heart" severity="help"></p-button>
+                <p-button icon="pi pi-times" severity="danger"></p-button>
             </div>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-                <p-button icon="pi pi-check" styleClass="p-button-rounded"></p-button>
-                <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary"></p-button>
-                <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success"></p-button>
-                <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info"></p-button>
-                <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning"></p-button>
-                <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+                <p-button icon="pi pi-check" [rounded]="true"></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary"></p-button>
+                <p-button icon="pi pi-search" [rounded]="true" severity="success"></p-button>
+                <p-button icon="pi pi-user" [rounded]="true" severity="info"></p-button>
+                <p-button icon="pi pi-bell" [rounded]="true" severity="warning"></p-button>
+                <p-button icon="pi pi-heart" [rounded]="true" severity="help"></p-button>
+                <p-button icon="pi pi-times" [rounded]="true" severity="danger"></p-button>
             </div>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-                <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-outlined"></p-button>
-                <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-                <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-outlined"></p-button>
-                <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
-                <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-outlined"></p-button>
-                <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+                <p-button icon="pi pi-check" [rounded]="true" [outlined]="true"></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
+                <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true"></p-button>
+                <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true"></p-button>
+                <p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true"></p-button>
+                <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true"></p-button>
+                <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true"></p-button>
             </div>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-                <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text p-button-raised"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"></p-button>
+                <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary "></p-button>
+                <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success "></p-button>
+                <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info "></p-button>
+                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warning "></p-button>
+                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help "></p-button>
+                <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger "></p-button>
             </div>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-                <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text"></p-button>
-                <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text"></p-button>
-                <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text"></p-button>
-                <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text"></p-button>
-                <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text"></p-button>
-                <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text"></p-button>
-                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text"></p-button>
+                <p-button icon="pi pi-check" [rounded]="true" [text]="true"></p-button>
+                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary "></p-button>
+                <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success "></p-button>
+                <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info "></p-button>
+                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warning "></p-button>
+                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help "></p-button>
+                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger "></p-button>
             </div>
         </div>
         <app-code [code]="code" selector="button-icon-only-demo"></app-code>
@@ -65,91 +65,91 @@ export class IconOnlyDoc {
     code: Code = {
         basic: `
 <p-button icon="pi pi-check"></p-button>
-<p-button icon="pi pi-bookmark" styleClass="p-button-secondary"></p-button>
-<p-button icon="pi pi-search" styleClass="p-button-success"></p-button>
-<p-button icon="pi pi-user" styleClass="p-button-info"></p-button>
-<p-button icon="pi pi-bell" styleClass="p-button-warning"></p-button>
-<p-button icon="pi pi-heart" styleClass="p-button-help"></p-button>
-<p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+<p-button icon="pi pi-bookmark" severity="secondary"></p-button>
+<p-button icon="pi pi-search" severity="success"></p-button>
+<p-button icon="pi pi-user" severity="info"></p-button>
+<p-button icon="pi pi-bell" severity="warning"></p-button>
+<p-button icon="pi pi-heart" severity="help"></p-button>
+<p-button icon="pi pi-times" severity="danger"></p-button>
 
-<p-button icon="pi pi-check" styleClass="p-button-rounded"></p-button>
-<p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary"></p-button>
-<p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success"></p-button>
-<p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info"></p-button>
-<p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning"></p-button>
-<p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help"></p-button>
-<p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+<p-button icon="pi pi-check" [rounded]="true"></p-button>
+<p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary"></p-button>
+<p-button icon="pi pi-search" [rounded]="true" severity="success"></p-button>
+<p-button icon="pi pi-user" [rounded]="true" severity="info"></p-button>
+<p-button icon="pi pi-bell" [rounded]="true" severity="warning"></p-button>
+<p-button icon="pi pi-heart" [rounded]="true" severity="help"></p-button>
+<p-button icon="pi pi-times" [rounded]="true" severity="danger"></p-button>
 
-<p-button icon="pi pi-check" styleClass="p-button-rounded p-button-outlined"></p-button>
-<p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-<p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-outlined"></p-button>
-<p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
-<p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-outlined"></p-button>
-<p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button>
-<p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+<p-button icon="pi pi-check" [rounded]="true" [outlined]="true"></p-button>
+<p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
+<p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true"></p-button>
+<p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true"></p-button>
+<p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true"></p-button>
+<p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true"></p-button>
+<p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true"></p-button>
 
-<p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text p-button-raised"></p-button>
-<p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"></p-button>
+<p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true"></p-button>
+<p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary "></p-button>
+<p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success "></p-button>
+<p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info "></p-button>
+<p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warning "></p-button>
+<p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help "></p-button>
+<p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger "></p-button>
 
-<p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text"></p-button>
-<p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text"></p-button>
-<p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text"></p-button>
-<p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text"></p-button>
-<p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text"></p-button>
-<p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text"></p-button>
-<p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text"></p-button>`,
+<p-button icon="pi pi-check" [rounded]="true" [text]="true"></p-button>
+<p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary "></p-button>
+<p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success "></p-button>
+<p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info "></p-button>
+<p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warning "></p-button>
+<p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help "></p-button>
+<p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger "></p-button>`,
 
         html: `
 <div class="card">
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
         <p-button icon="pi pi-check"></p-button>
-        <p-button icon="pi pi-bookmark" styleClass="p-button-secondary"></p-button>
-        <p-button icon="pi pi-search" styleClass="p-button-success"></p-button>
-        <p-button icon="pi pi-user" styleClass="p-button-info"></p-button>
-        <p-button icon="pi pi-bell" styleClass="p-button-warning"></p-button>
-        <p-button icon="pi pi-heart" styleClass="p-button-help"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+        <p-button icon="pi pi-bookmark" severity="secondary"></p-button>
+        <p-button icon="pi pi-search" severity="success"></p-button>
+        <p-button icon="pi pi-user" severity="info"></p-button>
+        <p-button icon="pi pi-bell" severity="warning"></p-button>
+        <p-button icon="pi pi-heart" severity="help"></p-button>
+        <p-button icon="pi pi-times" severity="danger"></p-button>
     </div>
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-        <p-button icon="pi pi-check" styleClass="p-button-rounded"></p-button>
-        <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary"></p-button>
-        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success"></p-button>
-        <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info"></p-button>
-        <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning"></p-button>
-        <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+        <p-button icon="pi pi-check" [rounded]="true"></p-button>
+        <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary"></p-button>
+        <p-button icon="pi pi-search" [rounded]="true" severity="success"></p-button>
+        <p-button icon="pi pi-user" [rounded]="true" severity="info"></p-button>
+        <p-button icon="pi pi-bell" [rounded]="true" severity="warning"></p-button>
+        <p-button icon="pi pi-heart" [rounded]="true" severity="help"></p-button>
+        <p-button icon="pi pi-times" [rounded]="true" severity="danger"></p-button>
     </div>
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-        <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-outlined"></p-button>
-        <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button>
-        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-outlined"></p-button>
-        <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
-        <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-outlined"></p-button>
-        <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined"></p-button>
+        <p-button icon="pi pi-check" [rounded]="true" [outlined]="true"></p-button>
+        <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
+        <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true"></p-button>
+        <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true"></p-button>
+        <p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true"></p-button>
+        <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true"></p-button>
+        <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true"></p-button>
     </div>
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-        <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text p-button-raised"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"></p-button>
+        <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true"></p-button>
+        <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary "></p-button>
+        <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success "></p-button>
+        <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info "></p-button>
+        <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warning "></p-button>
+        <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help "></p-button>
+        <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger "></p-button>
     </div>
     <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-        <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text"></p-button>
-        <p-button icon="pi pi-bookmark" styleClass="p-button-rounded p-button-secondary p-button-text"></p-button>
-        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success p-button-text"></p-button>
-        <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-text"></p-button>
-        <p-button icon="pi pi-bell" styleClass="p-button-rounded p-button-warning p-button-text"></p-button>
-        <p-button icon="pi pi-heart" styleClass="p-button-rounded p-button-help p-button-text"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-text"></p-button>
+        <p-button icon="pi pi-check" [rounded]="true" [text]="true"></p-button>
+        <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary "></p-button>
+        <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success "></p-button>
+        <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info "></p-button>
+        <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warning "></p-button>
+        <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help "></p-button>
+        <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger "></p-button>
     </div>
 </div>`,
 

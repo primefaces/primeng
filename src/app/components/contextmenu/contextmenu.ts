@@ -25,6 +25,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     effect,
+    forwardRef,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -46,7 +47,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             [ngClass]="{ 'p-submenu-list': !root, 'p-contextmenu-root-list': root }"
             [@overlayAnimation]="visible"
             (@overlayAnimation.start)="onEnter($event, sublist)"
-            [id]="menuId + '_list'"
+            [attr.id]="menuId + '_list'"
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
@@ -60,7 +61,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -70,7 +71,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
@@ -116,7 +117,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -159,7 +160,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-template #htmlLabel>
                                 <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ child.badge }}</span>
+                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
@@ -228,14 +229,14 @@ export class ContextMenuSub {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu, private ref: ViewContainerRef) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -338,7 +339,7 @@ export class ContextMenuSub {
             #container
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
-            [id]="id"
+            [attr.id]="id"
             [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-overlay': true }"
             [class]="styleClass"
             [ngStyle]="style"
@@ -488,7 +489,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     activeItemPath = signal<any>([]);
 
-    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '' });
+    focusedItemInfo = signal<any>({ index: -1, level: 0, parentKey: '', item: null });
 
     submenuVisible = signal<boolean>(false);
 
@@ -514,8 +515,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     get focusedItemId() {
-        const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        const focusedItem = this.focusedItemInfo();
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(
@@ -667,10 +668,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const selected = this.isSelected(processedItem);
 
         if (selected) {
-            const { index, key, level, parentKey } = processedItem;
+            const { index, key, level, parentKey, item } = processedItem;
 
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item });
 
             DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
         } else {
@@ -756,7 +757,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key });
+            this.focusedItemInfo.set({ index: -1, parentKey: processedItem.key, item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -789,7 +790,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const root = ObjectUtils.isEmpty(processedItem.parent);
 
         if (!root) {
-            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
+            this.focusedItemInfo.set({ index: -1, parentKey: parentItem ? parentItem.parentKey : '', item: processedItem.item });
             this.searchValue = '';
             this.onArrowDownKey(event);
         }
@@ -816,8 +817,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
+        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         this.focusedItemInfo.mutate((value) => {
             value.index = this.findFirstFocusedItemIndex();
+            value.item = processedItem.item;
         });
 
         event.preventDefault();
@@ -866,7 +869,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             activeItemPath.push(processedItem);
             this.submenuVisible.set(true);
         }
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
         this.activeItemPath.set(activeItemPath);
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
@@ -874,14 +877,14 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '' };
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: -1, level: 0, parentKey: '', item: null };
 
         this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
         this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         this.searchValue = '';
     }
 
@@ -938,7 +941,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     hide() {
         this.visible.set(false);
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
 
     toggle(event?: any) {
@@ -947,7 +950,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     show(event: any) {
         this.activeItemPath.set([]);
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
         this.pageX = event.pageX;
         this.pageY = event.pageY;
@@ -1026,6 +1029,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         return matched;
     }
 
+    findVisibleItem(index) {
+        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+    }
+
     findLastFocusedItemIndex() {
         const selectedIndex = this.findSelectedItemIndex();
         return selectedIndex < 0 ? this.findLastItemIndex() : selectedIndex;
@@ -1062,9 +1069,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     changeFocusedItemIndex(event: any, index: number) {
+        const processedItem = this.findVisibleItem(index);
         if (this.focusedItemInfo().index !== index) {
             this.focusedItemInfo.mutate((value) => {
                 value.index = index;
+                value.item = processedItem.item;
             });
             this.scrollInView();
         }
@@ -1075,7 +1084,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 

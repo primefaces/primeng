@@ -107,6 +107,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
             this.target.getBlockableElement().style.position = 'relative';
         } else {
             this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
+            DomHandler.blockBodyScroll();
         }
 
         if (this.autoZIndex) {
@@ -115,7 +116,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     }
 
     unblock() {
-        if (this.mask) {
+        if (this.mask && !this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
@@ -124,9 +125,10 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     destroyModal() {
         this._blocked = false;
         if (this.mask) {
-            DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             ZIndexUtils.clear(this.mask.nativeElement);
-            this.renderer.appendChild(this.el.nativeElement, this.mask.nativeElement);
+            DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
+            this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);
+            DomHandler.unblockBodyScroll();
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();

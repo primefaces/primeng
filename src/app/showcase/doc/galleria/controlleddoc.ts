@@ -4,11 +4,11 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:align-items-center">
+        <div class="card">
             <div class="py-2">
                 <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
                 <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
@@ -92,7 +92,7 @@ export class ControlledDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <div class="py-2">
         <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
         <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>

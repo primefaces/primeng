@@ -1,9 +1,10 @@
-.p-dropdown {
-    display: inline-flex;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-}
+@layer primeng {
+    .p-dropdown {
+        display: inline-flex;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+    }
 
 .p-dropdown-clear-icon {
     position: absolute;
@@ -11,22 +12,22 @@
     margin-top: -0.5rem;
 }
 
-.p-dropdown-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+    .p-dropdown-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
-.p-dropdown-label {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    flex: 1 1 auto;
-    width: 1%;
-    text-overflow: ellipsis;
-    cursor: pointer;
-}
+    .p-dropdown-label {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        flex: 1 1 auto;
+        width: 1%;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
 
 .p-dropdown-label-empty {
     overflow: hidden;
@@ -51,13 +52,13 @@ input.p-dropdown-label {
     overflow: auto;
 }
 
-.p-dropdown-item {
-    cursor: pointer;
-    font-weight: normal;
-    white-space: nowrap;
-    position: relative;
-    overflow: hidden;
-}
+    .p-dropdown-item {
+        cursor: pointer;
+        font-weight: normal;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+    }
 
 .p-dropdown-item-group {
     cursor: auto;
@@ -69,13 +70,13 @@ input.p-dropdown-label {
     list-style-type: none;
 }
 
-.p-dropdown-filter {
-    width: 100%;
-}
+    .p-dropdown-filter {
+        width: 100%;
+    }
 
-.p-dropdown-filter-container {
-    position: relative;
-}
+    .p-dropdown-filter-container {
+        position: relative;
+    }
 
 .p-dropdown-filter-icon {
     position: absolute;
@@ -83,9 +84,9 @@ input.p-dropdown-label {
     margin-top: -0.5rem;
 }
 
-.p-fluid .p-dropdown {
-    display: flex;
-}
+    .p-fluid .p-dropdown {
+        display: flex;
+    }
 
 .p-fluid .p-dropdown .p-dropdown-label {
     width: 1%;

@@ -725,4 +725,18 @@ export class DomHandler {
 
         return undefined;
     }
+
+    public static calculateBodyScrollbarWidth() {
+        return window.innerWidth - document.documentElement.offsetWidth;
+    }
+
+    public static blockBodyScroll(className = 'p-overflow-hidden') {
+        document.body.style.setProperty('--scrollbar-width', this.calculateBodyScrollbarWidth() + 'px');
+        this.addClass(document.body, className);
+    }
+
+    public static unblockBodyScroll(className = 'p-overflow-hidden') {
+        document.body.style.removeProperty('--scrollbar-width');
+        this.removeClass(document.body, className);
+    }
 }

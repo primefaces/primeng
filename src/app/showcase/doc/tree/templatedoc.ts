@@ -4,14 +4,14 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tree [value]="nodes" class="w-full md:w-30rem">
                 <ng-template let-node pTemplate="url">
-                    <a [href]="node.data" target="_blank">{{ node.label }}</a>
+                    <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
                 </ng-template>
                 <ng-template let-node pTemplate="default">
                     <b>{{ node.label }}</b>
@@ -57,7 +57,7 @@ export class TemplateDoc implements OnInit {
         basic: `
 <p-tree [value]="nodes" class="w-full md:w-30rem">
     <ng-template let-node pTemplate="url">
-        <a [href]="node.data" target="_blank">{{ node.label }}</a>
+         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
     </ng-template>
     <ng-template let-node pTemplate="default">
         <b>{{ node.label }}</b>
@@ -68,7 +68,7 @@ export class TemplateDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-tree [value]="nodes" class="w-full md:w-30rem">
         <ng-template let-node pTemplate="url">
-            <a [href]="node.data" target="_blank">{{ node.label }}</a>
+             <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
         </ng-template>
         <ng-template let-node pTemplate="default">
             <b>{{ node.label }}</b>

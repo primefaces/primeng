@@ -11,7 +11,7 @@ interface Column {
 
 @Component({
     selector: 'sort-single-column-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>

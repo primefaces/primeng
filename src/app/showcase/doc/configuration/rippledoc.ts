@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'ripple-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Ripple is an optional animation for the supported components such as buttons. It is disabled by default and needs to be enabled globally by injecting <i>PrimeNGConfig</i>.</p>
         </app-docsectiontext>

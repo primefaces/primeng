@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
         </app-docsectiontext>
@@ -20,11 +20,11 @@ import { Component, Input } from '@angular/core';
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-progress-circle</td>
+                        <td>p-progress-spinner-svg</td>
                         <td>SVG element.</td>
                     </tr>
                     <tr>
-                        <td>p-progress-path</td>
+                        <td>p-progress-spinner-circle</td>
                         <td>Circle element.</td>
                     </tr>
                 </tbody>

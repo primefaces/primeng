@@ -29,6 +29,8 @@ import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { UniqueComponentId } from 'primeng/utils';
+import { asapScheduler } from 'rxjs';
+
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
  * @group Components
@@ -84,7 +86,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <a
-                        *ngIf="isClickableRouterLink(item); else elseBlock"
+                        *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
                         pRipple
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
@@ -109,6 +111,7 @@ import { UniqueComponentId } from 'primeng/utils';
                     </a>
                     <ng-template #elseBlock>
                         <a
+                            *ngIf="_visible"
                             [attr.href]="item.url || null"
                             class="p-speeddial-action"
                             role="menuitem"
@@ -419,7 +422,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onBlur(event) {
         this.focused = false;
-        this.focusedOptionIndex.set(-1);
+        asapScheduler.schedule(() => this.focusedOptionIndex.set(-1));
     }
 
     onArrowUp(event) {

@@ -70,6 +70,7 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             ></p-paginator>
             <div class="p-dataview-content">
                 <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
@@ -106,6 +107,7 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
+                [styleClass]="paginatorStyleClass"
             ></p-paginator>
             <div class="p-dataview-footer" *ngIf="footer || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
@@ -152,6 +154,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      */
     @Input() paginatorPosition: 'top' | 'bottom' | 'both' = 'bottom';
     /**
+     * Custom style class for paginator
+     * @group Props
+     */
+    @Input() paginatorStyleClass: string | undefined;
+    /**
      * Whether to show it even there is only one page.
      * @group Props
      */
@@ -196,6 +203,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * @group Props
      */
     @Input() lazy: boolean | undefined;
+    /**
+     * Whether to call lazy loading on initialization.
+     * @group Props
+     */
+    @Input() lazyLoadOnInit: boolean = true;
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -349,7 +361,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
-        if (this.lazy) {
+        if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 

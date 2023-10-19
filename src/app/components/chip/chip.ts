@@ -17,7 +17,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
                     <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)"></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [styleClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" />
+                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" />
                 </ng-container>
                 <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>

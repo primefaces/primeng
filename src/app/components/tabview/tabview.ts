@@ -16,11 +16,13 @@ import {
     Output,
     PLATFORM_ID,
     QueryList,
+    Renderer2,
     TemplateRef,
     ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
-    forwardRef
+    forwardRef,
+    signal
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -32,6 +34,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 import { UniqueComponentId } from 'primeng/utils';
+import { Nullable } from 'primeng/ts-helpers';
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -70,12 +73,24 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Inline style of the tab header.
      * @group Props
      */
-    @Input() headerStyle: { [klass: string]: any } | null | undefined;
+    @Input() get headerStyle(): { [klass: string]: any } | null | undefined {
+        return this._headerStyle;
+    }
+    set headerStyle(headerStyle: { [klass: string]: any } | null | undefined) {
+        this._headerStyle = headerStyle;
+        this.tabView.cd.markForCheck();
+    }
     /**
      * Style class of the tab header.
      * @group Props
      */
-    @Input() headerStyleClass: string | undefined;
+    @Input() get headerStyleClass(): string | undefined {
+        return this._headerStyleClass;
+    }
+    set headerStyleClass(headerStyleClass: string | undefined) {
+        this._headerStyleClass = headerStyleClass;
+        this.tabView.cd.markForCheck();
+    }
     /**
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      * @group Props
@@ -178,6 +193,10 @@ export class TabPanel implements AfterContentInit, OnDestroy {
 
     view: EmbeddedViewRef<any> | null = null;
 
+    _headerStyle: { [klass: string]: any } | null | undefined;
+
+    _headerStyleClass: string | undefined;
+
     _selected: boolean | undefined;
 
     _disabled: boolean | undefined;
@@ -251,7 +270,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     selector: 'p-tabView',
     template: `
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
-            <div class="p-tabview-nav-container">
+            <div #elementToObserve class="p-tabview-nav-container">
                 <button *ngIf="scrollable && !backwardIsDisabled" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" [attr.tabindex]="tabindex" [attr.aria-label]="prevButtonAriaLabel" type="button" pRipple>
                     <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
@@ -268,8 +287,8 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                     [positionStyle]="tab.tooltipPositionStyle"
                                     [tooltipStyleClass]="tab.tooltipStyleClass"
                                     [attr.id]="getTabHeaderActionId(tab.id)"
-                                    [attr.aria-selected]="tab.selected"
                                     [attr.aria-controls]="getTabContentId(tab.id)"
+                                    [attr.aria-selected]="tab.selected"
                                     [attr.tabindex]="tab.disabled || !tab.selected ? '-1' : tabindex"
                                     [attr.aria-disabled]="tab.disabled"
                                     [attr.data-pc-index]="i"
@@ -301,7 +320,16 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                         <li #inkbar class="p-tabview-ink-bar" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
-                <button *ngIf="scrollable && !forwardIsDisabled" #nextBtn [attr.tabindex]="tabindex" [attr.aria-label]="nextButtonAriaLabel" class="p-tabview-nav-next p-tabview-nav-btn p-link" (click)="navForward()" type="button" pRipple>
+                <button
+                    *ngIf="scrollable && !forwardIsDisabled && shouldVisible"
+                    #nextBtn
+                    [attr.tabindex]="tabindex"
+                    [attr.aria-label]="nextButtonAriaLabel"
+                    class="p-tabview-nav-next p-tabview-nav-btn p-link"
+                    (click)="navForward()"
+                    type="button"
+                    pRipple
+                >
                     <ChevronRightIcon *ngIf="!nextIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                 </button>
@@ -426,7 +454,13 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     previousIconTemplate: TemplateRef<any> | undefined;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    resizeObserver: Nullable<ResizeObserver>;
+
+    shouldVisible: boolean;
+
+    @ViewChild('elementToObserve') elementToObserve: ElementRef;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, private renderer: Renderer2) {}
 
     ngAfterContentInit() {
         this.initTabs();
@@ -448,6 +482,32 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         });
     }
 
+    ngAfterViewInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.bindResizeObserver();
+        }
+    }
+
+    bindResizeObserver() {
+        if (!this.resizeObserver) {
+            this.resizeObserver = new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    const navbarWidth = parseFloat(getComputedStyle(this.navbar.nativeElement).width);
+                    const rect = entry.contentRect;
+                    this.shouldVisible = rect.width < navbarWidth;
+                    this.cd.detectChanges();
+                }
+            });
+
+            this.resizeObserver.observe(this.elementToObserve.nativeElement);
+        }
+    }
+
+    unbindResizeObserver() {
+        this.resizeObserver.unobserve(this.elementToObserve.nativeElement);
+        this.resizeObserver = null;
+    }
+
     ngAfterViewChecked() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.tabChanged) {
@@ -460,6 +520,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     ngOnDestroy(): void {
         if (this.tabChangesSubscription) {
             this.tabChangesSubscription.unsubscribe();
+        }
+
+        if (this.resizeObserver) {
+            this.unbindResizeObserver();
         }
     }
 

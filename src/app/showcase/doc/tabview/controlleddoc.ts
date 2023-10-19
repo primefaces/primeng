@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>TabView can be controlled programmatically using a binding to <i>activeIndex</i> update the active index.</p>
         </app-docsectiontext>

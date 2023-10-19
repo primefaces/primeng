@@ -3,10 +3,8 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
-            <p>Content of the badge is specified using the <i>value</i> property.</p>
-        </app-docsectiontext>
+    template: ` <section class="py-4">
+        <app-docsectiontext [title]="title" [id]="id" />
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })

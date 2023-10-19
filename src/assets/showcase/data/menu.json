@@ -313,10 +313,6 @@
                             "routerLink": "/panelmenu"
                         },
                         {
-                            "name": "SlideMenu",
-                            "routerLink": "/slidemenu"
-                        },
-                        {
                             "name": "Steps",
                             "routerLink": "/steps"
                         },
@@ -460,10 +456,6 @@
                     "name": "Utilities",
                     "children": [
                         {
-                            "name": "Overlay",
-                            "routerLink": "/overlay"
-                        },
-                        {
                             "name": "FilterService",
                             "routerLink": "/filterservice"
                         }
@@ -537,7 +529,7 @@
                 },
                 {
                     "name": "Forum",
-                    "href": "https://forum.primefaces.org/viewforum.php?f=35"
+                    "href": "https://github.com/orgs/primefaces/discussions"
                 },
                 {
                     "name": "Long Term Support",
@@ -550,6 +542,11 @@
             ]
         },
         {
+            "name": "PrimeTV",
+            "icon": "pi pi-youtube",
+            "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -560,10 +557,6 @@
                 {
                     "name": "Roadmap",
                     "routerLink": "/roadmap"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
                 },
                 {
                     "name": "Source Code",

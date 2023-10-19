@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-template-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>A chip is customized using a <i>ng-template</i> element where the value is passed as the implicit variable.</p>
         </app-docsectiontext>

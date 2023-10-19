@@ -333,6 +333,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         if (!this.sliderHandleClick) {
             this.updateDomData();
             this.handleChange(event);
+
+            if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
+            else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
         }
 
         this.sliderHandleClick = false;
@@ -463,7 +466,6 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     setValueFromHandle(event: Event, handleValue: any) {
-        this.sliderHandleClick = false;
         let newValue = this.getValueFromHandle(handleValue);
 
         if (this.range) {

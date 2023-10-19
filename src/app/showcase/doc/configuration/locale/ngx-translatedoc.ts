@@ -4,7 +4,7 @@ import { Code } from '../../../domain/code';
 
 @Component({
     selector: 'ngx-translate-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the language in the application.</p>
         </app-docsectiontext>

@@ -4,7 +4,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
 
 @Component({
     selector: 'target-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>The <i>target</i> is used to detect the element that will be used to position the overlay. Valid values would be;</p>
         </app-docsectiontext>

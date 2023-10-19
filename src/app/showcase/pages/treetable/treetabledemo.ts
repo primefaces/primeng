@@ -26,6 +26,8 @@ import { ConditionalStyleDoc } from '../../doc/treetable/conditionalstyledoc';
 import { ContextMenuDoc } from '../../doc/treetable/contextmenudoc';
 import { StyleDoc } from '../../doc/treetable/styledoc';
 import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
+import { PaginatorLocaleDoc } from '../../doc/treetable/paginatorlocaledoc';
+import { ResizeScrollableDoc } from '../../doc/treetable/columnresizescrollabledoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -60,6 +62,11 @@ export class TreeTableDemo {
                     id: 'paginatorbasic',
                     label: 'Basic',
                     component: PaginatorBasicDoc
+                },
+                {
+                    id: 'paginatorlocale',
+                    label: 'Locale',
+                    component: PaginatorLocaleDoc
                 },
                 {
                     id: 'paginatortemplate',
@@ -164,6 +171,11 @@ export class TreeTableDemo {
                     id: 'expandmode',
                     label: 'Expand Mode',
                     component: ResizeExpandDoc
+                },
+                {
+                    id: 'scrollable',
+                    label: 'Scrollable',
+                    component: ResizeScrollableDoc
                 }
             ]
         },

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>
         </app-docsectiontext>

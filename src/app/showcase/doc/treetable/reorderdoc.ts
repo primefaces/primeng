@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'reorder-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Order of the columns can be changed using drag and drop when <i>reorderableColumns</i> is present.</p>
         </app-docsectiontext>

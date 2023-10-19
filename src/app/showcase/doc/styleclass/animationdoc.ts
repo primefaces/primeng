@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animation-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Classes to apply during enter and leave animations are specified using the <i>enterClass</i>, <i>enterActiveClass</i>, <i>enterToClass</i>, <i>leaveClass</i>, <i>leaveActiveClass</i>,<i>leaveToClass</i>properties. In addition in case

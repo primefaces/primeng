@@ -5,7 +5,7 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'data-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="card">
             <p-inplace>

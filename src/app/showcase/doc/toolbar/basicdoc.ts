@@ -4,9 +4,9 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Toolbar provides <i>start</i>, <i>center</i> and <i>end</i> templates to place content at these sections.</p>
+            <p>Toolbar is a grouping component for buttons and other content. Its content can be placed inside the <i>start</i>, <i>center</i> and <i>end</i> sections.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toolbar>

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>

@@ -62,10 +62,12 @@ export class Toolbar implements AfterContentInit, BlockableUI {
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
+                case 'start':
                 case 'left':
                     this.startTemplate = item.template;
                     break;
 
+                case 'end':
                 case 'right':
                     this.endTemplate = item.template;
                     break;

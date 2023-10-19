@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>
         </app-docsectiontext>

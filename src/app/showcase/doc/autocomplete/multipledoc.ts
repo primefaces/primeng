@@ -9,7 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-multiple-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
         </app-docsectiontext>

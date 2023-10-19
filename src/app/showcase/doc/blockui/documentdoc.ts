@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'block-ui-document-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Enabling <i>fullScreen</i> property controls the document.</p>
+            <p>If the target element is not specified, BlockUI blocks the document by default.</p>
         </app-docsectiontext>
         <div class="card">
             <p-blockUI [blocked]="blockedDocument"></p-blockUI>
@@ -21,10 +21,13 @@ export class DocumentDoc {
 
     blockedDocument: boolean = false;
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     blockDocument() {
         this.blockedDocument = true;
         setTimeout(() => {
             this.blockedDocument = false;
+            this.cd.markForCheck();
         }, 3000);
     }
 
@@ -37,7 +40,7 @@ export class DocumentDoc {
     <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
 </div>`,
         typescript: `
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'block-ui-document-demo',
@@ -46,12 +49,16 @@ import { Component } from '@angular/core';
 export class BlockUiDocumentDemo {
     blockedDocument: boolean = false;
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     blockDocument() {
         this.blockedDocument = true;
         setTimeout(() => {
             this.blockedDocument = false;
+            this.cd.markForCheck();
         }, 3000);
     }
+
 }`
     };
 }

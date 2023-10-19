@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'cascade-select-template-demo',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 CascadeSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is

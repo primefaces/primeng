@@ -154,6 +154,11 @@ export class Galleria implements OnChanges, OnDestroy {
      */
     @Input() autoPlay: boolean = false;
     /**
+     * When enabled, autorun should stop by click.
+     * @group Props
+     */
+    @Input() shouldStopAutoplayByClick: boolean = true;
+    /**
      * Time in milliseconds to scroll items.
      * @group Props
      */
@@ -275,7 +280,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -361,7 +366,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     enableModality() {
-        DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+        DomHandler.blockBodyScroll();
         this.cd.markForCheck();
 
         if (this.mask) {
@@ -370,7 +375,7 @@ export class Galleria implements OnChanges, OnDestroy {
     }
 
     disableModality() {
-        DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        DomHandler.unblockBodyScroll();
         this.maskVisible = false;
         this.cd.markForCheck();
 
@@ -511,16 +516,22 @@ export class GalleriaContent implements DoCheck {
     }
 
     startSlideShow() {
-        this.interval = setInterval(() => {
-            let activeIndex = this.galleria.circular && this.value.length - 1 === this.activeIndex ? 0 : this.activeIndex + 1;
-            this.onActiveIndexChange(activeIndex);
-            this.activeIndex = activeIndex;
-        }, this.galleria.transitionInterval);
+        if (isPlatformBrowser(this.galleria.platformId)) {
+            this.interval = setInterval(() => {
+                let activeIndex = this.galleria.circular && this.value.length - 1 === this.activeIndex ? 0 : this.activeIndex + 1;
+                this.onActiveIndexChange(activeIndex);
+                this.activeIndex = activeIndex;
+            }, this.galleria.transitionInterval);
 
-        this.slideShowActive = true;
+            this.slideShowActive = true;
+        }
     }
 
     stopSlideShow() {
+        if (this.galleria.autoPlay && !this.galleria.shouldStopAutoplayByClick) {
+            return;
+        }
+
         if (this.interval) {
             clearInterval(this.interval);
         }

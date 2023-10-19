@@ -225,20 +225,15 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     bindDocumentClickListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentClickListener && this.dismissable) {
-                this.zone.runOutsideAngular(() => {
-                    let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-                    const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
+                let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
+                const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
-                    this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                        if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
-                            this.zone.run(() => {
-                                this.hide();
-                            });
-                        }
+                this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
+                    if (!this.container?.contains(event.target) && !this.target.contains(event.target)) {
+                        this.hide();
+                    }
 
-                        this.selfClick = false;
-                        this.cd.markForCheck();
-                    });
+                    this.cd.markForCheck();
                 });
             }
         }

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Steps requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -25,7 +25,7 @@ export class BasicDoc implements OnInit {
         this.items = [
             {
                 label: 'Personal',
-                routerLink: ''
+                routerLink: 'personal'
             },
             {
                 label: 'Seat',

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-theme-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
                 Themes are created with SASS using the <i>primeng-sass-theme</i> project available at <a href="http://github.com/primefaces/primeng-sass-theme">github</a>. This repository contains all the scss files for the components and the

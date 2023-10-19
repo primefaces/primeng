@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'slot-char-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>
         </app-docsectiontext>

@@ -7,7 +7,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'filter-menu-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>

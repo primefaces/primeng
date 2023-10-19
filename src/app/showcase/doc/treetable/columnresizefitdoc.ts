@@ -11,12 +11,12 @@ interface Column {
 
 @Component({
     selector: 'resize-fit-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
             <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns" ttResizableColumn>
@@ -61,7 +61,7 @@ export class ResizeFitDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -81,7 +81,7 @@ export class ResizeFitDoc implements OnInit {
 
         html: `
 <div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>

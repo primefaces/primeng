@@ -493,7 +493,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() maxSelectedLabels: number = 3;
     /**
-     * Number of maximum options that can be selected.
+     * Decides how many selected item labels to show at most.
      * @group Props
      */
     @Input() selectionLimit: number | undefined;
@@ -628,12 +628,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input() autofocusFilter: boolean = true;
     /**
-     * No description available.
+     * Defines how the selected items are displayed.
      * @group Props
      */
-    @Input() display: string = 'comma';
+    @Input() display: string | 'comma' | 'chip' = 'comma';
     /**
-     * No description available.
+     * Defines the autocomplete is active.
      * @group Props
      */
     @Input() autocomplete: string = 'off';
@@ -862,6 +862,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     _placeholder: string | undefined;
 
     _itemSize: number | undefined;
+
+    _selectionLimit: number | undefined;
 
     public value: any[] | undefined | null;
 

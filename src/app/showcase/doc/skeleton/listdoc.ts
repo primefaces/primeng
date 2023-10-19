@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'list-doc',
-    template: ` <section>
+    template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>Sample List implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>

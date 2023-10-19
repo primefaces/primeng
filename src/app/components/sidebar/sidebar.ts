@@ -279,7 +279,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         });
     }
 
-    onKeydown(event: KeyboardEvent) {
+    onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
             this.hide();
         }
@@ -330,7 +330,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
+                DomHandler.blockBodyScroll();
             }
         }
     }
@@ -350,7 +350,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();

@@ -1,4 +1,232 @@
 # Changelog
+
+## [16.5.1](https://github.com/primefaces/primeng/tree/16.5.1) (2023-10-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.5.0...16.5.1)
+
+**Fixed bugs:**
+- Table | Column widths are not recalculated w/resize + drag & drop [\#13875](https://github.com/primefaces/primeng/issues/13875)
+- Tooltip doesn't accept TemplateRef HTMLElement anymore [\#13866](https://github.com/primefaces/primeng/issues/13866)
+- Component: AccordionTab.toggle(null) throws TypeError [\#13872](https://github.com/primefaces/primeng/issues/13872)
+- Menu Components | Convert property binding of 'id' to attribute binding [\#13870](https://github.com/primefaces/primeng/issues/13870)
+
+## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
+
+**Deprecated:**
+- SlideMenu: Deprecate from PrimeNG [\#13830](https://github.com/primefaces/primeng/issues/13830)
+- Remove FullCalendar theme support [\#13834](https://github.com/primefaces/primeng/issues/13834)
+
+**Implemented New Features and Enhancements:**
+- Button: New props [\#13851](https://github.com/primefaces/primeng/issues/13851)
+- SelectButton: Add allowEmpty property [\#13853](https://github.com/primefaces/primeng/issues/13853)
+- Accessibility | Step component bugs and improvements [\#13742](https://github.com/primefaces/primeng/issues/13742)
+- Tooltip: Accessibility role not available [\#13843](https://github.com/primefaces/primeng/issues/13843)
+- Improve block/unblockScroll architecture [\#13855](https://github.com/primefaces/primeng/issues/13855)
+
+**Fixed bugs:**
+
+- Toolbar: Inconsistent naming and wrong documentation [\#13814](https://github.com/primefaces/primeng/issues/13814)
+- Password | Incorrect placement of close icon when toggleMask="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
+- Tooltip: disable autoHide doesn't work [\#13828](https://github.com/primefaces/primeng/issues/13828)
+- Multiselect: Chips: Delete button not visible if label is too wide [\#13816](https://github.com/primefaces/primeng/issues/13816)
+- BlockUI: Mask is not applied when blocked changes rapidly [\#11838](https://github.com/primefaces/primeng/issues/11838)
+- panelMenu- sub MenuItem is disabled but still it can be clickable and expandable [\#13827](https://github.com/primefaces/primeng/issues/13827)
+- Multiselect: Incorrect view with selected items [\#13654](https://github.com/primefaces/primeng/issues/13654)
+- there is a missed "break;" line in a switch case in menu.ts at line 540 [\#13766](https://github.com/primefaces/primeng/issues/13766)
+- SSR fails on carousel circular and galleria autoplay [\#13837](https://github.com/primefaces/primeng/issues/13837)
+- Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
+- p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
+- Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
+## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)
+
+**Fixed bugs:**
+
+- Menu Components | id property of menuItem API is ignored [\#13763](https://github.com/primefaces/primeng/issues/13763)
+- ESLint Error [\#13764](https://github.com/primefaces/primeng/issues/13764)
+- Table: Incorrect behavior when a column is both sortable and filterable, and user clicks on a certain part of the filter icon [\#13361](https://github.com/primefaces/primeng/issues/13361)
+- Tree | onKeydown is broken with contextMenu [\#13558](https://github.com/primefaces/primeng/issues/13558)
+- p-confirmPopup errors when setTimeout runs after onContainerDestroy [\#13761](https://github.com/primefaces/primeng/issues/13761)
+- MegaMenu ReferenceError in Jest Test same as #12945 [\#13758](https://github.com/primefaces/primeng/issues/13758)
+
+## [16.4.0](https://github.com/primefaces/primeng/tree/16.4.0) (2023-09-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.3.1...16.4.0)
+
+**Implemented New Features and Enhancements:**
+
+- Theme updates: change :focus to focus-visible [\#13740](https://github.com/primefaces/primeng/issues/13740)
+- New @layer implementation [\#13737](https://github.com/primefaces/primeng/issues/13737)
+- dynamic dialog module (same instances on top of each other) and update deprecated methods [\#13617](https://github.com/primefaces/primeng/issues/13617)
+- DataTable | Row selection focus styling issue [\#13617](https://github.com/primefaces/primeng/issues/13617)
+- FileUpload | Drag and drop highlight enhancement [\#13306](https://github.com/primefaces/primeng/issues/13306)
+- Image: Add srcset attribute [\#13683](https://github.com/primefaces/primeng/issues/13683)
+- FileUpload: allow file size units internationalization [\#13398](https://github.com/primefaces/primeng/issues/13398)
+- Dialog component scrollbar shift [\#13732](https://github.com/primefaces/primeng/issues/13732)
+- Update Lara to use "Inter var" font [\#13713](https://github.com/primefaces/primeng/issues/13713)
+- ConfirmDialog: pTemplate="message" and pTemplate="icon" is missing [\#13700](https://github.com/primefaces/primeng/issues/13700)
+- Add GTAG Manager [\#13626](https://github.com/primefaces/primeng/issues/13626)
+
+**Fixed bugs:**
+
+- TreeSelect: Close Button icon not centred [\#13750](https://github.com/primefaces/primeng/issues/13750)
+- PrimeNG 16.1.0 selecting a menu option causes panel to scroll [\#13390](https://github.com/primefaces/primeng/issues/13390)
+- p-tabPanel does not detect changes when "headerStyle", "headerStyleClass" binding is changed [\#13746](https://github.com/primefaces/primeng/issues/13746)
+- Column Filter: Auto close on Click Outside does not work [\#13596](https://github.com/primefaces/primeng/issues/13596)
+- dismissableMask is not working on ConfirmationPopup [\#13714](https://github.com/primefaces/primeng/issues/13714)
+- showClear on calendar doesn't appear if showIcon is set to true [\#13749](https://github.com/primefaces/primeng/issues/13749)
+- Codebase: ES LINTER ISSUE [\#13641](https://github.com/primefaces/primeng/issues/13641)
+- zIndex of ConfirmDialog is not adaptive (always less by one) [\#13498](https://github.com/primefaces/primeng/issues/13498)
+- Increased zIndex Position when Sidebar and Modals work together [\#13501](https://github.com/primefaces/primeng/issues/13501)
+- SpeedDial | Menu Items are only hidden but still in view on closed dial [\#13725](https://github.com/primefaces/primeng/issues/13725)
+- Calendar | Disabled date is highlighted when it's in the range [\#13736](https://github.com/primefaces/primeng/issues/13736)
+- Calendar: disabledDate Template Broken [\#13695](https://github.com/primefaces/primeng/issues/13695)
+- Toast: closeIcon on message is outside of button [\#13707](https://github.com/primefaces/primeng/issues/13707)
+- BlockUI | Does not block scroll on document mode [\#13734](https://github.com/primefaces/primeng/issues/13734)
+- AutoComplete | p-autocomplete-token-icon alignment issue [\#13532](https://github.com/primefaces/primeng/issues/13532)
+- ConfirmPopup: CloseOnEscape is not working [\#13652](https://github.com/primefaces/primeng/issues/13652)
+- Component: Panelmenu SubMenus not supported HTML content [\#13637](https://github.com/primefaces/primeng/issues/13637)
+- pButton | Loading icon not removing [\#13489](https://github.com/primefaces/primeng/issues/13489)
+- p-slider: Slider issue with onSlideEnd event and range selection [\#9013](https://github.com/primefaces/primeng/issues/9013)
+- Calendar: Calendar is closed when month is selected with spacebar [\#13662](https://github.com/primefaces/primeng/issues/13662)
+- Tooltip: Tooltip flickering issue [\#13680](https://github.com/primefaces/primeng/issues/13680)
+- MultiSelect: Overlay not repositioned after filtering options [\#13571](https://github.com/primefaces/primeng/issues/13571)
+- TieredMenu: SubMenus are not uncovered on mouse hover anymore [\#13582](https://github.com/primefaces/primeng/issues/13582)
+- Menu | MenuItem API id property is ignored [\#13705](https://github.com/primefaces/primeng/issues/13705)
+- Menu | Throws error on tab [\#13702](https://github.com/primefaces/primeng/issues/13702)
+- DynamicDialog - remove entryComponents from docs [\#13679](https://github.com/primefaces/primeng/issues/13679)
+- Table: Programmatic reset not work on primeng live demo [\#13657](https://github.com/primefaces/primeng/issues/13657)
+- Component: Menu component throws a JS exception [\#13568](https://github.com/primefaces/primeng/issues/13568)
+- SpeedDial onBlur: NG0600: Writing to signals is not allowed in a computed or an effect by default. Use allowSignalWrites in the CreateEffectOptions to enable this inside effects. [\#13499](https://github.com/primefaces/primeng/issues/13499)
+- Component: InputNumber maxlength and maxFractionDigits attributes are ignored by pasting [\#13588](https://github.com/primefaces/primeng/issues/13588)
+- Using SplitButton causes ReferenceError: Cannot access 'TieredMenu' before initialization [\#12945](https://github.com/primefaces/primeng/issues/12945)
+- Component: Buttons and table frozen column [\#13562](https://github.com/primefaces/primeng/issues/13562)
+
+## [16.3.1](https://github.com/primefaces/primeng/tree/16.3.1) (2023-08-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.3.0...16.3.1)
+
+**Fixed bugs:**
+
+- PrimeNG build is not working [\#13581](https://github.com/primefaces/primeng/issues/13581)
+
+## [16.3.0](https://github.com/primefaces/primeng/tree/16.3.0) (2023-08-30)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.2.0...16.3.0)
+
+**Implemented New Features and Enhancements:**
+
+- Toast: Expose default Toast Item life prop for overriding [\#13577](https://github.com/primefaces/primeng/issues/13577)
+- SelectButton: getOptionValue is called twice in onItemClick if multiple is false \(single mode\) [\#13553](https://github.com/primefaces/primeng/issues/13553)
+- InputNumber | Add ariaLabelledBy props [\#13547](https://github.com/primefaces/primeng/issues/13547)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- Knob | Add ariaLabel, ariaLabelledBy, tabindex props  [\#13504](https://github.com/primefaces/primeng/issues/13504)
+- TreeTable and TreeSelect: Output emits wrong type \(TreeTable.onNodeExpand and TreeSelect.onNodeUnselect and .onNodeSelect\) [\#13415](https://github.com/primefaces/primeng/issues/13415)
+- p-splitter: nested panels should have min-width: 0 to leverage flex-basis correctly [\#13323](https://github.com/primefaces/primeng/issues/13323)
+- Tree/DataView/Table: there is no way to set a custom class to the paginator component  [\#13204](https://github.com/primefaces/primeng/issues/13204)
+- Wrong type definition of KeyFilter.pKeyFilter \(pattern\) [\#13086](https://github.com/primefaces/primeng/issues/13086)
+- DropDown: open even if disabled [\#12973](https://github.com/primefaces/primeng/issues/12973)
+- Carousel or Galleria component autoplay will stop after click any step and can't re-autoplay again [\#12949](https://github.com/primefaces/primeng/issues/12949)
+- Component: P-Image Preview Image URL [\#12928](https://github.com/primefaces/primeng/issues/12928)
+- Component: Paginator, Table [\#12897](https://github.com/primefaces/primeng/issues/12897)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- DynamicDialog: Close button receives initial focus [\#12643](https://github.com/primefaces/primeng/issues/12643)
+- Add LazyLoadOnInit flag for Data View [\#12526](https://github.com/primefaces/primeng/issues/12526)
+- Password: Add autocomplete property for input [\#12362](https://github.com/primefaces/primeng/issues/12362)
+- In Calender year view disable year issue [\#12151](https://github.com/primefaces/primeng/issues/12151)
+- CI: Replace deprecated and non-functional travis-ci.org [\#10846](https://github.com/primefaces/primeng/issues/10846)
+- Let the user choose where to place a DynamicDialog rather than in body [\#9546](https://github.com/primefaces/primeng/issues/9546)
+- Template support for Tooltip [\#3496](https://github.com/primefaces/primeng/issues/3496)
+
+**Fixed bugs:**
+
+- Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- Sidenav: Input Key Down triggers "TypeError: ctx\_r16.onKeyDown is not a function" [\#13569](https://github.com/primefaces/primeng/issues/13569)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- DropDown clear or close icon on click dropDown options open randomly  [\#13560](https://github.com/primefaces/primeng/issues/13560)
+- DropDown filter search not trimming text and search showing empty  [\#13559](https://github.com/primefaces/primeng/issues/13559)
+- Sidebar: Badge property not working [\#13523](https://github.com/primefaces/primeng/issues/13523)
+- SplitButton \[NG\]: Menu is not closing when click on outside [\#13522](https://github.com/primefaces/primeng/issues/13522)
+- p-steps Docs: Routing Example Broken [\#13519](https://github.com/primefaces/primeng/issues/13519)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- Sidebar related bug [\#13509](https://github.com/primefaces/primeng/issues/13509)
+- DynamicDialog: ExpressionChangedAfterItHasBeenCheckedError for attr.aria-labelledby [\#13497](https://github.com/primefaces/primeng/issues/13497)
+- Component: `p-dialog` bad drag behavior [\#13493](https://github.com/primefaces/primeng/issues/13493)
+- InputTextarea with autoResize=true have scroll up issues [\#13484](https://github.com/primefaces/primeng/issues/13484)
+- Dropdown: Escape Key event not default prevented [\#13463](https://github.com/primefaces/primeng/issues/13463)
+- p-overlayPanel does not hide automatically after scrolling [\#13462](https://github.com/primefaces/primeng/issues/13462)
+- TableRowSelectEvent: data must not be an array [\#13383](https://github.com/primefaces/primeng/issues/13383)
+- Table: Incorrect behavior when a column is both sortable and filterable, and user clicks on a certain part of the filter icon [\#13361](https://github.com/primefaces/primeng/issues/13361)
+- p-calendar: Cannot read properties of undefined \(reading 'length'\) [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- AutoComplete:  completeOnFocus [\#13344](https://github.com/primefaces/primeng/issues/13344)
+- p-menu: Links are turned into groups [\#13297](https://github.com/primefaces/primeng/issues/13297)
+- The `breakpoints`options can be ignored when the dialog is maximized. [\#13268](https://github.com/primefaces/primeng/issues/13268)
+- TreeTable: selectionChange emitter type error [\#13254](https://github.com/primefaces/primeng/issues/13254)
+- pKeyFilter stops Enter key from submitting form in Firefox [\#13246](https://github.com/primefaces/primeng/issues/13246)
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+-  TreeTable: Can't write multi line in a textarea used to edit a cell [\#13105](https://github.com/primefaces/primeng/issues/13105)
+- Menubar | ReferenceError: Cannot access 'Menubar' before initialization [\#13024](https://github.com/primefaces/primeng/issues/13024)
+- Chips: After clicking the clear button does not allow to input values [\#13011](https://github.com/primefaces/primeng/issues/13011)
+- p-password: attribute 'className' instead of 'class' used in content template [\#13003](https://github.com/primefaces/primeng/issues/13003)
+- Calendar: formArray marked Touched when item gets removed  [\#12956](https://github.com/primefaces/primeng/issues/12956)
+- Multiselect: Cannot dynamically change selectionLimit on Multiselect [\#12775](https://github.com/primefaces/primeng/issues/12775)
+- Calendar: Error if using datatype string with selectionMode="range" and keepInvalid=true [\#12722](https://github.com/primefaces/primeng/issues/12722)
+- Toggleable panel inside another toggleable panel has it's content visible when collapsed by default [\#12713](https://github.com/primefaces/primeng/issues/12713)
+- p-button: disabled p-button doesn't work [\#12692](https://github.com/primefaces/primeng/issues/12692)
+- Chips doesnt support RegExp Separator as per documentation [\#12640](https://github.com/primefaces/primeng/issues/12640)
+- p-autocomplete: baseZIndex, autoZIndex, appendTo not respected [\#12600](https://github.com/primefaces/primeng/issues/12600)
+- primeng calendar year view not work with \*maxDate\* and \*minDate\* not working  [\#12583](https://github.com/primefaces/primeng/issues/12583)
+- Button: p-button executing methods on click when disabled [\#12495](https://github.com/primefaces/primeng/issues/12495)
+
+## [16.2.0](https://github.com/primefaces/primeng/tree/16.2.0) (2023-08-11)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.1.0...16.2.0)
+
+**New Features:**
+- DynamicDialog | Add closeAriaLabel for acessibility [\#13410](https://github.com/primefaces/primeng/issues/#13410)
+- ConfirmDialog | Add closeAriaLabel for accessibility [\#13408](https://github.com/primefaces/primeng/issues/#13408)
+- SpeedDial | Add ariaLabel and ariaLabelledBy inputs (accessibility) [\#13404](https://github.com/primefaces/primeng/issues/#13404)
+- Accordion | wrong aria roles and add headerAriaLevel property (accessibility) [\#13431](https://github.com/primefaces/primeng/issues/#13431)
+
+**Enhancements:**
+- Update Angular packages [\#13444](https://github.com/primefaces/primeng/issues/#13444)
+- Accessibility | Messages Section [\#13411](https://github.com/primefaces/primeng/issues/#13411)
+- Accessibility | Overlay Section [\#13409](https://github.com/primefaces/primeng/issues/#13409)
+- Accessibility | Button Section [\#13402](https://github.com/primefaces/primeng/issues/#13402)
+- Accessibility | TabView - TabIndex order doesn't follow the W3C recommended pattern [\#13421](https://github.com/primefaces/primeng/issues/#13421)
+- Accessibility | Media Section [\#13420](https://github.com/primefaces/primeng/issues/#13420)
+- Multiselect: Overlay should not be closed when toggle on unSelectAll icon [\#13384](https://github.com/primefaces/primeng/issues/#13384)
+- Accordion | wrong aria roles and add headerAriaLevel property (accessibility) [\#13431](https://github.com/primefaces/primeng/issues/#13431)
+
+**Fixed bugs:**
+- Tooltip | Auto Hide Not Working [\#13482](https://github.com/primefaces/primeng/issues/#13482)
+- TabView | Arrow button stays visible even there is no overflow [\#13478](https://github.com/primefaces/primeng/issues/#13478)
+- p-panelMenu: visible:false don’t work for submenus [\#13469](https://github.com/primefaces/primeng/issues/#13469)
+- fileUpload: conversion uses 1000 instead of 1024 for file size formatting [\#13467](https://github.com/primefaces/primeng/issues/#13467)
+- Accessibility | PanelMenu - collapsed region are still reachable via tab navigation when at least an item has a link [\#13435](https://github.com/primefaces/primeng/issues/#13435)
+- MenuBar and MegaMenu: On mobile menubar and megamenu both requires double tap to open submenu [\#13447](https://github.com/primefaces/primeng/issues/#13447)
+- TieredMenu: On mobile tieredmenu requires double tap to open submenu [\#13433](https://github.com/primefaces/primeng/issues/#13433)
+- Menu and PanelMenu | Separator is not visible [\#13476](https://github.com/primefaces/primeng/issues/#13476)
+- Menu Components | Cannot override model value [\#13471](https://github.com/primefaces/primeng/issues/#13471)
+- Component: PanelMenu - styleClass and tooltip not applied [\#13401](https://github.com/primefaces/primeng/issues/#13401)
+- TieredMenu: SubMenus are not uncovered on mouse hover anymore [\#13455](https://github.com/primefaces/primeng/issues/#13455)
+- TabMenu: Disabled items are no longer rendered [\#13454](https://github.com/primefaces/primeng/issues/#13454)
+- Component: ContextMenu [\#13456](https://github.com/primefaces/primeng/issues/#13456)
+- Button: Loading icon not showing when used by pButton directive [\#13345](https://github.com/primefaces/primeng/issues/#13345)
+- pButton: When changing the loading property of the pButton the spinner is not shown [\#13195](https://github.com/primefaces/primeng/issues/#13195)
+- Button: custom loading icon is not displayed [\#13250](https://github.com/primefaces/primeng/issues/#13250)
+- Component: InputNumber - maxlength input param doesn't limit number of numbers that user can type [\#13426](https://github.com/primefaces/primeng/issues/#13426)
+- FileUpload: when multiple files are selected and more than one has errors only only one message is shown [\#13426](https://github.com/primefaces/primeng/issues/#13426)
+- FileUpload | Incorrect margin between label and icon [\#13414](https://github.com/primefaces/primeng/issues/#13414)
+- OrganizationChart not refreshing view after new TreeNode is added [\#13368](https://github.com/primefaces/primeng/issues/#13368)
+- SplitButton menu options not working correctly in v16.1.0 [\#13389](https://github.com/primefaces/primeng/issues/#13389)
+- New required undocumented locale options in PrimeNG 16.1.0 [\#13380](https://github.com/primefaces/primeng/issues/#13380)
+
 ## [16.1.0](https://github.com/primefaces/primeng/tree/16.1.0) (2023-07-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.0.2...16.1.0)
@@ -133,6 +361,34 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.10-LTS](https://www.npmjs.com/package/primeng/v/15.4.10-lts) (2023-10-04)
+**Fixed bugs:**
+- Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.9-LTS](https://www.npmjs.com/package/primeng/v/15.4.9-lts) (2023-08-30)
+**Fixed bugs:**
+- Image Component: esc button doesn't close the preview [\#13305](https://github.com/primefaces/primeng/issues/13305)
+- Button: p-button executing methods on click when disabled [\#12692](https://github.com/primefaces/primeng/issues/12692)
+- Calendar: formArray marked Touched when item gets removed [\#12956](https://github.com/primefaces/primeng/issues/12956)
+- pKeyFilter stops Enter key from submitting form in Firefox [\#13246](https://github.com/primefaces/primeng/issues/13246)
+- The breakpointsoptions can be ignored when the dialog is maximized [\#13268](https://github.com/primefaces/primeng/issues/13268)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.8-LTS](https://www.npmjs.com/package/primeng/v/15.4.8-lts) (2023-08-16)
+
+**Fixed bugs:**
+- FileUpload: when multiple files are selected and more than one has errors only only one message is shown [\#13397](https://github.com/primefaces/primeng/issues/13397)
+- TabView | Arrow button stays visible even there is no overflow [\#13478](https://github.com/primefaces/primeng/issues/13478)
+- Tooltip | Auto Hide Not Working [\#13482](https://github.com/primefaces/primeng/issues/13482)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.7-LTS](https://www.npmjs.com/package/primeng/v/15.4.7-lts) (2023-08-03)
 
@@ -375,6 +631,33 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.13-LTS](https://www.npmjs.com/package/primeng/v/14.2.13-lts) (2023-10-04)
+**Fixed bugs:**
+- Calendar: onModelChange not called with keepInvalid=true if user enters a well-formatted date but outside allowed range [\#13132](https://github.com/primefaces/primeng/issues/13132)
+- calendar year view not work with *maxDate* and *minDate* not working [\#13583](https://github.com/primefaces/primeng/issues/13583)
+- p-calendar: Cannot read properties of undefined (reading 'length') [\#13348](https://github.com/primefaces/primeng/issues/13348)
+- Component: Pick List [\#13513](https://github.com/primefaces/primeng/issues/13513)
+- AutoComplete showClear close icon overlap with loader icon [\#13572](https://github.com/primefaces/primeng/issues/13572)
+- fileUpload: choose button is disabled after upload when you chose more files than the file limit [\#13566](https://github.com/primefaces/primeng/issues/13566)
+- Component: Carousel add better playing status support [\#12706](https://github.com/primefaces/primeng/issues/12706)
+- InputNumber - showClear icon not showing when value is "0" [\#13525](https://github.com/primefaces/primeng/issues/13525)
+- Dropdown: Escape Key event not default prevented [\#13463](https://github.com/primefaces/primeng/issues/13463)
+- p-splitter: nested panels should have min-width: 0 to leverage flex-basis correctly [\#13323](https://github.com/primefaces/primeng/issues/13323)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.12-LTS](https://www.npmjs.com/package/primeng/v/14.2.12-lts) (2023-08-30)
+- DropDown filter search not trimming text and search showing empty [\#13559](https://github.com/primefaces/primeng/issues/13559)
+- Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
+- The breakpointsoptions can be ignored when the dialog is maximized [\#13268](https://github.com/primefaces/primeng/issues/13268)
+- Calendar: formArray marked Touched when item gets removed [\#12956](https://github.com/primefaces/primeng/issues/12956)
+- Button: p-button executing methods on click when disabled [\#12692](https://github.com/primefaces/primeng/issues/12692)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.11-LTS](https://www.npmjs.com/package/primeng/v/14.2.11-lts) (2023-08-16)
+
+**Fixed bugs:**
+- FileUpload: when multiple files are selected and more than one has errors only only one message is shown [\#13397](https://github.com/primefaces/primeng/issues/13397)
+- TabView | Arrow button stays visible even there is no overflow [\#13478](https://github.com/primefaces/primeng/issues/13478)
+- Image Component: esc button doesn't close the preview [\#13305](https://github.com/primefaces/primeng/issues/13305)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.10-LTS](https://www.npmjs.com/package/primeng/v/14.2.10-lts) (2023-08-03)
 
