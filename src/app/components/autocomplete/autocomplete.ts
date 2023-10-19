@@ -112,7 +112,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             >
                 <li
                     #token
-                    *ngFor="let option of value; let i = index"
+                    *ngFor="let option of modelValue(); let i = index"
                     [ngClass]="{ 'p-autocomplete-token': true, 'p-focus': focusedMultipleOptionIndex() === i }"
                     [attr.id]="id + '_multiple_option_' + i"
                     role="option"
@@ -455,6 +455,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     /**
      * Field of a suggested object to resolve and display.
      * @group Props
+     * @deprecated
      */
     @Input() field: string | undefined;
     /**
@@ -724,7 +725,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     timeout: Nullable<any>;
 
-    overlayVisible: boolean = false;
+    overlayVisible: boolean | undefined;
 
     suggestionsUpdated: Nullable<boolean>;
 
@@ -1264,12 +1265,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onArrowLeftKey(event) {
         const target = event.currentTarget;
-
         this.focusedOptionIndex.set(-1);
         if (this.multiple) {
             if (ObjectUtils.isEmpty(target.value) && this.hasSelectedOption()) {
-                DomHandler.focus(this.inputEL.nativeElement);
+                DomHandler.focus(this.multiContainerEL.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
+                
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
             }
@@ -1278,7 +1279,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onArrowRightKey(event) {
         this.focusedOptionIndex.set(-1);
-
+        
         this.multiple && event.stopPropagation(); // To prevent onArrowRightKeyOnMultiple method
     }
 
@@ -1361,6 +1362,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         let optionIndex = this.focusedMultipleOptionIndex();
         optionIndex++;
 
+        this.focusedMultipleOptionIndex.set(optionIndex);
         if (optionIndex > this.modelValue().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
             DomHandler.focus(this.inputEL.nativeElement);
