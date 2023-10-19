@@ -1672,7 +1672,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isYearDisabled(year: number) {
-        return Array(12).fill(0).every((v, month) => this.isMonthDisabled(month, year));
+        return Array(12)
+            .fill(0)
+            .every((v, month) => this.isMonthDisabled(month, year));
     }
 
     isYearSelected(year: number) {
