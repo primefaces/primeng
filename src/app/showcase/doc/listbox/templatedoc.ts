@@ -13,7 +13,7 @@ interface Country {
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
+            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}">
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
@@ -51,7 +51,7 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
+<p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}">
     <ng-template let-country pTemplate="item">
         <div class="flex align-items-center gap-2">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
@@ -62,7 +62,7 @@ export class TemplateDoc implements OnInit {
 
         html: `
 <div class="card flex justify-content-center">
-    <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
+    <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>

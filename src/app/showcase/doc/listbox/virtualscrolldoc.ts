@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false"></p-listbox>
+            <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
     </section>`
@@ -34,11 +34,11 @@ export class VirtualScrollDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false"></p-listbox>`,
+<p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false"></p-listbox>
+    <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>
 </div>`,
 
         typescript: `

@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     </section>`
@@ -43,11 +43,11 @@ export class BasicDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox>`,
+<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}"></p-listbox>
+    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
 </div>`,
 
         typescript: `

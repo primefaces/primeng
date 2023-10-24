@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }"></p-listbox>
+                <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
             </form>
         </div>
         <app-code [code]="code" selector="listbox-reactive-forms-demo"></app-code>
@@ -47,13 +47,13 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `
 <form [formGroup]="formGroup">
-    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }"></p-listbox>
+    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
 </form>`,
 
         html: `
 <div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }"></p-listbox>
+        <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
     </form>
 </div>`,
 
