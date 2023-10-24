@@ -674,7 +674,7 @@ export class GalleriaItemSlot {
                     tabindex="0"
                     (click)="onIndicatorClick(index)"
                     (mouseenter)="onIndicatorMouseEnter(index)"
-                    (keydown)="onIndicatorKeyDown(event, index)"
+                    (keydown)="onIndicatorKeyDown($event, index)"
                     [ngClass]="{ 'p-galleria-indicator': true, 'p-highlight': isIndicatorItemActive(index) }"
                     [attr.aria-label]="ariaPageLabel(index + 1)"
                     [attr.aria-selected]="activeIndex === index"
