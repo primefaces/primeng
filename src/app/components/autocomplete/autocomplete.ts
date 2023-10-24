@@ -1270,7 +1270,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             if (ObjectUtils.isEmpty(target.value) && this.hasSelectedOption()) {
                 DomHandler.focus(this.multiContainerEL.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
-                
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
             }
@@ -1279,7 +1278,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onArrowRightKey(event) {
         this.focusedOptionIndex.set(-1);
-        
+
         this.multiple && event.stopPropagation(); // To prevent onArrowRightKeyOnMultiple method
     }
 
@@ -1481,7 +1480,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         isFocus && DomHandler.focus(this.inputEL.nativeElement);
-        if(isFocus) {
+        if (isFocus) {
             DomHandler.focus(this.inputEL.nativeElement);
         }
         this.onShow.emit();

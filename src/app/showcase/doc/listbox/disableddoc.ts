@@ -13,7 +13,7 @@ interface City {
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-disabled-demo"></app-code>
     </section>`

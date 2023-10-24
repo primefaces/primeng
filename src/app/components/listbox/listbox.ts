@@ -22,7 +22,7 @@ import {
     Renderer2
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig } from 'primeng/api';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig, ScrollerOptions } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -62,16 +62,20 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <div class="p-listbox-header" *ngIf="(checkbox && multiple && showToggleAll) || filter">
-                <div  *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled || toggleAllDisabled }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
+                <div *ngIf="checkbox && multiple && showToggleAll" class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': disabled || toggleAllDisabled }" (click)="onToggleAll($event)" (keydown)="onHeaderCheckboxKeyDown($event)">
                     <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                        <input #headerchkbox type="checkbox" readonly="readonly" [attr.checked]="allSelected()" [disabled]="disabled || toggleAllDisabled" (focus)="onHeaderCheckboxFocus($event)" (blur)="onHeaderCheckboxBlur($event)" [attr.aria-label]="toggleAllAriaLabel"/>
+                        <input
+                            #headerchkbox
+                            type="checkbox"
+                            readonly="readonly"
+                            [attr.checked]="allSelected()"
+                            [disabled]="disabled || toggleAllDisabled"
+                            (focus)="onHeaderCheckboxFocus($event)"
+                            (blur)="onHeaderCheckboxBlur($event)"
+                            [attr.aria-label]="toggleAllAriaLabel"
+                        />
                     </div>
-                    <div
-                        class="p-checkbox-box"
-                        role="checkbox"
-                        [attr.aria-checked]="allSelected()"
-                        [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }"
-                    >
+                    <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allSelected()" [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }">
                         <ng-container *ngIf="allSelected()">
                             <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
                             <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
@@ -136,15 +140,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngIf="!virtualScroll">
                     <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
                 </ng-container>
-                
+
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
-                    <ul 
-                        #list 
-                        class="p-listbox-list" 
+                    <ul
+                        #list
+                        class="p-listbox-list"
                         role="listbox"
-                        [tabindex]="-1" 
-                        [attr.aria-multiselectable]="true" 
-                        [ngClass]="scrollerOptions.contentStyleClass" 
+                        [tabindex]="-1"
+                        [attr.aria-multiselectable]="true"
+                        [ngClass]="scrollerOptions.contentStyleClass"
                         [style]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
@@ -154,7 +158,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
                     >
-
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
                                 <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -163,13 +166,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="!isOptionGroup(option)">
-                                <li 
+                                <li
                                     pRipple
                                     class="p-listbox-item"
                                     role="option"
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
-                                    [ngStyle]="{height: scrollerOptions.itemSize + 'px'}"
-                                    [ngClass]="{'p-listbox-item': true, 'p-highlight': isSelected(option), 'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions), 'p-disabled': isOptionDisabled(option)}"
+                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [ngClass]="{ 'p-listbox-item': true, 'p-highlight': isSelected(option), 'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions), 'p-disabled': isOptionDisabled(option) }"
                                     [attr.aria-label]="getOptionLabel(option)"
                                     [attr.aria-selected]="isSelected(option)"
                                     [attr.aria-disabled]="isOptionDisabled(option)"
@@ -184,7 +187,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{ 'p-checkbox-disabled': disabled || isOptionDisabled(option) }">
                                         <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(option) }">
                                             <ng-container *ngIf="isSelected(option)">
-                                                <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true"/>
+                                                <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
                                                 <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
                                                     <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
                                                 </span>
@@ -213,7 +216,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </div>
             <div class="p-listbox-footer" *ngIf="footerFacet || footerTemplate">
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate; context: {$implicit: modelValue(), options: visibleOptions()}"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ emptyMessageText }}
@@ -242,6 +245,89 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+    /**
+     * Unique identifier of the component.
+     * @group Props
+     */
+    @Input() id: string | undefined;
+    /**
+     * Text to display when the search is active. Defaults to global value in i18n translation configuration.
+     * @group Props
+     * @defaultValue '{0} results are available'
+     */
+    @Input() searchMessage: string | undefined;
+    /**
+     * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
+     * @group Props
+     * @defaultValue 'No selected item'
+     */
+    @Input() emptySelectionMessage: string | undefined;
+    /**
+     * Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration.
+     * @group Props
+     * @defaultValue '{0} items selected'
+     */
+    @Input() selectionMessage: string | undefined;
+    /**
+     * Whether to focus on the first visible or selected element when the overlay panel is shown.
+     * @group Props
+     */
+    @Input() autoOptionFocus: boolean | undefined = true;
+    /**
+     * When enabled, the focused option is selected.
+     * @group Props
+     */
+    @Input() selectOnFocus: boolean | undefined;
+    /**
+     * Locale to use in searching. The default locale is the host environment's current locale.
+     * @group Props
+     */
+    @Input() searchLocale: boolean | undefined;
+    /**
+     * When enabled, the hovered option will be focused.
+     * @group Props
+     */
+    @Input() focusOnHover: boolean | undefined;
+    /**
+     * Text to display when filtering.
+     * @group Props
+     */
+    @Input() filterMessage: string | undefined;
+    /**
+     * Fields used when filtering the options, defaults to optionLabel.
+     * @group Props
+     */
+    @Input() filterFields: any[] | undefined;
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
+    @Input() lazy: boolean = false;
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
+    @Input() scrollHeight: string = '200px';
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined = 0;
     /**
      * When specified, allows selecting multiple values.
      * @group Props
@@ -405,6 +491,24 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * @group Emits
      */
     @Output() onDblClick: EventEmitter<ListboxDoubleClickEvent> = new EventEmitter<ListboxDoubleClickEvent>();
+    /**
+     * Callback to invoke when data is filtered.
+     * @param {ListboxFilterEvent} event - Custom filter event.
+     * @group Emits
+     */
+    @Output() onFilter: EventEmitter<ListboxFilterEvent> = new EventEmitter<ListboxFilterEvent>();
+    /**
+     * Callback to invoke when component receives focus.
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    /**
+     * Callback to invoke when component loses focus.
+     * @param {FocusEvent} event - Blur event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -414,13 +518,15 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     @ViewChild('firstHiddenFocusableElement') firstHiddenFocusableElement: Nullable<ElementRef>;
 
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
+
+    @ViewChild('list') listViewChild: Nullable<ElementRef>;
+
     @ContentChild(Header) headerFacet: Nullable<TemplateRef<any>>;
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
-
-    _options = signal<any>(null);
 
     public itemTemplate: TemplateRef<any> | undefined;
 
@@ -463,100 +569,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     translationSubscription: Nullable<Subscription>;
 
     focused: boolean | undefined;
-
-    /**
-     * Unique identifier of the component.
-     * @group Props
-     */
-    @Input() id: string | undefined;
-    /**
-     * Text to display when the search is active. Defaults to global value in i18n translation configuration.
-     * @group Props
-     * @defaultValue '{0} results are available'
-     */
-    @Input() searchMessage: string | undefined;
-    /**
-     * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
-     * @group Props
-     * @defaultValue 'No selected item'
-     */
-    @Input() emptySelectionMessage: string | undefined;
-    /**
-     * Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration.
-     * @group Props
-     * @defaultValue '{0} items selected'
-     */
-    @Input() selectionMessage: string | undefined;
-    /**
-     * Whether to focus on the first visible or selected element when the overlay panel is shown.
-     * @group Props
-     */
-    @Input() autoOptionFocus: boolean | undefined = true;
-    /**
-     * When enabled, the focused option is selected.
-     * @group Props
-     */
-    @Input() selectOnFocus: boolean | undefined;
-    /**
-     * Locale to use in searching. The default locale is the host environment's current locale.
-     * @group Props
-     */
-    @Input() searchLocale: boolean | undefined;
-    /**
-     * When enabled, the hovered option will be focused.
-     * @group Props
-     */
-    @Input() focusOnHover: boolean | undefined;
-
-    @Input() filterMessage: string | undefined;
-    /**
-     * Defines if data is loaded and interacted with in lazy manner.
-     * @group Props
-     */
-    @Input() lazy: boolean = false;
-
-    @Input() virtualScroll: boolean | undefined;
-
-    @Input() virtualScrollOptions: ScrollOptions | undefined;
-
-    @Input() virtualScrollItemSize: number | undefined;
-
-    @Input() scrollHeight: string = '200px';
-
-    /**
-     * Index of the element in tabbing order.
-     * @group Props
-     */
-    @Input() tabindex: number | undefined = 0;
-
-    @ViewChild('scroller') scroller: Nullable<Scroller>;
-
-    @ViewChild('list') listViewChild: Nullable<ElementRef>;
-
-    /**
-     * Callback to invoke when data is filtered.
-     * @param {ListboxFilterEvent} event - Custom filter event.
-     * @group Emits
-     */
-    @Output() onFilter: EventEmitter<ListboxFilterEvent> = new EventEmitter<ListboxFilterEvent>();
-    /**
-     * Callback to invoke when component receives focus.
-     * @param {FocusEvent} event - Focus event.
-     * @group Emits
-     */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-    /**
-     * Callback to invoke when component loses focus.
-     * @param {FocusEvent} event - Blur event.
-     * @group Emits
-     */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
-
-    /**
-     * Fields used when filtering the options, defaults to optionLabel.
-     * @group Props
-     */
-    @Input() filterFields: any[] | undefined;
 
     get containerClass() {
         return {
@@ -617,6 +629,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     searchValue: string | undefined;
 
     searchTimeout: any;
+
+    _options = signal<any>(null);
 
     startRangeIndex = signal<number>(-1);
 
@@ -859,7 +873,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     onOptionDoubleClick(event: MouseEvent, option: any) {
         if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
-                return;
+            return;
         }
 
         this.onDblClick.emit({
@@ -874,8 +888,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         const firstFocusableEl = DomHandler.getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
         this.lastHiddenFocusableElement.nativeElement.tabIndex = ObjectUtils.isEmpty(firstFocusableEl) ? '-1' : undefined;
         this.firstHiddenFocusableElement.nativeElement.tabIndex = -1;
-
-
     }
 
     onLastHiddenFocus(event: FocusEvent) {
@@ -889,14 +901,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         } else {
             DomHandler.focus(this.firstHiddenFocusableElement.nativeElement);
         }
-
-        // this.renderer.setAttribute(this.lastHiddenFocusableElement.nativeElement, 'tabindex', '-1');
         this.lastHiddenFocusableElement.nativeElement.tabIndex = -1;
     }
 
     onFocusout(event: FocusEvent) {
-        console.log(this.el.nativeElement.contains(event.relatedTarget))
-        if(!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
+        if (!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
             this.firstHiddenFocusableElement.nativeElement.tabIndex = this.lastHiddenFocusableElement.nativeElement.tabIndex = undefined;
         }
     }
@@ -921,7 +930,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     onHeaderCheckboxBlur() {
         this.headerCheckboxFocus = false;
-        console.log('e')
     }
 
     onHeaderCheckboxKeyDown(event) {
@@ -947,7 +955,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onHeaderCheckboxTabKeyDown(event) {
-        DomHandler.focus(this.listViewChild.nativeElement)
+        DomHandler.focus(this.listViewChild.nativeElement);
         event.preventDefault();
     }
 
@@ -1010,7 +1018,9 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
             default:
                 if (this.multiple && event.code === 'KeyA' && metaKey) {
-                    const value = this.visibleOptions().filter((option) => this.isValidOption(option)).map((option) => this.getOptionValue(option));
+                    const value = this.visibleOptions()
+                        .filter((option) => this.isValidOption(option))
+                        .map((option) => this.getOptionValue(option));
 
                     this.updateModel(value, event);
 
@@ -1063,7 +1073,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                 break;
         }
     }
-    
+
     onArrowDownKey(event: KeyboardEvent) {
         const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
 

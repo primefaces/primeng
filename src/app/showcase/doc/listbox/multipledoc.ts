@@ -16,7 +16,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{ width: '15rem' }" [multiple]="true" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{ width: '15rem' }" [multiple]="true" [metaKeySelection]="false" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-multiple-demo"></app-code>
     </section>`
