@@ -1317,6 +1317,7 @@
     color: #043d75;
     border: 1px solid #d3dbe3;
     border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   }
   .p-listbox .p-listbox-header {
     padding: 0.75rem 1.25rem;
@@ -1339,6 +1340,7 @@
   }
   .p-listbox .p-listbox-list {
     padding: 0.75rem 0;
+    outline: 0 none;
   }
   .p-listbox .p-listbox-list .p-listbox-item {
     margin: 0;
@@ -1351,11 +1353,6 @@
   .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
     color: #7254f3;
     background: #e2dcfc;
-  }
-  .p-listbox .p-listbox-list .p-listbox-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #c7bbfa;
   }
   .p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
     margin-right: 0.5rem;
@@ -1372,9 +1369,22 @@
     color: #043d75;
     background: transparent;
   }
+  .p-listbox:not(.p-disabled) .p-listbox-item.p-highlight.p-focus {
+    background: #cbc0fa;
+  }
+  .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
+    color: #043d75;
+    background: #dfe7ef;
+  }
   .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
     color: #043d75;
     background: #f6f9fc;
+  }
+  .p-listbox.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #c7bbfa;
+    border-color: #7254f3;
   }
 
   p-listbox.ng-dirty.ng-invalid > .p-listbox {

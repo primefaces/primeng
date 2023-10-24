@@ -1297,6 +1297,7 @@
     color: rgba(255, 255, 255, 0.87);
     border: 1px solid #3f4b5b;
     border-radius: 4px;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
   }
   .p-listbox .p-listbox-header {
     padding: 0.75rem 1.5rem;
@@ -1319,6 +1320,7 @@
   }
   .p-listbox .p-listbox-list {
     padding: 0.5rem 0;
+    outline: 0 none;
   }
   .p-listbox .p-listbox-list .p-listbox-item {
     margin: 0;
@@ -1331,11 +1333,6 @@
   .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
     color: #151515;
     background: #c298d8;
-  }
-  .p-listbox .p-listbox-list .p-listbox-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #f0e6f5;
   }
   .p-listbox .p-listbox-list .p-listbox-item .p-checkbox {
     margin-right: 0.5rem;
@@ -1352,9 +1349,22 @@
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
   }
+  .p-listbox:not(.p-disabled) .p-listbox-item.p-highlight.p-focus {
+    background: #b07acd;
+  }
+  .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.09);
+  }
   .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
     color: rgba(255, 255, 255, 0.87);
     background: rgba(255, 255, 255, 0.04);
+  }
+  .p-listbox.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #f0e6f5;
+    border-color: #c298d8;
   }
 
   p-listbox.ng-dirty.ng-invalid > .p-listbox {
@@ -5268,17 +5278,6 @@
   .p-slidemenu .p-slidemenu-list {
     padding: 0.5rem 0;
     background: #2a323d;
-    color: #c298d8;
-    border: solid #3f4b5b;
-    border-width: 0;
-    padding: 0.75rem;
-    border-radius: 4px;
-  }
-  .p-paginator .p-paginator-first,
-.p-paginator .p-paginator-prev,
-.p-paginator .p-paginator-next,
-.p-paginator .p-paginator-last {
-    background-color: transparent;
     border: 1px solid #3f4b5b;
     box-shadow: none;
   }
