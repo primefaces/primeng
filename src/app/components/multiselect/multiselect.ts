@@ -237,6 +237,7 @@ export class MultiSelectItem {
                                 >
                                     <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                                         <input
+                                            #headerCheckbox
                                             type="checkbox"
                                             [readonly]="readonly"
                                             [attr.checked]="allSelected()"
@@ -838,6 +839,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
+    @ViewChild('headerCheckbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
     @ContentChild(Footer) footerFacet: any;
 
@@ -1718,6 +1721,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (this.disabled || this.readonly) {
             return;
         }
+
+        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
 
         const value = this.allSelected()
             ? []
