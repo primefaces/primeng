@@ -31,6 +31,21 @@ export interface ListboxChangeEvent {
     value: any;
 }
 /**
+ * Custom filter event.
+ * @see {@link Listbox.onFilter}
+ * @group Events
+ */
+export interface ListboxFilterEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Filter value.
+     */
+    filter: any;
+}
+/**
  * Custom change event.
  * @see {@link Listbox.onClick}
  * @group Events
