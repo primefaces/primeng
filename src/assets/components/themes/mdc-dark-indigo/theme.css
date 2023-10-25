@@ -739,6 +739,9 @@
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
+  .p-cascadeselect.p-invalid.p-component {
+    border-color: #f44435;
+  }
 
   .p-cascadeselect-panel {
     background: #2b2b2b;
@@ -758,32 +761,26 @@
     transition: none;
     border-radius: 0;
   }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content {
-    padding: 0.75rem 0.75rem;
-  }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: none;
-  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
     color: #9FA8DA;
     background: rgba(159, 168, 218, 0.16);
+  }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight.p-focus {
+    background: rgba(159, 168, 218, 0.24);
+  }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled).p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.12);
   }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: rgba(255, 255, 255, 0.87);
     background: rgba(255, 255, 255, 0.04);
   }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content {
+    padding: 0.75rem 0.75rem;
+  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-group-icon {
     font-size: 0.875rem;
-  }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-icon {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
-    border-color: #f44435;
   }
 
   .p-input-filled .p-cascadeselect {
@@ -794,6 +791,10 @@
   }
   .p-input-filled .p-cascadeselect:not(.p-disabled).p-focus {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
+    border-color: #f44435;
   }
 
   p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {

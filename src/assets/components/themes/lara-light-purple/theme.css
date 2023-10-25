@@ -734,6 +734,9 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
+  .p-cascadeselect.p-invalid.p-component {
+    border-color: #e24c4c;
+  }
 
   .p-cascadeselect-panel {
     background: #ffffff;
@@ -753,32 +756,26 @@
     transition: box-shadow 0.2s;
     border-radius: 0;
   }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content {
-    padding: 0.75rem 1.25rem;
-  }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #DDD6FE;
-  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
     color: #6D28D9;
     background: #F5F3FF;
+  }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight.p-focus {
+    background: rgba(139, 92, 246, 0.24);
+  }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled).p-focus {
+    color: #495057;
+    background: #dee2e6;
   }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: #495057;
     background: #e9ecef;
   }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-item-content {
+    padding: 0.75rem 1.25rem;
+  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-cascadeselect-group-icon {
     font-size: 0.875rem;
-  }
-  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item .p-icon {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-
-  p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
-    border-color: #e24c4c;
   }
 
   .p-input-filled .p-cascadeselect {
@@ -789,6 +786,10 @@
   }
   .p-input-filled .p-cascadeselect:not(.p-disabled).p-focus {
     background-color: #ffffff;
+  }
+
+  p-cascadeselect.ng-dirty.ng-invalid > .p-cascadeselect {
+    border-color: #e24c4c;
   }
 
   p-cascadeselect.p-cascadeselect-clearable .p-cascadeselect-label {
