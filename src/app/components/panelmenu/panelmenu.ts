@@ -122,7 +122,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">

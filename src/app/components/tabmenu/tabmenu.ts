@@ -55,13 +55,16 @@ import { ObjectUtils } from 'primeng/utils';
                             [class]="item.styleClass"
                             [attr.data-p-disabled]="disabled(item)"
                             [attr.data-p-highlight]="focusedItemInfo() === item"
+                            (click)="itemClick($event, item)"
+                            (keydown)="onKeydownItem($event, i, item)"
+                            (focus)="onMenuItemFocus(item)"
                             [ngClass]="{ 'p-tabmenuitem': true, 'p-disabled': getItemProp(item, 'disabled'), 'p-highlight': isActive(item), 'p-hidden': item.visible === false }"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                         >
                             <a
                                 #tabLink
-                                *ngIf="!item.routerLink"
+                                *ngIf="!item.routerLink && !itemTemplate"
                                 class="p-menuitem-link"
                                 role="menuitem"
                                 [attr.href]="getItemProp(item, 'url')"
@@ -70,31 +73,24 @@ import { ObjectUtils } from 'primeng/utils';
                                 [attr.aria-label]="getItemProp(item, 'label')"
                                 [attr.tabindex]="disabled(item) ? -1 : 0"
                                 [target]="getItemProp(item, 'target')"
-                                (click)="itemClick($event, item)"
-                                (keydown)="onKeydownItem($event, i, item)"
-                                (focus)="onMenuItemFocus(item)"
                                 pRipple
                             >
-                                <ng-container *ngIf="!itemTemplate">
+                                <ng-container>
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
                                     <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ getItemProp(item, 'badge') }}</span>
                                 </ng-container>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
                             <a
                                 #tabLink
-                                *ngIf="item.routerLink"
+                                *ngIf="item.routerLink && !itemTemplate"
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
                                 [routerLinkActive]="'p-menuitem-link-active'"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 role="menuitem"
                                 class="p-menuitem-link"
-                                (click)="itemClick($event, item)"
-                                (keydown)="onKeydownItem($event, i, item)"
-                                (focus)="onMenuItemFocus(item)"
                                 [target]="item.target"
                                 [attr.id]="getItemProp(item, 'id')"
                                 [attr.aria-disabled]="disabled(item)"
@@ -108,14 +104,14 @@ import { ObjectUtils } from 'primeng/utils';
                                 [state]="item.state"
                                 pRipple
                             >
-                                <ng-container *ngIf="!itemTemplate">
+                                <ng-container>
                                     <span class="p-menuitem-icon" [attr.aria-hidden]="true" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
                                     <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ getItemProp(item, 'badge') }}</span>
                                 </ng-container>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                             </a>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                         </li>
                         <li #inkbar class="p-tabmenu-ink-bar" role="none"></li>
                     </ul>

@@ -179,7 +179,7 @@ export class MenubarService {
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
                     <p-menubarSub
