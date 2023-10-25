@@ -874,7 +874,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 filter: (value) => this.onFilterInputChange(value),
                 reset: () => this.resetFilter()
             };
-        }
+        }      
     }
 
     ngAfterContentInit() {
@@ -944,7 +944,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.itemTemplate = item.template;
                     break;
             }
-        });
+             this.cd.detectChanges();
+        });    
     }
 
     ngAfterViewInit() {
@@ -960,7 +961,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.overlayViewChild?.alignOverlay();
                 }, 1);
             });
-
             this.filtered = false;
         }
     }
@@ -1231,6 +1231,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             input.focus();
         }
+        this.cd.detectChanges();
     }
 
     removeChip(chip: MultiSelectItem, event: MouseEvent) {
