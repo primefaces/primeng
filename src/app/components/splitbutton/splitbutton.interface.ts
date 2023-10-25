@@ -14,3 +14,18 @@ export interface SplitButtonTemplates {
      */
     dropdownicon(): TemplateRef<any>;
 }
+/**
+ * Defines ButtonProps interface.
+ */
+export interface ButtonProps {
+    ariaLabel?: string; 
+}
+/**
+ * Defines MenuButtonProps interface.
+ */
+export interface MenuButtonProps {
+    ariaLabel?: string; 
+    ariaHasPopup?: boolean; 
+    ariaExpanded?: boolean; 
+    ariaControls?: string;
+}
