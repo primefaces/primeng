@@ -18,10 +18,6 @@ export class ChartjsDoc {
     code: Code = {
         typescript: `
 npm install chart.js --save
-
-"scripts": [
-    "../node_modules/chart.js/dist/chart.js",
-    //..others
-],`
+`
     };
 }
