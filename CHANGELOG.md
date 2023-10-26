@@ -1,5 +1,22 @@
 # Changelog
 
+## [16.6.0](https://github.com/primefaces/primeng/tree/16.6.0) (2023-10-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.5.1...16.6.0)
+
+**Implemented New Features and Enhancements:**
+- Menu | item template support [\#13910](https://github.com/primefaces/primeng/issues/13910)
+- Overlaypanel: OverlayPanel does not close on escape key press [\#13930](https://github.com/primefaces/primeng/issues/13930)
+- Accessibility | Tabview ink bar accessibility problems [\#13902](https://github.com/primefaces/primeng/issues/13902)
+
+**Fixed bugs:**
+- Component: Carousel | Circular Option is broken when first iteration is done [\#13821](https://github.com/primefaces/primeng/issues/13821)
+- Component: TreeTable selection binding no longer allows for single selection [\#13869](https://github.com/primefaces/primeng/issues/13869)
+- Component: MultiSelect ExpressionChangedAfterItHasBeenCheckedError when spam clicking [\#13942](https://github.com/primefaces/primeng/issues/13942)
+- pButton | Loading icon problem [\#13901](https://github.com/primefaces/primeng/issues/13901)
+- splitbutton: Accessibility does not appear to work as documented [\#13908](https://github.com/primefaces/primeng/issues/13908)
+- Galleria: Cannot read properties of undefined when tabbing through component [\#13945](https://github.com/primefaces/primeng/issues/13945)
+
 ## [16.5.1](https://github.com/primefaces/primeng/tree/16.5.1) (2023-10-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.5.0...16.5.1)
