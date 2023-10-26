@@ -17,12 +17,34 @@ type SplitButtonIconPosition = 'left' | 'right';
     template: `
         <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
             <ng-container *ngIf="contentTemplate; else defaultButton">
-                <button class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-label]="buttonProps?.['aria-label'] || label">
+                <button
+                    class="p-splitbutton-defaultbutton"
+                    type="button"
+                    pButton
+                    [icon]="icon"
+                    [iconPos]="iconPos"
+                    (click)="onDefaultButtonClick($event)"
+                    [disabled]="disabled"
+                    [attr.tabindex]="tabindex"
+                    [attr.aria-label]="buttonProps?.['aria-label'] || label"
+                >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
             </ng-container>
             <ng-template #defaultButton>
-                <button #defaultbtn class="p-splitbutton-defaultbutton" type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.aria-label]="buttonProps?.['aria-label']"></button>
+                <button
+                    #defaultbtn
+                    class="p-splitbutton-defaultbutton"
+                    type="button"
+                    pButton
+                    [icon]="icon"
+                    [iconPos]="iconPos"
+                    [label]="label"
+                    (click)="onDefaultButtonClick($event)"
+                    [disabled]="disabled"
+                    [attr.tabindex]="tabindex"
+                    [attr.aria-label]="buttonProps?.['aria-label']"
+                ></button>
             </ng-template>
             <button
                 type="button"

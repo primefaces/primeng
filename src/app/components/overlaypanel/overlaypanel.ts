@@ -423,10 +423,10 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.hide();
         event.preventDefault();
     }
-    
+
     @HostListener('document:keydown.escape', ['$event'])
     onEscapeKeydown(event: KeyboardEvent) {
-        this.hide()
+        this.hide();
     }
 
     onWindowResize() {

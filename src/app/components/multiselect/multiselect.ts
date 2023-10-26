@@ -874,7 +874,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 filter: (value) => this.onFilterInputChange(value),
                 reset: () => this.resetFilter()
             };
-        }      
+        }
     }
 
     ngAfterContentInit() {
@@ -944,7 +944,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.itemTemplate = item.template;
                     break;
             }
-        });    
+        });
     }
 
     ngAfterViewInit() {

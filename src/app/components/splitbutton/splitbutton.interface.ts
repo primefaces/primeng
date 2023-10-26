@@ -18,14 +18,14 @@ export interface SplitButtonTemplates {
  * Defines ButtonProps interface.
  */
 export interface ButtonProps {
-    ariaLabel?: string; 
+    ariaLabel?: string;
 }
 /**
  * Defines MenuButtonProps interface.
  */
 export interface MenuButtonProps {
-    ariaLabel?: string; 
-    ariaHasPopup?: boolean; 
-    ariaExpanded?: boolean; 
+    ariaLabel?: string;
+    ariaHasPopup?: boolean;
+    ariaExpanded?: boolean;
     ariaControls?: string;
 }
