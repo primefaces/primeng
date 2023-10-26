@@ -43,19 +43,13 @@ export class CustomContentDoc implements OnInit {
                         label: 'Refresh',
                         icon: 'pi pi-refresh',
                         shortcut: '⌘+U',
-                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground',
-                        command: () => {
-                            console.log('Command + U');
-                        }
+                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground'
                     },
                     {
                         label: 'Delete',
                         icon: 'pi pi-times',
                         shortcut: '⌘+B',
-                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground',
-                        command: () => {
-                            console.log('Command + B');
-                        }
+                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground'
                     }
                 ]
             },
@@ -78,18 +72,6 @@ export class CustomContentDoc implements OnInit {
                 ]
             }
         ];
-    }
-
-    @HostListener('document:keydown', ['$event'])
-    handleKeyboardEvent(event: KeyboardEvent): void {
-        if (event.metaKey) {
-            if (event.metaKey && event.key === 'u') {
-                console.log('Command + U');
-            }
-            if (event.metaKey && event.key === 'b') {
-                console.log('Command + B');
-            }
-        }
     }
 
     code: Code = {
@@ -128,7 +110,7 @@ export class CustomContentDoc implements OnInit {
 </div>`,
 
         typescript: `
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -173,18 +155,6 @@ export class MenuCustomContentDemo implements OnInit {
                 ]
             }
         ];
-    }
-
-    @HostListener('document:keydown', ['$event'])
-    handleKeyboardEvent(event: KeyboardEvent): void {
-        if (event.metaKey) {
-            if (event.metaKey && event.key === 'u') {
-                console.log('Command + U');
-            }
-            if (event.metaKey && event.key === 'b') {
-                console.log('Command + B');
-            }
-        }
     }
 }`
     };

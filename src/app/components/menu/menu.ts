@@ -658,8 +658,6 @@ export class Menu implements OnDestroy {
     itemClick(event: any) {
         const { originalEvent, item } = event;
 
-        console.log(item);
-
         if (item.disabled) {
             originalEvent.preventDefault();
             return;
