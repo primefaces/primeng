@@ -960,7 +960,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.overlayViewChild?.alignOverlay();
                 }, 1);
             });
-
             this.filtered = false;
         }
     }
@@ -1231,6 +1230,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             input.focus();
         }
+        this.cd.detectChanges();
     }
 
     removeChip(chip: MultiSelectItem, event: MouseEvent) {
