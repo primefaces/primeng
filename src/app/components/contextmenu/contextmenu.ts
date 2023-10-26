@@ -1148,9 +1148,17 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
     }
 
+    removeAppendedElements(){
+         if (this.appendTo) {
+            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
+            else DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
+        }
+    }
+
     ngOnDestroy() {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
+        this.removeAppendedElements();
     }
 }
 
