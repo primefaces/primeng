@@ -944,7 +944,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.itemTemplate = item.template;
                     break;
             }
-             this.cd.detectChanges();
         });    
     }
 
