@@ -19,7 +19,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
-        <div [ngStyle]="style" [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" [class]="styleClass" (click)="onClick($event, input)" >
+        <div [ngStyle]="style" [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" [class]="styleClass" (click)="onClick($event, input)">
             <div class="p-hidden-accessible">
                 <input
                     #input
@@ -69,7 +69,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(private cd: ChangeDetectorRef) { }
+    constructor(private cd: ChangeDetectorRef) {}
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -142,9 +142,9 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     value: Nullable<boolean>;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
@@ -226,4 +226,4 @@ export class TriStateCheckbox implements ControlValueAccessor {
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
-export class TriStateCheckboxModule { }
+export class TriStateCheckboxModule {}

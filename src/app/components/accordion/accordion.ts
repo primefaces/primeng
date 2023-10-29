@@ -422,7 +422,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      */
     @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
 
-    @ContentChildren(AccordionTab, {descendants: true}) tabList: QueryList<AccordionTab> | undefined;
+    @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
 
     tabListSubscription: Subscription | null = null;
 
