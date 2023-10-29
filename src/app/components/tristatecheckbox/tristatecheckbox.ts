@@ -19,7 +19,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
-        <div [ngStyle]="style" [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" [class]="styleClass">
+        <div [ngStyle]="style" [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" [class]="styleClass" (click)="onClick($event, input)" >
             <div class="p-hidden-accessible">
                 <input
                     #input
@@ -37,7 +37,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                     inputmode="none"
                 />
             </div>
-            <div class="p-checkbox-box" (click)="onClick($event, input)" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
+            <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
                 <ng-container *ngIf="value === true">
                     <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
                     <ng-container *ngIf="!checkboxTrueIcon">
@@ -58,17 +58,18 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 </ng-container>
             </div>
         </div>
-        <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
+        <label class="p-tristatecheckbox-label" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./tristatecheckbox.css'],
     host: {
         class: 'p-element'
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef) { }
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -141,9 +142,9 @@ export class TriStateCheckbox implements ControlValueAccessor {
 
     value: Nullable<boolean>;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     onClick(event: Event, input: HTMLInputElement) {
         if (!this.disabled && !this.readonly) {
@@ -225,4 +226,4 @@ export class TriStateCheckbox implements ControlValueAccessor {
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })
-export class TriStateCheckboxModule {}
+export class TriStateCheckboxModule { }
