@@ -386,6 +386,7 @@ export class Carousel implements AfterContentInit {
                 }
             }
         }
+        this.cd.markForCheck();
     }
 
     ngAfterContentInit() {
@@ -437,6 +438,7 @@ export class Carousel implements AfterContentInit {
                     break;
             }
         });
+        this.cd.detectChanges();
     }
 
     ngAfterContentChecked() {
@@ -812,6 +814,7 @@ export class Carousel implements AfterContentInit {
             }
         }, this.autoplayInterval);
         this.allowAutoplay = true;
+        this.cd.markForCheck();
     }
 
     stopAutoplay(changeAllow: boolean = true) {
@@ -822,6 +825,7 @@ export class Carousel implements AfterContentInit {
                 this.allowAutoplay = false;
             }
         }
+        this.cd.markForCheck();
     }
 
     isPlaying(): boolean {
