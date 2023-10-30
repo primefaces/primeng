@@ -332,6 +332,61 @@
             }
         }
     },
+    "animateonscroll": {
+        "components": {
+            "AnimateOnScroll": {
+                "description": "Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "enterClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Selector to define the CSS class for enter animation."
+                        },
+                        {
+                            "name": "leaveClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Selector to define the CSS class for leave animation."
+                        },
+                        {
+                            "name": "root",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "HTMLElement",
+                            "description": "Specifies the root option of the IntersectionObserver API."
+                        },
+                        {
+                            "name": "rootMargin",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies the rootMargin option of the IntersectionObserver API."
+                        },
+                        {
+                            "name": "threshold",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Specifies the threshold option of the IntersectionObserver API"
+                        },
+                        {
+                            "name": "once",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether the scroll event listener should be removed after initial run."
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "blockableui": {
         "components": {}
     },
@@ -2312,6 +2367,13 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Time to wait in milliseconds to hide the tooltip even it is active."
+                        },
+                        {
+                            "name": "id",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "When present, it adds a custom id to the tooltip."
                         }
                     ]
                 }
@@ -11751,6 +11813,13 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "description": "Attribute of the image element."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"eager\" | \"lazy\"",
                             "description": "Attribute of the image element."
                         },
                         {
