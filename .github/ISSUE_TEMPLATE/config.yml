@@ -1,4 +1,4 @@
 contact_links:
     - name: Support
-      url: https://primeng.org/support
-      about: Professional support for the open source innovation.
+      url: https://github.com/orgs/primefaces/discussions/categories/primeng
+      about: Propose an enhancement at discussions.
