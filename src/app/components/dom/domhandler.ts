@@ -46,6 +46,15 @@ export class DomHandler {
         }
     }
 
+    public static removeMultipleClasses(element, classNames) {
+        if (element && classNames) {
+            [classNames]
+                .flat()
+                .filter(Boolean)
+                .forEach((cNames) => cNames.split(' ').forEach((className) => this.removeClass(element, className)));
+        }
+    }
+
     public static hasClass(element: any, className: string): boolean {
         if (element && className) {
             if (element.classList) return element.classList.contains(className);
