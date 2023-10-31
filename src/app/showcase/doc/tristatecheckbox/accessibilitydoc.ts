@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    TriStateCheckbox component uses an element with <i>checkbox</i> role. Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Component adds an element with
+                    TriStateCheckbox component uses an element with <i>checkbox</i> role. Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. Component adds an element with
                     <i>aria-live</i> attribute that is only visible to screen readers to read the value displayed. Values to read are defined with the <i>trueLabel</i>, <i>falseLabel</i> and <i>nullLabel</i> keys of the <i>aria</i> property from the
                     <a href="/configuration/#locale">locale</a> API. This is an example of a custom accessibility implementation as there is no one to one mapping between the component design and the WCAG specification.
                 </p>
@@ -47,8 +47,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -57,8 +56,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="chkbox1">Remember Me</span>
-<p-triStateCheckbox aria-labelledby="chkbox1"></p-triStateCheckbox>
+<p-triStateCheckbox ariaLabelledBy="chkbox1"></p-triStateCheckbox>
 
-<p-triStateCheckbox aria-label="Remember Me"></p-triStateCheckbox>`
+<p-triStateCheckbox ariaLabel="Remember Me"></p-triStateCheckbox>`
     };
 }
