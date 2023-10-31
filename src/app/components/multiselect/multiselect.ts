@@ -547,7 +547,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined;
+    @Input() optionGroupLabel: string | undefined = 'label';
     /**
      * Name of the options field of an option group.
      * @group Props
@@ -999,11 +999,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     visibleOptions = computed(() => {
-        const options = this.optionGroupLabel ? this.flatOptions(this.options) : this.options || [];
+        const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
             const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
-            if (this.optionGroupLabel) {
+            if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
 

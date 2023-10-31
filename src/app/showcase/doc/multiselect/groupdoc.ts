@@ -12,12 +12,11 @@ interface City {
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                Options can be grouped when a nested data structures is provided. To define the label of a group <i>optionGroupLabel</i> property is needed and also <i>optionGroupChildren</i> is required to define the property that refers to the
-                children of a group.
+                Options can be grouped when a nested data structures is provided.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" scrollHeight="250px" display="chip">
+            <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
@@ -75,7 +74,7 @@ export class GroupDoc {
 
     code: Code = {
         basic: `
-<p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" scrollHeight="250px" display="chip">
+<p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
     <ng-template let-group pTemplate="group">
         <div class="flex align-items-center">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
@@ -86,7 +85,7 @@ export class GroupDoc {
 
         html: `
 <div class="card flex justify-content-center">
-    <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" scrollHeight="250px" display="chip">
+    <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
         <ng-template let-group pTemplate="group">
             <div class="flex align-items-center">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />

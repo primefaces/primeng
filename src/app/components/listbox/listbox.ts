@@ -422,7 +422,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined;
+    @Input() optionGroupLabel: string | undefined = 'label';
     /**
      * Name of the disabled field of an option.
      * @group Props
@@ -639,7 +639,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     modelValue = signal<any>(null);
 
     visibleOptions = computed(() => {
-        const options = this.optionGroupLabel ? this.flatOptions(this._options()) : this._options() || [];
+        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
         return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
     });
 
@@ -1168,11 +1168,15 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     getOptionGroupChildren(optionGroup) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren);
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+    }
+
+    getOptionGroupLabel(optionGroup: any) {
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionLabel(option) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option;
+        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
     }
 
     getOptionIndex(index, scrollerOptions) {

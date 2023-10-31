@@ -452,7 +452,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined;
+    @Input() optionGroupLabel: string | undefined = 'label';
     /**
      * Name of the options field of an option group.
      * @group Props
@@ -873,11 +873,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     visibleOptions = computed(() => {
-        const options = this.optionGroupLabel ? this.flatOptions(this.options) : this.options || [];
+        const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
             const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
-            if (this.optionGroupLabel) {
+            if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
 
@@ -1089,12 +1089,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
-    getOptionGroupLabel(optionGroup) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel);
+    getOptionGroupLabel(optionGroup: any) {
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
-    getOptionGroupChildren(optionGroup) {
-        return ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren);
+    getOptionGroupChildren(optionGroup: any) {
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     getAriaPosInset(index) {

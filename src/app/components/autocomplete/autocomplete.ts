@@ -517,12 +517,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Name of the options field of an option group.
      * @group Props
      */
-    @Input() optionGroupChildren: string | undefined;
+    @Input() optionGroupChildren: string | undefined = 'items';
     /**
      * Name of the label field of an option group.
      * @group Props
      */
-    @Input() optionGroupLabel: string | undefined;
+    @Input() optionGroupLabel: string | undefined = 'label';
     /**
      * Options for the overlay element.
      * @group Props
@@ -754,7 +754,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     focusedOptionIndex = signal<number>(-1);
 
     visibleOptions = computed(() => {
-        return this.optionGroupLabel ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
+        return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
     });
 
     inputValue = computed(() => {
@@ -1530,8 +1530,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         );
     }
 
-    getOptionLabel(option) {
-        return this.field || this.optionLabel ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel) : option;
+    getOptionLabel(option: any) {
+        return  this.field || this.optionLabel ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
@@ -1542,12 +1542,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return this.virtualScrollerDisabled ? index : scrollerOptions && scrollerOptions.getItemOptions(index)['index'];
     }
 
-    getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+    getOptionGroupLabel(optionGroup: any) {
+        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
     }
 
-    getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup.label != undefined ? optionGroup.label : optionGroup;
+    getOptionGroupChildren(optionGroup: any) {
+        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     registerOnChange(fn: Function): void {
