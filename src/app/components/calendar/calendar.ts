@@ -2965,6 +2965,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         case 'y':
                             output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
                             break;
+                        case 'B':
+                            let buddhistYear = date.getFullYear() + 543;
+                            output += lookAhead('B') ? buddhistYear : (buddhistYear % 100 < 10 ? '0' : '') + (buddhistYear % 100);
+                            break;
                         case '@':
                             output += date.getTime();
                             break;
