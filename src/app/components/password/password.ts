@@ -347,7 +347,6 @@ export const Password_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keyup)="onKeyUp($event)"
-                (keydown)="onKeyDown($event)"
                 [attr.maxlength]="maxLength"
                 [attr.data-pc-section]="'input'"
             />
@@ -713,18 +712,18 @@ export class Password implements AfterContentInit, OnInit {
         this.onBlur.emit(event);
     }
 
-    onKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-            this.overlayVisible = false;
-        }
-    }
-
-    onKeyUp(event: Event) {
+    onKeyUp(event: KeyboardEvent) {
         if (this.feedback) {
             let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
 
-            if (!this.overlayVisible) {
+            if(event.code === 'Escape') {
+                this.overlayVisible && (this.overlayVisible = false);
+
+                return;
+            }
+
+            if(!this.overlayVisible) {
                 this.overlayVisible = true;
             }
         }
