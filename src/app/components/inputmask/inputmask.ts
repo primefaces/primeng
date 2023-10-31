@@ -64,6 +64,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.maxlength]="maxlength"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
             [disabled]="disabled"
             [readonly]="readonly"
@@ -163,6 +164,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
