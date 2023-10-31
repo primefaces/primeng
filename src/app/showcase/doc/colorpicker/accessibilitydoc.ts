@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
@@ -113,21 +112,10 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
 
     @Input() title: string;
-
-    code: Code = {
-        basic: `<label for="chkbox1">Remember Me</label>
-<p-checkbox inputId="chkbox1"></p-checkbox>
-
-<span id="chkbox2">Remember Me</span>
-<p-checkbox aria-labelledby="chkbox2"></p-checkbox>
-
-<p-checkbox aria-label="Remember Me"></p-checkbox>`
-    };
 }
