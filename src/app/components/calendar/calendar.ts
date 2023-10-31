@@ -3151,6 +3151,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     case 'M':
                         month = getName('M', this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
                         break;
+                    case 'B':
+                        year = getNumber('B');
+                        if (year < 100) {
+                          let buddhistYear = new Date().getFullYear() + 543;
+                          year += buddhistYear - (buddhistYear % 100);
+                        }
+                        year -= 543;
+                        break;
                     case 'y':
                         year = getNumber('y');
                         break;
