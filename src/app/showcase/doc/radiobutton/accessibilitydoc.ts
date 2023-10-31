@@ -3,13 +3,13 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
                     RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or
-                    using <i>aria-labelledby</i>, <i>aria-label</i> props.
+                    using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
                 </p>
             </app-docsectiontext>
 
@@ -58,8 +58,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -71,8 +70,8 @@ export class AccessibilityDoc {
 <p-radioButton inputId="rb1"></p-radioButton>
 
 <span id="rb2">Two</span>
-<p-radioButton aria-labelledby="rb2"></p-radioButton>
+<p-radioButton ariaLabelledBy="rb2"></p-radioButton>
 
-<p-radioButton aria-label="Three"></p-radioButton>`
+<p-radioButton ariaLabel="Three"></p-radioButton>`
     };
 }
