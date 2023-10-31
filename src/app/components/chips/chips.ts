@@ -41,7 +41,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 role="listbox"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel"
-                [attr.aria-activedescendant]="focused ? focusedOptionId() : undefined"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [attr.aria-orientation]="'horizontal'"
                 (click)="onWrapperClick()"
                 (focus)="onContainerFocus()"
@@ -258,6 +258,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     focusedIndex: Nullable<number>;
 
     filled: Nullable<boolean>;
+
+    get focusedOptionId() {
+        return this.focusedIndex !== null ? `${this.id}_chips_item_${this.focusedIndex}` : null;
+    }
 
     private get isValueMaxLimited(): boolean {
         return this.max && this.value && this.max === this.value.length;
@@ -543,10 +547,6 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     maxedOut(): boolean {
         return this.max && this.value && this.max === this.value.length;
-    }
-
-    focusedOptionId() {
-        return this.focusedIndex !== null ? `${this.id}_chips_item_${this.focusedIndex}` : null;
     }
 }
 
