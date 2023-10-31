@@ -52,8 +52,8 @@ export class AccessibilityDoc {
 <p-checkbox inputId="chkbox1"></p-checkbox>
 
 <span id="chkbox2">Remember Me</span>
-<p-checkbox [ariaLabelledBy]="chkbox2"></p-checkbox>
+<p-checkbox ariaLabelledBy="chkbox2"></p-checkbox>
 
-<p-checkbox [ariaLabel]="Remember Me"></p-checkbox>`
+<p-checkbox ariaLabel="Remember Me"></p-checkbox>`
     };
 }
