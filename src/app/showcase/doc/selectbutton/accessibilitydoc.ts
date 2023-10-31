@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
                     The container element that wraps the buttons has a <i>group</i> role whereas each button element uses <i>button</i> role and <i>aria-pressed</i> is updated depending on selection state. Value to describe an option is automatically
-                    set using the <i>aria-label</i> property that refers to the label of an option so it is still suggested to define a label even the option display consists of presentational content like icons only.
+                    set using the <i>ariaLabel</i> property that refers to the label of an option so it is still suggested to define a label even the option display consists of presentational content like icons only.
                 </p>
             </app-docsectiontext>
 
@@ -37,8 +37,7 @@ import { Component, Input } from '@angular/core';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

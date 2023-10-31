@@ -217,6 +217,7 @@ export class SelectButton implements ControlValueAccessor {
             originalEvent: event,
             value: this.value
         });
+        
         this.onOptionClick.emit({
             originalEvent: event,
             option: option,
