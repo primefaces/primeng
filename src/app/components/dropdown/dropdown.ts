@@ -1308,7 +1308,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             case 27:
             case 9:
                 this.hide();
-                event.preventDefault();
                 break;
 
             //search item based on keyboard input
