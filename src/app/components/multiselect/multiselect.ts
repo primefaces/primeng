@@ -1043,7 +1043,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         } else {
             label = this.placeholder || this.defaultLabel || '';
         }
-
         return label;
     });
 
@@ -1284,7 +1283,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel && option.optionGroup && option.group;
+        return (this.group || this.optionGroupLabel) && option.optionGroup && option.group;
     }
 
     isValidOption(option) {
@@ -1330,9 +1329,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     getLabelByValue(value) {
-        const options = this.optionGroupLabel ? this.flatOptions(this._options()) : this._options() || [];
+        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
         const matchedOption = options.find((option) => !this.isOptionGroup(option) && ObjectUtils.equals(this.getOptionValue(option), value, this.equalityKey()));
-
         return matchedOption ? this.getOptionLabel(matchedOption) : null;
     }
 
