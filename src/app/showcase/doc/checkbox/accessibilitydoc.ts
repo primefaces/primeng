@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
@@ -40,8 +40,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -53,8 +52,8 @@ export class AccessibilityDoc {
 <p-checkbox inputId="chkbox1"></p-checkbox>
 
 <span id="chkbox2">Remember Me</span>
-<p-checkbox aria-labelledby="chkbox2"></p-checkbox>
+<p-checkbox ariaLabelledBy="chkbox2"></p-checkbox>
 
-<p-checkbox aria-label="Remember Me"></p-checkbox>`
+<p-checkbox ariaLabel="Remember Me"></p-checkbox>`
     };
 }

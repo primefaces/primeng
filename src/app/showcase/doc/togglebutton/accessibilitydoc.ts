@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    ToggleButton component uses an element with <i>button</i> role and updates <i>aria-pressed</i> state for screen readers. Value to describe the component can be defined with <i>aria-labelledby</i> or <i>aria-label</i> props, it is
+                    ToggleButton component uses an element with <i>button</i> role and updates <i>aria-pressed</i> state for screen readers. Value to describe the component can be defined with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props, it is
                     highly suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria
                     label that does not change related to state.
                 </p>
@@ -41,8 +41,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -51,8 +50,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="rememberme">Remember Me</span>
-<p-toggleButton aria-labelledby="rememberme"></p-toggleButton>
+<p-toggleButton ariaLabelledBy="rememberme"></p-toggleButton>
 
-<p-toggleButton aria-label="Remember Me"></p-toggleButton>`
+<p-toggleButton ariaLabel="Remember Me"></p-toggleButton>`
     };
 }

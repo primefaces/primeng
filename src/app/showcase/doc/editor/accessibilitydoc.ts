@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <p>
@@ -10,8 +10,7 @@ import { Component, Input } from '@angular/core';
                     <a href="https://github.com/quilljs/quill/issues/1031">dropdowns</a> in the toolbar that may be overcome with a custom toolbar.
                 </p>
             </app-docsectiontext>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

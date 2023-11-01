@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
@@ -34,8 +34,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -44,11 +43,11 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<label for="date">Date</label>
-<p-inputMask id="date"></p-inputMask>
+<p-inputMask inputId="date"></p-inputMask>
 
 <span id="phone">Phone</span>
-<p-inputMask aria-labelledby="phone"></p-inputMask>
+<p-inputMask ariaLabelledBy="phone"></p-inputMask>
 
-<p-inputMask aria-label="Age"></p-inputMask>`
+<p-inputMask ariaLabel="Age"></p-inputMask>`
     };
 }

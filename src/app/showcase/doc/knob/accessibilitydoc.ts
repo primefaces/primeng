@@ -3,13 +3,13 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using <i>aria-labelledby</i> and
-                    <i>aria-label</i> props.
+                    Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using <i>ariaLabelledBy</i> and
+                    <i>ariaLabel</i> props.
                 </p>
             </app-docsectiontext>
 
@@ -76,8 +76,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -86,8 +85,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="label_number">Number</span>
-<p-knob aria-labelledby="label_number"></p-knob>
+<p-knob ariaLabelledBy="label_number"></p-knob>
 
-<p-knob aria-label="Number"></p-knob>`
+<p-knob ariaLabel="Number"></p-knob>`
     };
 }

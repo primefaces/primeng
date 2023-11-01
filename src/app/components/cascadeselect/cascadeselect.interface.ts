@@ -43,6 +43,25 @@ export interface CascadeSelectBeforeShowEvent extends CascadeSelectShowEvent {}
  */
 export interface CascadeSelectBeforeHideEvent extends CascadeSelectShowEvent {}
 /**
+ * Custom panel change event emits when selection changed.
+ * @see {@link CascadeSelect.onChange}
+ * @group Events
+ */
+export interface CascadeSelectChangeEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent?: Event;
+    /**
+     * Selected value.
+     */
+    value?: any;
+    /**
+     * Focus state.
+     */
+    isFocus?: boolean;
+}
+/**
  * Defines valid templates in CascadeSelect.
  * @group Templates
  */

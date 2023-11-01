@@ -3,13 +3,13 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
                     InputSwitch component uses a hidden native checkbox element with <i>switch</i> role internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with
-                    <i>inputId</i> prop or using <i>aria-labelledby</i>, <i>aria-label</i> props.
+                    <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
                 </p>
             </app-docsectiontext>
 
@@ -40,8 +40,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -53,8 +52,8 @@ export class AccessibilityDoc {
 <p-inputSwitch inputId="switch1"></p-inputSwitch>
 
 <span id="switch2">Remember Me</span>
-<p-inputSwitch aria-labelledby="switch2"></p-inputSwitch>
+<p-inputSwitch ariaLabelledBy="switch2"></p-inputSwitch>
 
-<p-inputSwitch aria-label="Remember Me"></p-inputSwitch>`
+<p-inputSwitch ariaLabel="Remember Me"></p-inputSwitch>`
     };
 }

@@ -615,21 +615,37 @@ export class DomHandler {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static getFocusableElements(element: HTMLElement) {
-        let focusableElements = DomHandler.find(
+    public static getFocusableElements(element, selector = '') {
+        let focusableElements = this.find(
             element,
-            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [href]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
+            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`
         );
 
         let visibleFocusableElements = [];
+
         for (let focusableElement of focusableElements) {
-            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
+            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
         }
+
         return visibleFocusableElements;
+    }
+
+    public static getFirstFocusableElement(element, selector) {
+        const focusableElements = this.getFocusableElements(element, selector);
+
+        return focusableElements.length > 0 ? focusableElements[0] : null;
+    }
+
+    public static getLastFocusableElement(element, selector) {
+        const focusableElements = this.getFocusableElements(element, selector);
+
+        return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
     }
 
     public static getNextFocusableElement(element: HTMLElement, reverse = false) {
