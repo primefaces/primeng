@@ -33,7 +33,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
      * Specifies the root option of the IntersectionObserver API.
      * @group Props
      */
-    @Input() root: HTMLElement | undefined |  null;
+    @Input() root: HTMLElement | undefined | null;
     /**
      * Specifies the rootMargin option of the IntersectionObserver API.
      * @group Props
@@ -63,13 +63,13 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
 
     ngOnInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             this.renderer.setStyle(this.host.nativeElement, 'opacity', this.enterClass ? '0' : '');
         }
     }
 
     ngAfterViewInit() {
-        if(isPlatformBrowser(this.platformId)){
+        if (isPlatformBrowser(this.platformId)) {
             this.bindIntersectionObserver();
         }
     }
@@ -79,16 +79,16 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
             root: this.root,
             rootMargin: this.rootMargin,
             threshold: this.threshold
-        }
+        };
     }
 
     bindIntersectionObserver() {
         this.observer = new IntersectionObserver(([entry]) => {
-            if(this.isObserverActive) {
-                if(entry.boundingClientRect.top > 0) {
+            if (this.isObserverActive) {
+                if (entry.boundingClientRect.top > 0) {
                     entry.isIntersecting ? this.enter() : this.leave();
                 }
-            } else if(entry.isIntersecting) {
+            } else if (entry.isIntersecting) {
                 this.enter();
             }
 
@@ -99,16 +99,19 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
         // Reset
 
-        this.resetObserver = new IntersectionObserver(([entry]) => {
-            if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
-                this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
-                DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
+        this.resetObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.boundingClientRect.top > 0 && !entry.isIntersecting) {
+                    this.host.nativeElement.style.opacity = this.enterClass ? '0' : '';
+                    DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
 
-                this.resetObserver.unobserve(this.host.nativeElement);
-            }
+                    this.resetObserver.unobserve(this.host.nativeElement);
+                }
 
-            this.animationState = undefined;
-        }, {...this.options, threshold: 0})
+                this.animationState = undefined;
+            },
+            { ...this.options, threshold: 0 }
+        );
     }
 
     enter() {
@@ -141,7 +144,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
                 DomHandler.removeMultipleClasses(this.host.nativeElement, [this.enterClass, this.leaveClass]);
                 !this.once && this.resetObserver.observe(this.host.nativeElement);
                 this.unbindAnimationEvents();
-            })
+            });
         }
     }
 

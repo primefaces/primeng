@@ -45,24 +45,18 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     template: `
         <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{ 'p-cascadeselect-panel-root': root }" [attr.role]="role" aria-orientation="horizontal" [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'">
             <ng-template ngFor let-processedOption [ngForOf]="options" let-i="index">
-                <li 
-                    [ngClass]="getItemClass(processedOption)" 
-                    role="treeitem" 
-                    [attr.aria-level]="level + 1" 
-                    [attr.aria-setsize]="options.length" 
+                <li
+                    [ngClass]="getItemClass(processedOption)"
+                    role="treeitem"
+                    [attr.aria-level]="level + 1"
+                    [attr.aria-setsize]="options.length"
                     [attr.data-pc-section]="'item'"
                     [id]="getOptionId(processedOption)"
                     [attr.aria-label]="getOptionLabelToRender(processedOption)"
                     [attr.aria-selected]="isOptionGroup(processedOption) ? undefined : isOptionSelected(processedOption)"
                     [attr.aria-posinset]="i + 1"
                 >
-                    <div 
-                        class="p-cascadeselect-item-content" 
-                        (click)="onOptionClick($event, processedOption)" 
-                        [attr.tabindex]="0" 
-                        pRipple 
-                        [attr.data-pc-section]="'content'"
-                    >
+                    <div class="p-cascadeselect-item-content" (click)="onOptionClick($event, processedOption)" [attr.tabindex]="0" pRipple [attr.data-pc-section]="'content'">
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
                             <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption.option }"></ng-container>
                         </ng-container>
@@ -100,13 +94,12 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CascadeSelectSub implements OnInit {
-
     @Input() role: string | undefined;
-    
+
     @Input() selectId: string | undefined;
-    
+
     @Input() activeOptionPath: any[];
-    
+
     @Input() optionDisabled: any[];
 
     @Input() focusedOptionId: string | undefined;
@@ -146,7 +139,7 @@ export class CascadeSelectSub implements OnInit {
             originalEvent: event,
             value: option,
             isFocus: true
-        })
+        });
     }
 
     onOptionChange(event) {
@@ -156,11 +149,11 @@ export class CascadeSelectSub implements OnInit {
     getOptionId(processedOption) {
         return `${this.selectId}_${processedOption.key}`;
     }
-    
+
     getOptionLabel(processedOption) {
         return this.optionLabel ? ObjectUtils.resolveFieldData(processedOption.option, this.optionLabel) : processedOption.option;
     }
-    
+
     getOptionValue(processedOption) {
         return this.optionValue ? ObjectUtils.resolveFieldData(processedOption.option, this.optionValue) : processedOption.option;
     }
@@ -172,31 +165,31 @@ export class CascadeSelectSub implements OnInit {
     isOptionDisabled(processedOption) {
         return this.optionDisabled ? ObjectUtils.resolveFieldData(processedOption.option, this.optionDisabled) : false;
     }
-    
+
     getOptionGroupLabel(processedOption) {
         return this.optionGroupLabel ? ObjectUtils.resolveFieldData(processedOption.option, this.optionGroupLabel) : null;
     }
-    
+
     getOptionGroupChildren(processedOption) {
         return processedOption.children;
     }
-    
+
     isOptionGroup(processedOption) {
         return ObjectUtils.isNotEmpty(processedOption.children);
     }
-    
+
     isOptionSelected(processedOption) {
         return !this.isOptionGroup(processedOption) && this.isOptionActive(processedOption);
     }
-    
+
     isOptionActive(processedOption) {
         return this.activeOptionPath.some((path) => path.key === processedOption.key);
     }
-    
+
     isOptionFocused(processedOption) {
         return this.focusedOptionId === this.getOptionId(processedOption);
     }
-    
+
     getItemClass(option: string | string[]) {
         return {
             'p-cascadeselect-item': true,
@@ -1327,4 +1320,3 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     declarations: [CascadeSelect, CascadeSelectSub]
 })
 export class CascadeSelectModule {}
-

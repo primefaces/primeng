@@ -24,9 +24,20 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }" [attr.data-pc-name]="'rating'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
-                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'" (click)="onOptionClick($event, 0)" [ngClass]="{'p-focus': focusedOptionIndex() === 0 && isFocusVisible}" class="p-rating-item p-rating-cancel-item">
+                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'" (click)="onOptionClick($event, 0)" [ngClass]="{ 'p-focus': focusedOptionIndex() === 0 && isFocusVisible }" class="p-rating-item p-rating-cancel-item">
                     <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                        <input type="radio" value="0" [name]="name" [checked]="value === 0" [disabled]="disabled" [readonly]="readonly" [attr.aria-label]="cancelAriaLabel()" (focus)="onInputFocus($event, 0)" (blur)="onInputBlur($event)" (change)="onChange($event, 0)"/>
+                        <input
+                            type="radio"
+                            value="0"
+                            [name]="name"
+                            [checked]="value === 0"
+                            [disabled]="disabled"
+                            [readonly]="readonly"
+                            [attr.aria-label]="cancelAriaLabel()"
+                            (focus)="onInputFocus($event, 0)"
+                            (blur)="onInputBlur($event)"
+                            (change)="onChange($event, 0)"
+                        />
                     </span>
                     <span *ngIf="iconCancelClass" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
                     <BanIcon *ngIf="!iconCancelClass" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'" />
@@ -34,7 +45,18 @@ export const RATING_VALUE_ACCESSOR: any = {
                 <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
                     <div class="p-rating-item" [ngClass]="{ 'p-rating-item-active': star + 1 <= value, 'p-focus': star + 1 === focusedOptionIndex() && isFocusVisible }" (click)="onOptionClick($event, star + 1)">
                         <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                            <input type="radio" value="0" [name]="name" [checked]="value === 0" [disabled]="disabled" [readonly]="readonly" [attr.aria-label]="starAriaLabel(star + 1)" (focus)="onInputFocus($event, star + 1)" (blur)="onInputBlur($event)" (change)="onChange($event, star + 1)"/>
+                            <input
+                                type="radio"
+                                value="0"
+                                [name]="name"
+                                [checked]="value === 0"
+                                [disabled]="disabled"
+                                [readonly]="readonly"
+                                [attr.aria-label]="starAriaLabel(star + 1)"
+                                (focus)="onInputFocus($event, star + 1)"
+                                (blur)="onInputBlur($event)"
+                                (change)="onChange($event, star + 1)"
+                            />
                         </span>
                         <ng-container *ngIf="!value || i >= value">
                             <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
@@ -192,12 +214,12 @@ export class Rating implements OnInit, ControlValueAccessor {
     }
 
     onOptionClick(event, value) {
-        if(!this.readonly && !this.disabled) {
+        if (!this.readonly && !this.disabled) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
             const firstFocusableEl = DomHandler.getFirstFocusableElement(event.currentTarget, '');
 
-            firstFocusableEl && DomHandler.focus(firstFocusableEl)
+            firstFocusableEl && DomHandler.focus(firstFocusableEl);
         }
     }
 
@@ -207,7 +229,7 @@ export class Rating implements OnInit, ControlValueAccessor {
     }
 
     onChange(event, value) {
-        this.onOptionSelect(event,value);
+        this.onOptionSelect(event, value);
         this.isFocusVisibleItem = true;
     }
 
@@ -226,7 +248,7 @@ export class Rating implements OnInit, ControlValueAccessor {
         this.onModelChange(this.value);
         this.onModelTouched();
 
-        if(!value) {
+        if (!value) {
             this.onCancel.emit();
         } else {
             this.onRate.emit({
