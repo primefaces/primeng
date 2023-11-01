@@ -26,13 +26,13 @@
     OTHER DEALINGS IN THE SOFTWARE.
 */
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, QueryList, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
 import { TimesIcon } from 'primeng/icons/times';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 
@@ -64,6 +64,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.maxlength]="maxlength"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
             [disabled]="disabled"
             [readonly]="readonly"
@@ -76,10 +77,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [autofocus]="autoFocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
+            [attr.data-pc-name]="'inputmask'"
+            [attr.data-pc-section]="'root'"
         />
         <ng-container *ngIf="value != null && filled && showClear && !disabled">
-            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" />
-            <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()">
+            <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-inputmask-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <span *ngIf="clearIconTemplate" class="p-inputmask-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -161,6 +164,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props

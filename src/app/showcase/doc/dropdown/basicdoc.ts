@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" showClear="true"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-basic-demo"></app-code>
     </section>`

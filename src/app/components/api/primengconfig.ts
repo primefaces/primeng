@@ -8,6 +8,8 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
+    inputStyle: 'outlined' | 'filled' = 'outlined';
+
     overlayOptions: OverlayOptions = {};
 
     filterMatchModeOptions = {

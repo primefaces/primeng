@@ -1,5 +1,26 @@
 # Changelog
 
+## [16.7.0](https://github.com/primefaces/primeng/tree/16.7.0) (2023-11-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.6.0...16.7.0)
+
+**Deprecated:**
+- Deprecate pAnimate directive [\#13972](https://github.com/primefaces/primeng/issues/13972)
+
+**Implemented New Features and Enhancements:**
+- Accessibility | Input Section (part 1) [\#13413](https://github.com/primefaces/primeng/issues/13413)
+- ListBox | VirtualScroller support [\#13939](https://github.com/primefaces/primeng/issues/13939)
+- Add animateOnScroll directive [\#13970](https://github.com/primefaces/primeng/issues/13970)
+- p-image: missing support for lazyloading [\#13926](https://github.com/primefaces/primeng/issues/13926)
+
+**Fixed bugs:**
+- OverlayPanel: Calendar and table inside OverlayPanel, click inside dissmiss the overlaypanel [\#13605](https://github.com/primefaces/primeng/issues/13605)
+- 16.3.1 regression: p-overlayPanel dismisses when making changes to nested p-multiSelect [\#13601](https://github.com/primefaces/primeng/issues/13601)
+- Component: Accordion Component Allows Tab Navigation Into Closed Accordion Tabs [\#13845](https://github.com/primefaces/primeng/issues/13845)
+- Component: ContextMenu with appendTo="body" doesn't close when destroyed [\#13948](https://github.com/primefaces/primeng/issues/13948)
+- Component: Carousel | Circular is broken when OnPush is enabled in parent components and it's initializing [\#13974](https://github.com/primefaces/primeng/issues/13974)
+- Using AccordionTab inside of div or another element and not directly inside of an Accordion [\#13969](https://github.com/primefaces/primeng/issues/13969)
+
 ## [16.6.0](https://github.com/primefaces/primeng/tree/16.6.0) (2023-10-26)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.5.1...16.6.0)

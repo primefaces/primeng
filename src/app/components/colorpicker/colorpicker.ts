@@ -1,11 +1,11 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, TemplateRef } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -20,21 +20,29 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-colorpicker p-component': true, 'p-colorpicker-overlay': !inline, 'p-colorpicker-dragging': colorDragging || hueDragging }">
+        <div
+            #container
+            [ngStyle]="style"
+            [class]="styleClass"
+            [ngClass]="{ 'p-colorpicker p-component': true, 'p-colorpicker-overlay': !inline, 'p-colorpicker-dragging': colorDragging || hueDragging }"
+            [attr.data-pc-name]="'colorpicker'"
+            [attr.data-pc-section]="'root'"
+        >
             <input
+                *ngIf="!inline"
                 #input
                 type="text"
-                *ngIf="!inline"
                 class="p-colorpicker-preview p-inputtext"
-                readonly="readonly"
                 [ngClass]="{ 'p-disabled': disabled }"
-                (focus)="onInputFocus()"
-                (click)="onInputClick()"
-                (keydown)="onInputKeydown($event)"
-                [attr.id]="inputId"
+                readonly="readonly"
                 [attr.tabindex]="tabindex"
                 [disabled]="disabled"
+                (click)="onInputClick()"
+                (keydown)="onInputKeydown($event)"
+                (focus)="onInputFocus()"
+                [attr.id]="inputId"
                 [style.backgroundColor]="inputBgColor"
+                [attr.data-pc-section]="'input'"
             />
             <div
                 *ngIf="inline || overlayVisible"
@@ -44,15 +52,16 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [@.disabled]="inline === true"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                 (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+                [attr.data-pc-section]="'panel'"
             >
-                <div class="p-colorpicker-content">
-                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)">
-                        <div class="p-colorpicker-color">
-                            <div #colorHandle class="p-colorpicker-color-handle"></div>
+                <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
+                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
+                        <div class="p-colorpicker-color" [attr.data-pc-section]="'color'">
+                            <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
                         </div>
                     </div>
-                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()">
-                        <div #hueHandle class="p-colorpicker-hue-handle"></div>
+                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
+                        <div #hueHandle class="p-colorpicker-hue-handle" [attr.data-pc-section]="'hueHandle'"></div>
                     </div>
                 </div>
             </div>
@@ -233,7 +242,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event);
     }
 
-    onHueTouchStart(event: TouchEvent) {
+    onHueDragStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -242,7 +251,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event, (event as TouchEvent).changedTouches[0]);
     }
 
-    onColorTouchStart(event: TouchEvent) {
+    onColorDragStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -278,7 +287,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickColor(event);
     }
 
-    onMove(event: TouchEvent) {
+    onDrag(event: TouchEvent) {
         if (this.colorDragging) {
             this.pickColor(event, event.changedTouches[0]);
             event.preventDefault();
@@ -473,17 +482,19 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     onInputKeydown(event: KeyboardEvent) {
-        switch (event.which) {
-            //space
-            case 32:
+        switch (event.code) {
+            case 'Space':
                 this.togglePanel();
                 event.preventDefault();
                 break;
 
-            //escape and tab
-            case 27:
-            case 9:
+            case 'Escape':
+            case 'Tab':
                 this.hide();
+                break;
+
+            default:
+                //NoOp
                 break;
         }
     }
