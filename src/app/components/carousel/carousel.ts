@@ -798,6 +798,7 @@ export class Carousel implements AfterContentInit {
         this.onPage.emit({
             page: this.page
         });
+        this.cd.markForCheck();
     }
 
     startAutoplay() {

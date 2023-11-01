@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '16.5.1',
+    version: '16.6.0',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -492,6 +492,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DataViewModule } from 'primeng/dataview';
@@ -590,6 +591,7 @@ ${serviceImports}
     ChipModule,
     ColorPickerModule,
     ConfirmDialogModule,
+    ConfirmPopupModule,
     ContextMenuModule,
     VirtualScrollerModule,
     DataViewModule,

@@ -317,7 +317,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
                                 </a>
                             </li>
                         </ng-template>
-                        <li #inkbar class="p-tabview-ink-bar" [attr.data-pc-section]="'inkbar'"></li>
+                        <li #inkbar class="p-tabview-ink-bar" role="presentation" aria-hidden="true" [attr.data-pc-section]="'inkbar'"></li>
                     </ul>
                 </div>
                 <button

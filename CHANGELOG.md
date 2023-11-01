@@ -1,5 +1,22 @@
 # Changelog
 
+## [16.6.0](https://github.com/primefaces/primeng/tree/16.6.0) (2023-10-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.5.1...16.6.0)
+
+**Implemented New Features and Enhancements:**
+- Menu | item template support [\#13910](https://github.com/primefaces/primeng/issues/13910)
+- Overlaypanel: OverlayPanel does not close on escape key press [\#13930](https://github.com/primefaces/primeng/issues/13930)
+- Accessibility | Tabview ink bar accessibility problems [\#13902](https://github.com/primefaces/primeng/issues/13902)
+
+**Fixed bugs:**
+- Component: Carousel | Circular Option is broken when first iteration is done [\#13821](https://github.com/primefaces/primeng/issues/13821)
+- Component: TreeTable selection binding no longer allows for single selection [\#13869](https://github.com/primefaces/primeng/issues/13869)
+- Component: MultiSelect ExpressionChangedAfterItHasBeenCheckedError when spam clicking [\#13942](https://github.com/primefaces/primeng/issues/13942)
+- pButton | Loading icon problem [\#13901](https://github.com/primefaces/primeng/issues/13901)
+- splitbutton: Accessibility does not appear to work as documented [\#13908](https://github.com/primefaces/primeng/issues/13908)
+- Galleria: Cannot read properties of undefined when tabbing through component [\#13945](https://github.com/primefaces/primeng/issues/13945)
+
 ## [16.5.1](https://github.com/primefaces/primeng/tree/16.5.1) (2023-10-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.5.0...16.5.1)
@@ -362,6 +379,14 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.11-LTS](https://www.npmjs.com/package/primeng/v/15.4.11-lts) (2023-10-19)
+**Fixed bugs:**
+- Password | Incorrect placement of close icon when [toggleMask]="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
+- Multiselect: Chips: Delete button not visible if label is too wide [\#13816](https://github.com/primefaces/primeng/issues/13816)
+- Multiselect: Incorrect view with selected items [\#13654](https://github.com/primefaces/primeng/issues/13654)
+- Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+- Table | Column widths are not recalculated w/resize + drag & drop #38 [\#13875](https://github.com/primefaces/primeng/issues/13875)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.10-LTS](https://www.npmjs.com/package/primeng/v/15.4.10-lts) (2023-10-04)
 **Fixed bugs:**
 - Autocomplete Force Selection case sensitive issue [\#13578](https://github.com/primefaces/primeng/issues/13578)
@@ -631,6 +656,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.14-LTS](https://www.npmjs.com/package/primeng/v/14.2.14-lts) (2023-10-19)
+**Fixed bugs:**
+- Password | Incorrect placement of close icon when [toggleMask]="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
+- Multiselect: Chips: Delete button not visible if label is too wide [\#13816](https://github.com/primefaces/primeng/issues/13816)
+- Multiselect: Incorrect view with selected items [\#13654](https://github.com/primefaces/primeng/issues/13654)
+- Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+- Table | Column widths are not recalculated w/resize + drag & drop #38 [\#13875](https://github.com/primefaces/primeng/issues/13875)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.13-LTS](https://www.npmjs.com/package/primeng/v/14.2.13-lts) (2023-10-04)
 **Fixed bugs:**

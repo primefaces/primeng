@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -9,7 +9,20 @@ import { Code } from '../../domain/code';
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-menu [model]="items"></p-menu>
+            <p-menu [model]="items">
+                <ng-template pTemplate="item" let-item>
+                    <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+                        <div>
+                            <span [class]="item.icon"></span>
+                            <span> {{ item.label }}</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                            <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                        </div>
+                    </a>
+                </ng-template>
+            </p-menu>
         </div>
         <app-code [code]="code" selector="menu-custom-content-demo"></app-code>
     </section>`
@@ -27,16 +40,16 @@ export class CustomContentDoc implements OnInit {
                 label: 'Options',
                 items: [
                     {
-                        label: '<span class="text-xl font-bold">Refresh</span>',
-                        escape: false,
+                        label: 'Refresh',
                         icon: 'pi pi-refresh',
-                        iconClass: 'text-xl'
+                        shortcut: '⌘+U',
+                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground'
                     },
                     {
-                        label: '<span class="text-xl font-bold">Delete</span>',
-                        escape: false,
+                        label: 'Delete',
                         icon: 'pi pi-times',
-                        iconClass: 'text-xl'
+                        shortcut: '⌘+B',
+                        shortcutClass: 'p-1 font-medium border-round text-sm surface-ground'
                     }
                 ]
             },
@@ -46,12 +59,15 @@ export class CustomContentDoc implements OnInit {
                     {
                         label: 'Angular',
                         icon: 'pi pi-external-link',
+                        badge: '2',
+                        badgeSeverity: 'success',
                         url: 'http://angular.io'
                     },
                     {
-                        label: 'Router',
+                        label: 'File Upload',
                         icon: 'pi pi-upload',
-                        routerLink: '/fileupload'
+                        routerLink: '/fileupload',
+                        badge: '2'
                     }
                 ]
             }
@@ -60,11 +76,37 @@ export class CustomContentDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-menu [model]="items"></p-menu>`,
+<p-menu [model]="items">
+    <ng-template pTemplate="item" let-item>
+        <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+            <div>
+                <span [class]="item.icon"></span>
+                <span> {{ item.label }}</span>
+            </div>
+            <div>
+                <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+            </div>
+        </a>
+    </ng-template>
+</p-menu>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+    <p-menu [model]="items">
+        <ng-template pTemplate="item" let-item>
+            <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+                <div>
+                    <span [class]="item.icon"></span>
+                    <span> {{ item.label }}</span>
+                </div>
+                <div>
+                    <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                    <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                </div>
+            </a>
+        </ng-template>
+    </p-menu>
 </div>`,
 
         typescript: `
