@@ -17,8 +17,8 @@ import { Code } from '../../domain/code';
                 <li><i>mm</i> - month of year (two digit)</li>
                 <li><i>M</i> - month name short</li>
                 <li><i>MM</i> - month name long</li>
-                <li><i>B</i> - Full B.E. Year (four digit)</li>
-                <li><i>BB</i> - B.E. Year (two digit)</li>
+                <li><i>B</i> - B.E. Year (two digit)</li>
+                <li><i>BB</i> - Full B.E. Year (four digit)</li>
                 <li><i>y</i> - year (two digit)</li>
                 <li><i>yy</i> - year (four digit)</li>
                 <li><i>@</i> - Unix timestamp (ms since 01/01/1970)</li>
