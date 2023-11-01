@@ -91,13 +91,15 @@ import { UniqueComponentId } from 'primeng/utils';
             state(
                 'hidden',
                 style({
-                    height: '0'
+                    height: '0',
+                    visibility: 'hidden'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
+                    height: '*',
+                    visibility: 'visible'
                 })
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
