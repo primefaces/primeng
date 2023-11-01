@@ -445,6 +445,10 @@
                         {
                             "name": "AutoFocus",
                             "routerLink": "/autofocus"
+                        },
+                        {
+                            "name": "AnimateOnScroll",
+                            "routerLink": "/animateonscroll"
                         }
                     ]
                 },

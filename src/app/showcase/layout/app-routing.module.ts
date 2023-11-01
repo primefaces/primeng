@@ -115,6 +115,7 @@ const routes: Routes = [
             { path: 'uikit', loadChildren: () => import('../pages/uikit/uikit.module').then((m) => m.UIKitModule) },
             { path: 'autofocus', loadChildren: () => import('../pages/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) },
             { path: 'overlay', loadChildren: () => import('../pages/overlay/overlaydemo.module').then((m) => m.OverlayDemoModule) },
+            { path: 'animateonscroll', loadChildren: () => import('../pages/animate/animateonscrolldemo.module').then((m) => m.AnimateOnScrollDemoModule) },
             { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) }
         ]
     },
