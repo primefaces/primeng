@@ -445,10 +445,6 @@
                         {
                             "name": "AutoFocus",
                             "routerLink": "/autofocus"
-                        },
-                        {
-                            "name": "Animate",
-                            "routerLink": "/animate"
                         }
                     ]
                 },
