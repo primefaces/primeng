@@ -455,7 +455,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     /**
      * Field of a suggested object to resolve and display.
      * @group Props
-     * @deprecated
+     * @deprecated use optionLabel property instead
      */
     @Input() field: string | undefined;
     /**
