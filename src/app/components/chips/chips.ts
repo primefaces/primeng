@@ -1,12 +1,13 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { TimesIcon } from 'primeng/icons/times';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { ChipsAddEvent, ChipsRemoveEvent, ChipsClickEvent } from './chips.interface';
+import { UniqueComponentId } from 'primeng/utils';
+import { ChipsAddEvent, ChipsClickEvent, ChipsRemoveEvent } from './chips.interface';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -20,32 +21,70 @@ export const CHIPS_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-chips',
     template: `
-        <div [ngClass]="'p-chips p-component'" [ngStyle]="style" [class]="styleClass" (click)="onClick()">
-            <ul [ngClass]="{ 'p-inputtext p-chips-multiple-container': true, 'p-focus': focus, 'p-disabled': disabled }">
-                <li #token *ngFor="let item of value; let i = index" class="p-chips-token" (click)="onItemClick($event, item)">
+        <div
+            [ngClass]="{
+                'p-chips p-component p-input-wrapper': true,
+                'p-disabled': disabled,
+                'p-focus': focused,
+                'p-inputwrapper-filled': (value && value.length) || (this.inputViewChild?.nativeElement.value && this.inputViewChild?.nativeElement.value.length),
+                'p-inputwrapper-focus': focused,
+            }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.data-pc-name]="'chips'"
+            [attr.data-pc-section]="'root'"
+        >
+            <ul
+                #container
+                [ngClass]="{ 'p-inputtext p-chips-multiple-container': true }"
+                tabindex="-1"
+                role="listbox"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [attr.aria-orientation]="'horizontal'"
+                (click)="onWrapperClick()"
+                (focus)="onContainerFocus()"
+                (blur)="onContainerBlur()"
+                (keydown)="onContainerKeyDown($event)"
+                [attr.data-pc-section]="'container'"
+            >
+                <li
+                    #token
+                    *ngFor="let item of value; let i = index"
+                    [attr.id]="id + '_chips_item_' + i"
+                    role="option"
+                    [attr.ariaLabel]="item"
+                    [attr.aria-selected]="true"
+                    [attr.aria-setsize]="value.length"
+                    [attr.aria-pointset]="i + 1"
+                    [attr.data-p-focused]="focusedIndex === i"
+                    [ngClass]="{ 'p-chips-token': true, 'p-focus': focusedIndex === i }"
+                    (click)="onItemClick($event, item)"
+                    [attr.data-pc-section]="'token'"
+                >
                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                    <span *ngIf="!itemTemplate" class="p-chips-token-label">{{ field ? resolveFieldData(item, field) : item }}</span>
+                    <span *ngIf="!itemTemplate" class="p-chips-token-label" [attr.data-pc-section]="'label'">{{ field ? resolveFieldData(item, field) : item }}</span>
                     <ng-container *ngIf="!disabled">
-                        <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" />
-                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)">
+                        <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true" />
+                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </li>
-                <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }">
+                <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }" [attr.data-pc-section]="'inputToken'" role="option">
                     <input
                         #inputtext
                         type="text"
                         [attr.id]="inputId"
                         [attr.placeholder]="value && value.length ? null : placeholder"
                         [attr.tabindex]="tabindex"
-                        (keydown)="onKeydown($event)"
+                        (keydown)="onKeyDown($event)"
                         (input)="onInput()"
                         (paste)="onPaste($event)"
-                        [attr.aria-labelledby]="ariaLabelledBy"
                         (focus)="onInputFocus($event)"
                         (blur)="onInputBlur($event)"
-                        [disabled]="disabled"
+                        [disabled]="disabled || maxedOut"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
                     />
@@ -101,6 +140,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * @group Props
      */
     @Input() max: number | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -189,6 +233,8 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     @ViewChild('inputtext') inputViewChild!: ElementRef;
 
+    @ViewChild('container') containerViewChild!: ElementRef;
+
     @ContentChildren(PrimeTemplate) templates!: QueryList<any>;
 
     public itemTemplate: Nullable<TemplateRef<any>>;
@@ -205,9 +251,17 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     valueChanged: Nullable<boolean>;
 
-    focus: Nullable<boolean>;
+    id = UniqueComponentId();
+
+    focused: Nullable<boolean>;
+
+    focusedIndex: Nullable<number>;
 
     filled: Nullable<boolean>;
+
+    get focusedOptionId() {
+        return this.focusedIndex !== null ? `${this.id}_chips_item_${this.focusedIndex}` : null;
+    }
 
     private get isValueMaxLimited(): boolean {
         return this.max && this.value && this.max === this.value.length;
@@ -239,12 +293,65 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.updateFilledState();
     }
 
-    onClick() {
+    onWrapperClick() {
         this.inputViewChild?.nativeElement.focus();
+    }
+
+    onContainerFocus() {
+        this.focused = true;
+    }
+
+    onContainerBlur() {
+        this.focusedIndex = -1;
+        this.focused = false;
+    }
+
+    onContainerKeyDown(event) {
+        switch (event.code) {
+            case 'ArrowLeft':
+                this.onArrowLeftKeyOn();
+                break;
+
+            case 'ArrowRight':
+                this.onArrowRightKeyOn();
+                break;
+
+            case 'Backspace':
+                this.onBackspaceKeyOn(event);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    onArrowLeftKeyOn() {
+        if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
+            this.focusedIndex = this.focusedIndex === null ? this.value.length - 1 : this.focusedIndex - 1;
+            if (this.focusedIndex < 0) this.focusedIndex = 0;
+        }
+    }
+
+    onArrowRightKeyOn() {
+        if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
+            if (this.focusedIndex === this.value.length - 1) {
+                this.focusedIndex = null;
+                this.inputViewChild?.nativeElement.focus();
+            } else {
+                this.focusedIndex++;
+            }
+        }
+    }
+
+    onBackspaceKeyOn(event) {
+        if (this.focusedIndex !== null) {
+            this.removeItem(event, this.focusedIndex);
+        }
     }
 
     onInput() {
         this.updateFilledState();
+        this.focusedIndex = null;
     }
 
     onPaste(event: any) {
@@ -314,12 +421,14 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
     }
 
     onInputFocus(event: FocusEvent) {
-        this.focus = true;
+        this.focused = true;
+        this.focusedIndex = null;
         this.onFocus.emit(event);
     }
 
     onInputBlur(event: FocusEvent) {
-        this.focus = false;
+        this.focused = false;
+        this.focusedIndex = null;
         if (this.addOnBlur && this.inputViewChild.nativeElement.value) {
             this.addItem(event, this.inputViewChild.nativeElement.value, false);
         }
@@ -334,6 +443,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
         let removedItem = this.value[index];
         this.value = this.value.filter((val: any, i: number) => i != index);
+        this.focusedIndex = null;
+        this.inputViewChild.nativeElement.focus();
+
         this.onModelChange(this.value);
         this.onRemove.emit({
             originalEvent: event,
@@ -374,41 +486,44 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.onClear.emit();
     }
 
-    onKeydown(event: KeyboardEvent): void {
-        switch (event.which) {
-            //backspace
-            case 8:
-                if (this.inputViewChild.nativeElement.value.length === 0 && this.value && this.value.length > 0) {
-                    this.value = [...this.value];
-                    let removedItem = this.value.pop();
-                    this.onModelChange(this.value);
-                    this.onRemove.emit({
-                        originalEvent: event,
-                        value: removedItem
-                    });
-                    this.updateFilledState();
+    onKeyDown(event) {
+        const inputValue = event.target.value;
+
+        switch (event.code) {
+            case 'Backspace':
+                if (inputValue.length === 0 && this.value && this.value.length > 0) {
+                    if (this.focusedIndex !== null) {
+                        this.removeItem(event, this.focusedIndex);
+                    } else this.removeItem(event, this.value.length - 1);
                 }
+
                 break;
 
-            //enter
-            case 13:
-                this.addItem(event, this.inputViewChild.nativeElement.value, true);
+            case 'Enter':
+                if (inputValue && inputValue.trim().length && !this.maxedOut()) {
+                    this.addItem(event, inputValue, true);
+                }
+
                 break;
 
-            case 9:
-                if (this.addOnTab && this.inputViewChild.nativeElement.value !== '') {
-                    this.addItem(event, this.inputViewChild.nativeElement.value, true);
+            case 'ArrowLeft':
+                if (inputValue.length === 0 && this.value && this.value.length > 0) {
+                    this.containerViewChild?.nativeElement.focus();
                 }
+
+                break;
+
+            case 'ArrowRight':
+                event.stopPropagation();
                 break;
 
             default:
-                if (this.max && this.value && this.max === this.value.length) {
-                    event.preventDefault();
-                } else if (this.separator) {
+                if (this.separator) {
                     if (this.separator === event.key || event.key.match(this.separator)) {
-                        this.addItem(event, this.inputViewChild.nativeElement.value, true);
+                        this.addItem(event, inputValue, true);
                     }
                 }
+
                 break;
         }
     }
@@ -428,6 +543,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 this.inputViewChild.nativeElement.disabled = this.disabled || false;
             }
         }
+    }
+
+    maxedOut(): boolean {
+        return this.max && this.value && this.max === this.value.length;
     }
 }
 

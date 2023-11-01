@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The multiselect component has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
+                    Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The multiselect component has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
                     <i>aria-expanded</i> attributes. The relation between the combobox and the popup is created with <i>aria-controls</i> attribute that refers to the id of the popup listbox.
                 </p>
                 <p>The popup listbox uses <i>listbox</i> as the role with <i>aria-multiselectable</i> enabled. Each list item has an <i>option</i> role along with <i>aria-label</i>, <i>aria-selected</i> and <i>aria-disabled</i> attributes.</p>
@@ -218,8 +218,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -228,8 +227,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-multiSelect aria-labelledby="dd1"></p-multiSelect>
+<p-multiSelect ariaLabelledBy="dd1"></p-multiSelect>
 
-<p-multiSelect aria-label="Options"></p-multiSelect>`
+<p-multiSelect ariaLabel="Options"></p-multiSelect>`
     };
 }

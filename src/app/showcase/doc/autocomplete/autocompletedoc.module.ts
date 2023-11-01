@@ -17,10 +17,13 @@ import { DropdownDoc } from './dropdowndoc';
 import { ForceSelectionDoc } from './forceselectiondoc';
 import { ObjectsDoc } from './objectsdoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { FloatLabelDoc } from './floatlabeldoc';
+import { DisabledDoc } from './disableddoc';
+import { InvalidDoc } from './invaliddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc]
 })
 export class AutoCompleteDocModule {}

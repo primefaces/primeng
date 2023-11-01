@@ -1,5 +1,5 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, forwardRef, ChangeDetectorRef, ElementRef, Output, EventEmitter, Renderer2, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -15,16 +15,25 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
                 viewBox="0 0 100 100"
+                role="slider"
                 [style.width]="size + 'px'"
                 [style.height]="size + 'px'"
                 (click)="onClick($event)"
+                (keydown)="onKeyDown($event)"
                 (mousedown)="onMouseDown($event)"
                 (mouseup)="onMouseUp($event)"
                 (touchstart)="onTouchStart($event)"
                 (touchend)="onTouchEnd($event)"
+                [attr.aria-valuemin]="min"
+                [attr.aria-valuemax]="max"
+                [attr.aria-valuenow]="_value"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.tabindex]="readonly || disabled ? -1 : tabindex"
+                [attr.data-pc-section]="'svg'"
             >
                 <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" class="p-knob-range"></path>
                 <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" class="p-knob-value"></path>
@@ -51,6 +60,21 @@ export class Knob {
      * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Specifies one or more IDs in the DOM that labels the input field.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number = 0;
     /**
      * Background of the value.
      * @group Props
@@ -241,6 +265,62 @@ export class Knob {
                 const offsetX = touch.clientX - rect.left;
                 const offsetY = touch.clientY - rect.top;
                 this.updateValue(offsetX, offsetY);
+            }
+        }
+    }
+
+    updateModelValue(newValue) {
+        if (newValue > this.max) this.value = this.max;
+        else if (newValue < this.min) this.value = this.min;
+        else this.value = newValue;
+
+        this.onModelChange(this.value);
+        this.onChange.emit(this.value);
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (!this.disabled && !this.readonly) {
+            switch (event.code) {
+                case 'ArrowRight':
+
+                case 'ArrowUp': {
+                    event.preventDefault();
+                    this.updateModelValue(this._value + 1);
+                    break;
+                }
+
+                case 'ArrowLeft':
+
+                case 'ArrowDown': {
+                    event.preventDefault();
+                    this.updateModelValue(this._value - 1);
+                    break;
+                }
+
+                case 'Home': {
+                    event.preventDefault();
+                    this.updateModelValue(this.min);
+
+                    break;
+                }
+
+                case 'End': {
+                    event.preventDefault();
+                    this.updateModelValue(this.max);
+                    break;
+                }
+
+                case 'PageUp': {
+                    event.preventDefault();
+                    this.updateModelValue(this._value + 10);
+                    break;
+                }
+
+                case 'PageDown': {
+                    event.preventDefault();
+                    this.updateModelValue(this._value - 10);
+                    break;
+                }
             }
         }
     }

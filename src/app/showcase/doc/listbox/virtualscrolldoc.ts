@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -11,22 +11,25 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect
+            <p-listbox
                 [options]="virtualItems"
-                [showToggleAll]="false"
                 [(ngModel)]="selectedItems"
                 optionLabel="name"
+                [style]="{ width: '15rem' }"
                 [virtualScroll]="true"
                 [filter]="true"
                 [virtualScrollItemSize]="43"
-                class="multiselect-custom-virtual-scroll"
-                placeholder="Select Cities"
-            ></p-multiSelect>
+                [multiple]="true"
+                [checkbox]="true"
+                [showToggleAll]="false"
+                [metaKeySelection]="false"
+                [listStyle]="{ 'max-height': '220px' }"
+            ></p-listbox>
         </div>
-        <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
+        <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
     </section>`
 })
-export class VirtualScrollDoc {
+export class VirtualScrollDoc implements OnInit {
     @Input() id: string;
 
     @Input() title: string;
@@ -35,7 +38,7 @@ export class VirtualScrollDoc {
 
     selectedItems!: any[];
 
-    constructor() {
+    ngOnInit() {
         this.virtualItems = [];
         for (let i = 0; i < 10000; i++) {
             this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
@@ -44,32 +47,32 @@ export class VirtualScrollDoc {
 
     code: Code = {
         basic: `
-<p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities"></p-multiSelect>`,
+<p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities"></p-multiSelect>
+    <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'multi-select-virtual-scroll-demo',
-    templateUrl: './multi-select-virtual-scroll-demo.html'
+    selector: 'listbox-virtual-scroll-demo',
+    templateUrl: './listbox-virtual-scroll-demo.html'
 })
-export class MultiSelectVirtualScrollDemo {
-
+export class ListboxVirtualScrollDemo implements OnInit {
     virtualItems!: any[];
 
-    selectedItems!: any[];
+    selectedItems!: any;
 
-    constructor() {
+    ngOnInit() {
         this.virtualItems = [];
         for (let i = 0; i < 10000; i++) {
             this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
         }
     }
+
 }`
     };
 }
