@@ -7,7 +7,7 @@
                 <div class="flex gap-2 align-items-center">
                     <i class="pi pi-circle-fill text-300" *ngFor="let s of scales" [ngClass]="{'text-primary-500 text-xl': s === scale}"></i>
                 </div>
-                <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
+                <button icon="pi pi-plus" type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
             </div>
         </section>
 
@@ -36,7 +36,7 @@
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-blue.svg"  alt="Bootstrap Light Blue" class="w-3rem border-round" />
+                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" class="w-3rem border-round" />
                     </button>
                     <span class="white-space-nowrap">Blue</span>
                 </div>
@@ -59,7 +59,7 @@
                     <span class="white-space-nowrap">Purple</span>
                 </div>
             </div>
-    
+
             <h4>Material Design</h4>
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
@@ -87,7 +87,7 @@
                     <span class="white-space-nowrap">Deep Purple</span>
                 </div>
             </div>
-    
+
             <h4>Material Design Compact</h4>
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
@@ -115,7 +115,7 @@
                     <span class="white-space-nowrap">Deep Purple</span>
                 </div>
             </div>
-    
+
             <h4>Tailwind</h4>
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
@@ -125,7 +125,7 @@
                     <span class="white-space-nowrap">Tailwind Light</span>
                 </div>
             </div>
-    
+
             <h4>Fluent UI</h4>
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
@@ -162,7 +162,7 @@
                     </button>
                     <span class="white-space-nowrap">Lara Purple</span>
                 </div>
-    
+
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-light-blue', false)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-blue.png" alt="Lara Light Blue" class="w-3rem border-round" />
@@ -188,7 +188,7 @@
                     <span class="white-space-nowrap">Lara Teal</span>
                 </div>
             </div>
- 
+
             <h4>Misc</h4>
             <div class="grid">
                 <div class="col-3 flex flex-column align-items-center gap-2">
@@ -237,7 +237,7 @@
                     <span class="white-space-nowrap">Saga Blue</span>
                 </div>
                 <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-green', true)">
+                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-green', false)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/saga-green.png" alt="Saga Green" class="w-3rem border-round" />
                     </button>
                     <span class="white-space-nowrap">Saga Green</span>
@@ -254,7 +254,7 @@
                     </button>
                     <span class="white-space-nowrap">Saga Purple</span>
                 </div>
-    
+
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'vela-blue', true)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/vela-blue.png" alt="Vela Blue" class="w-3rem border-round" />
@@ -294,13 +294,13 @@
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-orange', true)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/arya-orange.png" alt="Arya Orange" class="w-3rem border-round" />
-                        </button>
+                    </button>
                     <span class="white-space-nowrap">Arya Orange</span>
                 </div>
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-purple', true)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/arya-purple.png" alt="Arya Purple" class="w-3rem border-round" />
-                        </button>
+                    </button>
                     <span class="white-space-nowrap">Arya Purple</span>
                 </div>
             </div>

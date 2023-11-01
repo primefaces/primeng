@@ -1148,7 +1148,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.overlayViewChild?.alignOverlay();
                 }, 1);
             });
-
             this.filtered = false;
         }
     }
@@ -1631,6 +1630,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
+
         this.onClick.emit(event);
         this.cd.detectChanges();
     }

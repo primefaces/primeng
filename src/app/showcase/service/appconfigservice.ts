@@ -29,6 +29,6 @@ export class AppConfigService {
     }
 
     toggleConfig() {
-        this.configUpdate ? this.configActive.next(true) : this.configActive.next(false);
+        this.configActive.next(!this.configActive.value);
     }
 }

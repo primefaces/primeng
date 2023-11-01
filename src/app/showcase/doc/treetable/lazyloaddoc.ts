@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -69,7 +69,7 @@ export class LazyLoadDoc implements OnInit {
 
     loading: boolean = false;
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.cols = [
@@ -87,7 +87,6 @@ export class LazyLoadDoc implements OnInit {
         this.loading = true;
 
         setTimeout(() => {
-            this.loading = false;
             this.files = [];
 
             for (let i = 0; i < event.rows; i++) {
@@ -102,6 +101,8 @@ export class LazyLoadDoc implements OnInit {
 
                 this.files.push(node);
             }
+            this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -175,7 +176,7 @@ export class LazyLoadDoc implements OnInit {
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
@@ -197,7 +198,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
 
     loading: boolean = false;
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.cols = [
@@ -215,7 +216,6 @@ export class TreeTableLazyLoadDemo implements OnInit{
         this.loading = true;
 
         setTimeout(() => {
-            this.loading = false;
             this.files = [];
 
             for (let i = 0; i < event.rows; i++) {
@@ -230,6 +230,8 @@ export class TreeTableLazyLoadDemo implements OnInit{
 
                 this.files.push(node);
             }
+            this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
