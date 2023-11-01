@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 interface AnimateOnScrollOptions {
@@ -60,14 +60,18 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
 
     animationEndListener: VoidFunction | undefined;
 
-    constructor(private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private host: ElementRef, public el: ElementRef, public renderer: Renderer2) {}
 
     ngOnInit() {
-        this.renderer.setStyle(this.host.nativeElement, 'opacity', this.enterClass ? '0' : '');
+        if(isPlatformBrowser(this.platformId)){
+            this.renderer.setStyle(this.host.nativeElement, 'opacity', this.enterClass ? '0' : '');
+        }
     }
 
     ngAfterViewInit() {
-        this.bindIntersectionObserver();
+        if(isPlatformBrowser(this.platformId)){
+            this.bindIntersectionObserver();
+        }
     }
 
     get options(): AnimateOnScrollOptions {
