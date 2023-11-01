@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The dropdown element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
+                    Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The dropdown element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
                     <i>aria-expanded</i> attributes. If the editable option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox and the popup is created with <i>aria-controls</i> and
                     <i>aria-activedescendant</i> attribute is used to instruct screen reader which option to read during keyboard navigation within the popup list.
                 </p>

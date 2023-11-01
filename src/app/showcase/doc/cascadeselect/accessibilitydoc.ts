@@ -3,12 +3,12 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
+                    Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and
                     <i>aria-expanded</i> attributes. The relation between the combobox and the popup is created with <i>aria-controls</i> that refers to the id of the popup.
                 </p>
                 <p>
@@ -119,8 +119,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -129,8 +128,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-cascadeSelect aria-labelledby="dd1"></p-cascadeSelect>
+<p-cascadeSelect ariaLabelledBy="dd1"></p-cascadeSelect>
 
-<p-cascadeSelect aria-label="Options"></p-cascadeSelect>`
+<p-cascadeSelect ariaLabel="Options"></p-cascadeSelect>`
     };
 }

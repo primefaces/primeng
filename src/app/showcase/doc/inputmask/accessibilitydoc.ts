@@ -8,8 +8,8 @@ import { Code } from '../../domain/code';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
-                    <i>aria-label</i> props.
+                    InputMask component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>ariaLabelledBy</i>,
+                    <i>ariaLabel</i> props.
                 </p>
             </app-docsectiontext>
 
