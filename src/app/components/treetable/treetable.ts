@@ -27,27 +27,27 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta, TreeNode } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions, TreeTableNode } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
-import { Subject, Subscription } from 'rxjs';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { MinusIcon } from 'primeng/icons/minus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
+import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { PaginatorModule } from 'primeng/paginator';
+import { RippleModule } from 'primeng/ripple';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils } from 'primeng/utils';
+import { Subject, Subscription } from 'rxjs';
 import {
     TreeTableColResizeEvent,
+    TreeTableColumnReorderEvent,
     TreeTableContextMenuSelectEvent,
     TreeTableEditEvent,
     TreeTableFilterEvent,
@@ -55,13 +55,11 @@ import {
     TreeTableHeaderCheckboxToggleEvent,
     TreeTableLazyLoadEvent,
     TreeTableNodeCollapseEvent,
+    TreeTableNodeExpandEvent,
     TreeTableNodeUnSelectEvent,
     TreeTablePaginatorState,
-    TreeTableSortEvent,
-    TreeTableColumnReorderEvent,
-    TreeTableNodeExpandEvent
+    TreeTableSortEvent
 } from './treetable.interface';
-import { TreeNodeExpandEvent } from 'primeng/tree';
 
 @Injectable()
 export class TreeTableService {
@@ -1935,20 +1933,18 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
 
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
-                        for (let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let copyNodeForGlobal = { ...copyNode };
-                            let filterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            let filterValue = this.filters['global'].value;
-                            let filterConstraint = (<any>this.filterService).filters[(<any>this.filters)['global'].matchMode];
-                            paramsWithoutNode = { filterField, filterValue, filterConstraint, isStrictMode };
+                        let copyNodeForGlobal = { ...copyNode };
+                        let filterField = undefined;
+                        let filterValue = this.filters['global'].value;
+                        let filterConstraint = (<any>this.filterService).filters[(<any>this.filters)['global'].matchMode];
+                        paramsWithoutNode = { filterField, filterValue, filterConstraint, isStrictMode, globalFilterFieldsArray };
 
-                            if (
-                                (isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
-                                (!isStrictMode && (this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode) || this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode)))
-                            ) {
-                                globalMatch = true;
-                                copyNode = copyNodeForGlobal;
-                            }
+                        if (
+                            (isStrictMode && (this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
+                            (!isStrictMode && (this.isFilterMatched(copyNodeForGlobal, paramsWithoutNode) || this.findFilteredNodes(copyNodeForGlobal, paramsWithoutNode)))
+                        ) {
+                            globalMatch = true;
+                            copyNode = copyNodeForGlobal;
                         }
                     }
 
@@ -2013,15 +2009,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     isFilterMatched(node: TreeTableNode, filterOptions: TreeTableFilterOptions) {
-        let { filterField, filterValue, filterConstraint, isStrictMode } = filterOptions;
+        let { filterField, filterValue, filterConstraint, isStrictMode, globalFilterFieldsArray } = <any>filterOptions;
         let matched = false;
-        let dataFieldValue = ObjectUtils.resolveFieldData(node.data, filterField);
-        if (filterConstraint(dataFieldValue, filterValue, <string>this.filterLocale)) {
-            matched = true;
-        }
+        const isMatched = (field: string) => filterConstraint(ObjectUtils.resolveFieldData(node.data, field), filterValue, <string>this.filterLocale);
+
+        matched = globalFilterFieldsArray?.length ? globalFilterFieldsArray.some((globalFilterField) => isMatched(globalFilterField.field || globalFilterField)) : isMatched(filterField);
 
         if (!matched || (isStrictMode && !this.isNodeLeaf(node))) {
-            matched = this.findFilteredNodes(node, { filterField, filterValue, filterConstraint, isStrictMode }) || matched;
+            matched = this.findFilteredNodes(node, { filterField, filterValue, filterConstraint, isStrictMode, globalFilterFieldsArray }) || matched;
         }
 
         return matched;
