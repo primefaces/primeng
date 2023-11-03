@@ -859,10 +859,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get inputClass() {
+        const label = this.label();
         return {
             'p-dropdown-label p-inputtext': true,
-            'p-placeholder': this.placeholder && this.label() === this.placeholder,
-            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (this.label() === 'p-emptylabel' || this.label().length === 0)
+            'p-placeholder': this.placeholder && label === this.placeholder,
+            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (!label || label === 'p-emptylabel' || label.length === 0)
         };
     }
 
