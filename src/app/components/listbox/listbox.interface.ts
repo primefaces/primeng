@@ -31,6 +31,25 @@ export interface ListboxChangeEvent {
     value: any;
 }
 /**
+ * Custom change event.
+ * @see {@link Listbox.onSelectAllChange}
+ * @group Events
+ */
+export interface ListboxSelectAllChangeEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Boolean value indicates whether all data is selected.
+     */
+    checked: boolean;
+    /**
+     * Method to invoke on model value change.
+     */
+    updateModel?: (value?: any, event?: Event) => void;
+}
+/**
  * Custom filter event.
  * @see {@link Listbox.onFilter}
  * @group Events

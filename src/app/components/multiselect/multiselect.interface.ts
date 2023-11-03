@@ -29,6 +29,25 @@ export interface MultiSelectChangeEvent {
     itemValue?: any;
 }
 /**
+ * Custom change event.
+ * @see {@link MultiSelect.onSelectAllChange}
+ * @group Events
+ */
+export interface MultiSelectSelectAllChangeEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Boolean value indicates whether all data is selected.
+     */
+    checked: boolean;
+    /**
+     * Method to invoke on model value change.
+     */
+    updateModel?: (value?: any, event?: Event) => void;
+}
+/**
  * Custom filter event.
  * @see {@link MultiSelect.onFilter}
  * @group Events
