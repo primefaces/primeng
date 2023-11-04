@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" (onClick)="onClick($event)"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     </section>`
@@ -30,6 +30,10 @@ export class BasicDoc implements OnInit {
     cities!: City[];
 
     selectedCity!: City;
+
+    onClick(event) {
+        console.log(event)
+    }
 
     ngOnInit() {
         this.cities = [

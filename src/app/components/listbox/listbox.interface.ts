@@ -62,7 +62,7 @@ export interface ListboxClickEvent {
     /**
      * Selected option
      */
-    option: any;
+    option?: any;
 }
 /**
  * Custom change event.

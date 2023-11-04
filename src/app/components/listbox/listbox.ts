@@ -749,6 +749,13 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         this.value = value;
         this.modelValue.set(value);
         this.onModelChange(value);
+
+        if(event && event.type == 'click') {
+            this.onClick.emit({
+                originalEvent: event,
+                value: value
+            });
+        }
     }
 
     removeOption(option) {
