@@ -879,7 +879,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
-            const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            const filteredOptions = !this.filterBy && !this.filterFields && !this.optionValue ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1) : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
@@ -893,7 +893,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 return this.flatOptions(filtered);
             }
-
             return filteredOptions;
         }
         return options;
