@@ -297,7 +297,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid = DomHandler.hasClass(e.target, 'p-tooltip') || DomHandler.hasClass(e.target, 'p-tooltip-arrow') || DomHandler.hasClass(e.target, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip');
+            const valid =
+                DomHandler.hasClass(e.target, 'p-tooltip') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
+                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
+                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
