@@ -1621,14 +1621,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
-
         if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
+            event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
-
+        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
         this.onClick.emit(event);
         this.cd.detectChanges();
     }
@@ -1773,7 +1772,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     writeValue(value: any): void {
-        this.value = this.modelValue();
+        this.value = value;
+        this.modelValue.set(this.value);
         this.updateModel(this.value);
         this.checkSelectionLimit();
 

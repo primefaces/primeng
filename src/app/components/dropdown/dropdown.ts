@@ -146,9 +146,11 @@ export class DropdownItem {
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
             >
-                <ng-container *ngIf="!selectedItemTemplate">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() || 'empty' }}</ng-container>
+                <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() || 'empty' }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: modelValue() }"></ng-container>
-                <span *ngIf="!editable && !label() && placeholder">{{ placeholder || 'empty' }}</span>
+                <ng-template #defaultPlaceholder>
+                    <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
+                </ng-template>
             </span>
             <input
                 *ngIf="editable"
@@ -842,7 +844,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && this.showClear && !this.disabled;
+        return this.modelValue() != null && ObjectUtils.isNotEmpty(this.modelValue()) && this.modelValue() !== '' && this.showClear && !this.disabled;
     }
 
     get containerClass() {
@@ -857,10 +859,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get inputClass() {
+        const label = this.label();
         return {
             'p-dropdown-label p-inputtext': true,
-            'p-placeholder': this.placeholder && this.label() === this.placeholder,
-            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (this.label() === 'p-emptylabel' || this.label().length === 0)
+            'p-placeholder': this.placeholder && label === this.placeholder,
+            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (!label || label === 'p-emptylabel' || label.length === 0)
         };
     }
 
@@ -876,7 +879,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
-            const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            const filteredOptions =
+                !this.filterBy && !this.filterFields && !this.optionValue
+                    ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1)
+                    : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
@@ -890,7 +896,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 return this.flatOptions(filtered);
             }
-
             return filteredOptions;
         }
         return options;
@@ -898,14 +903,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         let selectedOptionIndex;
-
-        if (this.autoDisplayFirst) {
-            selectedOptionIndex = this.findFirstOptionIndex();
-        }
-        if (!this.autoDisplayFirst) {
-            selectedOptionIndex = this.findSelectedOptionIndex();
-        }
-
+        this.autoDisplayFirst ? (!this.modelValue() ? (selectedOptionIndex = -1) : (selectedOptionIndex = this.findFirstOptionIndex())) : (selectedOptionIndex = this.findSelectedOptionIndex());
         return this.modelValue() ? this.getOptionLabel(this.modelValue()) : selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
@@ -1048,13 +1046,16 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     updateModel(value, event?) {
+        this.value = value;
         this.onModelChange(value);
+        if (this.value !== this.modelValue()) {
+            this.onChange.emit({
+                originalEvent: event,
+                value: value
+            });
+        }
         this.modelValue.set(value);
         this.selectedOptionUpdated = true;
-        this.onChange.emit({
-            originalEvent: event,
-            value: value
-        });
     }
 
     isSelected(option) {
@@ -1116,8 +1117,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter) {
             this.resetFilter();
         }
-
-        this.value = this.modelValue();
+        this.value = value;
         this.updateModel(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
@@ -1691,7 +1691,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     clear(event: Event) {
-        this.updateModel(event, null);
+        this.updateModel(null, event);
         this.updateEditableLabel();
         this.onClear.emit(event);
     }

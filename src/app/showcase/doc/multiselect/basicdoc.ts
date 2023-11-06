@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
+import { FormGroup, FormControl } from '@angular/forms';
 
 interface City {
     name: string;
@@ -31,6 +32,8 @@ export class BasicDoc implements OnInit {
 
     selectedCities!: City[];
 
+    formGroup!: FormGroup;
+
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
@@ -39,6 +42,10 @@ export class BasicDoc implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
         ];
+
+        this.formGroup = new FormGroup({
+            selectedCities: new FormControl<City[] | null>(null)
+        });
     }
 
     code: Code = {

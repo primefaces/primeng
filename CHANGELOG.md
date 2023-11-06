@@ -1,5 +1,23 @@
 # Changelog
 
+## [16.7.1](https://github.com/primefaces/primeng/tree/16.7.1) (2023-11-06)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.7.0...16.7.1)
+
+**Fixed bugs:**
+- BIG ERROR with DropDown [\#13996](https://github.com/primefaces/primeng/issues/13996)
+- Component: p-dropdwon onChange is called multiple times at init [\#14005](https://github.com/primefaces/primeng/issues/14005)
+- Change of Dropdown selection throws error: Cannot read properties of undefined (reading 'length') primeng dropdown [\#14007](https://github.com/primefaces/primeng/issues/14007)
+- Dropdown filtering issues with array of strings [\#14011](https://github.com/primefaces/primeng/issues/14011)
+- The ngModel directive can't set an item of dropdown in version 16.7.0 [\#14023](https://github.com/primefaces/primeng/issues/14023)
+- ListBox | onClick event does not emit [\#14036](https://github.com/primefaces/primeng/issues/14036)
+- ListBox | OnChange doesn't emit [\#14033](https://github.com/primefaces/primeng/issues/14033)
+- onClick event listbox error v16.7.0 [\#13998](https://github.com/primefaces/primeng/issues/13998)
+- MultiSelect | Input section receives focus on filter click. [\#14035](https://github.com/primefaces/primeng/issues/14035)
+- Multiselect set value error v16.7.0 [\#13999](https://github.com/primefaces/primeng/issues/13999)
+- SelectButton broken in v16.7.0 [\#14021](https://github.com/primefaces/primeng/issues/14021)
+- Global filter to search tree-table is not returning all the relevant results [\#14016](https://github.com/primefaces/primeng/issues/14016)
+
 ## [16.7.0](https://github.com/primefaces/primeng/tree/16.7.0) (2023-11-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.6.0...16.7.0)
