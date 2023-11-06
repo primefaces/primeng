@@ -392,7 +392,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true;
+    @Input() metaKeySelection: boolean = false;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -756,6 +756,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                 value: value
             });
         }
+        this.onChange.emit({ originalEvent: event, value: this.value });
     }
 
     removeOption(option) {
@@ -849,7 +850,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                   .filter((option) => this.isValidOption(option))
                   .map((option) => this.getOptionValue(option));
         this.updateModel(value, event);
-        this.onChange.emit({ originalEvent: event, value: this.value });
 
         event.preventDefault();
         event.stopPropagation();
