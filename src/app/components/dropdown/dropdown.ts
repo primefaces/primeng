@@ -149,7 +149,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() || 'empty' }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: modelValue() }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="label() === placeholder || label() && !placeholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder}}</span>
+                    <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
             </span>
             <input
@@ -879,7 +879,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
-            const filteredOptions = !this.filterBy && !this.filterFields && !this.optionValue ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1) : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            const filteredOptions =
+                !this.filterBy && !this.filterFields && !this.optionValue
+                    ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1)
+                    : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
@@ -900,7 +903,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         let selectedOptionIndex;
-        this.autoDisplayFirst ? !this.modelValue() ? (selectedOptionIndex = -1) : (selectedOptionIndex = this.findFirstOptionIndex()) : (selectedOptionIndex = this.findSelectedOptionIndex());
+        this.autoDisplayFirst ? (!this.modelValue() ? (selectedOptionIndex = -1) : (selectedOptionIndex = this.findFirstOptionIndex())) : (selectedOptionIndex = this.findSelectedOptionIndex());
         return this.modelValue() ? this.getOptionLabel(this.modelValue()) : selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
@@ -1045,7 +1048,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
-        if(this.value !== this.modelValue()) {
+        if (this.value !== this.modelValue()) {
             this.onChange.emit({
                 originalEvent: event,
                 value: value
@@ -1053,7 +1056,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         this.modelValue.set(value);
         this.selectedOptionUpdated = true;
-
     }
 
     isSelected(option) {

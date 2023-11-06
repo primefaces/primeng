@@ -1620,7 +1620,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.focusInputViewChild?.nativeElement)) {
             return;
         }
-        
+
         if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
             event.preventDefault();
             return;

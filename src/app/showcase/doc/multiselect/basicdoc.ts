@@ -36,7 +36,6 @@ export class BasicDoc implements OnInit {
 
     formGroup!: FormGroup;
 
-
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },

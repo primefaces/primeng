@@ -212,7 +212,7 @@ export class SelectButton implements ControlValueAccessor {
 
         this.focusedIndex = index;
         this.value = newValue;
-        this.onModelChange(this.value)
+        this.onModelChange(this.value);
 
         this.onChange.emit({
             originalEvent: event,
