@@ -1052,7 +1052,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             });
         }
         this.modelValue.set(value);
-        console.log(this.modelValue(), this.value)
         this.selectedOptionUpdated = true;
 
     }
