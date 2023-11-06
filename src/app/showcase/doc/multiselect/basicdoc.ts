@@ -49,9 +49,6 @@ export class BasicDoc implements OnInit {
         this.formGroup = new FormGroup({
             selectedCities: new FormControl<City[] | null>(null)
         });
-
-        this.formGroup.patchValue({selectedCities:[{name: 'London', code: 'LDN' }]});
-        this.formGroup.valueChanges.subscribe(el => {console.log('el', el)})
     }
 
     code: Code = {
