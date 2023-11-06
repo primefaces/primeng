@@ -844,7 +844,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && this.showClear && !this.disabled;
+        return this.modelValue() != null && ObjectUtils.isNotEmpty(this.modelValue()) && this.modelValue() !== '' && this.showClear && !this.disabled;
     }
 
     get containerClass() {
@@ -1052,6 +1052,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             });
         }
         this.modelValue.set(value);
+        console.log(this.modelValue(), this.value)
         this.selectedOptionUpdated = true;
 
     }
@@ -1115,7 +1116,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter) {
             this.resetFilter();
         }
-        this.value = this.modelValue();
+        this.value = value;
         this.updateModel(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
