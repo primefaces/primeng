@@ -750,12 +750,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         this.modelValue.set(value);
         this.onModelChange(value);
 
-        if(event && event.type == 'click') {
-            this.onClick.emit({
-                originalEvent: event,
-                value: value
-            });
-        }
         this.onChange.emit({ originalEvent: event, value: this.value });
     }
 
@@ -767,6 +761,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         if (this.disabled || this.isOptionDisabled(option)) {
             return;
         }
+
+        event && this.onClick.emit({originalEvent: event, value: option});
 
         this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
