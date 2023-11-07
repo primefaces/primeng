@@ -17,7 +17,7 @@ export interface MenuItem {
 
 @Component({
     selector: 'app-menu',
-    template: ` <aside class="layout-sidebar" [ngClass]="{ active: active }">
+    template: ` <aside  [ngClass]="{ active: active }">
         <nav>
             <ol class="layout-menu">
                 <li *ngFor="let item of menu; let i = index" app-menuitem [item]="item" [root]="true"></li>
