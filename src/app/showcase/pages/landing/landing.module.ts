@@ -23,12 +23,16 @@ import { TreeModule } from 'primeng/tree';
 import { AppNewsModule } from '../../layout/news/app.news.module';
 import { LandingComponent } from './landing.component';
 import { TagModule } from 'primeng/tag';
+import { StyleClassModule } from 'primeng/styleclass';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @NgModule({
     imports: [
         CommonModule,
         NgOptimizedImage,
         FormsModule,
+        StyleClassModule,
+        AnimateOnScrollModule,
         SidebarModule,
         InputSwitchModule,
         TagModule,

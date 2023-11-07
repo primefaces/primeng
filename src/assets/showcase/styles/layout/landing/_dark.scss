@@ -59,4 +59,7 @@
     --home-templates-btn-border-bottom:4px solid rgb(13, 40, 78);
     --home-templates-btn-border-left:3px solid rgb(13, 40, 78);
     --home-features-card-shadow: none;
+    --glow-image: url(https://www.primefaces.org/cdn/primevue/images/layout/pattern.png), radial-gradient(50% 50% at center -25px, var(--primary-color) 0%, #000000 100%);
+    --glow-blend: hard-light, color-dodge;
+
 }

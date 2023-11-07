@@ -9,6 +9,8 @@ import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 import { NodeService } from '../../service/nodeservice';
+import Versions from '../../data/versions.json';
+import docsearch from '@docsearch/js';
 
 interface City {
     name: string;
@@ -25,6 +27,8 @@ export class LandingComponent implements OnInit, OnDestroy {
     @ViewChild('dt') table: Table;
 
     @ViewChild('editor') editor: ElementRef;
+
+    versions: any[] = Versions;
     
     menuActive: boolean = false;
 
@@ -231,7 +235,38 @@ export class LandingComponent implements OnInit, OnDestroy {
             { name: 'Paris', code: 'PRS' }
         ];
 
+        if (isPlatformBrowser(this.platformId)) {
+            this.bindScrollListener();
+            this.initDocSearch();
+        }
+
         this.bindScrollListener();
+    }
+
+    initDocSearch() {
+        docsearch({
+            appId: 'XG1L2MUWT9',
+            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
+            indexName: 'primeng',
+            container: '#docsearch',
+            transformItems: this.handleDocSearchTransformItems.bind(this)
+        });
+    }
+
+    handleDocSearchTransformItems(results) {
+        const valid = process.env.NODE_ENV !== 'production';
+        return results.map((result) => {
+            if (valid) {
+                const url = new URL(result.url);
+
+                url.protocol = this.window.location.protocol;
+                url.hostname = this.window.location.hostname;
+                url.port = this.window.location.port;
+                result.url = url.toString();
+            }
+
+            return result;
+        });
     }
 
     copyNpm() {

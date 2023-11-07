@@ -1,9 +1,8 @@
 .landing {
-    background: var(--home-bg);
+    background-color: var(--home-bg);
     scroll-behavior: smooth;
 
     .landing-intro {
-        background: var(--home-intro-bg);
         min-height: 100vh;
         display: flex;
         padding-top: 5rem;
@@ -186,4 +185,12 @@
             }
         }
     }
+}
+
+.landing {
+    background-image: var(--glow-image);
+    background-blend-mode: var(--glow-blend);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: auto 20rem;
 }

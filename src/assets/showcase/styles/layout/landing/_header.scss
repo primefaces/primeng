@@ -4,18 +4,14 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
     z-index: 100;
 
     .landing-header-container {
-        width: 100%;
-        max-width: 1250px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: flex;
         align-items: center;
+        display: flex;
+        height: 4rem;
         justify-content: space-between;
+        padding: 0 4rem;
     }
 
     .landing-header-logo {
@@ -23,8 +19,9 @@
     }
 
     &.landing-header-sticky {
-        background-color: var(--home-header-bg);
-        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--surface-border);
+        background-color: var(--topbar-sticky-bg);
+        backdrop-filter: blur(8px);
     }
 
     ol {
