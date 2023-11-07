@@ -22,6 +22,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TreeModule } from 'primeng/tree';
 import { AppNewsModule } from '../../layout/news/app.news.module';
 import { LandingComponent } from './landing.component';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { LandingComponent } from './landing.component';
         FormsModule,
         SidebarModule,
         InputSwitchModule,
+        TagModule,
         ButtonModule,
         RadioButtonModule,
         InputNumberModule,

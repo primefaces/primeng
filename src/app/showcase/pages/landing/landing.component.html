@@ -386,8 +386,7 @@
                                 {{ customer.balance | currency : 'USD' : 'symbol' }}
                             </td>
                             <td style="width: 14%; min-width: 10rem">
-                                <span class="p-column-title">Status</span>
-                                <span [class]="'customer-badge status-' + customer.status">{{ customer.status }}</span>
+                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
                             </td>
                             <td style="width: 14%; min-width: 6rem">
                                 <span class="p-column-title">Activity</span>
