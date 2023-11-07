@@ -193,8 +193,10 @@
     }
 }
 
-@media screen and (max-width: $landingBreakpointLG) {
+@media screen and (min-width: 1660px) {
     .landing-hero {
-        padding: 0 2rem;
+        width: 1504px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
