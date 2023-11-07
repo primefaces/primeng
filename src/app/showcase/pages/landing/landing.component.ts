@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -21,7 +21,7 @@ interface City {
     selector: 'landing',
     templateUrl: './landing.component.html'
 })
-export class LandingComponent implements OnInit, OnDestroy {
+export class LandingComponent implements OnInit {
     @ViewChild('containerElement') containerElement: ElementRef;
 
     @ViewChild('dt') table: Table;
@@ -114,6 +114,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     usersImages: any;
 
     private window: Window;
+
+    get landingClass() {
+        return {
+            'landing': true,
+            'layout-dark': this.config.dark,
+            'layout-light': !this.config.dark,
+            'layout-news-active': this.app.newsActive && this.app.announcement
+        }
+    }
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -236,11 +245,8 @@ export class LandingComponent implements OnInit, OnDestroy {
         ];
 
         if (isPlatformBrowser(this.platformId)) {
-            this.bindScrollListener();
             this.initDocSearch();
         }
-
-        this.bindScrollListener();
     }
 
     initDocSearch() {
@@ -279,31 +285,6 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     ngAfterViewInit() {
         this.cd.detectChanges();
-    }
-
-    ngOnDestroy() {
-        this.unbindScrollListener();
-    }
-
-    bindScrollListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.scrollListener) {
-                this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
-                    if (window.scrollY > 0) {
-                        this.containerElement.nativeElement.classList.add('landing-header-sticky');
-                    } else {
-                        this.containerElement.nativeElement.classList.remove('landing-header-sticky');
-                    }
-                });
-            }
-        }
-    }
-
-    unbindScrollListener() {
-        if (this.scrollListener) {
-            this.scrollListener();
-            this.scrollListener = null;
-        }
     }
 
     handleChange(event) {

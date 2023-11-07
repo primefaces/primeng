@@ -10,7 +10,21 @@ import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'app-main',
-    templateUrl: './app.main.component.html'
+    template: `
+    <div class="layout-wrapper" [ngClass]="containerClass">
+        <app-news *ngIf="app.newsActive && app.announcement" (onNewsHide)="app.onNewsClose()" [announcement]="app.announcement"></app-news>
+        <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
+        <app-config></app-config>
+        <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
+        <div class="layout-content">
+            <app-menu [active]="menuActive"></app-menu>
+            <div class="layout-content-slot">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+    `
 })
 export class AppMainComponent implements OnInit {
     menuActive: boolean;
@@ -22,6 +36,16 @@ export class AppMainComponent implements OnInit {
     news_key = 'primenews';
 
     public subscription: Subscription;
+    
+    get containerClass() {
+        return {
+            'layout-news-active': this.app.newsActive && this.app.announcement,
+            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-ripple-disabled': !this.config.ripple,
+            'layout-dark': this.config.dark,
+            'layout-light': !this.config.dark
+        }
+    }
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, @Inject(DOCUMENT) private document: Document, private router: Router, private configService: AppConfigService, private primengConfig: PrimeNGConfig, public app: AppComponent) {}
 

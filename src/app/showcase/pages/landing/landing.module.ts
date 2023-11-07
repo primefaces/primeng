@@ -25,6 +25,7 @@ import { LandingComponent } from './landing.component';
 import { TagModule } from 'primeng/tag';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AppTopbarModule } from '../../layout/topbar/app.topbar.module';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
         ListboxModule,
         RouterModule,
         CheckboxModule,
-        AppNewsModule
+        AppNewsModule,
+        AppTopbarModule,
     ],
     exports: [LandingComponent],
     declarations: [LandingComponent]

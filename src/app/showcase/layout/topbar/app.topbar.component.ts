@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import docsearch from '@docsearch/js';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,11 @@ import { AppConfigService } from '../../service/appconfigservice';
     ]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
+
+    @Input() showConfigurator: boolean = true;
+
+    @Input() showMenuButton: boolean = true;
+
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
@@ -107,10 +112,19 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
-        this.activeMenuIndex = null;
-        event.preventDefault();
+    onDarkModeToggle(event) {
+        let newTheme = null;
+        let {theme, dark} = this.config
+        dark = !dark;
+
+        if (!dark) {
+            newTheme = theme.replace('dark', 'light');
+        } else {
+            if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
+            else newTheme = 'lara-dark-teal'; //fallback
+        }
+
+        this.configService.changeTheme(event, newTheme, dark)
     }
 
     bindOutsideClickListener() {
