@@ -22,7 +22,7 @@
         </section>
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span [ngClass]="{ 'p-disabled': darkToggleDisabled }" class="text-xl font-semibold">Dark Mode</span>
-            <p-inputSwitch [(ngModel)]="config.dark" [disabled]="darkToggleDisabled" />
+            <p-inputSwitch [(ngModel)]="config.dark" (onChange)="onDarkModeChange($event)" [disabled]="darkToggleDisabled" />
         </section>
         <section class="py-4 border-bottom-1 surface-border">
             <div class="text-xl font-semibold mb-3">Themes</div>
