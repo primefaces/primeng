@@ -124,7 +124,7 @@ export class TableService {
             #container
             [ngStyle]="style"
             [class]="styleClass"
-            [ngClass]="{ 'p-datatable p-component': true, 'p-datatable-hoverable-rows': rowHover || selectionMode, 'p-datatable-scrollable': scrollable, 'p-datatable-flex-scrollable': scrollable && scrollHeight === 'flex' }"
+            [ngClass]="{ 'p-datatable p-component': true, 'p-datatable-hoverable-rows': rowHover || selectionMode, 'p-datatable-scrollable': scrollable, 'p-datatable-flex-scrollable': scrollable && scrollHeight === 'flex', 'p-table-rtl': rtl }"
             [attr.id]="id"
         >
             <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
@@ -798,6 +798,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     set selectAll(val: boolean | null) {
         this._selection = val;
     }
+    /**
+     * When enabled table is displayed in RTL direction.
+     * @group Props
+     */
+    @Input() rtl: boolean = false;
     /**
      * Emits when the all of the items selected or unselected.
      * @param {TableSelectAllChangeEvent} event - custom  all selection change event.
@@ -2475,7 +2480,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     onColumnResizeEnd() {
-        let delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        let delta;
+        if (this.rtl) {
+            delta = <number>this.lastResizerHelperX - this.resizeHelperViewChild?.nativeElement.offsetLeft;
+        } else {
+            delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        }
         let columnWidth = this.resizeColumnElement.offsetWidth;
         let newColumnWidth = columnWidth + delta;
         let minWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '') || 15;
