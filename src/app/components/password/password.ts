@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -10,7 +10,6 @@ import {
     DoCheck,
     ElementRef,
     EventEmitter,
-    forwardRef,
     HostListener,
     Inject,
     Input,
@@ -19,26 +18,26 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     Pipe,
     PipeTransform,
-    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { EyeIcon } from 'primeng/icons/eye';
+import { EyeSlashIcon } from 'primeng/icons/eyeslash';
+import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { TimesIcon } from 'primeng/icons/times';
-import { EyeSlashIcon } from 'primeng/icons/eyeslash';
-import { EyeIcon } from 'primeng/icons/eye';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AnimationEvent } from '@angular/animations';
 
 type Meter = {
     strength: string;
@@ -329,7 +328,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
                 #input
                 [attr.label]="label"
@@ -348,25 +347,25 @@ export const Password_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keyup)="onKeyUp($event)"
-                (keydown)="onKeyDown($event)"
                 [attr.maxlength]="maxLength"
+                [attr.data-pc-section]="'input'"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" />
-                <span (click)="clear()" class="p-password-clear-icon">
+                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" />
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" />
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -381,16 +380,17 @@ export const Password_VALUE_ACCESSOR: any = {
                 [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 (@overlayAnimation.start)="onAnimationStart($event)"
                 (@overlayAnimation.done)="onAnimationEnd($event)"
+                [attr.data-pc-section]="'panel'"
             >
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate; else content">
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </ng-container>
                 <ng-template #content>
-                    <div class="p-password-meter">
-                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }"></div>
+                    <div class="p-password-meter" [attr.data-pc-section]="'meter'">
+                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
                     </div>
-                    <div class="p-password-info">{{ infoText }}</div>
+                    <div className="p-password-info" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -712,16 +712,16 @@ export class Password implements AfterContentInit, OnInit {
         this.onBlur.emit(event);
     }
 
-    onKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-            this.overlayVisible = false;
-        }
-    }
-
-    onKeyUp(event: Event) {
+    onKeyUp(event: KeyboardEvent) {
         if (this.feedback) {
             let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
+
+            if (event.code === 'Escape') {
+                this.overlayVisible && (this.overlayVisible = false);
+
+                return;
+            }
 
             if (!this.overlayVisible) {
                 this.overlayVisible = true;

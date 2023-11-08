@@ -14,33 +14,33 @@ interface Column {
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="caption">
-                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns"></p-multiSelect>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th>Code</th>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-columns="columns">
-                    <tr>
-                        <td>{{ product.code }}</td>
-                        <td *ngFor="let col of columns">
-                            {{ product[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
+        <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns"></p-multiSelect>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>Code</th>
+                <th *ngFor="let col of columns">
+                    {{ col.header }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-columns="columns">
+            <tr>
+                <td>{{ product.code }}</td>
+                <td *ngFor="let col of columns">
+                    {{ product[col.field] }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
         </div>
         <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnToggleDoc implements OnInit {
+export class ColumnToggleDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -49,7 +49,7 @@ export class ColumnToggleDoc implements OnInit {
 
     cols!: Column[];
 
-    _selectedColumns!: Column[];
+    selectedColumns!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -65,16 +65,7 @@ export class ColumnToggleDoc implements OnInit {
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this._selectedColumns = this.cols;
-    }
-
-    @Input() get selectedColumns(): any[] {
-        return this._selectedColumns;
-    }
-
-    set selectedColumns(val: any[]) {
-        //restore original order
-        this._selectedColumns = this.cols.filter((col) => val.includes(col));
+        this.selectedColumns = this.cols;
     }
 
     code: Code = {
@@ -145,13 +136,14 @@ export class TableColumnToggleDemo implements OnInit{
 
     cols!: Column[];
 
-    _selectedColumns!: Column[];
+    selectedColumns!: Column[];
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
+            this.cd.markForCheck();
         });
 
         this.cols = [
@@ -160,17 +152,9 @@ export class TableColumnToggleDemo implements OnInit{
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this._selectedColumns = this.cols;
+        this.selectedColumns = this.cols;
     }
 
-    @Input() get selectedColumns(): any[] {
-        return this._selectedColumns;
-    }
-
-    set selectedColumns(val: any[]) {
-        //restore original order
-        this._selectedColumns = this.cols.filter((col) => val.includes(col));
-    } 
 }`,
         data: `{
     id: '1000',

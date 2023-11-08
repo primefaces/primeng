@@ -10,6 +10,7 @@ import { InvalidDoc } from '../../doc/listbox/invaliddoc';
 import { MultipleDoc } from '../../doc/listbox/multipledoc';
 import { StyleDoc } from '../../doc/listbox/styledoc';
 import { TemplateDoc } from '../../doc/listbox/templatedoc';
+import { VirtualScrollDoc } from '../../doc/listbox/virtualscrolldoc';
 
 @Component({
     templateUrl: './listboxdemo.html'
@@ -60,6 +61,11 @@ export class ListboxDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'virtualscroll',
+            label: 'Virtual Scroll',
+            component: VirtualScrollDoc
         },
         {
             id: 'style',

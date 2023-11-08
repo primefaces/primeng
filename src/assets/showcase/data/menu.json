@@ -447,8 +447,8 @@
                             "routerLink": "/autofocus"
                         },
                         {
-                            "name": "Animate",
-                            "routerLink": "/animate"
+                            "name": "AnimateOnScroll",
+                            "routerLink": "/animateonscroll"
                         }
                     ]
                 },
