@@ -207,6 +207,9 @@ export class SelectButton implements ControlValueAccessor {
             if (selected) newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
+            if (selected && !this.allowEmpty) {
+                return;
+            }
             newValue = selected ? null : optionValue;
         }
 
