@@ -80,6 +80,7 @@ import { StylingDoc } from './stylingdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
+import { ColumnResizeRtlDoc } from './columnResizeRtlDoc';
 
 @NgModule({
     imports: [
@@ -123,6 +124,7 @@ import { PaginatorLocaleDoc } from './paginatorlocaledoc';
         ColumnResizeExpandModeDoc,
         ColumnResizeScrollableModeDoc,
         ColumnResizeFitModeDoc,
+        ColumnResizeRtlDoc,
         ColumnSelectionDoc,
         ColumnToggleDoc,
         ContextMenuDoc,
