@@ -28,6 +28,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
+    compactMaterial: boolean = false;
+
+    lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
+
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
@@ -43,6 +47,23 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
         if (this.config.theme === 'nano') this.scale = 12;
      
+    }
+
+    isThemeActive(theme: string, color: string) {
+        let themeName;
+        let themePrefix = this.compactMaterial ? 'mdc' : theme;
+
+        if (this.lightOnlyThemes.includes(themePrefix)) {
+            themeName = themePrefix;
+        } else {
+            themeName = themePrefix + (this.config.dark ? '-dark' : '-light');
+        }
+
+        if (color) {
+            themeName += '-' + color;
+        }
+
+        return this.config.theme === themeName;
     }
 
     hideConfigurator() {

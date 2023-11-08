@@ -2,7 +2,7 @@
     <div class="p-2">
         <section class="pb-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Scale</span>
-            <div class="flex align-items-center gap-2 border-1 surface-border py-1 px-2">
+            <div class="flex align-items-center gap-2 border-1 surface-border py-1 px-2" style="border-radius: 30px">
                 <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem " [disabled]="scale === scales[0]"></button>
                 <div class="flex gap-2 align-items-center">
                     <i class="pi pi-circle-fill text-sm text-200" *ngFor="let s of scales" [ngClass]="{'text-lg text-primary': s === scale}"></i>
@@ -29,7 +29,12 @@
                     <span class="font-medium">Lara</span>
                 </div>
                 <div class="flex align-items-center justify-content-between gap-3">
-                    <button class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200" (click)="changeTheme($event, 'lara-light-teal', false)">
+                    <button
+                        [ngClass]="{'border-primary': isThemeActive('lara', 'teal'), 'hover:border-500 surface-border': !isThemeActive('lara', 'teal')}"
+                        class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200" 
+                        style="border-radius: 30px;"
+                        (click)="changeTheme($event, 'lara-light-teal', false)"
+                    >
                         <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #4dac9c 0%, rgba(77, 172, 156, 0.5) 100%)"></span>
                     </button>
 
