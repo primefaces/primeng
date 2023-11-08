@@ -19,12 +19,13 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
-        <div [ngStyle]="style" 
-              [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" 
-              [class]="styleClass" 
-              (click)="onClick($event, input)"
-              [attr.data-pc-name]="'tristatecheckbox'"
-              [attr.data-pc-section]="'root'"
+        <div
+            [ngStyle]="style"
+            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }"
+            [class]="styleClass"
+            (click)="onClick($event, input)"
+            [attr.data-pc-name]="'tristatecheckbox'"
+            [attr.data-pc-section]="'root'"
         >
             <div class="p-hidden-accessible">
                 <input
