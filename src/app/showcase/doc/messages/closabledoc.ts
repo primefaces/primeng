@@ -34,7 +34,7 @@ export class ClosableDoc implements OnInit {
         ];
 
         this.messages2 = [
-            { severity: 'warn', summary: 'Waning', detail: 'Closable Message Content' },
+            { severity: 'warn', summary: 'Warning', detail: 'Closable Message Content' },
             { severity: 'error', summary: 'Error', detail: 'Closable Message Content' }
         ];
     }
