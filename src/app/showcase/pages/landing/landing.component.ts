@@ -143,6 +143,9 @@ export class LandingComponent implements OnInit {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
         this.config = this.configService.config;
+        this.configService.configUpdate$.subscribe(config => {
+            this.config = config
+        })
         this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
         this.configService.updateConfig({ ...this.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue' } });
 
