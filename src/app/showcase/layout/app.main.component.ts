@@ -17,7 +17,7 @@ import { DomHandler } from 'primeng/dom';
         <app-config></app-config>
         <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
         <div class="layout-content">
-            <app-menu class="layout-sidebar" [active]="menuActive"></app-menu>
+            <app-menu [active]="menuActive"></app-menu>
             <div class="layout-content-slot">
                 <router-outlet></router-outlet>
             </div>

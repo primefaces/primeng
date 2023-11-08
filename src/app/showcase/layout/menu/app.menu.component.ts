@@ -17,13 +17,17 @@ export interface MenuItem {
 
 @Component({
     selector: 'app-menu',
-    template: ` <aside  [ngClass]="{ active: active }">
+    template: ` <aside>
         <nav>
             <ol class="layout-menu">
                 <li *ngFor="let item of menu; let i = index" app-menuitem [item]="item" [root]="true"></li>
             </ol>
         </nav>
-    </aside>`
+    </aside>`,
+    host: {
+        class: 'layout-sidebar',
+        '[class.active]': 'active',
+    }
 })
 export class AppMenuComponent {
     @Input() active: boolean;
