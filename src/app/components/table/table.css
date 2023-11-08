@@ -251,4 +251,13 @@
         top: 0;
         left: 0;
     }
+
+    /* RTL */
+    .p-datatable.p-table-rtl .p-datatable-thead > tr > th {
+        text-align: right !important;
+    }
+      
+    .p-datatable.p-table-rtl .p-datatable-tbody > tr > td {
+        text-align: right !important;
+    }
 }
