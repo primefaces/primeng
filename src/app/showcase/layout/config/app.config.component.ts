@@ -32,6 +32,10 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
 
+    get darkToggleDisabled() {
+        return this.lightOnlyThemes.includes(this.config.theme);
+    }
+
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
 
     ngOnInit() {
@@ -47,18 +51,17 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
         if (this.config.theme === 'nano') this.scale = 12;
     }
-    get darkToggleDisabled() {
-        return this.lightOnlyThemes.includes(this.config.theme);
-    }
 
-    onCompactMaterialChange() {
-        // this.compactMaterial = value;
-
-        // if (this.config.theme.startsWith('md')) {
-        //     let tokens = this.config.theme.split('-');
-
-        //     // this.changeTheme(tokens[0].substring(0, 2), tokens[2], '');
-        // }
+    onCompactMaterialChange(event) {
+        let theme;
+        if(this.config.theme.startsWith('md')) {
+            theme = this.config.theme.replace('md', 'mdc');
+        } 
+        if(this.config.theme.startsWith('mdc')) {
+            theme = this.config.theme.replace('mdc', 'md');
+            
+        }
+        this.changeTheme(event, theme, false);
     }
 
     isThemeActive(theme: string, color: string) {
@@ -95,6 +98,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
+        console.log(event, theme, dark)
         this.configService.changeTheme(event, theme, dark);
     }
 

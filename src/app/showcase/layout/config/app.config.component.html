@@ -72,7 +72,7 @@
                 <span class="font-medium">Material Design</span>
                 <div class="ml-auto flex align-items-center gap-2">
                     <label for="material-condensed" class="text-sm">Condensed</label>
-                    <p-inputSwitch inputId="material-condensed" [(ngModel)]="compactMaterial" (onChange)="onCompactMaterialChange()" class="ml-auto" />
+                    <p-inputSwitch inputId="material-condensed" [(ngModel)]="compactMaterial" (onChange)="onCompactMaterialChange($event)" class="ml-auto" />
                 </div>
             </div>
             <div class="flex align-items-center justify-content-between gap-3">
