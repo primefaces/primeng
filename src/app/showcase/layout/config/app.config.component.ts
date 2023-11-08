@@ -12,7 +12,10 @@ import { AppConfigService } from '../../service/appconfigservice';
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
     scale: number = 14;
-
+    inputStyles = [
+        { label: 'Outlined', value: 'outlined' },
+        { label: 'Filled', value: 'filled' }
+    ]
     scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: VoidFunction | null;
@@ -39,6 +42,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         });
 
         if (this.config.theme === 'nano') this.scale = 12;
+     
     }
 
     hideConfigurator() {

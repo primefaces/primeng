@@ -1,39 +1,41 @@
 <p-sidebar [(visible)]="active" position="right" styleClass="layout-config w-full sm:w-30rem layout-config" (onHide)="hideConfigurator()">
     <div class="p-2">
-        <section class="mb-5">
-            <h3>Component Scale</h3>
-            <div class="flex align-items-center">
-                <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" [disabled]="scale === scales[0]"></button>
+        <section class="pb-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Scale</span>
+            <div class="flex align-items-center gap-2 border-1 surface-border py-1 px-2">
+                <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem " [disabled]="scale === scales[0]"></button>
                 <div class="flex gap-2 align-items-center">
-                    <i class="pi pi-circle-fill text-300" *ngFor="let s of scales" [ngClass]="{'text-primary-500 text-xl': s === scale}"></i>
+                    <i class="pi pi-circle-fill text-sm text-200" *ngFor="let s of scales" [ngClass]="{'text-lg text-primary': s === scale}"></i>
                 </div>
-                <button icon="pi pi-plus" type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
+                <button icon="pi pi-plus" type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem " [disabled]="scale === scales[scales.length - 1]"></button>
             </div>
         </section>
 
-        <section class="mb-5">
-            <h3>Input Style</h3>
-            <div class="flex gap-5">
-                <div class="flex align-items-center gap-2">
-                    <p-radioButton name="inputstyle" value="outlined" [(ngModel)]="config.inputStyle" (onClick)="onInputStyleChange()" inputId="input_outlined"></p-radioButton>
-                    <label for="input_outlined">Outlined</label>
-                </div>
-                <div class="flex align-items-center gap-2">
-                    <p-radioButton name="inputstyle" value="filled" [(ngModel)]="config.inputStyle" (onClick)="onInputStyleChange()" inputId="input_filled"></p-radioButton>
-                    <label for="input_filled">Filled</label>
-                </div>
-            </div>
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Input Style</span>
+            <p-selectButton [options]="inputStyles" [(ngModel)]="config.inputStyle" optionLabel="label" optionValue="value" allowEmpty="false"></p-selectButton>
+            
         </section>
 
-        <section class="mb-5">
-            <h3>Ripple Effect</h3>
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Ripple Effect</span>
             <p-inputSwitch [(ngModel)]="config.ripple" (onChange)="onRippleChange()"></p-inputSwitch>
         </section>
 
-        <section>
-            <h3>Themes</h3>
-            <h4>Bootstrap</h4>
-            <div class="grid">
+        <section class="py-4 border-bottom-1 surface-border">
+            <div class="text-xl font-semibold mb-3">Themes</div>
+            <div class="flex align-items-center gap-2 mb-3">
+                    <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-teal.png" alt="Lara Light Teal" class="border-circle" style="width: 1.5rem" />
+                    <span class="font-medium">Lara</span>
+                </div>
+                <div class="flex align-items-center justify-content-between gap-3">
+                    <button class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200" (click)="changeTheme($event, 'lara-light-teal', false)">
+                        <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #4dac9c 0%, rgba(77, 172, 156, 0.5) 100%)"></span>
+                    </button>
+
+                </div>
+
+                
                 <div class="col-3 flex flex-column align-items-center gap-2">
                     <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
                         <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap Light Blue" class="w-3rem border-round" />
@@ -58,7 +60,7 @@
                     </button>
                     <span class="white-space-nowrap">Purple</span>
                 </div>
-            </div>
+          
 
             <h4>Material Design</h4>
             <div class="grid">
