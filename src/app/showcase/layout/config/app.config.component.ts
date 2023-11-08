@@ -15,7 +15,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     inputStyles = [
         { label: 'Outlined', value: 'outlined' },
         { label: 'Filled', value: 'filled' }
-    ]
+    ];
     scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: VoidFunction | null;
@@ -46,7 +46,19 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         });
 
         if (this.config.theme === 'nano') this.scale = 12;
-     
+    }
+    get darkToggleDisabled() {
+        return this.lightOnlyThemes.includes(this.config.theme);
+    }
+
+    onCompactMaterialChange() {
+        // this.compactMaterial = value;
+
+        // if (this.config.theme.startsWith('md')) {
+        //     let tokens = this.config.theme.split('-');
+
+        //     // this.changeTheme(tokens[0].substring(0, 2), tokens[2], '');
+        // }
     }
 
     isThemeActive(theme: string, color: string) {
@@ -83,7 +95,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        this.configService.changeTheme(event, theme, dark)
+        this.configService.changeTheme(event, theme, dark);
     }
 
     onInputStyleChange() {
