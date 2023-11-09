@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'max-values-doc',
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Chips can have a maximum number of entered items. In order to set the limit <i>max</i> property is used and accepts a numeric value which reflects the maximum number of items in the chip list</p>
+            <p>Chips can have a maximum number of entered items. To set this limit, the <i>max</i> property is used, which accepts a numeric value that represents the maximum number of items in the chip list</p>
         </app-docsectiontext>
         <div class="card p-fluid">
             <p-chips [formControl]="values" [max]="2" placeholder="Maximum 2 items"></p-chips>
