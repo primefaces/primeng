@@ -4941,6 +4941,13 @@
                             "description": "Placeholder text for the input."
                         },
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes a string value that labels the component."
+                        },
+                        {
                             "name": "ariaLabelledBy",
                             "optional": false,
                             "readonly": false,

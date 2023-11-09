@@ -241,8 +241,8 @@ export class AccessibilityDoc {
 <p-calendar inputId="date1"></p-calendar>
 
 <span id="date2">Date</span>
-<p-calendar aria-labelledby="date2"></p-calendar>
+<p-calendar ariaLabelledBy="date2"></p-calendar>
 
-<p-calendar aria-label="Date"></p-calendar>`
+<p-calendar ariaLabel="Date"></p-calendar>`
     };
 }
