@@ -19,7 +19,7 @@ import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.int
                 <div
                     *ngIf="i !== panels.length - 1"
                     class="p-splitter-gutter"
-                    role="seperator"
+                    role="separator"
                     tabindex="-1"
                     (mousedown)="onGutterMouseDown($event, i)"
                     (touchstart)="onGutterTouchStart($event, i)"
@@ -548,4 +548,4 @@ export class Splitter {
     exports: [Splitter, SharedModule],
     declarations: [Splitter]
 })
-export class SplitterModule {}
+export class SplitterModule { }

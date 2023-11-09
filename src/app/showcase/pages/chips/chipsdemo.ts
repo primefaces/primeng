@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from '../../doc/chips/importdoc';
 import { BasicDoc } from '../../doc/chips/basicdoc';
-import { CommaSeperatorDoc } from '../../doc/chips/commaseperator.doc';
-import { RegexpSeperatorDoc } from '../../doc/chips/regexpseperator.doc';
+import { CommaSeparatorDoc } from '../../doc/chips/commaseparator.doc';
+import { RegexpSeparatorDoc } from '../../doc/chips/regexpseparator.doc';
 import { TemplateDoc } from '../../doc/chips/templatedoc';
 import { StyleDoc } from '../../doc/chips/styledoc';
 import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
@@ -29,14 +29,14 @@ export class ChipsDemo {
             component: ReactiveFormsDoc
         },
         {
-            id: 'commaseperator',
-            label: 'Comma Seperator',
-            component: CommaSeperatorDoc
+            id: 'commaseparator',
+            label: 'Comma Separator',
+            component: CommaSeparatorDoc
         },
         {
-            id: 'regexpseperator',
-            label: 'RegExp Seperator',
-            component: RegexpSeperatorDoc
+            id: 'regexpseparator',
+            label: 'RegExp Separator',
+            component: RegexpSeparatorDoc
         },
         {
             id: 'template',
