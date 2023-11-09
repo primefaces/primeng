@@ -10,7 +10,7 @@ import { ButtonModule } from '../button/button';
     template: `<p-menu #menu></p-menu>
         <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button> `
 })
-class TestMenuComponent { }
+class TestMenuComponent {}
 
 describe('Menu', () => {
     let menu: Menu;

@@ -548,4 +548,4 @@ export class Splitter {
     exports: [Splitter, SharedModule],
     declarations: [Splitter]
 })
-export class SplitterModule { }
+export class SplitterModule {}
