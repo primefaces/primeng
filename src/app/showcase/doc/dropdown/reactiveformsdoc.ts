@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name"></p-dropdown>
+                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" [autoDisplayFirst]="false"></p-dropdown>
             </form>
         </div>
         <app-code [code]="code" selector="dropdown-reactive-forms-demo"></app-code>
@@ -47,13 +47,13 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `
 <form [formGroup]="formGroup">
-    <p-dropdown formControlName="city" [options]="cities" optionLabel="name"></p-dropdown>
+    <p-dropdown formControlName="city" [options]="cities" optionLabel="name" [autoDisplayFirst]="false"></p-dropdown>
 </form>`,
 
         html: `
 <div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-dropdown formControlName="city" [options]="cities" optionLabel="name"></p-dropdown>
+        <p-dropdown formControlName="city" [options]="cities" optionLabel="name" [autoDisplayFirst]="false"></p-dropdown>
     </form>
 </div>`,
 
