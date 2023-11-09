@@ -2943,7 +2943,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.blockBodyScroll();
+            DomHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
