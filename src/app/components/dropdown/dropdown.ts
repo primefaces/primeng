@@ -903,8 +903,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         let selectedOptionIndex;
-        this.autoDisplayFirst ? (!this.modelValue() ? (selectedOptionIndex = -1) : (selectedOptionIndex = this.findFirstOptionIndex())) : (selectedOptionIndex = this.findSelectedOptionIndex());
-        return this.modelValue() ? this.getOptionLabel(this.modelValue()) : selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        this.autoDisplayFirst && !this.modelValue() ?  (selectedOptionIndex = this.findFirstOptionIndex()) : (selectedOptionIndex = this.findSelectedOptionIndex());
+        return  selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.modelValue() || this.placeholder || 'p-emptylabel';
     });
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
