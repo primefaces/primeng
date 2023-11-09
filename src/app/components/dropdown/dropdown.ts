@@ -133,7 +133,7 @@ export class DropdownItem {
                 [attr.aria-disabled]="disabled"
                 [attr.id]="inputId"
                 role="combobox"
-                [attr.aria-label]="ariaLabel"
+                [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-haspopup]="'listbox'"
                 [attr.aria-expanded]="overlayVisible"
