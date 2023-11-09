@@ -255,9 +255,18 @@
     /* RTL */
     .p-datatable.p-table-rtl .p-datatable-thead > tr > th {
         text-align: right !important;
+        border-width: 1px 1px 1px 0px;
     }
       
-    .p-datatable.p-table-rtl .p-datatable-tbody > tr > td {
+    .p-datatable.p-datatable-gridlines.p-table-rtl .p-datatable-tbody > tr > td {
         text-align: right !important;
     }
+    .p-datatable.p-table-rtl.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+        border-width: 0 1px 1px 0px;
+    }
+
+    .p-datatable.p-table-rtl.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td:last-child {
+        border-width: 0 1px 1px 1px;
+    }
+
 }
