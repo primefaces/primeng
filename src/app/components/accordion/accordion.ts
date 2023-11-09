@@ -91,13 +91,15 @@ import { UniqueComponentId } from 'primeng/utils';
             state(
                 'hidden',
                 style({
-                    height: '0'
+                    height: '0',
+                    visibility: 'hidden'
                 })
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
+                    height: '*',
+                    visibility: 'visible'
                 })
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
@@ -422,7 +424,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      */
     @Output() activeIndexChange: EventEmitter<number | number[]> = new EventEmitter<number | number[]>();
 
-    @ContentChildren(AccordionTab, {descendants: true}) tabList: QueryList<AccordionTab> | undefined;
+    @ContentChildren(AccordionTab, { descendants: true }) tabList: QueryList<AccordionTab> | undefined;
 
     tabListSubscription: Subscription | null = null;
 

@@ -4,7 +4,10 @@ import { Component, Input } from '@angular/core';
     selector: 'accessibility-doc',
     template: ` <div>
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Refer to <a href="/inputtext">InputText</a> for accessibility as KeyFilter is a built-in add-on of the InputText.</p>
+            <h3>Screen Reader</h3>
+            <p>AnimateOnScroll does not require any roles and attributes.</p>
+            <h3>Keyboard Support</h3>
+            <p>Component does not include any interactive elements.</p>
         </app-docsectiontext>
     </div>`
 })

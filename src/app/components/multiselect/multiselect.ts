@@ -1043,7 +1043,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         } else {
             label = this.placeholder || this.defaultLabel || '';
         }
-
         return label;
     });
 
@@ -1284,7 +1283,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel && option.optionGroup && option.group;
+        return (this.group || this.optionGroupLabel) && option.optionGroup && option.group;
     }
 
     isValidOption(option) {
@@ -1330,9 +1329,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     getLabelByValue(value) {
-        const options = this.optionGroupLabel ? this.flatOptions(this._options()) : this._options() || [];
+        const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
         const matchedOption = options.find((option) => !this.isOptionGroup(option) && ObjectUtils.equals(this.getOptionValue(option), value, this.equalityKey()));
-
         return matchedOption ? this.getOptionLabel(matchedOption) : null;
     }
 
@@ -1623,14 +1621,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
-
         if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
+            event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
-
+        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
         this.onClick.emit(event);
         this.cd.detectChanges();
     }
@@ -1775,7 +1772,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     writeValue(value: any): void {
-        this.value = this.modelValue();
+        this.value = value;
+        this.modelValue.set(this.value);
         this.updateModel(this.value);
         this.checkSelectionLimit();
 

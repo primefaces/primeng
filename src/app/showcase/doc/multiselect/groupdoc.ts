@@ -11,9 +11,7 @@ interface City {
     selector: 'group-doc',
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>
-                Options can be grouped when a nested data structures is provided.
-            </p>
+            <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">

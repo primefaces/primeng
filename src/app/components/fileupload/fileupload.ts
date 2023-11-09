@@ -121,7 +121,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
                 [ngStyle]="style"
                 [class]="styleClass"
-                (mouseup)="onBasicUploaderClick()"
+                (click)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
                 tabindex="0"
                 pRipple

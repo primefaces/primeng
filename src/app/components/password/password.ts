@@ -717,13 +717,13 @@ export class Password implements AfterContentInit, OnInit {
             let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
 
-            if(event.code === 'Escape') {
+            if (event.code === 'Escape') {
                 this.overlayVisible && (this.overlayVisible = false);
 
                 return;
             }
 
-            if(!this.overlayVisible) {
+            if (!this.overlayVisible) {
                 this.overlayVisible = true;
             }
         }

@@ -731,7 +731,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.lastPageX = event.pageX;
                 this.container.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                this.container.style.top = `${leftPos}px`;
+                this.container.style.top = `${topPos}px`;
             }
         }
     }

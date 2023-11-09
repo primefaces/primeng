@@ -321,12 +321,16 @@ export class LandingComponent implements OnInit, OnDestroy {
     }
 
     changeFont() {
-        this.editor.nativeElement.style.setProperty('--dd-font', this.selectedFont);
+        if (isPlatformBrowser(this.platformId)) {
+            this.editor?.nativeElement.style.setProperty('--dd-font', this.selectedFont);
+        }
     }
 
     changeDesignerTheme(color, darker) {
-        this.editor.nativeElement.style.setProperty('--dd-primary', color);
-        this.editor.nativeElement.style.setProperty('--dd-primary-darker', darker);
+        if (isPlatformBrowser(this.platformId)) {
+            this.editor?.nativeElement.style.setProperty('--dd-primary', color);
+            this.editor?.nativeElement.style.setProperty('--dd-primary-darker', darker);
+        }
     }
 
     onActivityChange(event) {
