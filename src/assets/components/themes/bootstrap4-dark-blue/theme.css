@@ -455,6 +455,13 @@
     border-color: #f19ea6;
   }
 
+  .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #e3f3fe;
+    border-color: #8dd0ff;
+  }
+
   .p-datepicker {
     padding: 0;
     background: #2a323d;
