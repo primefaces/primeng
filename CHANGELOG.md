@@ -1,5 +1,14 @@
 # Changelog
 
+## [16.4.2](https://github.com/primefaces/primeng/tree/16.4.2) (2023-11-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.4.2)
+
+**Fixed bugs:**
+
+- TreeTable | Global filter to search tree-table is not returning all the relevant results [\#14082](https://github.com/primefaces/primeng/issues/14082)
+- Dropdown | FocusTrap doesn't allow user to tab on next element [\#14083](https://github.com/primefaces/primeng/issues/14083)
+
 ## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)
