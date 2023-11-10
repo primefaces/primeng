@@ -120,7 +120,7 @@ export class DropdownItem {
                     (blur)="onInputBlur($event)"
                     (keydown)="onKeydown($event, true)"
                     [disabled]="disabled"
-                    [attr.tabindex]="tabindex"
+                    [attr.tabindex]="!disabled ? tabindex : -1"
                     pAutoFocus
                     [autofocus]="autofocus"
                     [attr.aria-activedescendant]="overlayVisible ? labelId : null"
@@ -357,7 +357,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input() tabindex: number | undefined = 0;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -1214,9 +1214,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             return;
         }
 
-        switch (event.which) {
-            //down
-            case 40:
+        switch (event.code) {
+            case 'ArrowDown':
                 if (!this.overlayVisible && event.altKey) {
                     this.show();
                 } else {
@@ -1251,8 +1250,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 break;
 
-            //up
-            case 38:
+            case 'ArrowUp':
                 if (this.group) {
                     let selectedItemIndex = this.selectedOption ? this.findOptionGroupIndex(this.getOptionValue(this.selectedOption), this.optionsToDisplay) : -1;
                     if (selectedItemIndex !== -1) {
@@ -1280,8 +1278,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 event.preventDefault();
                 break;
 
-            //space
-            case 32:
+            case 'Space':
                 if (search) {
                     if (!this.overlayVisible) {
                         this.show();
@@ -1293,8 +1290,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 }
                 break;
 
-            //enter
-            case 13:
+            case 'Enter':
                 if (this.overlayVisible && (!this.filter || (this.optionsToDisplay && this.optionsToDisplay.length > 0))) {
                     this.hide();
                 } else if (!this.overlayVisible) {
@@ -1304,11 +1300,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 event.preventDefault();
                 break;
 
-            //escape and tab
-            case 27:
-            case 9:
-                this.hide();
+            case 'Escape':
+                this.overlayVisible && this.hide();
                 event.preventDefault();
+                break;
+
+            case 'Tab':
+                this.onTabKey();
                 break;
 
             //search item based on keyboard input
@@ -1318,6 +1316,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 }
                 break;
         }
+    }
+
+    onTabKey() {
+        this.overlayVisible && this.hide();
     }
 
     search(event: KeyboardEvent) {
