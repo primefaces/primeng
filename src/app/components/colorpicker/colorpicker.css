@@ -17,6 +17,76 @@
         height: 166px;
     }
 
+    .picker-inputs {
+        margin-bottom: 10px;
+    }
+
+    .picker-inputs input {
+        outline: none;
+        border-radius: 3px;
+        border: none;
+        width: 100%;
+        font-size: .93rem;
+        padding: 6px;
+    }
+
+    .picker-inputs-multiple {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .picker-inputs-multiple input{
+        width: 50px;
+    }
+
+    .picker-inputs-area{
+        position: absolute;
+        top: 170px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .picker-select {
+        width: 100%;
+        padding: 6px;
+        padding-left: 0;
+        border-radius: 3px;
+        border: none;
+        outline: none;
+        margin-bottom: 10px;
+        font-family: var(--font-family);
+        font-feature-settings: var(--font-feature-settings, normal);
+        font-size: .93rem;
+        color: #495057;
+        border: 1px solid #383838;
+        border-radius: 3px;
+    }
+
+    .picker-inputs-btns {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .picker-inputs-btns button {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 8px;
+        padding-right: 8px;
+        background: #fff;
+        color: #495057;
+        border: 1px solid #ced4da;
+        font-size: .93rem;
+    }
+
+    .picker-inputs-btns button:nth-child(2){
+        margin-left: 5px;
+    }
+
     .p-colorpicker-overlay-panel {
         position: absolute;
         top: 0;
