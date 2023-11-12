@@ -348,6 +348,33 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     <button type="button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton pRipple [ngClass]="[todayButtonStyleClass]"></button>
                     <button type="button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton pRipple [ngClass]="[clearButtonStyleClass]"></button>
                 </div>
+                <div class="p-calendar-buttontopborder">
+                    <div class="p-calendar-labelsection">
+                        <p>weeks</p>
+                        <button type="button" (click)="onSkipToday()" class="p-calendar-todaybutton">TODAY</button>
+                        <p>months</p>
+                    </div>
+                    <div class="p-calendar-buttonwrapper">
+                        <button type="button" (click)="onSkipAhead(1, 'week')" class="p-button">+1</button>
+                        <button type="button" (click)="onSkipAhead(2, 'week')" class="p-button">+2</button>
+                        <button type="button" (click)="onSkipAhead(3, 'week')" class="p-button">+3</button>
+                        <button type="button" (click)="onSkipAhead(4, 'week')" class="p-button" id="p-calendar-4weekbutton" >+4</button>
+                        <button type="button" (click)="onSkipAhead(1, 'month')" class="p-button" id="p-calendar-1monthbutton">+1</button>
+                        <button type="button" (click)="onSkipAhead(2, 'month')" class="p-button">+2</button>
+                        <button type="button" (click)="onSkipAhead(3, 'month')" class="p-button">+3</button>
+                        <button type="button" (click)="onSkipAhead(4, 'month')" class="p-button">+4</button>
+                    </div>
+                    <div class="p-calendar-buttonwrapper">
+                        <button type="button" (click)="onSkipAhead(-1, 'week')" class="p-button p-button-shortcutminus">-1</button>
+                        <button type="button" (click)="onSkipAhead(-2, 'week')" class="p-button p-button-shortcutminus">-2</button>
+                        <button type="button" (click)="onSkipAhead(-3, 'week')" class="p-button p-button-shortcutminus">-3</button>
+                        <button type="button" (click)="onSkipAhead(-4, 'week')" class="p-button p-button-shortcutminus" id="p-calendar-4weekbutton" >-4</button>
+                        <button type="button" (click)="onSkipAhead(-1, 'month')" class="p-button p-button-shortcutminus" id="p-calendar-1monthbutton">-1</button>
+                        <button type="button" (click)="onSkipAhead(-2, 'month')" class="p-button p-button-shortcutminus">-2</button>
+                        <button type="button" (click)="onSkipAhead(-3, 'month')" class="p-button p-button-shortcutminus">-3</button>
+                        <button type="button" (click)="onSkipAhead(-4, 'month')" class="p-button p-button-shortcutminus">-4</button>
+                    </div>
+                </div>
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -2647,7 +2674,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             date = new Date();
             this.populateTime(date, parts[0], parts[1]);
         } else {
-            const dateFormat = this.getDateFormat();
+            const dateFormat = this.parseDateFormat(text);
             if (this.showTime) {
                 let ampm = this.hourFormat == '12' ? parts.pop() : null;
                 let timeString = parts.pop();
@@ -2660,6 +2687,46 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         return date;
+    }
+
+    parseDateFormat(inputDate: string): string {
+        const dateFormatRegex = [
+            { format: 'mm-dd-yy', regex: /^(\d{2})-(\d{2})-(\d{4})$/ },
+            { format: 'mm-dd-y', regex: /^(\d{2})-(\d{2})-(\d{2})$/ },
+            { format: 'mm-d-yy', regex: /^(\d{2})-(\d{1})-(\d{4})$/ },
+            { format: 'mm-d-y', regex: /^(\d{2})-(\d{1})-(\d{2})$/ },
+            { format: 'm-dd-yy', regex: /^(\d{1})-(\d{2})-(\d{4})$/ },
+            { format: 'm-dd-y', regex: /^(\d{1})-(\d{2})-(\d{2})$/ },
+            { format: 'm-d-yy', regex: /^(\d{1})-(\d{1})-(\d{4})$/ },
+            { format: 'm-d-y', regex: /^(\d{1})-(\d{1})-(\d{2})$/ },
+            { format: 'mm/dd/yy', regex: /^(\d{2})\/(\d{2})\/(\d{4})$/ },
+            { format: 'mm/dd/y', regex: /^(\d{2})\/(\d{2})\/(\d{2})$/ },
+            { format: 'mm/d/yy', regex: /^(\d{2})\/(\d{1})\/(\d{4})$/ },
+            { format: 'mm/d/y', regex: /^(\d{2})\/(\d{1})\/(\d{2})$/ },
+            { format: 'm/dd/yy', regex: /^(\d{1})\/(\d{2})\/(\d{4})$/ },
+            { format: 'm/dd/y', regex: /^(\d{1})\/(\d{2})\/(\d{2})$/ },
+            { format: 'm/d/yy', regex: /^(\d{1})\/(\d{1})\/(\d{4})$/ },
+            { format: 'm/d/y', regex: /^(\d{1})\/(\d{1})\/(\d{2})$/ },
+            { format: 'dd.mm.yy', regex: /^(\d{2})\.(\d{2})\.(\d{4})$/ },
+            { format: 'dd.mm.y', regex: /^(\d{2})\.(\d{2})\.(\d{2})$/ },
+            { format: 'dd.m.yy', regex: /^(\d{2})\.(\d{1})\.(\d{4})$/ },
+            { format: 'dd.m.y', regex: /^(\d{2})\.(\d{1})\.(\d{2})$/ },
+            { format: 'd.mm.yy', regex: /^(\d{1})\.(\d{2})\.(\d{4})$/ },
+            { format: 'd.mm.y', regex: /^(\d{1})\.(\d{2})\.(\d{2})$/ },
+            { format: 'd.m.yy', regex: /^(\d{1})\.(\d{1})\.(\d{4})$/ },
+            { format: 'd.m.y', regex: /^(\d{1})\.(\d{1})\.(\d{2})$/ },
+            { format: 'ddmmyy', regex: /^(\d{2})(\d{2})(\d{4})$/ },
+            { format: 'ddmmy', regex: /^(\d{2})(\d{2})(\d{2})$/ }
+        ];
+    
+        for (const format of dateFormatRegex) {
+            const match = inputDate.match(format.regex);
+            if (match) {
+                return format.format;
+            }
+        }
+    
+        return 'Invalid date format';
     }
 
     populateTime(value: any, timeString: any, ampm: any) {
@@ -3399,6 +3466,34 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.clearTimePickerTimer();
         this.restoreOverlayAppend();
         this.onOverlayHide();
+    }
+
+    onSkipToday(){
+        this.value = new Date();
+        this.updateInputfield();
+        this.updateUI();
+    }
+
+    onSkipAhead(unitsAhead: number, type: string){
+        let newDate = new Date();
+        if (type === "week") {
+            const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000 * unitsAhead;
+            if (this.value === undefined) {
+                newDate = new Date(newDate.getTime() + oneWeekInMilliseconds);
+            } else {
+                newDate = new Date(this.value.getTime() + oneWeekInMilliseconds);
+            }
+        }
+        if (type === "month") {
+            if (this.value !== undefined) {
+                newDate = new Date(this.value);
+            }
+            newDate.setMonth(newDate.getMonth() + unitsAhead);
+            this.value = newDate;
+        }
+        this.value = newDate;
+        this.updateInputfield();
+        this.updateUI();
     }
 }
 

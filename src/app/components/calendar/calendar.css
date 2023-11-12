@@ -169,4 +169,53 @@
     .p-calendar-clearable {
         position: relative;
     }
+
+    /* shortcuts buttons */
+    .p-calendar-buttontopborder {
+        width: 100%;
+        border-top: 1px solid #dee2e6;
+        padding: 10px 10px 0px 10px;
+    }
+
+    .p-calendar-labelsection {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .p-calendar-buttonwrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .p-button {
+        padding: 6px 8px;
+        margin-bottom: 2px;
+    }
+
+    .p-button-shortcutminus{
+        padding: 6px 9px;
+    }
+
+    .p-calendar-todaybutton{
+        background: none;
+        text-decoration: underline;
+        border: none;
+        color: #495057;
+        cursor: pointer;
+    }
+
+    .p-calendar-todaybutton:hover{
+        color: #000;
+    }
+
+    #p-calendar-4weekbutton{
+        margin-right: 5px;
+    }
+
+    #p-calendar-1monthbutton{
+        margin-left: 5px;
+    }
 }
