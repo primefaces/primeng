@@ -1,13 +1,16 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentChecked,
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
+    DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -1402,7 +1405,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     dataToRender(data: any) {
         const _data = data || this.processedData;
-
+        
+        
         if (_data && this.paginator) {
             const first = this.lazy ? 0 : this.first;
             return _data.slice(first, <number>first + <number>this.rows);
@@ -1660,6 +1664,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             this.preventSelectionSetterPropagation = true;
             if (this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
+
                 DomHandler.clearSelection();
                 if (this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
@@ -1819,7 +1824,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    selectRange(event: MouseEvent, rowIndex: number) {
+    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
 
         if (<number>this.anchorRowIndex > rowIndex) {
@@ -1857,11 +1862,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.onRowSelect.emit({ originalEvent: event, data: rangeRowsData, type: 'row' });
     }
 
-    clearSelectionRange(event: MouseEvent) {
+    clearSelectionRange(event: MouseEvent | KeyboardEvent) {
         let rangeStart, rangeEnd;
         let rangeRowIndex = <number>this.rangeRowIndex;
         let anchorRowIndex = <number>this.anchorRowIndex;
-
+        
         if (rangeRowIndex > anchorRowIndex) {
             rangeStart = this.anchorRowIndex;
             rangeEnd = this.rangeRowIndex;
@@ -3358,9 +3363,12 @@ export class SortableColumn implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('keydown.space', ['$event'])
     @HostListener('keydown.enter', ['$event'])
     onEnterKey(event: MouseEvent) {
         this.onClick(event);
+
+        event.preventDefault();
     }
 
     isEnabled() {
@@ -3472,7 +3480,9 @@ export class SortIcon implements OnInit, OnDestroy {
         class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+        '[attr.tabindex]': 'setRowTabIndex()',
+        '[attr.data-p-highlight]': 'selected',
+        '[attr.data-p-selectable-row]' : 'true'
     }
 })
 export class SelectableRow implements OnInit, OnDestroy {
@@ -3486,11 +3496,17 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
             });
+        }
+    }
+
+    setRowTabIndex() {
+        if(this.dt.selectionMode === 'single' || this.dt.selectionMode === 'multiple') {
+            return !this.dt.selection ? 0 : this.dt.anchorRowIndex === this.index ? 0 : -1;
         }
     }
 
@@ -3518,8 +3534,47 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('keydown.arrowdown', ['$event'])
-    onArrowDownKeyDown(event: KeyboardEvent) {
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event:KeyboardEvent){
+        switch(event.code) {
+            case 'ArrowDown':
+                this.onArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUpKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            case 'Space':
+                this.onSpaceKey(event);
+                break;
+            
+            case 'Enter':
+                this.onEnterKey(event);
+                break;
+
+            default:
+                if(event.code === 'KeyA' && (event.metaKey || event.ctrlKey)){
+                    const data = this.dt.dataToRender(this.dt.rows);
+                    this.dt.selection = [...data];
+                    this.dt.selectRange(event, data.length -1);
+
+                    event.preventDefault();
+                }
+                break;
+            
+        }
+    }
+
+    onArrowDownKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3534,8 +3589,7 @@ export class SelectableRow implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    @HostListener('keydown.arrowup', ['$event'])
-    onArrowUpKeyDown(event: KeyboardEvent) {
+    onArrowUpKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3550,10 +3604,7 @@ export class SelectableRow implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    @HostListener('keydown.enter', ['$event'])
-    @HostListener('keydown.shift.enter', ['$event'])
-    @HostListener('keydown.meta.enter', ['$event'])
-    onEnterKeyDown(event: KeyboardEvent) {
+    onEnterKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3564,22 +3615,82 @@ export class SelectableRow implements OnInit, OnDestroy {
             rowIndex: this.index
         });
     }
+    
+    onEndKey(event: KeyboardEvent) {
+        const lastRow = this.findLastSelectableRow();
+        lastRow && this.focusRowChange(this.el.nativeElement, lastRow)
 
-    @HostListener('keydown.pagedown')
-    @HostListener('keydown.pageup')
-    @HostListener('keydown.home')
-    @HostListener('keydown.end')
-    onPageDownKeyDown() {
-        if (this.dt.virtualScroll) {
-            (<any>this.dt.scroller).elementViewChild.nativeElement.focus();
+        if(event.ctrlKey && event.shiftKey) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
+
+            this.dt.anchorRowIndex = lastSelectableRowIndex;
+            this.dt.selection = data.slice(this.index, data.length);
+            this.dt.selectRange(event, this.index);
         }
+        event.preventDefault();
     }
 
-    @HostListener('keydown.space')
-    onSpaceKeydown() {
-        if (this.dt.virtualScroll && !this.dt.editingCell) {
-            (<any>this.dt.scroller).elementViewChild.nativeElement.focus();
+    onHomeKey(event: KeyboardEvent) {
+        const firstRow = this.findFirstSelectableRow();
+
+        firstRow && this.focusRowChange(this.el.nativeElement, firstRow);
+
+        if(event.ctrlKey && event.shiftKey) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
+
+            this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
+            this.dt.selection = data.slice(0, this.index + 1);
+            this.dt.selectRange(event, this.index)
+
+            
         }
+        event.preventDefault();
+    }
+
+    onSpaceKey(event) {
+        this.onEnterKey(event);
+
+        if(event.shiftKey && this.dt.selection !== null) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            let index;
+            
+            if(ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                let firstSelectedRowIndex, lastSelectedRowIndex;
+                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+
+                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+            } else {
+                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+            }
+            
+            this.dt.anchorRowIndex = index;
+            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+            this.dt.selectRange(event, this.index)
+
+        }
+
+        event.preventDefault();
+    }
+
+    focusRowChange(firstFocusableRow, currentFocusedRow) {
+        firstFocusableRow.tabIndex = '-1';
+        currentFocusedRow.tabIndex = '0';
+        DomHandler.focus(currentFocusedRow);
+    }
+
+    findLastSelectableRow() {
+        const rows = DomHandler.find(this.dt.el.nativeElement, '.p-selectable-row');
+
+        return rows ? rows[rows.length -1] : null;
+    }
+
+    findFirstSelectableRow() {
+        const firstRow = DomHandler.findSingle(this.dt.el.nativeElement, '.p-selectable-row');
+
+        return firstRow;
     }
 
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
@@ -4880,7 +4991,7 @@ export class ReorderableRow implements AfterViewInit {
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
                         <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
                     </div>
                 </ng-template>
@@ -4946,6 +5057,8 @@ export class ColumnFilter implements AfterContentInit {
     @Input() showButtons: boolean = true;
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
+
+    @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
@@ -5112,11 +5225,13 @@ export class ColumnFilter implements AfterContentInit {
 
     addConstraint() {
         (<FilterMetadata[]>this.dt.filters[<string>this.field]).push({ value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator() });
+        DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
         this.dt._filter();
+        DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     onOperatorChange(value: any) {
@@ -5132,6 +5247,7 @@ export class ColumnFilter implements AfterContentInit {
 
     toggleMenu() {
         this.overlayVisible = !this.overlayVisible;
+
     }
 
     onToggleButtonKeyDown(event: KeyboardEvent) {
@@ -5211,9 +5327,18 @@ export class ColumnFilter implements AfterContentInit {
 
     onOverlayAnimationEnd(event: AnimationEvent) {
         switch (event.toState) {
+            case 'visible':
+                this.focusOnFirstElement();
+                break;
             case 'void':
                 ZIndexUtils.clear(event.element);
                 break;
+        }
+    }
+
+    focusOnFirstElement() {
+        if(this.overlay) {
+            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''))
         }
     }
 
