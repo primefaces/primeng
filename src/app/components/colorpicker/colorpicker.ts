@@ -1,11 +1,11 @@
-import { NgModule, Component, ElementRef, Input, Output, OnDestroy, EventEmitter, forwardRef, Renderer2, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, TemplateRef } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorType } from './colorpicker.enum';
 
@@ -21,42 +21,50 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker',
     template: `
-        <div #container [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-colorpicker p-component': true, 'p-colorpicker-overlay': !inline, 'p-colorpicker-dragging': colorDragging || hueDragging }">
+        <div
+            #container
+            [ngStyle]="style"
+            [class]="styleClass"
+            [ngClass]="{ 'p-colorpicker p-component': true, 'p-colorpicker-overlay': !inline, 'p-colorpicker-dragging': colorDragging || hueDragging }"
+            [attr.data-pc-name]="'colorpicker'"
+            [attr.data-pc-section]="'root'"
+        >
             <input
+                *ngIf="!inline"
                 #input
                 type="text"
-                *ngIf="!inline"
                 class="p-colorpicker-preview p-inputtext"
-                readonly="readonly"
                 [ngClass]="{ 'p-disabled': disabled }"
-                (focus)="onInputFocus()"
-                (click)="onInputClick()"
-                (keydown)="onInputKeydown($event)"
-                [attr.id]="inputId"
+                readonly="readonly"
                 [attr.tabindex]="tabindex"
                 [disabled]="disabled"
+                (click)="onInputClick()"
+                (keydown)="onInputKeydown($event)"
+                (focus)="onInputFocus()"
+                [attr.id]="inputId"
                 [style.backgroundColor]="inputBgColor"
+                [attr.data-pc-section]="'input'"
             />
             <div
                 *ngIf="inline || overlayVisible"
                 [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel': !inline, 'p-disabled': disabled }"
-                [style.height]="colorPickerPanelHeight"
                 (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 [@.disabled]="inline === true"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                 (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+                [attr.data-pc-section]="'panel'"
+                [style.height]="colorPickerPanelHeight"
             >
-                <div class="p-colorpicker-content">
-                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)">
-                        <div class="p-colorpicker-color">
-                            <div #colorHandle class="p-colorpicker-color-handle"></div>
+                <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
+                    <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
+                        <div class="p-colorpicker-color" [attr.data-pc-section]="'color'">
+                            <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
                         </div>
                     </div>
-                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueTouchStart($event)" (touchmove)="onMove($event)" (touchend)="onDragEnd()">
-                        <div #hueHandle class="p-colorpicker-hue-handle"></div>
+                    <div #hue class="p-colorpicker-hue" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
+                        <div #hueHandle class="p-colorpicker-hue-handle" [attr.data-pc-section]="'hueHandle'"></div>
                     </div>
-
                     <div *ngIf="showColorInputs" class="picker-inputs-area">
                         <select class="picker-select" (change)="onChangeColorType($event)">
                             <option *ngFor="let option of colorTypeOptions" [value]="option">{{ option | uppercase }}</option>
@@ -64,23 +72,17 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 
                         <div [ngSwitch]="currentColorType">
                             <div *ngSwitchCase="ColorType.HEX" class="picker-inputs">
-                                <input type="text" placeholder="000000" class="hex-input p-inputtext" [value]="currentHEXCode" (blur)="updateColorPickerHEX($event)" (keydown.enter)="updateColorPickerHEX($event)">
+                                <input type="text" placeholder="000000" class="hex-input p-inputtext" [value]="currentHEXCode" (blur)="updateColorPickerHEX($event)" (keydown.enter)="updateColorPickerHEX($event)" />
                             </div>
                             <div *ngSwitchCase="ColorType.RGB" class="picker-inputs picker-inputs-multiple">
-                                <input type="text" placeholder="R" class="p-inputtext" [value]="currentRGBCode.r" (blur)="updateColorPickerRGB('R', $event)"
-                                    (keydown.enter)="updateColorPickerRGB('R', $event)">
-                                <input type="text" placeholder="G" class="p-inputtext" [value]="currentRGBCode.g" (blur)="updateColorPickerRGB('G', $event)"
-                                    (keydown.enter)="updateColorPickerRGB('G', $event)">
-                                <input type="text" placeholder="B" class="p-inputtext" [value]="currentRGBCode.b" (blur)="updateColorPickerRGB('B', $event)"
-                                    (keydown.enter)="updateColorPickerRGB('B', $event)">
+                                <input type="text" placeholder="R" class="p-inputtext" [value]="currentRGBCode.r" (blur)="updateColorPickerRGB('R', $event)" (keydown.enter)="updateColorPickerRGB('R', $event)" />
+                                <input type="text" placeholder="G" class="p-inputtext" [value]="currentRGBCode.g" (blur)="updateColorPickerRGB('G', $event)" (keydown.enter)="updateColorPickerRGB('G', $event)" />
+                                <input type="text" placeholder="B" class="p-inputtext" [value]="currentRGBCode.b" (blur)="updateColorPickerRGB('B', $event)" (keydown.enter)="updateColorPickerRGB('B', $event)" />
                             </div>
                             <div *ngSwitchCase="ColorType.HSB" class="picker-inputs picker-inputs-multiple">
-                                <input type="text" placeholder="H" (blur)="updateColorPickerHSB('H', $event)"
-                                    (keydown.enter)="updateColorPickerHSB('H', $event)" class="p-inputtext" [value]="currentHSBCode.h">
-                                <input type="text" placeholder="S" (blur)="updateColorPickerHSB('S', $event)"
-                                    (keydown.enter)="updateColorPickerHSB('S', $event)" class="p-inputtext" [value]="currentHSBCode.s">
-                                <input type="text" placeholder="B" (blur)="updateColorPickerHSB('B', $event)"
-                                    (keydown.enter)="updateColorPickerHSB('B', $event)" class="p-inputtext" [value]="currentHSBCode.b">
+                                <input type="text" placeholder="H" (blur)="updateColorPickerHSB('H', $event)" (keydown.enter)="updateColorPickerHSB('H', $event)" class="p-inputtext" [value]="currentHSBCode.h" />
+                                <input type="text" placeholder="S" (blur)="updateColorPickerHSB('S', $event)" (keydown.enter)="updateColorPickerHSB('S', $event)" class="p-inputtext" [value]="currentHSBCode.s" />
+                                <input type="text" placeholder="B" (blur)="updateColorPickerHSB('B', $event)" (keydown.enter)="updateColorPickerHSB('B', $event)" class="p-inputtext" [value]="currentHSBCode.b" />
                             </div>
                         </div>
 
@@ -237,9 +239,9 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     currentHEXCode: string = this.defaultColor;
 
-    currentRGBCode: {r: number, g: number, b: number} = this.HEXtoRGB(this.defaultColor);
+    currentRGBCode: { r: number; g: number; b: number } = this.HEXtoRGB(this.defaultColor);
 
-    currentHSBCode: {h: number, s: number, b: number} = this.HEXtoHSB(this.defaultColor);
+    currentHSBCode: { h: number; s: number; b: number } = this.HEXtoHSB(this.defaultColor);
 
     colorTypeOptions: ColorType[] = [ColorType.HEX, ColorType.RGB, ColorType.HSB];
 
@@ -272,19 +274,19 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.hueHandleViewChild = element;
     }
 
-    onChangeColorType(event: any){
+    onChangeColorType(event: any) {
         this.currentColorType = event.target.value;
         this.colorTypeOptions.splice(this.colorTypeOptions.indexOf(this.currentColorType), 1);
         this.colorTypeOptions.unshift(this.currentColorType);
     }
 
-    adaptHeight(){
-        if(this.showColorInputs){
+    adaptHeight() {
+        if (this.showColorInputs) {
             this.colorPickerPanelHeight = '289px';
         }
     }
 
-    updateColorPickerHEX(event: any){
+    updateColorPickerHEX(event: any) {
         this.format = this.currentColorType;
 
         let hex = this.validateHEX(event.target.value);
@@ -292,15 +294,15 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.writeValue(hex);
     }
 
-    updateColorPickerRGB(component: string, event: any){        
+    updateColorPickerRGB(component: string, event: any) {
         let rgb = this.currentRGBCode;
         this.format = this.currentColorType;
 
-        if(component === 'R'){
+        if (component === 'R') {
             rgb.r = event.target.value;
-        }else if(component === 'G'){
+        } else if (component === 'G') {
             rgb.g = event.target.value;
-        }else {
+        } else {
             rgb.b = event.target.value;
         }
 
@@ -309,15 +311,15 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.writeValue(rgb);
     }
 
-    updateColorPickerHSB(component: string, event: any){
+    updateColorPickerHSB(component: string, event: any) {
         let hsb = this.currentHSBCode;
         this.format = this.currentColorType;
 
-        if(component === 'H'){
+        if (component === 'H') {
             hsb.h = event.target.value;
-        }else if(component === 'S'){
+        } else if (component === 'S') {
             hsb.s = event.target.value;
-        }else {
+        } else {
             hsb.b = event.target.value;
         }
 
@@ -326,23 +328,23 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.writeValue(hsb);
     }
 
-    updateColorInputs(){
+    updateColorInputs() {
         this.currentHEXCode = this.HSBtoHEX(this.value);
         this.currentRGBCode = this.HSBtoRGB(this.value);
         this.currentHSBCode = this.value;
     }
 
-    onConfirmColor() {        
+    onConfirmColor() {
         switch (this.currentColorType) {
             case ColorType.HEX:
                 this.writeValue(this.currentHEXCode);
-            break;
+                break;
             case ColorType.RGB:
                 this.writeValue(this.currentRGBCode);
-            break;
+                break;
             case ColorType.HSB:
                 this.writeValue(this.currentHSBCode);
-            break;
+                break;
         }
     }
 
@@ -363,7 +365,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event);
     }
 
-    onHueTouchStart(event: TouchEvent) {
+    onHueDragStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -372,7 +374,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickHue(event, (event as TouchEvent).changedTouches[0]);
     }
 
-    onColorTouchStart(event: TouchEvent) {
+    onColorDragStart(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -409,7 +411,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         this.pickColor(event);
     }
 
-    onMove(event: TouchEvent) {
+    onDrag(event: TouchEvent) {
         if (this.colorDragging) {
             this.pickColor(event, event.changedTouches[0]);
             event.preventDefault();
@@ -606,17 +608,19 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
     }
 
     onInputKeydown(event: KeyboardEvent) {
-        switch (event.which) {
-            //space
-            case 32:
+        switch (event.code) {
+            case 'Space':
                 this.togglePanel();
                 event.preventDefault();
                 break;
 
-            //escape and tab
-            case 27:
-            case 9:
+            case 'Escape':
+            case 'Tab':
                 this.hide();
+                break;
+
+            default:
+                //NoOp
                 break;
         }
     }
@@ -811,7 +815,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             hsb.h += 360;
         }
         hsb.s *= 100 / 255;
-        hsb.b *= 100 / 255;        
+        hsb.b *= 100 / 255;
         return hsb;
     }
 
