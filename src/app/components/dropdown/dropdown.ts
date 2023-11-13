@@ -1421,7 +1421,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
             const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {
-                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
                 setTimeout(() => {
                     this.virtualScroll && this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
