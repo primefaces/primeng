@@ -19,4 +19,4 @@ import { MaxValuesDoc } from './maxvaluesdoc';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, CommaSeparatorDoc, RegexpSeparatorDoc, TemplateDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, MaxValuesDoc]
 })
-export class ChipsDocModule { }
+export class ChipsDocModule {}
