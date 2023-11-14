@@ -1023,7 +1023,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             return;
         }
 
-        if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild.nativeElement.contains(event.target)) {
+        if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild?.nativeElement.contains(event.target)) {
             DomHandler.focus(this.inputEL.nativeElement);
         }
     }
