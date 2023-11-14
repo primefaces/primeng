@@ -7,6 +7,7 @@ import { TemplateDoc } from '../../doc/chips/templatedoc';
 import { StyleDoc } from '../../doc/chips/styledoc';
 import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
+import { MaxValuesDoc } from '../../doc/chips/maxvaluesdoc';
 
 @Component({
     templateUrl: './chipsdemo.html'
@@ -29,9 +30,14 @@ export class ChipsDemo {
             component: ReactiveFormsDoc
         },
         {
-            id: 'commaseparator',
-            label: 'Comma Separator',
-            component: CommaSeparatorDoc
+            id: 'max-values',
+            label: 'Max Values',
+            component: MaxValuesDoc
+        },
+        {
+            id: 'commaseperator',
+            label: 'Comma Seperator',
+            component: CommaSeperatorDoc
         },
         {
             id: 'regexpseparator',

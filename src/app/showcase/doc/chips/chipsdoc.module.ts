@@ -12,10 +12,11 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { RegexpSeparatorDoc } from './regexpseparator.doc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { MaxValuesDoc } from './maxvaluesdoc';
 
 @NgModule({
     imports: [CommonModule, ChipsModule, FormsModule, ReactiveFormsModule, AppCodeModule, AppDocModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, CommaSeparatorDoc, RegexpSeparatorDoc, TemplateDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, CommaSeperatorDoc, RegexpSeperatorDoc, TemplateDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, MaxValuesDoc]
 })
 export class ChipsDocModule {}

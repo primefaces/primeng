@@ -621,9 +621,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     onItemMouseEnter(event: any) {
         if (!DomHandler.isTouchDevice()) {
-            if (this.dirty) {
-                this.onItemChange(event);
-            }
+            this.onItemChange(event);
         }
     }
 
