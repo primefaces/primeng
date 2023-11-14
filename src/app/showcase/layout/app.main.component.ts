@@ -13,7 +13,7 @@ import { DomHandler } from 'primeng/dom';
     template: `
     <div class="layout-wrapper" [ngClass]="containerClass">
         <app-news *ngIf="app.newsActive && app.announcement" (onNewsHide)="app.onNewsClose()" [announcement]="app.announcement"></app-news>
-        <app-topbar (menuButtonClick)="onMenuButtonClick()"></app-topbar>
+        <app-topbar  (menuButtonClick)="onMenuButtonClick()"></app-topbar>
         <app-config></app-config>
         <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
         <div class="layout-content">

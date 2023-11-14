@@ -82,9 +82,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            <ng-container *ngIf="footerTemplate">
+                <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            </ng-container>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],

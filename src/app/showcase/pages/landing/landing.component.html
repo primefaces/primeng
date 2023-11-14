@@ -1,7 +1,7 @@
 <div [ngClass]="landingClass">
     <app-news *ngIf="app.newsActive && app.announcement" (onNewsHide)="app.onNewsClose()" [announcement]="app.announcement"></app-news>
     <app-topbar [showConfigurator]="false" [showMenuButton]="false"></app-topbar>
-    
+
     <section class="landing-hero py-8 px-5 lg:px-8">
         <div class="flex flex-wrap">
             <div class="w-full xl:w-6 flex flex-column justify-content-center lg:pr-8 align-items-center xl:align-items-stretch">
@@ -10,10 +10,10 @@
                     Elevate your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                 </p>
                 <div class="flex align-items-center gap-3">
-                  <a [routerLink]="'installation'" class="linkbox active font-semibold py-3 px-4">
+                    <a [routerLink]="'installation'" class="linkbox active font-semibold py-3 px-4">
                         <span>Get Started</span>
                         <i class="pi pi-arrow-right ml-3"></i>
-                    </a> 
+                    </a>
                     <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox font-semibold py-3 px-4">
                         <span>Give a Star</span>
                         <i class="pi pi-star-fill ml-3 text-yellow-500"></i>
@@ -26,25 +26,25 @@
                         <div class="box p-4 fadein animation-duration-500">
                             <span class="text-secondary font-medium block mb-3">Balance</span>
                             <div class="flex flex-wrap lg:flex-nowrap justify-content-start gap-3">
-                             <p-inputNumber [(ngModel)]="value1" mode="currency" currency="USD" locale="en-US" class="w-full" inputStyleClass="lg:w-6" />
-                                <p-inputNumber [(ngModel)]="value2" mode="currency" currency="USD" locale="en-US" class="w-full" inputStyleClass="lg:w-6" /> 
+                                <p-inputNumber [(ngModel)]="value1" mode="currency" currency="USD" locale="en-US" class="w-full" inputStyleClass="lg:w-6" />
+                                <p-inputNumber [(ngModel)]="value2" mode="currency" currency="USD" locale="en-US" class="w-full" inputStyleClass="lg:w-6" />
                             </div>
                             <span class="text-secondary font-medium block mt-5 mb-3">Category</span>
-                       <div class="flex flex-wrap gap-3">
+                            <div class="flex flex-wrap gap-3">
                                 <div class="flex align-items-center">
                                     <p-radioButton id="category1" [(ngModel)]="radioValue" value="C" name="radiovalue" />
                                     <label for="category1" class="ml-2 font-medium">Clothing</label>
                                 </div>
                                 <div class="flex align-items-center">
-                                    <p-radioButton id="category2"  [(ngModel)]="radioValue" value="E" name="radiovalue" />
+                                    <p-radioButton id="category2" [(ngModel)]="radioValue" value="E" name="radiovalue" />
                                     <label for="category2" class="ml-2 font-medium">Electronics</label>
                                 </div>
                             </div>
                             <span class="text-secondary font-medium block mt-5 mb-3">Order Date</span>
-                 <p-calendar [(ngModel)]="dateValue" [showWeek]="true" class="w-full" /> 
+                            <p-calendar [(ngModel)]="dateValue" [showWeek]="true" class="w-full" />
                         </div>
                         <div class="box p-4 fadein animation-duration-500">
-                         <p-chart type="line" [data]="chartData" [options]="chartOptions" /> 
+                            <p-chart type="line" [data]="chartData" [options]="chartOptions" />
                         </div>
                         <div class="box p-4 fadein animation-duration-500">
                             <div class="flex align-items-center">
@@ -53,10 +53,10 @@
                                 <p-inputSwitch [(ngModel)]="switchValue" class="ml-auto"></p-inputSwitch>
                             </div>
                             <div class="mt-5 flex justify-content-center">
-                               <p-selectButton [(ngModel)]="selectButtonValue"  [options]="selectButtonOptions" optionLabel="label" />
+                                <p-selectButton [(ngModel)]="selectButtonValue" [options]="selectButtonOptions" optionLabel="label" />
                             </div>
                             <div class="mt-5">
-                                <p-slider [(ngModel)]="rangeValues" range="true" class="w-full" /> 
+                                <p-slider [(ngModel)]="rangeValues" range="true" class="w-full" />
                             </div>
                         </div>
                     </div>
@@ -101,13 +101,13 @@
                                             <span class="font-bold mb-1">Inbox</span>
                                             <span class="m-0 text-secondary">View Messages</span>
                                         </span>
-                                       <p-badge value="3" class="ml-auto"></p-badge> 
+                                        <p-badge value="3" class="ml-auto"></p-badge>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="box p-4 fadein animation-duration-500">
-                            <p-tabMenu [model]="items" [activeItem]="items[0]"/> 
+                            <p-tabMenu [model]="items" [activeItem]="items[0]" />
                         </div>
                     </div>
                 </div>
@@ -960,10 +960,10 @@
                     <img src="https://primefaces.org/cdn/primeng/images/primeng-logo-{{ config.dark ? 'light' : 'dark' }}.svg" width="129" height="35" alt="primeng logo" priority />
                 </a>
                 <div class="flex align-items-center gap-2">
-                    <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center ">
+                    <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                         <i class="pi pi-twitter"></i>
                     </a>
-                    <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center ">
+                    <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                         <i class="pi pi-github"></i>
                     </a>
                     <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">

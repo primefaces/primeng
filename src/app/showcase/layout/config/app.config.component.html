@@ -1,4 +1,4 @@
-<p-sidebar [(visible)]="active" position="right" styleClass="layout-config w-full sm:w-30rem layout-config" (onHide)="hideConfigurator()">
+<p-sidebar [(visible)]="active" position="right" styleClass="layout-config w-full sm:w-26rem layout-config" (onHide)="hideConfigurator()">
     <div class="p-2">
         <section class="pb-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Scale</span>
@@ -35,7 +35,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('lara', 'teal'), 'hover:border-500 surface-border': !isThemeActive('lara', 'teal') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'lara-light-teal', false)"
+                    (click)="changeTheme($event, 'lara-light-teal')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #4dac9c 0%, rgba(77, 172, 156, 0.5) 100%)"></span>
                 </button>
@@ -43,7 +43,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('lara', 'blue'), 'hover:border-500 surface-border': !isThemeActive('lara', 'blue') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'lara-light-blue', false)"
+                    (click)="changeTheme($event, 'lara-light-blue')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #4378e6 0%, rgba(67, 120, 230, 0.5) 100%)"></span>
                 </button>
@@ -51,7 +51,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('lara', 'indigo'), 'hover:border-500 surface-border': !isThemeActive('lara', 'indigo') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'lara-light-indigo', false)"
+                    (click)="changeTheme($event, 'lara-light-indigo')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #585fe0 0%, rgba(88, 95, 224, 0.5) 100%)"></span>
                 </button>
@@ -59,7 +59,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('lara', 'purple'), 'hover:border-500 surface-border': !isThemeActive('lara', 'purple') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'lara-light-purple', false)"
+                    (click)="changeTheme($event, 'lara-light-purple')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #7758e4 0%, rgba(119, 88, 228, 0.5) 100%)"></span>
                 </button>
@@ -80,7 +80,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('md', 'indigo'), 'hover:border-500 surface-border': !isThemeActive('md', 'indigo') }"
                     class="'bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200',"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'md-light-indigo', false)"
+                    (click)="changeTheme($event, 'md-light-indigo')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #0565f2 0%, rgba(5, 101, 242, 0.5) 100%)"></span>
                 </button>
@@ -88,7 +88,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('md', 'deeppurple'), 'hover:border-500 surface-border': !isThemeActive('md', 'deeppurple') }"
                     class="'bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200',"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'md-light-deeppurple', false)"
+                    (click)="changeTheme($event, 'md-light-deeppurple')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #702f92 0%, rgba(112, 47, 146, 0.5) 100%)"></span>
                 </button>
@@ -108,7 +108,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('bootstrap4', 'blue'), 'hover:border-500 surface-border': !isThemeActive('bootstrap4', 'blue') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'bootstrap4-light-blue', false)"
+                    (click)="changeTheme($event, 'bootstrap4-light-blue')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #027bff 0%, rgba(2, 123, 255, 0.5) 100%)"></span>
                 </button>
@@ -116,7 +116,7 @@
                     [ngClass]="{ 'border-primary': isThemeActive('bootstrap4', 'purple'), 'hover:border-500 surface-border': !isThemeActive('bootstrap4', 'purple') }"
                     class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
                     style="border-radius: 30px"
-                    (click)="changeTheme($event, 'bootstrap4-light-purple', false)"
+                    (click)="changeTheme($event, 'bootstrap4-light-purple')"
                 >
                     <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #893cae 0%, rgba(137, 60, 174, 0.5) 100%)"></span>
                 </button>
@@ -136,7 +136,7 @@
                         [ngClass]="{ 'border-primary': isThemeActive('soho', ''), 'hover:border-500 surface-border': !isThemeActive('soho', '') }"
                         class="bg-transparent border-1 cursor-pointer p-2 w-full flex align-items-center justify-content-center transition-all transition-duration-200"
                         style="border-radius: 30px"
-                        (click)="changeTheme($event, 'soho-light', false)"
+                        (click)="changeTheme($event, 'soho-light')"
                     >
                         <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #664beb 0%, rgba(102, 75, 235, 0.5) 100%)"></span>
                     </button>
@@ -150,7 +150,7 @@
                         [ngClass]="{ 'border-primary': isThemeActive('viva', ''), 'hover:border-500 surface-border': !isThemeActive('viva', '') }"
                         class="bg-transparent border-1 cursor-pointer p-2 w-full flex align-items-center justify-content-center transition-all transition-duration-200"
                         style="border-radius: 30px"
-                        (click)="changeTheme($event, 'viva-light', false)"
+                        (click)="changeTheme($event, 'viva-light')"
                     >
                         <span class="block h-1rem w-full" style="border-radius: 30px; background: linear-gradient(180deg, #4a67c9 0%, rgba(74, 103, 201, 0.5) 100%)"></span>
                     </button>

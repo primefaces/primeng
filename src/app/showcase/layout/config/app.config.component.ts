@@ -57,16 +57,14 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     onCompactMaterialChange(event) {
-        const theme = this.config.theme.startsWith('md') ? this.config.theme.replace('md', 'mdc') :
-            this.config.theme.startsWith('mdc') ? this.config.theme.replace('mdc', 'md') :
-            this.config.theme;
-    
+        const theme = this.config.theme.startsWith('md') ? this.config.theme.replace('md', 'mdc') : this.config.theme.startsWith('mdc') ? this.config.theme.replace('mdc', 'md') : this.config.theme;
+
         this.changeTheme(event, theme, false);
     }
 
     onDarkModeChange(event) {
         let newTheme = null;
-        let {theme, dark} = this.config
+        let { theme, dark } = this.config;
 
         if (!dark) {
             newTheme = theme.replace('dark', 'light');
@@ -75,7 +73,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
             else newTheme = 'lara-dark-teal'; //fallback
         }
 
-        this.configService.changeTheme(event, newTheme, dark)
+        this.configService.changeTheme(event, newTheme, dark);
     }
 
     isThemeActive(theme: string, color: string) {
@@ -111,13 +109,21 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
+    changeTheme(event: Event, theme: string, darkModePreference?: boolean) {
+        const isThemeInLightOnlyList = this.lightOnlyThemes.indexOf(theme) === -1;
+
         let newTheme = theme;
-        if(this.lightOnlyThemes.indexOf(theme) === -1) {
-            newTheme = dark ? theme.replace('light', 'dark') : theme.replace('dark', 'light');
+        let useDarkMode = darkModePreference;
+
+        if (isThemeInLightOnlyList && !darkModePreference) {
+            useDarkMode = this.config.dark;
         }
 
-        this.configService.changeTheme(event, newTheme, dark);
+        if (isThemeInLightOnlyList) {
+            newTheme = useDarkMode ? theme.replace('light', 'dark') : theme.replace('dark', 'light');
+        }
+
+        this.configService.changeTheme(event, newTheme, useDarkMode);
     }
 
     onInputStyleChange() {
