@@ -60,7 +60,7 @@ import { ProductService } from '../../service/productservice';
                                         <tr>
                                             <td>{{ order.id }}</td>
                                             <td>{{ order.customer }}</td>
-                                            <td>{{ order.id }}</td>
+                                            <td>{{ order.date }}</td>
                                             <td>{{ order.amount | currency : 'USD' }}</td>
                                             <td>
                                                 <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
