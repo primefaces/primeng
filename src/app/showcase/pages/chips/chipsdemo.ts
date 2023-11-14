@@ -35,9 +35,9 @@ export class ChipsDemo {
             component: MaxValuesDoc
         },
         {
-            id: 'commaseperator',
+            id: 'commaseparator',
             label: 'Comma Seperator',
-            component: CommaSeperatorDoc
+            component: CommaSeparatorDoc
         },
         {
             id: 'regexpseparator',
