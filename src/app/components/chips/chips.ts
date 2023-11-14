@@ -101,7 +101,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus',
+        '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-chips-clearable]': 'showClear'
     },
     providers: [CHIPS_VALUE_ACCESSOR],
