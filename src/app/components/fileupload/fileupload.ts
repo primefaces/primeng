@@ -755,11 +755,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     isChooseDisabled() {
         if (this.auto) {
-
             return this.fileLimit && this.fileLimit <= this.files.length;
-
         } else {
-            
             return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
         }
     }
