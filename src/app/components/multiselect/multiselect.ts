@@ -1487,6 +1487,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.changeFocusedOptionIndex(event, optionIndex);
         !this.overlayVisible && this.show();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowUpKey(event, pressedInInputText = false) {
@@ -1509,6 +1510,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             !this.overlayVisible && this.show();
             event.preventDefault();
         }
+        event.stopPropagation();
     }
 
     onHomeKey(event, pressedInInputText = false) {
