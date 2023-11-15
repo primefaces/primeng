@@ -83,7 +83,7 @@
 
 ## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.2...16.5.0)
 
 **Deprecated:**
 - SlideMenu: Deprecate from PrimeNG [\#13830](https://github.com/primefaces/primeng/issues/13830)
@@ -110,6 +110,15 @@
 - Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
 - p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
 - Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
+## [16.4.2](https://github.com/primefaces/primeng/tree/16.4.2) (2023-11-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.4.2)
+
+**Fixed bugs:**
+
+- TreeTable | Global filter to search tree-table is not returning all the relevant results [\#14082](https://github.com/primefaces/primeng/issues/14082)
+- Dropdown | FocusTrap doesn't allow user to tab on next element [\#14083](https://github.com/primefaces/primeng/issues/14083)
 
 ## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
 

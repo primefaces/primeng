@@ -317,13 +317,13 @@ export class MultiSelectItem {
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
                                 <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                                        <ng-container *ngIf="option.group">
+                                        <ng-container *ngIf="isOptionGroup(option)">
                                             <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                                 <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                                 <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                             </li>
                                         </ng-container>
-                                        <ng-container *ngIf="!option.group">
+                                        <ng-container *ngIf="!isOptionGroup(option)">
                                             <p-multiSelectItem
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
@@ -1175,11 +1175,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.value = value;
         this.onModelChange(value);
         this.modelValue.set(value);
-
-        this.onChange.emit({
-            originalEvent: event,
-            value: value
-        });
     }
 
     onOptionSelect(event, isFocus = false, index = -1) {
@@ -1201,6 +1196,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         index !== -1 && this.focusedOptionIndex.set(index);
 
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        
+        this.onChange.emit({
+            originalEvent: event,
+            value: value,
+            itemValue: option
+        });
     }
 
     onOptionSelectRange(event, start = -1, end = -1) {
@@ -1487,6 +1488,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.changeFocusedOptionIndex(event, optionIndex);
         !this.overlayVisible && this.show();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowUpKey(event, pressedInInputText = false) {
@@ -1509,6 +1511,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             !this.overlayVisible && this.show();
             event.preventDefault();
         }
+        event.stopPropagation();
     }
 
     onHomeKey(event, pressedInInputText = false) {
@@ -1774,9 +1777,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     writeValue(value: any): void {
         this.value = value;
         this.modelValue.set(this.value);
-        this.updateModel(this.value);
+        this.onModelChange(this.value)
         this.checkSelectionLimit();
-
         this.cd.markForCheck();
     }
 
