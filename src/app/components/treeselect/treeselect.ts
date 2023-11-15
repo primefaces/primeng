@@ -638,8 +638,6 @@ export class TreeSelect implements AfterContentInit {
             default:
                 break;
         }
-
-        event.preventDefault();
     }
 
     onFilterInput(event: Event) {
