@@ -146,7 +146,7 @@ export class DropdownItem {
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
             >
-                <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() || 'empty' }}</ng-container>
+                <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: modelValue() }"></ng-container>
                 <ng-template #defaultPlaceholder>
                     <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
@@ -902,9 +902,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        let selectedOptionIndex;
-        this.autoDisplayFirst ? (!this.modelValue() ? (selectedOptionIndex = -1) : (selectedOptionIndex = this.findFirstOptionIndex())) : (selectedOptionIndex = this.findSelectedOptionIndex());
-        return this.modelValue() ? this.getOptionLabel(this.modelValue()) : selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        const selectedOptionIndex = this.findSelectedOptionIndex();
+
+        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
@@ -1037,6 +1037,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
         isHide && this.hide(true);
+        this.onChange.emit({originalEvent: event, value: value})
     }
 
     onOptionMouseEnter(event, index) {
@@ -1048,14 +1049,19 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
-        if (this.value !== this.modelValue()) {
-            this.onChange.emit({
-                originalEvent: event,
-                value: value
-            });
-        }
         this.modelValue.set(value);
         this.selectedOptionUpdated = true;
+    }
+
+    writeValue(value: any): void {
+        if (this.filter) {
+            this.resetFilter();
+        }
+        this.value = value;
+        this.onModelChange(value);
+        this.modelValue.set(this.value)
+        this.updateEditableLabel();
+        this.cd.markForCheck();
     }
 
     isSelected(option) {
@@ -1079,7 +1085,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
+        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option?.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
@@ -1111,16 +1117,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     get ariaSetSize() {
         return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
-    }
-
-    writeValue(value: any): void {
-        if (this.filter) {
-            this.resetFilter();
-        }
-        this.value = value;
-        this.updateModel(this.value);
-        this.updateEditableLabel();
-        this.cd.markForCheck();
     }
 
     /**
@@ -1176,6 +1172,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         this.onModelChange(value);
         this.updateModel(value, event);
+        this.onChange.emit({originalEvent: event, value: value})
     }
     /**
      * Displays the panel.
@@ -1207,7 +1204,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
 
                     if (selectedListItem) {
-                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
                 }
             }
@@ -1602,12 +1599,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild.nativeElement;
         DomHandler.focus(focusableEl);
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not(.p-hidden-focusable)').length > 0;
+        return DomHandler.getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not(.p-hidden-focusable)').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1693,6 +1690,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     clear(event: Event) {
         this.updateModel(null, event);
         this.updateEditableLabel();
+        this.onChange.emit({originalEvent: event, value: this.value})
         this.onClear.emit(event);
     }
 }
