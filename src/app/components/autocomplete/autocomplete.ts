@@ -1240,6 +1240,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.changeFocusedOptionIndex(event, optionIndex);
 
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowUpKey(event) {
@@ -1260,6 +1261,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.changeFocusedOptionIndex(event, optionIndex);
 
             event.preventDefault();
+            event.stopPropagation();
         }
     }
 
