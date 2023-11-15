@@ -1175,11 +1175,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.value = value;
         this.onModelChange(value);
         this.modelValue.set(value);
-
-        this.onChange.emit({
-            originalEvent: event,
-            value: value
-        });
     }
 
     onOptionSelect(event, isFocus = false, index = -1) {
@@ -1201,6 +1196,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         index !== -1 && this.focusedOptionIndex.set(index);
 
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        
+        this.onChange.emit({
+            originalEvent: event,
+            value: value,
+            itemValue: option
+        });
     }
 
     onOptionSelectRange(event, start = -1, end = -1) {
@@ -1776,9 +1777,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     writeValue(value: any): void {
         this.value = value;
         this.modelValue.set(this.value);
-        this.updateModel(this.value);
+        this.onModelChange(this.value)
         this.checkSelectionLimit();
-
         this.cd.markForCheck();
     }
 
