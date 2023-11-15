@@ -63,7 +63,22 @@ import {
                 (dragenter)="onDropPointDragEnter($event, -1)"
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
-            <li *ngIf="!tree.horizontal" [ngClass]="['p-treenode', node.styleClass || '', isLeaf() ? 'p-treenode-leaf' : '']" [ngStyle]="{ height: itemSize + 'px' }" [style]="node.style">
+            <li
+                *ngIf="!tree.horizontal"
+                [ngClass]="['p-treenode', node.styleClass || '', isLeaf() ? 'p-treenode-leaf' : '']"
+                [ngStyle]="{ height: itemSize + 'px' }"
+                [style]="node.style"
+                [attr.aria-label]="node.label"
+                [attr.aria-checked]="ariaChecked"
+                [attr.aria-setsize]="node.children ? node.children.length : 0"
+                [attr.aria-selected]="ariaSelected"
+                [attr.aria-expanded]="node.expanded"
+                [attr.aria-posinset]="index + 1"
+                [attr.aria-level]="level"
+                [attr.tabindex]="index === 0 ? 0 : -1"
+                role="treeitem"
+                (keydown)="onKeyDown($event)"
+            >
                 <div
                     class="p-treenode-content"
                     [style.paddingLeft]="level * indentation + 'rem'"
@@ -77,17 +92,9 @@ import {
                     [draggable]="tree.draggableNodes"
                     (dragstart)="onDragStart($event)"
                     (dragend)="onDragStop($event)"
-                    [attr.tabindex]="0"
                     [ngClass]="{ 'p-treenode-selectable': tree.selectionMode && node.selectable !== false, 'p-treenode-dragover': draghoverNode, 'p-highlight': isSelected() }"
-                    role="treeitem"
-                    (keydown)="onKeyDown($event)"
-                    [attr.aria-posinset]="this.index + 1"
-                    [attr.aria-expanded]="this.node.expanded"
-                    [attr.aria-selected]="isSelected()"
-                    [attr.aria-label]="node.label"
-                    [attr.data-id]="node.key"
                 >
-                    <button type="button" [attr.aria-label]="tree.togglerAriaLabel" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
+                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
                             <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
@@ -96,8 +103,8 @@ import {
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
-                    <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" [attr.aria-checked]="isSelected()">
-                        <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }">
+                    <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" aria-hidden="true">
+                        <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }" role="checkbox">
                             <ng-container *ngIf="!tree.checkboxIconTemplate">
                                 <CheckIcon *ngIf="!node.partialSelected && isSelected()" [styleClass]="'p-checkbox-icon'" />
                                 <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'" />
@@ -107,7 +114,7 @@ import {
                     </div>
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
                     <span class="p-treenode-label">
-                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
+                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }} {{ node.children ? node.children.length : 0 }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </span>
@@ -190,7 +197,8 @@ import {
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[attr.role]': '"treeitem"'
     }
 })
 export class UITreeNode implements OnInit {
@@ -226,6 +234,14 @@ export class UITreeNode implements OnInit {
 
     draghoverNode: boolean | undefined;
 
+    get ariaSelected() {
+        return this.tree.selectionMode === 'single' || this.tree.selectionMode === 'multiple' ? this.isSelected() : undefined;
+    }
+
+    get ariaChecked() {
+        return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
+    }
+
     constructor(@Inject(forwardRef(() => Tree)) tree: Tree) {
         this.tree = tree as Tree;
     }
@@ -233,6 +249,7 @@ export class UITreeNode implements OnInit {
     ngOnInit() {
         (<TreeNode>this.node).parent = this.parentNode;
         if (this.parentNode) {
+            this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
     }
@@ -280,7 +297,7 @@ export class UITreeNode implements OnInit {
     }
 
     onNodeKeydown(event: KeyboardEvent) {
-        if (event.which === 13) {
+        if (event.key === 'Enter') {
             this.tree.onNodeClick(event, <TreeNode>this.node);
         }
     }
@@ -295,6 +312,10 @@ export class UITreeNode implements OnInit {
 
     isSelected() {
         return this.tree.isSelected(<TreeNode>this.node);
+    }
+
+    isSameNode(event) {
+        return event.currentTarget && (event.currentTarget.isSameNode(event.target) || event.currentTarget.isSameNode(event.target.closest('[role="treeitem"]')));
     }
 
     onDropPoint(event: DragEvent, position: number) {
@@ -485,72 +506,39 @@ export class UITreeNode implements OnInit {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        const nodeElement = (<HTMLDivElement>event.target).parentElement?.parentElement;
-
-        if (nodeElement?.nodeName !== 'P-TREENODE' || (this.tree.contextMenu && this.tree.contextMenu.containerViewChild?.nativeElement.style.display === 'block')) {
+        if (!this.isSameNode(event) || (this.tree.contextMenu && this.tree.contextMenu.containerViewChild?.nativeElement.style.display === 'block')) {
             return;
         }
 
-        switch (event.which) {
+        switch (event.code) {
             //down arrow
-            case 40:
-                const listElement = this.tree.droppableNodes ? nodeElement.children[1].children[1] : nodeElement.children[0].children[1];
-                if (listElement && listElement.children.length > 0) {
-                    this.focusNode(listElement.children[0]);
-                } else {
-                    const nextNodeElement = nodeElement.nextElementSibling;
-                    if (nextNodeElement) {
-                        this.focusNode(nextNodeElement);
-                    } else {
-                        let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement);
-                        if (nextSiblingAncestor) {
-                            this.focusNode(nextSiblingAncestor);
-                        }
-                    }
-                }
-                event.preventDefault();
+            case 'ArrowDown':
+                this.onArrowDown(event);
                 break;
 
             //up arrow
-            case 38:
-                if (nodeElement.previousElementSibling) {
-                    this.focusNode(this.findLastVisibleDescendant(nodeElement.previousElementSibling));
-                } else {
-                    let parentNodeElement = this.getParentNodeElement(nodeElement);
-                    if (parentNodeElement) {
-                        this.focusNode(parentNodeElement);
-                    }
-                }
-
-                event.preventDefault();
+            case 'ArrowUp':
+                this.onArrowUp(event);
                 break;
 
             //right arrow
-            case 39:
-                if (!this.node?.expanded && !this.tree.isNodeLeaf(<TreeNode>this.node)) {
-                    this.expand(event);
-                }
-                event.preventDefault();
+            case 'ArrowRight':
+                this.onArrowRight(event);
                 break;
 
             //left arrow
-            case 37:
-                if (this.node?.expanded) {
-                    this.collapse(event);
-                } else {
-                    let parentNodeElement = this.getParentNodeElement(nodeElement);
-                    if (parentNodeElement) {
-                        this.focusNode(parentNodeElement);
-                    }
-                }
-
-                event.preventDefault();
+            case 'ArrowLeft':
+                this.onArrowLeft(event);
                 break;
 
             //enter
-            case 13:
-                this.tree.onNodeClick(event, <TreeNode>this.node);
-                event.preventDefault();
+            case 'Enter':
+            case 'Space':
+                this.onEnter(event);
+                break;
+            //tab
+            case 'Tab':
+                this.setAllNodesTabIndexes();
                 break;
 
             default:
@@ -559,8 +547,116 @@ export class UITreeNode implements OnInit {
         }
     }
 
+    onArrowUp(event: KeyboardEvent) {
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : (<HTMLDivElement>event.target).parentElement;
+
+        if (nodeElement.previousElementSibling) {
+            this.focusRowChange(nodeElement, nodeElement.previousElementSibling, this.findLastVisibleDescendant(nodeElement.previousElementSibling));
+        } else {
+            let parentNodeElement = this.getParentNodeElement(nodeElement);
+
+            if (parentNodeElement) {
+                this.focusRowChange(nodeElement, parentNodeElement);
+            }
+        }
+
+        event.preventDefault();
+    }
+
+    onArrowDown(event: KeyboardEvent) {
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
+        const listElement = nodeElement.children[1];
+
+        if (listElement && listElement.children.length > 0) {
+            this.focusRowChange(nodeElement, listElement.children[0]);
+        } else {
+            if (nodeElement.parentElement.nextElementSibling) {
+                this.focusRowChange(nodeElement, nodeElement.parentElement.nextElementSibling);
+            } else {
+                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement.parentElement);
+
+                if (nextSiblingAncestor) {
+                    this.focusRowChange(nodeElement, nextSiblingAncestor);
+                }
+            }
+        }
+        event.preventDefault();
+    }
+
+    onArrowRight(event: KeyboardEvent) {
+        if (!this.node?.expanded && !this.tree.isNodeLeaf(<TreeNode>this.node)) {
+            this.expand(event);
+            (<HTMLDivElement>event.currentTarget).tabIndex = -1;
+
+            setTimeout(() => {
+                this.onArrowDown(event);
+            }, 1);
+        }
+        event.preventDefault();
+    }
+
+    onArrowLeft(event: KeyboardEvent) {
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
+
+        if (this.level === 0 && !this.node?.expanded) {
+            return false;
+        }
+
+        if (this.node?.expanded) {
+            this.collapse(event);
+            return;
+        }
+
+        let parentNodeElement = this.getParentNodeElement(nodeElement.parentElement);
+
+        if (parentNodeElement) {
+            this.focusRowChange(event.currentTarget, parentNodeElement);
+        }
+
+        event.preventDefault();
+    }
+
+    onEnter(event: KeyboardEvent) {
+        this.tree.onNodeClick(event, <TreeNode>this.node);
+        this.setTabIndexForSelectionMode(event, this.tree.nodeTouched);
+        event.preventDefault();
+    }
+
+    setAllNodesTabIndexes() {
+        const nodes = DomHandler.find(this.tree.el.nativeElement, '.p-treenode');
+
+        const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
+
+        [...nodes].forEach((node) => {
+            node.tabIndex = -1;
+        });
+
+        if (hasSelectedNode) {
+            const selectedNodes = [...nodes].filter((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
+
+            selectedNodes[0].tabIndex = 0;
+
+            return;
+        }
+
+        [...nodes][0].tabIndex = 0;
+    }
+
+    setTabIndexForSelectionMode(event, nodeTouched) {
+        if (this.tree.selectionMode !== null) {
+            const elements = [...DomHandler.find(this.tree.el.nativeElement, '.p-treenode')];
+
+            event.currentTarget.tabIndex = nodeTouched === false ? -1 : 0;
+
+            if (elements.every((element) => element.tabIndex === -1)) {
+                elements[0].tabIndex = 0;
+            }
+        }
+    }
+
     findNextSiblingOfAncestor(nodeElement: any): any {
         let parentNodeElement = this.getParentNodeElement(nodeElement);
+
         if (parentNodeElement) {
             if (parentNodeElement.nextElementSibling) return parentNodeElement.nextElementSibling;
             else return this.findNextSiblingOfAncestor(parentNodeElement);
@@ -581,15 +677,22 @@ export class UITreeNode implements OnInit {
         }
     }
 
-    getParentNodeElement(nodeElement: HTMLElement) {
+    getParentNodeElement(nodeElement: HTMLElement | Element) {
         const parentNodeElement = nodeElement.parentElement?.parentElement?.parentElement;
 
         return parentNodeElement?.tagName === 'P-TREENODE' ? parentNodeElement : null;
     }
 
     focusNode(element: any) {
-        if (this.tree.droppableNodes) (element.children[1].children[0] as HTMLElement).focus();
-        else (element.children[0].children[0] as HTMLElement).focus();
+        if (this.tree.droppableNodes) (element.children[1] as HTMLElement).focus();
+        else (element.children[0] as HTMLElement).focus();
+    }
+
+    focusRowChange(firstFocusableRow, currentFocusedRow, lastVisibleDescendant?) {
+        firstFocusableRow.tabIndex = '-1';
+        currentFocusedRow.children[0].tabIndex = '0';
+
+        this.focusNode(lastVisibleDescendant || currentFocusedRow);
     }
 
     focusVirtualNode() {
