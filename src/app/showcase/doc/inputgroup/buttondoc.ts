@@ -8,21 +8,21 @@ import { Code } from '../../domain/code';
             <p>Buttons can be placed at either side of an input element.</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
-            <div class="p-inputgroup">
+            <p-inputGroup >
                 <button type="button" pButton label="Search"></button>
                 <input type="text" pInputText placeholder="Keyword" />
-            </div>
+            </p-inputGroup>
 
-            <div class="p-inputgroup">
+            <p-inputGroup>
                 <input type="text" pInputText placeholder="Keyword" />
                 <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
-            </div>
+            </p-inputGroup>
 
-            <div class="p-inputgroup">
+            <p-inputGroup>
                 <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
                 <input type="text" pInputText placeholder="Vote" />
                 <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
-            </div>
+            </p-inputGroup>
         </div>
         <app-code [code]="code" selector="inputgroup-button-demo"></app-code>
     </section>`
@@ -34,39 +34,38 @@ export class ButtonDoc {
 
     code: Code = {
         basic: `
-<div class="p-inputgroup">
-    <button type="button" pButton label="Search"></button>
-    <input type="text" pInputText placeholder="Keyword" />
-</div>
+ <p-inputGroup >
+     <button type="button" pButton label="Search"></button>
+     <input type="text" pInputText placeholder="Keyword" />
+ </p-inputGroup>
 
-<div class="p-inputgroup">
-    <input type="text" pInputText placeholder="Keyword" />
-    <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
-</div>
-
-<div class="p-inputgroup">
-    <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
-    <input type="text" pInputText placeholder="Vote" />
-    <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
-</div>`,
-
+ <p-inputGroup>
+     <input type="text" pInputText placeholder="Keyword" />
+     <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
+ </p-inputGroup>
+ 
+ <p-inputGroup>
+     <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
+     <input type="text" pInputText placeholder="Vote" />
+     <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
+ </p-inputGroup>`,
         html: `
 <div class="card flex flex-column md:flex-row gap-3">
-    <div class="p-inputgroup">
-        <button type="button" pButton label="Search"></button>
-        <input type="text" pInputText placeholder="Keyword" />
-    </div>
-    
-    <div class="p-inputgroup">
-        <input type="text" pInputText placeholder="Keyword" />
-        <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
-    </div>
-
-    <div class="p-inputgroup">
-        <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
-        <input type="text" pInputText placeholder="Vote" />
-        <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
-    </div>
+   <p-inputGroup >
+   <button type="button" pButton label="Search"></button>
+   <input type="text" pInputText placeholder="Keyword" />
+   </p-inputGroup>
+   
+   <p-inputGroup>
+   <input type="text" pInputText placeholder="Keyword" />
+   <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
+   </p-inputGroup>
+   
+   <p-inputGroup>
+   <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
+   <input type="text" pInputText placeholder="Vote" />
+   <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
+   </p-inputGroup>
 </div>`,
 
         typescript: `

@@ -5,24 +5,30 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>An InputGroup is created by wrapping the input and add-ons inside an element with a <i>p-inputgroup</i> class where add-ons also should be inside an element with <i>.p-inputgroup-addon</i> class</p>
+            <p>A group is created by wrapping the input and add-ons with the <i>InputGroup</i> component. Each add-on element is defined as a child of <i>InputGroupAddon</i> component.</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">
+            <p-inputGroup>
+                
+                <p-inputGroupAddon>
                     <i class="pi pi-user"></i>
-                </span>
+                </p-inputGroupAddon>
                 <input pInputText placeholder="Username" />
-            </div>
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">$</span>
+
+            </p-inputGroup>
+            <p-inputGroup>
+
+                <p-inputGroupAddon>$</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Price" />
-                <span class="p-inputgroup-addon">.00</span>
-            </div>
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">www</span>
+                <p-inputGroupAddon>.00</p-inputGroupAddon>
+
+            </p-inputGroup>
+            <p-inputGroup>
+
+                <p-inputGroupAddon>www</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
-            </div>
+                
+            </p-inputGroup>
         </div>
         <app-code [code]="code" selector="inputgroup-basic-demo"></app-code>
     </section>`
@@ -34,42 +40,40 @@ export class BasicDoc {
 
     code: Code = {
         basic: `
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-    </span>
-    <input pInputText placeholder="Username" />
-</div>
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">$</span>
-    <input type="text" pInputText placeholder="Price" />
-    <span class="p-inputgroup-addon">.00</span>
-</div>
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">www</span>
-    <input type="text" pInputText placeholder="Website" />
-</div>`,
+    <p-inputGroup>
+     <p-inputGroupAddon>
+          <i class="pi pi-user"></i>
+     </p-inputGroupAddon>
+       <input pInputText placeholder="Username" />
+    </p-inputGroup>
+    <p-inputGroup class="p-inputgroup">
+     <p-inputGroupAddon>$</p-inputGroupAddon>
+        <input type="text" pInputText placeholder="Price" />
+     <p-inputGroupAddon>.00</p-inputGroupAddon>
+    </p-inputGroup>
+    <p-inputGroup class="p-inputgroup">
+     <p-inputGroupAddon>www</p-inputGroupAddon>
+        <input type="text" pInputText placeholder="Website" />
+    </p-inputGroup>`,
 
         html: `
-<div class="card flex flex-column md:flex-row gap-3">
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-            <i class="pi pi-user"></i>
-        </span>
-        <input pInputText placeholder="Username" />
-    </div>
-
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">$</span>
-        <input type="text" pInputText placeholder="Price" />
-        <span class="p-inputgroup-addon">.00</span>
-    </div>
-
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">www</span>
-        <input type="text" pInputText placeholder="Website" />
-    </div>
-</div>`,
+    <div class="card flex flex-column md:flex-row gap-3">
+    <p-inputGroup>
+    <p-inputGroupAddon>
+         <i class="pi pi-user"></i>
+    </p-inputGroupAddon>
+      <input pInputText placeholder="Username" />
+    </p-inputGroup>
+    <p-inputGroup class="p-inputgroup">
+    <p-inputGroupAddon>$</p-inputGroupAddon>
+       <input type="text" pInputText placeholder="Price" />
+    <p-inputGroupAddon>.00</p-inputGroupAddon>
+    </p-inputGroup>
+    <p-inputGroup class="p-inputgroup">
+    <p-inputGroupAddon>www</p-inputGroupAddon>
+       <input type="text" pInputText placeholder="Website" />
+    </p-inputGroup>
+      </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
