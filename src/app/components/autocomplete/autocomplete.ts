@@ -183,7 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
@@ -1054,9 +1054,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(query);
         }
 
-        if (query.length === 0) {
-            this.hide();
+        if (query.length === 0 && !this.multiple) {
             this.onClear.emit();
+
+            setTimeout(() => {
+                this.hide();
+            }, this.delay / 2);
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
