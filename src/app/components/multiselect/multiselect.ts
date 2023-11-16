@@ -1865,7 +1865,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             this.filterInputChild.nativeElement.value = '';
         }
 
-        this._filterValue = null;
+        this._filterValue.set(null);
         this._filteredOptions = null;
     }
 
