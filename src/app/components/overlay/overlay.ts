@@ -616,7 +616,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
         this.zone.runOutsideAngular(() => {
             this.documentKeyboardListener = this.renderer.listen(this.window, 'keydown', (event) => {
-                if (!this.overlayOptions.hideOnEscape || event.keyCode !== 27) {
+                if (this.overlayOptions.hideOnEscape === false || event.code !== 'Escape') {
                     return;
                 }
 

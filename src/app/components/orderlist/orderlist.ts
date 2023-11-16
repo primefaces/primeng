@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
@@ -46,19 +46,19 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
             [attr.data-pc-section]="'root'"
         >
             <div class="p-orderlist-controls" [attr.data-pc-section]="'controls'">
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.data-pc-section]="'moveUpButton'">
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'">
                     <AngleUpIcon *ngIf="!moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.data-pc-section]="'moveTopButton'">
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'">
                     <AngleDoubleUpIcon *ngIf="!moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.data-pc-section]="'moveDownButton'">
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'">
                     <AngleDownIcon *ngIf="!moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate"></ng-template>
                 </button>
-                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()" [attr.data-pc-section]="'moveBottomButton'">
+                <button type="button" [disabled]="moveDisabled()" pButton pRipple class="p-button-icon-only" (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [attr.data-pc-section]="'moveBottomButton'">
                     <AngleDoubleDownIcon *ngIf="!moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate"></ng-template>
                 </button>
@@ -101,6 +101,7 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
                     [attr.data-pc-section]="'list'"
                     role="listbox"
                     [tabindex]="tabindex"
+                    aria-multiselectable="true"
                     [attr.aria-activedescendant]="focused ? focusedOptionId() : undefined"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
@@ -315,6 +316,22 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public filterTemplate: Nullable<TemplateRef<any>>;
 
+    get moveUpAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
+    }
+
+    get moveTopAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.moveTop : undefined;
+    }
+
+    get moveDownAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
+    }
+
+    get moveBottomAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.moveBottom : undefined;
+    }
+
     moveUpIconTemplate: Nullable<TemplateRef<any>>;
 
     moveTopIconTemplate: Nullable<TemplateRef<any>>;
@@ -349,7 +366,15 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public filterService: FilterService,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnInit() {
         if (this.responsive) {
@@ -827,17 +852,17 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                         .p-orderlist[${this.id}] {
                             flex-direction: column;
                         }
-    
+
                         .p-orderlist[${this.id}] .p-orderlist-controls {
                             padding: var(--content-padding);
                             flex-direction: row;
                         }
-    
+
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
                             margin-right: var(--inline-spacing);
                             margin-bottom: 0;
                         }
-    
+
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
                             margin-right: 0;
                         }
