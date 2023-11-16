@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+            <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" [dropdown]="true">
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
@@ -62,7 +62,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `
 <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
-    (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+    (completeMethod)="filterCountry($event)" optionLabel="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
@@ -73,7 +73,7 @@ export class TemplateDoc {
 
         html: `
 <div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>

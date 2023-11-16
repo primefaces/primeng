@@ -12,12 +12,12 @@ interface AutoCompleteCompleteEvent {
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
             <p>
-                AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a
-                Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
+                AutoComplete can also work with objects using the <i>optionLabel</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with
+                a Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>
     </section>`
@@ -57,11 +57,11 @@ export class ObjectsDoc implements OnInit {
 
     code: Code = {
         basic: `
-<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+    <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>
 </div>`,
 
         typescript: `
