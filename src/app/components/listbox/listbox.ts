@@ -709,6 +709,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     writeValue(value: any): void {
         this.value = value;
+        this.modelValue.set(this.value);
         this.cd.markForCheck();
     }
 
