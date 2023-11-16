@@ -1028,16 +1028,16 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         if (this.autoDisplayFirst && !this.modelValue()) {
             const ind = this.findFirstOptionIndex();
-            this.onOptionSelect(null, this.visibleOptions()[ind], false);
+            this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
         }
     }
 
-    onOptionSelect(event, option, isHide = true) {
+    onOptionSelect(event, option, isHide = true, preventChange = false) {
         const value = this.getOptionValue(option);
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
         isHide && this.hide(true);
-        this.onChange.emit({originalEvent: event, value: value})
+        (preventChange === false) && this.onChange.emit({originalEvent: event, value: value});
     }
 
     onOptionMouseEnter(event, index) {
