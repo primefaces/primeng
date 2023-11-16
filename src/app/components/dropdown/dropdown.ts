@@ -1072,7 +1072,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.resetFilter();
         }
         this.value = value;
-        this.onModelChange(value);
+        if(this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable) {
+            this.onModelChange(value);
+        }
         this.modelValue.set(this.value)
         this.updateEditableLabel();
         this.cd.markForCheck();
