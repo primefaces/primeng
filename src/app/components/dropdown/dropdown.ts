@@ -1203,7 +1203,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 if (this.virtualScroll) {
                     const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                     if (selectedIndex !== -1) {
-                        this.scroller?.scrollToIndex(0);
+                        this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
                     let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
@@ -1420,6 +1420,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
+
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
             const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {

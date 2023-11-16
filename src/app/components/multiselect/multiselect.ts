@@ -1842,7 +1842,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     if (this.virtualScroll) {
                         const selectedIndex = ObjectUtils.isNotEmpty(this.modelValue()) ? this.focusedOptionIndex() : -1;
                         if (selectedIndex !== -1) {
-                            this.scroller?.scrollToIndex(0);
+                            this.scroller?.scrollToIndex(selectedIndex);
                         }
                     } else {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-multiselect-item.p-highlight');
