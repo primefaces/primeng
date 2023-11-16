@@ -1851,8 +1851,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                             selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                         }
                     }
-                    this.onPanelShow.emit();
                 }
+                this.onPanelShow.emit();
             case 'void':
                 this.itemsWrapper = null;
                 this.onModelTouched();
