@@ -47,6 +47,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
+
+declare type OptionLabelCallback = (option: any) => string;
+
 /**
  * AutoComplete is an input component that provides real-time suggestions when being typed.
  * @group Components
@@ -555,7 +558,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    @Input() optionLabel: string | OptionLabelCallback | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
@@ -1533,7 +1536,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     getOptionLabel(option: any) {
-        return this.field || this.optionLabel ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
+        if (this.field || typeof this.optionLabel === 'string' || this.optionLabel instanceof String) {
+            return ObjectUtils.resolveFieldData(option, this.field || this.optionLabel);
+        } else if (this.optionLabel) {
+            return this.optionLabel(option);
+        }
+        return option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
