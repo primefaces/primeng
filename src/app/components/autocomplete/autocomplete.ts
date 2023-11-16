@@ -197,7 +197,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         *ngIf="virtualScroll"
                         #scroller
                         [items]="visibleOptions()"
-                        [tabindex]="-1"
                         [style]="{ height: scrollHeight }"
                         [itemSize]="virtualScrollItemSize || _itemSize"
                         [autoSize]="true"
@@ -1568,7 +1567,26 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+            
+            if(this.virtualScroll) {
+                this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+                this.scroller.viewInit();
+            }
+            if(this.visibleOptions() && this.visibleOptions().length) {
+                if(this.virtualScroll) {
+                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+
+                    if (selectedIndex !== -1) {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    }
+                } else {
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+
+                    if (selectedListItem) {
+                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                    }
+                }
+            }
         }
     }
 
