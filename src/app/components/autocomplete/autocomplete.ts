@@ -183,7 +183,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
