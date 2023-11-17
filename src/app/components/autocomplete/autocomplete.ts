@@ -197,7 +197,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         *ngIf="virtualScroll"
                         #scroller
                         [items]="visibleOptions()"
-                        [tabindex]="-1"
                         [style]="{ height: scrollHeight }"
                         [itemSize]="virtualScrollItemSize || _itemSize"
                         [autoSize]="true"
@@ -1055,9 +1054,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(query);
         }
 
-        if (query.length === 0) {
-            this.hide();
+        if (query.length === 0 && !this.multiple) {
             this.onClear.emit();
+
+            setTimeout(() => {
+                this.hide();
+            }, this.delay / 2);
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
@@ -1568,7 +1570,26 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+            
+            if(this.virtualScroll) {
+                this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+                this.scroller.viewInit();
+            }
+            if(this.visibleOptions() && this.visibleOptions().length) {
+                if(this.virtualScroll) {
+                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+
+                    if (selectedIndex !== -1) {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    }
+                } else {
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+
+                    if (selectedListItem) {
+                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                    }
+                }
+            }
         }
     }
 

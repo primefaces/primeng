@@ -12,15 +12,18 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect
-                [options]="virtualItems"
-                [showToggleAll]="false"
+                [options]="items"
+                [showToggleAll]="true"
+                [selectAll]="selectAll"
                 [(ngModel)]="selectedItems"
-                optionLabel="name"
+                optionLabel="label"
                 [virtualScroll]="true"
                 [filter]="true"
                 [virtualScrollItemSize]="43"
                 class="multiselect-custom-virtual-scroll"
                 placeholder="Select Cities"
+                (onSelectAllChange)="onSelectAllChange($event)"
+                (onChange)="onChange($event)"
             ></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
@@ -31,24 +34,55 @@ export class VirtualScrollDoc {
 
     @Input() title: string;
 
-    virtualItems!: any[];
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }))
 
     selectedItems!: any[];
 
-    constructor() {
-        this.virtualItems = [];
-        for (let i = 0; i < 10000; i++) {
-            this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
-        }
+    selectAll: boolean = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectAll = event.checked;
+    }
+
+    onChange(event) {
+        const { value } = event
+        if(value) this.selectAll = value.length === this.items.length;
     }
 
     code: Code = {
         basic: `
-<p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities"></p-multiSelect>`,
+<p-multiSelect
+    [options]="items"
+    [showToggleAll]="true"
+    [selectAll]="selectAll"
+    [(ngModel)]="selectedItems"
+    optionLabel="label"
+    [virtualScroll]="true"
+    [filter]="true"
+    [virtualScrollItemSize]="43"
+    class="multiselect-custom-virtual-scroll"
+    placeholder="Select Cities"
+    (onSelectAllChange)="onSelectAllChange($event)"
+    (onChange)="onChange($event)"
+></p-multiSelect>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-multiSelect [options]="virtualItems" [showToggleAll]="false" [(ngModel)]="selectedItems" optionLabel="name" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" class="multiselect-custom-virtual-scroll" placeholder="Select Cities"></p-multiSelect>
+    <p-multiSelect
+        [options]="items"
+        [showToggleAll]="true"
+        [selectAll]="selectAll"
+        [(ngModel)]="selectedItems"
+        optionLabel="label"
+        [virtualScroll]="true"
+        [filter]="true"
+        [virtualScrollItemSize]="43"
+        class="multiselect-custom-virtual-scroll"
+        placeholder="Select Cities"
+        (onSelectAllChange)="onSelectAllChange($event)"
+        (onChange)="onChange($event)"
+    ></p-multiSelect>
 </div>`,
 
         typescript: `
@@ -59,17 +93,23 @@ import { Component } from '@angular/core';
     templateUrl: './multi-select-virtual-scroll-demo.html'
 })
 export class MultiSelectVirtualScrollDemo {
-
-    virtualItems!: any[];
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
 
     selectedItems!: any[];
 
-    constructor() {
-        this.virtualItems = [];
-        for (let i = 0; i < 10000; i++) {
-            this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
-        }
+    selectAll = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectAll = event.checked;
+        event.updateModel(this.selectedItems, event.originalEvent)
     }
+
+    onChange(event) {
+        const { originalEvent, value } = event
+        if(value) this.selectAll = value.length === this.items.length;
+    }
+
 }`
     };
 }

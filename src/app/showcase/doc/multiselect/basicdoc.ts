@@ -18,9 +18,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <form [formGroup]="formGroup">
-                <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
-            </form>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     </section>`
@@ -32,9 +30,7 @@ export class BasicDoc implements OnInit {
 
     cities!: City[];
 
-    selectedCities!: City[];
-
-    formGroup!: FormGroup;
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
@@ -44,10 +40,6 @@ export class BasicDoc implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
         ];
-
-        this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>(null)
-        });
     }
 
     code: Code = {

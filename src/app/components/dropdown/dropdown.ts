@@ -1042,16 +1042,16 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         if (this.autoDisplayFirst && !this.modelValue()) {
             const ind = this.findFirstOptionIndex();
-            this.onOptionSelect(null, this.visibleOptions()[ind], false);
+            this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
         }
     }
 
-    onOptionSelect(event, option, isHide = true) {
+    onOptionSelect(event, option, isHide = true, preventChange = false) {
         const value = this.getOptionValue(option);
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
         isHide && this.hide(true);
-        this.onChange.emit({originalEvent: event, value: value})
+        (preventChange === false) && this.onChange.emit({originalEvent: event, value: value});
     }
 
     onOptionMouseEnter(event, index) {
@@ -1072,12 +1072,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.resetFilter();
         }
         this.value = value;
-        if(this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable) {
-            this.onModelChange(value);
-        }
+        
+        this.allowModelChange() && this.onModelChange(value);
         this.modelValue.set(this.value)
         this.updateEditableLabel();
         this.cd.markForCheck();
+    }
+
+    allowModelChange(){
+        return this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
@@ -1214,7 +1217,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 if (this.virtualScroll) {
                     const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                     if (selectedIndex !== -1) {
-                        this.scroller?.scrollToIndex(0);
+                        this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
                     let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
@@ -1273,7 +1276,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onInputBlur(event: Event) {
         this.focused = false;
-        this.onBlur.emit(event);
+        (this.overlayVisible === false) && this.onBlur.emit(event);
 
         if (!this.preventModelTouched) {
             this.onModelTouched();
@@ -1431,6 +1434,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     scrollInView(index = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedOptionId;
+
         if (this.itemsViewChild && this.itemsViewChild.nativeElement) {
             const element = DomHandler.findSingle(this.itemsViewChild.nativeElement, `li[id="${id}"]`);
             if (element) {

@@ -31,7 +31,7 @@ import { Subscription } from 'rxjs';
 import { SearchIcon } from 'primeng/icons/search';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
-import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions } from './listbox.interface';
+import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
@@ -474,6 +474,16 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         this._filterValue.set(val);
     }
     /**
+     * Whether all data is selected.
+     * @group Props
+     */
+    @Input() get selectAll(): boolean | undefined | null {
+        return this._selectAll;
+    }
+    set selectAll(value: boolean | undefined | null) {
+        this._selectAll = value;
+    }
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
@@ -509,6 +519,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * @group Emits
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    /**
+     * Callback to invoke when all data is selected.
+     * @param {ListboxSelectAllChangeEvent} event - Custom select event.
+     * @group Emits
+     */
+    @Output() onSelectAllChange: EventEmitter<ListboxSelectAllChangeEvent> = new EventEmitter<ListboxSelectAllChangeEvent>();
 
     @ViewChild('headerchkbox') headerCheckboxViewChild: Nullable<ElementRef>;
 
@@ -630,6 +646,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     searchTimeout: any;
 
+    _selectAll: boolean | undefined | null = null;
+
     _options = signal<any>(null);
 
     startRangeIndex = signal<number>(-1);
@@ -745,8 +763,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()]);
         }
     }
-
-    updateModel(value, event?) {
+    /**
+     * Updates the model value.
+     * @group Method
+     */
+    public updateModel(value, event?) {
         this.value = value;
         this.modelValue.set(value);
         this.onModelChange(value);
@@ -841,20 +862,28 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         }
         DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
 
-        const value = this.allSelected()
-            ? []
-            : this.visibleOptions()
-                  .filter((option) => this.isValidOption(option))
-                  .map((option) => this.getOptionValue(option));
-        this.updateModel(value, event);
+        if(this.selectAll !== null) {
+            this.onSelectAllChange.emit({
+                originalEvent: event,
+                checked: !this.allSelected()
+            })
+        } else {
+            const value = this.allSelected()
+                ? []
+                : this.visibleOptions()
+                      .filter((option) => this.isValidOption(option))
+                      .map((option) => this.getOptionValue(option));
+            
+            this.updateModel(value, event);
+            this.onChange.emit({ originalEvent: event, value: this.value });
+        }
 
         event.preventDefault();
-        event.stopPropagation();
+        // event.stopPropagation();
     }
 
     allSelected() {
-        const allSelected = this.visibleOptions().length > 0 && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
-        return ObjectUtils.isNotEmpty(this.visibleOptions()) && allSelected;
+        return this.selectAll !== null ? this.selectAll : ObjectUtils.isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     onOptionTouchEnd() {
