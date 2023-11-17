@@ -179,7 +179,7 @@ export class MultiSelectItem {
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: modelValue(), removeChip: removeOption.bind(this) }"></ng-container>
                 </div>
-                <ng-container *ngIf="modelValue() != null && filled && !disabled && showClear">
+                <ng-container *ngIf="isVisibleClearIcon">
                     <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-multiselect-clear-icon'" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
                     <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
@@ -1003,7 +1003,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && this.showClear && !this.disabled;
+        return this.modelValue() != null && this.modelValue() !== '' && ObjectUtils.isNotEmpty(this.modelValue()) && this.showClear && !this.disabled && this.filled;
     }
 
     get toggleAllAriaLabel() {
