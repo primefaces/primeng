@@ -486,13 +486,25 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     /**
      * Whether to show labels of selected item labels or use default label.
      * @group Props
+     * @defaultValue true
      */
-    @Input() displaySelectedLabel: boolean = true;
+    @Input() set displaySelectedLabel(val: boolean) {
+        this._displaySelectedLabel = val;
+    }
+    get displaySelectedLabel(): boolean {
+        return this._displaySelectedLabel;
+    }
     /**
      * Decides how many selected item labels to show at most.
      * @group Props
+     * @defaultValue 3
      */
-    @Input() maxSelectedLabels: number = 3;
+    @Input() set maxSelectedLabels(val: number) {
+        this._maxSelectedLabels = val;
+    }
+    get maxSelectedLabels(): number {
+        return this._maxSelectedLabels;
+    }
     /**
      * Decides how many selected item labels to show at most.
      * @group Props
@@ -926,6 +938,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     itemsWrapper: any;
 
+    _displaySelectedLabel: boolean = true;
+
+    _maxSelectedLabels: number = 3;
+
     modelValue = signal<any>(null);
 
     _filterValue = signal<any>(null);
@@ -1026,7 +1042,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let label;
         const modelValue = this.modelValue();
 
-        if (modelValue && modelValue.length) {
+        if (modelValue && modelValue.length && this.displaySelectedLabel) {
             if (ObjectUtils.isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
                 return this.getSelectedItemsLabel();
             } else {
