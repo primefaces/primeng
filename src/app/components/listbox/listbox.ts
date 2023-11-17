@@ -865,8 +865,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         if(this.selectAll !== null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
-                checked: !this.allSelected(),
-                updateModel: this.updateModel.bind(this)
+                checked: !this.allSelected()
             })
         } else {
             const value = this.allSelected()

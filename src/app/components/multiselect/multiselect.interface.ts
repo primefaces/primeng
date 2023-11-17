@@ -42,10 +42,6 @@ export interface MultiSelectSelectAllChangeEvent {
      * Boolean value indicates whether all data is selected.
      */
     checked: boolean;
-    /**
-     * Method to invoke on model value change.
-     */
-    updateModel?: (value?: any, event?: Event) => void;
 }
 /**
  * Custom filter event.
