@@ -641,19 +641,17 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             }
 
             moveItemInArray(this.value as any[], previousIndex, currentIndex);
+            this.changeFocusedOptionIndex(currentIndex);
             this.onReorder.emit([event.item.data]);
         }
     }
 
     onListFocus(event) {
-        const selectedFirstItem = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]');
-
-        if (selectedFirstItem) {
-            const findIndex = ObjectUtils.findIndexInList(selectedFirstItem, this.listViewChild.nativeElement.children);
-
+        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]')
+        if (focusableEl) {
+            const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.nativeElement.children);
             this.focused = true;
-
-            const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : selectedFirstItem ? findIndex : -1;
+            const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
 
             this.changeFocusedOptionIndex(index);
         }
@@ -811,7 +809,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         const element = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 
