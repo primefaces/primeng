@@ -283,7 +283,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Element to receive the focus when the dialog gets visible.
      * @group Props
      */
-    @Input() defaultFocus: 'accept' | 'reject' | 'close' = 'accept';
+    @Input() defaultFocus: 'accept' | 'reject' | 'close' | 'none' = 'accept';
     /**
      * Object literal to define widths per screen size.
      * @group Props

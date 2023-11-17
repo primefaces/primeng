@@ -1,5 +1,38 @@
 # Changelog
 
+## [16.7.2](https://github.com/primefaces/primeng/tree/16.7.2) (2023-11-08)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.7.1...16.7.2)
+
+**Fixed bugs:**
+- Overlay: p-overlay div not removed from DOM on hiding panel [\#12948](https://github.com/primefaces/primeng/issues/12948)
+- Table / EditableColumn: onEditComplete emitts old data value and not the new one as documented [\#13708](https://github.com/primefaces/primeng/issues/13708)
+- FileUpload: Input Triggered on Any Mouse Click [\#13722](https://github.com/primefaces/primeng/issues/13722)
+- Toast | Position Class is there twice when using Angular SSR and Client Hydration [\#13784](https://github.com/primefaces/primeng/issues/13784)
+- Dialog: bad drag behavior when keepInViewport is false [\#13856](https://github.com/primefaces/primeng/issues/13856)
+- p-image-preview-indicator rendered when preview is false [\#14002](https://github.com/primefaces/primeng/issues/14002)
+- TriStateCheckboxComponent: inputId not working [\#13946](https://github.com/primefaces/primeng/issues/13946)
+- splitButton: close dropdown when default button is clicked [\#13962](https://github.com/primefaces/primeng/issues/13962)
+- SelectButton in v16.7.1 is only partially fixed [\#14048](https://github.com/primefaces/primeng/issues/14048)
+
+## [16.7.1](https://github.com/primefaces/primeng/tree/16.7.1) (2023-11-06)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.7.0...16.7.1)
+
+**Fixed bugs:**
+- BIG ERROR with DropDown [\#13996](https://github.com/primefaces/primeng/issues/13996)
+- Component: p-dropdwon onChange is called multiple times at init [\#14005](https://github.com/primefaces/primeng/issues/14005)
+- Change of Dropdown selection throws error: Cannot read properties of undefined (reading 'length') primeng dropdown [\#14007](https://github.com/primefaces/primeng/issues/14007)
+- Dropdown filtering issues with array of strings [\#14011](https://github.com/primefaces/primeng/issues/14011)
+- The ngModel directive can't set an item of dropdown in version 16.7.0 [\#14023](https://github.com/primefaces/primeng/issues/14023)
+- ListBox | onClick event does not emit [\#14036](https://github.com/primefaces/primeng/issues/14036)
+- ListBox | OnChange doesn't emit [\#14033](https://github.com/primefaces/primeng/issues/14033)
+- onClick event listbox error v16.7.0 [\#13998](https://github.com/primefaces/primeng/issues/13998)
+- MultiSelect | Input section receives focus on filter click. [\#14035](https://github.com/primefaces/primeng/issues/14035)
+- Multiselect set value error v16.7.0 [\#13999](https://github.com/primefaces/primeng/issues/13999)
+- SelectButton broken in v16.7.0 [\#14021](https://github.com/primefaces/primeng/issues/14021)
+- Global filter to search tree-table is not returning all the relevant results [\#14016](https://github.com/primefaces/primeng/issues/14016)
+
 ## [16.7.0](https://github.com/primefaces/primeng/tree/16.7.0) (2023-11-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.6.0...16.7.0)
@@ -50,7 +83,7 @@
 
 ## [16.5.0](https://github.com/primefaces/primeng/tree/16.5.0) (2023-10-11)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.5.0)
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.2...16.5.0)
 
 **Deprecated:**
 - SlideMenu: Deprecate from PrimeNG [\#13830](https://github.com/primefaces/primeng/issues/13830)
@@ -77,6 +110,15 @@
 - Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
 - p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
 - Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
+## [16.4.2](https://github.com/primefaces/primeng/tree/16.4.2) (2023-11-10)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.4.2)
+
+**Fixed bugs:**
+
+- TreeTable | Global filter to search tree-table is not returning all the relevant results [\#14082](https://github.com/primefaces/primeng/issues/14082)
+- Dropdown | FocusTrap doesn't allow user to tab on next element [\#14083](https://github.com/primefaces/primeng/issues/14083)
 
 ## [16.4.1](https://github.com/primefaces/primeng/tree/16.4.1) (2023-09-27)
 
@@ -400,6 +442,14 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.12-LTS](https://www.npmjs.com/package/primeng/v/15.4.12-lts) (2023-11-08)
+
+**Fixed bugs:**
+- Overlay: p-overlay div not removed from DOM on hiding panel [\#12948](https://github.com/primefaces/primeng/issues/12948)
+- Table / EditableColumn: onEditComplete emitts old data value and not the new one as documented [\#13708](https://github.com/primefaces/primeng/issues/13708)
+- FileUpload: Input Triggered on Any Mouse Click [\#13722](https://github.com/primefaces/primeng/issues/13722)
+- Dialog: bad drag behavior when keepInViewport is false [\#13856](https://github.com/primefaces/primeng/issues/13856)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.11-LTS](https://www.npmjs.com/package/primeng/v/15.4.11-lts) (2023-10-19)
 **Fixed bugs:**
 - Password | Incorrect placement of close icon when [toggleMask]="true" [\#13817](https://github.com/primefaces/primeng/issues/13817)
@@ -677,6 +727,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.15-LTS](https://www.npmjs.com/package/primeng/v/14.2.15-lts) (2023-11-08)
+
+**Fixed bugs:**
+- Overlay: p-overlay div not removed from DOM on hiding panel [\#12948](https://github.com/primefaces/primeng/issues/12948)
+- Table / EditableColumn: onEditComplete emitts old data value and not the new one as documented [\#13708](https://github.com/primefaces/primeng/issues/13708)
+- FileUpload: Input Triggered on Any Mouse Click [\#13722](https://github.com/primefaces/primeng/issues/13722)
+- Dialog: bad drag behavior when keepInViewport is false [\#13856](https://github.com/primefaces/primeng/issues/13856)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.14-LTS](https://www.npmjs.com/package/primeng/v/14.2.14-lts) (2023-10-19)
 **Fixed bugs:**

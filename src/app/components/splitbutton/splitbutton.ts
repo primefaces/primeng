@@ -218,6 +218,7 @@ export class SplitButton {
 
     onDefaultButtonClick(event: MouseEvent) {
         this.onClick.emit(event);
+        this.menu.hide();
     }
 
     onDropdownButtonClick(event?: MouseEvent) {

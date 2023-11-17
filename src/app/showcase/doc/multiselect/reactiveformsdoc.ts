@@ -40,7 +40,7 @@ export class ReactiveFormsDoc implements OnInit {
         ];
 
         this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>(null)
+            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }
 
@@ -85,7 +85,7 @@ export class MultiSelectReactiveFormsDemo implements OnInit {
         ];
 
         this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>(null)
+            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }  
 }`

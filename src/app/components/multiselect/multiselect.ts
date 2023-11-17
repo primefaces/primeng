@@ -319,13 +319,13 @@ export class MultiSelectItem {
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
                                 <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                                        <ng-container *ngIf="option.group">
+                                        <ng-container *ngIf="isOptionGroup(option)">
                                             <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                                 <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                                 <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                             </li>
                                         </ng-container>
-                                        <ng-container *ngIf="!option.group">
+                                        <ng-container *ngIf="!isOptionGroup(option)">
                                             <p-multiSelectItem
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
@@ -488,13 +488,25 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     /**
      * Whether to show labels of selected item labels or use default label.
      * @group Props
+     * @defaultValue true
      */
-    @Input() displaySelectedLabel: boolean = true;
+    @Input() set displaySelectedLabel(val: boolean) {
+        this._displaySelectedLabel = val;
+    }
+    get displaySelectedLabel(): boolean {
+        return this._displaySelectedLabel;
+    }
     /**
      * Decides how many selected item labels to show at most.
      * @group Props
+     * @defaultValue 3
      */
-    @Input() maxSelectedLabels: number = 3;
+    @Input() set maxSelectedLabels(val: number) {
+        this._maxSelectedLabels = val;
+    }
+    get maxSelectedLabels(): number {
+        return this._maxSelectedLabels;
+    }
     /**
      * Decides how many selected item labels to show at most.
      * @group Props
@@ -946,6 +958,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     itemsWrapper: any;
 
+    _displaySelectedLabel: boolean = true;
+
+    _maxSelectedLabels: number = 3;
+
     modelValue = signal<any>(null);
 
     _filterValue = signal<any>(null);
@@ -1046,7 +1062,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let label;
         const modelValue = this.modelValue();
 
-        if (modelValue && modelValue.length) {
+        if (modelValue && modelValue.length && this.displaySelectedLabel) {
             if (ObjectUtils.isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
                 return this.getSelectedItemsLabel();
             } else {
@@ -1199,11 +1215,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.value = value;
         this.onModelChange(value);
         this.modelValue.set(value);
-
-        this.onChange.emit({
-            originalEvent: event,
-            value: this.value
-        });
     }
 
     onInputClick(event) {
@@ -1231,6 +1242,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         index !== -1 && this.focusedOptionIndex.set(index);
 
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        
+        this.onChange.emit({
+            originalEvent: event,
+            value: value,
+            itemValue: option
+        });
     }
 
     onOptionSelectRange(event, start = -1, end = -1) {
@@ -1516,6 +1533,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.changeFocusedOptionIndex(event, optionIndex);
         !this.overlayVisible && this.show();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowUpKey(event, pressedInInputText = false) {
@@ -1538,6 +1556,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             !this.overlayVisible && this.show();
             event.preventDefault();
         }
+        event.stopPropagation();
     }
 
     onHomeKey(event, pressedInInputText = false) {
@@ -1650,14 +1669,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
-
         if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
+            event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
-
+        this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
         this.onClick.emit(event);
         this.cd.detectChanges()
     }
@@ -1809,11 +1827,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
     }
 
-    public writeValue(value: any): void {
-        this.value = this.modelValue();
-        this.updateModel(this.value);
+    writeValue(value: any): void {
+        this.value = value;
+        this.modelValue.set(this.value);
         this.checkSelectionLimit();
-
         this.cd.markForCheck();
     }
 
@@ -1877,7 +1894,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     if (this.virtualScroll) {
                         const selectedIndex = ObjectUtils.isNotEmpty(this.modelValue()) ? this.focusedOptionIndex() : -1;
                         if (selectedIndex !== -1) {
-                            this.scroller?.scrollToIndex(0);
+                            this.scroller?.scrollToIndex(selectedIndex);
                         }
                     } else {
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-multiselect-item.p-highlight');
@@ -1886,8 +1903,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                             selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                         }
                     }
-                    this.onPanelShow.emit();
                 }
+                this.onPanelShow.emit();
             case 'void':
                 this.itemsWrapper = null;
                 this.onModelTouched();
@@ -1900,7 +1917,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             this.filterInputChild.nativeElement.value = '';
         }
 
-        this._filterValue = null;
+        this._filterValue.set(null);
         this._filteredOptions = null;
     }
 

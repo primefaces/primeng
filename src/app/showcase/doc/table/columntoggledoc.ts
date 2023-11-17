@@ -40,7 +40,7 @@ interface Column {
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnToggleDoc implements OnInit {
+export class ColumnToggleDoc {
     @Input() id: string;
 
     @Input() title: string;
@@ -49,7 +49,7 @@ export class ColumnToggleDoc implements OnInit {
 
     cols!: Column[];
 
-    _selectedColumns!: Column[];
+    selectedColumns!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -65,16 +65,7 @@ export class ColumnToggleDoc implements OnInit {
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this._selectedColumns = this.cols;
-    }
-
-    @Input() get selectedColumns(): any[] {
-        return this._selectedColumns;
-    }
-
-    set selectedColumns(val: any[]) {
-        //restore original order
-        this._selectedColumns = this.cols.filter((col) => val.includes(col));
+        this.selectedColumns = this.cols;
     }
 
     code: Code = {
@@ -145,13 +136,14 @@ export class TableColumnToggleDemo implements OnInit{
 
     cols!: Column[];
 
-    _selectedColumns!: Column[];
+    selectedColumns!: Column[];
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
+            this.cd.markForCheck();
         });
 
         this.cols = [
@@ -160,17 +152,9 @@ export class TableColumnToggleDemo implements OnInit{
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this._selectedColumns = this.cols;
+        this.selectedColumns = this.cols;
     }
 
-    @Input() get selectedColumns(): any[] {
-        return this._selectedColumns;
-    }
-
-    set selectedColumns(val: any[]) {
-        //restore original order
-        this._selectedColumns = this.cols.filter((col) => val.includes(col));
-    } 
 }`,
         data: `{
     id: '1000',

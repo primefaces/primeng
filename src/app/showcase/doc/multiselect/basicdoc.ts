@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
+import { FormGroup, FormControl } from '@angular/forms';
 
 interface City {
     name: string;
@@ -17,7 +18,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" placeholder="Select Cities"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     </section>`
@@ -29,7 +30,7 @@ export class BasicDoc implements OnInit {
 
     cities!: City[];
 
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
