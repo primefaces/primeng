@@ -22,6 +22,7 @@ import {
     QueryList,
     Renderer2,
     signal,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -41,7 +42,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
-import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent } from './multiselect.interface';
+import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -251,7 +252,7 @@ export class MultiSelectItem {
                                         <ng-container *ngIf="allSelected()">
                                             <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
                                             <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                                                <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
                                             </span>
                                         </ng-container>
                                     </div>
@@ -268,6 +269,7 @@ export class MultiSelectItem {
                                         [value]="_filterValue() || ''"
                                         (input)="onFilterInputChange($event)"
                                         (keydown)="onFilterKeyDown($event)"
+                                        (click)="onInputClick($event)"
                                         (blur)="onFilterBlur($event)"
                                         class="p-multiselect-filter p-inputtext p-component"
                                         [disabled]="disabled"
@@ -759,6 +761,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         console.warn('The itemSize property is deprecated, use virtualScrollItemSize property instead.');
     }
     /**
+     * Whether all data is selected.
+     * @group Props
+     */
+    @Input() get selectAll(): boolean | undefined | null {
+        return this._selectAll;
+    }
+    set selectAll(value: boolean | undefined | null) {
+        this._selectAll = value;
+    }
+    /**
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
      */
@@ -835,6 +847,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Emits
      */
     @Output() onRemove: EventEmitter<MultiSelectRemoveEvent> = new EventEmitter<MultiSelectRemoveEvent>();
+    /**
+     * Callback to invoke when all data is selected.
+     * @param {MultiSelectSelectAllChangeEvent} event - Custom select event.
+     * @group Emits
+     */
+    @Output() onSelectAllChange: EventEmitter<MultiSelectSelectAllChangeEvent> = new EventEmitter<MultiSelectSelectAllChangeEvent>();
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
@@ -864,6 +882,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     searchTimeout: any;
 
+    _selectAll: boolean | undefined | null = null;
+
     _autoZIndex: boolean | undefined;
 
     _baseZIndex: number | undefined;
@@ -880,7 +900,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     _selectionLimit: number | undefined;
 
-    public value: any[] | undefined | null;
+    value: any[];
 
     public _filteredOptions: any[] | undefined | null;
 
@@ -1066,7 +1086,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor( public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
@@ -1187,10 +1207,20 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
     }
 
-    updateModel(value, event?) {
+    /**
+     * Updates the model value.
+     * @group Method
+     */
+    public updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
         this.modelValue.set(value);
+    }
+
+    onInputClick(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        this.focusedOptionIndex.set(-1);
     }
 
     onOptionSelect(event, isFocus = false, index = -1) {
@@ -1314,7 +1344,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
-
         return (this.modelValue() || []).some((value) => ObjectUtils.equals(value, optionValue, this.equalityKey()));
     }
 
@@ -1648,7 +1677,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
         this.onClick.emit(event);
-        this.cd.detectChanges();
+        this.cd.detectChanges()
     }
 
     onFirstHiddenFocus(event) {
@@ -1738,15 +1767,22 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
-
-        const value = this.allSelected()
+        if(this.selectAll !== null) {
+            this.onSelectAllChange.emit({
+                originalEvent: event,
+                checked: !this.allSelected()
+            })
+        } else {
+            const value = this.allSelected()
             ? []
             : this.visibleOptions()
                   .filter((option) => this.isValidOption(option))
                   .map((option) => this.getOptionValue(option));
-        this.updateModel(value, event);
-        this.onChange.emit({ originalEvent: event, value: this.value });
+            
+            this.updateModel(value, event)
+        }
+
+        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
         this.headerCheckboxFocus = true;
 
         event.preventDefault();
@@ -1797,11 +1833,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.cd.markForCheck();
     }
 
-    registerOnChange(fn: Function): void {
+    public registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    public registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
 
@@ -1811,8 +1847,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     allSelected() {
-        const allSelected = this.visibleOptions().length > 0 && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
-        return ObjectUtils.isNotEmpty(this.visibleOptions()) && allSelected;
+        return this.selectAll !== null ? this.selectAll : ObjectUtils.isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     /**
