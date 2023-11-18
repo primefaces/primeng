@@ -669,12 +669,9 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     changeFocusedItemIndex(event: any, index: number) {
-        const processedItem = this.findVisibleItem(index);
+        const { item } = this.findVisibleItem(index);
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-                value.item = processedItem.item;
-            });
+            this.focusedItemInfo.update((value) => ({...value, index, item }));
             this.scrollInView();
         }
     }

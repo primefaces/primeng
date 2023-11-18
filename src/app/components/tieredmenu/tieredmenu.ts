@@ -1064,10 +1064,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-                value.item = this.visibleItems[index].item;
-            });
+            this.focusedItemInfo.update((value) => ({ ...value, index, item: this.visibleItems[index].item }));
             this.scrollInView();
         }
     }
