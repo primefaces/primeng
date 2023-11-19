@@ -21,15 +21,15 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>p-steps-item</td>
-                        <td>Menuitem element.</td>
+                        <td>StepItem element.</td>
                     </tr>
                     <tr>
                         <td>p-steps-number</td>
-                        <td>Number of menuitem.</td>
+                        <td>Number of StepItem.</td>
                     </tr>
                     <tr>
                         <td>p-steps-title</td>
-                        <td>Label of menuitem.</td>
+                        <td>Label of StepItem.</td>
                     </tr>
                 </tbody>
             </table>

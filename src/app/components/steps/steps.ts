@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Even
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { MenuItem } from 'primeng/api';
+import { StepItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
 /**
@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
                 <li
                     *ngFor="let item of model; let i = index"
                     class="p-steps-item"
-                    #menuitem
+                    #stepitem
                     [ngStyle]="item.style"
                     [class]="item.styleClass"
                     role="presentation"
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
                     [ngClass]="{ 'p-highlight p-steps-current': isActive(item, i), 'p-disabled': item.disabled || (readonly && !isActive(item, i)) }"
-                    [attr.data-pc-section]="'menuitem'"
+                    [attr.data-pc-section]="'stepitem'"
                 >
                     <a
                         *ngIf="isClickableRouterLink(item); else elseBlock"
@@ -40,6 +40,7 @@ import { Subscription } from 'rxjs';
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.tabindex]="getItemTabIndex(item, i)"
+                        [attr.aria-controls]="item.ariaControls"
                         [attr.aria-selected]="i === activeIndex"
                         [attr.aria-expanded]="i === activeIndex"
                         [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
@@ -64,6 +65,7 @@ import { Subscription } from 'rxjs';
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.tabindex]="getItemTabIndex(item, i)"
+                            [attr.aria-controls]="item.ariaControls"
                             [attr.aria-selected]="i === activeIndex"
                             [attr.aria-expanded]="i === activeIndex"
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
@@ -92,10 +94,11 @@ export class Steps implements OnInit, OnDestroy {
      */
     @Input() activeIndex: number = 0;
     /**
-     * An array of menu items.
+     * An array of step items, that extends MenuItem
+     * @see {MenuItem}
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    @Input() model: StepItem[] | undefined;
     /**
      * Whether the items are clickable or not.
      * @group Props
@@ -133,7 +136,7 @@ export class Steps implements OnInit, OnDestroy {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
-    onItemClick(event: Event, item: MenuItem, i: number) {
+    onItemClick(event: Event, item: StepItem, i: number) {
         if (this.readonly || item.disabled) {
             event.preventDefault();
             return;
@@ -154,7 +157,7 @@ export class Steps implements OnInit, OnDestroy {
         }
     }
 
-    onItemKeydown(event: KeyboardEvent, item: MenuItem, i: number) {
+    onItemKeydown(event: KeyboardEvent, item: StepItem, i: number) {
         switch (event.code) {
             case 'ArrowRight': {
                 this.navigateToNextItem(event.target);
@@ -182,7 +185,7 @@ export class Steps implements OnInit, OnDestroy {
 
             case 'Tab':
                 if (i !== this.activeIndex) {
-                    const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                    const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="stepitem"]');
                     siblings[i].children[0].tabIndex = '-1';
                     siblings[this.activeIndex].children[0].tabIndex = '0';
                 }
@@ -203,22 +206,22 @@ export class Steps implements OnInit, OnDestroy {
     navigateToNextItem(target) {
         const nextItem = this.findNextItem(target);
 
-        nextItem && this.setFocusToMenuitem(target, nextItem);
+        nextItem && this.setFocusToStepitem(target, nextItem);
     }
     navigateToPrevItem(target) {
         const prevItem = this.findPrevItem(target);
 
-        prevItem && this.setFocusToMenuitem(target, prevItem);
+        prevItem && this.setFocusToStepitem(target, prevItem);
     }
     navigateToFirstItem(target) {
         const firstItem = this.findFirstItem();
 
-        firstItem && this.setFocusToMenuitem(target, firstItem);
+        firstItem && this.setFocusToStepitem(target, firstItem);
     }
     navigateToLastItem(target) {
         const lastItem = this.findLastItem();
 
-        lastItem && this.setFocusToMenuitem(target, lastItem);
+        lastItem && this.setFocusToStepitem(target, lastItem);
     }
     findNextItem(item) {
         const nextItem = item.parentElement.nextElementSibling;
@@ -231,26 +234,26 @@ export class Steps implements OnInit, OnDestroy {
         return prevItem ? prevItem.children[0] : null;
     }
     findFirstItem() {
-        const firstSibling = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="stepitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
     findLastItem() {
-        const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="stepitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }
-    setFocusToMenuitem(target, focusableItem) {
+    setFocusToStepitem(target, focusableItem) {
         target.tabIndex = '-1';
         focusableItem.tabIndex = '0';
         focusableItem.focus();
     }
 
-    isClickableRouterLink(item: MenuItem) {
+    isClickableRouterLink(item: StepItem) {
         return item.routerLink && !this.readonly && !item.disabled;
     }
 
-    isActive(item: MenuItem, index: number) {
+    isActive(item: StepItem, index: number) {
         if (item.routerLink) {
             let routerLink = Array.isArray(item.routerLink) ? item.routerLink : [item.routerLink];
 
@@ -260,7 +263,7 @@ export class Steps implements OnInit, OnDestroy {
         return index === this.activeIndex;
     }
 
-    getItemTabIndex(item: MenuItem, index: number): string {
+    getItemTabIndex(item: StepItem, index: number): string {
         if (item.disabled) {
             return '-1';
         }

@@ -21,6 +21,7 @@ export * from './selectitemgroup';
 export * from './shared';
 export * from './sortevent';
 export * from './sortmeta';
+export * from './stepitem';
 export * from './tablestate';
 export * from './translation';
 export * from './translationkeys';

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { StepItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -21,7 +21,7 @@ export class InteractiveDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[] | undefined;
+    items: StepItem[] | undefined;
 
     activeIndex: number = 0;
 

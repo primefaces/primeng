@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { StepItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
     template: ` <section class="py-4">
         <app-docsectiontext [title]="title" [id]="id">
-            <p>Steps requires a collection of menuitems as its <i>model</i>.</p>
+            <p>Steps requires a collection of stepitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card">
             <p-steps [model]="items" [readonly]="true"></p-steps>
@@ -19,7 +19,7 @@ export class BasicDoc implements OnInit {
 
     @Input() title: string;
 
-    items: MenuItem[] | undefined;
+    items: StepItem[] | undefined;
 
     ngOnInit() {
         this.items = [
