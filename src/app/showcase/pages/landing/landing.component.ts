@@ -66,9 +66,26 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     loading: boolean = true;
 
-    fonts: SelectItem[];
+    fonts: SelectItem[] = [
+        {
+            label: 'Arial',
+            value: 'Arial,Helvetica Neue,Helvetica,sans-serif'
+        },
+        {
+            label: 'System',
+            value: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol'
+        },
+        {
+            label: 'Trebuches MS',
+            value: 'Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif'
+        },
+        {
+            label: 'Verdana',
+            value: 'Verdana,Geneva,sans-serif'
+        }
+    ];
 
-    selectedFont: string = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol';
+    selectedFont: string;
 
     inputStyle: string = 'outlined';
 
@@ -130,6 +147,7 @@ export class LandingComponent implements OnInit, OnDestroy {
         this.config = this.configService.config;
         this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
         this.configService.updateConfig({ ...this.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue' } });
+        this.selectedFont = this.fonts.find((font) => font.label === 'System')?.value || '';
 
         this.chartData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -206,25 +224,6 @@ export class LandingComponent implements OnInit, OnDestroy {
             { label: 'Negotiation', value: 'negotiation' },
             { label: 'Renewal', value: 'renewal' },
             { label: 'Proposal', value: 'proposal' }
-        ];
-
-        this.fonts = [
-            {
-                label: 'Arial',
-                value: 'Arial,Helvetica Neue,Helvetica,sans-serif'
-            },
-            {
-                label: 'System',
-                value: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol'
-            },
-            {
-                label: 'Trebuches MS',
-                value: 'Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif'
-            },
-            {
-                label: 'Verdana',
-                value: 'Verdana,Geneva,sans-serif'
-            }
         ];
 
         this.cities = [
