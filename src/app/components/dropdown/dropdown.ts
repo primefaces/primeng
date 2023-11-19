@@ -1037,7 +1037,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
         isHide && this.hide(true);
-        (preventChange === false) && this.onChange.emit({originalEvent: event, value: value});
+        preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
     }
 
     onOptionMouseEnter(event, index) {
@@ -1058,14 +1058,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.resetFilter();
         }
         this.value = value;
-        
+
         this.allowModelChange() && this.onModelChange(value);
-        this.modelValue.set(this.value)
+        this.modelValue.set(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }
 
-    allowModelChange(){
+    allowModelChange() {
         return this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable && this.options && this.options.length;
     }
 
@@ -1177,7 +1177,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         this.onModelChange(value);
         this.updateModel(value, event);
-        this.onChange.emit({originalEvent: event, value: value})
+        this.onChange.emit({ originalEvent: event, value: value });
     }
     /**
      * Displays the panel.
@@ -1262,7 +1262,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onInputBlur(event: Event) {
         this.focused = false;
-        (this.overlayVisible === false) && this.onBlur.emit(event);
+        this.overlayVisible === false && this.onBlur.emit(event);
 
         if (!this.preventModelTouched) {
             this.onModelTouched();
@@ -1696,7 +1696,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     clear(event: Event) {
         this.updateModel(null, event);
         this.updateEditableLabel();
-        this.onChange.emit({originalEvent: event, value: this.value})
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
     }
 }

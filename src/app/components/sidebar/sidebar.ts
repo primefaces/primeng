@@ -259,15 +259,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnCh
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(changes.visible){
-            if(!changes.visible.firstChange){
-                if(changes.visible.currentValue === false){
+        if (changes.visible) {
+            if (!changes.visible.firstChange) {
+                if (changes.visible.currentValue === false) {
                     this.hide();
                 }
             }
         }
     }
-    
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
