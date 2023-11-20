@@ -30,14 +30,14 @@ interface Column {
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-                    <tr style="height: 57px">
+                    <tr [ttRow]="rowNode" style="height: 57px">
                         <td *ngFor="let col of columns; let i = index">
                             {{ rowData[col.field] }}
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-                    <tr style="height: 57px">
+                    <tr [ttRow]="rowNode" style="height: 57px">
                         <td>
                             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             {{ rowData.name }}
@@ -102,14 +102,14 @@ export class FrozenColumnsDoc implements OnInit {
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-        <tr style="height: 57px">
+        <tr [ttRow]="rowNode" style="height: 57px">
             <td *ngFor="let col of columns; let i = index">
                 {{ rowData[col.field] }}
             </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-        <tr style="height: 57px">
+        <tr [ttRow]="rowNode" style="height: 57px">
             <td>
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                 {{ rowData.name }}
@@ -134,14 +134,14 @@ export class FrozenColumnsDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-            <tr style="height: 57px">
+            <tr [ttRow]="rowNode" style="height: 57px">
                 <td *ngFor="let col of columns; let i = index">
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-            <tr style="height: 57px">
+            <tr [ttRow]="rowNode" style="height: 57px">
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{ rowData.name }}

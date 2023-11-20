@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
@@ -67,8 +67,7 @@ import { Code } from '../../domain/code';
                     </table>
                 </div>
             </app-docsectiontext>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -76,12 +75,12 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        html: `<p-button 
+        html: `<button pButton
     icon="pi pi-external-link" 
     (click)="visible = true" 
     aria-controls="{{visible ? 'dialog' : null}}" 
     aria-expanded="{{visible ? true : false}}"
-></p-button>
+></button>
 <p-dialog id="dialog" header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="visible = false">
     <p>Content</p>
 </p-dialog>`

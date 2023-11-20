@@ -133,7 +133,7 @@ export class DropdownItem {
                 [attr.aria-disabled]="disabled"
                 [attr.id]="inputId"
                 role="combobox"
-                [attr.aria-label]="ariaLabel"
+                [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-haspopup]="'listbox'"
                 [attr.aria-expanded]="overlayVisible"
@@ -200,14 +200,16 @@ export class DropdownItem {
                 <ng-template pTemplate="content">
                     <div [ngClass]="'p-dropdown-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                         <span
-                            #firstHiddenFocusableElementOnOverlay
+                            #firstHiddenFocusableEl
                             role="presentation"
                             [attr.aria-hidden]="true"
                             class="p-hidden-accessible p-hidden-focusable"
                             [attr.tabindex]="0"
                             (focus)="onFirstHiddenFocus($event)"
+                            [attr.data-p-hidden-accessible]="true"
                             [attr.data-p-hidden-focusable]="true"
-                        ></span>
+                        >
+                        </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
                             <ng-container *ngIf="filterTemplate; else builtInFilterElement">
@@ -303,6 +305,16 @@ export class DropdownItem {
                             </ng-template>
                         </div>
                         <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        <span
+                            #lastHiddenFocusableEl
+                            role="presentation"
+                            [attr.aria-hidden]="true"
+                            class="p-hidden-accessible p-hidden-focusable"
+                            [attr.tabindex]="0"
+                            (focus)="onLastHiddenFocus($event)"
+                            [attr.data-p-hidden-accessible]="true"
+                            [attr.data-p-hidden-focusable]="true"
+                        ></span>
                     </div>
                 </ng-template>
             </p-overlay>
@@ -749,7 +761,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
 
-    @ViewChild('firstHiddenFocusableElementOnOverlay') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+    @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
+    @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
@@ -1592,7 +1606,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1) {
@@ -1609,8 +1623,17 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         DomHandler.focus(focusableEl);
     }
 
+    onLastHiddenFocus(event) {
+        const focusableEl =
+            event.relatedTarget === this.focusInputViewChild?.nativeElement
+                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                : this.focusInputViewChild?.nativeElement;
+
+        DomHandler.focus(focusableEl);
+    }
+
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not(.p-hidden-focusable)').length > 0;
+        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
