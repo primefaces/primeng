@@ -7,10 +7,10 @@ import { Component, Input } from '@angular/core';
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
                 <p>
-                    Table uses a <i>table</i> element whose attributes can be extended with the <i>tableProps</i> option. This property allows passing aria roles and attributes like <i>aria-label</i> and <i>aria-describedby</i> to define the table
-                    for readers. Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role, header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers
+                    Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role, header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers
                     utilizer <i>aria-sort</i> attribute either set to "ascending" or "descending".
                 </p>
+                <p>Table rows and table cells should be specified by users using the <i>aria-posinset</i>, <i>aria-setsize</i>, <i>aria-label</i>, and <i>aria-describedby</i> attributes, as they are determined through templating.</p>
                 <p>
                     Built-in checkbox and radiobutton components for row selection use <i>checkbox</i> and <i>radiobutton</i>. The label to describe them is retrieved from the <i>aria.selectRow</i> and <i>aria.unselectRow</i> properties of the
                     <a href="/configuration" class="">locale</a> API. Similarly header checkbox uses <i>selectAll</i> and <i>unselectAll</i> keys. When a row is selected, <i>aria-selected</i> is set to true on a row.
