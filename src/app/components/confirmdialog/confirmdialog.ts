@@ -70,11 +70,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <div #content class="p-dialog-content">
                     <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="!iconTemplate && option('icon')"></i>
                     <ng-container *ngIf="iconTemplate">
-                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                        <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
                     </ng-container>
                     <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
                     <ng-container *ngIf="messageTemplate">
-                        <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
+                        <ng-container *ngTemplateOutlet="messageTemplate"></ng-container>
                     </ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
@@ -98,7 +98,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'" />
                         </ng-container>
                         <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                            <ng-container *ngTemplateOutlet="rejectIconTemplate"></ng-container>
                         </span>
                     </button>
                     <button
@@ -117,7 +117,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'" />
                         </ng-container>
                         <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                            <ng-container *ngTemplateOutlet="acceptIconTemplate"></ng-container>
                         </span>
                     </button>
                 </div>
