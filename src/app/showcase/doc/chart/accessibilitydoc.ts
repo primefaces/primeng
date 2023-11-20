@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <div class="doc-section-description">
@@ -16,8 +16,7 @@ import { Code } from '../../domain/code';
                 </div>
             </app-docsectiontext>
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -25,10 +24,6 @@ export class AccessibilityDoc {
     @Input() title: string;
 
     code: Code = {
-        html: `<p-chart 
-    type="line" 
-    [data]="data" [
-    canvasProps]="{'role': 'img', 'aria-label': 'Data'}"
-></p-chart>`
+        html: `<p-chart type="line" [data]="data" ariaLabbel="Data"></p-chart>`
     };
 }

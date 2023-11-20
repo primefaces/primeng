@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <div>
             <app-docsectiontext [title]="title" [id]="id">
                 <h3>Screen Reader</h3>
@@ -49,8 +49,7 @@ import { Component, Input } from '@angular/core';
                 <h3>Rows Per Page Dropdown Keyboard Support</h3>
                 <p>Refer to the <a routerLink="/dropdown">dropdown</a> documentation for more details about keyboard support.</p>
             </app-docsectiontext>
-        </div>
-    </app-developmentsection>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

@@ -3,11 +3,11 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the source listbox and target listbox can be provided with <i>sourceListProps</i> and <i>targetListProps</i> by passing <i>aria-labelledby</i> or <i>aria-label</i> props. The list elements has a <i>listbox</i> role
+                Value to describe the source listbox and target listbox can be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The list elements has a <i>listbox</i> role
                 with the <i>aria-multiselectable</i> attribute. Each list item has an <i>option</i> role with <i>aria-selected</i> and <i>aria-disabled</i> as their attributes.
             </p>
             <p>
@@ -104,8 +104,7 @@ import { Code } from '../../domain/code';
                     </tbody>
                 </table>
             </div>
-        </app-docsectiontext>
-    </app-developmentsection>`
+        </app-docsectiontext>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
@@ -114,8 +113,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         html: `<span id="lb">Options</span>        
-<p-pickList aria-labelledby="lb"></p-pickList>
+<p-pickList ariaLabelledBy="lb"></p-pickList>
 
-<p-pickList aria-label="City"></p-pickList>`
+<p-pickList ariaLabel="City"></p-pickList>`
     };
 }

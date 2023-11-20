@@ -24,7 +24,7 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                         <div *ngIf="chart.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </div>
-                        <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
+                        <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" (keydown.space)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
                             <ng-container *ngIf="!chart.togglerIconTemplate">
                                 <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                 <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />

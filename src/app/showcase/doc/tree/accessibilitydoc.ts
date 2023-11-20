@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-developmentsection>
+    template: `
         <app-docsectiontext [title]="title" [id]="id">
             <h3>Screen Reader</h3>
             <p>
@@ -62,8 +62,7 @@ import { Component, Input } from '@angular/core';
                     </tbody>
                 </table>
             </div>
-        </app-docsectiontext>
-    </app-developmentsection>`
+        </app-docsectiontext>`
 })
 export class AccessibilityDoc {
     @Input() id: string;
