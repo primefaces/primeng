@@ -335,7 +335,7 @@
     "animateonscroll": {
         "components": {
             "AnimateOnScroll": {
-                "description": "Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.",
+                "description": "AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -4996,18 +4996,18 @@
                             "description": "Placeholder text for the input."
                         },
                         {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Establishes a string value that labels the component."
-                        },
-                        {
                             "name": "ariaLabelledBy",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "iconAriaLabel",
@@ -6756,6 +6756,20 @@
                             "description": "Whether the chart is redrawn on screen size change."
                         },
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string that autocomplete attribute the current element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
                             "name": "data",
                             "optional": false,
                             "readonly": false,
@@ -7776,7 +7790,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"close\" | \"reject\" | \"accept\"",
+                            "type": "\"none\" | \"close\" | \"reject\" | \"accept\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -13714,7 +13728,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -13818,6 +13832,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "When specified, filter displays with this value."
+                        },
+                        {
+                            "name": "selectAll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether all data is selected."
                         }
                     ]
                 },
@@ -13883,6 +13904,35 @@
                                 }
                             ],
                             "description": "Callback to invoke when component loses focus."
+                        },
+                        {
+                            "name": "onSelectAllChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxSelectAllChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when all data is selected."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "updateModel",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Updates the model value."
                         }
                     ]
                 }
@@ -13910,6 +13960,26 @@
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Selected option value"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "ListboxSelectAllChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "checked",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Boolean value indicates whether all data is selected."
                             }
                         ]
                     },
@@ -13953,7 +14023,7 @@
                             },
                             {
                                 "name": "option",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Selected option"
@@ -13980,7 +14050,7 @@
                             },
                             {
                                 "name": "option",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Selected option"
@@ -14795,17 +14865,13 @@
                             "name": "displaySelectedLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to show labels of selected item labels or use default label."
+                            "type": "boolean"
                         },
                         {
                             "name": "maxSelectedLabels",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "default": "3",
-                            "description": "Decides how many selected item labels to show at most."
+                            "type": "number"
                         },
                         {
                             "name": "selectionLimit",
@@ -15103,6 +15169,13 @@
                             "deprecated": "use virtualScrollItemSize property instead."
                         },
                         {
+                            "name": "selectAll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether all data is selected."
+                        },
+                        {
                             "name": "focusOnHover",
                             "optional": false,
                             "readonly": false,
@@ -15237,12 +15310,36 @@
                                 }
                             ],
                             "description": "Callback to invoke in lazy mode to load new data."
+                        },
+                        {
+                            "name": "onSelectAllChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectSelectAllChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when all data is selected."
                         }
                     ]
                 },
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": [
+                        {
+                            "name": "updateModel",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Updates the model value."
+                        },
                         {
                             "name": "show",
                             "parameters": [
@@ -15296,6 +15393,26 @@
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Toggled item value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "MultiSelectSelectAllChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "checked",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Boolean value indicates whether all data is selected."
                             }
                         ]
                     },
@@ -15561,6 +15678,27 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies one or more IDs in the DOM that labels the input field."
                         },
                         {
                             "name": "listStyle",
@@ -17395,6 +17533,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Text for the source list caption"
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
                         },
                         {
                             "name": "rightButtonAriaLabel",
@@ -23508,8 +23653,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"top-right\" | \"top-left\" | \"bottom-left\" | \"bottom-right\" | \"top-center\" | \"bottom-center\"",
-                            "default": "top-right",
+                            "type": "ToastPositionType",
                             "description": "Position of the toast in viewport."
                         },
                         {
@@ -24746,7 +24890,15 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",
