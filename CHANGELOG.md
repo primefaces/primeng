@@ -484,6 +484,14 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.13-LTS](https://www.npmjs.com/package/primeng/v/15.4.13-lts) (2023-11-17)
+
+**Fixed bugs:**
+- p-tooltip : autohide="false" does not work every times [\#14014](https://github.com/primefaces/primeng/issues/14014)
+- Fileupload component disables upload button [\#14046](https://github.com/primefaces/primeng/issues/14046)
+- MultiSelect: Label does not properly update when properties change [\#13862](https://github.com/primefaces/primeng/issues/13862)
+- p-message/p-toast: long details squeezed closeButton [\#14125](https://github.com/primefaces/primeng/issues/14125)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.12-LTS](https://www.npmjs.com/package/primeng/v/15.4.12-lts) (2023-11-08)
 
 **Fixed bugs:**
@@ -769,6 +777,14 @@
 - Carousel wrong pagination if numScroll is set to 1 and data is loaded dynamically [\#12043](https://github.com/primefaces/primeng/issues/12043)
 - Sidebar: Footer Templating [\#12259](https://github.com/primefaces/primeng/issues/12259)
 - Calendar: Day names don't update [\#12148](https://github.com/primefaces/primeng/issues/12148)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.16-LTS](https://www.npmjs.com/package/primeng/v/14.2.16-lts) (2023-11-17)
+**Fixed bugs:**
+- Fileupload component disables upload button [\#14046](https://github.com/primefaces/primeng/issues/14046)
+- MultiSelect: Label does not properly update when properties change [\#13862](https://github.com/primefaces/primeng/issues/13862)
+- p-message/p-toast: long details squeezed closeButton [\#14125](https://github.com/primefaces/primeng/issues/14125)
+- Autocomplete: deleting search term causes ExpressionChangedAfterItHasBeenCheckedError [\#14001](https://github.com/primefaces/primeng/issues/14001)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [14.2.15-LTS](https://www.npmjs.com/package/primeng/v/14.2.15-lts) (2023-11-08)
 
