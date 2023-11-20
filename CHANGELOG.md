@@ -1,5 +1,47 @@
 # Changelog
 
+## [16.8.0](https://github.com/primefaces/primeng/tree/16.8.0) (2023-11-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.7.2...16.8.0)
+
+**Implemented New Features and Enhancements:**
+- Accessibility | Input Section (part 2) [\#13990](https://github.com/primefaces/primeng/issues/13990)
+- Accessibility | Data Section [\#14123](https://github.com/primefaces/primeng/issues/14123)
+- VirtualScroller performance enhancement for Input Components with selection [\#13993](https://github.com/primefaces/primeng/issues/13993)
+- MegaMenu & MenuBar | Activate root item on hover. [\#14086](https://github.com/primefaces/primeng/issues/14086)
+
+**Fixed bugs:**
+- Autocomplete | overlayOptions not working [\#14139](https://github.com/primefaces/primeng/issues/14139)
+- Dropdown Tab key not closing the overlay [\#14124](https://github.com/primefaces/primeng/issues/14124)
+- Component: Calendar. After closing the calendar, the p-overflow-hidden class is not deleted [\#14012](https://github.com/primefaces/primeng/issues/14012)
+- MultiSelect: Clear button is visible when field has empty array as value [\#14145](https://github.com/primefaces/primeng/issues/14145)
+- p-dropdown: onBlur is been called on selection, without lost focus, and before onChange [\#14128](https://github.com/primefaces/primeng/issues/14128)
+- Fileupload component disables upload button [\#14046](https://github.com/primefaces/primeng/issues/14046)
+- MultiSelect: Label does not properly update when properties change [\#13862](https://github.com/primefaces/primeng/issues/13862)
+- MultiSelect onPanelShow is not fired when there are no options (empty array / filtered) [\#14058](https://github.com/primefaces/primeng/issues/14058)
+- p-message/p-toast: long details squeezed closeButton [\#14125](https://github.com/primefaces/primeng/issues/14125)
+- Autocomplete: deleting search term causes ExpressionChangedAfterItHasBeenCheckedError [\#14001](https://github.com/primefaces/primeng/issues/14001)
+- Dropdown & MultiSelect | Cannot scroll on selected on overlay shown. [\#14142](https://github.com/primefaces/primeng/issues/14142)
+- AutoComplete | Items are not visible after overlay is opened second time [\#14137](https://github.com/primefaces/primeng/issues/14137)
+- Component: p-multiSelect resetFilterOnHide issue [\#14134](https://github.com/primefaces/primeng/issues/14134)
+- Dropdown: Triggers 3 onChange events when rendered (two empty) [\#14136](https://github.com/primefaces/primeng/issues/14136)
+- ListBox selection is not working from code [\#14121](https://github.com/primefaces/primeng/issues/14121)
+- Listbox default values being set. [\#14041](https://github.com/primefaces/primeng/issues/14041)
+- PrimeNG : SideBar onHide Not trigger [\#13933](https://github.com/primefaces/primeng/issues/13933)
+- Component: p-multiSelect does not render grouped items that have a property named group [\#14061](https://github.com/primefaces/primeng/issues/14061)
+- MultiSelect component triggers two empty change events when rendered [\#14103](https://github.com/primefaces/primeng/issues/14103)
+- Multiselect: Missing itemValue in onChange event [\#14100](https://github.com/primefaces/primeng/issues/14100)
+- REGRESSION 16.7.2: dropdown incorrectly implements NG_VALUE_ACCESSOR, writeValue is issuing change. [\#14095](https://github.com/primefaces/primeng/issues/14095)
+- dropdown not selected After upgrade Primeng 16 [\#14094](https://github.com/primefaces/primeng/issues/14094)
+- Dropdown: Additional case where dropdown causes panel to scroll [\#14078](https://github.com/primefaces/primeng/issues/14078)
+- Dropdown: In PrimeNG 16.7.1 interacting with dropdown causes panel to scroll [\#14039](https://github.com/primefaces/primeng/issues/14039)
+- p-tooltip : autohide="false" does not work every times [\#14014](https://github.com/primefaces/primeng/issues/14014)
+- Accordion: nested inputs loose focus when pressing arrow keys [\#14105](https://github.com/primefaces/primeng/issues/14105)
+- Chips: Focus classes are no longer applied [\#14101](https://github.com/primefaces/primeng/issues/14101)
+- Autocomplete: Delete selection in multiple mode cause "Cannot read properties of undefined (reading 'nativeElement')" [\#14064](https://github.com/primefaces/primeng/issues/14064)
+- Component: p-chips | does not work with Reactive Forms [\#14062](https://github.com/primefaces/primeng/issues/14062)
+
+
 ## [16.7.2](https://github.com/primefaces/primeng/tree/16.7.2) (2023-11-08)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.7.1...16.7.2)
