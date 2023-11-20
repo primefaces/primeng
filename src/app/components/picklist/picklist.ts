@@ -172,7 +172,6 @@ import {
                             (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
                             (dblclick)="onSourceItemDblClick()"
                             (touchend)="onItemTouchEnd()"
-                            (keydown)="onItemKeydown($event, item, selectedItemsSource, onSourceSelect)"
                             *ngIf="isItemVisible(item, SOURCE_LIST)"
                             role="option"
                             [attr.data-pc-section]="'item'"
@@ -253,12 +252,18 @@ import {
                 <ul
                     #targetlist
                     class="p-picklist-list p-picklist-target"
+                    [id]="idTarget + '_list'"
+                    (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
+                    (focus)="onListFocus($event, TARGET_LIST)"
+                    (blur)="onListBlur($event, TARGET_LIST)"
                     cdkDropList
                     [cdkDropListData]="target"
                     (cdkDropListDropped)="onDrop($event, TARGET_LIST)"
                     [ngStyle]="targetStyle"
                     role="listbox"
-                    aria-multiselectable="multiple"
+                    aria-multiselectable="true"
+                    [attr.aria-activedescendant]="focused['targetList'] ? focusedOptionId : undefined"
+                    [attr.tabindex]="target && target.length > 0 ? tabindex : -1"
                     [attr.data-pc-section]="'targetList'"
                     [attr.data-pc-group-section]="'list'"
                 >
@@ -267,15 +272,16 @@ import {
                             [ngClass]="{ 'p-picklist-item': true, 'p-highlight': isSelected(item, selectedItemsTarget), 'p-disabled': disabled }"
                             pRipple
                             cdkDrag
+                            [id]="idTarget + '_' + i"
+                            [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsTarget, onTargetSelect)"
+                            (click)="onItemClick($event, item, selectedItemsTarget, onTargetSelect, idTarget + '_' + i)"
+                            (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
                             (dblclick)="onTargetItemDblClick()"
                             (touchend)="onItemTouchEnd()"
-                            (keydown)="onItemKeydown($event, item, selectedItemsTarget, onTargetSelect)"
                             *ngIf="isItemVisible(item, TARGET_LIST)"
                             role="option"
-                            tabindex="0"
                             [attr.data-pc-section]="'item'"
                             [attr.aria-selected]="isSelected(item, selectedItemsTarget)"
                         >
@@ -941,7 +947,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     onOptionMouseDown(index, listType: number) {
-        this.focused[listType] = true;
+        this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
         this.focusedOptionIndex = index;
     }
 
@@ -1310,8 +1316,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         const selectedFirstItem = DomHandler.findSingle(listElement, 'li.p-picklist-item.p-highlight') || DomHandler.findSingle(listElement, 'li.p-picklist-item');
         const findIndex = ObjectUtils.findIndexInList(selectedFirstItem, listElement.children);
 
-        this.focused[listType === this.SOURCE_LIST ? 'sourcelist' : 'targetlist'] = true;
-
+        this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
         const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : selectedFirstItem ? findIndex : -1;
 
         this.changeFocusedOptionIndex(index, listType);
@@ -1319,7 +1324,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     onListBlur(event, listType) {
-        this.focused[listType] = false;
+        this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = false;
         this.focusedOptionIndex = -1;
         this.focusedOption = null;
         this.onBlur.emit(event);
@@ -1335,9 +1340,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         return DomHandler.find(listElemet, 'li.p-picklist-item');
     }
 
-    getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number | null {
+    getLatestSelectedVisibleOptionIndex(visibleList: any[], selectedItems: any[]): number {
         const latestSelectedItem = [...selectedItems].reverse().find((item) => visibleList.includes(item));
-        return latestSelectedItem !== undefined ? visibleList.indexOf(latestSelectedItem) : null;
+        return latestSelectedItem !== undefined ? visibleList.indexOf(latestSelectedItem) : -1;
     }
 
     getVisibleList(listType: number) {
@@ -1472,15 +1477,19 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         if (event.shiftKey && selectedItems && selectedItems.length > 0) {
             let visibleList = this.getVisibleList(listType);
             let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleList, selectedItems);
-            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
 
-            selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
-            this.setSelectionList(listType, selectedItems);
+            if (lastSelectedIndex !== -1) {
+                let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleList);
 
-            callback.emit({ items: selectedItems });
-        } else {
-            this.onEnterKey(event, selectedItems, callback);
+                selectedItems = [...visibleList.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
+                this.setSelectionList(listType, selectedItems);
+
+                callback.emit({ items: selectedItems });
+                return;
+            }
         }
+
+        this.onEnterKey(event, selectedItems, callback);
     }
 
     onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
