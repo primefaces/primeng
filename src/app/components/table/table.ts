@@ -1138,7 +1138,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         public tableService: TableService,
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        public config: PrimeNGConfig
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -4494,9 +4495,9 @@ export class CellEditor implements AfterContentInit {
     template: `
         <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'"/>
             </div>
-            <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="radio" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <div class="p-radiobutton-icon"></div>
             </div>
         </div>
@@ -4531,6 +4532,7 @@ export class TableRadioButton {
     constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
     }
@@ -4574,9 +4576,9 @@ export class TableRadioButton {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.required]="required" [attr.aria-label]="ariaLabel" />
+                <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.required]="required" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'"/>
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <ng-container *ngIf="!dt.checkboxIconTemplate">
                     <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
                 </ng-container>
@@ -4616,6 +4618,7 @@ export class TableCheckbox {
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
     }
@@ -4657,9 +4660,9 @@ export class TableCheckbox {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': isDisabled() }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
+                <input #cb type="checkbox" [tabindex]="disabled ? null : '0'" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }">
                 <ng-container *ngIf="!dt.headerCheckboxIconTemplate">
                     <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'" />
                 </ng-container>
@@ -4695,6 +4698,7 @@ export class TableHeaderCheckbox {
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined;
         });
 
         this.selectionChangeSubscription = this.dt.tableService.selectionSource$.subscribe(() => {
@@ -4910,6 +4914,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
+                [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
@@ -4927,6 +4932,9 @@ export class ReorderableRow implements AfterViewInit {
             <div
                 *ngIf="showMenu && overlayVisible"
                 [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
+                [id]="overlayId"
+                [attr.aria-modal]="true"
+                role="dialog"
                 (click)="onContentClick()"
                 [@overlayAnimation]="'visible'"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
@@ -5102,11 +5110,14 @@ export class ColumnFilter implements AfterContentInit {
 
     private window: Window;
 
+    overlayId: any;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
+        this.overlayId = UniqueComponentId();
         if (!this.dt.filters[<string>this.field]) {
             this.initFieldFilterConstraint();
         }
