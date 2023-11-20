@@ -48,7 +48,7 @@ export class BasicDoc implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((files) => {
-            this.files = files.slice(0,5)
+            this.files = files.slice(0, 5);
             this.cd.markForCheck();
         });
     }

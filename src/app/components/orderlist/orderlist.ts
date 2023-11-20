@@ -647,7 +647,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]')
+        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]');
         if (focusableEl) {
             const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.nativeElement.children);
             this.focused = true;
