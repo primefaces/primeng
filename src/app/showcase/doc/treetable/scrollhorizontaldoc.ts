@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 interface Column {
@@ -11,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'scroll-horizontal-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` 
+        <app-docsectiontext>
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>
         <div class="card">
@@ -40,15 +39,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-horizontal-demo"></app-code>
-    </section>`
+    `
 })
 export class ScrollHorizontalDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     cols!: Column[];

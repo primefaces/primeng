@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -15,8 +15,8 @@ interface NodeEvent {
 
 @Component({
     selector: 'selection-events-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TreeTable provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
         <div class="card">
@@ -50,13 +50,10 @@ interface NodeEvent {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SelectionEventsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     files!: TreeNode[];
 
