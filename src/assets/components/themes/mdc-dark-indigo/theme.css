@@ -479,6 +479,13 @@
     border-color: #f44435;
   }
 
+  .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
+    border-color: #9FA8DA;
+  }
+
   .p-datepicker {
     padding: 0.5rem;
     background: #1e1e1e;
@@ -3243,6 +3250,7 @@
     padding: 0;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
+    outline: 0 none;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item {
     padding: 0.75rem 0.75rem;
@@ -3250,16 +3258,22 @@
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
-    transition: none;
+    transition: transform 0.2s, none;
   }
-  .p-orderlist .p-orderlist-list .p-orderlist-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: none;
+  .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item.p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.12);
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
     color: #9FA8DA;
     background: rgba(159, 168, 218, 0.16);
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight.p-focus {
+    background: rgba(159, 168, 218, 0.24);
   }
   .p-orderlist .p-orderlist-list .p-orderlist-empty-message {
     padding: 0.75rem 0.75rem;
@@ -3444,6 +3458,7 @@
     padding: 0;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
+    outline: 0 none;
   }
   .p-picklist .p-picklist-list .p-picklist-item {
     padding: 0.75rem 0.75rem;
@@ -3451,16 +3466,22 @@
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
-    transition: none;
+    transition: transform 0.2s, none;
   }
-  .p-picklist .p-picklist-list .p-picklist-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: none;
+  .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-picklist .p-picklist-list .p-picklist-item.p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.12);
   }
   .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
     color: #9FA8DA;
     background: rgba(159, 168, 218, 0.16);
+  }
+  .p-picklist .p-picklist-list .p-picklist-item.p-highlight.p-focus {
+    background: rgba(159, 168, 218, 0.24);
   }
   .p-picklist .p-picklist-list .p-picklist-empty-message {
     padding: 0.75rem 0.75rem;
@@ -3520,6 +3541,12 @@
   }
   .p-tree .p-tree-container .p-treenode {
     padding: 0.25rem;
+    outline: 0 none;
+  }
+  .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content {
     border-radius: 4px;
@@ -3555,11 +3582,6 @@
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: none;
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(159, 168, 218, 0.16);

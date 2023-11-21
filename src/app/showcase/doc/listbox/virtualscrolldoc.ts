@@ -38,7 +38,7 @@ export class VirtualScrollDoc {
 
     @Input() title: string;
 
-    items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }))
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
 
     selectedItems!: any[];
 
@@ -50,8 +50,8 @@ export class VirtualScrollDoc {
     }
 
     onChange(event) {
-        const { value } = event
-        if(value) this.selectAll = value.length === this.items.length;
+        const { value } = event;
+        if (value) this.selectAll = value.length === this.items.length;
     }
 
     code: Code = {

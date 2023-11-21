@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr>
+                    <tr [ttRow]="rowNode">
                         <td>
                             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             {{ rowData.brand }}
@@ -237,7 +237,7 @@ export class ColumnGroupDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-            <tr>
+            <tr [ttRow]="rowNode">
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{ rowData.brand }}

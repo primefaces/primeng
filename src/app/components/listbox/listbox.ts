@@ -862,18 +862,18 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         }
         DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
 
-        if(this.selectAll !== null) {
+        if (this.selectAll !== null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
-            })
+            });
         } else {
             const value = this.allSelected()
                 ? []
                 : this.visibleOptions()
                       .filter((option) => this.isValidOption(option))
                       .map((option) => this.getOptionValue(option));
-            
+
             this.updateModel(value, event);
             this.onChange.emit({ originalEvent: event, value: this.value });
         }
