@@ -12,7 +12,6 @@ import {
     Inject,
     Input,
     NgModule,
-    OnChanges,
     OnDestroy,
     Output,
     QueryList,
