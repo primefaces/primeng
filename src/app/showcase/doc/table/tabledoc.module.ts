@@ -26,7 +26,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { AppCodeModule } from 'src/app/showcase/layout/doc/code/app.code.component';
+import { AppCodeModule } from 'src/app/showcase/layout/doc/app.code.component';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { ContextMenuDoc } from './contextmenudoc';
 import { BasicDoc } from './basicdoc';

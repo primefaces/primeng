@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
+import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/app.docsectiontext.component';
 
 @Component({
     selector: 'repository-doc',

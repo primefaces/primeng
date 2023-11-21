@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 
 interface Column {
     field: string;
@@ -11,9 +11,7 @@ interface Column {
 @Component({
     selector: 'paginator-basic-doc',
     template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
-            <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
-        </app-docsectiontext>
+
         <div class="card">
             <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>

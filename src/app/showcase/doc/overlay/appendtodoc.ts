@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 
 @Component({
     selector: 'appendto-doc',

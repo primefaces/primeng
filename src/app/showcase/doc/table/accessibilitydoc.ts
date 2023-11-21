@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Default role of the table is <i>table</i>. Header, body and footer elements use <i>rowgroup</i>, rows use <i>row</i> role, header cells have <i>columnheader</i> and body cells use <i>cell</i> roles. Sortable headers utilizer
@@ -142,11 +142,6 @@ import { Component, Input } from '@angular/core';
                     </tbody>
                 </table>
             </div>
-        </app-docsectiontext>
-    </div>`
+        </app-docsectiontext>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

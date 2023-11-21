@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 interface Column {

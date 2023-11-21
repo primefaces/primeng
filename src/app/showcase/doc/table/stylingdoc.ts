@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'styling-doc',
     template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -86,8 +85,4 @@ import { Component, Input } from '@angular/core';
         </div>
     </section>`
 })
-export class StylingDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class StylingDoc {}
