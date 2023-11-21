@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 
 interface Column {
     field: string;
@@ -10,8 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
-    template: ` <section class="py-4">
-
+    template: `
         <div class="card">
             <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
@@ -31,16 +29,9 @@ interface Column {
                 </ng-template>
             </p-treeTable>
         </div>
-        <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>`
 })
 export class PaginatorBasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     cols!: Column[];

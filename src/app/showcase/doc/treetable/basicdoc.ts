@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
-import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
         <div class="card">
@@ -31,17 +30,10 @@ import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.
                 </ng-template>
             </p-treeTable>
         </div>
-        <app-code [code]="code" selector="tree-table-basic-demo"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="tree-table-basic-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
