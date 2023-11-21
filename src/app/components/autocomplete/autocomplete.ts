@@ -1513,11 +1513,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     writeValue(value: any): void {
-        
         this.value = value;
         this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
-        console.log('a', value, this.modelValue())
+        console.log('a', value, this.modelValue());
         this.updateInputValue();
         this.cd.markForCheck();
     }
