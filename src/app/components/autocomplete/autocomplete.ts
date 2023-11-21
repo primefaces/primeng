@@ -1436,7 +1436,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateInputValue() {
-        if (this.value && this.inputEL && this.inputEL.nativeElement) {
+        if (this.inputEL && this.inputEL.nativeElement) {
             if (!this.multiple) {
                 this.inputEL.nativeElement.value = this.inputValue();
             } else {
@@ -1513,9 +1513,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     writeValue(value: any): void {
+        
         this.value = value;
         this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
+        console.log('a', value, this.modelValue())
         this.updateInputValue();
         this.cd.markForCheck();
     }
