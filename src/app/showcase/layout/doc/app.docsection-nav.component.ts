@@ -8,7 +8,27 @@ import { Doc } from 'src/app/showcase/domain/doc';
 
 @Component({
     selector: 'app-docsection-nav',
-    templateUrl: './app.docsection-nav.component.html'
+    template: `
+    <ul #nav *ngIf="docs && docs.length" class="doc-section-nav" [ngClass]="{'hidden' : visible}">
+        <li *ngFor="let doc of docs; let i = index;" class="navbar-item" [ngClass]="{'active-navbar-item' : activeId === doc.id}">
+            <ng-container *ngIf="!doc.isInterface">
+                <div class="navbar-item-content">
+                    <button class="px-link" (click)="onButtonClick($event, doc)">{{doc.label}}</button>
+                </div>
+                <ng-container>
+                    <ul *ngIf="doc.children">
+                        <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{'active-navbar-item': activeId === child.id }">
+                            <div class="navbar-item-content">
+                                <button class="px-link"  (click)="onButtonClick($event, child)">
+                                    {{ child.label }}
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </ng-container>
+            </ng-container>
+        </li>
+    </ul>`
 })
 export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     @Input() docs!: Doc[];
@@ -17,8 +37,16 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
     scrollListener!: any;
 
-    activeId!: string;
+    _activeId: any;
 
+    get activeId() {
+        return this._activeId;
+    }
+    set activeId(val: string) {
+        if(val !== this._activeId) {
+            this._activeId = val;
+        }
+    }
     isScrollBlocked: boolean = false;
 
     topbarHeight: number = 0;
@@ -49,11 +77,27 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         }
     }
 
+    scrollCurrentUrl() {
+        const hash = window.location.hash.substring(1);
+        const hasHash = ObjectUtils.isNotEmpty(hash);
+        const id = hasHash ? hash : (this.docs[0] || {}).id;
+
+        this.activeId = id;
+        hasHash &&
+            setTimeout(() => {
+                this.scrollToLabelById(id);
+            }, 1);
+    }
+
+    getLabels() {
+        return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
+    }
+
     onScroll() {
         if (typeof window !== undefined && this.nav) {
             if (!this.isScrollBlocked) {
                 if (typeof document !== undefined) {
-                    const labels = [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
+                    const labels = this.getLabels();
                     const windowScrollTop = DomHandler.getWindowScrollTop();
 
                     labels.forEach((label) => {
@@ -79,16 +123,14 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         }
     }
 
-    onChildButtonClick(parent: Doc, isFirst: boolean, child: Doc): void {
-        this.onButtonClick(isFirst ? parent : child);
-    }
-
-    onButtonClick(doc) {
+    onButtonClick(event, doc) {
         this.activeId = doc.id;
         setTimeout(() => {
             this.scrollToLabelById(doc.id);
             this.isScrollBlocked = true;
         }, 1);
+
+        event.preventDefault();
     }
 
     getThreshold(label) {
@@ -109,18 +151,6 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             this.location.go(this.location.path().split('#')[0] + '#' + id);
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
-    }
-
-    isActiveChildId(isFirst: boolean, activeId: string, childId: string, parentId: string): boolean {
-        if (isFirst) {
-            return this.getActiveChildId(activeId, parentId);
-        }
-
-        return this.getActiveChildId(activeId, childId);
-    }
-
-    getActiveChildId(activeId, childId) {
-        return activeId.toLowerCase() === childId.toLowerCase();
     }
 
     ngOnDestroy() {
