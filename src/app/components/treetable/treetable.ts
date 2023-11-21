@@ -2446,7 +2446,7 @@ export class TTSortableColumn implements OnInit, OnDestroy {
     subscription: Subscription | undefined;
 
     get ariaSorted() {
-        if(this.sorted && this.tt.sortOrder < 0) return 'descending';
+        if (this.sorted && this.tt.sortOrder < 0) return 'descending';
         else if (this.sorted && this.tt.sortOrder > 0) return 'ascending';
         else return 'none';
     }
@@ -2781,16 +2781,16 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
-        switch(event.code){
+        switch (event.code) {
             case 'Enter':
             case 'Space':
                 this.onEnterKey(event);
-            break;
+                break;
 
             default:
                 break;
         }
-    } 
+    }
 
     @HostListener('touchend', ['$event'])
     onTouchEnd(event: Event) {
@@ -2800,7 +2800,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
     }
 
     onEnterKey(event) {
-        if(this.tt.selectionMode === 'checkbox') {
+        if (this.tt.selectionMode === 'checkbox') {
             this.tt.toggleNodeWithCheckbox({
                 originalEvent: event,
                 rowNode: this.rowNode
@@ -2928,7 +2928,7 @@ export class TTContextMenuRow {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" tabindex="-1"/>
+                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" tabindex="-1" />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!tt.checkboxIconTemplate">
@@ -3095,7 +3095,7 @@ export class TTHeaderCheckbox {
 @Directive({
     selector: '[ttEditableColumn]',
     host: {
-        class: 'p-element',
+        class: 'p-element'
     }
 })
 export class TTEditableColumn implements AfterViewInit {
@@ -3316,7 +3316,6 @@ export class TreeTableCellEditor implements AfterContentInit {
     }
 })
 export class TTRow {
-
     get level() {
         return this.rowNode?.['level'] + 1;
     }
@@ -3431,14 +3430,14 @@ export class TTRow {
             rows.forEach((row) => {
                 row.tabIndex = -1;
             });
-    
+
             if (hasSelectedRow) {
                 const selectedNodes = rows.filter((node) => DomHandler.getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
                 selectedNodes[0].tabIndex = 0;
-    
+
                 return;
             }
-    
+
             rows[0].tabIndex = 0;
         }
     }
@@ -3511,8 +3510,8 @@ export class TTRow {
             [attr.data-pc-group-section]="'rowactionbutton'"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate">
-                <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true"/>
-                <ChevronRightIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true"/>
+                <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <ChevronRightIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-template *ngTemplateOutlet="tt.togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
