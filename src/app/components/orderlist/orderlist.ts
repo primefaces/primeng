@@ -119,7 +119,7 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
                             [ngClass]="{ 'p-highlight': isSelected(item), 'p-disabled': disabled, 'p-focus': id + '_' + i === focusedOptionId() }"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, i)"
+                            (click)="onItemClick($event, item, i, id + '_' + i)"
                             (touchend)="onItemTouchEnd()"
                             (mousedown)="onOptionMouseDown(i)"
                             *ngIf="isItemVisible(item)"
@@ -156,101 +156,121 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * @group Props
      */
     @Input() header: string | undefined;
+
     /**
      * Inline style of the component.
      * @group Props
      */
     @Input() style: { [klass: string]: any } | null | undefined;
+
     /**
      * Style class of the component.
      * @group Props
      */
     @Input() styleClass: string | undefined;
+
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
     @Input() tabindex: number | undefined;
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+
     /**
      * Inline style of the list element.
      * @group Props
      */
     @Input() listStyle: { [klass: string]: any } | null | undefined;
+
     /**
      * A boolean value that indicates whether the component should be responsive.
      * @group Props
      */
     @Input() responsive: boolean | undefined;
+
     /**
      * When specified displays an input field to filter the items on keyup and decides which fields to search against.
      * @group Props
      */
     @Input() filterBy: string | undefined;
+
     /**
      * Placeholder of the filter input.
      * @group Props
      */
     @Input() filterPlaceholder: string | undefined;
+
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
      */
     @Input() filterLocale: string | undefined;
+
     /**
      * When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
     @Input() metaKeySelection: boolean = true;
+
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
     @Input() dragdrop: boolean = false;
+
     /**
      * Defines the location of the buttons with respect to the list.
      * @group Props
      */
     @Input() controlsPosition: 'left' | 'right' = 'left';
+
     /**
      * Defines a string that labels the filter input.
      * @group Props
      */
     @Input() ariaFilterLabel: string | undefined;
+
     /**
      * Defines how the items are filtered.
      * @group Props
      */
     @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+
     /**
      * Indicates the width of the screen at which the component should change its behavior.
      * @group Props
      */
     @Input() breakpoint: string = '960px';
+
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
      */
     @Input() stripedRows: boolean | undefined;
+
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
     @Input() disabled: boolean = false;
+
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
     @Input() trackBy: Function = (index: number, item: any) => item;
+
     /**
      * A list of values that are currently selected.
      * @group Props
@@ -261,6 +281,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     get selection(): any[] {
         return this.d_selection;
     }
+
     /**
      * Array of values to be displayed in the component.
      * It represents the data source for the list of items.
@@ -275,30 +296,48 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     get value(): any[] | undefined {
         return this._value;
     }
+
     /**
      * Callback to invoke on selection change.
      * @param {*} any - selection instance.
      * @group Emits
      */
     @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
     /**
      * Callback to invoke when list is reordered.
      * @param {*} any - list instance.
      * @group Emits
      */
     @Output() onReorder: EventEmitter<any> = new EventEmitter();
+
     /**
      * Callback to invoke when selection changes.
      * @param {OrderListSelectionChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onSelectionChange: EventEmitter<OrderListSelectionChangeEvent> = new EventEmitter<OrderListSelectionChangeEvent>();
+
     /**
      * Callback to invoke when filtering occurs.
      * @param {OrderListFilterEvent} event - Custom filter event.
      * @group Emits
      */
     @Output() onFilterEvent: EventEmitter<OrderListFilterEvent> = new EventEmitter<OrderListFilterEvent>();
+
+    /**
+     * Callback to invoke when the list is focused
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+
+    /**
+     * Callback to invoke when the list is blurred
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('listelement') listViewChild: Nullable<ElementRef>;
 
@@ -358,7 +397,9 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     focused: boolean = false;
 
-    focusedOptionIndex: number = -1;
+    focusedOptionIndex: any = -1;
+
+    focusedOption: any | undefined;
 
     public filterValue: Nullable<string>;
 
@@ -455,31 +496,32 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    onItemClick(event, item: any, index: number) {
+    onItemClick(event, item: any, index?: number, selectedId?: string) {
         this.itemTouched = false;
+        let focusedIndex = index ? index : ObjectUtils.findIndexInList(this.focusedOption, this.value);
         let selectedIndex = ObjectUtils.findIndexInList(item, this.d_selection);
         let selected = selectedIndex !== -1;
         let metaSelection = this.itemTouched ? false : this.metaKeySelection;
 
-        const selectedId = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]')[index].getAttribute('id');
-
-        this.focusedOptionIndex = selectedId;
+        if (selectedId) {
+            this.focusedOptionIndex = selectedId;
+        }
 
         if (metaSelection) {
             let metaKey = event.metaKey || event.ctrlKey;
 
             if (selected && metaKey) {
-                this.d_selection = this.d_selection.filter((val, index) => index !== selectedIndex);
+                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
             } else {
                 this.d_selection = metaKey ? (this.d_selection ? [...this.d_selection] : []) : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this.d_selection, this.value);
+                ObjectUtils.insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
             }
         } else {
             if (selected) {
-                this.d_selection = this.d_selection.filter((val, index) => index !== selectedIndex);
+                this.d_selection = this.d_selection.filter((val, focusedIndex) => focusedIndex !== selectedIndex);
             } else {
                 this.d_selection = this.d_selection ? [...this.d_selection] : [];
-                ObjectUtils.insertIntoOrderedArray(item, index, this.d_selection, this.value);
+                ObjectUtils.insertIntoOrderedArray(item, focusedIndex, this.d_selection, this.value);
             }
         }
 
@@ -647,7 +689,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]')
+        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+
         if (focusableEl) {
             const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.nativeElement.children);
             this.focused = true;
@@ -655,11 +698,15 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
             this.changeFocusedOptionIndex(index);
         }
+
+        this.onFocus.emit(event);
     }
 
     onListBlur(event) {
         this.focused = false;
+        this.focusedOption = null;
         this.focusedOptionIndex = -1;
+        this.onBlur.emit(event);
     }
 
     onItemKeydown(event: KeyboardEvent) {
@@ -729,11 +776,9 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     onHomeKey(event) {
         if (event.ctrlKey && event.shiftKey) {
-            const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
-            const focusedItem = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id=${this.focusedOptionIndex}]`);
-            const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
-
-            this.d_selection = [...this.value].slice(0, matchedOptionIndex + 1);
+            let visibleOptions = this.getVisibleOptions();
+            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+            this.d_selection = [...this.value].slice(0, focusedIndex + 1);
             this.selectionChange.emit(this.d_selection);
         } else {
             this.changeFocusedOptionIndex(0);
@@ -744,11 +789,9 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     onEndKey(event) {
         if (event.ctrlKey && event.shiftKey) {
-            const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
-            const focusedItem = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id=${this.focusedOptionIndex}]`);
-            const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
-
-            this.d_selection = [...this.value].slice(matchedOptionIndex, items.length);
+            let visibleOptions = this.getVisibleOptions();
+            let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+            this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
             this.selectionChange.emit(this.d_selection);
         } else {
             this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
@@ -758,27 +801,29 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onEnterKey(event) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
-        const focusedItem = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id=${this.focusedOptionIndex}]`);
-        const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
-
-        this.onItemClick(event, this.value[matchedOptionIndex], matchedOptionIndex);
+        this.onItemClick(event, this.focusedOption);
 
         event.preventDefault();
     }
 
     onSpaceKey(event) {
-        if (event.shiftKey) {
-            const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
-            const selectedItemIndex = ObjectUtils.findIndexInList(this.d_selection[0], [...this.value]);
-            const focusedItem = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id=${this.focusedOptionIndex}]`);
-            const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+        event.preventDefault();
 
-            this.d_selection = [...this.value].slice(Math.min(selectedItemIndex, matchedOptionIndex), Math.max(selectedItemIndex, matchedOptionIndex) + 1);
-            this.selectionChange.emit(this.d_selection);
-        } else {
-            this.onEnterKey(event);
+        if (event.shiftKey && this.selection && this.selection.length > 0) {
+            let visibleOptions = this.getVisibleOptions();
+            let lastSelectedIndex = this.getLatestSelectedVisibleOptionIndex(visibleOptions);
+
+            if (lastSelectedIndex !== -1) {
+                let focusedIndex = ObjectUtils.findIndexInList(this.focusedOption, visibleOptions);
+                this.d_selection = [...visibleOptions.slice(Math.min(lastSelectedIndex, focusedIndex), Math.max(lastSelectedIndex, focusedIndex) + 1)];
+                this.selectionChange.emit(this.d_selection);
+                this.onSelectionChange.emit({ originalEvent: event, value: this.d_selection });
+
+                return;
+            }
         }
+
+        this.onEnterKey(event);
     }
 
     findNextOptionIndex(index) {
@@ -795,12 +840,29 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
+    getLatestSelectedVisibleOptionIndex(visibleOptions: any[]): number {
+        const latestSelectedItem = [...this.d_selection].reverse().find((item) => visibleOptions.includes(item));
+
+        return latestSelectedItem !== undefined ? visibleOptions.indexOf(latestSelectedItem) : -1;
+    }
+
+    getVisibleOptions() {
+        return this.visibleOptions && this.visibleOptions.length > 0 ? this.visibleOptions : this.value && this.value.length > 0 ? this.value : null;
+    }
+
+    getFocusedOption(index: number) {
+        if (index === -1) return null;
+
+        return this.visibleOptions && this.visibleOptions.length ? this.visibleOptions[index] : this.value && this.value.length ? this.value[index] : null;
+    }
+
     changeFocusedOptionIndex(index) {
         const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
 
         let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
         this.focusedOptionIndex = items[order] ? items[order].getAttribute('id') : -1;
+        this.focusedOption = this.getFocusedOption(order);
 
         this.scrollInView(this.focusedOptionIndex);
     }
