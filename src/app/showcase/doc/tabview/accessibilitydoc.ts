@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 TabView container is defined with the <i>tablist</i> role, as any attribute is passed to the container element <i>aria-labelledby</i> can be optionally used to specify an element to describe the TabView. Each tab header has a
@@ -57,7 +57,5 @@ import { Component, Input } from '@angular/core';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
+ 
 }

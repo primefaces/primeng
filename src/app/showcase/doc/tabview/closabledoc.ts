@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'closable-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>closable</i> is enabled, a close icon is displayed to hide the tab.</p>
         </app-docsectiontext>
         <div class="card">
@@ -30,12 +30,9 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-closable-demo"></app-code>
-    </section>`
+    `
 })
 export class ClosableDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `
