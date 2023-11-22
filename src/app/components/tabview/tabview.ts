@@ -521,7 +521,6 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
             } else {
                 this.buttonVisible = false;
             }
-            console.log(this.forwardIsDisabled, this.buttonVisible)
             this.updateButtonState();
             this.cd.detectChanges();
         })
