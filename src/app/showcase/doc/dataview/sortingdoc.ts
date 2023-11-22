@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -6,8 +6,8 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-sorting-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortField</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
@@ -44,12 +44,9 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-sorting-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class SortingDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     sortOptions!: SelectItem[];
 
