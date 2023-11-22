@@ -528,7 +528,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input() ariaFilterLabel: string | undefined;
     /**
-     * Used to define a string that autocomplete attribute the current element.
+     * Used to define a aria label attribute the current element.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
