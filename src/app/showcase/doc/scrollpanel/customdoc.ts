@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
         <div class="card">
@@ -46,12 +46,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroll-panel-custom-demo"></app-code>
-    </section>`
+    `
 })
 export class CusstomDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `
