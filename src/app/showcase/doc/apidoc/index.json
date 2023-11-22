@@ -9648,7 +9648,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Used to define a string that autocomplete attribute the current element."
+                            "description": "Used to define a aria label attribute the current element."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -14019,7 +14019,7 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
@@ -14046,7 +14046,7 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
@@ -15863,6 +15863,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when filtering occurs."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 },
@@ -17539,6 +17559,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -17895,6 +17916,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when the target list is filtered"
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 }
@@ -23039,6 +23080,28 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "nextButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the forward navigation button."
+                        },
+                        {
+                            "name": "prevButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the backward navigation button."
+                        },
+                        {
+                            "name": "autoHideButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
                         },
                         {
                             "name": "tabindex",
