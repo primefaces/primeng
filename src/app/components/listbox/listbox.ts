@@ -784,7 +784,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
             return;
         }
 
-        event && this.onClick.emit({ originalEvent: event, option, value: this.value, });
+        event && this.onClick.emit({ originalEvent: event, option, value: this.value });
 
         this.multiple ? this.onOptionSelectMultiple(event, option) : this.onOptionSelectSingle(event, option);
         this.optionTouched = false;
