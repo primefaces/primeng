@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
-
 @Component({
     selector: 'dropdown-template-demo',
     template: ` <section class="py-4">

@@ -272,7 +272,16 @@ export class TabPanel implements AfterContentInit, OnDestroy {
     template: `
         <div [ngClass]="{ 'p-tabview p-component': true, 'p-tabview-scrollable': scrollable }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'tabview'">
             <div #elementToObserve class="p-tabview-nav-container">
-                <button *ngIf="scrollable && !backwardIsDisabled && autoHideButtons" #prevBtn class="p-tabview-nav-prev p-tabview-nav-btn p-link" (click)="navBackward()" [attr.tabindex]="tabindex" [attr.aria-label]="prevButtonAriaLabel" type="button" pRipple>
+                <button
+                    *ngIf="scrollable && !backwardIsDisabled && autoHideButtons"
+                    #prevBtn
+                    class="p-tabview-nav-prev p-tabview-nav-btn p-link"
+                    (click)="navBackward()"
+                    [attr.tabindex]="tabindex"
+                    [attr.aria-label]="prevButtonAriaLabel"
+                    type="button"
+                    pRipple
+                >
                     <ChevronLeftIcon *ngIf="!previousIconTemplate" [attr.aria-hidden]="true" />
                     <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                 </button>
@@ -473,7 +482,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     resizeObserver: Nullable<ResizeObserver>;
 
     container: HTMLDivElement | undefined;
-    
+
     list: HTMLUListElement | undefined;
 
     buttonVisible: boolean;
@@ -504,26 +513,25 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
-            if(this.autoHideButtons) {
+            if (this.autoHideButtons) {
                 this.bindResizeObserver();
             }
-
         }
     }
 
     bindResizeObserver() {
         this.container = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
-        this.list = DomHandler.findSingle(this.el.nativeElement,'[data-pc-section="nav"]');
+        this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
-            if(this.list.offsetWidth > this.container.offsetWidth) {
+            if (this.list.offsetWidth > this.container.offsetWidth) {
                 this.buttonVisible = true;
             } else {
                 this.buttonVisible = false;
             }
             this.updateButtonState();
             this.cd.detectChanges();
-        })
+        });
         this.resizeObserver.observe(this.container);
     }
 

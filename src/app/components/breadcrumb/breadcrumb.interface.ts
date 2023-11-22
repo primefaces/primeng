@@ -7,9 +7,9 @@ import { Breadcrumb } from './breadcrumb';
  */
 export interface BreadcumbTemplates {
     /**
-     * Custom template of seperator.
+     * Custom template of separator.
      */
-    seperator(): TemplateRef<any>;
+    separator(): TemplateRef<any>;
 }
 /**
  * Custom select event.

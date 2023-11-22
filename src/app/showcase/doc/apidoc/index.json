@@ -4664,9 +4664,9 @@
                 "values": [
                     {
                         "parent": "breadcrumb",
-                        "name": "seperator",
+                        "name": "separator",
                         "parameters": [],
-                        "description": "Custom template of seperator."
+                        "description": "Custom template of separator."
                     }
                 ]
             }
