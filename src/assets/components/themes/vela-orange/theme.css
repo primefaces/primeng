@@ -3234,7 +3234,7 @@
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: box-shadow 0.2s;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
     background: rgba(255, 255, 255, 0.03);
@@ -3442,7 +3442,7 @@
     border: 0 none;
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: box-shadow 0.2s;
   }
   .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
     background: rgba(255, 255, 255, 0.03);
@@ -4070,15 +4070,19 @@
     border: 1px solid #304562;
     background: #1f2d40;
     color: rgba(255, 255, 255, 0.87);
+    border-top: 0 none;
+  }
+  .p-panel .p-panel-content:last-child {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    border-top: 0 none;
   }
   .p-panel .p-panel-footer {
     padding: 0.5rem 1rem;
     border: 1px solid #304562;
     background: #1f2d40;
     color: rgba(255, 255, 255, 0.87);
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
     border-top: 0 none;
   }
   .p-panel .p-panel-icons-end {

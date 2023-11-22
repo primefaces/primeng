@@ -3234,7 +3234,7 @@
     border: 0 none;
     color: #333333;
     background: transparent;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
     background: #eaeaea;
@@ -3442,7 +3442,7 @@
     border: 0 none;
     color: #333333;
     background: transparent;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
   }
   .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
     background: #eaeaea;
@@ -4046,15 +4046,19 @@
     border: 1px solid #c8c8c8;
     background: #ffffff;
     color: #333333;
+    border-top: 0 none;
+  }
+  .p-panel .p-panel-content:last-child {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    border-top: 0 none;
   }
   .p-panel .p-panel-footer {
     padding: 0.571rem 1rem;
     border: 1px solid #c8c8c8;
     background: #ffffff;
     color: #333333;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
     border-top: 0 none;
   }
   .p-panel .p-panel-icons-end {
