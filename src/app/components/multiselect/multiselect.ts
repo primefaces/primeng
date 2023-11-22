@@ -1095,7 +1095,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions) && modelValue) {
                 this.selectedOptions = visibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
             }
-        })
+        });
     }
 
     ngOnInit() {
@@ -1259,7 +1259,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             itemValue: option
         });
     }
-
 
     findSelectedOptionIndex() {
         return this.hasSelectedOption() ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option)) : -1;
