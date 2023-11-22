@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'stroke-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-knob [(ngModel)]="value" [strokeWidth]="5"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-stroke-demo"></app-code>
-    </section>`
+    `
 })
 export class StrokeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value: number = 40;
 

@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'size-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Diameter of the knob is defined in pixels using the <i>size</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-knob [(ngModel)]="value" [size]="200"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-size-demo"></app-code>
-    </section>`
+ `
 })
 export class SizeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value: number = 60;
 
