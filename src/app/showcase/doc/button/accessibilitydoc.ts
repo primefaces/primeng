@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
     template: `
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the <i>aria-label</i> prop, if not present <i>label</i> prop is used as the value. If the button is
@@ -48,9 +48,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `<p-button icon="pi pi-check" aria-label="Submit"></p-button>

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -12,12 +12,9 @@ import { Code } from '../../domain/code';
             <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    </section>`
+    `
 })
 export class BadgeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

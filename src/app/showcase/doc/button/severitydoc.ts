@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-severity-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
@@ -17,12 +17,9 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
-    </section>`
+    `
 })
 export class SeverityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `
