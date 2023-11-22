@@ -3269,7 +3269,7 @@
     border: 0 none;
     color: #3f3f46;
     background: transparent;
-    transition: transform 0.2s, none;
+    transition: none;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
     background: #f4f4f5;
@@ -3477,7 +3477,7 @@
     border: 0 none;
     color: #3f3f46;
     background: transparent;
-    transition: transform 0.2s, none;
+    transition: none;
   }
   .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
     background: #f4f4f5;
@@ -4105,15 +4105,19 @@
     border: 1px solid #e5e7eb;
     background: #ffffff;
     color: #3f3f46;
+    border-top: 0 none;
+  }
+  .p-panel .p-panel-content:last-child {
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
-    border-top: 0 none;
   }
   .p-panel .p-panel-footer {
     padding: 0.75rem 1.25rem;
     border: 1px solid #e5e7eb;
     background: #ffffff;
     color: #3f3f46;
+    border-bottom-right-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
     border-top: 0 none;
   }
   .p-panel .p-panel-icons-end {
