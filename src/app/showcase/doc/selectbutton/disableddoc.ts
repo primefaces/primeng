@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the <i>optionDisabled</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
@@ -12,12 +12,9 @@ import { Code } from '../../domain/code';
             <p-selectButton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant"></p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
