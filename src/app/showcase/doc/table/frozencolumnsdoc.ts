@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({

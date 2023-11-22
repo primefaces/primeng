@@ -5,7 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-programmatic-doc',
-    template: ` <section class="py-4">
+    template: `
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
@@ -45,7 +45,7 @@ import { CustomerService } from '../../service/customerservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="table-paginator-programmatic-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorProgrammaticDoc {

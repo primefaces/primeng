@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, V
 import { Table } from 'primeng/table';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({

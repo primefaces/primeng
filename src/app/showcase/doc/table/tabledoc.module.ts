@@ -65,6 +65,7 @@ import { RowEditDoc } from './roweditdoc';
 import { RowExpandDoc } from './rowexpanddoc';
 import { RowspanGroupingDoc } from './rowspangroupingdoc';
 import { SingleColumnSortDoc } from './singlecolumnsortdoc';
+import { MultipleColumnSortDoc } from './multiplecolumnsortdoc';
 import { SingleSelectionDoc } from './singleselectiondoc';
 import { SizeDoc } from './sizedoc';
 import { StatefulDoc } from './statefuldoc';
@@ -155,6 +156,7 @@ import { PaginatorLocaleDoc } from './paginatorlocaledoc';
         RowExpandDoc,
         RowspanGroupingDoc,
         SingleColumnSortDoc,
+        MultipleColumnSortDoc,
         SingleSelectionDoc,
         SizeDoc,
         StatefulDoc,
