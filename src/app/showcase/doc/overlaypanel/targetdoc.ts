@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'target-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>
                 <i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second
                 parameter <i>target</i>.
@@ -20,12 +20,9 @@ import { Code } from '../../domain/code';
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-target-demo"></app-code>
-    </section>`
+    `
 })
 export class TargetDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `
