@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 TriStateCheckbox component uses an element with <i>checkbox</i> role. Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. Component adds an element with
@@ -49,9 +49,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `<span id="chkbox1">Remember Me</span>
