@@ -79,7 +79,7 @@ export class TemplateDoc implements OnInit {
 </p-toolbar>`,
 
         html: `
-<ng-template class="card">
+<div class="card">
     <p-toolbar>
         <ng-template pTemplate="start">
             <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
