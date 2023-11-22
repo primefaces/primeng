@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
@@ -27,12 +27,9 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     products!: Product[];
 
