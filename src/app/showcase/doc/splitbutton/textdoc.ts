@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'text-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
@@ -20,13 +20,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text p-button-plain mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-text-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class TextDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[];
 
