@@ -147,7 +147,7 @@ export class DropdownItem {
                 (keydown)="onKeyDown($event)"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: modelValue() }"></ng-container>
+                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
                     <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
@@ -921,12 +921,19 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
+    selectedOption: any;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
+            const visibleOptions = this.visibleOptions();
 
             if (modelValue && this.editable) {
                 this.updateEditableLabel();
+            }
+
+            if(visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
+                this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
             }
         });
     }
@@ -1104,7 +1111,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option?.label !== undefined ? option.label : option;
+        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
