@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '../../domain/code';
 
@@ -9,8 +9,8 @@ interface City {
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Dropdown can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -19,12 +19,9 @@ interface City {
             </form>
         </div>
         <app-code [code]="code" selector="dropdown-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     cities: City[] | undefined;
 
