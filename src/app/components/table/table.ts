@@ -5653,7 +5653,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || value === '') {
             this.dt._filter();
         }
     }
