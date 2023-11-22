@@ -40,7 +40,7 @@ interface NodeEvent {
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                    <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                         <td *ngFor="let col of columns; let i = index">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
@@ -95,7 +95,7 @@ export class SelectionEventsDoc implements OnInit {
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
@@ -116,7 +116,7 @@ export class SelectionEventsDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+            <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}

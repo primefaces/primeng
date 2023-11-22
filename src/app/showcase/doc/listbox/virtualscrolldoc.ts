@@ -12,9 +12,10 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-listbox
-                [options]="virtualItems"
+                [options]="items"
                 [(ngModel)]="selectedItems"
-                optionLabel="name"
+                [selectAll]="selectAll"
+                optionLabel="label"
                 [style]="{ width: '15rem' }"
                 [virtualScroll]="true"
                 [filter]="true"
@@ -23,35 +24,77 @@ import { Code } from '../../domain/code';
                 [checkbox]="true"
                 [showToggleAll]="false"
                 [metaKeySelection]="false"
+                [showToggleAll]="true"
+                (onSelectAllChange)="onSelectAllChange($event)"
+                (onChange)="onChange($event)"
                 [listStyle]="{ 'max-height': '220px' }"
             ></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
     </section>`
 })
-export class VirtualScrollDoc implements OnInit {
+export class VirtualScrollDoc {
     @Input() id: string;
 
     @Input() title: string;
 
-    virtualItems!: any[];
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
 
     selectedItems!: any[];
 
-    ngOnInit() {
-        this.virtualItems = [];
-        for (let i = 0; i < 10000; i++) {
-            this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
-        }
+    selectAll: boolean = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectAll = event.checked;
+    }
+
+    onChange(event) {
+        const { value } = event;
+        if (value) this.selectAll = value.length === this.items.length;
     }
 
     code: Code = {
         basic: `
-<p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
+<p-listbox
+    [options]="items"
+    [(ngModel)]="selectedItems"
+    [selectAll]="selectAll"
+    optionLabel="label"
+    [style]="{ width: '15rem' }"
+    [virtualScroll]="true"
+    [filter]="true"
+    [virtualScrollItemSize]="43"
+    [multiple]="true"
+    [checkbox]="true"
+    [showToggleAll]="false"
+    [metaKeySelection]="false"
+    [showToggleAll]="true"
+    (onSelectAllChange)="onSelectAllChange($event)"
+    (onChange)="onChange($event)"
+    [listStyle]="{ 'max-height': '220px' }"
+></p-listbox>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-listbox [options]="virtualItems" [(ngModel)]="selectedItems" optionLabel="name" [style]="{ width: '15rem' }" [virtualScroll]="true" [filter]="true" [virtualScrollItemSize]="43" [multiple]="true" [checkbox]="true" [showToggleAll]="false" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>
+    <p-listbox
+        [options]="items"
+        [(ngModel)]="selectedItems"
+        [selectAll]="selectAll"
+        optionLabel="label"
+        [style]="{ width: '15rem' }"
+        [virtualScroll]="true"
+        [filter]="true"
+        [virtualScrollItemSize]="43"
+        [multiple]="true"
+        [checkbox]="true"
+        [showToggleAll]="false"
+        [metaKeySelection]="false"
+        [showToggleAll]="true"
+        (onSelectAllChange)="onSelectAllChange($event)"
+        (onChange)="onChange($event)"
+        [listStyle]="{ 'max-height': '220px' }"
+    ></p-listbox>
 </div>`,
 
         typescript: `
@@ -61,16 +104,22 @@ import { Component, OnInit } from '@angular/core';
     selector: 'listbox-virtual-scroll-demo',
     templateUrl: './listbox-virtual-scroll-demo.html'
 })
-export class ListboxVirtualScrollDemo implements OnInit {
-    virtualItems!: any[];
+export class ListboxVirtualScrollDemo {
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
 
-    selectedItems!: any;
+    selectedItems!: any[];
 
-    ngOnInit() {
-        this.virtualItems = [];
-        for (let i = 0; i < 10000; i++) {
-            this.virtualItems.push({ name: 'Item ' + i, code: 'Item ' + i });
-        }
+    selectAll = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectAll = event.checked;
+        event.updateModel(this.selectedItems, event.originalEvent)
+    }
+
+    onChange(event) {
+        const { originalEvent, value } = event
+        if(value) this.selectAll = value.length === this.items.length;
     }
 
 }`

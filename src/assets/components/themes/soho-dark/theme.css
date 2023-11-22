@@ -479,6 +479,13 @@
     border-color: #ff9a9a;
   }
 
+  .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #e0d8fc;
+    border-color: #b19df7;
+  }
+
   .p-datepicker {
     padding: 0.5rem;
     background: #282936;
@@ -3243,6 +3250,7 @@
     padding: 0.75rem 0;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
+    outline: 0 none;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item {
     padding: 0.75rem 1.25rem;
@@ -3252,14 +3260,20 @@
     background: transparent;
     transition: box-shadow 0.2s;
   }
-  .p-orderlist .p-orderlist-list .p-orderlist-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #e0d8fc;
+  .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item.p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.09);
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
     color: #b19df7;
     background: rgba(177, 157, 247, 0.16);
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight.p-focus {
+    background: rgba(177, 157, 247, 0.24);
   }
   .p-orderlist .p-orderlist-list .p-orderlist-empty-message {
     padding: 0.75rem 1.25rem;
@@ -3444,6 +3458,7 @@
     padding: 0.75rem 0;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
+    outline: 0 none;
   }
   .p-picklist .p-picklist-list .p-picklist-item {
     padding: 0.75rem 1.25rem;
@@ -3453,14 +3468,20 @@
     background: transparent;
     transition: box-shadow 0.2s;
   }
-  .p-picklist .p-picklist-list .p-picklist-item:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #e0d8fc;
+  .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-picklist .p-picklist-list .p-picklist-item.p-focus {
+    color: rgba(255, 255, 255, 0.87);
+    background: rgba(255, 255, 255, 0.09);
   }
   .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
     color: #b19df7;
     background: rgba(177, 157, 247, 0.16);
+  }
+  .p-picklist .p-picklist-list .p-picklist-item.p-highlight.p-focus {
+    background: rgba(177, 157, 247, 0.24);
   }
   .p-picklist .p-picklist-list .p-picklist-empty-message {
     padding: 0.75rem 1.25rem;
@@ -3520,6 +3541,12 @@
   }
   .p-tree .p-tree-container .p-treenode {
     padding: 0.143rem;
+    outline: 0 none;
+  }
+  .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.15rem #e0d8fc;
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content {
     border-radius: 6px;
@@ -3555,11 +3582,6 @@
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.15rem #e0d8fc;
   }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(177, 157, 247, 0.16);
@@ -4048,15 +4070,19 @@
     border: 1px solid #3e4053;
     background: #282936;
     color: rgba(255, 255, 255, 0.87);
+    border-top: 0 none;
+  }
+  .p-panel .p-panel-content:last-child {
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
-    border-top: 0 none;
   }
   .p-panel .p-panel-footer {
     padding: 0.75rem 1.25rem;
     border: 1px solid #3e4053;
     background: #282936;
     color: rgba(255, 255, 255, 0.87);
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
     border-top: 0 none;
   }
   .p-panel .p-panel-icons-end {

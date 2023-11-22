@@ -1,13 +1,16 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
+    AfterContentChecked,
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
+    DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -218,10 +221,11 @@ export class TableService {
                         [attr.id]="id + '-table'"
                     >
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        <thead #thead class="p-datatable-thead">
+                        <thead role="rowgroup" #thead class="p-datatable-thead">
                             <ng-container *ngTemplateOutlet="headerGroupedTemplate || headerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                         </thead>
                         <tbody
+                            role="rowgroup"
                             class="p-datatable-tbody p-datatable-frozen-tbody"
                             *ngIf="frozenValue || frozenBodyTemplate"
                             [value]="frozenValue"
@@ -231,6 +235,7 @@ export class TableService {
                             [frozen]="true"
                         ></tbody>
                         <tbody
+                            role="rowgroup"
                             class="p-datatable-tbody"
                             [ngClass]="scrollerOptions.contentStyleClass"
                             [style]="scrollerOptions.contentStyle"
@@ -239,8 +244,13 @@ export class TableService {
                             [pTableBodyTemplate]="bodyTemplate"
                             [scrollerOptions]="scrollerOptions"
                         ></tbody>
-                        <tbody *ngIf="scrollerOptions.spacerStyle" [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'" class="p-datatable-scroller-spacer"></tbody>
-                        <tfoot *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
+                        <tbody
+                            role="rowgroup"
+                            *ngIf="scrollerOptions.spacerStyle"
+                            [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                            class="p-datatable-scroller-spacer"
+                        ></tbody>
+                        <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate || footerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                         </tfoot>
                     </table>
@@ -1133,7 +1143,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         public tableService: TableService,
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
-        public overlayService: OverlayService
+        public overlayService: OverlayService,
+        public config: PrimeNGConfig
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -1819,7 +1830,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    selectRange(event: MouseEvent, rowIndex: number) {
+    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number) {
         let rangeStart, rangeEnd;
 
         if (<number>this.anchorRowIndex > rowIndex) {
@@ -1857,7 +1868,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.onRowSelect.emit({ originalEvent: event, data: rangeRowsData, type: 'row' });
     }
 
-    clearSelectionRange(event: MouseEvent) {
+    clearSelectionRange(event: MouseEvent | KeyboardEvent) {
         let rangeStart, rangeEnd;
         let rangeRowIndex = <number>this.rangeRowIndex;
         let anchorRowIndex = <number>this.anchorRowIndex;
@@ -3358,9 +3369,12 @@ export class SortableColumn implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('keydown.space', ['$event'])
     @HostListener('keydown.enter', ['$event'])
     onEnterKey(event: MouseEvent) {
         this.onClick(event);
+
+        event.preventDefault();
     }
 
     isEnabled() {
@@ -3472,7 +3486,9 @@ export class SortIcon implements OnInit, OnDestroy {
         class: 'p-element',
         '[class.p-selectable-row]': 'isEnabled()',
         '[class.p-highlight]': 'selected',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+        '[attr.tabindex]': 'setRowTabIndex()',
+        '[attr.data-p-highlight]': 'selected',
+        '[attr.data-p-selectable-row]': 'true'
     }
 })
 export class SelectableRow implements OnInit, OnDestroy {
@@ -3486,11 +3502,17 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(public dt: Table, public tableService: TableService) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
             });
+        }
+    }
+
+    setRowTabIndex() {
+        if (this.dt.selectionMode === 'single' || this.dt.selectionMode === 'multiple') {
+            return !this.dt.selection ? 0 : this.dt.anchorRowIndex === this.index ? 0 : -1;
         }
     }
 
@@ -3518,8 +3540,46 @@ export class SelectableRow implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('keydown.arrowdown', ['$event'])
-    onArrowDownKeyDown(event: KeyboardEvent) {
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'ArrowDown':
+                this.onArrowDownKey(event);
+                break;
+
+            case 'ArrowUp':
+                this.onArrowUpKey(event);
+                break;
+
+            case 'Home':
+                this.onHomeKey(event);
+                break;
+
+            case 'End':
+                this.onEndKey(event);
+                break;
+
+            case 'Space':
+                this.onSpaceKey(event);
+                break;
+
+            case 'Enter':
+                this.onEnterKey(event);
+                break;
+
+            default:
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
+                    const data = this.dt.dataToRender(this.dt.rows);
+                    this.dt.selection = [...data];
+                    this.dt.selectRange(event, data.length - 1);
+
+                    event.preventDefault();
+                }
+                break;
+        }
+    }
+
+    onArrowDownKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3534,8 +3594,7 @@ export class SelectableRow implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    @HostListener('keydown.arrowup', ['$event'])
-    onArrowUpKeyDown(event: KeyboardEvent) {
+    onArrowUpKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3550,10 +3609,7 @@ export class SelectableRow implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    @HostListener('keydown.enter', ['$event'])
-    @HostListener('keydown.shift.enter', ['$event'])
-    @HostListener('keydown.meta.enter', ['$event'])
-    onEnterKeyDown(event: KeyboardEvent) {
+    onEnterKey(event: KeyboardEvent) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3565,21 +3621,78 @@ export class SelectableRow implements OnInit, OnDestroy {
         });
     }
 
-    @HostListener('keydown.pagedown')
-    @HostListener('keydown.pageup')
-    @HostListener('keydown.home')
-    @HostListener('keydown.end')
-    onPageDownKeyDown() {
-        if (this.dt.virtualScroll) {
-            (<any>this.dt.scroller).elementViewChild.nativeElement.focus();
+    onEndKey(event: KeyboardEvent) {
+        const lastRow = this.findLastSelectableRow();
+        lastRow && this.focusRowChange(this.el.nativeElement, lastRow);
+
+        if (event.ctrlKey && event.shiftKey) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
+
+            this.dt.anchorRowIndex = lastSelectableRowIndex;
+            this.dt.selection = data.slice(this.index, data.length);
+            this.dt.selectRange(event, this.index);
         }
+        event.preventDefault();
     }
 
-    @HostListener('keydown.space')
-    onSpaceKeydown() {
-        if (this.dt.virtualScroll && !this.dt.editingCell) {
-            (<any>this.dt.scroller).elementViewChild.nativeElement.focus();
+    onHomeKey(event: KeyboardEvent) {
+        const firstRow = this.findFirstSelectableRow();
+
+        firstRow && this.focusRowChange(this.el.nativeElement, firstRow);
+
+        if (event.ctrlKey && event.shiftKey) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
+
+            this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
+            this.dt.selection = data.slice(0, this.index + 1);
+            this.dt.selectRange(event, this.index);
         }
+        event.preventDefault();
+    }
+
+    onSpaceKey(event) {
+        this.onEnterKey(event);
+
+        if (event.shiftKey && this.dt.selection !== null) {
+            const data = this.dt.dataToRender(this.dt.rows);
+            let index;
+
+            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                let firstSelectedRowIndex, lastSelectedRowIndex;
+                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+
+                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+            } else {
+                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+            }
+
+            this.dt.anchorRowIndex = index;
+            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+            this.dt.selectRange(event, this.index);
+        }
+
+        event.preventDefault();
+    }
+
+    focusRowChange(firstFocusableRow, currentFocusedRow) {
+        firstFocusableRow.tabIndex = '-1';
+        currentFocusedRow.tabIndex = '0';
+        DomHandler.focus(currentFocusedRow);
+    }
+
+    findLastSelectableRow() {
+        const rows = DomHandler.find(this.dt.el.nativeElement, '.p-selectable-row');
+
+        return rows ? rows[rows.length - 1] : null;
+    }
+
+    findFirstSelectableRow() {
+        const firstRow = DomHandler.findSingle(this.dt.el.nativeElement, '.p-selectable-row');
+
+        return firstRow;
     }
 
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
@@ -4381,9 +4494,9 @@ export class CellEditor implements AfterContentInit {
     template: `
         <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" />
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'" />
             </div>
-            <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="radio" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <div class="p-radiobutton-icon"></div>
             </div>
         </div>
@@ -4418,6 +4531,7 @@ export class TableRadioButton {
     constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
     }
@@ -4461,9 +4575,20 @@ export class TableRadioButton {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.required]="required" [attr.aria-label]="ariaLabel" />
+                <input
+                    type="checkbox"
+                    [attr.id]="inputId"
+                    [attr.name]="name"
+                    [checked]="checked"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [disabled]="disabled"
+                    [attr.required]="required"
+                    [attr.aria-label]="ariaLabel"
+                    [tabindex]="disabled ? null : '0'"
+                />
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <ng-container *ngIf="!dt.checkboxIconTemplate">
                     <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
                 </ng-container>
@@ -4503,6 +4628,7 @@ export class TableCheckbox {
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
     }
@@ -4544,9 +4670,9 @@ export class TableCheckbox {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': isDisabled() }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
+                <input #cb type="checkbox" [tabindex]="disabled ? null : '0'" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }">
                 <ng-container *ngIf="!dt.headerCheckboxIconTemplate">
                     <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'" />
                 </ng-container>
@@ -4582,6 +4708,7 @@ export class TableHeaderCheckbox {
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
+            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined;
         });
 
         this.selectionChangeSubscription = this.dt.tableService.selectionSource$.subscribe(() => {
@@ -4797,6 +4924,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
+                [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
@@ -4814,6 +4942,9 @@ export class ReorderableRow implements AfterViewInit {
             <div
                 *ngIf="showMenu && overlayVisible"
                 [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
+                [id]="overlayId"
+                [attr.aria-modal]="true"
+                role="dialog"
                 (click)="onContentClick()"
                 [@overlayAnimation]="'visible'"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
@@ -4880,7 +5011,7 @@ export class ReorderableRow implements AfterViewInit {
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
                         <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
                     </div>
                 </ng-template>
@@ -4947,6 +5078,8 @@ export class ColumnFilter implements AfterContentInit {
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
 
+    @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
+
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
     overlaySubscription: Subscription | undefined;
@@ -4987,11 +5120,14 @@ export class ColumnFilter implements AfterContentInit {
 
     private window: Window;
 
+    overlayId: any;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
+        this.overlayId = UniqueComponentId();
         if (!this.dt.filters[<string>this.field]) {
             this.initFieldFilterConstraint();
         }
@@ -5112,11 +5248,13 @@ export class ColumnFilter implements AfterContentInit {
 
     addConstraint() {
         (<FilterMetadata[]>this.dt.filters[<string>this.field]).push({ value: null, matchMode: this.getDefaultMatchMode(), operator: this.getDefaultOperator() });
+        DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
         this.dt._filter();
+        DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
     onOperatorChange(value: any) {
@@ -5211,9 +5349,18 @@ export class ColumnFilter implements AfterContentInit {
 
     onOverlayAnimationEnd(event: AnimationEvent) {
         switch (event.toState) {
+            case 'visible':
+                this.focusOnFirstElement();
+                break;
             case 'void':
                 ZIndexUtils.clear(event.element);
                 break;
+        }
+    }
+
+    focusOnFirstElement() {
+        if (this.overlay) {
+            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''));
         }
     }
 
@@ -5506,7 +5653,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || value === '') {
             this.dt._filter();
         }
     }

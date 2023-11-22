@@ -23,12 +23,11 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
-import { ScrollerOptions } from 'primeng/api';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -45,19 +44,21 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                 [class]="_styleClass"
                 [ngClass]="{ 'p-scroller': true, 'p-scroller-inline': inline, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal }"
                 (scroll)="onContainerScroll($event)"
+                [attr.data-pc-name]="'scroller'"
+                [attr.data-pc-section]="'root'"
             >
                 <ng-container *ngIf="contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
-                    <div #content class="p-scroller-content" [ngClass]="{ 'p-scroller-loading': d_loading }" [ngStyle]="contentStyle">
+                    <div #content class="p-scroller-content" [ngClass]="{ 'p-scroller-loading': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy || index">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
-                <div *ngIf="_showSpacer" class="p-scroller-spacer" [ngStyle]="spacerStyle"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-scroller-loader" [ngClass]="{ 'p-component-overlay': !loaderTemplate }">
+                <div *ngIf="_showSpacer" class="p-scroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
+                <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-scroller-loader" [ngClass]="{ 'p-component-overlay': !loaderTemplate }" [attr.data-pc-section]="'loader'">
                     <ng-container *ngIf="loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
                             <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols }) }"></ng-container>
@@ -68,7 +69,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" />
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>

@@ -49,15 +49,22 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-calendar',
     template: `
-        <span #container [ngClass]="{ 'p-calendar': true, 'p-calendar-w-btn': showIcon, 'p-calendar-timeonly': timeOnly, 'p-calendar-disabled': disabled, 'p-focus': focus }" [ngStyle]="style" [class]="styleClass">
+        <span #container [ngClass]="{ 'p-calendar': true, 'p-calendar-w-btn': showIcon, 'p-calendar-timeonly': timeOnly, 'p-calendar-disabled': disabled, 'p-focus': focus || overlayVisible }" [ngStyle]="style" [class]="styleClass">
             <ng-template [ngIf]="!inline">
                 <input
                     #inputfield
                     type="text"
+                    role="combobox"
                     [attr.id]="inputId"
                     [attr.name]="name"
                     [attr.required]="required"
                     [attr.aria-required]="required"
+                    aria-autocomplete="none"
+                    aria-haspopup="dialog"
+                    [attr.aria-expanded]="overlayVisible"
+                    [attr.aria-controls]="panelId"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
                     [value]="inputFieldValue"
                     (focus)="onInputFocus($event)"
                     (keydown)="onInputKeydown($event)"
@@ -73,7 +80,6 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [attr.inputmode]="touchUI ? 'off' : null"
                     [ngClass]="'p-inputtext p-component'"
                     autocomplete="off"
-                    [attr.aria-labelledby]="ariaLabelledBy"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()" />
@@ -81,7 +87,20 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
                 </ng-container>
-                <button type="button" [attr.aria-label]="iconAriaLabel" pButton pRipple *ngIf="showIcon" (click)="onButtonClick($event, inputfield)" class="p-datepicker-trigger p-button-icon-only" [disabled]="disabled" tabindex="0">
+                <button
+                    type="button"
+                    [attr.aria-label]="iconButtonAriaLabel"
+                    aria-haspopup="dialog"
+                    [attr.aria-expanded]="overlayVisible"
+                    [attr.aria-controls]="panelId"
+                    pButton
+                    pRipple
+                    *ngIf="showIcon"
+                    (click)="onButtonClick($event, inputfield)"
+                    class="p-datepicker-trigger p-button-icon-only"
+                    [disabled]="disabled"
+                    tabindex="0"
+                >
                     <span *ngIf="icon" [ngClass]="icon"></span>
                     <ng-container *ngIf="!icon">
                         <CalendarIcon *ngIf="!triggerIconTemplate" />
@@ -107,6 +126,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         ? { value: 'visibleTouchUI', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }
                         : { value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }
                 "
+                [attr.aria-label]="getTranslation('chooseDate')"
+                [attr.role]="inline ? null : 'dialog'"
+                [attr.aria-modal]="inline ? null : 'true'"
                 [@.disabled]="inline === true"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                 (@overlayAnimation.done)="onOverlayAnimationDone($event)"
@@ -119,17 +141,33 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     <div class="p-datepicker-group-container">
                         <div class="p-datepicker-group" *ngFor="let month of months; let i = index">
                             <div class="p-datepicker-header">
-                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" pRipple>
+                                <button (keydown)="onContainerButtonKeydown($event)" class="p-datepicker-prev p-link" (click)="onPrevButtonClick($event)" *ngIf="i === 0" type="button" [attr.aria-label]="prevIconAriaLabel" pRipple>
                                     <ChevronLeftIcon [styleClass]="'p-datepicker-prev-icon'" *ngIf="!previousIconTemplate" />
                                     <span *ngIf="previousIconTemplate" class="p-datepicker-prev-icon">
                                         <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                                     </span>
                                 </button>
                                 <div class="p-datepicker-title">
-                                    <button type="button" (click)="switchToMonthView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView === 'date'" class="p-datepicker-month p-link" [disabled]="switchViewButtonDisabled()">
+                                    <button
+                                        type="button"
+                                        (click)="switchToMonthView($event)"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        *ngIf="currentView === 'date'"
+                                        class="p-datepicker-month p-link"
+                                        [disabled]="switchViewButtonDisabled()"
+                                        [attr.aria-label]="this.getTranslation('chooseMonth')"
+                                    >
                                         {{ getMonthName(month.month) }}
                                     </button>
-                                    <button type="button" (click)="switchToYearView($event)" (keydown)="onContainerButtonKeydown($event)" *ngIf="currentView !== 'year'" class="p-datepicker-year p-link" [disabled]="switchViewButtonDisabled()">
+                                    <button
+                                        type="button"
+                                        (click)="switchToYearView($event)"
+                                        (keydown)="onContainerButtonKeydown($event)"
+                                        *ngIf="currentView !== 'year'"
+                                        class="p-datepicker-year p-link"
+                                        [disabled]="switchViewButtonDisabled()"
+                                        [attr.aria-label]="getTranslation('chooseYear')"
+                                    >
                                         {{ getYear(month) }}
                                     </button>
                                     <span class="p-datepicker-decade" *ngIf="currentView === 'year'">
@@ -143,6 +181,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                     (click)="onNextButtonClick($event)"
                                     [style.display]="numberOfMonths === 1 ? 'inline-flex' : i === numberOfMonths - 1 ? 'inline-flex' : 'none'"
                                     type="button"
+                                    [attr.aria-label]="nextIconAriaLabel"
                                     pRipple
                                 >
                                     <ChevronRightIcon [styleClass]="'p-datepicker-next-icon'" *ngIf="!nextIconTemplate" />
@@ -152,7 +191,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                 </button>
                             </div>
                             <div class="p-datepicker-calendar-container" *ngIf="currentView === 'date'">
-                                <table class="p-datepicker-calendar">
+                                <table class="p-datepicker-calendar" role="grid">
                                     <thead>
                                         <tr>
                                             <th *ngIf="showWeek" class="p-datepicker-weekheader p-disabled">
@@ -170,7 +209,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                     {{ month.weekNumbers[j] }}
                                                 </span>
                                             </td>
-                                            <td *ngFor="let date of week" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
+                                            <td *ngFor="let date of week" [attr.aria-label]="date.day" [ngClass]="{ 'p-datepicker-other-month': date.otherMonth, 'p-datepicker-today': date.today }">
                                                 <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                     <span
                                                         [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
@@ -187,6 +226,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                             <ng-container *ngTemplateOutlet="disabledDateTemplate; context: { $implicit: date }"></ng-container>
                                                         </ng-container>
                                                     </span>
+                                                    <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
+                                                        {{ date.day }}
+                                                    </div>
                                                 </ng-container>
                                             </td>
                                         </tr>
@@ -205,6 +247,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             pRipple
                         >
                             {{ m }}
+                            <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
+                                {{ m }}
+                            </div>
                         </span>
                     </div>
                     <div class="p-yearpicker" *ngIf="currentView === 'year'">
@@ -217,6 +262,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             pRipple
                         >
                             {{ y }}
+                            <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
+                                {{ y }}
+                            </div>
                         </span>
                     </div>
                 </ng-container>
@@ -233,6 +281,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('nextHour')"
                             pRipple
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
@@ -250,6 +299,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('prevHour')"
                             pRipple
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
@@ -271,6 +321,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('nextMinute')"
                             pRipple
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
@@ -288,6 +339,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('prevMinute')"
                             pRipple
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
@@ -309,6 +361,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('nextSecond')"
                             pRipple
                         >
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
@@ -326,6 +379,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                             (keyup.enter)="onTimePickerElementMouseUp($event)"
                             (keyup.space)="onTimePickerElementMouseUp($event)"
                             (mouseleave)="onTimePickerElementMouseLeave()"
+                            [attr.aria-label]="getTranslation('prevSecond')"
                             pRipple
                         >
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
@@ -333,12 +387,12 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </button>
                     </div>
                     <div class="p-ampm-picker" *ngIf="hourFormat == '12'">
-                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
+                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('am')" pRipple>
                             <ChevronUpIcon *ngIf="!incrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate"></ng-template>
                         </button>
                         <span>{{ pm ? 'PM' : 'AM' }}</span>
-                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" pRipple>
+                        <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (click)="toggleAMPM($event)" (keydown.enter)="toggleAMPM($event)" [attr.aria-label]="getTranslation('pm')" pRipple>
                             <ChevronDownIcon *ngIf="!decrementIconTemplate" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate"></ng-template>
                         </button>
@@ -428,6 +482,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+
     /**
      * Defines a string that labels the icon button for accessibility.
      * @group Props
@@ -1018,6 +1078,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     attributeSelector: Nullable<string>;
 
+    panelId: Nullable<string>;
+
     _numberOfMonths: number = 1;
 
     _firstDayOfWeek!: number;
@@ -1034,12 +1096,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this._locale;
     }
 
+    get iconButtonAriaLabel() {
+        return this.iconAriaLabel ? this.iconAriaLabel : this.getTranslation('chooseDate');
+    }
+
+    get prevIconAriaLabel() {
+        return this.currentView === 'year' ? this.getTranslation('prevDecade') : this.currentView === 'month' ? this.getTranslation('prevYear') : this.getTranslation('prevMonth');
+    }
+
+    get nextIconAriaLabel() {
+        return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
+    }
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
         this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
         this.attributeSelector = UniqueComponentId();
+        this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
@@ -1863,6 +1938,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             //escape
             case 27:
+                this.inputfieldViewChild?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -1879,6 +1955,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.trapFocus(event);
         } else if (event.keyCode === 27) {
             if (this.overlayVisible) {
+                this.inputfieldViewChild?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
             }
@@ -1993,6 +2070,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             //escape
             case 27: {
+                this.inputfieldViewChild?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2073,6 +2151,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             //escape
             case 27: {
+                this.inputfieldViewChild?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2154,6 +2233,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             //escape
             case 27: {
+                this.inputfieldViewChild?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2311,9 +2391,22 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         focusableElements[focusedIndex - 1].focus();
                     }
                 } else {
-                    if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) {
+                    if (focusedIndex == -1) {
+                        if (this.timeOnly) {
+                            focusableElements[0].focus();
+                        } else {
+                            let spanIndex = 0;
+
+                            for (let i = 0; i < focusableElements.length; i++) {
+                                if (focusableElements[i].tagName === 'SPAN') spanIndex = i;
+                            }
+
+                            focusableElements[spanIndex].focus();
+                        }
+                    } else if (focusedIndex === focusableElements.length - 1) {
                         if (!this.focusTrap && focusedIndex != -1) return this.hideOverlay();
-                        else focusableElements[0].focus();
+
+                        focusableElements[0].focus();
                     } else {
                         focusableElements[focusedIndex + 1].focus();
                     }
@@ -2710,6 +2803,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     hideOverlay() {
+        this.inputfieldViewChild?.nativeElement.focus();
         this.overlayVisible = false;
         this.clearTimePickerTimer();
 
@@ -2817,6 +2911,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
+                this.overlayVisible = false;
             });
             this.renderer.appendChild(this.document.body, this.mask);
             DomHandler.blockBodyScroll();
@@ -2848,7 +2943,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (!hasBlockerMasks) {
-            DomHandler.blockBodyScroll();
+            DomHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();
@@ -3234,9 +3329,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     onTodayButtonClick(event: any) {
-        let date: Date = new Date();
-        let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+        const date: Date = new Date();
+        const dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
 
+        this.createMonths(date.getMonth(), date.getFullYear());
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }

@@ -743,15 +743,22 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     isFileLimitExceeded() {
-        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+        const isAutoMode = this.auto;
+        const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
+
+        if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
             this.focus = false;
         }
 
-        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+        return this.fileLimit && this.fileLimit < totalFileCount;
     }
 
     isChooseDisabled() {
-        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        if (this.auto) {
+            return this.fileLimit && this.fileLimit <= this.files.length;
+        } else {
+            return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        }
     }
 
     checkFileLimit() {

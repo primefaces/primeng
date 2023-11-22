@@ -58,6 +58,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
                 role="region"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
                 [@panelContent]="
                     collapsed
                         ? { value: 'hidden', params: { transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity: '0' } }

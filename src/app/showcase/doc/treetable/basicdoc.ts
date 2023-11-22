@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
+import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
 @Component({
     selector: 'basic-doc',
@@ -32,7 +32,8 @@ import { NodeService } from '../../service/nodeservice';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-basic-demo"></app-code>
-    </section>`
+    </section>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc implements OnInit {
     @Input() id: string;
@@ -43,10 +44,13 @@ export class BasicDoc implements OnInit {
 
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.nodeService.getFilesystem().then((files) => (this.files = files));
+        this.nodeService.getFilesystem().then((files) => {
+            this.files = files.slice(0, 5);
+            this.cd.markForCheck();
+        });
     }
 
     code: Code = {
