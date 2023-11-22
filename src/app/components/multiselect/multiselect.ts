@@ -1352,7 +1352,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
     getOptionIndex(index, scrollerOptions) {
