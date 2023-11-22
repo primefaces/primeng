@@ -244,7 +244,12 @@ export class TableService {
                             [pTableBodyTemplate]="bodyTemplate"
                             [scrollerOptions]="scrollerOptions"
                         ></tbody>
-                        <tbody role="rowgroup" *ngIf="scrollerOptions.spacerStyle" [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'" class="p-datatable-scroller-spacer"></tbody>
+                        <tbody
+                            role="rowgroup"
+                            *ngIf="scrollerOptions.spacerStyle"
+                            [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                            class="p-datatable-scroller-spacer"
+                        ></tbody>
                         <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
                             <ng-container *ngTemplateOutlet="footerGroupedTemplate || footerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
                         </tfoot>
@@ -1408,8 +1413,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     dataToRender(data: any) {
         const _data = data || this.processedData;
-        
-        
+
         if (_data && this.paginator) {
             const first = this.lazy ? 0 : this.first;
             return _data.slice(first, <number>first + <number>this.rows);
@@ -1667,7 +1671,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             this.preventSelectionSetterPropagation = true;
             if (this.isMultipleSelectionMode() && event.originalEvent.shiftKey && this.anchorRowIndex != null) {
-
                 DomHandler.clearSelection();
                 if (this.rangeRowIndex != null) {
                     this.clearSelectionRange(event.originalEvent);
@@ -1869,7 +1872,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let rangeStart, rangeEnd;
         let rangeRowIndex = <number>this.rangeRowIndex;
         let anchorRowIndex = <number>this.anchorRowIndex;
-        
+
         if (rangeRowIndex > anchorRowIndex) {
             rangeStart = this.anchorRowIndex;
             rangeEnd = this.rangeRowIndex;
@@ -3485,7 +3488,7 @@ export class SortIcon implements OnInit, OnDestroy {
         '[class.p-highlight]': 'selected',
         '[attr.tabindex]': 'setRowTabIndex()',
         '[attr.data-p-highlight]': 'selected',
-        '[attr.data-p-selectable-row]' : 'true'
+        '[attr.data-p-selectable-row]': 'true'
     }
 })
 export class SelectableRow implements OnInit, OnDestroy {
@@ -3508,7 +3511,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     setRowTabIndex() {
-        if(this.dt.selectionMode === 'single' || this.dt.selectionMode === 'multiple') {
+        if (this.dt.selectionMode === 'single' || this.dt.selectionMode === 'multiple') {
             return !this.dt.selection ? 0 : this.dt.anchorRowIndex === this.index ? 0 : -1;
         }
     }
@@ -3538,8 +3541,8 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown', ['$event'])
-    onKeyDown(event:KeyboardEvent){
-        switch(event.code) {
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.code) {
             case 'ArrowDown':
                 this.onArrowDownKey(event);
                 break;
@@ -3559,21 +3562,20 @@ export class SelectableRow implements OnInit, OnDestroy {
             case 'Space':
                 this.onSpaceKey(event);
                 break;
-            
+
             case 'Enter':
                 this.onEnterKey(event);
                 break;
 
             default:
-                if(event.code === 'KeyA' && (event.metaKey || event.ctrlKey)){
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
                     const data = this.dt.dataToRender(this.dt.rows);
                     this.dt.selection = [...data];
-                    this.dt.selectRange(event, data.length -1);
+                    this.dt.selectRange(event, data.length - 1);
 
                     event.preventDefault();
                 }
                 break;
-            
         }
     }
 
@@ -3618,12 +3620,12 @@ export class SelectableRow implements OnInit, OnDestroy {
             rowIndex: this.index
         });
     }
-    
+
     onEndKey(event: KeyboardEvent) {
         const lastRow = this.findLastSelectableRow();
-        lastRow && this.focusRowChange(this.el.nativeElement, lastRow)
+        lastRow && this.focusRowChange(this.el.nativeElement, lastRow);
 
-        if(event.ctrlKey && event.shiftKey) {
+        if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
             const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
 
@@ -3639,15 +3641,13 @@ export class SelectableRow implements OnInit, OnDestroy {
 
         firstRow && this.focusRowChange(this.el.nativeElement, firstRow);
 
-        if(event.ctrlKey && event.shiftKey) {
+        if (event.ctrlKey && event.shiftKey) {
             const data = this.dt.dataToRender(this.dt.rows);
             const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
 
             this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
             this.dt.selection = data.slice(0, this.index + 1);
-            this.dt.selectRange(event, this.index)
-
-            
+            this.dt.selectRange(event, this.index);
         }
         event.preventDefault();
     }
@@ -3655,11 +3655,11 @@ export class SelectableRow implements OnInit, OnDestroy {
     onSpaceKey(event) {
         this.onEnterKey(event);
 
-        if(event.shiftKey && this.dt.selection !== null) {
+        if (event.shiftKey && this.dt.selection !== null) {
             const data = this.dt.dataToRender(this.dt.rows);
             let index;
-            
-            if(ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+
+            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
                 let firstSelectedRowIndex, lastSelectedRowIndex;
                 firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
                 lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
@@ -3668,11 +3668,10 @@ export class SelectableRow implements OnInit, OnDestroy {
             } else {
                 index = ObjectUtils.findIndexInList(this.dt.selection, data);
             }
-            
+
             this.dt.anchorRowIndex = index;
             this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-            this.dt.selectRange(event, this.index)
-
+            this.dt.selectRange(event, this.index);
         }
 
         event.preventDefault();
@@ -3687,7 +3686,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     findLastSelectableRow() {
         const rows = DomHandler.find(this.dt.el.nativeElement, '.p-selectable-row');
 
-        return rows ? rows[rows.length -1] : null;
+        return rows ? rows[rows.length - 1] : null;
     }
 
     findFirstSelectableRow() {
@@ -4495,7 +4494,7 @@ export class CellEditor implements AfterContentInit {
     template: `
         <div class="p-radiobutton p-component" [ngClass]="{ 'p-radiobutton-focused': focused, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'"/>
+                <input #rb type="radio" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'" />
             </div>
             <div #box [ngClass]="{ 'p-radiobutton-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <div class="p-radiobutton-icon"></div>
@@ -4576,7 +4575,18 @@ export class TableRadioButton {
     template: `
         <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
-                <input type="checkbox" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="disabled" [attr.required]="required" [attr.aria-label]="ariaLabel" [tabindex]="disabled ? null : '0'"/>
+                <input
+                    type="checkbox"
+                    [attr.id]="inputId"
+                    [attr.name]="name"
+                    [checked]="checked"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [disabled]="disabled"
+                    [attr.required]="required"
+                    [attr.aria-label]="ariaLabel"
+                    [tabindex]="disabled ? null : '0'"
+                />
             </div>
             <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
                 <ng-container *ngIf="!dt.checkboxIconTemplate">
@@ -5260,7 +5270,6 @@ export class ColumnFilter implements AfterContentInit {
 
     toggleMenu() {
         this.overlayVisible = !this.overlayVisible;
-
     }
 
     onToggleButtonKeyDown(event: KeyboardEvent) {
@@ -5350,8 +5359,8 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     focusOnFirstElement() {
-        if(this.overlay) {
-            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''))
+        if (this.overlay) {
+            DomHandler.focus(DomHandler.getFirstFocusableElement(this.overlay, ''));
         }
     }
 

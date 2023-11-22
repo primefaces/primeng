@@ -1086,7 +1086,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor( public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
@@ -1242,7 +1242,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         index !== -1 && this.focusedOptionIndex.set(index);
 
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
-        
+
         this.onChange.emit({
             originalEvent: event,
             value: value,
@@ -1677,7 +1677,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         }
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
         this.onClick.emit(event);
-        this.cd.detectChanges()
+        this.cd.detectChanges();
     }
 
     onFirstHiddenFocus(event) {
@@ -1767,19 +1767,19 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        if(this.selectAll !== null) {
+        if (this.selectAll !== null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
-            })
+            });
         } else {
             const value = this.allSelected()
-            ? []
-            : this.visibleOptions()
-                  .filter((option) => this.isValidOption(option))
-                  .map((option) => this.getOptionValue(option));
-            
-            this.updateModel(value, event)
+                ? []
+                : this.visibleOptions()
+                      .filter((option) => this.isValidOption(option))
+                      .map((option) => this.getOptionValue(option));
+
+            this.updateModel(value, event);
         }
 
         DomHandler.focus(this.headerCheckboxViewChild.nativeElement);

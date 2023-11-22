@@ -1436,7 +1436,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateInputValue() {
-        if (this.value && this.inputEL && this.inputEL.nativeElement) {
+        if (this.inputEL && this.inputEL.nativeElement) {
             if (!this.multiple) {
                 this.inputEL.nativeElement.value = this.inputValue();
             } else {
@@ -1515,7 +1515,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     writeValue(value: any): void {
         this.value = value;
         this.filled = this.value && this.value.length ? true : false;
-        this.updateModel(value);
+        this.modelValue.set(value);
+        console.log('a', value, this.modelValue());
+        this.updateInputValue();
         this.cd.markForCheck();
     }
 
@@ -1570,13 +1572,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            
-            if(this.virtualScroll) {
+
+            if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
                 this.scroller.viewInit();
             }
-            if(this.visibleOptions() && this.visibleOptions().length) {
-                if(this.virtualScroll) {
+            if (this.visibleOptions() && this.visibleOptions().length) {
+                if (this.virtualScroll) {
                     const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
 
                     if (selectedIndex !== -1) {

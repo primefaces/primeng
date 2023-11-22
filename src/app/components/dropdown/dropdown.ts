@@ -147,7 +147,7 @@ export class DropdownItem {
                 (keydown)="onKeyDown($event)"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: modelValue() }"></ng-container>
+                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
                     <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
@@ -921,12 +921,19 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
+    selectedOption: any;
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
+            const visibleOptions = this.visibleOptions();
 
             if (modelValue && this.editable) {
                 this.updateEditableLabel();
+            }
+
+            if(visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
+                this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
             }
         });
     }
@@ -1051,7 +1058,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
         isHide && this.hide(true);
-        (preventChange === false) && this.onChange.emit({originalEvent: event, value: value});
+        preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
     }
 
     onOptionMouseEnter(event, index) {
@@ -1072,14 +1079,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.resetFilter();
         }
         this.value = value;
-        
+
         this.allowModelChange() && this.onModelChange(value);
-        this.modelValue.set(this.value)
+        this.modelValue.set(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }
 
-    allowModelChange(){
+    allowModelChange() {
         return this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable && this.options && this.options.length;
     }
 
@@ -1104,7 +1111,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option?.label !== undefined ? option.label : option;
+        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
@@ -1191,7 +1198,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         this.onModelChange(value);
         this.updateModel(value, event);
-        this.onChange.emit({originalEvent: event, value: value})
+        this.onChange.emit({ originalEvent: event, value: value });
     }
     /**
      * Displays the panel.
@@ -1276,7 +1283,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onInputBlur(event: Event) {
         this.focused = false;
-        (this.overlayVisible === false) && this.onBlur.emit(event);
+        this.overlayVisible === false && this.onBlur.emit(event);
 
         if (!this.preventModelTouched) {
             this.onModelTouched();
@@ -1719,7 +1726,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     clear(event: Event) {
         this.updateModel(null, event);
         this.updateEditableLabel();
-        this.onChange.emit({originalEvent: event, value: this.value})
+        this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
     }
 }
