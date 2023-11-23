@@ -1,23 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="bar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-horizontal-bar-demo"></app-code>
-    </section>`
+    `
 })
 export class HorizontalBarDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     data: any;
 
