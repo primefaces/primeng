@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p class="line-height-3  bg-indigo-600 text-white p-3 text-lg" style="border-radius: 10px;">
                 Accessibility is a major concern of the Prime UI libraries and PrimeNG is no exception. <a href="https://www.primetek.com.tr" class="text-white">PrimeTek</a> teams have initiated a significant process to review and enhance the
                 accessibility features of the components. This guide documents the foundation of the general guidelines that PrimeNG will follow and each component documentation will have a separate <b>Accessibility</b> section that states the
@@ -43,10 +43,8 @@ import { Component, Input } from '@angular/core';
                 impairments result in better design for any user.
             </p>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class IntroductionDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }
