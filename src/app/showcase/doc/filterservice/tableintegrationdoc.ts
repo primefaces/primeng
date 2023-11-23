@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
@@ -6,8 +6,8 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
         </app-docsectiontext>
         <div class="card">
@@ -30,13 +30,10 @@ import { CarService } from '../../service/carservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="filter-service-table-integration-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+    `,
     providers: [FilterService]
 })
 export class TableIntegrationDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     cars: Car[];
 
