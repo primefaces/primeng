@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
@@ -6,8 +6,8 @@ import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'datatable-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
         <div class="card">
@@ -38,13 +38,10 @@ import { CarService } from '../../service/carservice';
             </div>
         </div>
         <app-code [code]="code" [extFiles]="extFiles" selector="defer-data-table-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService, CarService]
 })
 export class DataTableDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     cars: Car[] | undefined;
 
