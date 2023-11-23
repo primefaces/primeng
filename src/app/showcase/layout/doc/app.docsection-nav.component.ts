@@ -67,7 +67,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             hasHash &&
                 setTimeout(() => {
                     this.scrollToLabelById(id);
-                }, 1);
+                }, 25);
 
             this.zone.runOutsideAngular(() => {
                 this.scrollListener = this.renderer.listen(this.document, 'scroll', (event: any) => {

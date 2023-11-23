@@ -15,11 +15,11 @@ interface Country {
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
                 <ng-template let-value pTemplate="selectedItems">
-                    <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of selectedCountries">
+                    <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
                         <div>{{ option.name }},</div>
                     </div>
-                    <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
+                    <div *ngIf="!value || value.length === 0">Select Countries</div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
@@ -57,11 +57,11 @@ export class TemplateDoc implements OnInit {
         basic: `
 <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name">
     <ng-template let-value pTemplate="selectedItems">
-        <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of selectedCountries">
+        <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-            <div>{{ option.name }}, </div>
+            <div>{{ option.name }},</div>
         </div>
-        <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
+        <div *ngIf="!value || value.length === 0">Select Countries</div>
     </ng-template>
     <ng-template let-country pTemplate="item">
         <div class="flex align-items-center gap-2">
@@ -75,11 +75,11 @@ export class TemplateDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-multiSelect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select a Country" optionLabel="name">
         <ng-template let-value pTemplate="selectedItems">
-            <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of selectedCountries">
+            <div class="inline-flex align-items-center gap-2 px-1" *ngFor="let option of value">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" style="width: 18px" />
-                <div>{{ option.name }}, </div>
+                <div>{{ option.name }},</div>
             </div>
-            <div *ngIf="!selectedCountries || selectedCountries.length === 0">Select Countries</div>
+            <div *ngIf="!value || value.length === 0">Select Countries</div>
         </ng-template>
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">

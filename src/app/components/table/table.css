@@ -45,7 +45,7 @@
     .p-datatable-scrollable-table > .p-datatable-thead {
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 2;
     }
 
     .p-datatable-scrollable-table > .p-datatable-frozen-tbody {
@@ -84,7 +84,7 @@
 
     .p-datatable-scrollable-table > .p-datatable-tbody > .p-rowgroup-header {
         position: sticky;
-        z-index: 1;
+        z-index: 2;
     }
 
     /* Resizable */
@@ -163,7 +163,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 2;
+        z-index: 3;
     }
 
     /* Filter */

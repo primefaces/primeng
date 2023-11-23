@@ -11,11 +11,11 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template pTemplate="selectedItem">
-                    <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedCountry.name }}</div>
+            <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a country">
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2" *ngIf="selectedOption">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">

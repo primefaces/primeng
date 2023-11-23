@@ -12,12 +12,10 @@ import {
     Inject,
     Input,
     NgModule,
-    OnChanges,
     OnDestroy,
     Output,
     QueryList,
     Renderer2,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
@@ -97,7 +95,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         class: 'p-element'
     }
 })
-export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnChanges {
+export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -258,16 +256,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnCh
         this.initialized = true;
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.visible) {
-            if (!changes.visible.firstChange) {
-                if (changes.visible.currentValue === false) {
-                    this.hide();
-                }
-            }
-        }
-    }
-
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -293,7 +281,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnCh
 
     onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
-            this.hide();
+            this.hide(false);
         }
     }
 
@@ -321,7 +309,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnCh
     }
 
     close(event: Event) {
-        this.hide();
+        this.hide(false);
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -386,7 +374,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy, OnCh
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
-                this.hide(false);
+                this.hide();
+
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;

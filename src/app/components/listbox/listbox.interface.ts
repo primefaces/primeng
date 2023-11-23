@@ -71,7 +71,7 @@ export interface ListboxClickEvent {
      */
     originalEvent: Event;
     /**
-     * Selected option value
+     * Value of the component.
      */
     value: any;
     /**

@@ -75,6 +75,7 @@ import {
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { platformBrowser } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -1298,14 +1299,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     ngAfterViewInit() {
-        if (this.isStateful() && this.resizableColumns) {
-            this.restoreColumnWidths();
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.isStateful() && this.resizableColumns) {
+                this.restoreColumnWidths();
+            }
         }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
-            if (this.isStateful() && !this.stateRestored) {
+            if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
             }
 
@@ -3450,7 +3453,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let multiSortMeta = this.dt._multiSortMeta;
         let index = -1;
 
-        if (multiSortMeta && this.dt.sortMode === 'multiple' && (this.dt.showInitialSortBadge || multiSortMeta.length > 1)) {
+        if (multiSortMeta && this.dt.sortMode === 'multiple' && this.dt.showInitialSortBadge && multiSortMeta.length > 1) {
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
                 if (meta.field === this.field || meta.field === this.field) {
@@ -5653,7 +5656,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || value === '') {
             this.dt._filter();
         }
     }
