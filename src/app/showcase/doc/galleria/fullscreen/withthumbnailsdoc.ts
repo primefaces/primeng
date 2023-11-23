@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/app.docsectiontext.component';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'with-thumbnails-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,14 +22,9 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-screen-with-thumbnails-demo"></app-code>
-    </section>`
+    `
 })
 export class WithThumbnailsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     displayBasic: boolean | undefined;
 
