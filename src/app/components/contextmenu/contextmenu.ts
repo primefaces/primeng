@@ -833,10 +833,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        this.focusedItemInfo.mutate((value) => {
-            value.index = this.findFirstFocusedItemIndex();
-            value.item = processedItem.item;
-        });
+        const focusedItemInfo = this.focusedItemInfo();
+        this.focusedItemInfo.set({...focusedItemInfo, index: this.findFirstFocusedItemIndex(), item: processedItem.item})
 
         event.preventDefault();
     }
@@ -863,9 +861,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             const grouped = this.isProccessedItemGroup(processedItem);
 
             if (!grouped) {
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = this.findFirstFocusedItemIndex();
-                });
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({...focusedItemInfo, index: this.findFirstFocusedItemIndex()})
             }
         }
 
@@ -1085,11 +1082,9 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         const processedItem = this.findVisibleItem(index);
-        if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-                value.item = processedItem.item;
-            });
+        const focusedItemInfo = this.focusedItemInfo();
+        if(focusedItemInfo.index !== index) {
+            this.focusedItemInfo.set({...focusedItemInfo, index, item: processedItem.item});
             this.scrollInView();
         }
     }

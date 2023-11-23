@@ -98,10 +98,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "primeng:build:production"
+                            "buildTarget": "primeng:build:production"
                         },
                         "development": {
-                            "browserTarget": "primeng:build:development"
+                            "buildTarget": "primeng:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -109,7 +109,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "primeng:build"
+                        "buildTarget": "primeng:build"
                     }
                 },
                 "test": {
@@ -157,11 +157,11 @@
                     "builder": "@nguniversal/builders:ssr-dev-server",
                     "configurations": {
                         "development": {
-                            "browserTarget": "primeng:build:development",
+                            "3": "primeng:build:development",
                             "serverTarget": "primeng:server:development"
                         },
                         "production": {
-                            "browserTarget": "primeng:build:production",
+                            "3": "primeng:build:production",
                             "serverTarget": "primeng:server:production"
                         }
                     },
@@ -176,11 +176,11 @@
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "primeng:build:production",
+                            "3": "primeng:build:production",
                             "serverTarget": "primeng:server:production"
                         },
                         "development": {
-                            "browserTarget": "primeng:build:development",
+                            "3": "primeng:build:development",
                             "serverTarget": "primeng:server:development"
                         }
                     },

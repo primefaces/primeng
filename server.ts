@@ -1,7 +1,7 @@
 import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
-import { ngExpressEngine } from '@nguniversal/express-engine';
+// import { ngExpressEngine } from '@nguniversal/express-engine';
 import express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
@@ -45,13 +45,13 @@ export function app(): express.Express {
     const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
-    server.engine(
-        'html',
-        ngExpressEngine({
-            bootstrap: AppServerModule,
-            inlineCriticalCss: false
-        })
-    );
+    // server.engine(
+    //     'html',
+    //     ngExpressEngine({
+    //         bootstrap: AppServerModule,
+    //         inlineCriticalCss: false
+    //     })
+    // );
 
     server.set('view engine', 'html');
     server.set('views', distFolder);

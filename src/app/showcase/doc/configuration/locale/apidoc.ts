@@ -257,7 +257,7 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                         </tr>
                         <tr>
                             <td>emptyFilterMessage</td>
-                            <td>No results found', // @deprecated Use 'emptySearchMessage' option instea</td>
+                            <td>No results found'</td>
                         </tr>
                         <tr>
                             <td>searchMessage</td>

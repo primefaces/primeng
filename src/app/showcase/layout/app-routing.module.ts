@@ -3,7 +3,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from '../pages/landing/landing.component';
 import { AppMainComponent } from './app.main.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', component: LandingComponent, pathMatch: 'full' },
     {
         path: '',
