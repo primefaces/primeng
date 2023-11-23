@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>
                 The <i>severity</i> option specifies the type of the message. There are four types of messages: <i>success</i>, <i>info</i>, <i>warn</i> and <i>error</i>. The severity of the message is used to display the icon and the color of the
                 toast.
@@ -19,13 +19,10 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SeverityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     constructor(private messageService: MessageService) {}
 
