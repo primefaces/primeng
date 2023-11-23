@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>TabMenu supports templating via the <i>item</i> template which gets the menuitem instance and the index.</p>
         </app-docsectiontext>
         <div class="card">
@@ -25,12 +25,9 @@ import { Code } from '../../domain/code';
             </p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[] | undefined;
 
