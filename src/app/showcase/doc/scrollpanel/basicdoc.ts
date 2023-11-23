@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>ScrollPanel is defined using dimensions for the scrollable viewport.</p>
         </app-docsectiontext>
         <div class="card">
@@ -24,12 +24,9 @@ import { Code } from '../../domain/code';
             </p-scrollPanel>
         </div>
         <app-code [code]="code" selector="scroll-panel-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

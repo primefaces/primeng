@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-buttonbar-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date" [showButtonBar]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-buttonbar-demo"></app-code>
-    </section>`
+    `
 })
 export class ButtonBarDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     date: Date[] | undefined;
 

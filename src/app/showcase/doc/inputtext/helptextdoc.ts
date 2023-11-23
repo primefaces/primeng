@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'helptext-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,14 +15,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-text-help-text-demo"></app-code>
-    </section>`
+    `
 })
 export class HelpTextDoc {
+
     value: string | undefined;
-
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

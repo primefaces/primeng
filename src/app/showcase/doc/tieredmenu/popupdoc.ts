@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'popup-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -13,12 +13,9 @@ import { Code } from '../../domain/code';
             <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
-    </section>`
+    `
 })
 export class PopupDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[] | undefined;
 

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'numerals-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>InputNumber is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
@@ -26,12 +26,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
-    </section>`
+    `
 })
 export class NumeralsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value1: number = 42723;
 

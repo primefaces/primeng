@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'preselection-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
         </div>
         <app-code [code]="code" selector="input-switch-preselection-demo"></app-code>
-    </section>`
+  `
 })
 export class PreselectionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     checked: boolean = true;
 

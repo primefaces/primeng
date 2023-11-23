@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'autoresize-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
-    </section>`
+   `
 })
 export class AutoResizeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

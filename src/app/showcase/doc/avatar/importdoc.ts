@@ -1,20 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
+    template: `
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`
+    `
 })
 export class ImportDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         html: `import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';`
     };
+
 }

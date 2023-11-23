@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -6,8 +6,8 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded on demand. To implement lazy loading, enable the <i>lazy</i> property and implement <i>onLazyLoad</i> callback to
                 return data.
@@ -49,12 +49,9 @@ import { ProductService } from '../../service/productservice';
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-lazy-load-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class LazyLoadDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     products!: Product[];
 

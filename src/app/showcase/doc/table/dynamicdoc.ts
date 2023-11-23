@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -9,8 +9,8 @@ interface Column {
 }
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>
         <div class="card">
@@ -31,15 +31,10 @@ interface Column {
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-dynamic-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-dynamic-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     cols!: Column[];

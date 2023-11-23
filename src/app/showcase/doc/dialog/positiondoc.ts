@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-position-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-2">
@@ -30,12 +30,9 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-position-demo"></app-code>
-    </section>`
+    `
 })
 export class PositionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     visible: boolean = false;
 

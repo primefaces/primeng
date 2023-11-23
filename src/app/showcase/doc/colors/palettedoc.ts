@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'palette-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Colors palette consists of 13 main colors where each color provides tints/shades from 50 to 900.</p>
         </app-docsectiontext>
         <div class="card">
@@ -166,10 +166,8 @@ import { Component, Input } from '@angular/core';
                 </div>
             </div>
         </div>
-    </section>`
+    `
 })
 export class PaletteDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }

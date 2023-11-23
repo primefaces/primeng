@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -7,7 +7,7 @@ import { ProductService } from '../../service/productservice';
 @Component({
     selector: 'productlistdemo-doc',
     template: `<div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <p>ProductListDemo component used in examples above.</p>
         </app-docsectiontext>
         <div class="card">
@@ -41,9 +41,6 @@ import { ProductService } from '../../service/productservice';
     providers: [DynamicDialogRef]
 })
 export class ProductListDemoDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     products: Product[];
 

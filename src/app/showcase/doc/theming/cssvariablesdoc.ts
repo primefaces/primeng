@@ -1,15 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'css-variables-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Each PrimeNG theme exports numerous CSS variables, refer to <a routerLink="/colors">Colors</a> page for more details.</p>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class CSSVariablesDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }

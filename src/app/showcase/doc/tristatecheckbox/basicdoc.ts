@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>A model can be bound using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex flex-column gap-3 align-items-center">
@@ -12,12 +12,9 @@ import { Code } from '../../domain/code';
             <label class="p-tristatecheckbox-label" for="tricheckbox">{{ value === null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value: boolean | null = null;
 

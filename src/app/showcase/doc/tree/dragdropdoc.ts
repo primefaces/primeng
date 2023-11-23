@@ -1,25 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
-    </section>`,
+    `,
     providers: [TreeDragDropService]
 })
 export class DragDropDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     files!: TreeNode[];
 

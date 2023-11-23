@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'dynamic-columns-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Columns can be created programmatically.</p>
         </app-docsectiontext>
         <div class="card">
@@ -34,12 +34,10 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
-    </section>`
+   `
 })
 export class DynamicColumnsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
+    
 
     files!: TreeNode[];
 
