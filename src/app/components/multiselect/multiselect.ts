@@ -1093,10 +1093,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions) && modelValue) {
-                if(this.optionValue && this.optionLabel) {
-                    this.selectedOptions = visibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue])); 
+                if (this.optionValue && this.optionLabel) {
+                    this.selectedOptions = visibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
                 } else {
-                    this.selectedOptions = [...modelValue]
+                    this.selectedOptions = [...modelValue];
                 }
             }
         });

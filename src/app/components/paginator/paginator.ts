@@ -53,7 +53,15 @@ import { PaginatorState } from './paginator.interface';
                 </span>
             </button>
             <span class="p-paginator-pages" *ngIf="showPageLinks">
-                <button type="button" *ngFor="let pageLink of pageLinks" class="p-paginator-page p-paginator-element p-link" [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }" [attr.aria-label]="getAriaLabel('pageLabel')" (click)="onPageLinkClick($event, pageLink - 1)" pRipple>
+                <button
+                    type="button"
+                    *ngFor="let pageLink of pageLinks"
+                    class="p-paginator-page p-paginator-element p-link"
+                    [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
+                    [attr.aria-label]="getAriaLabel('pageLabel')"
+                    (click)="onPageLinkClick($event, pageLink - 1)"
+                    pRipple
+                >
                     {{ getLocalization(pageLink) }}
                 </button>
             </span>
@@ -84,7 +92,16 @@ import { PaginatorState } from './paginator.interface';
                     <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
-            <button *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple class="p-paginator-last p-paginator-element p-link" [ngClass]="{ 'p-disabled': isLastPage() || empty() }" [attr.aria-label]="getAriaLabel('lastPageLabel')">
+            <button
+                *ngIf="showFirstLastIcon"
+                type="button"
+                [disabled]="isLastPage() || empty()"
+                (click)="changePageToLast($event)"
+                pRipple
+                class="p-paginator-last p-paginator-element p-link"
+                [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('lastPageLabel')"
+            >
                 <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
                 <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
