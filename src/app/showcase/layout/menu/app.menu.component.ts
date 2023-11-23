@@ -1,11 +1,14 @@
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { StyleClassModule } from 'primeng/styleclass';
+import { AppMenuItemComponent } from './app.menuitem.component';
 
 export interface MenuItem {
     name?: string;
@@ -17,7 +20,9 @@ export interface MenuItem {
 
 @Component({
     selector: 'app-menu',
-    templateUrl: './app.menu.component.html'
+    standalone: true,
+    templateUrl: './app.menu.component.html',
+    imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
 export class AppMenuComponent {
     @Input() active: boolean;

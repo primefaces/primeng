@@ -1,13 +1,33 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AppConfigService } from '../service/appconfigservice';
 import Announcement from '../data/news.json';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarService } from '../service/carservice';
+import { CountryService } from '../service/countryservice';
+import { CustomerService } from '../service/customerservice';
+import { EventService } from '../service/eventservice';
+import { IconService } from '../service/iconservice';
+import { NodeService } from '../service/nodeservice';
+import { PhotoService } from '../service/photoservice';
+import { ProductService } from '../service/productservice';
+import { AppMainComponent } from './app.main.component';
+import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppNewsComponent } from './news/app.news.component';
+import { AppConfigComponent } from './config/app.config.component';
+import { AppMenuComponent } from './menu/app.menu.component';
+import { LandingComponent } from '../pages/landing/landing.component';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    standalone: true,
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
+    providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
 export class AppComponent implements OnInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private configService: AppConfigService, private router: Router) {

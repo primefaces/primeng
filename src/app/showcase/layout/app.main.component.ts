@@ -1,16 +1,23 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 import { AppConfigService } from '../service/appconfigservice';
 import { AppComponent } from './app.component';
 import { DomHandler } from 'primeng/dom';
+import { AppFooterComponent } from './footer/app.footer.component';
+import { AppMenuComponent } from './menu/app.menu.component';
+import { AppConfigComponent } from './config/app.config.component';
+import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppNewsComponent } from './news/app.news.component';
 
 @Component({
     selector: 'app-main',
-    templateUrl: './app.main.component.html'
+    templateUrl: './app.main.component.html',
+    standalone: true,
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
 })
 export class AppMainComponent implements OnInit {
     menuActive: boolean;
