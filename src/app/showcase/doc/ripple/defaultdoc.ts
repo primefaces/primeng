@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'default-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Default Demo Content.</p>
         </app-docsectiontext>
         <div class="card card-container flex justify-content-center align-items-center">
             <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>
         </div>
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
-    </section>`
+    `
 })
 export class DefaultDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `
