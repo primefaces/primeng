@@ -51,7 +51,7 @@ export class AppCodeComponent {
     getInitialLang(): string {
         if (this.code) {
             return Object.keys(this.code)[0];
-        }
+        }   
     }
 
     async copyCode() {
