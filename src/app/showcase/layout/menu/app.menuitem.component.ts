@@ -35,7 +35,6 @@ import { StyleClassModule } from 'primeng/styleclass';
         </div>
     `,
     standalone: true,
-    templateUrl: './app.menuitem.component.html',
     imports: [CommonModule, StyleClassModule, RouterModule]
 })
 export class AppMenuItemComponent {

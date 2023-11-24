@@ -10,12 +10,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SidebarModule } from 'primeng/sidebar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'app-config',
     standalone: true,
     templateUrl: './app.config.component.html',
-    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule]
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
     scale: number = 14;

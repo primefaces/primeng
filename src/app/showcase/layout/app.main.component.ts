@@ -30,7 +30,6 @@ import { AppNewsComponent } from './news/app.news.component';
         <app-footer></app-footer>
     </div>
  d   `,
-    templateUrl: './app.main.component.html',
     standalone: true,
     imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
 })

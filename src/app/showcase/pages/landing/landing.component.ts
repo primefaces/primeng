@@ -31,6 +31,7 @@ import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TreeModule } from 'primeng/tree';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
+import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 
 interface City {
     name: string;
@@ -64,7 +65,8 @@ interface City {
         ListboxModule,
         RouterModule,
         CheckboxModule,
-        AppNewsComponent
+        AppNewsComponent,
+        AppTopBarComponent
     ]
 })
 export class LandingComponent implements OnInit {

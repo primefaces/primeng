@@ -1,7 +1,7 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
 import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
@@ -20,7 +20,7 @@ import { StyleClassModule } from 'primeng/styleclass';
             transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])
         ])
     ],
-    imports: [CommonModule, FormsModule, StyleClassModule]
+    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
 

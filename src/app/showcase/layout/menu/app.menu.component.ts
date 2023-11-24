@@ -32,7 +32,6 @@ export interface MenuItem {
         '[class.active]': 'active',
     },
     standalone: true,
-    templateUrl: './app.menu.component.html',
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
 export class AppMenuComponent {
