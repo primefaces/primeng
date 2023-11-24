@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import docsearch from '@docsearch/js';
@@ -7,16 +7,20 @@ import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
+import { FormsModule } from '@angular/forms';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: 'app-topbar',
+    standalone: true,
     templateUrl: './app.topbar.component.html',
     animations: [
         trigger('overlayMenuAnimation', [
             transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' }))]),
             transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])
         ])
-    ]
+    ],
+    imports: [CommonModule, FormsModule, StyleClassModule]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();

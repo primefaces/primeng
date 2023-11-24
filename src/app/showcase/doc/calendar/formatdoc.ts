@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
                 <li><i>MM</i> - month name long</li>
                 <li><i>y</i> - year (two digit)</li>
                 <li><i>yy</i> - year (four digit)</li>
-                <li><i>@</i> - Unix timestamp (ms since 01/01/1970)</li>
+                <li><i>&#64;</i> - Unix timestamp (ms since 01/01/1970)</li>
                 <li><i>!</i> - Windows ticks (100ns since 01/01/0001)</li>
                 <li><i>'...'</i> - literal text</li>
                 <li><i>''</i> - single quote</li>

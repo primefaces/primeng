@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>
                 <i>StyleClass</i> has two modes, <i>toggleClass</i> to simply add-remove a class and enter/leave animations. The target element to change the styling is defined with the <i>selector</i> property that accepts any valid CSS selector or
-                keywords including <i>@next</i>, <i>prev</i>, <i>parent</i>, <i>grandparent</i>
+                keywords including <i>&#64;next</i>, <i>prev</i>, <i>parent</i>, <i>grandparent</i>
             </p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center">

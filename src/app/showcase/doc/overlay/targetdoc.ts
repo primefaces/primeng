@@ -10,10 +10,10 @@ import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.
         </app-docsectiontext>
         <div class="card">
             <ul>
-                <li>@prev (default)</li>
-                <li>@next</li>
-                <li>@parent</li>
-                <li>@grandparent</li>
+                <li>&#64;prev (default)</li>
+                <li>&#64;next</li>
+                <li>&#64;parent</li>
+                <li>&#64;grandparent</li>
                 <li>Use <em>CSS selector</em></li>
                 <li>Use <em>() =&gt; HTMLElement</em></li>
             </ul>

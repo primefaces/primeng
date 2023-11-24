@@ -1,6 +1,6 @@
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT, Location, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -55,10 +55,10 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
     @ViewChild('nav') nav: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
+    constructor(@Inject(DOCUMENT) private document: Document,  @Inject(PLATFORM_ID) private platformId: any, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
 
     ngOnInit(): void {
-        if (typeof window !== undefined) {
+        if (isPlatformBrowser(this.platformId)) {
             const hash = window.location.hash.substring(1);
             const hasHash = ObjectUtils.isNotEmpty(hash);
             const id = hasHash ? hash : ((this.docs && this.docs[0]) || {}).id;
@@ -94,7 +94,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     }
 
     onScroll() {
-        if (typeof window !== undefined && this.nav) {
+        if (isPlatformBrowser(this.platformId) && this.nav) {
             if (!this.isScrollBlocked) {
                 if (typeof document !== undefined) {
                     const labels = this.getLabels();

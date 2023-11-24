@@ -1,10 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from './app.menu.component';
+import { CommonModule } from '@angular/common';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: '[app-menuitem]',
-    templateUrl: './app.menuitem.component.html'
+    standalone: true,
+    templateUrl: './app.menuitem.component.html',
+    imports: [CommonModule, StyleClassModule, RouterModule]
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;
