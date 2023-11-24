@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the <a href="/configuration/#locale">locale</a> API via <i>star</i> and <i>stars</i> of the
@@ -59,7 +59,5 @@ import { Component, Input } from '@angular/core';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
+  
 }

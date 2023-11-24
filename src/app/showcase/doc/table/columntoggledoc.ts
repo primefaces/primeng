@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -9,8 +9,8 @@ interface Column {
 }
 @Component({
     selector: 'column-toggle-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
         <div class="card">
@@ -36,15 +36,10 @@ interface Column {
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnToggleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     cols!: Column[];

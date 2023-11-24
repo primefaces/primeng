@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-outlined-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
@@ -17,12 +17,9 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" [outlined]="true" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    </section>`
+    `
 })
 export class OutlinedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

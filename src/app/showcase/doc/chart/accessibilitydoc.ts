@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <div class="doc-section-description">
                 <h3>Screen Reader</h3>
                 <p>
@@ -18,11 +18,9 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         html: `<p-chart type="line" [data]="data" ariaLabbel="Data"></p-chart>`
     };
+
 }

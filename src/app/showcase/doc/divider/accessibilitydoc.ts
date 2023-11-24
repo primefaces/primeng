@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>Divider uses a <i>separator</i> role with <i>aria-orientation</i> set to either "horizontal" or "vertical".</p>
             <h3>Keyboard Support</h3>
@@ -12,7 +12,5 @@ import { Component, Input } from '@angular/core';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
+  
 }

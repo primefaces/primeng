@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'fieldset-toggleable-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Content of the fieldset can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -16,12 +16,9 @@ import { Code } from '../../domain/code';
             </p-fieldset>
         </div>
         <app-code [code]="code" selector="fieldset-toggleable-demo"></app-code>
-    </section>`
+    `
 })
 export class ToggleableDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

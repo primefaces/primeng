@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
             Component currently uses a table based implementation and does not provide high level of screen reader support, a nested list implementation replacement is planned with aria roles and attributes aligned to a tree widget for high level of
@@ -36,7 +36,5 @@ import { Component, Input } from '@angular/core';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
+  
 }

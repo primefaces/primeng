@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-long-content-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Dialog automatically displays a scroller when content exceeeds viewport.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -31,12 +31,9 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-long-content-demo"></app-code>
-    </section>`
+    `
 })
 export class LongContentDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     visible: boolean = false;
 

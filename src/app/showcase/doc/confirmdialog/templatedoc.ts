@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Properties of the dialog are defined in two ways, <i>message</i>, <i>icon</i>, <i>header</i> properties can either be defined using confirm method or declaratively on p-confirmDialog ng-template by <i>header</i>, <i>message</i>,
                 <i>icon</i> and <i>footer</i> templates. If these values are unlikely to change then declarative approach would be useful, still properties defined in a ng-template can be overridden with confirm method call.
@@ -35,13 +35,10 @@ import { Code } from '../../domain/code';
             <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
-    </section>`,
+    `,
     providers: [ConfirmationService, MessageService]
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 

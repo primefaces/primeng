@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-format-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
             <ul class="mb-4 line-height-4">
                 <li><i>d</i> - day of month (no leading zero)</li>
@@ -30,12 +30,9 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-format-demo"></app-code>
-    </section>`
+    `
 })
 export class FormatDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     date: Date | undefined;
 

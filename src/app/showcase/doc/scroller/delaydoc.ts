@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'delay-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Scroll delay is adjusted by using <i>delay</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
@@ -34,12 +34,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroller-delay-demo"></app-code>
-    </section>`
+    `
 })
 export class DelayDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items!: string[];
 

@@ -4,31 +4,39 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-docsectiontext',
-    templateUrl: './app.docsectiontext.component.html'
+    template: `
+        <h2 class="doc-section-label" *ngIf="level === 2">{{title}}
+            <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
+        </h2>
+        <div class="doc-section-description" *ngIf="description">
+            <p class="mt-3">{{description || null}}</p>
+        </div>
+        <h3 class="doc-section-label" *ngIf="level === 3">{{title}}
+            <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
+        </h3>
+        <div class="doc-section-description">
+            <ng-content></ng-content>
+        </div>
+    `
 })
 export class AppDocSectionTextComponent {
     @Input() title!: string;
 
     @Input() id!: string;
 
-    @Input() level: number = 2;
+    @Input() level!: number;
 
     @Input() label!: string;
 
-    @Input() parentTitle: string;
-
-    @Input() parentDescription: string;
-
-    @Input() parentId: string;
+    @Input() description: string;
 
     constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
 
-    navigate(event) {
+    navigate(event, parentClick = false) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const parentElement = event.currentTarget.parentElement;
-            const id = this.id ?? this.parentId;
-            this.location.go(this.location.path().split('#')[0] + '#' + id);
+            this.location.go(this.location.path().split('#')[0] + '#' + this.id);
 
             setTimeout(() => {
                 parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });

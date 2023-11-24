@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface EventItem {
@@ -11,8 +11,8 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -26,12 +26,9 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-opposite-demo"></app-code>
-    </section>`
+    `
 })
 export class OppositeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     events: EventItem[];
 

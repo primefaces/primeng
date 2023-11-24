@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-raisedtext-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Text buttons can be displayed as raised for elevation.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
@@ -18,12 +18,9 @@ import { Code } from '../../domain/code';
             <p-button label="Plain" [text]="true" [raised]="true" [plain]="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-raisedtext-demo"></app-code>
-    </section>`
+    `
 })
 export class RaisedTextDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

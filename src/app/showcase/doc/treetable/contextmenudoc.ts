@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'context-menu-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
         </app-docsectiontext>
         <div class="card">
@@ -38,13 +38,10 @@ interface Column {
             <p-contextMenu #cm [model]="items"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     files!: TreeNode[];
 

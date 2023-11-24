@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-text-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
@@ -18,12 +18,9 @@ import { Code } from '../../domain/code';
             <p-button label="Plain" [text]="true" [plain]="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-text-demo"></app-code>
-    </section>`
+    `
 })
 export class TextDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

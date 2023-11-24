@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -9,8 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-advanced-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
+    template: `
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
             <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
@@ -25,13 +24,10 @@ interface UploadEvent {
             </p-fileUpload>
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class AdvancedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     uploadedFiles: any[] = [];
 

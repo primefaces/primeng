@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
             Galleria uses <i>region</i> role and since any attribute is passed to the main container element, attributes such as <i>aria-label</i> and <i>aria-roledescription</i> can be used as well. The slides container has
@@ -92,7 +92,5 @@ import { Component, Input } from '@angular/core';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }

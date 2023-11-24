@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-sizes-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Button provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3 align-items-center">
@@ -13,12 +13,9 @@ import { Code } from '../../domain/code';
             <p-button label="Large" icon="pi pi-check" size="large"></p-button>
         </div>
         <app-code [code]="code" selector="button-sizes-demo"></app-code>
-    </section>`
+    `
 })
 export class SizesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

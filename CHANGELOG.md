@@ -1,4 +1,11 @@
 # Changelog
+## [16.9.1](https://github.com/primefaces/primeng/tree/16.9.1) (2023-11-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.9.0...16.9.1)
+
+**Fixed bugs:**
+- Paginator: missing or unresolved labels of navigation buttons / dropdowns [\#14191](https://github.com/primefaces/primeng/issues/14191)
+- MultiSelect: Template dropdown selections not working [\#14188](https://github.com/primefaces/primeng/issues/14188)
 
 ## [16.9.0](https://github.com/primefaces/primeng/tree/16.9.0) (2023-11-22)
 

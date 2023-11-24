@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'context-menu-document-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Setting <i>global</i> property to <i>true</i> attaches the context menu to the document.</p>
         </app-docsectiontext>
         <div class="card text-center">
@@ -13,12 +13,9 @@ import { Code } from '../../domain/code';
             <p-contextMenu [model]="items" [global]="true"></p-contextMenu>
         </div>
         <app-code [code]="code" selector="context-menu-document-demo"></app-code>
-    </section>`
+    `
 })
 export class DocumentDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[] | undefined;
 

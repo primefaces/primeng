@@ -1,22 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-    </section>`
+  `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },

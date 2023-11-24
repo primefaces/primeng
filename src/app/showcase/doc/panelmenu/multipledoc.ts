@@ -1,23 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-panelMenu [model]="items" [style]="{ width: '300px' }" [multiple]="true"></p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[];
 

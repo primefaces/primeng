@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <div class="doc-section-description">
                 <h3>Screen Reader</h3>
                 <p>
@@ -36,7 +36,5 @@ import { Component, Input } from '@angular/core';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
         </app-docsectiontext>
         <div class="card">
@@ -13,13 +13,10 @@ import { Code } from '../../domain/code';
             <p-progressBar [value]="value"></p-progressBar>
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
-    </section>`,
+   `,
     providers: [MessageService]
 })
 export class DynamicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value: number = 0;
 

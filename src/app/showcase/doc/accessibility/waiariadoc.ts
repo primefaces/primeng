@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'wai-aria-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>
                 ARIA refers to "Accessible Rich Internet Applications" is a suite to fill the gap where semantic HTML is inadequate. These cases are mainly related to rich UI components/widgets. Although browser support for rich UI components such as
                 a datepicker or colorpicker has been improved over the past years many web developers still utilize UI components derived from standard HTML elements created by them or by other projects like PrimeNG. These types of components must
@@ -36,12 +36,9 @@ import { Code } from '../../domain/code';
                 <p-checkbox inputId="binary" [binary]="true"></p-checkbox>
             </div>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class WAIARIADoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code1: Code = {
         basic: `<input type="checkbox" value="Prime" name="ui" checked/>`

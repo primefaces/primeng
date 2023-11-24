@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'colors-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Colors on a web page should aim a contrast ratio of at least <strong>4.5:1</strong> and consider a selection of colors that do not cause vibration.</p>
             <h3>Good Contrast</h3>
             <p>Color contrast between the background and the foreground content should be sufficient enough to ensure readability. Example below displays two cases with good and bad samples.</p>
@@ -40,10 +40,8 @@ import { Component, Input } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-    </section>`
+   `
 })
 export class ColorsDoc {
-    @Input() id: string;
 
-    @Input() title: string;
 }

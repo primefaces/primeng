@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-type-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Style of the border is configured with the <i>type</i> property that can either be <i>solid</i>, <i>dotted</i> or <i>dashed</i>.</p>
         </app-docsectiontext>
         <div class="card">
@@ -35,12 +35,9 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-type-demo"></app-code>
-    </section>`
+    `
 })
 export class TypeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

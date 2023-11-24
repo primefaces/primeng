@@ -1,23 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'breadcrumb-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>
         </div>
         <app-code [code]="code" selector="breadcrumb-basic-demo"></app-code>
-    </section>`
+   `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[] | undefined;
 
