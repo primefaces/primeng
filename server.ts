@@ -6,6 +6,36 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import bootstrap from './src/main.server';
 
+// ssr DOM
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
+// index from browser build!
+const template = fs.readFileSync(path.join('.', 'dist/primeng/browser', 'index.html')).toString();
+// for mock global window by domino
+const win = domino.createWindow(template);
+// mock
+global['window'] = win;
+// not implemented property and functions
+Object.defineProperty(win.document.body.style, 'transform', {
+    value: () => {
+        return {
+            enumerable: true,
+            configurable: true
+        };
+    }
+});
+// mock document
+global['document'] = win.document;
+// mock navigator
+global['navigator'] = win.navigator;
+// others mock
+global['CSS'] = null;
+// global['XMLHttpRequest'] = require('xmlhttprequest').XMLHttpRequest;
+global['Prism'] = null;
+// global google tag manager
+global['gtag'] = () => {};
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
     const server = express();

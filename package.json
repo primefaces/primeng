@@ -20,7 +20,7 @@
     "vercel-build": "npm run build:ssr",
     "apidoc": "node ./api-generator/build-apidoc.ts",
     "serve:ssr": "node dist/primeng/server/main.js",
-    "build:ssr": "ng build && ng run primeng:server"
+    "build:ssr": "ng build --configuration=production && ng run primeng:server"
   },
   "repository": {
     "type": "git",
