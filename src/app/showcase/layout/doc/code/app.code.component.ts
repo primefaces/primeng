@@ -1,9 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
 import { useCodeSandbox, useStackBlitz } from '../codeeditor';
+import { platformBrowser } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-code',
@@ -32,8 +33,10 @@ export class AppCodeComponent {
 
     lang!: string;
 
+    constructor(@Inject(PLATFORM_ID) private platformId: any) { }
+
     ngAfterViewChecked() {
-        if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
+        if (isPlatformBrowser(this.platformId)&& this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
             window['Prism'].highlightElement(this.codeElement.nativeElement);
             this.codeElement.nativeElement.classList.add('prism');
             this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');

@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
 import { Table, TableModule } from 'primeng/table';
@@ -103,6 +103,8 @@ export class LandingComponent implements OnInit, OnDestroy {
     date2: Date;
 
     customers: Customer[];
+
+    isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
     selectedCustomers: Customer[];
 

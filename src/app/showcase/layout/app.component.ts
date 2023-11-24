@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (isPlatformBrowser(platformId) && window && process.env.NODE_ENV === 'production') {
             this.injectScripts();
         }
-        this.handleRouteEvents();
+        isPlatformBrowser(this.platformId) && this.handleRouteEvents();
     }
 
     public subscription: Subscription;

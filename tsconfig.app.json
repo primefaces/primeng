@@ -8,11 +8,10 @@
     "allowSyntheticDefaultImports": true
   },
   "files": [
-    "src/main.ts",
-    "src/main.server.ts"
+    "src/main.ts"
   ],
   "include": [
     "src/**/*.d.ts"
   ],
-  "exclude": ["node_modules", "**/node_modules/*"],
+  "exclude": ["node_modules", "**/node_modules/*", "src/main.server.ts"],
 }
