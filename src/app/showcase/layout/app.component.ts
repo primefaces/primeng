@@ -1,12 +1,13 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, CommonModule } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { AppConfigService } from '../service/appconfigservice';
 import Announcement from '../data/news.json';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { CarService } from '../service/carservice';
 import { CountryService } from '../service/countryservice';
 import { CustomerService } from '../service/customerservice';

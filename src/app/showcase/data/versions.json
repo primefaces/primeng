@@ -1,8 +1,13 @@
 [
     {
+        "version": "v17.0.0-beta.1",
+        "name": "v17",
+        "url": "https://primeng.org"
+    },
+    {
         "version": "v16.9.1",
         "name": "v16",
-        "url": "https://primeng.org"
+        "url": "https://primeng.org/primeng-v16"
     },
     {
         "version": "v15.4.13-lts",
