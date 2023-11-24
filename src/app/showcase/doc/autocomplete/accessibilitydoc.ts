@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The input element has <i>combobox</i> role in addition to
@@ -132,14 +131,9 @@ import { Code } from '../../domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>`
+        </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `<label for="ac1">Username</label>
 <p-autoComplete inputId="ac1"></p-autoComplete>

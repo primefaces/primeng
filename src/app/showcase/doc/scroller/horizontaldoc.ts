@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,14 +15,10 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-horizontal-demo"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HorizontalDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items!: string[];
 
     ngOnInit() {

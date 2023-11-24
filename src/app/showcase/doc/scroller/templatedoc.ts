@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -34,14 +34,10 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-template-demo"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items!: string[];
 
     ngOnInit() {

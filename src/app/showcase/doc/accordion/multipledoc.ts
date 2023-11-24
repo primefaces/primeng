@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Only one tab at a time can be active by default, enabling <i>multiple</i> property changes this behavior to allow multiple tabs. In this case <i>activeIndex</i> needs to be an array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -30,13 +30,9 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-accordion [multiple]="true" [activeIndex]="[0]">

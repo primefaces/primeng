@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -9,8 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'grouped-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,14 +22,9 @@ interface AutoCompleteCompleteEvent {
                 </ng-template>
             </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-grouped-demo"></app-code>`
 })
 export class GroupedDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCity: any;
 
     filteredGroups: any[] | undefined;

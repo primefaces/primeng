@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Scroller } from 'primeng/scroller';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'programmatic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
@@ -17,13 +17,9 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-programmatic-demo"></app-code>
-    </section>`
+    `
 })
 export class ProgrammaticDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     @ViewChild('sc') sc!: Scroller;
 
     items: string[] = [];

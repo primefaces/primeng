@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-pagination-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
         <div class="card">
@@ -38,13 +38,9 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-pagination-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class PaginationDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService) {}

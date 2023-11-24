@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -8,21 +8,15 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [disabled]="true"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>`
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: any[] | undefined;
 
     selectedItem: any;

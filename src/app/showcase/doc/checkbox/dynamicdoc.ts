@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Checkboxes can be generated using a list of values.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -16,13 +16,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-dynamic-demo"></app-code>
-    </section>`
+    `
 })
 export class DynamicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCategories: any[] = [];
 
     categories: any[] = [

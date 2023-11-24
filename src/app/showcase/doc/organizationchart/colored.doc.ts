@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'organization-chart-colored-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
         <div class="card flex justify-content-center overflow-x-auto">
@@ -20,13 +20,9 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-colored-demo"></app-code>
-    </section>`
+    `
 })
 export class ColoredDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: TreeNode[] = [
         {
             expanded: true,

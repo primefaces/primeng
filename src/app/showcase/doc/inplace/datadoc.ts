@@ -1,12 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
 
 @Component({
     selector: 'data-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <div class="card">
             <p-inplace>
                 <ng-template pTemplate="display">
@@ -38,13 +37,9 @@ import { CarService } from '../../service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DataDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}

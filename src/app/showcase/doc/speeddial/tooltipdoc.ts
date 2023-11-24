@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
         <div class="card">
@@ -16,14 +16,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class TooltipDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     tooltipItems: MenuItem[] | undefined;
 
     leftTooltipItems: MenuItem[] | undefined;

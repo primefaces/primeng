@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -31,14 +31,10 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     visible: boolean = false;
 
     constructor(private messageService: MessageService) {}

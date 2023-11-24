@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
         <div class="card">
@@ -18,14 +18,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="defer-basic-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     onLoad() {

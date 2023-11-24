@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from './app.menu.component';
+import { CommonModule } from '@angular/common';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: '[app-menuitem]',
@@ -30,7 +33,10 @@ import { MenuItem } from './app.menu.component';
                 <li *ngFor="let child of item.children" app-menuitem [root]="false" [item]="child"></li>
             </ol>
         </div>
-    `
+    `,
+    standalone: true,
+    templateUrl: './app.menuitem.component.html',
+    imports: [CommonModule, StyleClassModule, RouterModule]
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
@@ -7,8 +7,8 @@ import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'dynamic-dialog-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display dynamic dialog. First parameter
                 of <i>open</i> method is the type of component to load and the second parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
@@ -19,14 +19,10 @@ import { ProductListDemo } from './productlistdemo';
             <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="dynamic-dialog-basic-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
-    </section>`,
+    `,
     providers: [DialogService, MessageService]
 })
 export class BasicDoc implements OnDestroy {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;

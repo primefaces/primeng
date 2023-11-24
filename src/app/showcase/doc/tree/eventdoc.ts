@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'event-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,14 +23,10 @@ import { NodeService } from '../../service/nodeservice';
             ></p-tree>
         </div>
         <app-code [code]="code" selector="tree-events-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class EventDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode;

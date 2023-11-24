@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'service-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 MessageService alternative does not require a value binding to an array. In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself so
                 that descandant components can have it injected. If there are multiple message components having the same message service, you may use key property of the component to match the key of the message to implement scoping.
@@ -20,14 +20,10 @@ import { Code } from '../../domain/code';
             <p-messages></p-messages>
         </div>
         <app-code [code]="code" selector="messages-service-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class ServiceDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     addSingle() {

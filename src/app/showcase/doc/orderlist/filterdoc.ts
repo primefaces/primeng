@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
@@ -27,13 +27,9 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-filter-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class FilterDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}

@@ -3,6 +3,7 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -65,7 +66,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
                 'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
             }"
-            (click)="onOverlayClick($event)"
+            (click)="onOverlayClick()"
         >
             <div
                 *ngIf="visible"
@@ -422,6 +423,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         public renderer: Renderer2,
         private config: PrimeNGConfig,
         public overlayService: OverlayService,
+        public cd: ChangeDetectorRef,
         private zone: NgZone
     ) {
         this.window = this.document.defaultView;
@@ -524,6 +526,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
                 DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.appendTo);
                 ZIndexUtils.clear(container);
                 this.modalVisible = false;
+                this.cd.markForCheck();
 
                 break;
         }
@@ -613,7 +616,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
         this.zone.runOutsideAngular(() => {
             this.documentKeyboardListener = this.renderer.listen(this.window, 'keydown', (event) => {
-                if (!this.overlayOptions.hideOnEscape || event.keyCode !== 27) {
+                if (this.overlayOptions.hideOnEscape === false || event.code !== 'Escape') {
                     return;
                 }
 

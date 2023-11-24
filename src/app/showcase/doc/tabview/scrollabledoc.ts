@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
         <div class="card">
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-scrollable-demo"></app-code>
-    </section>`
+    `
 })
 export class ScrollableDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     activeIndex: number = 0;
 
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: `Tab ${i + 1}`, content: `Tab ${i + 1} Content` }));

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-label-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A letter Avatar is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
         <div class="card grid grid-nogutter">
@@ -26,13 +26,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
-    </section>`
+    `
 })
 export class LabelDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div class="col-12 md:col-4">

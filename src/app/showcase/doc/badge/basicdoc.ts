@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-badge [value]="2"></p-badge>
         </div>
         <app-code [code]="code" selector="badge-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-badge [value]="2"></p-badge>`,

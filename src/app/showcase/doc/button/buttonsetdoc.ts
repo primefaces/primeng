@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-set-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>p-buttonset</i> class.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="button-set-demo"></app-code>
-    </section>`
+    `
 })
 export class ButtonsetDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <span class="p-buttonset">

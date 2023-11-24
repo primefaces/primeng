@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { VirtualScroller } from 'primeng/virtualscroller';
 import { Code } from '../../domain/code';
 
@@ -8,8 +8,8 @@ interface Item {
 }
 @Component({
     selector: 'programmatic-scroll-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
@@ -23,13 +23,9 @@ interface Item {
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-programmatic-scroll-demo"></app-code>
-    </section>`
+    `
 })
 export class ProgrammaticScrollDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     @ViewChild('vs') vs!: VirtualScroller;
 
     items: Item[] = [];

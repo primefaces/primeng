@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Header of a tab supports templating to place custom html content instead of strings as well.</p>
         </app-docsectiontext>
         <div class="card">
@@ -43,13 +43,9 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-tabView styleClass="tabview-custom">

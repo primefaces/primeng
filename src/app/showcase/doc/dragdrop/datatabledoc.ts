@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-data-table-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Drag and Drop to Table</p>
         </app-docsectiontext>
         <div class="card grid grid-nogutter">
@@ -50,13 +50,9 @@ import { ProductService } from '../../service/productservice';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-data-table-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DataTableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;

@@ -1,24 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-polar-area-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-chart type="polarArea" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
-    </section>`
+    `
 })
 export class PolarAreaDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;

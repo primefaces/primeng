@@ -36,6 +36,7 @@ import { RowEditDoc } from '../../doc/table/roweditdoc';
 import { RowExpandDoc } from '../../doc/table/rowexpanddoc';
 import { RowspanGroupingDoc } from '../../doc/table/rowspangroupingdoc';
 import { SingleColumnSortDoc } from '../../doc/table/singlecolumnsortdoc';
+import { MultipleColumnSortDoc } from '../../doc/table/multiplecolumnsortdoc';
 import { SingleSelectionDoc } from '../../doc/table/singleselectiondoc';
 import { SizeDoc } from '../../doc/table/sizedoc';
 import { StatefulDoc } from '../../doc/table/statefuldoc';
@@ -59,7 +60,7 @@ import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 export class TableDemo {
     docs = [
         {
-            id: 'import',
+            id: 'import-demo',
             label: 'Import',
             component: ImportDoc
         },
@@ -143,6 +144,11 @@ export class TableDemo {
                     id: 'single-column-sort',
                     label: 'Single Column',
                     component: SingleColumnSortDoc
+                },
+                {
+                    id: 'multiple-column-sort',
+                    label: 'Multiple Column',
+                    component: MultipleColumnSortDoc
                 },
                 {
                     id: 'custom-sort',

@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'stateful-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings.</p>
             <p>
                 Change the state of the table e.g paginate, navigate away and then return to this table again to test this feature, the setting is set as <i>session</i> with the <i>stateStorage</i> property so that Table retains the state until the
@@ -66,15 +65,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-stateful-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-stateful-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatefulDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     customers!: Customer[];
 
     selectedCustomers!: Customer;

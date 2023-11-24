@@ -1,24 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
     value: string | undefined;
-
-    @Input() id: string;
-
-    @Input() title: string;
 
     code: Code = {
         basic: `

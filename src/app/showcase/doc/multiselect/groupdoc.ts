@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -9,8 +9,8 @@ interface City {
 
 @Component({
     selector: 'group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,13 +24,9 @@ interface City {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-group-demo"></app-code>
-    </section>`
+    `
 })
 export class GroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     groupedCities!: SelectItemGroup[];
 
     selectedCities!: City[];

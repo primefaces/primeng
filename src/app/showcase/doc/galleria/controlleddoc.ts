@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -25,13 +25,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     get activeIndex(): number {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -8,21 +8,15 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'invalid-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
 })
 export class InvalidDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: any[] | undefined;
 
     selectedItem: any;

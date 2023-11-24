@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Content can be customized with the <i>content</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -13,14 +12,9 @@ import { Code } from '../../domain/code';
                 <ng-template pTemplate="content" let-option> Content - {{ option.mode }} </ng-template>
             </p-overlay>
         </div>
-        <app-code [code]="code" selector="overlay-template-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="overlay-template-demo"></app-code>`
 })
 export class OverlayTemplateDemo {
-    @Input() id: string;
-
-    @Input() title: string;
-
     overlayVisible: boolean = false;
 
     toggle() {

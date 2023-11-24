@@ -27,7 +27,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'tristatecheckbox'"
             [attr.data-pc-section]="'root'"
         >
-            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'">
+            <div class="p-hidden-accessible">
                 <input
                     #input
                     [attr.id]="inputId"
@@ -66,7 +66,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 </ng-container>
             </div>
         </div>
-        <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
+        <label class="p-tristatecheckbox-label" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Accordion header elements have a <i>button</i> role and use <i>aria-controls</i> to define the id of the content section along with <i>aria-expanded</i> for the visibility state. The value to read a header element defaults to the
@@ -73,8 +73,4 @@ import { Component, Input } from '@angular/core';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

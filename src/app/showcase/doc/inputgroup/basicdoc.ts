@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>An InputGroup is created by wrapping the input and add-ons inside an element with a <i>p-inputgroup</i> class where add-ons also should be inside an element with <i>.p-inputgroup-addon</i> class</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div class="p-inputgroup">

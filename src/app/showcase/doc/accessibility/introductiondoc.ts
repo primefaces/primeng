@@ -1,15 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
-            <p class="line-height-3  bg-indigo-600 text-white p-3 text-lg" style="border-radius: 10px;">
-                Accessibility is a major concern of the Prime UI libraries and PrimeNG is no exception. <a href="https://www.primetek.com.tr" class="text-white">PrimeTek</a> teams have initiated a significant process to review and enhance the
-                accessibility features of the components. This guide documents the foundation of the general guidelines that PrimeNG will follow and each component documentation will have a separate <b>Accessibility</b> section that states the
-                keyboard support, screen reader compatibility, the implementation details along with tips to achieve WCAG compliancy. This work has been completed for
-                <a href="https://www.primetek.com.tr" class="hover:underline text-white font-bold">PrimeVue</a> as the reference implementation and it will be ported to PrimeNG in Q2 2023.
-            </p>
+    template: `
+        <app-docsectiontext>
             <p>
                 According to the World Health Organization, 15% of the world population has a disability to some degree. As a result, accessibility features in any context such as a ramp for wheelchair users or a multimedia with captions are crucial
                 to ensure content can be consumed by anyone.
@@ -43,10 +37,6 @@ import { Component, Input } from '@angular/core';
                 impairments result in better design for any user.
             </p>
         </app-docsectiontext>
-    </section>`
+    `
 })
-export class IntroductionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class IntroductionDoc {}

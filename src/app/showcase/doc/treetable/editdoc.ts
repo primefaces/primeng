@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'edit-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
         </app-docsectiontext>
         <div class="card">
@@ -24,7 +24,7 @@ interface Column {
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
+                    <tr [ttRow]="rowNode">
                         <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             <p-treeTableCellEditor>
@@ -39,13 +39,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
-    </section>`
+    `
 })
 export class EditDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     cols!: Column[];
@@ -72,7 +68,7 @@ export class EditDoc implements OnInit {
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr>
+        <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 <p-treeTableCellEditor>
@@ -97,7 +93,7 @@ export class EditDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
+            <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     <p-treeTableCellEditor>

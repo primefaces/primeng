@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Buttons can be placed at either side of an input element.</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-button-demo"></app-code>
-    </section>`
+    `
 })
 export class ButtonDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div class="p-inputgroup">

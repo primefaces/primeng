@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -21,13 +21,9 @@ import { Code } from '../../domain/code';
             </p-rating>
         </div>
         <app-code [code]="code" selector="rating-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value!: number;
 
     code: Code = {

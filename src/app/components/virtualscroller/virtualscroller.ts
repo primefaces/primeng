@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 /**
@@ -12,12 +11,12 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
 @Component({
     selector: 'p-virtualScroller',
     template: `
-        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'virtualscroller'" [attr.data-pc-section]="'root'">
             <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div #content class="p-virtualscroller-content">
+            <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
                 <p-scroller #scroller [items]="value" styleClass="p-virtualscroller-list" [style]="{ height: scrollHeight }" [itemSize]="itemSize" [lazy]="lazy" (onLazyLoad)="onLazyItemLoad($event)" [options]="options">
                     <ng-template pTemplate="item" let-item let-scrollerOptions="options">
                         <div [ngStyle]="{ height: itemSize + 'px' }" class="p-virtualscroller-item">
@@ -26,7 +25,7 @@ import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
                     </ng-template>
                 </p-scroller>
             </div>
-            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate">
+            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate" [attr.data-pc-section]="'footer'">
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>

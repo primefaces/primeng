@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'focus-trap-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>
         <div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
@@ -37,13 +37,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCity: string | undefined;
 
     cities = [

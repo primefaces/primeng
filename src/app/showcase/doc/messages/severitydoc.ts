@@ -1,24 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The <i>severity</i> option specifies the type of the message.</p>
         </app-docsectiontext>
         <div class="card">
             <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
         </div>
         <app-code [code]="code" selector="messages-severity-demo"></app-code>
-    </section>`
+    `
 })
 export class SeverityDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     messages: Message[] | undefined;
 
     ngOnInit() {

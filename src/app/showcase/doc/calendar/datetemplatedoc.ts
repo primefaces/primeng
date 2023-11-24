@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-datetemplate-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-datetemplate-demo"></app-code>
-    </section>`
+    `
 })
 export class DateTemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     date: Date[] | undefined;
 
     code: Code = {

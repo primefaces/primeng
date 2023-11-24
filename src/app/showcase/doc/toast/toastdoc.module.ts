@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { AnimationDoc } from './animationdoc';
 import { BasicDoc } from './basicdoc';

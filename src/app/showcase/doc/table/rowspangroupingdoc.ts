@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'rowspan-grouping-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>When <i>rowGroupMode</i> is configured to be <i>rowspan</i>, the grouping column spans multiple rows.</p>
         </app-docsectiontext>
         <div class="card">
@@ -50,17 +48,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-rowspan-grouping-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-rowspan-grouping-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowspanGroupingDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}

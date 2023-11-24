@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
         </app-docsectiontext>
         <div class="card">
@@ -35,13 +35,9 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     activeIndex: number | undefined;
 
     code: Code = {

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DisabledDoc } from './disableddoc';

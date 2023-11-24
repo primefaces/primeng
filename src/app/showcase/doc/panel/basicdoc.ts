@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -16,13 +16,9 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-panel header="Header">

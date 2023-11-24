@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Styling Demo Content.</p>
         </app-docsectiontext>
         <div class="card card-container flex justify-content-center align-items-center">
@@ -13,13 +13,9 @@ import { Code } from '../../domain/code';
             <div pRipple class="card styled-box-purple shadow-2">Purple</div>
         </div>
         <app-code [code]="code" selector="ripple-custom-demo"></app-code>
-    </section>`
+    `
 })
 export class CustomDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div pRipple class="card styled-box-green shadow-2">Green</div>`,

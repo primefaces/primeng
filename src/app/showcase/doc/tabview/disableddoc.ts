@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Setting <i>disabled</i> property to <i>true</i> of a <i>TabPanel</i> prevents user interaction.</p>
         </app-docsectiontext>
         <div class="card">
@@ -31,13 +31,9 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-tabView>

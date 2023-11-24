@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'column-group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
         <div class="card">
@@ -43,15 +42,10 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-column-group-demo"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-column-group-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnGroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sales!: any[];
 
     lastYearTotal!: number;

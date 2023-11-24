@@ -1,12 +1,12 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Commands are processed using observables via the <i>TerminalService</i>. Import this service into your component and subscribe to <i>commandHandler</i> to process commands by sending replies with <i>sendResponse</i> function.</p>
         </app-docsectiontext>
         <div class="card">
@@ -14,14 +14,10 @@ import { Code } from '../../domain/code';
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
-    </section>`,
+    `,
     providers: [TerminalService]
 })
 export class BasicDoc implements OnDestroy {
-    @Input() id: string;
-
-    @Input() title: string;
-
     subscription: Subscription;
 
     constructor(private terminalService: TerminalService) {

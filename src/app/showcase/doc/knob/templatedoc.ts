@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Label is a string template that can be customized with the <i>valueTemplate</i> property having 60 as the placeholder .</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-knob [(ngModel)]="value" valueTemplate="{value}%"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value: number = 60;
 
     code: Code = {

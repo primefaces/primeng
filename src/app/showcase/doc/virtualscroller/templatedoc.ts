@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface Item {
@@ -8,8 +8,8 @@ interface Item {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Header and Footer are the two sections that are capable of displaying custom content by using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,13 +24,9 @@ interface Item {
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: Item[] = [];
 
     ngOnInit(): void {

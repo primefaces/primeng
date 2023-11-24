@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p><i>Inplace</i> component requires <i>display</i> and <i>content</i> templates to define the content of each state.</p>
         </app-docsectiontext>
         <div class="card">
@@ -21,13 +21,9 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-inplace>

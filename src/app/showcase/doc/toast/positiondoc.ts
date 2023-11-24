@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -17,14 +17,10 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class PositionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     showTopLeft() {

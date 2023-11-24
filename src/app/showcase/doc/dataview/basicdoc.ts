@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 DataView requires a <i>value</i> to display along with an <i>pTemplate</i> that receives an object in the collection to return content. The root element should have the PrimeFlex Grid classes e.g. col-12 to define how items are
                 displayed.
@@ -41,13 +41,9 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService) {}

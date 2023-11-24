@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'pill-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             <p-tag severity="danger" value="Danger" [rounded]="true"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-pill-demo"></app-code>
-    </section>`
+    `
 })
 export class PillDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-tag value="Primary" [rounded]="true"></p-tag>`,

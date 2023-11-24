@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'full-screen-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sidebar can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -14,13 +14,9 @@ import { Code } from '../../domain/code';
             <p-button (click)="sidebarVisible = true" icon="pi pi-th-large"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-full-screen-demo"></app-code>
-    </section>`
+    `
 })
 export class FullScreenDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sidebarVisible: boolean = false;
 
     code: Code = {

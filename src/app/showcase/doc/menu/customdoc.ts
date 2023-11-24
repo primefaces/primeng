@@ -1,11 +1,11 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-content-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </p-menu>
         </div>
         <app-code [code]="code" selector="menu-custom-content-demo"></app-code>
-    </section>`
+    `
 })
 export class CustomContentDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

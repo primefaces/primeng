@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card">
             <p-progressBar [value]="50"></p-progressBar>
         </div>
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-progressBar [value]="50"></p-progressBar>`,

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'prefix-suffix-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
@@ -26,13 +26,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-prefix-suffix-demo"></app-code>
-    </section>`
+    `
 })
 export class PrefixSuffixDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value1: number = 20;
 
     value2: number = 50;

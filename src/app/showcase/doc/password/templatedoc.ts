@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </p-password>
         </div>
         <app-code [code]="code" selector="password-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value!: string;
 
     code: Code = {

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'image-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Any content such as an image can be placed inside an Inplace.</p>
         </app-docsectiontext>
         <div class="card">
@@ -21,13 +21,9 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-image-demo"></app-code>
-    </section>`
+    `
 })
 export class ImageDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-inplace>

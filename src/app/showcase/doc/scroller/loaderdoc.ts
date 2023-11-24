@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'loader-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
@@ -29,14 +29,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroller-loader-demo"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoaderDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items!: string[];
 
     ngOnInit() {

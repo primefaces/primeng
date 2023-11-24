@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
@@ -19,14 +19,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SeverityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

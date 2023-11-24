@@ -8,7 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AdvancedDoc } from './advanceddoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';

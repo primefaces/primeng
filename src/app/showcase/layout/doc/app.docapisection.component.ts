@@ -2,11 +2,18 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
-import { AppDocApiTable } from '../docapitable/app.docapitable.component';
+import { AppDocApiTable } from './app.docapitable.component';
 
 @Component({
     selector: 'app-docapisection',
-    templateUrl: './app.docapisection.component.html'
+    template: ` <div class="doc-main">
+            <div class="doc-intro">
+                <h1>{{ header }} {{ !header.toLowerCase().includes('api') ? 'API' : null }}</h1>
+                <p>API defines helper props, events and others for the PrimeNG {{ header }} module.</p>
+            </div>
+            <app-docsection [apiDocs]="_docs"></app-docsection>
+        </div>
+        <app-docsection-nav [docs]="_docs"></app-docsection-nav>`
 })
 export class AppDocApiSection {
     @Input() header!: string;

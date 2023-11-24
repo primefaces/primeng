@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-responsive-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Galleria responsiveness is defined with the <i>responsiveOptions</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -21,13 +21,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-responsive-demo"></app-code>
-    </section>`
+    `
 })
 export class ResponsiveDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

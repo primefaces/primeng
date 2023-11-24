@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'nested-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
         <div class="card">
@@ -32,13 +32,9 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-nested-demo"></app-code>
-    </section>`
+    `
 })
 export class NestedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-5">

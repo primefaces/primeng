@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-panel>

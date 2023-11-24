@@ -1,13 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Galleria can be extended further to implement complex requirements.</p>
         </app-docsectiontext>
         <div class="card">
@@ -47,13 +47,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-advanced-demo"></app-code>
-    </section>`
+    `
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     showThumbnails: boolean | undefined;

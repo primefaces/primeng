@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 TieredMenu component uses the <i>menubar</i> role with <i>aria-orientation</i> set to "vertical" and the value to describe the menu can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. Each list item has a
@@ -73,8 +73,4 @@ import { Component, Input } from '@angular/core';
         </app-docsectiontext>
     </div>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

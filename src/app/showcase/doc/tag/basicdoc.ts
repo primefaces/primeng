@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Label of the tag is defined with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tag value="New"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-tag value="New"></p-tag>`,

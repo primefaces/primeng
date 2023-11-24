@@ -4,8 +4,8 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center overflow-x-auto">
@@ -20,13 +20,9 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: TreeNode[] = [
         {
             label: 'Argentina',

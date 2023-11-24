@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TabView can be controlled programmatically using a binding to <i>activeIndex</i> update the active index.</p>
         </app-docsectiontext>
         <div class="card">
@@ -35,13 +35,9 @@ import { Code } from '../../domain/code';
             </p-tabView>
         </div>
         <app-code [code]="code" selector="tab-view-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     activeIndex: number = 0;
 
     code: Code = {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -8,21 +8,17 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
-    </section>`
+    `
 })
 export class FilterDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities!: City[];
 
     selectedCities!: City[];

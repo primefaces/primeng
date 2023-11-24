@@ -1,25 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}

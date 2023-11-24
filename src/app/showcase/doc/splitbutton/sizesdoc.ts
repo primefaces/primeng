@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sizes-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,14 +15,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SizesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {
         this.items = [
             {

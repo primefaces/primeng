@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'color-picker-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-colorPicker [(ngModel)]="color"></p-colorPicker>
         </div>
         <app-code [code]="code" selector="color-picker-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     color: string | undefined;
 
     code: Code = {

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-login-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample implementation of a login form using a divider with content.</p>
         </app-docsectiontext>
         <div class="card">
@@ -30,13 +30,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="divider-login-demo"></app-code>
-    </section>`
+    `
 })
 export class LoginDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div class="flex flex-column md:flex-row">

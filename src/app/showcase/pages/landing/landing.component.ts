@@ -1,8 +1,8 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { AppConfig } from '../../domain/appconfig';
 import { Customer, Representative } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
@@ -11,6 +11,26 @@ import { CustomerService } from '../../service/customerservice';
 import { NodeService } from '../../service/nodeservice';
 import Versions from '../../data/versions.json';
 import docsearch from '@docsearch/js';
+import { ListboxModule } from 'primeng/listbox';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ChipModule } from 'primeng/chip';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SidebarModule } from 'primeng/sidebar';
+import { SliderModule } from 'primeng/slider';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TreeModule } from 'primeng/tree';
+import { AppNewsComponent } from '../../layout/news/app.news.component';
 
 interface City {
     name: string;
@@ -19,7 +39,33 @@ interface City {
 
 @Component({
     selector: 'landing',
-    templateUrl: './landing.component.html'
+    standalone: true,
+    templateUrl: './landing.component.html',
+    imports: [
+        CommonModule,
+        NgOptimizedImage,
+        FormsModule,
+        SidebarModule,
+        InputSwitchModule,
+        ButtonModule,
+        RadioButtonModule,
+        InputNumberModule,
+        TabMenuModule,
+        ChartModule,
+        ProgressBarModule,
+        TreeModule,
+        ChipModule,
+        SelectButtonModule,
+        SliderModule,
+        BadgeModule,
+        CalendarModule,
+        TableModule,
+        DropdownModule,
+        ListboxModule,
+        RouterModule,
+        CheckboxModule,
+        AppNewsComponent
+    ]
 })
 export class LandingComponent implements OnInit {
     @ViewChild('containerElement') containerElement: ElementRef;
@@ -63,6 +109,8 @@ export class LandingComponent implements OnInit {
     dateValue: Date;
 
     customers: Customer[];
+
+    isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
     selectedCustomers: Customer[];
 

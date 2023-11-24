@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-vertical-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Vertical divider is enabled by setting the <i>layout</i> property as <i>vertical</i>.</p>
         </app-docsectiontext>
         <div class="card flex">
@@ -28,13 +28,9 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-vertical-demo"></app-code>
-    </section>`
+    `
 })
 export class VerticalDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p>

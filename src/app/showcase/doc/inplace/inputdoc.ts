@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'input-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Inplace can be used within a form to display a value as read only before making it editable. The <i>closable</i> property adds a close button next to the content to switch back to read only mode.</p>
         </app-docsectiontext>
         <div class="card">
@@ -18,13 +18,9 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    </section>`
+    `
 })
 export class InputDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <p-inplace closable="closable">

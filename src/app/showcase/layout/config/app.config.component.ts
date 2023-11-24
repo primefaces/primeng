@@ -1,14 +1,21 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SidebarModule } from 'primeng/sidebar';
 
 @Component({
     selector: 'app-config',
-    templateUrl: './app.config.component.html'
+    standalone: true,
+    templateUrl: './app.config.component.html',
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule]
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
     scale: number = 14;

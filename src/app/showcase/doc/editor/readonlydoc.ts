@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'editor-readonly-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>readonly</i> is present, the value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card">
             <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>
         </div>
         <app-code [code]="code" selector="editor-readonly-demo"></app-code>
-    </section>`
+    `
 })
 export class ReadOnlyDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     text: string = 'Always bet on Prime!';
 
     code: Code = {

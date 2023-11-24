@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -8,8 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-multiple-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
         </app-docsectiontext>
         <div class="card">
@@ -17,14 +16,9 @@ interface AutoCompleteCompleteEvent {
                 <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete>
             </span>
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedItems: any[] | undefined;
 
     items: any[] | undefined;

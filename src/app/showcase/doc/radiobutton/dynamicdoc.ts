@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -16,13 +16,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-dynamic-demo"></app-code>
-    </section>`
+    `
 })
 export class DynamicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCategory: any = null;
 
     categories: any[] = [

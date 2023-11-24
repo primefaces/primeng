@@ -84,7 +84,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         (paste)="onPaste($event)"
                         (focus)="onInputFocus($event)"
                         (blur)="onInputBlur($event)"
-                        [disabled]="disabled || maxedOut"
+                        [disabled]="disabled || isMaxedOut"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
                     />
@@ -101,7 +101,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus',
+        '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-chips-clearable]': 'showClear'
     },
     providers: [CHIPS_VALUE_ACCESSOR],
@@ -263,7 +263,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         return this.focusedIndex !== null ? `${this.id}_chips_item_${this.focusedIndex}` : null;
     }
 
-    private get isValueMaxLimited(): boolean {
+    get isMaxedOut(): boolean {
         return this.max && this.value && this.max === this.value.length;
     }
 
@@ -459,7 +459,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = this.value || [];
 
         if (item && item.trim().length) {
-            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isValueMaxLimited) {
+            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isMaxedOut) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -500,7 +500,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 break;
 
             case 'Enter':
-                if (inputValue && inputValue.trim().length && !this.maxedOut()) {
+                if (inputValue && inputValue.trim().length && !this.isMaxedOut) {
                     this.addItem(event, inputValue, true);
                 }
 
@@ -530,7 +530,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
     updateMaxedOut(): void {
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.isValueMaxLimited) {
+            if (this.isMaxedOut) {
                 // Calling `blur` is necessary because firefox does not call `onfocus` events
                 // for disabled inputs, unlike chromium browsers.
                 this.inputViewChild.nativeElement.blur();
@@ -543,10 +543,6 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 this.inputViewChild.nativeElement.disabled = this.disabled || false;
             }
         }
-    }
-
-    maxedOut(): boolean {
-        return this.max && this.value && this.max === this.value.length;
     }
 }
 

@@ -1,17 +1,16 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
-        <div class="card md:flex md:justify-content-center">
-            <div *ngIf="images" class="grid" style="max-width: 400px;">
-                <div *ngFor="let image of images; let index = index" class="col-4" key="index">
+        <div class="card">
+            <div *ngIf="images" class="grid" style="max-width: 800px;">
+                <div *ngFor="let image of images; let index = index" class="col-3" key="index">
                     <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
                 </div>
             </div>
@@ -33,15 +32,9 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-full-secreen-template-demo"></app-code>
-    </section>`
+    `
 })
 export class FullScreenTemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
@@ -98,9 +91,9 @@ export class FullScreenTemplateDoc implements OnInit {
 </p-galleria>
         `,
         html: `
- <div class="card md:flex md:justify-content-center">
-    <div *ngIf="images" class="grid" style="max-width: 400px;">
-        <div *ngFor="let image of images; let index = index" class="col-4" key="index">
+ <div class="card">
+    <div *ngIf="images" class="grid" style="max-width: 800px;">
+        <div *ngFor="let image of images; let index = index" class="col-3" key="index">
             <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
         </div>
     </div>

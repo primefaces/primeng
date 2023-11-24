@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -21,13 +21,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `
 <div class="p-inputgroup w-full md:w-30rem">

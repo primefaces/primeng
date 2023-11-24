@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-modal-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Mask layer behind the Dialog can be turned on by setting the <i>modal</i> property to <i>true</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -17,13 +17,9 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-modal-demo"></app-code>
-    </section>`
+    `
 })
 export class ModalDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     visible: boolean = false;
 
     showDialog() {

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-caption-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
         <div class="card">
@@ -25,13 +25,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-caption-demo"></app-code>
-    </section>`
+    `
 })
 export class CaptionDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

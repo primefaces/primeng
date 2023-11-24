@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'color-picker-format-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using the <i>format</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="color-picker-format-demo"></app-code>
-    </section>`
+    `
 })
 export class FormatDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     color: string = '#6466f1';
 
     colorRGB: any = { r: 100, g: 102, b: 241 };
