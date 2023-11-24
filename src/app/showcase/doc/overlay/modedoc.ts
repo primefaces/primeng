@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'mode-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 It has two valid values; <i>overlay</i> and <i>modal</i>. In overlay mode, a container element is opened like overlaypanel or dropdown's panel. In modal mode, the container element behaves like popup. This behaviour is similar to a
                 dialog component.
@@ -13,7 +12,6 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" [hideToggleCode]="true"></app-code>`
 })
 export class ModeDoc {
-
     code: Code = {
         typescript: `
 import { PrimeNGConfig, OverlayOptions } from 'primeng/api';

@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'target-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>The <i>target</i> is used to detect the element that will be used to position the overlay. Valid values would be;</p>
         </app-docsectiontext>
         <div class="card">

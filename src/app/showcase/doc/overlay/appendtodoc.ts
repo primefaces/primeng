@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'appendto-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Overlay can be mounted into its location, body or DOM element instance using this option.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>`

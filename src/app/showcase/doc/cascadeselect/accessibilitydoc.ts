@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.

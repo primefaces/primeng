@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overlay-template-demo',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Content can be customized with the <i>content</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
