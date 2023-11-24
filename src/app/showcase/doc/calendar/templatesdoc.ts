@@ -2,8 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'templates-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -55,8 +54,7 @@ import { Component, Input } from '@angular/core';
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </section>`
+        </div>`
 })
 export class TemplatesDoc {
     @Input() id: string;
