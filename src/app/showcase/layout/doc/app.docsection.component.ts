@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Doc } from 'src/app/showcase/domain/doc';
 
 @Component({
@@ -33,7 +33,8 @@ import { Doc } from 'src/app/showcase/domain/doc';
                 </ng-container>
             </section>
         </ng-container>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppDocSectionsComponent {
     @Input() docs!: Doc[];

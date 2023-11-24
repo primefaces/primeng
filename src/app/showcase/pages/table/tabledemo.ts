@@ -60,7 +60,7 @@ import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 export class TableDemo {
     docs = [
         {
-            id: 'import',
+            id: 'import-demo',
             label: 'Import',
             component: ImportDoc
         },
