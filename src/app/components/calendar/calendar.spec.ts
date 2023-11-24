@@ -7,7 +7,7 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Calendar } from './calendar';
 
-fdescribe('Calendar', () => {
+describe('Calendar', () => {
     let calendar: Calendar;
     let fixture: ComponentFixture<Calendar>;
 
