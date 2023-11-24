@@ -5,8 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-columns-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
         <div class="card">

@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class KeyFilterDoc {
-
     value: number | undefined;
 
     code: Code = {

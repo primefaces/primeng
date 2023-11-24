@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ToggleClassDoc {
-
     code: Code = {
         basic: `
 <button pButton label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled"></button>

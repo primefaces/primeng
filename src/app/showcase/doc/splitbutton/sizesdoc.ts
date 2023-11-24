@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class SizesDoc {
-
     constructor(private messageService: MessageService) {
         this.items = [
             {

@@ -76,7 +76,6 @@ import { AppConfigService } from '../../service/appconfigservice';
     ]
 })
 export class SurfacesDoc implements OnInit, OnDestroy {
-
     colors: string[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];
 
     shades: number[] = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];

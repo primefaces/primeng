@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MinMaxDoc {
-
     value: number = 10;
 
     code: Code = {

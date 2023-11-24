@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'invalid-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty"></p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-invalid-demo"></app-code>
-   `
+    `
 })
 export class InvalidDoc {
-
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
         { label: 'On', value: 'on' }

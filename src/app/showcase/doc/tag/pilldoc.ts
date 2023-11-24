@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PillDoc {
-
     code: Code = {
         basic: `
 <p-tag value="Primary" [rounded]="true"></p-tag>`,

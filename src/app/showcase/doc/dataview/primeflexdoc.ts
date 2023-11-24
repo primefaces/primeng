@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'primeflex-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>DataView depends on PrimeFlex Grid functionality so it needs to be installed and imported.</p>
         </app-docsectiontext>
@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PrimeflexDoc {
-
     code: Code = {
         basic: `npm install primeflex`
     };

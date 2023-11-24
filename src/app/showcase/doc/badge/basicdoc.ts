@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-badge [value]="2"></p-badge>`,

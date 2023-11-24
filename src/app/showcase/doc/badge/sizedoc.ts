@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SizeDoc {
-
     code: Code = {
         basic: `
 <p-badge value="4" size="large" severity="warning"></p-badge>`,

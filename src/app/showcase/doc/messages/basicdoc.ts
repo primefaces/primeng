@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc implements OnInit {
-
     messages: Message[] | undefined;
 
     ngOnInit() {

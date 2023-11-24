@@ -229,7 +229,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="date1">Date</label>
 <p-calendar inputId="date1"></p-calendar>

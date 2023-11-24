@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-login-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Sample implementation of a login form using a divider with content.</p>
         </app-docsectiontext>
@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LoginDoc {
-
     code: Code = {
         basic: `
 <div class="flex flex-column md:flex-row">

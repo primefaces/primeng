@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ScrollOptionsDoc {
-
     code: Code = {
         html: `
 <ng-template pTemplate="item" let-item let-scrollOptions="options">

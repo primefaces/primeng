@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ControlledDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;

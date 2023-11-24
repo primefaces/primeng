@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menubar-template-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside the menubar using the <i>start</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
@@ -19,10 +19,9 @@ import { Code } from '../../domain/code';
             </p-menubar>
         </div>
         <app-code [code]="code" selector="menubar-template-demo"></app-code>
-  `
+    `
 })
 export class TemplateDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

@@ -16,7 +16,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class BasicDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'command-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class CommandDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

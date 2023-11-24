@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PositionDoc {
-
     visible: boolean = false;
 
     position: string = 'center';

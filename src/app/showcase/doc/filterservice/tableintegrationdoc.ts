@@ -34,7 +34,6 @@ import { CarService } from '../../service/carservice';
     providers: [FilterService]
 })
 export class TableIntegrationDoc implements OnInit {
-
     cars: Car[];
 
     cols: any[];

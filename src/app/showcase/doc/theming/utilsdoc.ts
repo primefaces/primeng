@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'utils-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>A couple of utility classes are provided as a solution to common requirements.</p>
         </app-docsectiontext>
@@ -48,6 +48,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class UtilsDoc {
-
-}
+export class UtilsDoc {}

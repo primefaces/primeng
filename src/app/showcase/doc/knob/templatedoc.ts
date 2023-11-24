@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     value: number = 60;
 
     code: Code = {

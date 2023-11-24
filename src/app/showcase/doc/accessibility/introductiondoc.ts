@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'introduction-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 According to the World Health Organization, 15% of the world population has a disability to some degree. As a result, accessibility features in any context such as a ramp for wheelchair users or a multimedia with captions are crucial
@@ -39,6 +39,4 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
     `
 })
-export class IntroductionDoc {
-
-}
+export class IntroductionDoc {}

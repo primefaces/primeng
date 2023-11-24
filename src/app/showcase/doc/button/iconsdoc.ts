@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class IconsDoc {
-
     code: Code = {
         basic: `
 <p-button icon="pi pi-check"></p-button>

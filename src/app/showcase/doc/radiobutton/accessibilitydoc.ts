@@ -60,7 +60,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="rb1">One</label>
 <p-radioButton inputId="rb1"></p-radioButton>

@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Listbox is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively.
@@ -20,10 +20,9 @@ interface City {
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
-  `
+    `
 })
 export class BasicDoc implements OnInit {
-
     cities!: City[];
 
     selectedCity!: City;

@@ -3,14 +3,10 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` 
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    `
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
-export class ImportDoc {;
-
+export class ImportDoc {
     code: Code = {
         typescript: `import { DeferModule } from 'primeng/defer';`
     };
-
 }

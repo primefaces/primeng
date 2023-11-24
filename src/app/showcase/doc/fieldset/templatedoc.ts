@@ -22,8 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-   
-
     code: Code = {
         basic: `
 <p-fieldset>

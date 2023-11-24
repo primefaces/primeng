@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'svg-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Inline SVGs are embedded inside the dom.</p>
         </app-docsectiontext>
@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SVGDoc {
-
     code: Code = {
         basic: `<p-dropdown>
     <ng-template pTemplate="dropdownicon">
@@ -23,5 +22,4 @@ export class SVGDoc {
     </ng-template>
 </p-dropdown>`
     };
-
 }

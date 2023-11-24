@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
         </app-docsectiontext>
@@ -43,7 +43,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class FilterDoc {
-
     sourceProducts!: Product[];
 
     targetProducts!: Product[];

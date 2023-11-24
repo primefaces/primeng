@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SizeDoc {
-
     code: Code = {
         basic: `
 <p-avatar label="P" size="large"></p-avatar>

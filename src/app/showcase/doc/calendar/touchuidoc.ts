@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-touchui-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TouchUIDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

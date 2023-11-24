@@ -36,7 +36,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="address1">Address 1</label>
 <textarea pInputTextarea id="address1" />

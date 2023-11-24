@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Custom content at <i>caption</i>, <i>header</i>, <i>body</i> and <i>summary</i> sections are supported via templating.</p>
         </app-docsectiontext>
@@ -50,7 +50,6 @@ interface Column {
     `
 })
 export class TemplateDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

@@ -17,8 +17,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'export-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default, all data is exported. If you'd like to export only the selection then pass a config object with <i>selectionOnly</i> property as true.
                 Note that columns should be dynamic for export functionality to work, and column objects must define field/header properties.

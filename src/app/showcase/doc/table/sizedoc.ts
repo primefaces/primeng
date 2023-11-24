@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'size-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
         <div class="card">

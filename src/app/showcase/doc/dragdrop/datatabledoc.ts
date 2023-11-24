@@ -53,7 +53,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class DataTableDoc implements OnInit {
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;

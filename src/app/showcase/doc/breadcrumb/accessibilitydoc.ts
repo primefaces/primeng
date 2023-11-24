@@ -13,6 +13,4 @@ import { Component } from '@angular/core';
         <p>No special keyboard interaction is needed, all menuitems are focusable based on the page tab sequence.</p>
     </app-docsectiontext>`
 })
-export class AccessibilityDoc {
- 
-}
+export class AccessibilityDoc {}

@@ -60,7 +60,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-accordion class="w-full">

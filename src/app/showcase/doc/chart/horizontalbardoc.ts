@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class HorizontalBarDoc implements OnInit {
-
     data: any;
 
     options: any;

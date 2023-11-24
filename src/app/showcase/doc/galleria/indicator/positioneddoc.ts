@@ -36,7 +36,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class PositionedDoc implements OnInit {
-
     images: any[] | undefined;
 
     position: string = 'bottom';

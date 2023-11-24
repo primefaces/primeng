@@ -981,7 +981,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     changeFocusedOptionIndex(event, index) {
         if (this.focusedOptionInfo().index !== index) {
             const focusedOptionInfo = this.focusedOptionInfo();
-            this.focusedOptionInfo.set({...focusedOptionInfo, index})
+            this.focusedOptionInfo.set({ ...focusedOptionInfo, index });
             this.scrollInView();
         }
 

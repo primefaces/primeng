@@ -35,7 +35,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class TemplateDoc {
-
     visible: boolean = false;
 
     constructor(private messageService: MessageService) {}

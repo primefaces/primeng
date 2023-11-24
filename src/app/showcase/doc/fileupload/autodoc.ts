@@ -22,7 +22,6 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class AutoDoc {
-
     constructor(private messageService: MessageService) {}
 
     onBasicUploadAuto(event: UploadEvent) {

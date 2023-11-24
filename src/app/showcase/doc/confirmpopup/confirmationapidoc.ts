@@ -101,8 +101,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
-   `
+    `
 })
-export class ConfirmationApiDoc {
-
-}
+export class ConfirmationApiDoc {}

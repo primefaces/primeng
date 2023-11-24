@@ -41,7 +41,6 @@ import { ProductService } from '../../service/productservice';
     providers: [DynamicDialogRef]
 })
 export class ProductListDemoDoc implements OnInit {
-
     products: Product[];
 
     constructor(private productService: ProductService, public ref: DynamicDialogRef, private cd: ChangeDetectorRef) {}

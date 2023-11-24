@@ -493,7 +493,7 @@ export class PanelMenuList implements OnChanges {
 
         this.activeItemPath.set(activeItemPath);
         const processedItems = this.processedItems();
-        const newProcessedItems = processedItems.map((item) => (item === processedItem ? processedItem : item))
+        const newProcessedItems = processedItems.map((item) => (item === processedItem ? processedItem : item));
         this.processedItems.set(newProcessedItems);
         this.focusedItem.set(processedItem);
     }

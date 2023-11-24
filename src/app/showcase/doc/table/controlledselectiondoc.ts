@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'controlled-selection-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Row selection can be controlled by utilizing <i>rowSelectable</i> and <i>disabled</i> properties.</p>
         </app-docsectiontext>
         <div class="card">

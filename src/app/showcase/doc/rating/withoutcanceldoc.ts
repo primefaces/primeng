@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'without-cancel-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class WithoutCancelDoc {
-
     value!: number;
 
     code: Code = {

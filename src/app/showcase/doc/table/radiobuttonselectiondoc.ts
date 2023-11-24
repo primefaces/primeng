@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'radio-button-selection-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
         <div class="card">

@@ -23,7 +23,6 @@ import { ProductListDemo } from './productlistdemo';
     providers: [DialogService, MessageService]
 })
 export class BasicDoc implements OnDestroy {
-
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;

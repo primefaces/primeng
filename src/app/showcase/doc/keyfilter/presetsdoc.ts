@@ -41,7 +41,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PresetsDoc {
-
     code: Code = {
         basic: `
 <input pInputText pKeyFilter="int" />

@@ -16,7 +16,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class SingleDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component , OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridDoc implements OnInit {
-
     items!: string[][];
 
     constructor(private cd: ChangeDetectorRef) {}

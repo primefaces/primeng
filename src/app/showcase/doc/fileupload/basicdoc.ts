@@ -9,7 +9,7 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
@@ -22,7 +22,6 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class BasicDoc {
-
     constructor(private messageService: MessageService) {}
 
     onUpload(event: UploadEvent) {

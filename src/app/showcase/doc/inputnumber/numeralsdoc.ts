@@ -29,7 +29,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class NumeralsDoc {
-
     value1: number = 42723;
 
     value2: number = 58151;

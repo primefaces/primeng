@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused entirely. Certain options can also be disabled using the <i>optionDisabled</i> property.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DisabledDoc {
-
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
         { label: 'On', value: 'on' }

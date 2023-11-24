@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VirtualScrollDoc {
-
     items: SelectItem[];
 
     selectedItem: string | undefined;

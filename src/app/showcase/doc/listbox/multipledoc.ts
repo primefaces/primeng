@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'multiple-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 ListBox allows choosing a single item by default, enable <i>multiple</i> property to choose more than one. When the optional <i>metaKeySelection</i> is present, behavior is changed in a way that selecting a new item requires meta key
@@ -22,7 +22,6 @@ interface City {
     `
 })
 export class MultipleDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

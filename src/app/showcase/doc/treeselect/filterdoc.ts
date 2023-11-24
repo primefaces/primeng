@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
@@ -19,7 +19,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class FilterDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'image-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Any type of image can be used as an icon.</p>
         </app-docsectiontext>
@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ImageDoc {
-
     code: Code = {
         basic: `<p-dropdown>
     <ng-template pTemplate="dropdownicon">
@@ -19,5 +18,4 @@ export class ImageDoc {
     </ng-template>
 </p-dropdown>`
     };
-
 }

@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class InvalidDoc implements OnInit {
-
     cities!: City[];
 
     selectedCity!: City;

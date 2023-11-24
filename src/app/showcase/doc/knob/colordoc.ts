@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ColorDoc {
-
     value: number = 50;
 
     code: Code = {

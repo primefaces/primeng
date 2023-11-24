@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-template-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Custom content inside a button is defined as children.</p>
         </app-docsectiontext>
@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-button [outlined]="true">

@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class BasicDoc {
-
     constructor(private messageService: MessageService) {}
 
     show() {

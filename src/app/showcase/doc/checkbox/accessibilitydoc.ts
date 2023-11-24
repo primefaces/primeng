@@ -42,7 +42,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="chkbox1">Remember Me</label>
 <p-checkbox inputId="chkbox1"></p-checkbox>

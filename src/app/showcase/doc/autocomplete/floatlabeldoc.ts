@@ -8,8 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'float-label-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

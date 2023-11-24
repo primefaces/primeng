@@ -25,7 +25,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MultipleDoc {
-
     selectedCities: string[] = [];
 
     code: Code = {

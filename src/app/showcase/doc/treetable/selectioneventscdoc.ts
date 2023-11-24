@@ -54,7 +54,6 @@ interface NodeEvent {
     providers: [MessageService]
 })
 export class SelectionEventsDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedNode!: TreeNode;

@@ -38,7 +38,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TypeDoc {
-
     code: Code = {
         basic: `
 <p>

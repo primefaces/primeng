@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CustomToolbarDoc {
-
     text: string = 'Hello World!';
 
     code: Code = {

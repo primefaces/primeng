@@ -22,7 +22,6 @@ interface City {
     `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     cities!: City[];
 
     formGroup!: FormGroup;

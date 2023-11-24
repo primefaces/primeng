@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class GroupDoc {
-
     code: Code = {
         basic: `
 <p-avatarGroup styleClass="mb-3">

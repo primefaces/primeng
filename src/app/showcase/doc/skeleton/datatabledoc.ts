@@ -31,7 +31,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DataTableDoc implements OnInit {
-
     products: any[] | undefined;
 
     ngOnInit() {

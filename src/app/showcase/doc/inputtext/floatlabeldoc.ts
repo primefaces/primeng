@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FloatLabelDoc {
-    
     value: string | undefined;
 
     code: Code = {

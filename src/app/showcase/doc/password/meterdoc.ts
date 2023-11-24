@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'meter-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Strength meter is displayed as a popup while a value is being entered.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MeterDoc {
-
     value!: string;
 
     code: Code = {

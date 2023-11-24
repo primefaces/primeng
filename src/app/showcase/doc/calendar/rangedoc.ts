@@ -13,7 +13,6 @@ import { Code } from '../../domain/code';
         <app-code [code]="code" selector="calendar-range-demo"></app-code>
     `
 })
-
 export class RangeDoc {
     rangeDates: Date[] | undefined;
 

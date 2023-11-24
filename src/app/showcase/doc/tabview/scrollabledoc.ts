@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ScrollableDoc {
-
     activeIndex: number = 0;
 
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: `Tab ${i + 1}`, content: `Tab ${i + 1} Content` }));

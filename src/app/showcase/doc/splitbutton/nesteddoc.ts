@@ -13,11 +13,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-nested-demo"></app-code>
-   `,
+    `,
     providers: [MessageService]
 })
 export class NestedDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

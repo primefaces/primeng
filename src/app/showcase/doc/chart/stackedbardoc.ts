@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class StackedBarDoc implements OnInit {
-
     data: any;
 
     options: any;

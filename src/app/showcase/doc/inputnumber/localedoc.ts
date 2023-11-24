@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'locale-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
@@ -26,10 +26,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-locale-demo"></app-code>
-   `
+    `
 })
 export class LocaleDoc {
-
     value1: number = 151351;
 
     value2: number = 115744;

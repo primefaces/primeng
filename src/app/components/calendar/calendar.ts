@@ -217,7 +217,6 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                         draggable="false"
                                                         (keydown)="onDateCellKeydown($event, date, i)"
                                                         pRipple
-                                                        
                                                     >
                                                         <ng-container *ngIf="!dateTemplate && (date.selectable || !disabledDateTemplate)">{{ date.day }}</ng-container>
                                                         <ng-container *ngIf="date.selectable || !disabledDateTemplate">
@@ -1199,7 +1198,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (!this.disabled && !this.inline) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
-                    if(this.contentViewChild && this.contentViewChild.nativeElement) {
+                    if (this.contentViewChild && this.contentViewChild.nativeElement) {
                         this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
                     }
                 }

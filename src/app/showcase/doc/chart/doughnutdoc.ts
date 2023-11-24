@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-doughnut-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DoughnutDoc implements OnInit {
-
     data: any;
 
     options: any;

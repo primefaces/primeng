@@ -113,6 +113,4 @@ import { Component } from '@angular/core';
         </div>
     </div>`
 })
-export class AccessibilityDoc {
-   
-}
+export class AccessibilityDoc {}

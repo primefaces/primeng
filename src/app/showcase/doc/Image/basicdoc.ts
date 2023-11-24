@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>`,

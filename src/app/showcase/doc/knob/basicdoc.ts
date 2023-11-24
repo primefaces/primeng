@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     value!: number;
 
     code: Code = {

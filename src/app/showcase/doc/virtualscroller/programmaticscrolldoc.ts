@@ -26,7 +26,6 @@ interface Item {
     `
 })
 export class ProgrammaticScrollDoc implements OnInit {
-
     @ViewChild('vs') vs!: VirtualScroller;
 
     items: Item[] = [];

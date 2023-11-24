@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'material-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p><a href="https://fonts.google.com/icons">Material icons</a> is the official icon library based on Google Material Design.</p>
         </app-docsectiontext>
@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MaterialDoc {
-
     code: Code = {
         basic: `<p-dropdown>
     <ng-template pTemplate="dropdownicon">
@@ -19,5 +18,4 @@ export class MaterialDoc {
     </ng-template>
 </p-dropdown>`
     };
-
 }

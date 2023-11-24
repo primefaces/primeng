@@ -46,6 +46,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class MessageStyleDoc {
-
-}
+export class MessageStyleDoc {}

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'togglemask-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ToggleMaskDoc {
-
     value!: string;
 
     code: Code = {

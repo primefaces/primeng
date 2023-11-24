@@ -6,8 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'products-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
         <div class="card">

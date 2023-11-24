@@ -19,7 +19,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class ClickEventDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

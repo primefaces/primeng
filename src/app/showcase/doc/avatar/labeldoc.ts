@@ -29,7 +29,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LabelDoc {
-
     code: Code = {
         basic: `
 <div class="col-12 md:col-4">

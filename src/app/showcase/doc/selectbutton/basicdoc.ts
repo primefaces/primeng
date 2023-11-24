@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-  `
+    `
 })
 export class BasicDoc {
-
     stateOptions: any[] = [
         { label: 'Off', value: 'off' },
         { label: 'On', value: 'on' }

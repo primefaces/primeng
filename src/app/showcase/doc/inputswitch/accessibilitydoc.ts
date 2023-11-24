@@ -42,7 +42,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="switch1">Remember Me</label>
 <p-inputSwitch inputId="switch1"></p-inputSwitch>

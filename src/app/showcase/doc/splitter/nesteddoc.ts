@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'nested-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
@@ -35,7 +35,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class NestedDoc {
-
     code: Code = {
         basic: `
 <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-5">

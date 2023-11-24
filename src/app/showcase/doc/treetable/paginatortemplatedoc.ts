@@ -9,7 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Paginator UI is customized using the <i>paginatorleft</i> and <i>paginatorright</i> property. Each element can also be customized further with your own UI to replace the default one, refer to the
@@ -46,7 +46,6 @@ interface Column {
     `
 })
 export class PaginatorTemplateDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

@@ -6,8 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'column-selection-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Selection using custom elements.</p>
         </app-docsectiontext>
         <div class="card">

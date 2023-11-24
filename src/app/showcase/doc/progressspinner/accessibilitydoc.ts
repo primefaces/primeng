@@ -16,9 +16,7 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<p-progressSpinner aria-label="Loading"></p-progressSpinner>`
     };
-
 }

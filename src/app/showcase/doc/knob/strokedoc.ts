@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'stroke-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class StrokeDoc {
-
     value: number = 40;
 
     code: Code = {

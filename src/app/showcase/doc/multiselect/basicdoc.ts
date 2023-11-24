@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 MultiSelect is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively.
@@ -23,7 +23,6 @@ interface City {
     `
 })
 export class BasicDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: any[];

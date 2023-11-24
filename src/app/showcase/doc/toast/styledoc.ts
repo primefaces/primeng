@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
@@ -48,6 +48,4 @@ import { Component} from '@angular/core';
         </div>
     `
 })
-export class StyleDoc {
- 
-}
+export class StyleDoc {}

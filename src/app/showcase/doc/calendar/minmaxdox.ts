@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MinMaxDoc {
-
     date: Date | undefined;
 
     minDate: Date | undefined;

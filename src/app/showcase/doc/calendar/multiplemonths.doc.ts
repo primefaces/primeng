@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'calendar-multiplemonths-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Number of months to display is configured with the <i>numberOfMonths</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MultipleMonthDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

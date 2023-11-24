@@ -71,10 +71,8 @@ import { Code } from '../../domain/code';
     `
 })
 export class OverviewDoc {
-
     code: Code = {
         basic: `<div [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Highlighted Item</div>
 <div [ngStyle]="{backgroundColor:'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Primary Color</div>`
     };
-    
 }

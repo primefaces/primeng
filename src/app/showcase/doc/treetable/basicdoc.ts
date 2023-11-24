@@ -5,8 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>TreeTable requires a collection of <i>TreeNode</i> instances as a <i>value</i> components as children for the representation.</p>
         </app-docsectiontext>
         <div class="card">

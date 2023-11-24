@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dynamic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
         </app-docsectiontext>
@@ -13,11 +13,10 @@ import { Code } from '../../domain/code';
             <p-progressBar [value]="value"></p-progressBar>
         </div>
         <app-code [code]="code" selector="progress-bar-dynamic-demo"></app-code>
-   `,
+    `,
     providers: [MessageService]
 })
 export class DynamicDoc implements OnInit {
-
     value: number = 0;
 
     constructor(private messageService: MessageService) {}

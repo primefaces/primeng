@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'element-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>
         </app-docsectiontext>
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ElementDoc {
-
     code: Code = {
         basic: `
 <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>`,

@@ -37,7 +37,6 @@ interface Column {
     `
 })
 export class ReorderDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

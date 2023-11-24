@@ -86,7 +86,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="chips1">Tags</label>
 <p-chips inputId="chips1"></p-chips>

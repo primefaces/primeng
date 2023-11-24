@@ -53,7 +53,6 @@ import { StylingDoc } from '../../doc/table/stylingdoc';
 import { AccessibilityDoc } from '../../doc/table/accessibilitydoc';
 import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 
-
 @Component({
     templateUrl: './tabledemo.html',
     styleUrls: ['./tabledemo.scss']

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'toggleable-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Content of the panel can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option. By default, toggle icon is used to toggle the contents whereas setting toggler to "header" enables
@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ToggleableDoc {
-
     code: Code = {
         basic: `
 <p-panel header="Header" [toggleable]="true">

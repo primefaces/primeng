@@ -44,7 +44,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class BasicDoc {
-
     products!: Product[];
 
     constructor(private productService: ProductService) {}

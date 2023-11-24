@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'page-only-selection-doc',
-    template: `
-        <div class="card">
+    template: ` <div class="card">
             <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [paginator]="true" [rows]="5" [selectionPageOnly]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                     <tr>

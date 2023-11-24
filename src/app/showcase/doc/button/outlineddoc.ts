@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-outlined-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class OutlinedDoc {
-
     code: Code = {
         basic: `
 <p-button label="Primary" [outlined]="true"></p-button>

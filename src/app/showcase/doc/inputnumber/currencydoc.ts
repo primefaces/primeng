@@ -32,7 +32,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CurrencyDoc {
-
     value1: number = 1500;
 
     value2: number = 2500;

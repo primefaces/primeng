@@ -41,7 +41,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class PaginationDoc {
-
     products!: Product[];
 
     constructor(private productService: ProductService) {}

@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class MultipleDoc {
-
     constructor(private messageService: MessageService) {}
 
     show() {

@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MaxValuesDoc {
-
     values = new FormControl<string[] | null>(null);
 
     code: Code = {

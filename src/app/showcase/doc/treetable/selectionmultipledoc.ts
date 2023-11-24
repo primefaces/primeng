@@ -45,7 +45,6 @@ interface Column {
     `
 })
 export class SelectionMultipleDoc implements OnInit {
-
     metaKeySelection: boolean = true;
 
     files!: TreeNode[];

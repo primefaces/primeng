@@ -19,7 +19,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class HoverEventDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

@@ -60,7 +60,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="price">Price</label>
 <p-inputNumber inputId="price"></p-inputNumber>

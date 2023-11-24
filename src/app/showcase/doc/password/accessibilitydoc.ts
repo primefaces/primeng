@@ -42,7 +42,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="pwd1">Password</label>
 <p-password inputId="pwd1"></p-password>

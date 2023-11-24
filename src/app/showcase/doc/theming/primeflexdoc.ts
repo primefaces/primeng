@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'primeflex-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 <a href="https://primeflex.org/">PrimeFlex</a> is a lightweight responsive CSS utility library to accompany Prime UI libraries and static webpages as well. PrimeNG can be used with any CSS utility library like bootstrap and tailwind
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PrimeFlexDoc {
-
     code1: Code = {
         basic: `<div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
     <p-button label="Button 1"></p-button>

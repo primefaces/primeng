@@ -33,7 +33,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class CircularDoc implements OnInit {
-
     products: Product[] | undefined;
 
     responsiveOptions: any[] | undefined;

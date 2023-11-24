@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class IndeterminateDoc {
-
     code: Code = {
         basic: `
 <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>`,

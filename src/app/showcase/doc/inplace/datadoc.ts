@@ -37,10 +37,9 @@ import { CarService } from '../../service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-   `
+    `
 })
 export class DataDoc {
-
     cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}

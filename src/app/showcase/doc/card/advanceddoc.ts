@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-advanced-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
@@ -26,7 +26,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class AdvancedDoc {
-
     code: Code = {
         basic: `
 <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">

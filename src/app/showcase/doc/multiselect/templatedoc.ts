@@ -8,7 +8,7 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Available options and the selected options support templating with <i>pTemplate</i> properties respectively. In addition, header, footer and filter sections can be templated as well.</p>
         </app-docsectiontext>
@@ -33,7 +33,6 @@ interface Country {
     `
 })
 export class TemplateDoc implements OnInit {
-
     countries!: Country[];
 
     selectedCountries!: Country[];

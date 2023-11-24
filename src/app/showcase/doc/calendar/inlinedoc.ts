@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-inline-demo"></app-code>
-   `
+    `
 })
 export class InlineDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

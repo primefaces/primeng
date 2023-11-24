@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'outlined-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class OutlinedDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

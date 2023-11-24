@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tab-menu-template-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>TabMenu supports templating via the <i>item</i> template which gets the menuitem instance and the index.</p>
         </app-docsectiontext>
@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;

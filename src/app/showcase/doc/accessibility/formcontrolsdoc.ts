@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'form-controls-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Native form elements should be preferred instead of elements that are meant for other purposes like presentation. As an example, button below is rendered as a form control by the browser, can receive focus via tabbing and can be used
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FormControlsDoc {
-
     code1: Code = {
         html: `<button (click)="onButtonClick($event)">Click></button>`
     };

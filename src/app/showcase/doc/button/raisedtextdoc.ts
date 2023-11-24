@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class RaisedTextDoc {
-
     code: Code = {
         basic: `
 <p-button label="Primary" [text]="true" [raised]="true"></p-button>

@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-comma-separator-demo',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>A new chip is added when <i>enter</i> key is pressed, <i>separator</i> property allows definining an additional key. Currently only valid value is <i>,</i> to create a new item when comma key is pressed.</p>
         </app-docsectiontext>
         <div class="card p-fluid">

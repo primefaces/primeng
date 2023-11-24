@@ -38,7 +38,6 @@ interface EventItem {
     `
 })
 export class AlignmentDoc {
-
     events: EventItem[];
 
     constructor() {

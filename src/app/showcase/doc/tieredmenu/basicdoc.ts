@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

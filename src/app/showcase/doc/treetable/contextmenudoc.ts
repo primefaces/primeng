@@ -42,7 +42,6 @@ interface Column {
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedNode!: TreeNode;

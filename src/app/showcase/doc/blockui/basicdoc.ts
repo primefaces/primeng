@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>
         </app-docsectiontext>
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-    
     blockedPanel: boolean = false;
 
     code: Code = {

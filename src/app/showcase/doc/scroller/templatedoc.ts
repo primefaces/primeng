@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
         </app-docsectiontext>
@@ -34,11 +34,10 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-template-demo"></app-code>
-   `,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {
-
     items!: string[];
 
     ngOnInit() {

@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ComboDoc implements OnInit {
-
     data: any;
 
     options: any;

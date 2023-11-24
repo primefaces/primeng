@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ClosableDoc implements OnInit {
-
     messages1: Message[] | undefined;
 
     messages2: Message[] | undefined;

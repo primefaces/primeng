@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'drag-drop-drag-handle-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
         </app-docsectiontext>
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DragHandleDoc {
-
     code: Code = {
         basic: `
 <div pDraggable dragHandle=".p-panel-header" class="w-15rem">

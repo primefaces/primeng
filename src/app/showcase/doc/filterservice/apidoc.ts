@@ -45,6 +45,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class ApiDoc {
-
-}
+export class ApiDoc {}

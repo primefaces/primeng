@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'target-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 <i>show</i> method takes two parameters, first one is the event and it is mandatory. By default the target component to align the overlay is the event target, if you'd like to align it to another element, provide it as the second
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TargetDoc {
-
     code: Code = {
         basic: `
 <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>

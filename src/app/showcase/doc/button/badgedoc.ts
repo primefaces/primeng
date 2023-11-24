@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BadgeDoc {
-
     code: Code = {
         basic: `
 <p-button label="Emails" badge="8"></p-button>

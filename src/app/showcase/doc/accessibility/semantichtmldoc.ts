@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SemanticHTMLDoc {
-
     code1: Code = {
         html: `<div class="header"/>
     <div class="header-text">Header></div>

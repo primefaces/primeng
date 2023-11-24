@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'gridlines-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">

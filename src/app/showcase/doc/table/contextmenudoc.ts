@@ -6,8 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'context-menu-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Table has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>pContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable for the
                 menu and bind it to the <i>contextMenu</i> property of the table. This enables displaying the menu whenever a row is right clicked. Optional <i>pContextMenuRowIndex</i> property is available to access the row index. A separate

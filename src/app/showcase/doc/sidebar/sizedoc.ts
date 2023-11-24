@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SizeDoc {
-
     sidebarVisible: boolean = false;
 
     code: Code = {

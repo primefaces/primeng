@@ -42,7 +42,6 @@ import { CarService } from '../../service/carservice';
     providers: [MessageService, CarService]
 })
 export class DataTableDoc {
-
     cars: Car[] | undefined;
 
     constructor(private carService: CarService, private messageService: MessageService) {}

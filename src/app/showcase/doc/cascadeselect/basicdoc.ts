@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     countries: any[] | undefined;
 
     selectedCity: any;

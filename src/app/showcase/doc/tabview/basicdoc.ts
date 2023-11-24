@@ -39,7 +39,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     activeIndex: number = 0;
 
     scrollableTabs: any[];

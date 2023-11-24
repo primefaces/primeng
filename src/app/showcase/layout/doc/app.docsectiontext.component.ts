@@ -5,13 +5,15 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-docsectiontext',
     template: `
-        <h2 class="doc-section-label" *ngIf="level === 2">{{title}}
+        <h2 class="doc-section-label" *ngIf="level === 2">
+            {{ title }}
             <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
         </h2>
         <div class="doc-section-description" *ngIf="description">
-            <p class="mt-3">{{description || null}}</p>
+            <p class="mt-3">{{ description || null }}</p>
         </div>
-        <h3 class="doc-section-label" *ngIf="level === 3">{{title}}
+        <h3 class="doc-section-label" *ngIf="level === 3">
+            {{ title }}
             <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
         </h3>
         <div class="doc-section-description">

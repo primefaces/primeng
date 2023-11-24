@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-progressBar [value]="50"></p-progressBar>`,

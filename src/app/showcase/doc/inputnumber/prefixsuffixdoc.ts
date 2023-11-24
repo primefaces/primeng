@@ -29,7 +29,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PrefixSuffixDoc {
-
     value1: number = 20;
 
     value2: number = 50;

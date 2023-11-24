@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MaximizableDoc {
-
     visible: boolean = false;
 
     showDialog() {

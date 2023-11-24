@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     sidebarVisible: boolean = false;
 
     code: Code = {

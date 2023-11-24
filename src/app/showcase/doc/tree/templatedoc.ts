@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc implements OnInit {
-
     nodes!: TreeNode[];
 
     ngOnInit() {

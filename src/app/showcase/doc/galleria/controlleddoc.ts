@@ -28,7 +28,6 @@ import { PhotoService } from '../../service/photoservice';
     `
 })
 export class ControlledDoc implements OnInit {
-
     images: any[] | undefined;
 
     get activeIndex(): number {

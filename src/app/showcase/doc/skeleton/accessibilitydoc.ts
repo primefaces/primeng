@@ -15,6 +15,4 @@ import { Component } from '@angular/core';
         <p>Component does not include any interactive elements.</p>
     </div>`
 })
-export class AccessibilityDoc {
-
-}
+export class AccessibilityDoc {}

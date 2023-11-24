@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class UsageDoc {
-
     code: Code = {
         typescript: `export class FilterServiceDemo implements OnInit {
 

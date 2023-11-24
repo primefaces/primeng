@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MultipleDoc {
-
     paymentOptions: any[] = [
         { name: 'Option 1', value: 1 },
         { name: 'Option 2', value: 2 },

@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BuiltInThemesDoc {
-
     code: Code = {
         basic: `primeng/resources/themes/bootstrap4-light-blue/theme.css
 primeng/resources/themes/bootstrap4-light-purple/theme.css

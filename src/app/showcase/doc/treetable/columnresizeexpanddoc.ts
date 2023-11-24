@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -37,7 +37,6 @@ interface Column {
     `
 })
 export class ResizeExpandDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

@@ -35,7 +35,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class FullScreenTemplateDoc implements OnInit {
-
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;

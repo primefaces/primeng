@@ -8,6 +8,4 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
     </div>`
 })
-export class AccessibilityDoc {
- 
-}
+export class AccessibilityDoc {}

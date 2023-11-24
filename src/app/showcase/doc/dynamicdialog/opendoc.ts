@@ -14,7 +14,6 @@ import { ProductListDemo } from './productlistdemo';
     providers: [DialogService]
 })
 export class OpenDoc {
-
     constructor(public dialogService: DialogService) {}
 
     ref: DynamicDialogRef | undefined;

@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     data: TreeNode[] = [
         {
             label: 'Argentina',

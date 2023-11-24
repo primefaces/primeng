@@ -27,7 +27,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FilterDoc implements OnInit {
-
     countries: any[] | undefined;
 
     selectedCountry: string | undefined;

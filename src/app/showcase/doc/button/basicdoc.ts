@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Text to display on a button is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-button label="Submit"></p-button>`,

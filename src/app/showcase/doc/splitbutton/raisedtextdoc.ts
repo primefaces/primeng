@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'raised-text-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Text buttons can be displayed as raised as well for elevation.</p>
         </app-docsectiontext>
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class RaisedTextDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

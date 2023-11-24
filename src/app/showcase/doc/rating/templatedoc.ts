@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     value!: number;
 
     code: Code = {

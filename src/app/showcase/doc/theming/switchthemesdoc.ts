@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'switch-themes-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Themes can be switched on-the-fly so that users of your app can choose their own theme. We have created a video tutorial that goes through the steps.</p>
         </app-docsectiontext>
@@ -11,6 +11,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class SwitchThemesDoc {
-  
-}
+export class SwitchThemesDoc {}

@@ -36,7 +36,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<label for="date">Date</label>
 <p-inputMask inputId="date"></p-inputMask>

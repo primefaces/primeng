@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class ResponsiveDoc {
-
     constructor(private messageService: MessageService) {}
 
     show() {

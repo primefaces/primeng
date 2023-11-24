@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
@@ -25,10 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-card-demo"></app-code>
-   `
+    `
 })
 export class CardDoc {
-
     code: Code = {
         basic: `
 <div class="border-round border-1 surface-border p-4 surface-card">

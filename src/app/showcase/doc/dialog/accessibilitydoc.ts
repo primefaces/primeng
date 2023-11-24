@@ -69,7 +69,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<button pButton
     icon="pi pi-external-link" 

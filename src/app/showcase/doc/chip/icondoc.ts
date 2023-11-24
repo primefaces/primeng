@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class IconDoc {
-
     code: Code = {
         basic: `
 <p-chip label="Apple" icon="pi pi-apple"></p-chip>`,

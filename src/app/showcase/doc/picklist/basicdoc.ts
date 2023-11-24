@@ -40,7 +40,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class BasicDoc {
-
     sourceProducts!: Product[];
 
     targetProducts!: Product[];

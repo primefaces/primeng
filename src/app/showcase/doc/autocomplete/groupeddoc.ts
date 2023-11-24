@@ -9,8 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'grouped-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

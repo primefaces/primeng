@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 A basic chip with a text is created with the <i>label</i> property. In addition when <i>removable</i> is added, a delete icon is displayed to remove a chip, the optional <i>onRemove</i> event is available to get notified when a chip
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-chip label="Action"></p-chip>`,

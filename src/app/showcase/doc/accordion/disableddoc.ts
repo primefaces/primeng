@@ -30,10 +30,9 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-disabled-demo"></app-code>
-   `
+    `
 })
 export class DisabledDoc {
-
     code: Code = {
         basic: `
 <p-accordion [activeIndex]="0">

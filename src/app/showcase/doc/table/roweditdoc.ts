@@ -6,8 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'row-edit-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
                 dataKey to uniquely identify a row, adding <i>pEditableRow</i> directive to the editable rows and defining the UI Controls with <i>pInitEditableRow</i>, <i>pSaveEditableRow</i> and <i>pCancelEditableRow</i> directives respectively.

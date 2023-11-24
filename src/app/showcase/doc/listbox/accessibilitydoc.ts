@@ -97,7 +97,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<span id="lb">Options</span>
 <p-listbox ariaLabelledBy="lb"></p-listbox>

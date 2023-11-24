@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class HelpTextDoc {
-
     value: string | undefined;
 
     code: Code = {

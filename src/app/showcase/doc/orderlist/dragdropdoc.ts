@@ -30,7 +30,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class DragDropDoc implements OnInit {
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}

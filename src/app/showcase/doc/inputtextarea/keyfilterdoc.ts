@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <textarea pKeyFilter="int" rows="5" cols="30" pInputTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-key-filter-demo"></app-code>
- `
+    `
 })
 export class KeyfilterDoc {
-
     code: Code = {
         basic: `
 <textarea pKeyFilter="int" rows="5" cols="30" pInputTextarea></textarea>`,

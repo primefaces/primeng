@@ -6,8 +6,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'filter-menu-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>
         <div class="card">

@@ -20,7 +20,6 @@ import { PhotoService } from '../../../service/photoservice';
     providers: [PhotoService]
 })
 export class ItemWithoutThumbnailsDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

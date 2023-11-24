@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VerticalDoc {
-
     value!: number;
 
     code: Code = {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'auto-hide-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Tooltip is hidden when mouse leaves the target element, in cases where tooltip needs to be interacted with, set <i>autoHide</i> to false to change the default behavior.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class AutoHideDoc {
-
     code: Code = {
         basic: `
 <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false">

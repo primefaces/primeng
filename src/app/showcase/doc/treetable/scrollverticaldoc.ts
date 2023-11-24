@@ -35,10 +35,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-vertical-demo"></app-code>
-  `
+    `
 })
 export class ScrollVerticalDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

@@ -8,18 +8,17 @@ import { Doc } from 'src/app/showcase/domain/doc';
 
 @Component({
     selector: 'app-docsection-nav',
-    template: `
-    <ul #nav *ngIf="docs && docs.length" class="doc-section-nav" [ngClass]="{'hidden' : visible}">
-        <li *ngFor="let doc of docs; let i = index;" class="navbar-item" [ngClass]="{'active-navbar-item' : activeId === doc.id}">
+    template: ` <ul #nav *ngIf="docs && docs.length" class="doc-section-nav" [ngClass]="{ hidden: visible }">
+        <li *ngFor="let doc of docs; let i = index" class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId === doc.id }">
             <ng-container *ngIf="!doc.isInterface">
                 <div class="navbar-item-content">
-                    <button class="px-link" (click)="onButtonClick($event, doc)">{{doc.label}}</button>
+                    <button class="px-link" (click)="onButtonClick($event, doc)">{{ doc.label }}</button>
                 </div>
                 <ng-container>
                     <ul *ngIf="doc.children">
-                        <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{'active-navbar-item': activeId === child.id }">
+                        <li *ngFor="let child of doc.children; let isFirst = first" class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId === child.id }">
                             <div class="navbar-item-content">
-                                <button class="px-link"  (click)="onButtonClick($event, child)">
+                                <button class="px-link" (click)="onButtonClick($event, child)">
                                     {{ child.label }}
                                 </button>
                             </div>
@@ -43,7 +42,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         return this._activeId;
     }
     set activeId(val: string) {
-        if(val !== this._activeId) {
+        if (val !== this._activeId) {
             this._activeId = val;
         }
     }
@@ -55,7 +54,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
 
     @ViewChild('nav') nav: ElementRef;
 
-    constructor(@Inject(DOCUMENT) private document: Document,  @Inject(PLATFORM_ID) private platformId: any, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private location: Location, private zone: NgZone, private renderer: Renderer2, private router: Router) {}
 
     ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {

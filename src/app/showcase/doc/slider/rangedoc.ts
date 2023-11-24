@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'range-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class RangeDoc {
-
     rangeValues: number[] = [20, 80];
 
     code: Code = {

@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TextDoc {
-
     code: Code = {
         basic: `
 <p-button label="Primary" [text]="true"></p-button>

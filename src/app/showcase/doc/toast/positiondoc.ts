@@ -17,11 +17,10 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showBottomCenter()" label="Bottom Center" class="p-button-success"></button>
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
-   `,
+    `,
     providers: [MessageService]
 })
 export class PositionDoc {
-
     constructor(private messageService: MessageService) {}
 
     showTopLeft() {

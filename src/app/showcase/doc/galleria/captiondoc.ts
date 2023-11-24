@@ -28,7 +28,6 @@ import { PhotoService } from '../../service/photoservice';
     `
 })
 export class CaptionDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

@@ -17,11 +17,9 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<p-toolbar aria-label="Actions">
     Content
 </p-toolbar>`
     };
-    
 }

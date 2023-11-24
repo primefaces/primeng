@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class FilterDoc implements OnInit {
-
     cities!: City[];
 
     selectedCity!: City;

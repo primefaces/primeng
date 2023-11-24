@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MaskDoc {
-
     value1: string | undefined;
 
     value2: string | undefined;

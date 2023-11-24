@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'group-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>RadioButton is used as a controlled input with <i>value</i> and <i>ngModel</i> properties.</p>
         </app-docsectiontext>
@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class GroupDoc {
-
     ingredient!: string;
 
     code: Code = {

@@ -22,7 +22,6 @@ interface PageEvent {
     `
 })
 export class ImagesDoc {
-
     first: number = 0;
 
     rows: number = 10;

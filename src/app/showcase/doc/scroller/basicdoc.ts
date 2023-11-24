@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {
-
     items!: string[];
 
     ngOnInit() {

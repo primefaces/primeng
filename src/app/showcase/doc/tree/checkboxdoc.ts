@@ -16,7 +16,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class CheckboxDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedFiles!: TreeNode[];

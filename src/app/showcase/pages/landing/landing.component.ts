@@ -39,7 +39,7 @@ interface City {
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [        
+    imports: [
         CommonModule,
         NgOptimizedImage,
         FormsModule,

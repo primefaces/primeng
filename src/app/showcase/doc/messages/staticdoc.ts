@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class StaticDoc {
-
     code: Code = {
         basic: `
 <p-messages severity="info">

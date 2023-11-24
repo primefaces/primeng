@@ -1,4 +1,4 @@
-import { Component , OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

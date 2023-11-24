@@ -834,7 +834,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.hide();
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
         const focusedItemInfo = this.focusedItemInfo();
-        this.focusedItemInfo.set({...focusedItemInfo, index: this.findFirstFocusedItemIndex(), item: processedItem.item})
+        this.focusedItemInfo.set({ ...focusedItemInfo, index: this.findFirstFocusedItemIndex(), item: processedItem.item });
 
         event.preventDefault();
     }
@@ -862,7 +862,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
             if (!grouped) {
                 const focusedItemInfo = this.focusedItemInfo();
-                this.focusedItemInfo.set({...focusedItemInfo, index: this.findFirstFocusedItemIndex()})
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: this.findFirstFocusedItemIndex() });
             }
         }
 
@@ -1083,8 +1083,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     changeFocusedItemIndex(event: any, index: number) {
         const processedItem = this.findVisibleItem(index);
         const focusedItemInfo = this.focusedItemInfo();
-        if(focusedItemInfo.index !== index) {
-            this.focusedItemInfo.set({...focusedItemInfo, index, item: processedItem.item});
+        if (focusedItemInfo.index !== index) {
+            this.focusedItemInfo.set({ ...focusedItemInfo, index, item: processedItem.item });
             this.scrollInView();
         }
     }

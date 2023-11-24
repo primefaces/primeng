@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DisabledDoc {
-
     checked: boolean = false;
 
     code: Code = {

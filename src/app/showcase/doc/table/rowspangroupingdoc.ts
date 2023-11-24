@@ -5,8 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'rowspan-grouping-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>When <i>rowGroupMode</i> is configured to be <i>rowspan</i>, the grouping column spans multiple rows.</p>
         </app-docsectiontext>
         <div class="card">

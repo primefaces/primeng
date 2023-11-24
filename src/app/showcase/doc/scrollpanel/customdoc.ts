@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
@@ -49,7 +49,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CusstomDoc {
-
     code: Code = {
         basic: `
 <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">

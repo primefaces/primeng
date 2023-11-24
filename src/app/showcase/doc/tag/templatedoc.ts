@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">

@@ -10,14 +10,12 @@ interface Column {
 
 @Component({
     selector: 'responsive-stack-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 In stack layout, columns are displayed as stacked after a certain breakpoint. Default is '960px' as max-width. This feature is enabled by setting <i>responsiveLayout</i> to <i>stack</i> and adding an element with
                 <i>p-column-title</i> style class to the body cells.
             </p>
-        </app-docsectiontext
-        >
+        </app-docsectiontext>
         <div class="card">
             <p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>

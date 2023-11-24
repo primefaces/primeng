@@ -26,7 +26,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     countries: any[] | undefined;
 
     selectedCity: any;

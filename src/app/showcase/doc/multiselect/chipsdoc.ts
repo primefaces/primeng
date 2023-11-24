@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class ChipsDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

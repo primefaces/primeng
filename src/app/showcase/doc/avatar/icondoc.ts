@@ -29,7 +29,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class IconDoc {
-
     code: Code = {
         basic: `
 <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>`,

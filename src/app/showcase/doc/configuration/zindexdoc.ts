@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'zindex-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ZIndexDoc {
-
     code: Code = {
         typescript: `import { PrimeNGConfig } from 'primeng/api';
 

@@ -168,6 +168,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class PaletteDoc {
-
-}
+export class PaletteDoc {}

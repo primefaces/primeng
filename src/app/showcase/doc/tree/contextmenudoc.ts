@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'context-menu-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { NodeService } from '../../service/nodeservice';
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode | null;

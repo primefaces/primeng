@@ -42,7 +42,6 @@ interface Column {
     `
 })
 export class ResizeScrollableDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

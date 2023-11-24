@@ -16,10 +16,9 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="panel-basic-demo"></app-code>
-   `
+    `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-panel header="Header">

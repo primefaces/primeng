@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ShapeDoc {
-
     code: Code = {
         basic: `
 <p-avatar label="P" shape="circle"></p-avatar>

@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-basic-demo"></app-code>
-  `
+    `
 })
 export class BasicDoc {
-
     date: Date | undefined;
 
     code: Code = {

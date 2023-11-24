@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
@@ -22,7 +22,6 @@ interface City {
     `
 })
 export class FloatLabelDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

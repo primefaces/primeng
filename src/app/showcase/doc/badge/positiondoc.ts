@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PositionDoc {
-    
     code: Code = {
         basic: `
 <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>`,

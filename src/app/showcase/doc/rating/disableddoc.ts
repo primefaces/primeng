@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DisabledDoc {
-
     value: number = 5;
 
     code: Code = {

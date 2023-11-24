@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animation-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>
         </app-docsectiontext>
@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class AnimationDoc {
-
     constructor(private messageService: MessageService) {}
 
     show() {

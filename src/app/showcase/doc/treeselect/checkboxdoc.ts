@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
@@ -12,10 +12,9 @@ import { NodeService } from '../../service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
         </div>
         <app-code [code]="code" selector="tree-select-checkbox-demo"></app-code>
-   `
+    `
 })
 export class CheckboxDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

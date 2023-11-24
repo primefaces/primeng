@@ -27,11 +27,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
-   `,
+    `,
     providers: [ConfirmationService, MessageService]
 })
 export class PositionDoc {
-
     position: string = 'center';
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
