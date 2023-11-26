@@ -10,8 +10,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

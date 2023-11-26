@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-constraints-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>FilterService can be extended by adding new constraints using the <span>register</span> function.</p></app-docsectiontext
         >
@@ -11,7 +11,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CustomConstraintsDoc {
-
     code: Code = {
         typescript: `this.filterService.register('isPrimeNumber', (value, filter): boolean => {
     if (filter === undefined || filter === null || filter.trim() === '') {

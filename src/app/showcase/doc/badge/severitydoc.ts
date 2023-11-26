@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SeverityDoc {
-
     code: Code = {
         basic: `
 <p-badge [value]="2" severity="success"></p-badge>`,

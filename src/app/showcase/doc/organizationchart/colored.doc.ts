@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
 @Component({
     selector: 'organization-chart-colored-demo',
     template: `
-        <app-docsectiontext >
+        <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
         <div class="card flex justify-content-center overflow-x-auto">
@@ -20,10 +20,9 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-colored-demo"></app-code>
-   `
+    `
 })
 export class ColoredDoc {
-
     data: TreeNode[] = [
         {
             expanded: true,

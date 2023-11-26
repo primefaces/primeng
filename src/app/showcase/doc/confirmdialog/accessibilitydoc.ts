@@ -73,7 +73,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code1: Code = {
         typescript: `confirm1() {
 this.confirmationService.confirm({

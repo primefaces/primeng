@@ -23,10 +23,9 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-template-demo"></app-code>
-  `
+    `
 })
 export class TemplateDoc {
-
     visible: boolean = false;
 
     showDialog() {

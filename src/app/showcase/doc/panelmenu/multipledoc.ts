@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MultipleDoc implements OnInit {
-
     items: MenuItem[];
 
     ngOnInit() {

@@ -39,10 +39,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-column-toggle-demo"></app-code>
-   `
+    `
 })
 export class ColumnToggleDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

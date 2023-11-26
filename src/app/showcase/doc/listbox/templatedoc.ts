@@ -26,7 +26,6 @@ interface Country {
     `
 })
 export class TemplateDoc implements OnInit {
-
     countries!: Country[];
 
     selectedCountry!: Country;

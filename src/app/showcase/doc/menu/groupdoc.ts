@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-group-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class GroupDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

@@ -57,7 +57,6 @@ interface TableRowSelectEvent {
     providers: [MessageService]
 })
 export class DataTableDoc implements OnInit {
-
     products: Product[] | undefined;
 
     selectedProduct: Product | undefined;

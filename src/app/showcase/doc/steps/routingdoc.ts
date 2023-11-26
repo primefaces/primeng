@@ -20,7 +20,6 @@ import { TicketService } from '../../service/ticketservice';
     providers: [MessageService]
 })
 export class RoutingDoc implements OnInit {
-
     items: MenuItem[];
 
     subscription: Subscription;

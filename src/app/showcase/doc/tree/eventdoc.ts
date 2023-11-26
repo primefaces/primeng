@@ -5,7 +5,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'event-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
@@ -27,7 +27,6 @@ import { NodeService } from '../../service/nodeservice';
     providers: [MessageService]
 })
 export class EventDoc implements OnInit {
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode;

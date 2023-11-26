@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ClosableDoc {
-
     code: Code = {
         basic: `
 <p-tabView id="closableTabView">

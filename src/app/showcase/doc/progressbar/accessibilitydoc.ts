@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<span id="label_status">Status</span>
 <p-progressBar aria-labelledby="label_status"></p-progressBar>

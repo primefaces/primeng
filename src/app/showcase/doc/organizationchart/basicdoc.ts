@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     data: TreeNode[] = [
         {
             label: 'Argentina',

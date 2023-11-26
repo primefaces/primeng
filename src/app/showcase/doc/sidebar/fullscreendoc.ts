@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'full-screen-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Sidebar can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FullScreenDoc {
-
     sidebarVisible: boolean = false;
 
     code: Code = {

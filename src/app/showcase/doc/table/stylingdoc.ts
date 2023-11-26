@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'styling-doc',
-    template: ` 
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>

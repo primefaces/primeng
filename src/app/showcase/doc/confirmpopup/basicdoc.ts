@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm(event: Event) {

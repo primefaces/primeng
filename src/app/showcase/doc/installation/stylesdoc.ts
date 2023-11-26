@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'styles-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Theme and Core styles are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class StylesDoc {
-
     code1: Code = {
         typescript: `...
 "styles": [

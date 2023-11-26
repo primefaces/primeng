@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 
 @Component({
     selector: 'set-locale-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 A translation is applied using the PrimeNGConfig instance so begin with injecting it. A common location is the application root to initialize the default language used by the components. English is the default language and
@@ -14,7 +14,6 @@ import { Code } from '../../../domain/code';
     `
 })
 export class SetLocaleDoc {
-
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';

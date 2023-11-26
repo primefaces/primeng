@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'dynamic-columns-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Columns can be created programmatically.</p>
         </app-docsectiontext>
@@ -34,11 +34,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
-   `
+    `
 })
 export class DynamicColumnsDoc implements OnInit {
-    
-
     files!: TreeNode[];
 
     cols!: Column[];

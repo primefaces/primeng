@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-severity-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SeverityDoc {
-
     code: Code = {
         basic: `
 <p-button label="Primary"></p-button>

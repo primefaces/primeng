@@ -1,18 +1,29 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SidebarModule } from 'primeng/sidebar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'app-config',
-    templateUrl: './app.config.component.html'
+    standalone: true,
+    templateUrl: './app.config.component.html',
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
     scale: number = 14;
-
+    inputStyles = [
+        { label: 'Outlined', value: 'outlined' },
+        { label: 'Filled', value: 'filled' }
+    ];
     scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: VoidFunction | null;
@@ -24,6 +35,18 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     sidebarSubscription: Subscription;
 
     active: boolean;
+
+    compactMaterial: boolean = false;
+
+    lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
+
+    get darkToggleDisabled() {
+        return this.lightOnlyThemes.includes(this.config.theme);
+    }
+
+    get isMaterial() {
+        return this.config.theme.startsWith('md') || this.config.theme.startsWith('mdc');
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
 
@@ -39,6 +62,43 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         });
 
         if (this.config.theme === 'nano') this.scale = 12;
+    }
+
+    onCompactMaterialChange(event) {
+        const theme = this.config.theme.startsWith('md') ? this.config.theme.replace('md', 'mdc') : this.config.theme.startsWith('mdc') ? this.config.theme.replace('mdc', 'md') : this.config.theme;
+
+        this.changeTheme(event, theme, false);
+    }
+
+    onDarkModeChange(event) {
+        let newTheme = null;
+        let { theme, dark } = this.config;
+
+        if (!dark) {
+            newTheme = theme.replace('dark', 'light');
+        } else {
+            if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
+            else newTheme = 'lara-dark-teal'; //fallback
+        }
+
+        this.configService.changeTheme(event, newTheme, dark);
+    }
+
+    isThemeActive(theme: string, color: string) {
+        let themeName;
+        let themePrefix = this.compactMaterial ? 'mdc' : theme;
+
+        if (this.lightOnlyThemes.includes(themePrefix)) {
+            themeName = themePrefix;
+        } else {
+            themeName = themePrefix + (this.config.dark ? '-dark' : '-light');
+        }
+
+        if (color) {
+            themeName += '-' + color;
+        }
+
+        return this.config.theme === themeName;
     }
 
     hideConfigurator() {
@@ -57,27 +117,21 @@ export class AppConfigComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        const linkElement = document.getElementById('theme-link');
-        this.replaceLink(linkElement, theme, () => {
-            this.configService.updateConfig({ ...this.config, theme: theme, dark: dark });
-        });
-    }
+    changeTheme(event: Event, theme: string, darkModePreference?: boolean) {
+        const isThemeInLightOnlyList = this.lightOnlyThemes.indexOf(theme) === -1;
 
-    replaceLink(linkElement, theme: string, onComplete: Function) {
-        const id = linkElement.getAttribute('id');
-        const cloneLinkElement = linkElement.cloneNode(true);
+        let newTheme = theme;
+        let useDarkMode = darkModePreference;
 
-        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.config.theme, theme));
-        cloneLinkElement.setAttribute('id', id + '-clone');
+        if (isThemeInLightOnlyList && !darkModePreference) {
+            useDarkMode = this.config.dark;
+        }
 
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+        if (isThemeInLightOnlyList) {
+            newTheme = useDarkMode ? theme.replace('light', 'dark') : theme.replace('dark', 'light');
+        }
 
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-            onComplete();
-        });
+        this.configService.changeTheme(event, newTheme, useDarkMode);
     }
 
     onInputStyleChange() {

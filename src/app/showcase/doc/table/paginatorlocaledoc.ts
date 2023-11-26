@@ -5,8 +5,7 @@ import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-locale-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card">

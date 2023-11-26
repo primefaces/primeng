@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-directive-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DirectiveDoc {
-
     code: Code = {
         basic: `
 <i class="pi pi-bell text-3xl" pBadge value="2"></i>`,

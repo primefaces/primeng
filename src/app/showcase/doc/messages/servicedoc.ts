@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class ServiceDoc {
-
     constructor(private messageService: MessageService) {}
 
     addSingle() {

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -45,7 +45,6 @@ interface Column {
     `
 })
 export class SelectionSingleDoc implements OnInit {
-
     metaKeySelection: boolean = true;
 
     files!: TreeNode[];

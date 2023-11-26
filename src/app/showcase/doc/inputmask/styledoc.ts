@@ -8,6 +8,4 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
     `
 })
-export class StyleDoc {
-  
-}
+export class StyleDoc {}

@@ -24,7 +24,6 @@ import { PhotoService } from '../../service/photoservice';
     `
 })
 export class ResponsiveDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

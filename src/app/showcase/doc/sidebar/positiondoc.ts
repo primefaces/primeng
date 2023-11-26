@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Sidebar location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
         </app-docsectiontext>
@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PositionDoc {
-
     sidebarVisible1: boolean = false;
 
     sidebarVisible2: boolean = false;

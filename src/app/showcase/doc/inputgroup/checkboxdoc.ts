@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CheckboxDoc {
-
     checkbox1: boolean = false;
 
     checkbox2: boolean = false;

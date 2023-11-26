@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-sizes-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Button provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SizesDoc {
-
     code: Code = {
         basic: `
 <p-button label="Small" icon="pi pi-check" size="small"></p-button>

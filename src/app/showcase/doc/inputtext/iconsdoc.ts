@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class IconsDoc {
-    
     value: string | undefined;
 
     value2: string | undefined;

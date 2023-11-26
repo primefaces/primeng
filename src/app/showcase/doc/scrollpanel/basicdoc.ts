@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>ScrollPanel is defined using dimensions for the scrollable viewport.</p>
         </app-docsectiontext>
@@ -27,7 +27,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-scrollPanel [style]="{ width: '100%', height: '150px' }">

@@ -27,7 +27,6 @@ interface Item {
     `
 })
 export class TemplateDoc implements OnInit {
-
     items: Item[] = [];
 
     ngOnInit(): void {

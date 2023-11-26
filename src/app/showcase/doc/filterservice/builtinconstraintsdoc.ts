@@ -144,6 +144,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class BuiltInConstraintsDoc {
-
-}
+export class BuiltInConstraintsDoc {}

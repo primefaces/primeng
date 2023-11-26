@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-icon-demo"></app-code>
-   `
+    `
 })
 export class IconDoc {
-
     date: Date | undefined;
 
     code: Code = {

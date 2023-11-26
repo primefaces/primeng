@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DocumentDoc {
-
     blockedDocument: boolean = false;
 
     constructor(private cd: ChangeDetectorRef) {}

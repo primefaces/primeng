@@ -3,16 +3,8 @@ import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.
 
 @Component({
     selector: 'base-zindex-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
-            <p>The <i>baseZIndex</i> is base zIndex value to use in layering. Its default value is 0.</p>
-        </app-docsectiontext>
-    </section>`
+    template: ` <app-docsectiontext>
+        <p>The <i>baseZIndex</i> is base zIndex value to use in layering. Its default value is 0.</p>
+    </app-docsectiontext>`
 })
-export class BaseZIndexDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-}
+export class BaseZIndexDoc {}

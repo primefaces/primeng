@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ColorDoc {
-
     code: Code = {
         basic: `<i class="pi pi-check" style="color: slateblue"></i>
 <i class="pi pi-times" style="color: green"></i>

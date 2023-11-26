@@ -5,7 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'multiple-column-sort-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>
@@ -30,13 +30,12 @@ import { ProductService } from '../../service/productservice';
                     </tr>
                 </ng-template>
             </p-table>
-        </div>                              
+        </div>
         <app-code [code]="code" selector="table-multiple-column-sort-demo" [extFiles]="extFiles"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultipleColumnSortDoc implements OnInit {
-
     products: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}

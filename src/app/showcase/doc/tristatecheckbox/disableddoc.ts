@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DisabledDoc {
-
     value!: string;
 
     code: Code = {

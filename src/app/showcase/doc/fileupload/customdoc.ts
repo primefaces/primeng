@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class CustomDoc {
-
     constructor(private messageService: MessageService) {}
 
     async customUploader(event) {

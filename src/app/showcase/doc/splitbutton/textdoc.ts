@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'text-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class TextDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

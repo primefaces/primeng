@@ -27,7 +27,6 @@ interface City {
     `
 })
 export class GroupDoc {
-
     groupedCities!: SelectItemGroup[];
 
     selectedCities!: City[];

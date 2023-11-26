@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class GroupDoc {
-
     groupedCities: SelectItemGroup[];
 
     selectedCity: string | undefined;

@@ -38,10 +38,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-buttons-demo"></app-code>
-   `
+    `
 })
 export class ButtonsDoc {
-
     value1: number = 20;
 
     value2: number = 10.5;

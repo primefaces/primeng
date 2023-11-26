@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

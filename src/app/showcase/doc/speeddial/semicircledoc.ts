@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'semi-circle-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>type</i> is defined as <i>semi-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
@@ -18,11 +18,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-semi-circle-demo"></app-code>
-   `,
+    `,
     providers: [MessageService]
 })
 export class SemiCircleDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

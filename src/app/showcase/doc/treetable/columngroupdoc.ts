@@ -48,7 +48,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ColumnGroupDoc implements OnInit {
-
     sales!: TreeNode[];
 
     ngOnInit() {

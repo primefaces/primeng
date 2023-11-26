@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'programmatic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ProgrammaticDoc implements OnInit {
-
     @ViewChild('sc') sc!: Scroller;
 
     items: string[] = [];

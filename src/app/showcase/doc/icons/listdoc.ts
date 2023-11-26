@@ -21,8 +21,6 @@ import { IconService } from '../../service/iconservice';
     `
 })
 export class ListDoc {
-
-
     icons: any[];
 
     filteredIcons: any[];

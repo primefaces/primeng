@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class DisabledDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

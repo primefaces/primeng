@@ -37,7 +37,6 @@ interface Column {
     `
 })
 export class ConditionalStyleDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

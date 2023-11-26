@@ -18,9 +18,7 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<p-chart type="line" [data]="data" ariaLabbel="Data"></p-chart>`
     };
-
 }

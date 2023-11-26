@@ -11,7 +11,7 @@ interface EventItem {
 
 @Component({
     selector: 'opposite-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Additional content at the other side of the line can be provided with the <i>opposite</i> property.</p>
         </app-docsectiontext>
@@ -29,7 +29,6 @@ interface EventItem {
     `
 })
 export class OppositeDoc {
-
     events: EventItem[];
 
     constructor() {

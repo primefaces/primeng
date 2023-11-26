@@ -78,7 +78,6 @@ import { Code } from '../../domain/code';
     ]
 })
 export class BasicDoc {
-    
     code: Code = {
         basic: `
 <div class="flex flex-column align-items-center gap-2">

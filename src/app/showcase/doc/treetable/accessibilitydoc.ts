@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
@@ -93,6 +93,4 @@ import { Component} from '@angular/core';
         </div>
     </app-docsectiontext>`
 })
-export class AccessibilityDoc {
-
-}
+export class AccessibilityDoc {}

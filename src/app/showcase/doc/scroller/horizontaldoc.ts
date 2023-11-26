@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Setting <i>orientation</i> to <i>horizontal</i> enables scrolling horizontally. In this case, the <i>itemSize</i> should refer to the width of an item.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HorizontalDoc {
-
     items!: string[];
 
     ngOnInit() {

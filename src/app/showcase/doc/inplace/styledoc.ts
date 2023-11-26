@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming</a> page.</p>
         </app-docsectiontext>
@@ -30,8 +30,6 @@ import { Component } from '@angular/core';
                 </tbody>
             </table>
         </div>
- `
+    `
 })
-export class StyleDoc {
- 
-}
+export class StyleDoc {}

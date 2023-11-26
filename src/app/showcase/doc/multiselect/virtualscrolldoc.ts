@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'virtual-scroll-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
@@ -30,7 +30,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VirtualScrollDoc {
-
     items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
 
     selectedItems!: any[];

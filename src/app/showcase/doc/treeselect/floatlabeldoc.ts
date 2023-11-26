@@ -18,7 +18,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class FloatLabelDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

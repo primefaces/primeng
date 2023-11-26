@@ -9,8 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-template-demo',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

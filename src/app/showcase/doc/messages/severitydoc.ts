@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>The <i>severity</i> option specifies the type of the message.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SeverityDoc implements OnInit {
-
     messages: Message[] | undefined;
 
     ngOnInit() {

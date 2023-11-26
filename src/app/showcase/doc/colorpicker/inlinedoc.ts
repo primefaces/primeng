@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class InlineDoc {
-
     color: string | undefined;
 
     code: Code = {

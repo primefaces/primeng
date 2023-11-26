@@ -29,7 +29,6 @@ import { Product } from '../../domain/product';
     `
 })
 export class DropIndicatorDoc {
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;

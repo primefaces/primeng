@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'tooltip-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Items display a tooltip on hover when a standalone <a href="#" [routerLink]="['/tooltip']">Tooltip</a> is present with a target that matches the items.</p>
         </app-docsectiontext>
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class TooltipDoc implements OnInit {
-
     tooltipItems: MenuItem[] | undefined;
 
     leftTooltipItems: MenuItem[] | undefined;

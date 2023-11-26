@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReadOnlyDoc {
-
     text: string = 'Always bet on Prime!';
 
     code: Code = {

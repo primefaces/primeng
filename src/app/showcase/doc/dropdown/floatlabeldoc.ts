@@ -22,7 +22,6 @@ interface City {
     `
 })
 export class FloatLabelDoc implements OnInit {
-
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

@@ -1,14 +1,37 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { AppConfig } from '../../domain/appconfig';
 import { Customer, Representative } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 import { NodeService } from '../../service/nodeservice';
+import Versions from '../../data/versions.json';
+import docsearch from '@docsearch/js';
+import { ListboxModule } from 'primeng/listbox';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ChipModule } from 'primeng/chip';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { SidebarModule } from 'primeng/sidebar';
+import { SliderModule } from 'primeng/slider';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TreeModule } from 'primeng/tree';
+import { AppNewsComponent } from '../../layout/news/app.news.component';
+import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 
 interface City {
     name: string;
@@ -17,15 +40,44 @@ interface City {
 
 @Component({
     selector: 'landing',
-    templateUrl: './landing.component.html'
+    standalone: true,
+    templateUrl: './landing.component.html',
+    imports: [
+        CommonModule,
+        NgOptimizedImage,
+        FormsModule,
+        SidebarModule,
+        InputSwitchModule,
+        ButtonModule,
+        RadioButtonModule,
+        InputNumberModule,
+        TabMenuModule,
+        ChartModule,
+        ProgressBarModule,
+        TreeModule,
+        ChipModule,
+        SelectButtonModule,
+        SliderModule,
+        BadgeModule,
+        CalendarModule,
+        TableModule,
+        DropdownModule,
+        ListboxModule,
+        RouterModule,
+        CheckboxModule,
+        AppNewsComponent,
+        AppTopBarComponent
+    ]
 })
-export class LandingComponent implements OnInit, OnDestroy {
+export class LandingComponent implements OnInit {
     @ViewChild('containerElement') containerElement: ElementRef;
 
     @ViewChild('dt') table: Table;
 
     @ViewChild('editor') editor: ElementRef;
 
+    versions: any[] = Versions;
+    
     menuActive: boolean = false;
 
     scrollListener: any;
@@ -36,15 +88,19 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     items: MenuItem[];
 
-    selectButtonOptions: SelectItem[];
+    selectButtonValue: SelectItem
+    
+    selectButtonOptions:SelectItem[]
 
     treeData: TreeNode[];
 
-    val1: number = 240;
+    value1: number = 240;
 
-    val2: number = 356;
+    value2: number = 356;
+    
+    radioValue: string = 'C';
 
-    selectedValue: string = 'C';
+    switchValue : boolean = true
 
     checked: boolean = true;
 
@@ -52,11 +108,11 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     rangeValues = [20, 80];
 
-    date1: Date;
-
-    date2: Date;
+    dateValue: Date;
 
     customers: Customer[];
+
+    isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
     selectedCustomers: Customer[];
 
@@ -109,6 +165,15 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     private window: Window;
 
+    get landingClass() {
+        return {
+            'landing': true,
+            'layout-dark': this.config.dark,
+            'layout-light': !this.config.dark,
+            'layout-news-active': this.app.newsActive && this.app.announcement
+        }
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -128,21 +193,24 @@ export class LandingComponent implements OnInit, OnDestroy {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
         this.config = this.configService.config;
+        this.configService.configUpdate$.subscribe(config => {
+            this.config = config
+        })
         this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
         this.configService.updateConfig({ ...this.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue' } });
 
         this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'Income',
-                    data: [40, 59, 40, 50, 56, 40, 70],
-                    fill: true,
-                    borderColor: '#03C4E8',
-                    tension: 0.4,
-                    backgroundColor: 'rgba(3, 196, 232, .2)'
-                }
-            ]
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [
+                    {
+                        label: 'Annual Income',
+                        data: [40, 59, 40, 50, 56],
+                        fill: true,
+                        borderColor: '#3b82f6',
+                        tension: 0.4,
+                        backgroundColor: 'rgba(59, 130, 246, .2)'
+                    }
+                ]
         };
 
         this.chartOptions = {
@@ -152,31 +220,26 @@ export class LandingComponent implements OnInit, OnDestroy {
                 }
             },
             scales: {
+              
                 y: {
-                    ticks: {
-                        display: false
-                    },
+                    beginAtZero: true,
+                  
                     min: 0,
-                    max: 100
-                },
-                x: {
-                    ticks: {
-                        display: false
-                    }
+                    max: 100,
+                
                 }
             }
         };
-
+        this.selectButtonValue =  { label: 'Styled', value: 1 },
         this.selectButtonOptions = [
-            { label: 'Prime', value: 1 },
-            { label: 'Angular', value: 2 },
-            { label: 'Themes', value: 3 }
-        ];
+            {label: 'Styled', value: 1 },
+            {label: 'Unstyled', value: 2 }
+        ]
 
         this.items = [
             { label: 'Home', icon: 'pi pi-fw pi-home' },
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+
         ];
 
         this.nodeService.getFiles().then((files) => (this.treeData = files));
@@ -234,7 +297,35 @@ export class LandingComponent implements OnInit, OnDestroy {
             { name: 'Paris', code: 'PRS' }
         ];
 
-        this.bindScrollListener();
+        if (isPlatformBrowser(this.platformId)) {
+            this.initDocSearch();
+        }
+    }
+
+    initDocSearch() {
+        docsearch({
+            appId: 'XG1L2MUWT9',
+            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
+            indexName: 'primeng',
+            container: '#docsearch',
+            transformItems: this.handleDocSearchTransformItems.bind(this)
+        });
+    }
+
+    handleDocSearchTransformItems(results) {
+        const valid = process.env.NODE_ENV !== 'production';
+        return results.map((result) => {
+            if (valid) {
+                const url = new URL(result.url);
+
+                url.protocol = this.window.location.protocol;
+                url.hostname = this.window.location.hostname;
+                url.port = this.window.location.port;
+                result.url = url.toString();
+            }
+
+            return result;
+        });
     }
 
     copyNpm() {
@@ -247,31 +338,6 @@ export class LandingComponent implements OnInit, OnDestroy {
 
     ngAfterViewInit() {
         this.cd.detectChanges();
-    }
-
-    ngOnDestroy() {
-        this.unbindScrollListener();
-    }
-
-    bindScrollListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.scrollListener) {
-                this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
-                    if (window.scrollY > 0) {
-                        this.containerElement.nativeElement.classList.add('landing-header-sticky');
-                    } else {
-                        this.containerElement.nativeElement.classList.remove('landing-header-sticky');
-                    }
-                });
-            }
-        }
-    }
-
-    unbindScrollListener() {
-        if (this.scrollListener) {
-            this.scrollListener();
-            this.scrollListener = null;
-        }
     }
 
     handleChange(event) {

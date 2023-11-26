@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-polar-area-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
         </app-docsectiontext>
@@ -12,10 +12,9 @@ import { Code } from '../../domain/code';
             <p-chart type="polarArea" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
-  `
+    `
 })
 export class PolarAreaDoc implements OnInit {
-
     data: any;
 
     options: any;

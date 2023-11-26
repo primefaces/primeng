@@ -40,8 +40,6 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </app-docsectiontext>
-   `
+    `
 })
-export class ColorsDoc {
-
-}
+export class ColorsDoc {}

@@ -30,7 +30,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc implements OnInit {
-
     countries: any[] | undefined;
 
     selectedCountry: string | undefined;

@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
         </div>
         <app-code [code]="code" selector="input-switch-preselection-demo"></app-code>
-  `
+    `
 })
 export class PreselectionDoc {
-
     checked: boolean = true;
 
     code: Code = {

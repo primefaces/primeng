@@ -34,7 +34,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LongContentDoc {
-
     visible: boolean = false;
 
     showDialog() {

@@ -9,8 +9,7 @@ interface Column {
 }
 @Component({
     selector: 'column-toggle-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
         <div class="card">

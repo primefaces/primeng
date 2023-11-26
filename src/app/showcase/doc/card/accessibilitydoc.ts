@@ -17,11 +17,9 @@ import { Code } from '../../domain/code';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<p-card role="region">
     Content
 </p-card>`
     };
-    
 }

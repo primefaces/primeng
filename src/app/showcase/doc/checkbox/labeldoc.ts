@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LabelDoc {
-
     selectedValues: string[] = [];
 
     code: Code = {

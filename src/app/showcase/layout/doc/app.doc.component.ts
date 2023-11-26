@@ -5,28 +5,27 @@ import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-doc',
-    template: `
-    <div class="doc-component">
+    template: ` <div class="doc-component">
         <ul class="doc-tabmenu" *ngIf="docs && apiDocs">
-            <li [ngClass]="{'doc-tabmenu-active': activeTab === 0}">
+            <li [ngClass]="{ 'doc-tabmenu-active': activeTab === 0 }">
                 <button type="button" (click)="activateTab(0)">FEATURES</button>
             </li>
-            <li *ngIf="apiDocs" [ngClass]="{'doc-tabmenu-active': activeTab === 1}" >
+            <li *ngIf="apiDocs" [ngClass]="{ 'doc-tabmenu-active': activeTab === 1 }">
                 <button type="button" (click)="activateTab(1)">API</button>
             </li>
         </ul>
         <div class="doc-tabpanels">
-            <div [ngClass]="{'hidden': activeTab === 1}" class="doc-tabpanel">
+            <div [ngClass]="{ hidden: activeTab === 1 }" class="doc-tabpanel">
                 <div class="doc-main">
                     <div class="doc-intro">
-                        <h1>{{header}}</h1>
-                        <p>{{description}}</p>
+                        <h1>{{ header }}</h1>
+                        <p>{{ description }}</p>
                     </div>
                     <app-docsection [docs]="docs"></app-docsection>
                 </div>
                 <app-docsection-nav [docs]="docs"></app-docsection-nav>
             </div>
-            <div [ngClass]="{'hidden': activeTab === 0}">
+            <div [ngClass]="{ hidden: activeTab === 0 }">
                 <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel"></app-docapisection>
             </div>
         </div>

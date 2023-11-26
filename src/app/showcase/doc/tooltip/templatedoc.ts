@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <input type="text" pInputText [pTooltip]="tooltipContent" placeholder="hover to display tooltip">

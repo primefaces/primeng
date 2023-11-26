@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-sorting-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortField</i> properties from a custom UI.</p>
         </app-docsectiontext>
@@ -47,7 +47,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class SortingDoc {
-
     sortOptions!: SelectItem[];
 
     sortOrder!: number;

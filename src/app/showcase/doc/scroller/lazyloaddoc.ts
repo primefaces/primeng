@@ -7,7 +7,7 @@ interface LazyEvent {
 }
 @Component({
     selector: 'lazy-load-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets where instead of loading the entire data, small chunks of data are loaded on demand by invoking onLazyLoad callback everytime scrolling requires a new chunk. To implement lazy loading,
@@ -27,7 +27,6 @@ interface LazyEvent {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc {
-
     items!: string[];
 
     lazyLoading: boolean = true;

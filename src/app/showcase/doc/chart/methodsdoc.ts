@@ -33,6 +33,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class MethodsDoc {
-  
-}
+export class MethodsDoc {}

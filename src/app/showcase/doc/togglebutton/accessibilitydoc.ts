@@ -43,7 +43,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<span id="rememberme">Remember Me</span>
 <p-toggleButton ariaLabelledBy="rememberme"></p-toggleButton>

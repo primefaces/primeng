@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DocumentDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

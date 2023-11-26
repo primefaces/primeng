@@ -16,7 +16,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class BasicDoc implements OnInit {
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}

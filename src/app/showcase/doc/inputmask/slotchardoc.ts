@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SlotCharDoc {
-
     value: string | undefined;
 
     code: Code = {

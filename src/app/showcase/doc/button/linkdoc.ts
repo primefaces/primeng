@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LinkDoc {
-
     code: Code = {
         basic: `
 <p-button label="Submit" [link]="true"></p-button>`,

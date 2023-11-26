@@ -24,10 +24,9 @@ interface Item {
             </p-virtualScroller>
         </div>
         <app-code [code]="code" selector="virtual-scroller-basic-demo"></app-code>
-   `
+    `
 })
 export class BasicDoc implements OnInit {
-
     items: Item[] = [];
 
     ngOnInit(): void {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-template-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-chip>

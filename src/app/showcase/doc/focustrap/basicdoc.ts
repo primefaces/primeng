@@ -40,7 +40,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     selectedCity: string | undefined;
 
     cities = [

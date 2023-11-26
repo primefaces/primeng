@@ -50,7 +50,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ContentDoc {
-
     code: Code = {
         basic: `
 <p>

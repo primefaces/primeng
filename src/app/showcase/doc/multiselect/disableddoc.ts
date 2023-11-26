@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class DisabledDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

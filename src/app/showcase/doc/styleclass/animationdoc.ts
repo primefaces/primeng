@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'animation-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Classes to apply during enter and leave animations are specified using the <i>enterClass</i>, <i>enterActiveClass</i>, <i>enterToClass</i>, <i>leaveClass</i>, <i>leaveActiveClass</i>,<i>leaveToClass</i>properties. In addition in case
@@ -21,10 +21,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="style-class-animation-demo"></app-code>
-   `
+    `
 })
 export class AnimationDoc {
-
     code: Code = {
         basic: `
 <div>

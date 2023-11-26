@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class AnimationDoc implements OnInit {
-
     messages: Message[] | undefined;
 
     ngOnInit() {

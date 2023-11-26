@@ -25,7 +25,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     countries: any[] | undefined;
 
     selectedCity: any;

@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class InteractiveDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     activeIndex: number = 0;

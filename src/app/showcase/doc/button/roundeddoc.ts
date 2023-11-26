@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class RoundedDoc {
-
     code: Code = {
         basic: `
 <p-button label="Primary" [rounded]="true"></p-button>

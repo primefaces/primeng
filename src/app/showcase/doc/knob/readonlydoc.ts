@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReadonlyDoc {
-
     value: number = 50;
 
     code: Code = {

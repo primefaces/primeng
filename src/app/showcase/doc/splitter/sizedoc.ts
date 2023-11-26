@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SizeDoc {
-
     code: Code = {
         basic: `
 <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-5">

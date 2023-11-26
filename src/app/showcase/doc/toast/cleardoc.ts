@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'clear-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Clicking the close icon on the toast, removes it manually. Same can also be achieved programmatically using the clear function of the <i>messageService</i>. Calling it without any arguments, removes all displayed messages whereas
@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class ClearDoc {
-
     constructor(private messageService: MessageService) {}
 
     show() {

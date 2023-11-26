@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'image-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Any content such as an image can be placed inside an Inplace.</p>
         </app-docsectiontext>
@@ -24,7 +24,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ImageDoc {
-
     code: Code = {
         basic: `
 <p-inplace>

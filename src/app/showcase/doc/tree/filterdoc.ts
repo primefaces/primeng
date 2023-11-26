@@ -21,7 +21,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class FilterDoc implements OnInit {
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}

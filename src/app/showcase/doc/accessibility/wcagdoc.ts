@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'wcag-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" alt="WCAG Website">WCAG</a> refers to <strong>Web Content Accessibility Guideline</strong>, a standard managed by the WAI (Web Accessibility Initiative) of W3C (World Wide
@@ -15,6 +15,4 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
     `
 })
-export class WCAGDoc {
-
-}
+export class WCAGDoc {}

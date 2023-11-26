@@ -3,8 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The cascadeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.
@@ -15,7 +14,6 @@ import { Code } from '../../domain/code';
                 <i>aria-selected</i> and <i>aria-expanded</i> attributes. The container element of a treenode has the <i>group</i> role. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are calculated implicitly and
                 added to each treeitem.
             </p>
-
         </app-docsectiontext>
 
         <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -116,8 +114,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>`
+        </div>`
 })
 export class AccessibilityDoc {
     @Input() id: string;

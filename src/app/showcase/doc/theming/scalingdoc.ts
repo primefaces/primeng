@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ScalingDoc {
-
     code: Code = {
         basic: `html {
     font-size: 16px;

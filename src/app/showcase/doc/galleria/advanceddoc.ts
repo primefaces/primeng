@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
@@ -50,7 +50,6 @@ import { PhotoService } from '../../service/photoservice';
     `
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
-
     images: any[] | undefined;
 
     showThumbnails: boolean | undefined;

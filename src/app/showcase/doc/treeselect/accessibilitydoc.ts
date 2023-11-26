@@ -180,7 +180,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<span id="dd1">Options</span>
 <p-treeSelect ariaLabelledBy="dd1"></p-treeSelect>

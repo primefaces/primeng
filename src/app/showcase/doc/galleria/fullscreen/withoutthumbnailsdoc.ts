@@ -30,7 +30,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class WithoutThumbnailsDoc implements OnInit {
-
     displayBasic: boolean | undefined;
 
     images: any[] | undefined;

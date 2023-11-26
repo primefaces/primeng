@@ -28,7 +28,6 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class AdvancedDoc {
-
     uploadedFiles: any[] = [];
 
     constructor(private messageService: MessageService) {}

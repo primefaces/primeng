@@ -26,6 +26,4 @@ import { Component } from '@angular/core';
         </app-docsectiontext>
     `
 })
-export class AccessibilityDoc {
-
-}
+export class AccessibilityDoc {}

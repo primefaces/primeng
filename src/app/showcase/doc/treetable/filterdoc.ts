@@ -58,11 +58,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
-   `
+    `
 })
 export class FilterDoc implements OnInit {
-    
-
     filterMode = 'lenient';
 
     filterModes = [

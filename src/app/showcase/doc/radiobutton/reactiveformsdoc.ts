@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     formGroup!: FormGroup;
 
     categories: any[] = [

@@ -3,7 +3,7 @@ import { Code } from '../../../domain/code';
 
 @Component({
     selector: 'ngx-translate-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>i18n API can easily be integrated with 3rd party libraries such as ngx-translate that even allows dynamically changing the language in the application.</p>
         </app-docsectiontext>
@@ -11,7 +11,6 @@ import { Code } from '../../../domain/code';
     `
 })
 export class NgxTranslateDoc {
-
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';

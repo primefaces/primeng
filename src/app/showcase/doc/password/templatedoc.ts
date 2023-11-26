@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
         </app-docsectiontext>
@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     value!: string;
 
     code: Code = {

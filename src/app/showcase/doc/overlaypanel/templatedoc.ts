@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Content of the OverlayPanel is defined by <i>content</i> template.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-overlayPanel #op>

@@ -38,8 +38,6 @@ interface Column {
     `
 })
 export class SortMultipleColumnDoc implements OnInit {
- 
-
     files!: TreeNode[];
 
     cols!: Column[];

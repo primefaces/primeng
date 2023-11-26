@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -34,10 +34,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-resize-fit-demo"></app-code>
-  `
+    `
 })
 export class ResizeFitDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

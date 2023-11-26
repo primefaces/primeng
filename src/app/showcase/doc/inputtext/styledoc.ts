@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
-    template: ` 
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -21,6 +21,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class StyleDoc {
-
-}
+export class StyleDoc {}

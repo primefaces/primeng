@@ -22,7 +22,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class QuarterCircleDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

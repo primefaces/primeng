@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'usage-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>To use dynamic dialog, a reference should be declared as <i>DynamicDialogRef</i> after the <i>DialogService</i> injected into the component.</p>
         </app-docsectiontext>
@@ -13,7 +13,6 @@ import { Code } from '../../domain/code';
     providers: [DialogService]
 })
 export class UsageDoc {
-
     ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}

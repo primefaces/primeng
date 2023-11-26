@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ButtonDoc {
-
     code: Code = {
         basic: `
 <p-button label="Emails" badge="8" styleClass="mr-2"></p-button>`,

@@ -106,7 +106,6 @@ import { Code } from '../../domain/code';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         html: `<span id="lb">Options</span>        
 <p-pickList ariaLabelledBy="lb"></p-pickList>

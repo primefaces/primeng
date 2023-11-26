@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'navigation-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Navigation is specified using url property for external links and with <i>routerLink</i> for internal ones. If a menuitem has an active route, <i>p-menuitem-link-active</i> style class is added as an indicator. Active route link can
@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class NavigationDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

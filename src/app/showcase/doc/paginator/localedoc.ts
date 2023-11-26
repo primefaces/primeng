@@ -32,7 +32,6 @@ interface PageEvent {
     `
 })
 export class LocaleDoc {
-
     first: number = 0;
 
     rows: number = 10;

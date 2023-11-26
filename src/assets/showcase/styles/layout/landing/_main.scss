@@ -1,14 +1,7 @@
 .landing {
-    background: var(--home-bg);
+    background-color: var(--home-bg);
     scroll-behavior: smooth;
-
-    .landing-intro {
-        background: var(--home-intro-bg);
-        min-height: 100vh;
-        display: flex;
-        padding-top: 5rem;
-        flex-direction: column;
-    }
+    padding-top: 4rem;
 
     .box {
         border: 1px solid var(--home-border-color);
@@ -17,7 +10,7 @@
     }
 
     .linkbox {
-        transition: background-color 0.3s;
+        transition: background-color .2s, border-color .2s;
         display: inline-flex;
         align-items: center;
         color: var(--home-linkbox-text-color);
@@ -26,6 +19,8 @@
         background-color: var(--home-linkbox-bg);
         border-radius: 10px;
         cursor: pointer;
+        
+        @include focus-visible();
 
         &:hover {
             background: var(--home-linkbox-hover-bg);
@@ -64,6 +59,10 @@
         border-bottom: 0 none;
         overflow: hidden;
     }
+
+    &.layout-news-active {
+        padding-top: 6rem;
+    }
 }
 
 .text-secondary {
@@ -72,12 +71,6 @@
 
 .hover\:surface-hover:hover {
     background-color: var(--surface-hover);
-}
-
-.users-container {
-    max-width: 1250px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
 }
 
 .landing-footer-container {
@@ -139,51 +132,5 @@
 
     100% {
         transform: translateX(calc(-100% - 3rem));
-    }
-}
-
-.landing-users {
-    .section-detail {
-        max-width: 1250px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-
-    .users-container {
-        max-width: 1250px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-
-        .marquee-wrapper {
-            user-select: none;
-            gap: 3rem;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-
-            .marquee {
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                gap: 3rem;
-                min-width: 100%;
-                animation: scroll 30s linear infinite;
-
-                > div {
-                    max-width: clamp(10rem, 1rem + 28vmin, 20rem);
-                    aspect-ratio: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 8rem;
-                }
-
-                &.marquee-reverse {
-                    animation-direction: reverse;
-                    animation-delay: calc(30s / -2);
-                }
-            }
-        }
     }
 }

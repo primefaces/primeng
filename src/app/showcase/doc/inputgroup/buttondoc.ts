@@ -25,10 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-button-demo"></app-code>
-  `
+    `
 })
 export class ButtonDoc {
-
     code: Code = {
         basic: `
 <div class="p-inputgroup">

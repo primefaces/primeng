@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     formGroup: FormGroup | undefined;
 
     ngOnInit() {

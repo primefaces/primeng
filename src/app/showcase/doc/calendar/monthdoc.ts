@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class MonthDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

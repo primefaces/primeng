@@ -12,10 +12,9 @@ import { Code } from '../../domain/code';
             <p-megaMenu [model]="items"></p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-basic-demo"></app-code>
-   `
+    `
 })
 export class BasicDoc implements OnInit {
-
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {

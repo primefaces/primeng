@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ResponsiveDoc {
-
     visible: boolean = false;
 
     showDialog() {

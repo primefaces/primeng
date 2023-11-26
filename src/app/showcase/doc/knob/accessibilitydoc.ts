@@ -78,7 +78,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-    
     code: Code = {
         basic: `<span id="label_number">Number</span>
 <p-knob ariaLabelledBy="label_number"></p-knob>

@@ -38,7 +38,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ControlledDoc {
-
     activeIndex: number | undefined;
 
     code: Code = {

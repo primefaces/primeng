@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i> in addition to the default theme color.</p>
         </app-docsectiontext>
@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class SeverityDoc {
-
     code: Code = {
         basic: `
 <p-tag severity="success" value="Success"></p-tag>`,

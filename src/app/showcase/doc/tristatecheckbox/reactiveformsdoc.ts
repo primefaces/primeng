@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>TriStateCheckbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     formGroup!: FormGroup;
 
     ngOnInit() {

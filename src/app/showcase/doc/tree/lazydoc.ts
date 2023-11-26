@@ -17,7 +17,6 @@ import { NodeService } from '../../service/nodeservice';
     providers: [MessageService]
 })
 export class LazyDoc implements OnInit {
-
     loading: boolean = false;
 
     files!: TreeNode[];

@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     values: string[] | undefined;
 
     code: Code = {

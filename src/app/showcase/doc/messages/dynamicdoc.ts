@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DynamicDoc {
-
     messages: Message[] | undefined;
 
     addMessages() {

@@ -34,7 +34,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DisabledDoc {
-
     code: Code = {
         basic: `
 <p-tabView>

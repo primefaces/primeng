@@ -14,11 +14,10 @@ import { Code } from '../../domain/code';
             <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
-   `,
+    `,
     providers: [TerminalService]
 })
 export class BasicDoc implements OnDestroy {
-
     subscription: Subscription;
 
     constructor(private terminalService: TerminalService) {

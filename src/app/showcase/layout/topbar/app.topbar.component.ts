@@ -1,24 +1,33 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
 import { Subscription } from 'rxjs';
 import Versions from '../../data/versions.json';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
+import { FormsModule } from '@angular/forms';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: 'app-topbar',
+    standalone: true,
     templateUrl: './app.topbar.component.html',
     animations: [
         trigger('overlayMenuAnimation', [
             transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' }))]),
             transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])
         ])
-    ]
+    ],
+    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule]
 })
 export class AppTopBarComponent implements OnInit, OnDestroy {
+
+    @Input() showConfigurator: boolean = true;
+
+    @Input() showMenuButton: boolean = true;
+
     @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('topbarMenu') topbarMenu: ElementRef;
@@ -107,10 +116,19 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
-        this.activeMenuIndex = null;
-        event.preventDefault();
+    onDarkModeToggle(event) {
+        let newTheme = null;
+        let {theme, dark} = this.config
+        dark = !dark;
+
+        if (!dark) {
+            newTheme = theme.replace('dark', 'light');
+        } else {
+            if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
+            else newTheme = 'lara-dark-teal'; //fallback
+        }
+
+        this.configService.changeTheme(event, newTheme, dark)
     }
 
     bindOutsideClickListener() {

@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class MaskDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

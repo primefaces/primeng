@@ -37,7 +37,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DelayDoc {
-
     items!: string[];
 
     ngOnInit() {

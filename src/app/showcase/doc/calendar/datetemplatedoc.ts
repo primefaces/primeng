@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DateTemplateDoc {
-
     date: Date[] | undefined;
 
     code: Code = {

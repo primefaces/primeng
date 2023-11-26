@@ -49,7 +49,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<span id="chkbox1">Remember Me</span>
 <p-triStateCheckbox ariaLabelledBy="chkbox1"></p-triStateCheckbox>

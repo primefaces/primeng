@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class DisabledDoc {
-
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

@@ -35,7 +35,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class InlineDoc {
-
     code: Code = {
         basic: `
 <div class="flex justify-content-center gap-2">

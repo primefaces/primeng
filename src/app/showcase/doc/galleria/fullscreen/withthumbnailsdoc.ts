@@ -25,7 +25,6 @@ import { PhotoService } from '../../../service/photoservice';
     `
 })
 export class WithThumbnailsDoc implements OnInit {
-
     displayBasic: boolean | undefined;
 
     images: any[] | undefined;

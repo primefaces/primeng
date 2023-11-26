@@ -54,10 +54,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-lazy-load-demo"></app-code>
-   `
+    `
 })
 export class LazyLoadDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

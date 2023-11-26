@@ -9,8 +9,7 @@ interface Column {
 }
 @Component({
     selector: 'dynamic-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>
         <div class="card">

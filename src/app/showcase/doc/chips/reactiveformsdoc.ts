@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Chips can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
@@ -14,10 +14,9 @@ import { Code } from '../../domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="chips-reactive-forms-demo"></app-code>
-   `
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     formGroup: FormGroup | undefined;
 
     ngOnInit() {

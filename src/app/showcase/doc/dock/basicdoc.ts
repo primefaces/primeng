@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dock-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
@@ -27,7 +27,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     position: string = 'top';

@@ -171,7 +171,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<span id="dd1">Options</span>
 <p-dropdown ariaLabelledBy="dd1"></p-dropdown>

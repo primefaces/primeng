@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />`,

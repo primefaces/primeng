@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,7 +10,7 @@ interface Column {
 
 @Component({
     selector: 'sort-single-column-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Sorting on a column is enabled by adding the <i>ttSortableColumn</i> property.</p>
         </app-docsectiontext>
@@ -38,7 +38,6 @@ interface Column {
     `
 })
 export class SortSingleColumnDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Panels are displayed as stacked by setting the <i>layout</i> to <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VerticalDoc {
-
     code: Code = {
         basic: `
 <p-splitter [style]="{ height: '300px' }" styleClass="mb-5" layout="vertical">

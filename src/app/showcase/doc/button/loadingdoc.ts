@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-loading-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Busy state is controlled with the <i>loading</i> property.</p>
         </app-docsectiontext>
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class LoadingDoc {
-
     loading: boolean = false;
 
     constructor(private readonly cdr: ChangeDetectorRef) {}

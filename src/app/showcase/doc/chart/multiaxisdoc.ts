@@ -12,10 +12,9 @@ import { Code } from '../../domain/code';
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
-   `
+    `
 })
 export class MultiAxisDoc implements OnInit {
-
     data: any;
 
     options: any;

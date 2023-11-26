@@ -25,6 +25,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class TemplatesDoc {
-
-}
+export class TemplatesDoc {}

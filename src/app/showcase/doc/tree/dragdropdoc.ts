@@ -17,7 +17,6 @@ import { NodeService } from '../../service/nodeservice';
     providers: [TreeDragDropService]
 })
 export class DragDropDoc implements OnInit {
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}

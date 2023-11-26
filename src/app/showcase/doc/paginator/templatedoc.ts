@@ -10,7 +10,7 @@ interface PageEvent {
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
         </app-docsectiontext>
@@ -62,7 +62,6 @@ interface PageEvent {
     `
 })
 export class TemplateDoc {
-
     first1: number = 0;
 
     rows1: number = 10;

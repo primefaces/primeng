@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'rounded-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Rounded buttons have a circular border radius.</p>
         </app-docsectiontext>
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class RoundedDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

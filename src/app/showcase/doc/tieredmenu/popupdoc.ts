@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'popup-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
@@ -16,7 +16,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PopupDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

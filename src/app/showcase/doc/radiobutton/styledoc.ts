@@ -48,6 +48,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class StyleDoc {
-  
-}
+export class StyleDoc {}

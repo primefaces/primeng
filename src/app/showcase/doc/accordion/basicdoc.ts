@@ -33,7 +33,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     code: Code = {
         basic: `
 <p-accordion [activeIndex]="0">

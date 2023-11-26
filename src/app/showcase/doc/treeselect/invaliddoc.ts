@@ -4,7 +4,7 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'invalid-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -15,7 +15,6 @@ import { NodeService } from '../../service/nodeservice';
     `
 })
 export class InvalidDoc {
-
     nodes!: any[];
 
     selectedNodes: any;

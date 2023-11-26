@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>SpeedDial sample with an outlined button, custom icons and <i>transitionDelay</i>.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class CustomDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}

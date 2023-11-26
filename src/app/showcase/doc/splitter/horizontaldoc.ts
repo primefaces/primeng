@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Splitter requires two SplitterPanel components as children which are displayed horizontally by default.</p>
         </app-docsectiontext>
@@ -18,10 +18,9 @@ import { Code } from '../../domain/code';
             </p-splitter>
         </div>
         <app-code [code]="code" selector="splitter-horizontal-demo"></app-code>
-   `
+    `
 })
 export class HorizontalDoc {
-
     code: Code = {
         basic: `
 <p-splitter [style]="{ height: '300px' }" styleClass="mb-5">

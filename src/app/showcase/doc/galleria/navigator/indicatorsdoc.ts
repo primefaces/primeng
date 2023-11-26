@@ -33,7 +33,6 @@ import { PhotoService } from '../../../service/photoservice';
     providers: [PhotoService]
 })
 export class IndicatorsDoc implements OnInit {
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [

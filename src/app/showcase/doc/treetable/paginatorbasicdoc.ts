@@ -9,8 +9,7 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
-    template: `
-        <div class="card">
+    template: ` <div class="card">
             <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>

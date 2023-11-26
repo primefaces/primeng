@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-content-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class CustomContentDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {

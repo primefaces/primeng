@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'wai-aria-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 ARIA refers to "Accessible Rich Internet Applications" is a suite to fill the gap where semantic HTML is inadequate. These cases are mainly related to rich UI components/widgets. Although browser support for rich UI components such as
@@ -39,7 +39,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class WAIARIADoc {
-
     code1: Code = {
         basic: `<input type="checkbox" value="Prime" name="ui" checked/>`
     };

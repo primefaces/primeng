@@ -18,7 +18,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc implements OnInit {
-
     basicData: any;
 
     basicOptions: any;

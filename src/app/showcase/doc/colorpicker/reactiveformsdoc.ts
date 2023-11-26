@@ -14,10 +14,9 @@ import { Code } from '../../domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="color-picker-reactive-forms-demo"></app-code>
-  `
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-
     formGroup: FormGroup | undefined;
 
     ngOnInit() {

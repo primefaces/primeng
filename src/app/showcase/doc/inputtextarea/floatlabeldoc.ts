@@ -17,7 +17,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FloatlabelDoc {
-
     code: Code = {
         basic: `
 <span class="p-float-label">

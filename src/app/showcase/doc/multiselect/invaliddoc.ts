@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'invalid-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ interface City {
     `
 })
 export class InvalidDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

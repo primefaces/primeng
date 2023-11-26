@@ -6,7 +6,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'lazy-load-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded on demand. To implement lazy loading, enable the <i>lazy</i> property and implement <i>onLazyLoad</i> callback to
@@ -52,7 +52,6 @@ import { ProductService } from '../../service/productservice';
     `
 })
 export class LazyLoadDoc implements OnInit {
-
     products!: Product[];
 
     virtualProducts!: Product[];

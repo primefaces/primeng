@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class SeverityDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

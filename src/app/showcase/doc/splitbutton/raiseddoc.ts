@@ -4,7 +4,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'raised-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Raised buttons display a shadow to indicate elevation.</p>
         </app-docsectiontext>
@@ -23,7 +23,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class RaisedDoc {
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-directive-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Button can also be used as directive using <i>pButton</i>. In contrary of p-button component, pButton directive does not utilize ripple effect, use <i>pRipple</i> directive to enable ripple.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DirectiveDoc {
-
     code: Code = {
         basic: `
 <button pButton pRipple label="Submit" class="p-button-success"></button>`,

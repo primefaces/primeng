@@ -39,7 +39,6 @@ import { Code } from '../../domain/code';
     providers: [ConfirmationService, MessageService]
 })
 export class TemplateDoc {
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm1() {

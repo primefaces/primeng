@@ -33,10 +33,9 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-vertical-demo" [extFiles]="extFiles"></app-code>
-   `
+    `
 })
 export class VerticalDoc implements OnInit {
-
     products: Product[] | undefined;
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}

@@ -46,7 +46,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class TemplateDoc {
-
     code: Code = {
         basic: `
 <p-tabView styleClass="tabview-custom">

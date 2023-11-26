@@ -32,7 +32,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ScopedCSSDoc {
-
     code: Code = {
         basic: `
 <p-panel header="Scoped Panel">

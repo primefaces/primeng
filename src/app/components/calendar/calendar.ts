@@ -953,7 +953,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 Promise.resolve(null).then(() => this.updateFocus());
                 this.isMonthNavigate = false;
             } else {
-                if (!this.focus) {
+                if (!this.focus && !this.inline) {
                     this.initFocusableCell();
                 }
             }
@@ -1195,10 +1195,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
-            if (!this.disabled) {
+            if (!this.disabled && !this.inline) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
-                    this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                    if (this.contentViewChild && this.contentViewChild.nativeElement) {
+                        this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Buttons can also placed vertically by setting <i>buttonLayout</i> as <i>vertical</i>.</p>
         </app-docsectiontext>
@@ -25,7 +25,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VerticalDoc {
-
     value1: number = 50;
 
     code: Code = {

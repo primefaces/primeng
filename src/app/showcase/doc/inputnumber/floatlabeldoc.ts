@@ -14,10 +14,9 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="input-number-float-label-demo"></app-code>
- `
+    `
 })
 export class FloatlabelDoc {
-
     value1!: number;
 
     code: Code = {

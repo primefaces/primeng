@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class VerticalDoc implements OnInit {
-
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {

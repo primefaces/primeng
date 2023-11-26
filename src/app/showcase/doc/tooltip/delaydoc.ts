@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'delay-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Adding delays to the show and hide events are defined with <i>showDelay</i> and <i>hideDelay</i> options respectively.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DelayDoc {
-
     code: Code = {
         basic: `
 <input type="text" pInputText pTooltip="Enter your username" showDelay="1000" hideDelay="1000" placeholder="hover to display tooltip">`,

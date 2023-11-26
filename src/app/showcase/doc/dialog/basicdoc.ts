@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-basic-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property. Dialogs are <i>draggable</i> and <i>resizable</i> by default.</p>
         </app-docsectiontext>
@@ -20,7 +20,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-
     visible: boolean = false;
 
     showDialog() {

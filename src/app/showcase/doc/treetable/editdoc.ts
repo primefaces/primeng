@@ -42,7 +42,6 @@ interface Column {
     `
 })
 export class EditDoc implements OnInit {
-
     files!: TreeNode[];
 
     cols!: Column[];

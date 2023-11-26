@@ -38,7 +38,6 @@ interface EventItem {
     `
 })
 export class TemplateDoc {
-
     events: EventItem[];
 
     constructor() {

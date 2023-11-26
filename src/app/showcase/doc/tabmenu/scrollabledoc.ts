@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ScrollableDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;

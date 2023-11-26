@@ -8,7 +8,7 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
@@ -16,10 +16,9 @@ interface City {
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
-   `
+    `
 })
 export class FilterDoc implements OnInit {
-
     cities!: City[];
 
     selectedCities!: City[];

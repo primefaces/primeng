@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DynamicDoc {
-
     selectedCategories: any[] = [];
 
     categories: any[] = [

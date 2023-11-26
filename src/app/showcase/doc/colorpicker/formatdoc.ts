@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class FormatDoc {
-
     color: string = '#6466f1';
 
     colorRGB: any = { r: 100, g: 102, b: 241 };

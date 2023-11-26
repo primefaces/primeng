@@ -29,10 +29,9 @@ import { Product } from '../../domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-basic-demo" [extFiles]="extFiles"></app-code>
-   `
+    `
 })
 export class BasicDoc implements OnInit {
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;

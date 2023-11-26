@@ -21,6 +21,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class AvatarGroupStyleDoc {
-   
-}
+export class AvatarGroupStyleDoc {}

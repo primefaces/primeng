@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template variable refers to an option in the options collection.</p>
         </app-docsectiontext>
@@ -15,10 +15,9 @@ import { Code } from '../../domain/code';
             </p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
-   `
+    `
 })
 export class TemplateDoc {
-
     value: any;
 
     justifyOptions: any[] = [

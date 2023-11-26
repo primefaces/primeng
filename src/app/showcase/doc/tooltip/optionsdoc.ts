@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class OptionsDoc {
-
     tooltipOptions = {
         showDelay: 150,
         autoHide: false,

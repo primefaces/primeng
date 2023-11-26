@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'fieldset-toggleable-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Content of the fieldset can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ToggleableDoc {
-
     code: Code = {
         basic: `
 <p-fieldset legend="Header" [toggleable]="true">

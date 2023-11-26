@@ -130,7 +130,6 @@ import { Code } from '../../domain/code';
         </div>`
 })
 export class AccessibilityDoc {
-
     code: Code = {
         basic: `<p-splitButton 
     [buttonProps]="{'aria-label': 'Default Action'}" 

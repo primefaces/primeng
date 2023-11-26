@@ -11,10 +11,9 @@ import { Code } from '../../domain/code';
             <p-knob [(ngModel)]="value" [size]="200"></p-knob>
         </div>
         <app-code [code]="code" selector="knob-size-demo"></app-code>
- `
+    `
 })
 export class SizeDoc {
-
     value: number = 60;
 
     code: Code = {

@@ -14,8 +14,6 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <img alt="Architecture" src="https://primefaces.org/cdn/primeng/images/architecture.jpg" class="w-full mb-5" />
-  `
+    `
 })
-export class ArchitectureDoc {
-
-}
+export class ArchitectureDoc {}

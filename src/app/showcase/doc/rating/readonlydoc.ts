@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'readonly-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>When <i>readOnly</i> present, value cannot be edited.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class ReadOnlyDoc {
-
     value: number = 5;
 
     code: Code = {

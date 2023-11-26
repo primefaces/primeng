@@ -16,10 +16,9 @@ interface City {
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
- `
+    `
 })
 export class EditableDoc implements OnInit {
-
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

@@ -8,8 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'disabled-doc',
-    template: `
-        <app-docsectiontext>
+    template: ` <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

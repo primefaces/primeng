@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reg-exp-demo',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>In addition to the presets, a regular expression can be configured for customization.</p>
         </app-docsectiontext>
@@ -21,7 +21,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class RegexDoc {
-
     blockSpace: RegExp = /[^\s]/;
 
     blockChars: RegExp = /^[^<>*!]+$/;

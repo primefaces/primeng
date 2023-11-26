@@ -30,10 +30,9 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-multiple-demo"></app-code>
-   `
+    `
 })
 export class MultipleDoc {
-
     code: Code = {
         basic: `
 <p-accordion [multiple]="true" [activeIndex]="[0]">

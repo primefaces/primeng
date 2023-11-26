@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dynamic-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>
         </app-docsectiontext>
@@ -19,7 +19,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class DynamicDoc implements OnInit {
-
     selectedCategory: any = null;
 
     categories: any[] = [

@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class PreviewImageSourceDoc {
-
     code: Code = {
         basic: `
 <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg" alt="Image" width="250" [preview]="true"></p-image>`,

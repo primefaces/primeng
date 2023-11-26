@@ -3,7 +3,7 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'step-doc',
-    template: ` 
+    template: `
         <app-docsectiontext>
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
@@ -14,7 +14,6 @@ import { Code } from '../../domain/code';
     `
 })
 export class StepDoc {
-
     value!: number;
 
     code: Code = {
