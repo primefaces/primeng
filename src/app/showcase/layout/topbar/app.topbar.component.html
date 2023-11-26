@@ -1,4 +1,4 @@
-<div class="layout-topbar" #containerElement>
+<div class="layout-topbar">
     <div class="layout-topbar-inner">
         <div class="layout-topbar-logo-container">
             <a href="/" class="layout-topbar-logo">
@@ -44,12 +44,12 @@
                 </a>
             </li>
             <li>
-                <button type="button" class="flex flex-shrink-0 px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary" (click)="onDarkModeToggle($event)">
-                    <i class="pi " [ngClass]="{'pi-moon': config.dark, 'pi-sun': !config.dark}"></i>
+                <button type="button" class="flex flex-shrink-0 px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary" (click)="toggleDarkMode()">
+                    <i class="pi " [ngClass]="{'pi-moon': isDarkMode, 'pi-sun': !isDarkMode}"></i>
                 </button>
             </li>
             <li *ngIf="showConfigurator" class="relative">
-                <button type="button" class="p-button flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center transition-all transition-duration-300 min-w-0" (click)="onConfigButtonClick($event)">
+                <button type="button" class="p-button flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center transition-all transition-duration-300 min-w-0" (click)="showConfig()">
                     <i class="pi pi-palette"></i>
                 </button>
             </li>
@@ -73,7 +73,7 @@
                 <button 
                     type="button" 
                     class="flex flex-shrink-0 px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary menu-button" 
-                    (click)="onMenuButtonClick($event)" 
+                    (click)="showMenu()" 
                     aria-haspopup 
                     aria-label="Menu"
                 >

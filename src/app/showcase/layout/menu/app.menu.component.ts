@@ -1,13 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
-import { default as MenuData } from 'src/assets/showcase/data/menu.json';
-import { AppConfig } from '../../domain/appconfig';
-import { AppConfigService } from '../../service/appconfigservice';
+import { Component, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
+import { default as MenuData } from 'src/assets/showcase/data/menu.json';
+import { AppConfigService } from '../../service/appconfigservice';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
 export interface MenuItem {
@@ -29,24 +27,20 @@ export interface MenuItem {
     </aside>`,
     host: {
         class: 'layout-sidebar',
-        '[class.active]': 'active',
+        '[class.active]': 'isActive'
     },
     standalone: true,
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
 export class AppMenuComponent {
-    @Input() active: boolean;
-
     menu!: MenuItem[];
 
-    config!: AppConfig;
-
-    subscription!: Subscription;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef) {
         this.menu = MenuData.data;
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
+    }
+
+    get isActive(): boolean {
+        return this.configService.state.menuActive;
     }
 
     ngOnInit() {
@@ -68,12 +62,6 @@ export class AppMenuComponent {
         if (isPlatformBrowser(this.platformId)) {
             const rect = element.getBoundingClientRect();
             return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
-        }
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
         }
     }
 }

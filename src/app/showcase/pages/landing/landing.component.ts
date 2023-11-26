@@ -1,19 +1,10 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild, inject } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
-import { Table, TableModule } from 'primeng/table';
-import { AppConfig } from '../../domain/appconfig';
-import { Customer, Representative } from '../../domain/customer';
-import { AppComponent } from '../../layout/app.component';
-import { AppConfigService } from '../../service/appconfigservice';
-import { CustomerService } from '../../service/customerservice';
-import { NodeService } from '../../service/nodeservice';
-import Versions from '../../data/versions.json';
-import docsearch from '@docsearch/js';
-import { ListboxModule } from 'primeng/listbox';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import docsearch from '@docsearch/js';
+import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -23,15 +14,24 @@ import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ListboxModule } from 'primeng/listbox';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
+import { Table, TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TreeModule } from 'primeng/tree';
+import Versions from '../../data/versions.json';
+import { AppConfig } from '../../domain/appconfig';
+import { Customer, Representative } from '../../domain/customer';
+import { AppComponent } from '../../layout/app.component';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
+import { AppConfigService } from '../../service/appconfigservice';
+import { CustomerService } from '../../service/customerservice';
+import { NodeService } from '../../service/nodeservice';
 
 interface City {
     name: string;
@@ -77,7 +77,7 @@ export class LandingComponent implements OnInit {
     @ViewChild('editor') editor: ElementRef;
 
     versions: any[] = Versions;
-    
+
     menuActive: boolean = false;
 
     scrollListener: any;
@@ -88,19 +88,19 @@ export class LandingComponent implements OnInit {
 
     items: MenuItem[];
 
-    selectButtonValue: SelectItem
-    
-    selectButtonOptions:SelectItem[]
+    selectButtonValue: SelectItem;
+
+    selectButtonOptions: SelectItem[];
 
     treeData: TreeNode[];
 
     value1: number = 240;
 
     value2: number = 356;
-    
+
     radioValue: string = 'C';
 
-    switchValue : boolean = true
+    switchValue: boolean = true;
 
     checked: boolean = true;
 
@@ -144,7 +144,7 @@ export class LandingComponent implements OnInit {
 
     selectedOptions: string[] = ['1'];
 
-    theme: string = 'lara-light-blue';
+    tableTheme: string = 'lara-light-blue';
 
     isNpmCopied: boolean = false;
 
@@ -167,17 +167,23 @@ export class LandingComponent implements OnInit {
 
     get landingClass() {
         return {
-            'landing': true,
-            'layout-dark': this.config.dark,
-            'layout-light': !this.config.dark,
-            'layout-news-active': this.app.newsActive && this.app.announcement
-        }
+            'layout-dark': this.isDarkMode,
+            'layout-light': !this.isDarkMode,
+            'layout-news-active': this.isNewsActive
+        };
+    }
+
+    get isDarkMode() {
+        return this.configService.config.darkMode;
+    }
+
+    get isNewsActive() {
+        return this.configService.state.newsActive;
     }
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         private nodeService: NodeService,
         private customerService: CustomerService,
         private configService: AppConfigService,
@@ -193,24 +199,24 @@ export class LandingComponent implements OnInit {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
         this.config = this.configService.config;
-        this.configService.configUpdate$.subscribe(config => {
-            this.config = config
-        })
-        this.changeTableTheme(this.config.dark ? 'lara-dark-blue' : 'lara-light-blue');
-        this.configService.updateConfig({ ...this.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue' } });
+        this.configService.configUpdate$.subscribe((config) => {
+            this.config = config;
+        });
+        this.changeTableTheme(this.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
+        //this.configService.updateConfig({ ...this.config, ...{ theme: this.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue' } });
 
         this.chartData = {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                datasets: [
-                    {
-                        label: 'Annual Income',
-                        data: [40, 59, 40, 50, 56],
-                        fill: true,
-                        borderColor: '#3b82f6',
-                        tension: 0.4,
-                        backgroundColor: 'rgba(59, 130, 246, .2)'
-                    }
-                ]
+            datasets: [
+                {
+                    label: 'Annual Income',
+                    data: [40, 59, 40, 50, 56],
+                    fill: true,
+                    borderColor: '#3b82f6',
+                    tension: 0.4,
+                    backgroundColor: 'rgba(59, 130, 246, .2)'
+                }
+            ]
         };
 
         this.chartOptions = {
@@ -220,26 +226,23 @@ export class LandingComponent implements OnInit {
                 }
             },
             scales: {
-              
                 y: {
                     beginAtZero: true,
-                  
+
                     min: 0,
-                    max: 100,
-                
+                    max: 100
                 }
             }
         };
-        this.selectButtonValue =  { label: 'Styled', value: 1 },
-        this.selectButtonOptions = [
-            {label: 'Styled', value: 1 },
-            {label: 'Unstyled', value: 2 }
-        ]
+        (this.selectButtonValue = { label: 'Styled', value: 1 }),
+            (this.selectButtonOptions = [
+                { label: 'Styled', value: 1 },
+                { label: 'Unstyled', value: 2 }
+            ]);
 
         this.items = [
             { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
         ];
 
         this.nodeService.getFiles().then((files) => (this.treeData = files));
@@ -340,97 +343,41 @@ export class LandingComponent implements OnInit {
         this.cd.detectChanges();
     }
 
-    handleChange(event) {
-        this.checked = event.checked;
-    }
-
     toggleDarkMode() {
-        this.config.dark = !this.config.dark;
-        let theme = this.config.dark ? this.theme.replace('light', 'dark') : this.theme.replace('dark', 'light');
-        this.config = { ...this.config, dark: this.config.dark, theme: theme };
+        const theme = this.isDarkMode ? 'lara-light-blue' : 'lara-dark-blue';
+        const newTableTheme = this.isDarkMode ? this.tableTheme.replace('dark', 'light') : this.tableTheme.replace('light', 'dark');
 
-        this.configService.updateConfig({ ...this.configService.config, ...{ theme: this.config.dark ? 'lara-dark-blue' : 'lara-light-blue', dark: this.config.dark } });
-        this.changeTableTheme(theme);
+        this.configService.changeTheme({ name: theme, dark: !this.isDarkMode });
+        this.replaceTableTheme(newTableTheme);
+    }
 
+    changeTableTheme(value: string) {
         if (isPlatformBrowser(this.platformId)) {
-            let linkElement = document.getElementById('theme-link');
-            this.replaceLink(linkElement, theme);
-            this.theme = theme;
+            this.replaceTableTheme(value);
         }
     }
 
-    changeTableTheme(newTheme) {
-        if (isPlatformBrowser(this.platformId)) {
-            let linkElement = document.getElementById('home-table-link');
-            this.replaceLink(linkElement, newTheme);
-            this.theme = newTheme;
+    replaceTableTheme(newTheme: string) {
+        const elementId = 'home-table-link';
+        const linkElement = <HTMLLinkElement>document.getElementById(elementId);
+        const tableThemeTokens = linkElement?.getAttribute('href').split('/') || null;
+        const currentTableTheme = tableThemeTokens ? tableThemeTokens[tableThemeTokens.length - 2] : null;
+
+        if (currentTableTheme !== newTheme && tableThemeTokens) {
+            const newThemeUrl = linkElement.getAttribute('href').replace(currentTableTheme, newTheme);
+
+            const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
+
+            cloneLinkElement.setAttribute('id', elementId + '-clone');
+            cloneLinkElement.setAttribute('href', newThemeUrl);
+            cloneLinkElement.addEventListener('load', () => {
+                linkElement.remove();
+                cloneLinkElement.setAttribute('id', elementId);
+            });
+            linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling);
+
+            this.tableTheme = newTheme;
         }
-    }
-
-    replaceLink(linkElement, theme) {
-        if (isPlatformBrowser(this.platformId)) {
-            const id = linkElement.getAttribute('id');
-            const tableThemeTokens = linkElement.getAttribute('href').split('/');
-            const currentTableTheme = tableThemeTokens[tableThemeTokens.length - 2];
-            if (currentTableTheme !== theme) {
-                const cloneLinkElement = linkElement.cloneNode(true);
-                cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
-                cloneLinkElement.setAttribute('id', id + '-clone');
-
-                linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-                this.renderer.listen(cloneLinkElement, 'load', () => {
-                    linkElement.remove();
-                    cloneLinkElement.setAttribute('id', id);
-                });
-            }
-        }
-    }
-
-    changeFont() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.editor?.nativeElement.style.setProperty('--dd-font', this.selectedFont);
-        }
-    }
-
-    changeDesignerTheme(color, darker) {
-        if (isPlatformBrowser(this.platformId)) {
-            this.editor?.nativeElement.style.setProperty('--dd-primary', color);
-            this.editor?.nativeElement.style.setProperty('--dd-primary-darker', darker);
-        }
-    }
-
-    onActivityChange(event) {
-        const value = event.target.value;
-        if (value && value.trim().length) {
-            const activity = parseInt(value);
-
-            if (!isNaN(activity)) {
-                this.table.filter(activity, 'activity', 'gte');
-            }
-        }
-    }
-
-    onDateSelect(value) {
-        this.table.filter(this.formatDate(value), 'date', 'equals');
-    }
-
-    formatDate(date) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
-
-    onRepresentativeChange(event) {
-        this.table.filter(event.value, 'representative', 'in');
     }
 
     getSeverity(status) {

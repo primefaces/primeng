@@ -1,16 +1,12 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
-import { AppConfig } from '../../domain/appconfig';
-import { AppConfigService } from '../../service/appconfigservice';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Inject, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputSwitchModule, InputSwitchOnChangeEvent } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'app-config',
@@ -18,7 +14,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     templateUrl: './app.config.component.html',
     imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
-export class AppConfigComponent implements OnInit, OnDestroy {
+export class AppConfigComponent {
     scale: number = 14;
     inputStyles = [
         { label: 'Outlined', value: 'outlined' },
@@ -26,146 +22,99 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     ];
     scales: number[] = [12, 13, 14, 15, 16];
 
-    outsideClickListener: VoidFunction | null;
-
-    config: AppConfig;
-
-    subscription: Subscription;
-
-    sidebarSubscription: Subscription;
-
-    active: boolean;
-
     compactMaterial: boolean = false;
 
     lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
 
-    get darkToggleDisabled() {
-        return this.lightOnlyThemes.includes(this.config.theme);
+    @Output() onDarkModeSwitch = new EventEmitter<any>();
+
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService) {}
+
+    get isActive(): boolean {
+        return this.configService.state.configActive;
     }
 
-    get isMaterial() {
-        return this.config.theme.startsWith('md') || this.config.theme.startsWith('mdc');
+    get isDarkToggleDisabled(): boolean {
+        return this.lightOnlyThemes.includes(this.configService.config.theme);
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
-
-    ngOnInit() {
-        this.config = this.configService.config;
-        this.sidebarSubscription = this.configService.configActive$.subscribe((value: boolean) => (this.active = value));
-        this.subscription = this.configService.configUpdate$.subscribe((config) => {
-            this.config = config;
-            if (this.config.theme === 'nano') this.scale = 12;
-            else this.scale = 14;
-
-            this.applyScale();
-        });
-
-        if (this.config.theme === 'nano') this.scale = 12;
+    get isDarkMode(): boolean {
+        return this.configService.config.darkMode;
     }
 
-    onCompactMaterialChange(event) {
-        const theme = this.config.theme.startsWith('md') ? this.config.theme.replace('md', 'mdc') : this.config.theme.startsWith('mdc') ? this.config.theme.replace('mdc', 'md') : this.config.theme;
-
-        this.changeTheme(event, theme, false);
+    get inputStyle(): string {
+        return this.configService.config.inputStyle;
     }
 
-    onDarkModeChange(event) {
-        let newTheme = null;
-        let { theme, dark } = this.config;
+    get ripple(): boolean {
+        return this.configService.config.ripple;
+    }
 
-        if (!dark) {
-            newTheme = theme.replace('dark', 'light');
-        } else {
-            if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
-            else newTheme = 'lara-dark-teal'; //fallback
+    onVisibleChange(value: boolean) {
+        if (value === false) {
+            this.configService.hideConfig();
         }
-
-        this.configService.changeTheme(event, newTheme, dark);
     }
 
-    isThemeActive(theme: string, color: string) {
-        let themeName;
-        let themePrefix = this.compactMaterial ? 'mdc' : theme;
+    onCompactMaterialChange() {
+        const theme = this.configService.config.theme;
+        if (theme.startsWith('md')) {
+            let tokens = theme.split('-');
+
+            this.changeTheme(tokens[0].substring(0, 2), tokens[2]);
+        }
+    }
+
+    toggleDarkMode() {
+        this.onDarkModeSwitch.emit(null);
+    }
+
+    isThemeActive(themeFamily: string, color?: string) {
+        let themeName: string;
+        let themePrefix = themeFamily === 'md' && this.compactMaterial ? 'mdc' : themeFamily;
 
         if (this.lightOnlyThemes.includes(themePrefix)) {
             themeName = themePrefix;
         } else {
-            themeName = themePrefix + (this.config.dark ? '-dark' : '-light');
+            themeName = themePrefix + (this.isDarkMode ? '-dark' : '-light');
         }
 
         if (color) {
             themeName += '-' + color;
         }
 
-        return this.config.theme === themeName;
+        return this.configService.config.theme === themeName;
     }
 
-    hideConfigurator() {
-        this.unbindOutsideClickListener();
-        this.configService.toggleConfig();
-    }
+    changeTheme(theme: string, color?: string) {
+        let newTheme: string, darkMode: boolean;
 
-    onConfigButtonClick(event: MouseEvent) {
-        this.configService.toggleConfig();
-
-        if (this.active) {
-            this.bindOutsideClickListener();
+        if (this.lightOnlyThemes.includes(theme)) {
+            newTheme = theme;
+            darkMode = false;
         } else {
-            this.unbindOutsideClickListener();
-        }
-        event.preventDefault();
-    }
+            newTheme = theme + '-' + (this.isDarkMode ? 'dark' : 'light');
 
-    changeTheme(event: Event, theme: string, darkModePreference?: boolean) {
-        const isThemeInLightOnlyList = this.lightOnlyThemes.indexOf(theme) === -1;
+            if (color) {
+                newTheme += '-' + color;
+            }
 
-        let newTheme = theme;
-        let useDarkMode = darkModePreference;
+            if (newTheme.startsWith('md-') && this.compactMaterial) {
+                newTheme = newTheme.replace('md-', 'mdc-');
+            }
 
-        if (isThemeInLightOnlyList && !darkModePreference) {
-            useDarkMode = this.config.dark;
+            darkMode = this.isDarkMode;
         }
 
-        if (isThemeInLightOnlyList) {
-            newTheme = useDarkMode ? theme.replace('light', 'dark') : theme.replace('dark', 'light');
-        }
-
-        this.configService.changeTheme(event, newTheme, useDarkMode);
+        this.configService.changeTheme({ name: newTheme, dark: darkMode });
     }
 
-    onInputStyleChange() {
-        this.configService.updateConfig(this.config);
-
-        if (this.config.inputStyle === 'filled') DomHandler.addClass(document.body, 'p-input-filled');
-        else DomHandler.removeClass(document.body, 'p-input-filled');
+    onInputStyleChange(event: SelectButtonChangeEvent) {
+        this.configService.setInputStyle(event.value);
     }
 
-    onRippleChange() {
-        this.configService.updateConfig(this.config);
-        if (this.config.ripple) DomHandler.removeClass(document.body, 'p-ripple-disabled');
-        else DomHandler.addClass(document.body, 'p-ripple-disabled');
-    }
-
-    bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                if (this.active && this.isOutsideClicked(event)) {
-                    this.active = false;
-                }
-            });
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            this.outsideClickListener();
-            this.outsideClickListener = null;
-        }
-    }
-
-    isOutsideClicked(event) {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target));
+    onRippleChange(event: InputSwitchOnChangeEvent) {
+        this.configService.setRipple(event.checked);
     }
 
     decrementScale() {
@@ -180,14 +129,5 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     applyScale() {
         this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px');
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-        if (this.sidebarSubscription) {
-            this.sidebarSubscription.unsubscribe();
-        }
     }
 }

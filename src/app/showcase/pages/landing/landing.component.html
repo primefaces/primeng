@@ -1,6 +1,6 @@
-<div [ngClass]="landingClass">
-    <app-news *ngIf="app.newsActive && app.announcement" (onNewsHide)="app.onNewsClose()" [announcement]="app.announcement"></app-news>
-    <app-topbar [showConfigurator]="false" [showMenuButton]="false"></app-topbar>
+<div class="landing" [ngClass]="landingClass">
+    <app-news></app-news>
+    <app-topbar [showConfigurator]="false" [showMenuButton]="false" (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
 
     <section class="landing-hero py-8 px-5 lg:px-8">
         <div class="flex flex-wrap">
@@ -121,7 +121,7 @@
         <div
             class="mt-7 px-3 lg:px-8"
             [style]="{ 'background-size': 'cover' }"
-            [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
+            [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
         >
             <div class="features-container">
                 <div class="grid">
@@ -196,17 +196,17 @@
             <div class="marquee-wrapper overflow-hidden flex">
                 <div class="marquee">
                     <div class="w-full" *ngFor="let user of usersData.slice(0, 6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
                 <div class="marquee">
                     <div class="w-full" *ngFor="let user of usersData.slice(0, 6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
                 <div class="marquee">
                     <div class="w-full" *ngFor="let user of usersData.slice(0, 6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
             </div>
@@ -217,17 +217,17 @@
             <div class="marquee-wrapper overflow-hidden flex">
                 <div class="marquee marquee-reverse">
                     <div class="w-full" *ngFor="let user of usersData.slice(6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
                 <div class="marquee marquee-reverse">
                     <div class="w-full" *ngFor="let user of usersData.slice(6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
                 <div class="marquee marquee-reverse">
                     <div class="w-full" *ngFor="let user of usersData.slice(6)">
-                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.dark ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
+                        <img src="https://primefaces.org/cdn/primereact/images/landing-new/whouses/{{ user.name }}-{{ config.darkMode ? 'light' : 'dark' }}.svg" [width]="user.width" [height]="user.height" [alt]="user.name" />
                     </div>
                 </div>
             </div>
@@ -239,15 +239,15 @@
         <div class="section-header">Themes</div>
         <p class="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as Material, Bootstrap, Tailwind, PrimeOne or develop your own.</p>
         <div class="flex flex-wrap justify-content-center">
-            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: theme.startsWith('lara') }" (click)="changeTableTheme(config.dark ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
-            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: theme.startsWith('md') }" (click)="changeTableTheme(config.dark ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
-            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: theme.startsWith('bootstrap') }" (click)="changeTableTheme(config.dark ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
+            <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
             <a type="button" class="font-medium p-link linkbox mt-4" href="https://designer.primeng.org" target="_blank">more...</a>
         </div>
         <div
             class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
             [style]="{ 'background-size': 'cover' }"
-            [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
+            [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
         >
             <div class="box overflow-hidden z-1 p-5 table-container">
                 <p-table
@@ -763,14 +763,14 @@
             <div class="flex md:flex-row flex-column gap-4 lg:gap-0">
                 <div
                     class="template-block block-1 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light.jpeg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank">Diamond Preview</a>
                 </div>
                 <div
                     class="template-block block-2 ml-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light.jpeg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
@@ -779,7 +779,7 @@
             <div class="flex my-4 md:flex-row flex-column gap-4 lg:gap-0 align-items-center">
                 <div
                     class="template-block block-3 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light.jpeg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/atlantis-ng/" target="_blank">Atlantis Preview</a>
@@ -787,11 +787,11 @@
                 <img
                     class="template-block block-middle border-none box-shadow-none mr-2 hidden lg:flex justify-content-center align-items-center flex-column"
                     [style]="{ height: '100%' }"
-                    [src]="config.dark ? 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-dark.png' : 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-light.png'"
+                    [src]="config.darkMode ? 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-dark.png' : 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-light.png'"
                 />
                 <div
                     class="template-block block-5 mr-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light.jpg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
@@ -800,14 +800,14 @@
             <div class="flex md:flex-row flex-column gap-4 lg:gap-0">
                 <div
                     class="template-block block-5 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-light.jpeg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/serenity-ng/" target="_blank">Serenity Preview</a>
                 </div>
                 <div
                     class="template-block block-5 mr-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.darkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light.jpeg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/ultima-ng/" target="_blank">Ultima Preview</a>
@@ -956,7 +956,7 @@
 
             <div class="flex flex-wrap justify-content-between py-6 gap-5">
                 <a href="/">
-                    <img src="https://primefaces.org/cdn/primeng/images/primeng-logo-{{ config.dark ? 'light' : 'dark' }}.svg" width="129" height="35" alt="primeng logo" priority />
+                    <img src="https://primefaces.org/cdn/primeng/images/primeng-logo-{{ config.darkMode ? 'light' : 'dark' }}.svg" width="129" height="35" alt="primeng logo" priority />
                 </a>
                 <div class="flex align-items-center gap-2">
                     <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
