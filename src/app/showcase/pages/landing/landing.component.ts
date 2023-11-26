@@ -1,42 +1,32 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
-import { MenuItem, SelectItem, TreeNode } from 'primeng/api';
+import { MenuItem, SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { ListboxModule } from 'primeng/listbox';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { SidebarModule } from 'primeng/sidebar';
 import { SliderModule } from 'primeng/slider';
 import { Table, TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { TreeModule } from 'primeng/tree';
 import Versions from '../../data/versions.json';
 import { AppConfig } from '../../domain/appconfig';
-import { Customer, Representative } from '../../domain/customer';
+import { Customer } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
-import { NodeService } from '../../service/nodeservice';
-
-interface City {
-    name: string;
-    code: string;
-}
 
 @Component({
     selector: 'landing',
@@ -46,7 +36,6 @@ interface City {
         CommonModule,
         NgOptimizedImage,
         FormsModule,
-        SidebarModule,
         InputSwitchModule,
         ButtonModule,
         RadioButtonModule,
@@ -54,15 +43,12 @@ interface City {
         TabMenuModule,
         ChartModule,
         ProgressBarModule,
-        TreeModule,
         ChipModule,
         SelectButtonModule,
         SliderModule,
         BadgeModule,
         CalendarModule,
         TableModule,
-        DropdownModule,
-        ListboxModule,
         RouterModule,
         CheckboxModule,
         AppNewsComponent,
@@ -78,8 +64,6 @@ export class LandingComponent implements OnInit {
 
     versions: any[] = Versions;
 
-    menuActive: boolean = false;
-
     scrollListener: any;
 
     chartData: any;
@@ -92,8 +76,6 @@ export class LandingComponent implements OnInit {
 
     selectButtonOptions: SelectItem[];
 
-    treeData: TreeNode[];
-
     value1: number = 240;
 
     value2: number = 356;
@@ -101,8 +83,6 @@ export class LandingComponent implements OnInit {
     radioValue: string = 'C';
 
     switchValue: boolean = true;
-
-    checked: boolean = true;
 
     selectedVal: number = 1;
 
@@ -112,37 +92,11 @@ export class LandingComponent implements OnInit {
 
     customers: Customer[];
 
-    isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-
     selectedCustomers: Customer[];
-
-    representatives: Representative[];
-
-    statuses: SelectItem[];
 
     loading: boolean = true;
 
-    fonts: SelectItem[];
-
-    selectedFont: string = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol';
-
-    inputStyle: string = 'outlined';
-
-    size: string = 'normal';
-
-    selectedCity: City;
-
-    cities: City[];
-
-    price: number;
-
     config: AppConfig;
-
-    darkMode: boolean = false;
-
-    setAnimation: boolean = true;
-
-    selectedOptions: string[] = ['1'];
 
     tableTheme: string = 'lara-light-blue';
 
@@ -161,7 +115,6 @@ export class LandingComponent implements OnInit {
         { name: 'verizon', width: '102', height: '18' },
         { name: 'amex', width: '81', height: '30' }
     ];
-    usersImages: any;
 
     private window: Window;
 
@@ -184,7 +137,6 @@ export class LandingComponent implements OnInit {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        private nodeService: NodeService,
         private customerService: CustomerService,
         private configService: AppConfigService,
         private cd: ChangeDetectorRef,
@@ -203,7 +155,6 @@ export class LandingComponent implements OnInit {
             this.config = config;
         });
         this.changeTableTheme(this.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
-        //this.configService.updateConfig({ ...this.config, ...{ theme: this.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue' } });
 
         this.chartData = {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],
@@ -234,6 +185,7 @@ export class LandingComponent implements OnInit {
                 }
             }
         };
+
         (this.selectButtonValue = { label: 'Styled', value: 1 }),
             (this.selectButtonOptions = [
                 { label: 'Styled', value: 1 },
@@ -245,60 +197,10 @@ export class LandingComponent implements OnInit {
             { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
         ];
 
-        this.nodeService.getFiles().then((files) => (this.treeData = files));
-
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.loading = false;
         });
-
-        this.representatives = [
-            { name: 'Amy Elsner', image: 'amyelsner.png' },
-            { name: 'Anna Fali', image: 'annafali.png' },
-            { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-            { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-            { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-            { name: 'Onyama Limba', image: 'onyamalimba.png' },
-            { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            { name: 'XuXue Feng', image: 'xuxuefeng.png' }
-        ];
-
-        this.statuses = [
-            { label: 'Unqualified', value: 'unqualified' },
-            { label: 'Qualified', value: 'qualified' },
-            { label: 'New', value: 'new' },
-            { label: 'Negotiation', value: 'negotiation' },
-            { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
-        ];
-
-        this.fonts = [
-            {
-                label: 'Arial',
-                value: 'Arial,Helvetica Neue,Helvetica,sans-serif'
-            },
-            {
-                label: 'System',
-                value: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol'
-            },
-            {
-                label: 'Trebuches MS',
-                value: 'Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif'
-            },
-            {
-                label: 'Verdana',
-                value: 'Verdana,Geneva,sans-serif'
-            }
-        ];
-
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Paris', code: 'PRS' }
-        ];
 
         if (isPlatformBrowser(this.platformId)) {
             this.initDocSearch();

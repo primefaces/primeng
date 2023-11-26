@@ -49,6 +49,5 @@ export class AppNewsComponent implements OnInit {
         };
 
         localStorage.setItem(this.storageKey, JSON.stringify(item));
-        console.log(this.configService.state.newsActive);
     }
 }
