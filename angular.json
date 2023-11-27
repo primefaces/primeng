@@ -155,8 +155,5 @@
                 }
             }
         }
-    },
-    "cli": {
-      "analytics": false
     }
 }
