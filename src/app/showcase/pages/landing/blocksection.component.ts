@@ -65,7 +65,7 @@ import { CommonModule } from '@angular/common';
                                             <div class="bar w-4rem mt-3"></div>
                                         </div>
                                         <div>
-                                            <div class="circle circle-highligh"></div>
+                                            <div class="circle circle-highlight"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@ import { CommonModule } from '@angular/common';
                                             <div class="bar w-4rem mt-3"></div>
                                         </div>
                                         <div>
-                                            <div class="circle circle-highligh"></div>
+                                            <div class="circle circle-highlight"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@ import { CommonModule } from '@angular/common';
                                             <div class="bar w-4rem mt-3"></div>
                                         </div>
                                         <div>
-                                            <div class="circle circle-highligh"></div>
+                                            <div class="circle circle-highlight"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ import { CommonModule } from '@angular/common';
                                             <div class="bar w-4rem mt-3"></div>
                                         </div>
                                         <div>
-                                            <div class="circle circle-highligh"></div>
+                                            <div class="circle circle-highlight"></div>
                                         </div>
                                     </div>
                                 </div>
