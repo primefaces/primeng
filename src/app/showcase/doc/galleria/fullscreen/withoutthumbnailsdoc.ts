@@ -60,8 +60,7 @@ export class WithoutThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria
+        basic: `<p-galleria
     [(value)]="images"
     [(visible)]="displayBasic"
     [responsiveOptions]="responsiveOptions"

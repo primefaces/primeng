@@ -17,8 +17,7 @@ export class DisabledDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `
-<p-colorPicker [(ngModel)]="color" [disabled]="true"></p-colorPicker>`,
+        basic: `<p-colorPicker [(ngModel)]="color" [disabled]="true"></p-colorPicker>`,
 
         html: `
 <div class="card flex justify-content-center">

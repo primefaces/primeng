@@ -72,8 +72,7 @@ export class FullScreenTemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria
+        basic: `<p-galleria
     [(value)]="images"
     [(visible)]="displayCustom"
     [(activeIndex)]="activeIndex"

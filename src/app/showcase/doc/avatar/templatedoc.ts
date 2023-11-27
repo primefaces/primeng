@@ -17,8 +17,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-avatar size="xlarge">
+        basic: `<p-avatar size="xlarge">
     <span class="text-base">Content</span>
 </p-avatar>`,
         html: `

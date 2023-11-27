@@ -59,8 +59,7 @@ export class PaginatorLocaleDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     [value]="customers"
     [paginator]="true"
     [rows]="5"

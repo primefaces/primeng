@@ -45,8 +45,7 @@ export class LazyDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -27,8 +27,7 @@ export class CheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>`,
+        basic: `<p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>`,
 
         html: `
 <div class="card flex flex-column align-items-center justify-content-center">

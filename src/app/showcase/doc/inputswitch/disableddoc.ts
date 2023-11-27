@@ -17,8 +17,7 @@ export class DisabledDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-inputSwitch [(ngModel)]="checked" [disabled]="true"></p-inputSwitch>`,
+        basic: `<p-inputSwitch [(ngModel)]="checked" [disabled]="true"></p-inputSwitch>`,
 
         html: `
 <div class="card flex justify-content-center">

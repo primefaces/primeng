@@ -31,8 +31,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"></p-autoComplete>
     <label for="float-label">Float Label</label>
 </span>`,

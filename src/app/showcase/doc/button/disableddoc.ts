@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class DisabledDoc {
     code: Code = {
-        basic: `
-<p-button label="Submit" [disabled]="true"></p-button>`,
+        basic: `<p-button label="Submit" [disabled]="true"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">

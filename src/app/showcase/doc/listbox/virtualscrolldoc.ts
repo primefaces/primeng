@@ -51,8 +51,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `
-<p-listbox
+        basic: `<p-listbox
     [options]="items"
     [(ngModel)]="selectedItems"
     [selectAll]="selectAll"

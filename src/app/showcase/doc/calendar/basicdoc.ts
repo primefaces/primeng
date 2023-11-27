@@ -17,8 +17,7 @@ export class BasicDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

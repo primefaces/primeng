@@ -27,8 +27,7 @@ import { Code } from '../../domain/code';
 })
 export class AdvancedDoc {
     code: Code = {
-        basic: `
-<p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+        basic: `<p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
     <ng-template pTemplate="header">
         <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
     </ng-template>

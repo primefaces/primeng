@@ -36,8 +36,7 @@ export class PositionDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast position="top-left" key="tl"></p-toast>
+        basic: `<p-toast position="top-left" key="tl"></p-toast>
 <p-toast position="top-center" key="tc"></p-toast>
 <p-toast position="bottom-center" key="bc"></p-toast>
 <button type="button" pButton pRipple (click)="showTopLeft()" label="Top Left"></button>

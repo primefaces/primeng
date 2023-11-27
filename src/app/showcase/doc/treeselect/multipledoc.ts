@@ -37,8 +37,7 @@ export class MultipleDoc {
     };
 
     code: Code = {
-        basic: `
-<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

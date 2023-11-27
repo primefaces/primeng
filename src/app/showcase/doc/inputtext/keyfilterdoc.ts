@@ -17,8 +17,7 @@ export class KeyFilterDoc {
     value: number | undefined;
 
     code: Code = {
-        basic: `
-<input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />`,
+        basic: `<input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -17,8 +17,7 @@ export class PreselectionDoc {
     checked: boolean = true;
 
     code: Code = {
-        basic: `
-<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>`,
+        basic: `<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>`,
 
         html: `
 <div class="card flex justify-content-center">

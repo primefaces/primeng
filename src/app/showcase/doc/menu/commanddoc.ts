@@ -49,8 +49,7 @@ export class CommandDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-menu [model]="items"></p-menu>`,
 
         html: `

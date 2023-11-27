@@ -23,8 +23,7 @@ export class MultipleDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>`,
+        basic: `<p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>`,
 
         html: `
 <div class="card flex justify-content-center">

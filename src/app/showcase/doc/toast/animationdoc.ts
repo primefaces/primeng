@@ -24,8 +24,7 @@ export class AnimationDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+        basic: `<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Show"></button>`,
         html: `
 <div class="card flex justify-content-center">

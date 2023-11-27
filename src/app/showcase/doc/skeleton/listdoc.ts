@@ -54,8 +54,7 @@ import { Code } from '../../domain/code';
 })
 export class ListDoc {
     code: Code = {
-        basic: `
-<div class="border-round border-1 surface-border p-4 surface-card">
+        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
     <ul class="m-0 p-0 list-none">
         <li class="mb-3">
             <div class="flex">

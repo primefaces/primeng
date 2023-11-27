@@ -36,8 +36,7 @@ export class HorizontalDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" layout="horizontal" align="top">
+        basic: `<p-timeline [value]="events" layout="horizontal" align="top">
     <ng-template pTemplate="content" let-event>
         {{ event }}
     </ng-template>

@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class DirectiveDoc {
     code: Code = {
-        basic: `
-<button pButton pRipple label="Submit" class="p-button-success"></button>`,
+        basic: `<button pButton pRipple label="Submit" class="p-button-success"></button>`,
 
         html: `
 <div class="card flex justify-content-center">

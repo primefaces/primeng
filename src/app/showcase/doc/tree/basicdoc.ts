@@ -25,8 +25,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files"></p-tree>`,
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files"></p-tree>`,
 
         html: `
 <div class="card flex justify-content-center">

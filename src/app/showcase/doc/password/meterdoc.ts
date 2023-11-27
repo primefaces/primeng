@@ -17,8 +17,7 @@ export class MeterDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value"></p-password>`,
+        basic: `<p-password [(ngModel)]="value"></p-password>`,
 
         html: `
 <div class="card flex justify-content-center">

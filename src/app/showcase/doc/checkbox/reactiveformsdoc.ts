@@ -27,8 +27,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form class="flex align-items-center gap-1" [formGroup]="formGroup">
+        basic: `<form class="flex align-items-center gap-1" [formGroup]="formGroup">
     <p-checkbox formControlName="city" value="New York" inputId="ny"></p-checkbox>
     <label for="ny">New York</label>
 </form>`,

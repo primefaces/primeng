@@ -31,8 +31,7 @@ export class StickyDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <div class="flex flex-wrap gap-2">
     <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
     <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>

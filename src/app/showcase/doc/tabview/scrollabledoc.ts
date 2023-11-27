@@ -23,8 +23,7 @@ export class ScrollableDoc {
     scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: `Tab ${i + 1}`, content: `Tab ${i + 1} Content` }));
 
     code: Code = {
-        basic: `
-<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
+        basic: `<p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
     <p-tabPanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
         <p>{{ tab.content }}</p>
     </p-tabPanel>

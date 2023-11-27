@@ -18,8 +18,7 @@ import { Code } from '../../domain/code';
 })
 export class ImageDoc {
     code: Code = {
-        basic: `
-<p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"></p-chip>`,
+        basic: `<p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"></p-chip>`,
         html: `
 <div class="card flex align-items-center gap-2 flex-wrap">
     <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"></p-chip>

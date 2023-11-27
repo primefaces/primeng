@@ -22,8 +22,7 @@ export class OverlayTemplateDemo {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
+        basic: `<p-button (click)="toggle()" label="Show Overlay"></p-button>
 <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
     <ng-template pTemplate="content" let-option>
         Content - {{option.mode}}

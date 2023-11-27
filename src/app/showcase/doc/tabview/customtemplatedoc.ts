@@ -47,8 +47,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-tabView styleClass="tabview-custom">
+        basic: `<p-tabView styleClass="tabview-custom">
     <p-tabPanel>
         <ng-template pTemplate="header">
             <i class="pi pi-calendar"></i>

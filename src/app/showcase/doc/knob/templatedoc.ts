@@ -17,8 +17,7 @@ export class TemplateDoc {
     value: number = 60;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" valueTemplate="{value}%"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" valueTemplate="{value}%"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

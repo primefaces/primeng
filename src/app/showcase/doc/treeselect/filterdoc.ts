@@ -28,8 +28,7 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>`,
+        basic: `<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

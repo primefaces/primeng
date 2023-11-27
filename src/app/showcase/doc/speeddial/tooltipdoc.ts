@@ -122,8 +122,7 @@ export class TooltipDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
+        basic: `<p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
 <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>`,
 
         html: `

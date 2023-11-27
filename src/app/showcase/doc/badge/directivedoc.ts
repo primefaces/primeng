@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class DirectiveDoc {
     code: Code = {
-        basic: `
-<i class="pi pi-bell text-3xl" pBadge value="2"></i>`,
+        basic: `<i class="pi pi-bell text-3xl" pBadge value="2"></i>`,
         html: `
 <div class="card flex justify-content-center">
     <i class="pi pi-bell text-3xl" pBadge value="2"></i>

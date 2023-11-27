@@ -27,8 +27,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Show" class="p-button-success"></button>`,
         html: `
 <div class="card">

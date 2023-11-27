@@ -50,8 +50,7 @@ export class AlignmentDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" class="w-full md:w-20rem">
+        basic: `<p-timeline [value]="events" class="w-full md:w-20rem">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>

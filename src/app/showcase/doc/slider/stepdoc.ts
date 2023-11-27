@@ -17,8 +17,7 @@ export class StepDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="value" [step]="20"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="value" [step]="20"></p-slider>`,
 
         html: `
 <div class="card flex justify-content-center">

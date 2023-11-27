@@ -17,8 +17,7 @@ export class InvalidDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `
-<input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" />`,
+        basic: `<input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" />`,
 
         html: `
 <div class="card flex justify-content-center">

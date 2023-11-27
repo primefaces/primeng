@@ -22,8 +22,7 @@ import { Code } from '../../domain/code';
 })
 export class HorizontalDoc {
     code: Code = {
-        basic: `
-<p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
+        basic: `<p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
     <ng-template pTemplate>
         <div class="col flex align-items-center justify-content-center">Panel 1</div>
     </ng-template>

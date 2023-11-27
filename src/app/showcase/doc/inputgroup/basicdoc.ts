@@ -29,8 +29,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<div class="p-inputgroup">
+        basic: `<div class="p-inputgroup">
     <span class="p-inputgroup-addon">
         <i class="pi pi-user"></i>
     </span>

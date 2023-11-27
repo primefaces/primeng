@@ -81,8 +81,7 @@ export class ColoredDoc {
     ];
 
     code: Code = {
-        basic: `
-<p-organizationChart [value]="data">
+        basic: `<p-organizationChart [value]="data">
     <ng-template let-node pTemplate="person">
         <div class="p-2 text-center">
             <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />

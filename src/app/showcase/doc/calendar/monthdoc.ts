@@ -17,8 +17,7 @@ export class MonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

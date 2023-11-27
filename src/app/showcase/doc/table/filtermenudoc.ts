@@ -224,8 +224,7 @@ export class FilterMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     #dt1
     [value]="customers"
     dataKey="id"

@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-progressSpinner></p-progressSpinner>`,
+        basic: `<p-progressSpinner></p-progressSpinner>`,
         html: `
 <div class="card">
     <p-progressSpinner></p-progressSpinner>

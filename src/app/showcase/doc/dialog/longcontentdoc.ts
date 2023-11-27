@@ -41,8 +41,7 @@ export class LongContentDoc {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Long Content" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

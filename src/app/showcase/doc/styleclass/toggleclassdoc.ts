@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class ToggleClassDoc {
     code: Code = {
-        basic: `
-<button pButton label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled"></button>
+        basic: `<button pButton label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled"></button>
 <input type="text" pInputText class="block mt-3" />`,
         html: `
 <div class="card flex flex-column align-items-center">

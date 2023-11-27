@@ -37,8 +37,7 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
     <label for="float-label">Select Cities</label>
 </span>`,

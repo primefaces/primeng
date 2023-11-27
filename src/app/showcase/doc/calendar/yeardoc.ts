@@ -17,8 +17,7 @@ export class YearDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

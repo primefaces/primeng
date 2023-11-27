@@ -46,8 +46,7 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption"> Header </ng-template>
     <ng-template pTemplate="header">
         <tr>

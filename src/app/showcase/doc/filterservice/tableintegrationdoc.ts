@@ -74,8 +74,7 @@ export class TableIntegrationDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+        basic: `<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">

@@ -33,8 +33,7 @@ export class ProgrammaticDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-button label="Reset" (click)="reset()"></p-button>
+        basic: `<p-button label="Reset" (click)="reset()"></p-button>
 <p-scroller #sc [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
     <ng-template pTemplate="item" let-item let-options="options">
         <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>

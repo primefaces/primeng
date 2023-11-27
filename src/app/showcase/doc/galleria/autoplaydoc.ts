@@ -48,8 +48,7 @@ export class AutoPlayDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5"  [containerStyle]="{ 'max-width': '640px' }"> 
+        basic: `<p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5"  [containerStyle]="{ 'max-width': '640px' }"> 
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%;" />
     </ng-template>

@@ -105,8 +105,7 @@ export class ExpandableRowGroupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '70rem'}">
+        basic: `<p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '70rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:20%">Name</th>

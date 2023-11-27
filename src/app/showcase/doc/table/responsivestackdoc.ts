@@ -78,8 +78,7 @@ export class ResponsiveStackDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Name</th>

@@ -62,8 +62,7 @@ export class FrozenColumnsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        basic: `<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
     <ng-template pTemplate="header">

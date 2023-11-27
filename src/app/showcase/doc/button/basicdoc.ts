@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-button label="Submit"></p-button>`,
+        basic: `<p-button label="Submit"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">

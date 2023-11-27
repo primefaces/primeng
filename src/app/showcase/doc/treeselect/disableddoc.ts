@@ -24,8 +24,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="Select Item"></p-treeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

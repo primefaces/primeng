@@ -57,8 +57,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+        basic: `<p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
 <ng-template let-message pTemplate="message">
     <div class="flex flex-column" style="flex: 1">
         <div class="text-center">

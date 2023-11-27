@@ -18,8 +18,7 @@ import { Code } from '../../domain/code';
 })
 export class PositionDoc {
     code: Code = {
-        basic: `
-<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right">
+        basic: `<input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right">
 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left">
 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top">
 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom">`,
