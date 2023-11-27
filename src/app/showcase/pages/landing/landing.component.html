@@ -63,7 +63,7 @@
                     <div class="flex flex-column w-6 gap-5 pl-3">
                         <div class="box p-4 fadein animation-duration-500">
                             <div class="surface-card mb-4 w-full text-center p-5" style="border-radius: '10px'">
-                                <img src="https://primefaces.org/cdn/primevue/images/landing/air-jordan.png" alt="Watch" class="w-14rem" />
+                                <img src="https://primefaces.org/cdn/primeng/images/landing/air-jordan.png" alt="Watch" class="w-14rem" />
                             </div>
                             <div class="flex align-items-center mb-4">
                                 <div class="flex flex-column">
@@ -763,14 +763,14 @@
             <div class="flex md:flex-row flex-column gap-4 lg:gap-0">
                 <div
                     class="template-block block-1 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
-                    <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank">Diamond Preview</a>
+                    <a class="templates-btn" href="https://www.primefaces.org/verona-ng" target="_blank">Verona Preview</a>
                 </div>
                 <div
                     class="template-block block-2 ml-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
@@ -779,7 +779,7 @@
             <div class="flex my-4 md:flex-row flex-column gap-4 lg:gap-0 align-items-center">
                 <div
                     class="template-block block-3 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/atlantis-ng/" target="_blank">Atlantis Preview</a>
@@ -787,11 +787,11 @@
                 <img
                     class="template-block block-middle border-none box-shadow-none mr-2 hidden lg:flex justify-content-center align-items-center flex-column"
                     [style]="{ height: '100%' }"
-                    [src]="isDarkMode ? 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-dark.png' : 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-light.png'"
+                    [src]="config.dark ? 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-dark-v17.png' : 'https://primefaces.org/cdn/primeng/images/landing/templates/templates-text-light-v17.png'"
                 />
                 <div
                     class="template-block block-5 mr-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light.jpg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
@@ -800,14 +800,14 @@
             <div class="flex md:flex-row flex-column gap-4 lg:gap-0">
                 <div
                     class="template-block block-5 mr-2 lg:mb-0 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/serenity-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
-                    <a class="templates-btn" href="https://www.primefaces.org/serenity-ng/" target="_blank">Serenity Preview</a>
+                    <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank">Diamond Preview</a>
                 </div>
                 <div
                     class="template-block block-5 mr-2 flex justify-content-center align-items-center"
-                    [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark.jpeg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light.jpeg)' }"
+                    [ngStyle]="{ 'background-image': config.dark ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light-v17.jpg)' }"
                     [style]="{ 'background-size': 'cover' }"
                 >
                     <a class="templates-btn" href="https://www.primefaces.org/ultima-ng/" target="_blank">Ultima Preview</a>
