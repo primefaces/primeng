@@ -1,7 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AppConfig } from '../../domain/appconfig';
-import { AppConfigService } from '../../service/appconfigservice';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'surfaces-doc',
@@ -75,25 +72,8 @@ import { AppConfigService } from '../../service/appconfigservice';
         `
     ]
 })
-export class SurfacesDoc implements OnInit, OnDestroy {
+export class SurfacesDoc {
     colors: string[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];
 
     shades: number[] = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
-
-    config: AppConfig;
-
-    subscription: Subscription;
-
-    constructor(private configService: AppConfigService) {}
-
-    ngOnInit() {
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }

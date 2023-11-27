@@ -20,7 +20,6 @@ import { SliderModule } from 'primeng/slider';
 import { Table, TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import Versions from '../../data/versions.json';
-import { AppConfig } from '../../domain/appconfig';
 import { Customer } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
@@ -97,8 +96,6 @@ export class LandingComponent implements OnInit {
 
     loading: boolean = true;
 
-    config: AppConfig;
-
     tableTheme: string = 'lara-light-blue';
 
     isNpmCopied: boolean = false;
@@ -155,11 +152,7 @@ export class LandingComponent implements OnInit {
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
-        this.config = this.configService.config;
-        this.configService.configUpdate$.subscribe((config) => {
-            this.config = config;
-        });
-        this.changeTableTheme(this.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
+        this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
 
         this.chartData = {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],

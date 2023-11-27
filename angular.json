@@ -33,40 +33,13 @@
                         "outputPath": "dist/primeng/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
+                        "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.png",
-                            "src/assets",
-                            "src/showcase",
-                            "src/upload.php",
-                            "src/versions.json",
-                            "src/.htaccess"
-                        ],
-                        "styles": [
-                            "src/styles.scss",
-                            "node_modules/primeicons/primeicons.css"
-                        ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/prismjs/components/prism-typescript.js",
-                            "./node_modules/prismjs/components/prism-scss.js",
-                            "./node_modules/prismjs/components/prism-bash.js"
-                        ],
-                        "allowedCommonJsDependencies": [
-                            "chart.js",
-                            "xlsx",
-                            "jspdf-autotable",
-                            "file-saver",
-                            "jspdf",
-                            "quill",
-                            "core-js",
-                            "raf",
-                            "rgbcolor"
-                        ]
+                        "assets": ["src/favicon.png", "src/assets"],
+                        "styles": ["src/styles.scss"],
+                        "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
+                        "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"]
                     },
                     "configurations": {
                         "production": {
@@ -119,15 +92,8 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": [
-                            "src/favicon.png",
-                            "src/assets",
-                            "src/upload.php"
-                        ],
-                        "styles": [
-                            "src/styles.scss",
-                            "src/assets/components/themes/lara-light-blue/theme.css"
-                        ],
+                        "assets": ["src/favicon.png", "src/assets"],
+                        "styles": ["src/styles.scss", "src/assets/components/themes/lara-light-blue/theme.css"],
                         "scripts": []
                     }
                 },
