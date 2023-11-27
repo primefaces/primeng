@@ -97,12 +97,6 @@ input[type="number"] {
     @include focus-visible();
 }
 
-.px-link:focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: var(--focus-ring);
-}
-
 .px-link:disabled {
 	cursor: default;
 }

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'architecture-doc',
     template: `
         <app-docsectiontext>
-            <p class="line-height-3 bg-indigo-600 text-white p-3 text-lg" style="border-radius: 10px">
+            <p class="notification">
                 <strong>Note</strong>: In upcoming versions, theming architecture will be redesigned to utilize CSS variables instead of SCSS variables in a backward compatible way for a dynamic approach. In addition, a new
                 <strong>Unstyled</strong> mode will be provided as an alternative to the default styling so that CSS libraries like Tailwind or Bootstrap can be used to style the components. This work is planned to be completed in Q3 2023.
             </p>
