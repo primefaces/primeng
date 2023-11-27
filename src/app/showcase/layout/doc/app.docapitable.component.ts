@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'app-docapitable',
@@ -53,8 +54,8 @@ import { Router } from '@angular/router';
                                 </ng-container>
                                 <span
                                     [ngClass]="{
-                                        'doc-option-dark': config.darkMode && entry[0] === 'default',
-                                        'doc-option-light': !config.darkMode && entry[0] === 'default',
+                                        'doc-option-dark': isDarkMode && entry[0] === 'default',
+                                        'doc-option-light': !isDarkMode && entry[0] === 'default',
                                         'doc-option-default': entry[0] === 'default',
                                         'doc-option-description': entry[0] === 'description'
                                     }"
@@ -105,7 +106,11 @@ export class AppDocApiTable {
 
     @Input() isInterface: boolean = false;
 
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private cd: ChangeDetectorRef) {}
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private configService: AppConfigService) {}
+
+    isDarkMode(): boolean {
+        return this.configService.config.darkMode;
+    }
 
     navigate(event, param) {
         if (typeof window !== undefined) {

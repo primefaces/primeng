@@ -12,7 +12,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 @Component({
     selector: 'app-main',
     template: `
-        <div class="layout-wrapper" [ngClass]="containerClass">
+        <div class="layout-wrapper" [ngClass]="containerClass" [attr.data-p-theme]="theme">
             <app-news></app-news>
             <app-topbar (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
             <app-config (onDarkModeSwitch)="toggleDarkMode()"></app-config>
@@ -50,6 +50,10 @@ export class AppMainComponent {
 
     get isMenuActive(): boolean {
         return this.configService.state.menuActive;
+    }
+
+    get theme(): string {
+        return this.configService.config.theme;
     }
 
     get containerClass() {
