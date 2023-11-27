@@ -1849,6 +1849,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.lazy && this.paginator) {
             (rangeStart as number) -= <number>this.first;
+            (rangeEnd as number) -= <number>this.first;
         }
 
         let rangeRowsData = [];
