@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 import { AppState } from '../domain/appstate';
 import { Theme } from '../domain/theme';
@@ -21,17 +21,9 @@ export class AppConfigService {
         newsActive: false
     };
 
-    private configUpdate = new Subject<AppConfig>();
-
-    configUpdate$ = this.configUpdate.asObservable();
-
     private themeChange = new Subject<Theme>();
 
     themeChange$ = this.themeChange.asObservable();
-
-    private configActive = new BehaviorSubject<boolean>(false);
-
-    configActive$ = this.configActive.asObservable();
 
     changeTheme(theme: Theme) {
         this.themeChange.next(theme);
@@ -39,15 +31,10 @@ export class AppConfigService {
 
     updateConfig(config: AppConfig) {
         this.config = { ...this.config, ...config };
-        this.configUpdate.next(config);
     }
 
     getConfig() {
         return this.config;
-    }
-
-    toggleConfig() {
-        this.configActive.next(!this.configActive.value);
     }
 
     showMenu() {
