@@ -24,8 +24,7 @@ export class BasicDoc {
     sidebarVisible: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible">
+        basic: `<p-sidebar [(visible)]="sidebarVisible">
     <h3>Sidebar</h3>
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 

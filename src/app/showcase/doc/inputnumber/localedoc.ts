@@ -38,8 +38,7 @@ export class LocaleDoc {
     value4: number = 732762;
 
     code: Code = {
-        basic: `
-<p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2"></p-inputNumber>
+        basic: `<p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2"></p-inputNumber>
 <p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2"> </p-inputNumber>`,

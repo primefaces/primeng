@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class TargetDoc {
     code: Code = {
-        basic: `
-import { PrimeNGConfig, OverlayOptions } from 'primeng/api';
+        basic: `import { PrimeNGConfig, OverlayOptions } from 'primeng/api';
 
 this.primengConfig.overlayOptions: OverlayOptions = {
     appendTo: 'body'

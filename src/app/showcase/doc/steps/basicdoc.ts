@@ -39,8 +39,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-steps [model]="items" [readonly]="true"></p-steps>`,
+        basic: `<p-steps [model]="items" [readonly]="true"></p-steps>`,
 
         html: `
 <div class="card">

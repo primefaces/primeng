@@ -57,8 +57,7 @@ export class RoutingDoc implements OnInit {
         }
     }
     code: Code = {
-        basic: `
-<div class="card">
+        basic: `<div class="card">
     <p-toast></p-toast>
     <p-steps [model]="items" [readonly]="false"></p-steps>
 </div>

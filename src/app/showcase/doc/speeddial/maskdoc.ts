@@ -56,8 +56,7 @@ export class MaskDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>`,
+        basic: `<p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>`,
 
         html: `
 <div class="card">

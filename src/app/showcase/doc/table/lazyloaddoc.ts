@@ -148,8 +148,7 @@ export class LazyLoadDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     [value]="customers"
     [lazy]="true"
     (onLazyLoad)="loadCustomers($event)"

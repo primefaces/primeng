@@ -19,8 +19,7 @@ export class TemplateDoc {
     values: string[] | undefined;
 
     code: Code = {
-        basic: `
-<p-chips [(ngModel)]="values">
+        basic: `<p-chips [(ngModel)]="values">
     <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i> </ng-template>
 </p-chips>`,
 

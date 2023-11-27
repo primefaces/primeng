@@ -87,8 +87,7 @@ export class GroupedDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" [dropdown]="true">
+        basic: `<p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" [dropdown]="true">
     <ng-template let-group pTemplate="group">
         <div class="flex align-items-center">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />

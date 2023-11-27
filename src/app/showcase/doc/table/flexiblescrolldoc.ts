@@ -60,8 +60,7 @@ export class FlexibleScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center">
+        basic: `<div class="flex justify-content-center">
     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
 </div>
 <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">

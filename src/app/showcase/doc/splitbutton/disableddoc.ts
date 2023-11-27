@@ -54,8 +54,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>`,
+        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center">

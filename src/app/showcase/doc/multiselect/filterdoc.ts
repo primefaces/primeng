@@ -34,8 +34,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>`,
+        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

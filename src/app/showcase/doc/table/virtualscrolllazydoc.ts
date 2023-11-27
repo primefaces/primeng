@@ -82,8 +82,7 @@ export class VirtualScrollLazyDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
+        basic: `<p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
     [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
     <ng-template pTemplate="header" let-columns>
         <tr>

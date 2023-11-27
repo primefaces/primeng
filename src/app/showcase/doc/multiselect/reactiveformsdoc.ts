@@ -41,8 +41,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
 </form>`,
 

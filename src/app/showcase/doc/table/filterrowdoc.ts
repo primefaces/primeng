@@ -177,8 +177,7 @@ export class FilterRowDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     #dt2
     [value]="customers"
     dataKey="id"

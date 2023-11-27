@@ -36,8 +36,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form class="flex flex-column gap-3" [formGroup]="formGroup">
+        basic: `<form class="flex flex-column gap-3" [formGroup]="formGroup">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory"></p-radioButton>
         <label [for]="category.key" class="ml-2">{{ category.name }}</label>

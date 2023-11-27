@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-chip label="Action"></p-chip>`,
+        basic: `<p-chip label="Action"></p-chip>`,
         html: `
 <div class="card flex align-items-center gap-2 flex-wrap">
     <p-chip label="Action"></p-chip>

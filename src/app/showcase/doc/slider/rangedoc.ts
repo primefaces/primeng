@@ -17,8 +17,7 @@ export class RangeDoc {
     rangeValues: number[] = [20, 80];
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>`,
 
         html: `
 <div class="card flex justify-content-center">

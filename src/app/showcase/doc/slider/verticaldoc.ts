@@ -17,8 +17,7 @@ export class VerticalDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="value" orientation="vertical"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="value" orientation="vertical"></p-slider>`,
 
         html: `
 <div class="card flex justify-content-center">

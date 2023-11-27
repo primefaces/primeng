@@ -30,8 +30,7 @@ export class LoadingDoc {
     }
 
     code: Code = {
-        basic: `
-<p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
+        basic: `<p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
 <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>`,
 
         html: `

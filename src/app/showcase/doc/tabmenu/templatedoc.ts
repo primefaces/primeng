@@ -45,8 +45,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [model]="items" [activeItem]="activeItem">
+        basic: `<p-tabMenu [model]="items" [activeItem]="activeItem">
     <ng-template pTemplate="item" let-item>
         <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
             <div>

@@ -26,8 +26,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <p-editor formControlName="text" [style]="{ height: '320px' }"></p-editor>
 </form>`,
 

@@ -20,8 +20,7 @@ export class OverlayBasicDemo {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="toggle()" label="Show Overlay"></p-button>
+        basic: `<p-button (click)="toggle()" label="Show Overlay"></p-button>
 <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
     Content
 </p-overlay>`,

@@ -17,8 +17,7 @@ export class DisabledDoc {
     value: number = 75;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [disabled]="true"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [disabled]="true"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

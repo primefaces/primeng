@@ -53,8 +53,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
+        basic: `<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">

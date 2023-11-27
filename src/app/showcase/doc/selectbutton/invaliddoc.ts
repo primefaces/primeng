@@ -22,8 +22,7 @@ export class InvalidDoc {
     value: string = 'off';
 
     code: Code = {
-        basic: `
-<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty"></p-selectButton>`,
+        basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" class="ng-invalid ng-dirty"></p-selectButton>`,
 
         html: `
 <div class="card flex justify-content-center">

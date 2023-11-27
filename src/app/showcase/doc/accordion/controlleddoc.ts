@@ -41,8 +41,7 @@ export class ControlledDoc {
     activeIndex: number | undefined;
 
     code: Code = {
-        basic: `
-<div class="flex flex-wrap gap-2 mb-3">
+        basic: `<div class="flex flex-wrap gap-2 mb-3">
     <p-button [icon]="activeIndex === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 0" styleClass="p-button-text" label="Toggle 1st"></p-button>
     <p-button [icon]="activeIndex === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 1" styleClass="p-button-text ml-2" label="Toggle 2st"></p-button>
     <p-button [icon]="activeIndex === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 2" styleClass="p-button-text ml-2" label="Toggle 3st"></p-button>

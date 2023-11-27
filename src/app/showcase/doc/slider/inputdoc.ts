@@ -20,8 +20,7 @@ export class InputDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `
-<div>
+        basic: `<div>
     <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
     <p-slider [(ngModel)]="value" class="w-full"></p-slider>
 </div>`,

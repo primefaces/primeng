@@ -25,8 +25,7 @@ import { Code } from '../../domain/code';
 })
 export class MultipleDoc {
     code: Code = {
-        basic: `
-<div class="p-inputgroup w-full md:w-30rem">
+        basic: `<div class="p-inputgroup w-full md:w-30rem">
     <span class="p-inputgroup-addon">
         <i class="pi pi-clock"></i>
     </span>

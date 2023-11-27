@@ -66,8 +66,7 @@ export class PaginationDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
+        basic: `<p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
     <ng-template let-product pTemplate="listItem">
         <div class="col-12">
             <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">

@@ -17,8 +17,7 @@ export class InvalidDoc {
     value1!: number;
 
     code: Code = {
-        basic: `
-<p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1"> </p-inputNumber>`,
+        basic: `<p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1"> </p-inputNumber>`,
 
         html: `
 <div class="card flex justify-content-center">

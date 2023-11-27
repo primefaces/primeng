@@ -63,8 +63,7 @@ export class ColumnToggleDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="caption">
         <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
             selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns"></p-multiSelect>

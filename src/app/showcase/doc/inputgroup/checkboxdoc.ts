@@ -35,8 +35,7 @@ export class CheckboxDoc {
     category: string | undefined;
 
     code: Code = {
-        basic: `
-<div class="p-inputgroup">
+        basic: `<div class="p-inputgroup">
     <span class="p-inputgroup-addon"><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></span>
     <input type="text" pInputText placeholder="Username" />
 </div>

@@ -18,8 +18,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-button [outlined]="true">
+        basic: `<p-button [outlined]="true">
     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
     <span class="ml-2 font-bold">PrimeNG</span>
 </p-button>`,

@@ -42,8 +42,7 @@ export class LocaleDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex-auto">
+        basic: `<div class="flex-auto">
     <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
 </div>
 <div class="flex-auto">

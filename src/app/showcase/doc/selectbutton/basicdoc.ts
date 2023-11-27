@@ -22,8 +22,7 @@ export class BasicDoc {
     value: string = 'off';
 
     code: Code = {
-        basic: `
-<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
+        basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
 
         html: `
 <div class="card flex justify-content-center">

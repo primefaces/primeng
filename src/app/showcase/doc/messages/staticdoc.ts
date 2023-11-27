@@ -20,8 +20,7 @@ import { Code } from '../../domain/code';
 })
 export class StaticDoc {
     code: Code = {
-        basic: `
-<p-messages severity="info">
+        basic: `<p-messages severity="info">
     <ng-template pTemplate>
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" width="32" />
         <div class="ml-2">Always bet on Prime.</div>

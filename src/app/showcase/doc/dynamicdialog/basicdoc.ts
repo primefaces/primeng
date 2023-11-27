@@ -54,8 +54,7 @@ export class BasicDoc implements OnDestroy {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>`,
 
         html: `

@@ -17,8 +17,7 @@ export class DisabledDoc {
     checked: any;
 
     code: Code = {
-        basic: `
-<p-radioButton [disabled]="true"></p-radioButton>`,
+        basic: `<p-radioButton [disabled]="true"></p-radioButton>`,
 
         html: `
 <div class="card flex justify-content-center">

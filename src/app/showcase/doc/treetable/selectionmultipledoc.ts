@@ -66,8 +66,7 @@ export class SelectionMultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
+        basic: `<p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
 <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>

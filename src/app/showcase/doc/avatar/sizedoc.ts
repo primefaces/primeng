@@ -16,8 +16,7 @@ import { Code } from '../../domain/code';
 })
 export class SizeDoc {
     code: Code = {
-        basic: `
-<p-avatar label="P" size="large"></p-avatar>
+        basic: `<p-avatar label="P" size="large"></p-avatar>
 <p-avatar label="T" size="xlarge"></p-avatar>`,
         html: `
 <div class="card flex justify-content-center gap-2">

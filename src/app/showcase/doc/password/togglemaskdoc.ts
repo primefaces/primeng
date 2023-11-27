@@ -17,8 +17,7 @@ export class ToggleMaskDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value" [toggleMask]="true"></p-password>`,
+        basic: `<p-password [(ngModel)]="value" [toggleMask]="true"></p-password>`,
 
         html: `
 <div class="card flex justify-content-center">

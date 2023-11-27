@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class PillDoc {
     code: Code = {
-        basic: `
-<p-tag value="Primary" [rounded]="true"></p-tag>`,
+        basic: `<p-tag value="Primary" [rounded]="true"></p-tag>`,
         html: `
 <div class="card flex justify-content-center gap-2">
     <p-tag value="Primary" [rounded]="true"></p-tag>

@@ -16,8 +16,7 @@ import { Code } from '../../domain/code';
 })
 export class BadgeDoc {
     code: Code = {
-        basic: `
-<p-button label="Emails" badge="8"></p-button>
+        basic: `<p-button label="Emails" badge="8"></p-button>
 <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
 
         html: `

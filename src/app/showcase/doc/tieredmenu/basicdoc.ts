@@ -147,8 +147,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tieredMenu [model]="items"></p-tieredMenu>`,
+        basic: `<p-tieredMenu [model]="items"></p-tieredMenu>`,
 
         html: `
 <div class="card flex justify-content-center">

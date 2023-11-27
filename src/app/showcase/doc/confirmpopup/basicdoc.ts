@@ -35,8 +35,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>
 <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>`,
 

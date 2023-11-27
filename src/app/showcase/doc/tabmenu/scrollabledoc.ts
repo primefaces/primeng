@@ -25,8 +25,7 @@ export class ScrollableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
+        basic: `<p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
 
         html: `
 <div class="card">

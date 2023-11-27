@@ -59,8 +59,7 @@ export class SemiCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
+        basic: `<p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
 <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
 <p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle"></p-speedDial>
 <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>`,

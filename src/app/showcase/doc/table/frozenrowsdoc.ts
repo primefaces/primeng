@@ -94,8 +94,7 @@ export class FrozenRowsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>

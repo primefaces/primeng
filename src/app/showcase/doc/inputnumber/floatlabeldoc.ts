@@ -20,8 +20,7 @@ export class FloatlabelDoc {
     value1!: number;
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
     <label htmlFor="number-input">Number</label>
 </span>`,

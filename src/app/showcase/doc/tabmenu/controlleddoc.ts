@@ -41,8 +41,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
+        basic: `<button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
 <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>`,
 
         html: `

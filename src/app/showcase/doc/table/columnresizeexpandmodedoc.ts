@@ -44,8 +44,7 @@ export class ColumnResizeExpandModeDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th pResizableColumn>Code</th>

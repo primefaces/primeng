@@ -26,8 +26,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <p-toggleButton formControlName="checked" onLabel="Yes" offLabel="No"></p-toggleButton>
 </form>`,
 

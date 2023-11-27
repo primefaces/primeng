@@ -17,8 +17,7 @@ export class TouchUIDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -33,8 +33,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold">Header Content</span>

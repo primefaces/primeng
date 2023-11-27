@@ -37,8 +37,7 @@ export class MinMaxDoc {
     }
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>`,
 
         html: ` 
 <div class="card flex justify-content-center">

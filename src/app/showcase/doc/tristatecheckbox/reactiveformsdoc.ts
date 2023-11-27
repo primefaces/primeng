@@ -27,8 +27,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
+        basic: `<form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
     <p-triStateCheckbox formControlName="checked" inputId="checked"></p-triStateCheckbox>
     <label class="p-tristatecheckbox-label" for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
 </form>`,

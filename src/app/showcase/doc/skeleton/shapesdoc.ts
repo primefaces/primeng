@@ -48,8 +48,7 @@ import { Code } from '../../domain/code';
 })
 export class ShapesDoc {
     code: Code = {
-        basic: `
-<h5>Rectangle</h5>
+        basic: `<h5>Rectangle</h5>
 <p-skeleton styleClass="mb-2"></p-skeleton>
 <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
 <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>

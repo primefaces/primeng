@@ -50,8 +50,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="mb-3">
+        basic: `<div class="mb-3">
     <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
     <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
 </div>

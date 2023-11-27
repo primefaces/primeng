@@ -17,8 +17,7 @@ import { Code } from '../../domain/code';
 })
 export class CustomDoc {
     code: Code = {
-        basic: `
-<div pRipple class="card styled-box-green shadow-2">Green</div>`,
+        basic: `<div pRipple class="card styled-box-green shadow-2">Green</div>`,
         html: `
 <div class="card card-container flex justify-content-center align-items-center">
     <div pRipple class="card styled-box-green shadow-2">Green</div>

@@ -71,8 +71,7 @@ export class DropIndicatorDoc {
         return index;
     }
     code: Code = {
-        basic: `
-<div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
+        basic: `<div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
     <ul class="list-none flex flex-column gap-2 p-0 m-0">
         <li *ngFor="let product of availableProducts" class="p-2 border-round shadow-1" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
             {{product.name}}

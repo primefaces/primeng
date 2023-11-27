@@ -20,8 +20,7 @@ export class FullScreenDoc {
     sidebarVisible: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible" [fullScreen]="true">
+        basic: `<p-sidebar [(visible)]="sidebarVisible" [fullScreen]="true">
     <h3>Full Screen Sidebar</h3>
 </p-sidebar>
 <p-button (click)="sidebarVisible = true" icon="pi pi-th-large"></p-button>`,

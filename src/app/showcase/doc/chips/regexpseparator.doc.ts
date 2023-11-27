@@ -17,8 +17,7 @@ export class RegexpSeparatorDoc {
     values: string[] | undefined;
 
     code: Code = {
-        basic: `
-<p-chips [(ngModel)]="values" [separator]="separatorExp" placeholder="Hint: a, b c"></p-chips>`,
+        basic: `<p-chips [(ngModel)]="values" [separator]="separatorExp" placeholder="Hint: a, b c"></p-chips>`,
 
         html: `
 <div class="card p-fluid">

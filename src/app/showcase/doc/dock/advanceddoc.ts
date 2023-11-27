@@ -367,8 +367,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `
-<p-menubar [model]="menubarItems">
+        basic: `<p-menubar [model]="menubarItems">
     <ng-template pTemplate="start">
         <i class="pi pi-apple"></i>
     </ng-template>

@@ -29,8 +29,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<div pDefer (onLoad)="onLoad()">
+        basic: `<div pDefer (onLoad)="onLoad()">
     <ng-template>
         <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
     </ng-template>

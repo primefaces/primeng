@@ -17,8 +17,7 @@ export class BasicDoc {
     text: string | undefined;
 
     code: Code = {
-        basic: `
-<p-editor [(ngModel)]="text" [style]="{ height: '320px' }"></p-editor>`,
+        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }"></p-editor>`,
 
         html: `
 <div class="card">

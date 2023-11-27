@@ -29,8 +29,7 @@ import { Code } from '../../domain/code';
 })
 export class CardDoc {
     code: Code = {
-        basic: `
-<div class="border-round border-1 surface-border p-4 surface-card">
+        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
     <div class="flex mb-3">
         <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
         <div>

@@ -22,8 +22,7 @@ export class OptionsDoc {
     };
 
     code: Code = {
-        basic: `
-<input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip">`,
+        basic: `<input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip">`,
 
         html: `
 <div class="card flex justify-content-center">

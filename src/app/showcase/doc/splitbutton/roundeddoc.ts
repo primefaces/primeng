@@ -60,8 +60,7 @@ export class RoundedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-secondary mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-success mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-info mr-2 mb-2"></p-splitButton>

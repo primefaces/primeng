@@ -27,8 +27,7 @@ export class ResponsiveDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
+        basic: `<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Show"></button>`,
         html: `
 <div class="card flex justify-content-center">

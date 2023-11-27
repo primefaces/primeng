@@ -106,8 +106,7 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="card grid grid-nogutter">
+        basic: `<div class="card grid grid-nogutter">
     <div class="col-12 md:col-6 drag-column">
         <div *ngFor="let product of availableProducts">
             <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">

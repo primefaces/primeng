@@ -173,8 +173,7 @@ export class ColumnGroupDoc implements OnInit {
         ];
     }
     code: Code = {
-        basic: `
-<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Brand</th>
