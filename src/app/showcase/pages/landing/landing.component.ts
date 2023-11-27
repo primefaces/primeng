@@ -26,7 +26,7 @@ import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
-
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
     selector: 'landing',
     standalone: true,
@@ -50,6 +50,7 @@ import { CustomerService } from '../../service/customerservice';
         TableModule,
         RouterModule,
         CheckboxModule,
+        DropdownModule,
         AppNewsComponent,
         AppTopBarComponent
     ]
@@ -75,11 +76,11 @@ export class LandingComponent implements OnInit {
 
     selectButtonOptions: SelectItem[];
 
-    value1: number = 240;
+    value1: number = 24;
 
     value2: number = 356;
 
-    radioValue: string = 'C';
+    radioValue: string = 'S';
 
     switchValue: boolean = true;
 
@@ -98,6 +99,10 @@ export class LandingComponent implements OnInit {
     tableTheme: string = 'lara-light-blue';
 
     isNpmCopied: boolean = false;
+
+    user : any = null
+
+    users : any[]
 
     usersData = [
         { name: 'fox', width: '51', height: '22' },
@@ -194,6 +199,12 @@ export class LandingComponent implements OnInit {
             this.customers = customers;
             this.loading = false;
         });
+        
+        this.users = [
+            { name: 'Amy Elsner', image: 'amyelsner.png' },
+            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
+            { name: 'Onyama Limba', image: 'onyamalimba.png' }
+        ]
 
         if (isPlatformBrowser(this.platformId)) {
             this.initDocSearch();
