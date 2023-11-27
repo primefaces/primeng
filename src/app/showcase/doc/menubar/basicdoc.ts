@@ -144,8 +144,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-menubar [model]="items"></p-menubar>`,
+        basic: `<p-menubar [model]="items"></p-menubar>`,
 
         html: `
 <div class="card">

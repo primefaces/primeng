@@ -19,7 +19,7 @@ export class UIKitComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscription = this.configService.configUpdate$.subscribe((config) => {
-            this.colorScheme = config.dark ? 'dark' : 'light';
+            this.colorScheme = config.darkMode ? 'dark' : 'light';
         });
     }
 

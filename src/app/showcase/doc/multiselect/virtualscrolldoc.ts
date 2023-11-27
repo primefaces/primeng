@@ -47,8 +47,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `
-<p-multiSelect
+        basic: `<p-multiSelect
     [options]="items"
     [showToggleAll]="true"
     [selectAll]="selectAll"

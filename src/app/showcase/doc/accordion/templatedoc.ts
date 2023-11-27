@@ -61,8 +61,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-accordion class="w-full">
+        basic: `<p-accordion class="w-full">
     <p-accordionTab>
         <ng-template pTemplate="header">
             <div class="flex align-items-center">

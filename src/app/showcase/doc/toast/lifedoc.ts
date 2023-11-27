@@ -29,8 +29,7 @@ export class LifeDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast [life]="10000"></p-toast>
+        basic: `<p-toast [life]="10000"></p-toast>
 <button type="button" pButton pRipple (click)="showLife()" label="Show Life Default"></button>
 <button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>`,
         html: `

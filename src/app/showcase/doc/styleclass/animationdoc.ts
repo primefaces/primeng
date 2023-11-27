@@ -25,8 +25,7 @@ import { Code } from '../../domain/code';
 })
 export class AnimationDoc {
     code: Code = {
-        basic: `
-<div>
+        basic: `<div>
     <button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="fadein"></button>
     <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
 </div>

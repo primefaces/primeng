@@ -33,8 +33,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events">
+        basic: `<p-timeline [value]="events">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>

@@ -144,8 +144,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-megaMenu [model]="items" styleClass="flex">
+        basic: `<p-megaMenu [model]="items" styleClass="flex">
     <ng-template pTemplate="start">
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
     </ng-template>

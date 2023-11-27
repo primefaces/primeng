@@ -60,8 +60,7 @@ export class RaisedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-info mr-2 mb-2"></p-splitButton>

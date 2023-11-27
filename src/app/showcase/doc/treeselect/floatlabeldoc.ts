@@ -27,8 +27,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label md:w-20rem w-full">
+        basic: `<span class="p-float-label md:w-20rem w-full">
     <p-treeSelect containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
     <label for="treeselect">TreeSelect</label>
 </span>`,

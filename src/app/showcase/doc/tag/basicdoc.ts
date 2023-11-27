@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-tag value="New"></p-tag>`,
+        basic: `<p-tag value="New"></p-tag>`,
         html: `
 <div class="card flex justify-content-center">
     <p-tag value="New"></p-tag>

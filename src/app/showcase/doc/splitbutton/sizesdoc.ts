@@ -56,8 +56,7 @@ export class SizesDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" styleClass="p-button-sm mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" styleClass="p-button-sm mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')" styleClass="mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>`,
 

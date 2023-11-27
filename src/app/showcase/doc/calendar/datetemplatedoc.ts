@@ -21,8 +21,7 @@ export class DateTemplateDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date">
+        basic: `<p-calendar [(ngModel)]="date">
     <ng-template pTemplate="date" let-date>
         <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
     </ng-template>

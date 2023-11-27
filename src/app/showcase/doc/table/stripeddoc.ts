@@ -44,8 +44,7 @@ export class StripedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th>Code</th>

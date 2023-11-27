@@ -17,8 +17,7 @@ export class BasicDoc {
     value: string;
 
     code: Code = {
-        basic: `
-<input type="text" pInputText [(ngModel)]="value" />`,
+        basic: `<input type="text" pInputText [(ngModel)]="value" />`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -76,8 +76,7 @@ export class SelectionDoc {
     ];
 
     code: Code = {
-        basic: `
-<p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
+        basic: `<p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
     <ng-template let-node pTemplate="person">
         <div class="p-2 text-center">
             <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />

@@ -25,8 +25,7 @@ export class CustomToolbarDoc {
     text: string = 'Hello World!';
 
     code: Code = {
-        basic: `
-<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
     <ng-template pTemplate="header">
         <span class="ql-formats">
             <button type="button" class="ql-bold" aria-label="Bold"></button>

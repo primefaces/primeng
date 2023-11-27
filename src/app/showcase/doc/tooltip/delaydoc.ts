@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class DelayDoc {
     code: Code = {
-        basic: `
-<input type="text" pInputText pTooltip="Enter your username" showDelay="1000" hideDelay="1000" placeholder="hover to display tooltip">`,
+        basic: `<input type="text" pInputText pTooltip="Enter your username" showDelay="1000" hideDelay="1000" placeholder="hover to display tooltip">`,
 
         html: `
 <div class="card flex justify-content-center">

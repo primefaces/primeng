@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class LinkDoc {
     code: Code = {
-        basic: `
-<p-button label="Submit" [link]="true"></p-button>`,
+        basic: `<p-button label="Submit" [link]="true"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">

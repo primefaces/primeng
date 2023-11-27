@@ -35,8 +35,7 @@ export class MaskDoc {
     value3: string | undefined;
 
     code: Code = {
-        basic: `
-<span class="font-bold block mb-2">SSN</span>
+        basic: `<span class="font-bold block mb-2">SSN</span>
 <p-inputMask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999"></p-inputMask>
 
 <span class="font-bold block mb-2">Phone</span>

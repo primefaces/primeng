@@ -42,8 +42,7 @@ import { Code } from '../../domain/code';
 })
 export class PresetsDoc {
     code: Code = {
-        basic: `
-<input pInputText pKeyFilter="int" />
+        basic: `<input pInputText pKeyFilter="int" />
 <input pInputText pKeyFilter="num" />
 <input pInputText pKeyFilter="money" />
 <input pInputText pKeyFilter="hex" />

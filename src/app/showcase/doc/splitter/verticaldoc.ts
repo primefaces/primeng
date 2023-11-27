@@ -22,8 +22,7 @@ import { Code } from '../../domain/code';
 })
 export class VerticalDoc {
     code: Code = {
-        basic: `
-<p-splitter [style]="{ height: '300px' }" styleClass="mb-5" layout="vertical">
+        basic: `<p-splitter [style]="{ height: '300px' }" styleClass="mb-5" layout="vertical">
     <ng-template pTemplate>
         <div class="col flex align-items-center justify-content-center">Panel 1</div>
     </ng-template>

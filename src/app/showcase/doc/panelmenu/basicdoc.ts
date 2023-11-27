@@ -141,8 +141,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>`,
+        basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
 })
 export class SeverityDoc {
     code: Code = {
-        basic: `
-<p-button label="Primary"></p-button>
+        basic: `<p-button label="Primary"></p-button>
 <p-button label="Secondary" severity="secondary"></p-button>
 <p-button label="Success" severity="success"></p-button>
 <p-button label="Info" severity="info"></p-button>

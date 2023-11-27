@@ -59,8 +59,7 @@ import { Code } from '../../domain/code';
 })
 export class IconOnlyDoc {
     code: Code = {
-        basic: `
-<p-button icon="pi pi-check"></p-button>
+        basic: `<p-button icon="pi pi-check"></p-button>
 <p-button icon="pi pi-bookmark" severity="secondary"></p-button>
 <p-button icon="pi pi-search" severity="success"></p-button>
 <p-button icon="pi pi-user" severity="info"></p-button>

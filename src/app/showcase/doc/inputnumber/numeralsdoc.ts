@@ -38,8 +38,7 @@ export class NumeralsDoc {
     value4: number = 50;
 
     code: Code = {
-        basic: `
-<p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
+        basic: `<p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>

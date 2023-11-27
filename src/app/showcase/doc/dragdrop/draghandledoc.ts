@@ -17,8 +17,7 @@ import { Code } from '../../domain/code';
 })
 export class DragHandleDoc {
     code: Code = {
-        basic: `
-<div pDraggable dragHandle=".p-panel-header" class="w-15rem">
+        basic: `<div pDraggable dragHandle=".p-panel-header" class="w-15rem">
     <p-panel header="Drag Header">
         Content
     </p-panel>

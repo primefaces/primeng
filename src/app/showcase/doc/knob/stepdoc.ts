@@ -17,8 +17,7 @@ export class StepDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [step]="10"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [step]="10"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

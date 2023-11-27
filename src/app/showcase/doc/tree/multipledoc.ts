@@ -37,8 +37,7 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex align-items-center mb-4 gap-2">
+        basic: `<div class="flex align-items-center mb-4 gap-2">
     <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection"></p-inputSwitch>
     <label for="input-metakey">MetaKey</label>
 </div>

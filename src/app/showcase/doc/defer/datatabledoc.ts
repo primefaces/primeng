@@ -52,8 +52,7 @@ export class DataTableDoc {
     }
 
     code: Code = {
-        basic: `
-<div pDefer (onLoad)="initData()">
+        basic: `<div pDefer (onLoad)="initData()">
     <ng-template>
         <p-table [value]="cars" responsiveLayout="scroll">
             <ng-template pTemplate="header">

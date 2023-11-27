@@ -29,8 +29,7 @@ export class DynamicDoc {
     ];
 
     code: Code = {
-        basic: `
-<div *ngFor="let category of categories" class="field-checkbox">
+        basic: `<div *ngFor="let category of categories" class="field-checkbox">
     <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
     <label [for]="category.key">{{ category.name }}</label>
 </div>`,

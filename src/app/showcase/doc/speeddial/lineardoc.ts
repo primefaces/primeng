@@ -59,8 +59,7 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up"></p-speedDial>
+        basic: `<p-speedDial [model]="items" direction="up"></p-speedDial>
 <p-speedDial [model]="items" direction="down"></p-speedDial>
 <p-speedDial [model]="items" direction="left"></p-speedDial>
 <p-speedDial [model]="items" direction="right"></p-speedDial>`,

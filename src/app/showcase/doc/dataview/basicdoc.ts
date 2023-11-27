@@ -69,8 +69,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dataView #dv [value]="products">
+        basic: `<p-dataView #dv [value]="products">
     <ng-template let-product pTemplate="listItem">
         <div class="col-12">
             <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">

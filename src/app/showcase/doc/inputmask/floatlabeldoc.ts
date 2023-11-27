@@ -20,8 +20,7 @@ export class FloatlabelDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input"></p-inputMask>
     <label htmlFor="ssn_input">SSN</label>
 </span>`,

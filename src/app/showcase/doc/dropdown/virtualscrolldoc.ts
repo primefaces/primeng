@@ -30,8 +30,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" 
+        basic: `<p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" 
     [virtualScroll]="true" [virtualScrollItemSize]="38"></p-dropdown>`,
 
         html: `

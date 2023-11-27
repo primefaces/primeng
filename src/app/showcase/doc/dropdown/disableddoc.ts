@@ -34,8 +34,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true"></p-dropdown>`,
+        basic: `<p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true"></p-dropdown>`,
 
         html: `
 <div class="card flex justify-content-center">

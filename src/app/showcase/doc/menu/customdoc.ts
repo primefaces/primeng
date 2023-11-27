@@ -71,8 +71,7 @@ export class CustomContentDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-menu [model]="items">
+        basic: `<p-menu [model]="items">
     <ng-template pTemplate="item" let-item>
         <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
             <div>

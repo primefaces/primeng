@@ -25,8 +25,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-inplace>
+        basic: `<p-inplace>
     <ng-template pTemplate="display">
         <span>View Content</span>
     </ng-template>

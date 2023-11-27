@@ -31,8 +31,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-menu [model]="items"></p-menu>`,
+        basic: `<p-menu [model]="items"></p-menu>`,
 
         html: `
 <div class="card flex justify-content-center">

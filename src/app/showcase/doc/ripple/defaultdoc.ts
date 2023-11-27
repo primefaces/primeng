@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class DefaultDoc {
     code: Code = {
-        basic: `
-<div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>`,
+        basic: `<div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>`,
         html: `
 <div class="card card-container flex justify-content-center align-items-center">
     <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>

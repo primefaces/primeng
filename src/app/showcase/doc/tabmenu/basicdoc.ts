@@ -28,8 +28,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [model]="items"></p-tabMenu>`,
+        basic: `<p-tabMenu [model]="items"></p-tabMenu>`,
 
         html: `
 <div class="card">

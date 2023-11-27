@@ -26,8 +26,7 @@ export class RegexDoc {
     blockChars: RegExp = /^[^<>*!]+$/;
 
     code: Code = {
-        basic: `
-<input pInputText [pKeyFilter]="blockSpace" />
+        basic: `<input pInputText [pKeyFilter]="blockSpace" />
 <input pInputText [pKeyFilter]="blockChars" />`,
 
         html: `

@@ -56,8 +56,8 @@ import { AppConfigService } from 'src/app/showcase/service/appconfigservice';
                                 </ng-container>
                                 <span
                                     [ngClass]="{
-                                        'doc-option-dark': config.dark && entry[0] === 'default',
-                                        'doc-option-light': !config.dark && entry[0] === 'default',
+                                        'doc-option-dark': config.darkMode && entry[0] === 'default',
+                                        'doc-option-light': !config.darkMode && entry[0] === 'default',
                                         'doc-option-default': entry[0] === 'default',
                                         'doc-option-description': entry[0] === 'description'
                                     }"

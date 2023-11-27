@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class AutoResizeDoc {
     code: Code = {
-        basic: `
-<textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>`,
+        basic: `<textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>`,
 
         html: `
 <div class="card flex justify-content-center">

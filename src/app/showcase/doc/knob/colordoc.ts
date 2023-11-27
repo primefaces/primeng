@@ -17,8 +17,7 @@ export class ColorDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

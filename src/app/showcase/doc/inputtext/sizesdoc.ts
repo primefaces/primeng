@@ -23,8 +23,7 @@ export class SizesDoc {
     value3: string | undefined;
 
     code: Code = {
-        basic: `
-<input pInputText type="text" class="p-inputtext-sm" placeholder="Small" [(ngModel)]="value" />
+        basic: `<input pInputText type="text" class="p-inputtext-sm" placeholder="Small" [(ngModel)]="value" />
 <input pInputText type="text" placeholder="Normal" [(ngModel)]="value2" />
 <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />`,
 

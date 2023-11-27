@@ -17,8 +17,7 @@ export class BasicDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value" [feedback]="false"></p-password>`,
+        basic: `<p-password [(ngModel)]="value" [feedback]="false"></p-password>`,
 
         html: `
 <div class="card flex justify-content-center">

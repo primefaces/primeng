@@ -41,8 +41,7 @@ export class ControlledDoc {
     activeIndex: number = 0;
 
     code: Code = {
-        basic: `
-<div style="padding: .5em 0 1em 0">
+        basic: `<div style="padding: .5em 0 1em 0">
     <p-button (click)="activeIndex = 0" styleClass="p-button-text" label="Activate 1st"></p-button>
     <p-button (click)="activeIndex = 1" styleClass="p-button-text" label="Activate 2nd" style="{'margin-left': '.5em'}"></p-button>
     <p-button (click)="activeIndex = 2" styleClass="p-button-text" label="Activate 3rd" style="{'margin-left': '.5em'}"></p-button>

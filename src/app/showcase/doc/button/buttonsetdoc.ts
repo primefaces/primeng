@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class ButtonsetDoc {
     code: Code = {
-        basic: `
-<span class="p-buttonset">
+        basic: `<span class="p-buttonset">
     <button pButton pRipple label="Save" icon="pi pi-check"></button>
     <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
     <button pButton pRipple label="Cancel" icon="pi pi-times"></button>

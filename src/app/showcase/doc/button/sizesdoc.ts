@@ -17,8 +17,7 @@ import { Code } from '../../domain/code';
 })
 export class SizesDoc {
     code: Code = {
-        basic: `
-<p-button label="Small" icon="pi pi-check" size="small"></p-button>
+        basic: `<p-button label="Small" icon="pi pi-check" size="small"></p-button>
 <p-button label="Normal" icon="pi pi-check"></p-button>
 <p-button label="Large" icon="pi pi-check" size="large"></p-button>`,
 

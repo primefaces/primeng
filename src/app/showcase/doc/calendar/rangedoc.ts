@@ -17,8 +17,7 @@ export class RangeDoc {
     rangeDates: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

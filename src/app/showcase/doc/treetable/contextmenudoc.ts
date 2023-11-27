@@ -77,8 +77,7 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+        basic: `<p-toast [style]="{ marginTop: '80px' }"></p-toast>
 
 <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>

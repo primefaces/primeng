@@ -34,8 +34,7 @@ export class BasicDoc implements OnDestroy {
     }
 
     code: Code = {
-        basic: `
-<p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+        basic: `<p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
 <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>`,
         html: `
 <div class="card">

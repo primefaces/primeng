@@ -49,8 +49,7 @@ export class DataDoc {
     }
 
     code: Code = {
-        basic: `
-<p-inplace>
+        basic: `<p-inplace>
     <ng-template pTemplate="display">
         <div class="inline-flex align-items-center">
             <span class="pi pi-table" style="vertical-align: middle"></span>

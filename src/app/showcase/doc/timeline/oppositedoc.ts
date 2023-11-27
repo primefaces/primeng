@@ -41,8 +41,7 @@ export class OppositeDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events">
+        basic: `<p-timeline [value]="events">
     <ng-template pTemplate="content" let-event>
         <small class="p-text-secondary">{{ event.date }}</small>
     </ng-template>

@@ -43,8 +43,7 @@ export class PositionDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex flex-wrap gap-2">
+        basic: `<div class="flex flex-wrap gap-2">
     <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
     <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
 </div>

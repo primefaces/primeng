@@ -99,8 +99,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex align-items-center justify-content-center">
+        basic: `<div class="flex align-items-center justify-content-center">
     <div>
         <p-button icon="pi pi-star" styleClass="p-button-outlined"></p-button>
     </div>

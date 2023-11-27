@@ -60,8 +60,7 @@ export class OutlinedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-secondary mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-success mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-info mr-2 mb-2"></p-splitButton>

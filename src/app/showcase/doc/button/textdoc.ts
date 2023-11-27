@@ -22,8 +22,7 @@ import { Code } from '../../domain/code';
 })
 export class TextDoc {
     code: Code = {
-        basic: `
-<p-button label="Primary" [text]="true"></p-button>
+        basic: `<p-button label="Primary" [text]="true"></p-button>
 <p-button label="Secondary" [text]="true" severity="secondary"></p-button>
 <p-button label="Success" [text]="true" severity="success"></p-button>
 <p-button label="Info" [text]="true" severity="info"></p-button>

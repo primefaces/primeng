@@ -54,8 +54,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
+        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center">

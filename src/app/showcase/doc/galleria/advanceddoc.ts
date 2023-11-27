@@ -167,8 +167,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `
-<p-galleria
+        basic: `<p-galleria
     #galleria
     [(value)]="images"
     [(activeIndex)]="activeIndex"

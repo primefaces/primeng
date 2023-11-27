@@ -70,8 +70,7 @@ export class PopupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-menu #menu [model]="items" [popup]="true"></p-menu>
 <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button>`,
 

@@ -18,8 +18,7 @@ export class BasicDoc {
     value: boolean | null = null;
 
     code: Code = {
-        basic: `
-<p-triStateCheckbox class="p-tristatecheckbox-label" [(ngModel)]="value" inputId="tricheckbox"></p-triStateCheckbox>`,
+        basic: `<p-triStateCheckbox class="p-tristatecheckbox-label" [(ngModel)]="value" inputId="tricheckbox"></p-triStateCheckbox>`,
 
         html: `
 <div class="card flex flex-column gap-3 align-items-center">

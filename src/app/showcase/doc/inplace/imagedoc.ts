@@ -25,8 +25,7 @@ import { Code } from '../../domain/code';
 })
 export class ImageDoc {
     code: Code = {
-        basic: `
-<p-inplace>
+        basic: `<p-inplace>
     <ng-template pTemplate="display">
         <div class="inline-flex align-items-center">
             <span class="pi pi-image" style="vertical-align: middle"></span>

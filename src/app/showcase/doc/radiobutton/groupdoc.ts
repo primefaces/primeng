@@ -36,8 +36,7 @@ export class GroupDoc {
     ingredient!: string;
 
     code: Code = {
-        basic: `
-<div class="flex flex-wrap gap-3">
+        basic: `<div class="flex flex-wrap gap-3">
     <div class="flex align-items-center">
         <p-radioButton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
         <label for="ingredient1" class="ml-2">Cheese</label>

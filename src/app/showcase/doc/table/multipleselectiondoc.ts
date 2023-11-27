@@ -56,8 +56,7 @@ export class MultipleSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center align-items-center gap-2 mb-3">
+        basic: `<div class="flex justify-content-center align-items-center gap-2 mb-3">
     <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
     <span>MetaKey</span>
 </div>

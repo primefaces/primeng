@@ -24,8 +24,7 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">
