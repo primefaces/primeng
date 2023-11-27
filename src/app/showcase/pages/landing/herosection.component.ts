@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DropdownModule } from 'primeng/dropdown';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { MenuItem, SelectItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { ChipModule } from 'primeng/chip';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { BadgeModule } from 'primeng/badge';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { FormsModule } from '@angular/forms';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'template-hero',
@@ -146,13 +148,13 @@ import { MenuItem, SelectItem } from 'primeng/api';
         </section>
     `
 })
-export class HeroSectionComponent {
+export class HeroSectionComponent implements OnInit, OnDestroy {
     value1: number = 24;
 
     radioValue: string = 'S';
 
     dateValue: Date;
-    
+
     switchValue: boolean = true;
 
     chartData: any;
@@ -171,7 +173,38 @@ export class HeroSectionComponent {
 
     rangeValues = [20, 80];
 
+    themeChangeCompleteSubscription: Subscription;
+
+    constructor(private configService: AppConfigService) {}
+
     ngOnInit() {
+        this.initChartData();
+        this.setChartOptions();
+
+        this.selectButtonValue = { label: 'Styled', value: 1 };
+
+        this.selectButtonOptions = [
+            { label: 'Styled', value: 1 },
+            { label: 'Unstyled', value: 2 }
+        ];
+
+        this.items = [
+            { label: 'Home', icon: 'pi pi-fw pi-home' },
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
+        ];
+
+        this.users = [
+            { name: 'Amy Elsner', image: 'amyelsner.png' },
+            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
+            { name: 'Onyama Limba', image: 'onyamalimba.png' }
+        ];
+
+        this.themeChangeCompleteSubscription = this.configService.themeChangeComplete$.subscribe(() => {
+            this.setChartOptions();
+        });
+    }
+
+    initChartData(): void {
         this.chartData = {
             labels: ['Q1', 'Q2', 'Q3', 'Q4'],
             datasets: [
@@ -185,6 +218,12 @@ export class HeroSectionComponent {
                 }
             ]
         };
+    }
+
+    setChartOptions(): void {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
         this.chartOptions = {
             plugins: {
@@ -193,32 +232,33 @@ export class HeroSectionComponent {
                 }
             },
             scales: {
+                x: {
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder
+                    }
+                },
                 y: {
                     beginAtZero: true,
-
+                    ticks: {
+                        color: textColorSecondary
+                    },
                     min: 0,
-                    max: 100
+                    max: 100,
+                    grid: {
+                        color: surfaceBorder
+                    }
                 }
             }
         };
-
-        (this.selectButtonValue = { label: 'Styled', value: 1 }),
-            (this.selectButtonOptions = [
-                { label: 'Styled', value: 1 },
-                { label: 'Unstyled', value: 2 }
-            ]);
-
-        this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
-        ];
-        this.users = [
-            { name: 'Amy Elsner', image: 'amyelsner.png' },
-            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            { name: 'Onyama Limba', image: 'onyamalimba.png' }
-        ]
-      
     }
 
-    
+    ngOnDestroy(): void {
+        if (this.themeChangeCompleteSubscription) {
+            this.themeChangeCompleteSubscription.unsubscribe();
+            this.themeChangeCompleteSubscription = null;
+        }
+    }
 }

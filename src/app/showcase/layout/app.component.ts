@@ -94,6 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 theme: theme.name,
                 darkMode: theme.dark
             });
+            this.configService.completeThemeChange(theme);
         });
     }
 

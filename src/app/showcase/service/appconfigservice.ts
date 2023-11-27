@@ -25,8 +25,16 @@ export class AppConfigService {
 
     themeChange$ = this.themeChange.asObservable();
 
+    private themeChangeComplete = new Subject<Theme>();
+
+    themeChangeComplete$ = this.themeChangeComplete.asObservable();
+
     changeTheme(theme: Theme) {
         this.themeChange.next(theme);
+    }
+
+    completeThemeChange(theme: Theme) {
+        this.themeChangeComplete.next(theme);
     }
 
     updateConfig(config: AppConfig) {
