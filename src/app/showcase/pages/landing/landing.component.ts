@@ -1,10 +1,8 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
-import { MenuItem, SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -17,16 +15,22 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import Versions from '../../data/versions.json';
-import { Customer } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 import { AppConfigService } from '../../service/appconfigservice';
-import { CustomerService } from '../../service/customerservice';
 import { DropdownModule } from 'primeng/dropdown';
+import { HeroSectionComponent } from './herosection.component';
+import { FeaturesSectionComponent } from './featuressection.component';
+import { UsersSectionComponent } from './userssection.component';
+import { ThemeSectionComponent } from './themesection.component';
+import { BlockSectionComponent } from './blocksection.component';
+import { TemplateSectionComponent } from './templatesection.component';
+import { FooterSectionComponent } from './footersection.component';
+
 @Component({
     selector: 'landing',
     standalone: true,
@@ -34,7 +38,6 @@ import { DropdownModule } from 'primeng/dropdown';
     imports: [
         CommonModule,
         NgOptimizedImage,
-        FormsModule,
         InputSwitchModule,
         ButtonModule,
         RadioButtonModule,
@@ -52,49 +55,24 @@ import { DropdownModule } from 'primeng/dropdown';
         CheckboxModule,
         DropdownModule,
         AppNewsComponent,
-        AppTopBarComponent
-    ]
+        AppTopBarComponent,
+        HeroSectionComponent,
+        FeaturesSectionComponent,
+        UsersSectionComponent,
+        ThemeSectionComponent,
+        BlockSectionComponent,
+        TemplateSectionComponent,
+        FooterSectionComponent
+    ],
 })
 export class LandingComponent implements OnInit {
     @ViewChild('containerElement') containerElement: ElementRef;
-
-    @ViewChild('dt') table: Table;
 
     @ViewChild('editor') editor: ElementRef;
 
     versions: any[] = Versions;
 
     scrollListener: any;
-
-    chartData: any;
-
-    chartOptions: any;
-
-    items: MenuItem[];
-
-    selectButtonValue: SelectItem;
-
-    selectButtonOptions: SelectItem[];
-
-    value1: number = 24;
-
-    value2: number = 356;
-
-    radioValue: string = 'S';
-
-    switchValue: boolean = true;
-
-    selectedVal: number = 1;
-
-    rangeValues = [20, 80];
-
-    dateValue: Date;
-
-    customers: Customer[];
-
-    selectedCustomers: Customer[];
-
-    loading: boolean = true;
 
     tableTheme: string = 'lara-light-blue';
 
@@ -139,7 +117,6 @@ export class LandingComponent implements OnInit {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
-        private customerService: CustomerService,
         private configService: AppConfigService,
         private cd: ChangeDetectorRef,
         public app: AppComponent,
@@ -153,58 +130,6 @@ export class LandingComponent implements OnInit {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
         this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
-
-        this.chartData = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [
-                {
-                    label: 'Annual Income',
-                    data: [40, 59, 40, 50, 56],
-                    fill: true,
-                    borderColor: '#3b82f6',
-                    tension: 0.4,
-                    backgroundColor: 'rgba(59, 130, 246, .2)'
-                }
-            ]
-        };
-
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-
-                    min: 0,
-                    max: 100
-                }
-            }
-        };
-
-        (this.selectButtonValue = { label: 'Styled', value: 1 }),
-            (this.selectButtonOptions = [
-                { label: 'Styled', value: 1 },
-                { label: 'Unstyled', value: 2 }
-            ]);
-
-        this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
-        ];
-
-        this.customerService.getCustomersLarge().then((customers) => {
-            this.customers = customers;
-            this.loading = false;
-        });
-        
-        this.users = [
-            { name: 'Amy Elsner', image: 'amyelsner.png' },
-            { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-            { name: 'Onyama Limba', image: 'onyamalimba.png' }
-        ]
 
         if (isPlatformBrowser(this.platformId)) {
             this.initDocSearch();
@@ -286,22 +211,5 @@ export class LandingComponent implements OnInit {
         }
     }
 
-    getSeverity(status) {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-
-            case 'qualified':
-                return 'success';
-
-            case 'new':
-                return 'info';
-
-            case 'negotiation':
-                return 'warning';
-
-            case 'renewal':
-                return null;
-        }
-    }
+ 
 }
