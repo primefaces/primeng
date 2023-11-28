@@ -109,7 +109,6 @@ export const routes: Routes = [
             { path: 'treeselect', loadChildren: () => import('../pages/treeselect/treeselectdemo.module').then((m) => m.TreeSelectDemoModule) },
             { path: 'treetable', loadChildren: () => import('../pages/treetable/treetabledemo.module').then((m) => m.TreeTableDemoModule) },
             { path: 'tristatecheckbox', loadChildren: () => import('../pages/tristatecheckbox/tristatecheckboxdemo.module').then((m) => m.TriStateCheckboxDemoModule) },
-            { path: 'virtualscroller', loadChildren: () => import('../pages/virtualscroller/virtualscrollerdemo.module').then((m) => m.VirtualScrollerDemoModule) },
             { path: 'accessibility', loadChildren: () => import('../pages/accessibility/accessibilitydemo.module').then((m) => m.AccessibilityDemoModule) },
             { path: 'scroller', loadChildren: () => import('../pages/scroller/scrollerdemo.module').then((m) => m.ScrollerDemoModule) },
             { path: 'uikit', loadChildren: () => import('../pages/uikit/uikit.module').then((m) => m.UIKitModule) },

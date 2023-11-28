@@ -501,10 +501,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      * @defaultValue 3
      */
-    @Input() set maxSelectedLabels(val: number) {
+    @Input() set maxSelectedLabels(val: number | null | undefined) {
         this._maxSelectedLabels = val;
     }
-    get maxSelectedLabels(): number {
+    get maxSelectedLabels(): number | null | undefined {
         return this._maxSelectedLabels;
     }
     /**

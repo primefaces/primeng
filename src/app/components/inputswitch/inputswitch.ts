@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputSwitchOnChangeEvent } from './inputswitch.interface';
+import { InputSwitchChangeEvent } from './inputswitch.interface';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -110,10 +110,10 @@ export class InputSwitch {
     @Input() ariaLabelledBy: string | undefined;
     /**
      * Callback to invoke when the on value change.
-     * @param {InputSwitchOnChangeEvent} event - Custom change event.
+     * @param {InputSwitchChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter<InputSwitchOnChangeEvent>();
+    @Output() onChange: EventEmitter<InputSwitchChangeEvent> = new EventEmitter<InputSwitchChangeEvent>();
 
     @ViewChild('input') input!: ElementRef;
 
