@@ -1958,7 +1958,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let value = this.modelValue().filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey()));
 
         this.updateModel(value, event);
-
+        this.onChange.emit({
+            originalEvent: event,
+            value: value,
+            itemValue: optionValue
+        });
         event && event.stopPropagation();
     }
 
