@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'template-block',
+    selector: 'block-section',
     standalone: true,
     imports: [CommonModule],
     template: `

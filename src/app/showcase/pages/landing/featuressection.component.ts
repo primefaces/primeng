@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
-    selector: 'template-features',
+    selector: 'features-section',
     standalone: true,
     imports: [CommonModule],
     template: `

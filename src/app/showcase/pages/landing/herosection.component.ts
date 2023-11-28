@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
-    selector: 'template-hero',
+    selector: 'hero-section',
     standalone: true,
     imports: [CommonModule, RouterModule, InputNumberModule, DropdownModule, RadioButtonModule, CalendarModule, ChartModule, ChipModule, InputSwitchModule, SelectButtonModule, SliderModule, BadgeModule, TabMenuModule, FormsModule],
     template: `

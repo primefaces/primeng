@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'template-theme',
+    selector: 'theme-section',
     standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule],
     template: `

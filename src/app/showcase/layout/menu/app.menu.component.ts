@@ -1,5 +1,5 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnDestroy, afterNextRender } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
@@ -38,16 +38,10 @@ export class AppMenuComponent implements OnDestroy {
 
     private routerSubscription: Subscription;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
+    constructor(private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
-    }
 
-    get isActive(): boolean {
-        return this.configService.state.menuActive;
-    }
-
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
+        afterNextRender(() => {
             setTimeout(() => {
                 this.scrollToActiveItem();
             }, 1);
@@ -58,7 +52,11 @@ export class AppMenuComponent implements OnDestroy {
                     DomHandler.unblockBodyScroll('blocked-scroll');
                 }
             });
-        }
+        });
+    }
+
+    get isActive(): boolean {
+        return this.configService.state.menuActive;
     }
 
     scrollToActiveItem() {
@@ -69,10 +67,8 @@ export class AppMenuComponent implements OnDestroy {
     }
 
     isInViewport(element) {
-        if (isPlatformBrowser(this.platformId)) {
-            const rect = element.getBoundingClientRect();
-            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
-        }
+        const rect = element.getBoundingClientRect();
+        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
     }
 
     ngOnDestroy() {
