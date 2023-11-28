@@ -47,7 +47,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 <div class="flex gap-2">
                                     <div class="w-6rem flex-shrink-0">
                                         <span class="text-secondary font-medium block mb-3">Amount</span>
-                                        <p-inputNumber [(ngModel)]="value1" mode="currency" currency="USD" locale="en-US" class="w-full" inputStyleClass="lg:w-6" />
+                                        <p-inputNumber [(ngModel)]="value1" mode="currency" currency="USD" locale="en-US" inputStyleClass="lg:w-6 w-full" />
                                     </div>
                                     <div class="flex-auto" style="width: 1%">
                                         <span class="text-secondary font-semibold block mb-3">Beneficiary</span>
