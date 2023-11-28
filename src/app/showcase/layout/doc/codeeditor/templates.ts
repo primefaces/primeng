@@ -343,8 +343,7 @@ const angular_json = `
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
               "assets": [
-                "src/assets",
-                "src/favicon.png"
+                "src/assets"
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
@@ -682,7 +681,7 @@ export class AppModule {}`;
         <link href="https://unpkg.com/primeflex/primeflex.css" rel="stylesheet" />
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
     </head>
     <body>
         <${selector}></${selector}>
