@@ -15,10 +15,6 @@
                 {
                     "name": "Playground",
                     "routerLink": "/playground"
-                },
-                {
-                    "name": "Accessibility",
-                    "routerLink": "/accessibility"
                 }
             ]
         },
@@ -522,6 +518,11 @@
             "name": "PrimeFlex CSS",
             "icon": "pi pi-table",
             "href": "https://primeflex.org"
+        },
+        {
+            "name": "Accessibility",
+            "icon": "pi pi-users",
+            "routerLink": "/accessibility"
         },
         {
             "name": "Support",

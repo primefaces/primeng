@@ -37,14 +37,9 @@ import { CustomerService } from '../../service/customerservice';
                         [rowHover]="true"
                         [rows]="5"
                         [showCurrentPageReport]="true"
-                        [rowsPerPageOptions]="[5, 10, 15]"
                         [loading]="loading"
-                        responsiveLayout="scroll"
                         [paginator]="true"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-                        paginatorDropdownAppendTo="body"
-                        [totalRecords]="5"
                     >
                         <ng-template pTemplate="caption">
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
