@@ -42,10 +42,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     themeChangeSubscription: Subscription;
 
-    showConfigurator: boolean = false;
-
-    showMenuButton: boolean = false;
-
     ngOnInit() {
         this.primeng.ripple = true;
 
@@ -87,13 +83,6 @@ export class AppComponent implements OnInit, OnDestroy {
                     this.switchTheme({ name: landingTheme, dark: darkMode });
                 }
             }
-            if (event instanceof NavigationEnd && event.url !== '/') {
-                this.showConfigurator = true;
-                this.showMenuButton = true;
-            } else if (event instanceof NavigationEnd) {
-                this.showConfigurator = false;
-                this.showMenuButton = false;
-            }
         });
     }
 
@@ -116,20 +105,6 @@ export class AppComponent implements OnInit, OnDestroy {
             });
             this.configService.completeThemeChange(theme);
         });
-    }
-
-    toggleDarkMode() {
-        let newTheme = null;
-        const { theme, darkMode } = this.configService.config;
-
-        if (darkMode) {
-            newTheme = theme.replace('dark', 'light');
-        } else {
-            if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
-            else newTheme = 'lara-dark-blue';
-        }
-
-        this.configService.changeTheme({ name: newTheme, dark: !darkMode });
     }
 
     ngOnDestroy() {
