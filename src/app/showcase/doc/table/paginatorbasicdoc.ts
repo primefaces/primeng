@@ -19,7 +19,7 @@ import { CustomerService } from '../../service/customerservice';
                 [showCurrentPageReport]="true"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]"
+                [rowsPerPageOptions]="[5, 10, 20]"
             >
                 <ng-template pTemplate="header">
                     <tr>
@@ -68,7 +68,7 @@ export class PaginatorBasicDoc {
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[10, 25, 50]"
+    [rowsPerPageOptions]="[5, 10, 20]"
 >
     <ng-template pTemplate="header">
         <tr>
@@ -102,7 +102,7 @@ export class PaginatorBasicDoc {
         [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[10, 25, 50]"
+        [rowsPerPageOptions]="[5, 10, 20]"
     >
         <ng-template pTemplate="header">
             <tr>
