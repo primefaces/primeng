@@ -2,7 +2,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Output, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule, InputSwitchOnChangeEvent } from 'primeng/inputswitch';
+import { InputSwitchModule, InputSwitchChangeEvent } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
@@ -113,7 +113,7 @@ export class AppConfigComponent {
         this.configService.setInputStyle(event.value);
     }
 
-    onRippleChange(event: InputSwitchOnChangeEvent) {
+    onRippleChange(event: InputSwitchChangeEvent) {
         this.configService.setRipple(event.checked);
     }
 
