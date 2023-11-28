@@ -190,10 +190,6 @@
                         {
                             "name": "Timeline",
                             "routerLink": "/timeline"
-                        },
-                        {
-                            "name": "VirtualScroller",
-                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
@@ -299,7 +295,6 @@
                             "name": "Menu",
                             "routerLink": "/menu"
                         },
-
                         {
                             "name": "Menubar",
                             "routerLink": "/menubar"
