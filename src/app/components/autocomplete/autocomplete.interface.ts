@@ -37,7 +37,7 @@ export interface AutoCompleteDropdownClickEvent {
  * @see {@link AutoComplete.onSelect}
  * @group Events
  */
-export interface AutoCompleteOnSelectEvent {
+export interface AutoCompleteSelectEvent {
     /**
      * Browser event.
      */
