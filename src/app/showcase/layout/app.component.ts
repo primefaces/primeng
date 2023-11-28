@@ -1,8 +1,8 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Theme } from '../domain/theme';
@@ -29,38 +29,10 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
     providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
-export class AppComponent implements OnInit, OnDestroy {
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, private route: ActivatedRoute) {
-        if (isPlatformBrowser(platformId) && window && process.env.NODE_ENV === 'production') {
-            this.injectScripts();
-        }
-        router.events.forEach((event) => {
-     
-            if(event instanceof NavigationEnd && event.url !== "/") {
-                
-                this.showConfigurator = true
-
-                this.showMenuButton = true
-            }
-
-            else if (event instanceof NavigationEnd){
-             
-                
-                this.showConfigurator = false
-            
-                this.showMenuButton = false
-   
-            }
-  
-          });
-          
-        isPlatformBrowser(this.platformId) && this.handleRouteEvents();
-
-    }
-    
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router) {}
 
     public themeChangeSubscription: Subscription;
-
     showConfigurator : boolean = false 
 
     showMenuButton : boolean = false
@@ -71,9 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.themeChangeSubscription = this.configService.themeChange$.subscribe((theme: Theme) => {
             this.switchTheme(theme);
         });
-        
-
-        
     }
 
     ngAfterViewInit() {
@@ -104,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.renderer.appendChild(this.document.body, scriptBody);
     }
 
-    handleRouteEvents() {
+    bindRouteEvents() {
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 if (typeof window['gtag'] === 'function') {
@@ -112,7 +81,24 @@ export class AppComponent implements OnInit, OnDestroy {
                         page_path: event.urlAfterRedirects
                     });
                 }
+
+                const { theme, darkMode } = this.configService.config;
+                const landingTheme = darkMode ? 'lara-dark-blue' : 'lara-light-blue';
+                if (event.urlAfterRedirects === '/' && theme !== landingTheme) {
+                    this.switchTheme({ name: landingTheme, dark: darkMode });
+                }
             }
+            if(event instanceof NavigationEnd && event.url !== "/") {
+                this.showConfigurator = true
+                this.showMenuButton = true
+            }
+
+            else if (event instanceof NavigationEnd){
+                this.showConfigurator = false
+                this.showMenuButton = false
+   
+            }
+  
         });
     }
 
@@ -136,6 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.configService.completeThemeChange(theme);
         });
     }
+
     toggleDarkMode() {
         let newTheme = null;
         const { theme, darkMode } = this.configService.config;
@@ -149,6 +136,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.configService.changeTheme({ name: newTheme, dark: !darkMode });
     }
+
     ngOnDestroy() {
         if (this.themeChangeSubscription) {
             this.themeChangeSubscription.unsubscribe();
