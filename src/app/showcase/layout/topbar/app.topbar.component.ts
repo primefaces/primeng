@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
@@ -18,6 +18,8 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     @Input() showConfigurator = true;
 
     @Input() showMenuButton = true;
+
+    @ViewChild('docSearch') docSearch: ElementRef;
 
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
@@ -38,6 +40,12 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.bindScrollListener();
+            this.initDocSearch();
+        }
+    }
+
+    ngAfterViewChecked() {
+        if (!this.docSearch.nativeElement.children.length) {
             this.initDocSearch();
         }
     }
