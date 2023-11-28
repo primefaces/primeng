@@ -19,8 +19,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     @Input() showMenuButton = true;
 
-    @ViewChild('docSearch') docSearch: ElementRef;
-
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
     versions: any[] = Versions;
@@ -40,12 +38,6 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.bindScrollListener();
-            this.initDocSearch();
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (!this.docSearch.nativeElement.children.length) {
             this.initDocSearch();
         }
     }
