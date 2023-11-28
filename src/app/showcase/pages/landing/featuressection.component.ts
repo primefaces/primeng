@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
@@ -10,18 +10,14 @@ import { AppConfigService } from '../../service/appconfigservice';
         <section class="landing-features py-8">
             <div class="section-header">Features</div>
             <p class="section-detail">PrimeNG is the most complete solution for your UI requirements.</p>
-            <div
-                class="mt-7 px-3 lg:px-8"
-                [style]="{ 'background-size': 'cover' }"
-                [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
-            >
+            <div class="mt-7 px-5 lg:px-8">
                 <div class="features-container">
                     <div class="grid">
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
                             <div class="box p-4 w-full">
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/features/icon-components.svg" width="30" height="25" class="block mb-3" alt="components icon" />
-                                <div class="font-semibold mb-3 text-lg">90+ UI Components</div>
-                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 90+ impressive Angular Components.</p>
+                                <div class="font-semibold mb-3 text-lg">80+ UI Components</div>
+                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 80+ impressive Angular Components.</p>
                             </div>
                         </div>
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
@@ -42,7 +38,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                             <div class="box p-4 w-full">
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/features/icon-accessibility.svg" alt="components icon" class="block mb-3" />
                                 <div class="font-semibold mb-3 text-lg">Accessibility</div>
-                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 90+ impressive Angular Components.</p>
+                                <p class="m-0 text-secondary font-medium">Compliant with the Web Content Accessibility Guidelines (WCAG 2.0).</p>
                             </div>
                         </div>
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
@@ -85,5 +81,4 @@ export class FeaturesSectionComponent {
     get isDarkMode() {
         return this.configService.config.darkMode;
     }
-    
 }

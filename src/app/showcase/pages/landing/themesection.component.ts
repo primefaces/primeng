@@ -1,14 +1,14 @@
-import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
-import { AppConfigService } from '../../service/appconfigservice';
-import { AppComponent } from '../../layout/app.component';
-import { TableModule } from 'primeng/table';
-import { Table } from 'primeng/table';
+import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { Table, TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { Customer } from '../../domain/customer';
+import { AppComponent } from '../../layout/app.component';
+import { AppConfigService } from '../../service/appconfigservice';
+import { CustomerService } from '../../service/customerservice';
+
 @Component({
     selector: 'template-theme',
     standalone: true,
@@ -26,7 +26,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
             <div
                 class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
                 [style]="{ 'background-size': 'cover' }"
-                [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt.svg)' }"
+                [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)' }"
             >
                 <div class="box overflow-hidden z-1 p-5 table-container">
                     <p-table
@@ -141,7 +141,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
                                     {{ customer.balance | currency : 'USD' : 'symbol' }}
                                 </td>
                                 <td style="width: 14%; min-width: 10rem">
-                                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" styleClass="text-sm font-bold" ></p-tag>
+                                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" styleClass="text-sm font-bold"></p-tag>
                                 </td>
                                 <td style="width: 14%; min-width: 6rem">
                                     <span class="p-column-title">Activity</span>
@@ -164,9 +164,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     `
 })
 export class ThemeSectionComponent {
-    constructor( @Inject(PLATFORM_ID) private platformId: any, private customerService: CustomerService, private configService: AppConfigService, public app: AppComponent) {
-   
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private customerService: CustomerService, private configService: AppConfigService, public app: AppComponent) {}
 
     @ViewChild('dt') table: Table;
 
@@ -177,8 +175,6 @@ export class ThemeSectionComponent {
     selectedCustomers: Customer[];
 
     loading: boolean = true;
-
-
 
     get isDarkMode() {
         return this.configService.config.darkMode;
@@ -217,26 +213,26 @@ export class ThemeSectionComponent {
 
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
-            this.loading = false;  
+            this.loading = false;
         });
     }
 
     getSeverity(status) {
-      switch (status) {
-          case 'unqualified':
-              return 'danger';
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
 
-          case 'qualified':
-              return 'success';
+            case 'qualified':
+                return 'success';
 
-          case 'new':
-              return 'info';
+            case 'new':
+                return 'info';
 
-          case 'negotiation':
-              return 'warning';
+            case 'negotiation':
+                return 'warning';
 
-          case 'renewal':
-              return null;
-      }
-  }
+            case 'renewal':
+                return null;
+        }
+    }
 }

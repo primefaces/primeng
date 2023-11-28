@@ -36,7 +36,7 @@
                         "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": ["src/favicon.png", "src/assets"],
+                        "assets": ["src/assets"],
                         "styles": ["src/styles.scss"],
                         "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
                         "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"]
@@ -92,7 +92,7 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": ["src/favicon.png", "src/assets"],
+                        "assets": ["src/assets"],
                         "styles": ["src/styles.scss", "src/assets/components/themes/lara-light-blue/theme.css"],
                         "scripts": []
                     }
