@@ -15,7 +15,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [class]="styleClass"
             [attr.aria-busy]="blocked"
             [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }"
-            [ngStyle]="{ display: blocked ? 'flex' : 'none' }"
+            [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
         >
@@ -80,6 +80,8 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2, @Inject(PLATFORM_ID) public platformId: any) {}
 
     ngAfterViewInit() {
+        if (this._blocked) this.block();
+
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
@@ -102,6 +104,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     block() {
         if (isPlatformBrowser(this.platformId)) {
             this._blocked = true;
+            (this.mask as ElementRef).nativeElement.style.display = 'flex'
 
             if (this.target) {
                 this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
