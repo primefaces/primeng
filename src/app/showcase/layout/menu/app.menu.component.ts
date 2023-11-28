@@ -1,13 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, ElementRef, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
+import { StyleClassModule } from 'primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
-import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { StyleClassModule } from 'primeng/styleclass';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
 export interface MenuItem {
@@ -29,24 +28,22 @@ export interface MenuItem {
     </aside>`,
     host: {
         class: 'layout-sidebar',
-        '[class.active]': 'active',
+        '[class.active]': 'isActive'
     },
     standalone: true,
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
-export class AppMenuComponent {
-    @Input() active: boolean;
-
+export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];
 
-    config!: AppConfig;
-
-    subscription!: Subscription;
+    private routerSubscription: Subscription;
 
     constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
+    }
+
+    get isActive(): boolean {
+        return this.configService.state.menuActive;
     }
 
     ngOnInit() {
@@ -54,6 +51,13 @@ export class AppMenuComponent {
             setTimeout(() => {
                 this.scrollToActiveItem();
             }, 1);
+
+            this.routerSubscription = this.router.events.subscribe((event) => {
+                if (event instanceof NavigationEnd && this.configService.state.menuActive) {
+                    this.configService.hideMenu();
+                    DomHandler.unblockBodyScroll('blocked-scroll');
+                }
+            });
         }
     }
 
@@ -72,8 +76,9 @@ export class AppMenuComponent {
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.routerSubscription) {
+            this.routerSubscription.unsubscribe();
+            this.routerSubscription = null;
         }
     }
 }

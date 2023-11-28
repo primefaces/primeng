@@ -17,8 +17,7 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="checked" onLabel="Yes" offLabel="No"></p-toggleButton>`,
+        basic: `<p-toggleButton [(ngModel)]="checked" onLabel="Yes" offLabel="No"></p-toggleButton>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -41,8 +41,7 @@ export class ProgrammaticScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-button label="Reset" (click)="reset()"></p-button>
+        basic: `<p-button label="Reset" (click)="reset()"></p-button>
 <p-virtualScroller #vs [value]="items" class="border-1 surface-border border-round" [style]="{ width: '200px' }" scrollHeight="200px" [itemSize]="50">
     <ng-template pTemplate="item" let-item>
         <div class="flex align-items-center p-2 h-full" [ngClass]="{ 'surface-hover': item.index % 2 === 0 }">

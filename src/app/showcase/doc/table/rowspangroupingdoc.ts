@@ -97,8 +97,7 @@ export class RowspanGroupingDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"  [tableStyle]="{'min-width': '75rem'}">
+        basic: `<p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single"  [tableStyle]="{'min-width': '75rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:3rem">#</th>

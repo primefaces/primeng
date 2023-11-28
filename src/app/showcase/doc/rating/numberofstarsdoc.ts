@@ -17,8 +17,7 @@ export class NumberOfStarsDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-rating [(ngModel)]="value" [stars]="10"></p-rating>`,
+        basic: `<p-rating [(ngModel)]="value" [stars]="10"></p-rating>`,
 
         html: `
 <div class="card flex justify-content-center">

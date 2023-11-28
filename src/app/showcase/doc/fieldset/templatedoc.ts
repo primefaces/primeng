@@ -23,8 +23,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-fieldset>
+        basic: `<p-fieldset>
     <ng-template pTemplate="header">
         <div class="flex align-items-center text-primary">
             <span class="pi pi-user mr-2"></span>

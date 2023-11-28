@@ -17,8 +17,7 @@ export class BasicDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-rating [(ngModel)]="value"></p-rating>`,
+        basic: `<p-rating [(ngModel)]="value"></p-rating>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -48,8 +48,7 @@ export class MultipleColumnSortDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>

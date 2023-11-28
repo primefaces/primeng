@@ -36,8 +36,7 @@ import { Code } from '../../domain/code';
 })
 export class InlineDoc {
     code: Code = {
-        basic: `
-<div class="flex justify-content-center gap-2">
+        basic: `<div class="flex justify-content-center gap-2">
     <p-message severity="info" text="Message Content"></p-message>
     <p-message severity="success" text="Message Content"></p-message>  
     <p-message severity="warn" text="Message Content"></p-message>  

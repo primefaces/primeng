@@ -85,8 +85,7 @@ export class LazyLoadDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+        basic: `<p-virtualScroller [value]="virtualProducts" scrollHeight="450px" [itemSize]="100" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
     <ng-template pTemplate="header"> List of Products </ng-template>
     <ng-template let-product pTemplate="item">
         <div class="flex align-items-center p-3 w-full flex-wrap">

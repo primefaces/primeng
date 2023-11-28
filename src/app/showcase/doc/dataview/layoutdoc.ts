@@ -102,8 +102,7 @@ export class LayoutDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dataView #dv [value]="products" [layout]="layout">
+        basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-content-end">
             <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>

@@ -41,8 +41,7 @@ export class ColumnResizeScrollableModeDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th pResizableColumn>Name</th>

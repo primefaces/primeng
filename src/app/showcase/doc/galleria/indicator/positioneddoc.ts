@@ -85,8 +85,7 @@ export class PositionedDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria
+        basic: `<p-galleria
     [(value)]="images"
     [indicatorsPosition]="position"
     [showIndicators]="true"

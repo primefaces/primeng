@@ -29,8 +29,7 @@ import { Code } from '../../domain/code';
 })
 export class ButtonDoc {
     code: Code = {
-        basic: `
-<div class="p-inputgroup">
+        basic: `<div class="p-inputgroup">
     <button type="button" pButton label="Search"></button>
     <input type="text" pInputText placeholder="Keyword" />
 </div>

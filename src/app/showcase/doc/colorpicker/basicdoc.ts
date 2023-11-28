@@ -17,8 +17,7 @@ export class BasicDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `
-<p-colorPicker [(ngModel)]="color"></p-colorPicker>`,
+        basic: `<p-colorPicker [(ngModel)]="color"></p-colorPicker>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -64,8 +64,7 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `
-<p-organizationChart [value]="data">
+        basic: `<p-organizationChart [value]="data">
     <ng-template let-node pTemplate="default">
         <div class="p-2 text-center">
             <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />

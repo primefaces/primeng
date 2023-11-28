@@ -137,8 +137,7 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true"></p-panelMenu>`,
+        basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true"></p-panelMenu>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -79,8 +79,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<div class="flex flex-column align-items-center gap-2">
+        basic: `<div class="flex flex-column align-items-center gap-2">
     <span class="text-xl font-medium">Scroll Down</span>
     <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
         <i class="pi pi-arrow-down"></i>

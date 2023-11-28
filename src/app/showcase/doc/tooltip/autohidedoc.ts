@@ -16,8 +16,7 @@ import { Code } from '../../domain/code';
 })
 export class AutoHideDoc {
     code: Code = {
-        basic: `
-<input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false">
+        basic: `<input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false">
 <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true">`,
 
         html: `

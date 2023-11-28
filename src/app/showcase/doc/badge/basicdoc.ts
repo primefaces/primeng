@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-badge [value]="2"></p-badge>`,
+        basic: `<p-badge [value]="2"></p-badge>`,
         html: `
 <div class="card flex justify-content-center">
     <p-badge [value]="2"></p-badge>

@@ -90,8 +90,7 @@ export class PaginatorProgrammaticDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="mb-3">
+        basic: `<div class="mb-3">
     <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
     <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
     <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>

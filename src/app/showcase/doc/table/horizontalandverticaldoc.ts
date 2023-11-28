@@ -71,8 +71,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
+        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:100px">Id</th>

@@ -17,8 +17,7 @@ export class BasicDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="value"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="value"></p-slider>`,
 
         html: `
 <div class="card flex justify-content-center">

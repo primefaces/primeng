@@ -32,8 +32,7 @@ export class ActiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
+        basic: `<p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
 
         html: `
 <div class="card">

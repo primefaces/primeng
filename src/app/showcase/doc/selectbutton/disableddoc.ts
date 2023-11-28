@@ -30,8 +30,7 @@ export class DisabledDoc {
     value2: string = 'Option 1';
 
     code: Code = {
-        basic: `
-<p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true"></p-selectButton>
+        basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value" [disabled]="true"></p-selectButton>
 <p-selectButton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant"></p-selectButton>`,
 
         html: `

@@ -32,8 +32,7 @@ export class ImagesDoc {
     }
 
     code: Code = {
-        basic: `
-<p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+        basic: `<p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
 <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ first + 1 }}.jpg" class="max-w-full"/>`,
 
         html: `

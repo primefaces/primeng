@@ -42,8 +42,7 @@ export class SeverityDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
 <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
 <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>

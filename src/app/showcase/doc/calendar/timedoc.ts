@@ -17,8 +17,7 @@ export class TimeDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [showTime]="true" [showSeconds]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" [showTime]="true" [showSeconds]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -35,8 +35,7 @@ export class FormatDoc {
     colorHSB: any = { h: 239, s: 59, b: 95 };
 
     code: Code = {
-        basic: `
-<p-colorPicker [(ngModel)]="color"></p-colorPicker>
+        basic: `<p-colorPicker [(ngModel)]="color"></p-colorPicker>
 <p-colorPicker [(ngModel)]="colorRGB" format="rgb"></p-colorPicker>
 <p-colorPicker [(ngModel)]="colorHSB" format="hsb"></p-colorPicker>`,
 

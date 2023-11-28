@@ -37,8 +37,7 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'15rem'}" [multiple]="true" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
+        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{'width':'15rem'}" [multiple]="true" [metaKeySelection]="false" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
 
         html: `
 <div class="card flex justify-content-center">

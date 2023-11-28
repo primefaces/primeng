@@ -117,8 +117,7 @@ export class RowExpandDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+        basic: `<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 5rem"></th>

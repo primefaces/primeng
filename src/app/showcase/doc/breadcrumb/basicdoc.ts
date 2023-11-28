@@ -26,8 +26,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>`,
+        basic: `<p-breadcrumb class="max-w-full" [model]="items" [home]="home"></p-breadcrumb>`,
 
         html: `
 <div class="card flex justify-content-center">

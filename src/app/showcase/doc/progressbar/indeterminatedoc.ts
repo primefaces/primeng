@@ -17,8 +17,7 @@ import { Code } from '../../domain/code';
 })
 export class IndeterminateDoc {
     code: Code = {
-        basic: `
-<p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>`,
+        basic: `<p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>`,
         html: `
 <div class="card">
     <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>

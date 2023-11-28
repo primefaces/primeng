@@ -17,8 +17,7 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `
-<input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="value" />`,
+        basic: `<input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="value" />`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -83,8 +83,7 @@ export class LineDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="line" [data]="data" [options]="options"></p-chart>

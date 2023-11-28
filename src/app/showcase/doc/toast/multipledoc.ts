@@ -28,8 +28,7 @@ export class MultipleDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Multiple"></button>`,
         html: `
 <div class="card flex justify-content-center">

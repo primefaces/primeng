@@ -17,8 +17,7 @@ export class ReadOnlyDoc {
     text: string = 'Always bet on Prime!';
 
     code: Code = {
-        basic: `
-<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>`,
+        basic: `<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>`,
 
         html: `
 <div class="card">

@@ -18,8 +18,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-overlayPanel #op>
+        basic: `<p-overlayPanel #op>
     <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
 </p-overlayPanel>
 <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,

@@ -28,8 +28,7 @@ export class MultipleDoc {
     }
 
     code: Code = {
-        basic: `
-<span class="p-fluid">
+        basic: `<span class="p-fluid">
     <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="filterCountry($event)" [multiple]="true"></p-autoComplete>
 </span>`,
 

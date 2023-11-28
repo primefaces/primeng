@@ -45,8 +45,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+        basic: `<p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
     <ng-template pTemplate="item" let-item let-options="options">
         <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
             <div class="flex align-items-center px-2" style="height: 25px">Item: {{item}}</div>

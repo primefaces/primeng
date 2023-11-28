@@ -70,8 +70,7 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-contextMenu #cm [model]="items"></p-contextMenu>
+        basic: `<p-contextMenu #cm [model]="items"></p-contextMenu>
 <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>

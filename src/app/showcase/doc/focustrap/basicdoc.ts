@@ -51,8 +51,7 @@ export class BasicDoc {
     ];
 
     code: Code = {
-        basic: `
-<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
+        basic: `<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
     <div>
         <h4>Input</h4>
         <input id="input" type="text" size="30" pInputText>

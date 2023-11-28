@@ -42,8 +42,7 @@ export class ServiceDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center gap-2">
+        basic: `<div class="flex justify-content-center gap-2">
     <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Single"></button>
     <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Multiple"></button>
     <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear"></button>

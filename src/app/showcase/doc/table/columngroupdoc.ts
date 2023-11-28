@@ -93,8 +93,7 @@ export class ColumnGroupDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Product</th>

@@ -102,8 +102,7 @@ export class StatefulDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
+        basic: `<p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
     [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
     <ng-template pTemplate="header">
         <tr>

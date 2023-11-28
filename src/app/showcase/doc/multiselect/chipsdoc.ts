@@ -34,8 +34,7 @@ export class ChipsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>`,
+        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

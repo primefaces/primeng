@@ -28,8 +28,7 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>`,
+        basic: `<p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -56,8 +56,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toolbar>
+        basic: `<p-toolbar>
     <ng-template pTemplate="start">
         <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
         <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>

@@ -1,58 +1,79 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
+import { AppState } from '../domain/appstate';
+import { Theme } from '../domain/theme';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AppConfigService {
     config: AppConfig = {
         theme: 'lara-light-blue',
-        dark: false,
+        darkMode: false,
         inputStyle: 'outlined',
         ripple: true
     };
 
-    private configUpdate = new Subject<AppConfig>();
+    state: AppState = {
+        configActive: false,
+        menuActive: false,
+        newsActive: false
+    };
 
-    configUpdate$ = this.configUpdate.asObservable();
+    private themeChange = new Subject<Theme>();
 
-    private configActive = new BehaviorSubject<boolean>(false);
+    themeChange$ = this.themeChange.asObservable();
 
-    configActive$ = this.configActive.asObservable();
+    private themeChangeComplete = new Subject<Theme>();
+
+    themeChangeComplete$ = this.themeChangeComplete.asObservable();
+
+    changeTheme(theme: Theme) {
+        this.themeChange.next(theme);
+    }
+
+    completeThemeChange(theme: Theme) {
+        this.themeChangeComplete.next(theme);
+    }
 
     updateConfig(config: AppConfig) {
-        this.config = config;
-        this.configUpdate.next(config);
+        this.config = { ...this.config, ...config };
     }
 
     getConfig() {
         return this.config;
     }
 
-    toggleConfig() {
-        this.configActive.next(!this.configActive.value);
+    showMenu() {
+        this.state.menuActive = true;
     }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        const linkElement = document.getElementById('theme-link');
-        this.replaceLink(linkElement, theme, () => {
-            this.updateConfig({ ...this.config, theme: theme, dark: dark });
-        });
+    hideMenu() {
+        this.state.menuActive = false;
     }
 
-    replaceLink(linkElement, theme: string, onComplete: Function) {
-        const id = linkElement.getAttribute('id');
-        const cloneLinkElement = linkElement.cloneNode(true);
-
-        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.config.theme, theme));
-        cloneLinkElement.setAttribute('id', id + '-clone');
-
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-            onComplete();
-        });
+    showConfig() {
+        this.state.configActive = true;
     }
 
+    hideConfig() {
+        this.state.configActive = false;
+    }
+
+    setRipple(value: boolean) {
+        this.config.ripple = value;
+    }
+
+    setInputStyle(value: string) {
+        this.config.inputStyle = value;
+    }
+
+    showNews() {
+        this.state.newsActive = true;
+    }
+
+    hideNews() {
+        this.state.newsActive = false;
+    }
 }

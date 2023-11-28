@@ -26,8 +26,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <textarea rows="5" cols="30" pInputTextarea formControlName="text"></textarea>
 </form>`,
 

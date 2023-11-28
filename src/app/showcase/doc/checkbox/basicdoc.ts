@@ -17,8 +17,7 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>`,
+        basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox>`,
 
         html: `
 <div class="card flex justify-content-center">

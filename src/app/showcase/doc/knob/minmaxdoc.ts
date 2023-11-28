@@ -17,8 +17,7 @@ export class MinMaxDoc {
     value: number = 10;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [min]="-50" [max]="50"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [min]="-50" [max]="50"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

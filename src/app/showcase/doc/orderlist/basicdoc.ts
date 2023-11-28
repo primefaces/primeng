@@ -53,8 +53,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="Products">
+        basic: `<p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="Products">
     <ng-template let-product pTemplate="item">
         <div class="flex flex-wrap p-2 align-items-center gap-3">
             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />

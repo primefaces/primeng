@@ -93,8 +93,7 @@ export class StackedBarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="bar" [data]="data" [options]="options"></p-chart>

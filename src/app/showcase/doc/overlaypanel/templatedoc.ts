@@ -20,8 +20,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-overlayPanel #op>
+        basic: `<p-overlayPanel #op>
     <ng-template pTemplate="content">
         <h4>Custom Content</h4>
     </ng-template>

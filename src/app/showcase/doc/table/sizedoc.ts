@@ -57,8 +57,7 @@ export class SizeDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center mb-3">
+        basic: `<div class="flex justify-content-center mb-3">
     <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
 </div>
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">

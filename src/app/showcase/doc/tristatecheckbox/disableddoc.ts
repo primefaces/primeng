@@ -18,8 +18,7 @@ export class DisabledDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-triStateCheckbox [(ngModel)]="value" [disabled]="true"></p-triStateCheckbox>`,
+        basic: `<p-triStateCheckbox [(ngModel)]="value" [disabled]="true"></p-triStateCheckbox>`,
 
         html: `
 <div class="card flex flex-column gap-3 align-items-center">

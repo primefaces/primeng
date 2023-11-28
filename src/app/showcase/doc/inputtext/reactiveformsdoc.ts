@@ -26,8 +26,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<input type="text" pInputText formControlName="text"/>`,
+        basic: `<input type="text" pInputText formControlName="text"/>`,
 
         html: `
 <div class="card flex justify-content-center">

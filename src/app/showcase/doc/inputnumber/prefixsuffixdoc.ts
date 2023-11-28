@@ -38,8 +38,7 @@ export class PrefixSuffixDoc {
     value4: number = 20;
 
     code: Code = {
-        basic: `
-<p-inputNumber [(ngModel)]="value1" inputId="mile" suffix=" mi"> </p-inputNumber>
+        basic: `<p-inputNumber [(ngModel)]="value1" inputId="mile" suffix=" mi"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value2" inputId="percent" prefix="%"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40"> </p-inputNumber>`,

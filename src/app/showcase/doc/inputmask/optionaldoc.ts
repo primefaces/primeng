@@ -17,8 +17,7 @@ export class OptionalDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `
-<p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999"></p-inputMask>`,
+        basic: `<p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999"></p-inputMask>`,
 
         html: `
 <div class="card flex justify-content-center">

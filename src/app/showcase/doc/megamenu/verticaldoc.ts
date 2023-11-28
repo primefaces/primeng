@@ -137,8 +137,7 @@ export class VerticalDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-megaMenu [model]="items"></p-megaMenu>`,
+        basic: `<p-megaMenu [model]="items"></p-megaMenu>`,
 
         html: `
 <div class="card">

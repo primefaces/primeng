@@ -60,8 +60,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-confirmDialog #cd [style]="{ width: '50vw' }">
     <ng-template pTemplate="header">
         <h3>Header Content</h3>

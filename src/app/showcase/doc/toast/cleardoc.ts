@@ -32,8 +32,7 @@ export class ClearDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <button type="button" pButton pRipple (click)="show()" label="Show"></button>
 <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>`,
         html: `

@@ -68,8 +68,7 @@ export class ProductListDemoDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
+        basic: `<p-table [value]="products" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="name">Name <p-sortIcon field="vin"></p-sortIcon></th>

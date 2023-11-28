@@ -20,8 +20,7 @@ export class TemplateDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date">
+        basic: `<p-calendar [(ngModel)]="date">
     <ng-template pTemplate="header">Header</ng-template>
     <ng-template pTemplate="footer">Footer</ng-template>
 </p-calendar>`,

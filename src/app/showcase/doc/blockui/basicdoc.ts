@@ -27,8 +27,7 @@ export class BasicDoc {
     blockedPanel: boolean = false;
 
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple label="Block" (click)="blockedPanel = true"></button>
+        basic: `<button type="button" pButton pRipple label="Block" (click)="blockedPanel = true"></button>
 <button type="button" pButton pRipple label="Unblock" (click)="blockedPanel = false"></button>
 <p-blockUI [target]="pnl" [blocked]="blockedPanel">
     <i class="pi pi-lock" style="font-size: 3rem"></i>

@@ -60,8 +60,7 @@ export class VirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+        basic: `<p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" style="width: 20%;">

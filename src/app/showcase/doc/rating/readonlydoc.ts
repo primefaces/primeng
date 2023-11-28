@@ -17,8 +17,7 @@ export class ReadOnlyDoc {
     value: number = 5;
 
     code: Code = {
-        basic: `
-<p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>`,
+        basic: `<p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>`,
 
         html: `
 <div class="card flex justify-content-center">

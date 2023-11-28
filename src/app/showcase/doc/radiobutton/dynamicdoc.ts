@@ -33,8 +33,7 @@ export class DynamicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex flex-column gap-3">
+        basic: `<div class="flex flex-column gap-3">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory"></p-radioButton>
         <label [for]="category.key" class="ml-2">{{ category.name }}</label>

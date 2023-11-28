@@ -36,8 +36,7 @@ export class FormatDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

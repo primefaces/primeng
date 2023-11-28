@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-panel>
+        basic: `<p-panel>
     <ng-template pTemplate="header"> <span class="text-primary font-semibold text-xl">Header</span></ng-template>
     Body Content
     <ng-template pTemplate="footer"> Footer content here </ng-template>

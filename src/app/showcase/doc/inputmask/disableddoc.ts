@@ -17,8 +17,7 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `
-<p-inputMask mask="999-99-9999" [(ngModel)]="value" [disabled]="true"></p-inputMask>`,
+        basic: `<p-inputMask mask="999-99-9999" [(ngModel)]="value" [disabled]="true"></p-inputMask>`,
 
         html: `
 <div class="card flex justify-content-center">
